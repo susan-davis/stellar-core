@@ -1,0 +1,417 @@
+%% sensors.dg
+%% Also include sectored-grid.dg, ship-schema.dg, and time.dg
+
+%%-------------------------------- INTERFACES --------------------------------
+
+(global variable (current quadrant $))
+
+%% Space is divided into 10x10 sectors arranged in 8x8 quadrants. In
+%% theory, the quadrants have a grid system; in practice, an adventure
+%% takes place within a single quadrant. The Y axis increases as it
+%% goes downward, and the numbers start from 1, in mainfraim STARTREK
+%% fashhion.
+%%
+%% Sensor range: adjacent sector
+%% Weapons range: same sector
+%% Matter transmission range: adjacent subsector
+
+(interface ($<GridObject is within sensor range))
+
+(interface ($<GridObject is within weapons range))
+
+(interface ($<GridObject is within matter transmission range))
+
+%% (grid object $) => object exists in space and is sensor-detectable
+%% (stellar object $) => object is a star/planet/asteroid: right column
+%% (ship $) => object can maneuver
+%% (base $) => object can be docked with
+%% (friendly $) => object shows up in middle column of long-range scan
+%% (hostile $) => object shows up in leftmost column of long-range scan
+
+(grid object *(ship $))
+
+(grid object *(base $))
+
+(grid object *(stellar object $))
+
+(interface (friendly ships in sector $<X $<Y into $>List))
+
+(interface (friendly base in sector $<X $<Y into $>Base))
+
+(interface (hostile ships in sector $<X $<Y into $>List))
+
+(interface (hostile base in sector $<X $<Y into $>Base))
+
+(interface (stellar objects in sector $<X $<Y into $>List))
+
+(interface (sensor contacts into $>List))
+
+%% Actually display the current situation.
+
+(interface (short range scan))
+
+(interface (long range scan))
+
+(interface (quadrant chart))
+
+%% Information about the current ship
+
+(global variable (ship at condition 3))
+
+(interface (set condition $<Condition))
+
+(interface (alert status))
+
+%% helpers
+
+(interface ($<Num1 is within $<Range of $<Num2))
+
+(interface (object at $<SX $<SY $<X $<Y $<PX $<PY into $>Obj))
+
+%%------------------------------ IMPLEMENTATION ------------------------------
+
+%% useful helper routines
+
+($Num1 is within $Range of $Num2)
+	($Num1 delta $Num2 into $Delta)
+	~($Delta > $Range)
+
+(object at $SX $SY $X $Y $PX $PY into $Obj)
+	(position for $SX $SY $X $Y $PX $PY into $Position)
+	(object at $Position into $Obj)
+
+%% basics of who's nearby
+
+(sector $X $Y is in sensor range)
+	(current ship $Ship)
+	($Ship sector x $SX)
+	($Ship sector y $SY)
+	($X is within 1 of $SX)
+	($Y is within 1 of $SY)
+
+($Object is in sensor range)
+	(grid object $Object)
+	($Object sector x $X)
+	($Object sector y $Y)
+	(sector $X $Y is in sensor range)
+
+($Object is in weapons range)
+	(current ship $Ship)
+	(grid object $Object)
+	($Object sector x $X)
+	($Object sector y $Y)
+	($Ship sector x $SX)
+	($Ship sector y $SY)
+	([$X $Y] = [$SX $SY])
+
+($Object is in matter transmission range)
+	(current ship $Ship)
+	(grid object $Object)
+	($Object is in weapons range)
+	($Object subsector x $X)
+	($Object subsector y $Y)
+	($Ship subsector x $PX)
+	($Ship subsector y $PY)
+	($X is within 1 of $PX)
+	($Y is within 1 of $PY)
+
+(hostile ships in sector $X $Y into $List)
+	(collect $Obj)
+		*(ship $Obj)
+		(hostile $Obj)
+		($Obj sector x $SX)
+		($Obj sector y $SY)
+		([$X $Y] = [$SX $SY])
+	(into $List)
+
+%% sector summary for long range scan
+
+(hostile base in sector $X $Y into $Base)
+	*(base $Base)
+	(hostile $Base)
+	($Base sector x $SX)
+	($Base sector y $SY)
+	([$X $Y] = [$SX $SY])
+
+(friendly ships in sector $X $Y into $List)
+	(collect $Obj)
+		*(ship $Obj)
+		(friendly $Obj)
+		($Obj sector x $SX)
+		($Obj sector y $SY)
+		([$X $Y] = [$SX $SY])
+	(into $List)
+
+(friendly base in sector $X $Y into $Base)
+	*(base $Base)
+	(friendly $Base)
+	($Base sector x $SX)
+	($Base sector y $SY)
+	([$X $Y] = [$SX $SY])
+
+(stellar objects in sector $X $Y into $List)
+	(collect $Obj)
+		*(stellar object $Obj)
+		($Obj sector x $SX)
+		($Obj sector y $SY)
+		([$X $Y] = [$SX $SY])
+	(into $List)
+
+%% alert status
+
+%% do we need a setter for extra events to happen when this changes?
+(set condition $Condition)
+	(now) (ship at condition $Condition)
+
+(alert status)
+	(ship at condition $Condition)
+	(alert status for condition $Condition)
+
+(alert status for condition 1)	RED ALERT
+(alert status for condition 2)	Yellow Alert
+(alert status for condition 3)	under way
+(alert status for condition 4)	docked
+
+%% scan displays
+
+(should display subsector)
+	(current ship $Ship)
+	($Ship coordinates into $SX $SY $X $Y $ $)
+	(objects in subsector $SX $SY $X $Y into $List)
+	(length of $List into $Length)
+	($Length > 1)
+
+(position $Here)
+	(coordinates for $Here into $SX $SY $X $Y $ZX $ZY)
+	(if) ($SX = 0) ($SY = 0) (then)
+		not set
+	(else)
+		$SX - $SY / $X - $Y
+		(if) (should display subsector) (then)
+			/ $ZX - $ZY
+		(endif)
+	(endif)
+
+(display line $N for $SX $SY $X $Y)
+	(if) ($N < 10) (then)
+		(space 2)
+	(else)
+		(space 1)
+	(endif)
+	$N (space 2) (scan $SX $SY 1 $N)
+	(if) (should display subsector) (then)
+		(space 2) (scan $SX $SY $X $Y 1 $N)
+	(endif)
+	(space 2)
+
+(short range scan)
+	(current ship $Ship)
+	($Ship state is $State)
+	(subsector for $State into $SX $SY $X $Y)
+	($Ship heading $Heading)
+	($Ship speed $Speed)
+	($Ship energy $Energy)
+	($Ship crystals $Crystals)
+	($Ship ammo $Ammo)
+	($Ship destination $Dest)
+	($Ship shields $Shields)
+	(fixed pitch) (space 5) 1 2 3 4 5 6 7 8 9 10 
+	(if) (should display subsector) (then)
+		(space 2) 1 2 3 4 5 6 7 8 9 10 
+	(endif)
+	(line)
+	(display line 1 for $SX $SY $X $Y)  Earth Date: (nato time) (line)
+	(display line 2 for $SX $SY $X $Y)  Status: (alert status) (line)
+	(display line 3 for $SX $SY $X $Y)  Quadrant: (current quadrant) (line)
+	(display line 4 for $SX $SY $X $Y)  Position: (position $State) (line)
+	(display line 5 for $SX $SY $X $Y)  Destination: (position $Dest) (line)
+	(display line 6 for $SX $SY $X $Y)  Heading: $Heading (line)
+	(display line 7 for $SX $SY $X $Y)  Warp Gradient: $Speed (line)
+	(display line 8 for $SX $SY $X $Y)  Energy: $Energy (no space),
+		 		      	    $Crystals crystals online (line)
+	(display line 9 for $SX $SY $X $Y)  Torpedoes: $Ammo (line)
+	(display line 10 for $SX $SY $X $Y) Shields: $Shields
+	(par) (roman)
+
+(scan $SX $SY $X $Y)
+	($Y > 0) ($Y < 11) ($X > 0) ($X < 11)
+	(glyph at $SX $SY $X $Y) (space 1)
+	($X plus 1 into $NX)
+	(scan $SX $SY $NX $Y)
+
+(scan $ $ $ $) %% and do nothing since we're outside 1..10
+
+(glyph at $SX $SY $X $Y)
+	(if) (top object in subsector $SX $SY $X $Y into $Obj) (then)
+		(current ship $Ship)
+		(if) ($Obj = $Ship) (then)
+			(bold)
+		(endif)
+		(code $Obj)
+		(roman) (no space) (fixed pitch)
+	(else)
+		.
+	(endif)
+
+(scan $SX $SY $X $Y $PX $PY)
+	($PY > 0) ($PY < 11) ($PX > 0) ($PX < 11)
+	(glyph at $SX $SY $X $Y $PX $PY) (space 1)
+	($PX plus 1 into $NX)
+	(scan $SX $SY $X $Y $NX $PY)
+
+(scan $ $ $ $ $ $) %% and do nothing since we're outside 1..10
+
+(glyph at $SX $SY $X $Y $PX $PY)
+	(if) (object at $SX $SY $X $Y $PX $PY into $Obj) (then)
+		(current ship $Ship)
+		(if) ($Obj = $Ship) (then)
+			(bold)
+		(endif)
+		(code $Obj)
+		(roman) (no space) (fixed pitch)
+	(else)
+		.
+	(endif)
+
+(long range scan)
+	(current ship $Ship)
+	($Ship sector x $SX)	
+	($Ship sector y $SY)
+	Long range scan for sector $SX - $SY (no space): (par)
+	($SX minus 1 into $Left)
+	($SX plus  1 into $Right)
+	($SY minus 1 into $Up)
+	($SY plus  1 into $Down)
+	(space 2)
+	(long range scan in $Left  $Up)   (space)
+	(long range scan in $SX    $Up)   (space)
+	(long range scan in $Right $Up)   (line) (space 2)
+	(long range scan in $Left  $SY)   (space)
+	(long range scan in $SX    $SY)   (space)
+	(long range scan in $Right $SY)   (line) (space 2)
+	(long range scan in $Left  $Down) (space)
+	(long range scan in $SX    $Down) (space)
+	(long range scan in $Right $Down) (par)
+
+%% negate this to get the classic STARTREK "edge of the world" behaviour
+(display sectors beyond quadrant)
+
+%% negate this to print spaces for friendlies or enemies that are absent
+(display zeros for empty categories)
+
+%% negate this to print spaces for ships in sectors beyond sensor range
+%% it's more readable if suppressed, so that's our default
+%%(display question marks for undetectable ships)
+
+(long range scan in $SX $SY)
+	(if) (sector $SX $SY is in sensor range) (then)
+		(bold) (no space)
+	(endif)
+	(if) ~(display sectors beyond quadrant)
+		{ ($SX < 1) (or) ($SX > 10) (or) ($SY < 1) (or) ($SY > 10) }
+	(then)
+		(space 3)
+	(else)
+		(display enemies in $SX $SY $Enemies)
+		(display friendlies in $SX $SY $Enemies)
+		(display terrain in $SX $SY)
+	(endif)
+	(roman) (no space) (fixed pitch)
+
+(display enemies in $SX $SY $Enemies)
+	(hostile ships in sector $SX $SY into $Hostile)
+	(length of $Hostile into $Left)
+	(if) (hostile base in sector $SX $SY into $EnemyBase) (then)
+		(code $EnemyBase) (no space)
+		($Enemies = 1)
+	(elseif) (sector $SX $SY is in sensor range) (then)
+		(if) ($Left > 0) (then)
+			$Left (no space)
+			($Enemies = $Left)
+		(else)
+			(if) (display zeros for empty categories) (then)
+				0 (no space)
+			(else)
+				(space 1)
+			(endif)
+			($Enemies = 0)
+		(endif)
+	(else)
+		(if) (display question marks for undetectable ships) (then)
+			? (no space)
+		(else)
+			(space 1)
+		(endif)
+	(endif)
+
+(display friendlies in $SX $SY $Enemies)
+	(current ship $Ship)
+	($Ship sector x $X)
+	($Ship sector y $Y)
+	(friendly ships in sector $SX $SY into $Friendlies)
+	(length of $Friendlies into $Middle)
+	(if) ($SX = $X) ($SY = $Y) (then)
+		(code $Ship) (no space)	
+	(elseif) (friendly base in sector $SX $SY into $Starbase) (then)
+		(code $Starbase) (no space)
+	(elseif) (sector $SX $SY is in sensor range) (then)
+		(if) ($Middle > 0) (or) ($Enemies > 0) (then)
+			$Middle (no space)
+		(else)
+			(if) (display zeros for empty categories) (then)
+				0 (no space)
+			(else)
+				(space 1)
+			(endif)
+		(endif)
+	(else)
+		(if) (display question marks for undetectable ships)
+			(or) ($Enemies > 0)
+		(then)
+			? (no space)
+		(else)
+			(space 1)
+		(endif)
+	(endif)
+
+(display terrain in $SX $SY)
+	(stellar objects in sector $SX $SY into $Stellar)
+	(length of $Stellar into $Right)
+	$Right
+
+%% To keep from having to track a memory-expensive log of scanned sectors,
+%% we'll only display on the chart items that are in sensor range, plus
+%% stellar objects and bases from both sides.
+
+(quadrant chart)
+	Chart for quadrant (current quadrant) (no space): (par)
+	(space 6) 1 (space 3) 2 (space 3) 3 (space 3) 4
+	(space 3) 5 (space 3) 6 (space 3) 7 (space 3) 8 (line)
+	(space 4) +---+---+---+---+---+---+---+---+ (line)
+	(space 2) 1 (quadrant chart for line 1) (line)
+	(space 4) +---+---+---+---+---+---+---+---+ (line)
+	(space 2) 2 (quadrant chart for line 2) (line)
+	(space 4) +---+---+---+---+---+---+---+---+ (line)
+	(space 2) 3 (quadrant chart for line 3) (line)
+	(space 4) +---+---+---+---+---+---+---+---+ (line)
+	(space 2) 4 (quadrant chart for line 4) (line)
+	(space 4) +---+---+---+---+---+---+---+---+ (line)
+	(space 2) 5 (quadrant chart for line 5) (line)
+	(space 4) +---+---+---+---+---+---+---+---+ (line)
+	(space 2) 6 (quadrant chart for line 6) (line)
+	(space 4) +---+---+---+---+---+---+---+---+ (line)
+	(space 2) 7 (quadrant chart for line 7) (line)
+	(space 4) +---+---+---+---+---+---+---+---+ (line)
+	(space 2) 8 (quadrant chart for line 8) (line)
+	(space 4) +---+---+---+---+---+---+---+---+ (par)
+
+(quadrant chart for line $Line)
+	\| (no space) (long range scan in 1 $Line) (no space)
+	\| (no space) (long range scan in 2 $Line) (no space)
+	\| (no space) (long range scan in 3 $Line) (no space)
+	\| (no space) (long range scan in 4 $Line) (no space)
+	\| (no space) (long range scan in 5 $Line) (no space)
+	\| (no space) (long range scan in 6 $Line) (no space)
+	\| (no space) (long range scan in 7 $Line) (no space)
+	\| (no space) (long range scan in 8 $Line) (no space) \|
+

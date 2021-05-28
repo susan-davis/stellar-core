@@ -1,0 +1,145 @@
+%% dgdebug -q maneuver-tests.dg maneuvering.dg sectored-grid.dg \
+%%            testrunner.dg stdlib.dg
+
+(list of tests [
+	#turn-ship
+	#turn-ship-to-starboard
+	#turn-ship-to-port
+	#turn-ship-about
+	#turn-ship-to-starboard-too-hard
+	#turn-ship-to-port-too-hard
+	#accelerate
+	#accelerate-too-fast
+	#accelerate-way-too-fast
+	#decelerate
+	#should-move-400
+	])
+
+%% ----------------------------------------------------------------------
+
+#test-ship
+(ship *)
+(* initial state is
+   [344 454 315 4 304 414 #cygnus-class 932 4 500 [100 100 100 100] 10 90 7])
+
+#cygnus-class
+(name *)	Cygnus
+(type *)	scout ship
+(* state is [0 0 180 3 5 7 #cygnus-class 1000 4 500 [100 100 100 100] 10])
+
+#sun
+(grid object *)
+(* state is [578 578])
+
+#planet
+(grid object *)
+(* state is [575 576])
+
+#other-planet
+(grid object *)
+(* state is [577 572])
+
+#closest-target
+(ship *)
+(* initial state is
+     [355 445 225 2 0 0 #attack-class 500 2 250 [100 50 50 50] 0 225 2])
+     
+#attack-class
+(name *)	Attack
+(type *)	attack ship
+(* state is [0 0 90 1 2 6 #attack-class 500 2 250 [100 50 50 50] 0])
+
+#near-target
+(ship *)
+(* initial state is
+     [314 424 45 3 0 0 #attack-class 500 2 250 [100 50 50 50] 0 45 3])
+
+#far-target
+(ship *)
+(* initial state is
+     [424 314 225 5 0 0 #attack-class 500 2 250 [100 50 50 50] 0 225 5])
+
+#distant-target
+(ship *)
+(* initial state is
+     [154 984 135 6 0 0 #attack-class 500 2 250 [100 50 50 50] 0 135 6])
+
+%% ----------------------------------------------------------------------
+
+(reset $Ship)	($Ship initial state is $State)
+		(now) ($Ship state is $State)
+
+(set up $)	(exhaust) { *(ship $Ship) (reset $Ship) }
+
+%% ----------------------------------------------------------------------
+
+(test #turn-ship)
+	(turn #test-ship to helm setting)
+	(#test-ship heading 0)
+
+(test #turn-ship-to-starboard)
+	(set helm for #test-ship to 359)
+	(#test-ship heading 315)
+	(turn #test-ship to helm setting)
+	(#test-ship heading 359)
+
+(test #turn-ship-to-port)
+	(set helm for #test-ship to 270)
+	(turn #test-ship to helm setting)
+	(#test-ship heading 270)
+
+(test #turn-ship-about)
+	(set helm for #test-ship to 135)
+	(turn #test-ship to helm setting)
+	(#test-ship heading 0)
+	(turn #test-ship to helm setting)
+	(#test-ship heading 45)
+	(turn #test-ship to helm setting)
+	(#test-ship heading 90)
+	(turn #test-ship to helm setting)
+	(#test-ship heading 135)
+	(turn #test-ship to helm setting)
+	(#test-ship heading 135)
+
+(test #turn-ship-to-starboard-too-hard)
+	(set helm for #test-ship to 45)
+	(turn #test-ship to helm setting)
+	(#test-ship heading 0)
+
+(test #turn-ship-to-port-too-hard)
+	(set helm for #test-ship to 225)
+	(turn #test-ship to helm setting)
+	(#test-ship heading 270)
+
+(test #accelerate)
+	(accelerate #test-ship to throttle setting)
+	(#test-ship speed 7)
+
+(test #accelerate-too-fast)
+	(set throttle for #test-ship to 9)
+	(accelerate #test-ship to throttle setting)
+	(#test-ship speed 7)
+	(accelerate #test-ship to throttle setting)
+	(#test-ship speed 9)
+
+(test #accelerate-way-too-fast)
+	(set throttle for #test-ship to 10)
+	(accelerate #test-ship to throttle setting)
+	(#test-ship speed 7)
+	(accelerate #test-ship to throttle setting)
+	(#test-ship speed 9)
+
+(test #decelerate)
+	(set throttle for #test-ship to 0)
+	(accelerate #test-ship to throttle setting)
+	(#test-ship speed 0)
+
+(test #distance-gradient-4)
+	(distance for speed 4 into 400)
+
+(test #distance-sublight)
+	(distance for speed 0 into 10)
+
+(test #should-move-400)
+	(#test-ship should move 400)
+

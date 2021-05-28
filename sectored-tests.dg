@@ -1,0 +1,1596 @@
+%% dgdebug -q sectored-tests.dg sectored-grid.dg testrunner.dg stdlib.dg
+
+(list of tests $Tests) ($Tests = [
+	#delta-4-2
+	#delta-2-4
+	#delta-2-2
+	#delta-0-0
+	#split-number
+	#split-smaller
+	#split-smallest
+	#sort-4-2
+	#sort-2-4
+	#sort-0-0
+	#position-for-subsector
+	#subsector-for-position
+	#subsector-for-edge-position
+	#same-subsector
+	#not-same-subsector
+	#state-schema
+	#current-ship-in-quadrant
+	#far-target-in-quadrant
+	#distant-target-not-in-quadrant
+	#0-0-not-in-quadrant
+	#1-0-not-in-quadrant
+	#0-1-not-in-quadrant
+	#9-9-not-in-quadrant
+	#9-8-not-in-quadrant
+	#8-9-not-in-quadrant
+	#1-1-in-quadrant
+	#8-8-in-quadrant
+	#objects-in-sector
+	#objects-in-empty-sector
+	#object-at-ship-position
+	#object-next-to-ship-position
+	#objects-in-ships-subsector
+	#object-at-near-target
+	#object-at-far-target
+	#objects-at-closest-target
+	#object-at-empty-position
+	#objects-in-star-system
+	#top-object-is-star
+	#next-coordinates-north
+	#next-coordinates-northeast
+	#next-coordinates-east
+	#next-coordinates-southeast
+	#next-coordinates-south
+	#next-coordinates-southwest
+	#next-coordinates-west
+	#next-coordinates-northwest
+	#next-square-north
+	#next-square-northeast
+	#next-square-east
+	#next-square-southeast
+	#next-square-south
+	#next-square-southwest
+	#next-square-west
+	#next-square-northwest
+	#next-subsector-north
+	#next-subsector-northeast
+	#next-subsector-east
+	#next-subsector-southeast
+	#next-subsector-south
+	#next-subsector-southwest
+	#next-subsector-west
+	#next-subsector-northwest
+	#closest-unoccupied-square-empty
+	#closest-unoccupied-square-north
+	#closest-unoccupied-square-south
+	#closest-unoccupied-square-east
+	#closest-unoccupied-square-west
+	#closest-unoccupied-square-quadrant-1
+	#closest-unoccupied-square-quadrant-2
+	#closest-unoccupied-square-quadrant-3
+	#closest-unoccupied-square-quadrant-4
+	#closest-unoccupied-square-near-target
+	#closest-unoccupied-square-far-target
+	#closest-unoccupied-subsector-empty
+	#closest-unoccupied-subsector-north
+	#closest-unoccupied-subsector-south
+	#closest-unoccupied-subsector-east
+	#closest-unoccupied-subsector-west
+	#closest-unoccupied-subsector-quadrant-1
+	#closest-unoccupied-subsector-quadrant-2
+	#closest-unoccupied-subsector-quadrant-3
+	#closest-unoccupied-subsector-quadrant-4
+	#closest-unoccupied-subsector-near-target
+	#closest-unoccupied-subsector-far-target
+	#closest-unoccupied-subsector-two-squares
+	#7-squares-north
+	#6-squares-northeast
+	#2-squares-east
+	#5-squares-southeast
+	#20-squares-south
+	#24-squares-southwest
+	#50-squares-west
+	#4-squares-northwest
+	#11-squares-east
+	#11-squares-north
+	#reciprocal-0
+	#reciprocal-90
+	#reciprocal-180
+	#reciprocal-270
+	#direction-0
+	#direction-22
+	#direction-23
+	#direction-67
+	#direction-68
+	#direction-112
+	#direction-113
+	#direction-157
+	#direction-158
+	#direction-202
+	#direction-203
+	#direction-247
+	#direction-248
+	#direction-292
+	#direction-293
+	#direction-337
+	#direction-338
+	#look-up-1-9
+	#look-up-5-5
+	#look-up-10-20
+	#look-up-15-30
+	#scale-under-10
+	#scale-more-x
+	#scale-more-y
+	#scale-diagonal
+	#octant-1
+	#octant-2
+	#octant-3
+	#octant-4
+	#octant-5
+	#octant-6
+	#octant-7
+	#octant-8
+	#bfa-octant-1
+	#bfa-octant-2
+	#bfa-octant-3
+	#bfa-octant-4
+	#bfa-octant-5
+	#bfa-octant-6
+	#bfa-octant-7
+	#bfa-octant-8
+	#bfa-north
+	#bfa-northeast
+	#bfa-east
+	#bfa-southeast
+	#bfa-south
+	#bfa-southwest
+	#bfa-west
+	#bfa-northwest
+	#bearing-north
+	#bearing-south
+	#bearing-east
+	#bearing-west
+	#bearing-diagonal
+	#bearing-quadrant-1
+	#bearing-quadrant-2
+	#bearing-quadrant-3
+	#bearing-quadrant-4
+	#bearing-to-closest
+	#bearing-to-near
+	#bearing-to-far
+	#bearing-to-distant
+	#angle-30-to-45
+	#angle-45-to-30
+	#angle-315-to-45
+	#angle-45-to-315
+	#angle-0-to-180
+	#angle-179-to-359
+	#angle-to-closest
+	#angle-to-near
+	#angle-to-far
+	#angle-to-distant
+	#angle-counterclockwise
+	#angle-counterclockwise-crossing-zero
+	#angle-clockwise-crossing-zero
+	#slope-0
+	#slope-1
+	#slope-15
+	#slope-27
+	#slope-28
+	#slope-44
+	#slope-45
+	#angle-octant-1
+	#angle-octant-2
+	#angle-octant-3
+	#angle-octant-4
+	#angle-octant-5
+	#angle-octant-6
+	#angle-octant-7
+	#angle-octant-8
+	#offset-north
+	#offset-northeast
+	#offset-east
+	#offset-southeast
+	#offset-south
+	#offset-southwest
+	#offset-west
+	#offset-northwest
+	#offset-30
+	#offset-61
+	#offset-121
+	#offset-145
+	#offset-210
+	#offset-240
+	#offset-300
+	#offset-358
+	#offset-359
+	#offset-2-north
+	#offset-3-northeast
+	#offset-4-east
+	#offset-5-southeast
+	#offset-6-south
+	#offset-7-southwest
+	#offset-8-west
+	#offset-15-northwest
+	#offset-2-30
+	#offset-3-61
+	#offset-4-121
+	#offset-2-145
+	#offset-3-210
+	#offset-4-240
+	#offset-2-300
+	#offset-3-358
+	#offset-4-359
+	#square-at-100-along-orthogonal
+	#square-at-50-along-orthogonal
+	#square-at-141-along-diagonal
+	#square-at-70-along-diagonal
+	#square-at-100-north
+	#square-at-50-north
+	#square-at-141-northeast
+	#square-at-70-northeast
+	#square-at-224-27
+	#square-in-next-sector-north
+	#square-in-next-sector-northwest
+	#square-beyond-map-north
+	#square-beyond-map-northwest
+	#look-up-range-0-1
+	#look-up-range-1-1
+	#look-up-range-6-4
+	#look-up-range-9-8
+	#range-to-closest
+	#range-to-near
+	#range-to-far
+	#range-to-distant
+	#range-to-very-distant
+	#range-across-quadrant
+	#range-along-quadrant
+	#range-large-quadrant
+	#range-due-north
+	#range-due-south
+	#range-due-east
+	#range-due-west
+	#turn-to-face-closest
+	#turn-to-face-near
+	#turn-to-face-far
+	#turn-to-face-distant
+	#turn-about
+	#turn-hard-to-starboard
+	#turn-hard-to-starboard-not-crossing-zero
+	#turn-hard-to-port
+	#turn-hard-to-port-crossing-zero
+	#turn-away-from-closest
+	#turn-away-from-near
+	#turn-away-from-far
+	#turn-away-from-distant
+	#turn-to-subsector
+	#drag-to-same-sector
+	#drag-to-different-sector
+	#drag-100-north
+	#drag-141-southeast
+	#drag-to-occupied-square
+	#drag-to-occupied-subsector
+ 	#move-to-same-sector
+	#move-to-different-sector
+	#move-to-specified-subsector
+	#move-to-other-subsector
+	#move-to-third-subsector
+	#move-100-north
+	#move-141-southeast
+	#move-51-east
+	#move-71-southwest
+	#move-900-27
+	#move-1400-316
+	#move-northwest-from-corner
+	#move-10000-0
+	#move-10000-314
+	#long-move
+	#move-to-occupied-square
+	#move-to-occupied-subsector
+	#move-toward-near-target
+	#move-away-from-near-target
+	#move-toward-far-target
+	#move-to-star-system
+	#turn-30-starboard
+	#turn-60-starboard-across-north
+	#turn-30-port
+	#turn-60-port-across-north
+	#turn-30-toward-45
+	#turn-60-toward-45
+	#turn-90-toward-45
+	#turn-91-toward-45
+	#turn-30-toward-315
+	#turn-60-toward-315
+	#turn-90-toward-315
+	#turn-91-toward-315
+	#turn-90-toward-135
+	#turn-180-toward-135
+	#turn-181-toward-135
+	#turn-90-toward-136
+	#turn-180-toward-136
+	#turn-45-starboard
+	#turn-315-port
+	])
+
+%% ----------------------------------------------------------------------
+
+#test-ship
+(grid object *)
+(* state is [344 454 315])
+
+(initial state [344 454 315])
+
+(clean up $)  		(initial state $State)
+			(now) (* state is $State)
+
+#closest-target
+(grid object *)
+(* state is [354 444 0])
+
+#near-target
+(grid object *)
+(* state is [314 424 0])
+
+#far-target
+(grid object *)
+(* state is [424 314 0])
+
+#distant-target
+(grid object *)
+(* state is [154 984 0])
+
+#non-grid-object
+(* state is [374 474 0])
+
+#sun
+(grid object *)
+(* state is [577 577 0])
+
+#planet
+(grid object *)
+(* state is [575 575 0])
+
+#other-planet
+(grid object *)
+(* state is [573 573 0])
+
+%% ----------------------------------------------------------------------
+
+(test #state-schema)
+	(assert that #test-ship is at [3 4 5 6 315])
+
+(test #delta-4-2)
+	(4 delta 2 into 2)
+
+(test #delta-2-4)
+	(2 delta 4 into 2)
+
+(test #delta-2-2)
+	(2 delta 2 into 0)
+
+(test #delta-0-0)
+	(0 delta 0 into 0)
+
+(test #sort-4-2)
+	(sort 4 2 into 2 4)
+
+(test #sort-2-4)
+	(sort 2 4 into 2 4)
+
+(test #sort-0-0)
+	(sort 0 0 into 0 0)
+
+(test #split-number)
+	(split 1789 into 1 7 8 9)
+
+(test #split-smaller)
+	(split 789 into 0 7 8 9)
+
+(test #split-smallest)
+	(split 1 into 0 0 0 1)
+
+(test #position-for-subsector)
+	(position for 3 4 5 6 into [344 454])
+
+(test #subsector-for-position)
+	(subsector for [345 455] into 3 4 5 6)
+
+(test #subsector-for-edge-position)
+	(subsector for [340 459] into 3 4 5 6)
+
+(test #same-subsector)
+	(position for 3 4 5 6 1 10 into $Here)
+	(position for 3 4 5 6 5 5 into $There)
+	($Here is in the same subsector as $There)
+
+(test #not-same-subsector)
+	(position for 3 4 5 7 1 1 into $Here)
+	(position for 3 4 5 6 5 5 into $There)
+	~($Here is in the same subsector as $There)
+
+(test #current-ship-in-quadrant)
+	(#test-ship state is $Here)
+	($Here is in the quadrant)
+
+(test #far-target-in-quadrant)
+	(#far-target state is $Here)
+	($Here is in the quadrant)
+
+(test #distant-target-not-in-quadrant)
+	(#distant-target state is $Here)
+	$Here
+	~($Here is in the quadrant)
+
+(test #0-0-not-in-quadrant)
+	(position for 0 0 1 1 into $Here)
+	~($Here is in the quadrant)
+
+(test #1-0-not-in-quadrant)
+	(position for 1 0 1 1 into $Here)
+	~($Here is in the quadrant)
+
+(test #0-1-not-in-quadrant)
+	(position for 0 1 1 1 into $Here)
+	~($Here is in the quadrant)
+
+(test #9-9-not-in-quadrant)
+	(position for 9 9 10 10 into $Here)
+	~($Here is in the quadrant)
+
+(test #9-8-not-in-quadrant)
+	(position for 9 8 10 10 into $Here)
+	~($Here is in the quadrant)
+
+(test #8-9-not-in-quadrant)
+	(position for 8 9 10 10 into $Here)
+	~($Here is in the quadrant)
+
+(test #1-1-in-quadrant)
+	(position for 1 1 1 1 into $Here)
+	($Here is in the quadrant)
+
+(test #8-8-in-quadrant)
+	(position for 8 8 10 10 into $Here)
+	($Here is in the quadrant)
+
+(test #objects-in-sector)
+	(objects in sector 3 4 into $List)
+	(length of $List into 3)
+	(assert $List = [#test-ship #closest-target #near-target])
+
+(test #objects-in-empty-sector)
+	(objects in sector 1 8 into $List)
+	(length of $List into 0)
+
+(test #object-at-ship-position)
+	(initial state $Here)
+	(object at $Here into $Obj)
+	(assert $Obj = #test-ship)
+
+(test #object-next-to-ship-position)
+	(position for 3 4 5 6 6 6 into $Here)
+	~(object at $Here into $)
+
+(test #objects-in-ships-subsector)
+	(objects in subsector 3 4 5 6 into $List)
+	(assert $List = [ #test-ship ])
+
+(test #objects-at-closest-target)
+	(#closest-target state is $There)
+	(subsector for $There into $SX $SY $X $Y)
+	(objects in subsector $SX $SY $X $Y into $List)
+	(assert $List = [ #closest-target ])
+
+(test #object-at-near-target)
+	(#near-target state is $Here)
+	(object at $Here into $Obj)
+	(assert $Obj = #near-target)
+
+(test #object-at-far-target)
+	(#far-target state is $Here)
+	(object at $Here into $Obj)
+	(assert $Obj = #far-target)
+
+(test #object-at-empty-position)
+	~(object at [8 8 10 10] into $Obj)
+	~(bound $Obj)
+
+(test #objects-in-star-system)
+	(objects in subsector 5 5 8 8 into $List)
+	(length of $List into 3)
+	(assert $List = [ #sun #planet #other-planet ])
+
+(test #top-object-is-star)
+	(top object in subsector 5 5 8 8 into #sun)
+
+(test #scale-under-10)
+	(scale 9 9 into 9 9)
+
+(test #scale-more-x)
+	(scale 31 28 into 15 14)
+
+(test #scale-more-y)
+	(scale 19 41 into 6 13)
+
+(test #scale-diagonal)
+	(scale 30 30 into 15 15)
+
+(test #look-up-1-9)
+	(look up bearing for 1 9 into 6)
+
+(test #look-up-5-5)
+	(look up bearing for 5 5 into 45)
+
+(test #look-up-10-20)
+	(look up bearing for 10 20 into 27)
+
+(test #look-up-15-30)
+	(look up bearing for 15 30 into 25)
+
+(test #reciprocal-0)
+	(reciprocal bearing for 0 into 180)
+
+(test #reciprocal-90)
+	(reciprocal bearing for 90 into 270)
+
+(test #reciprocal-180)
+	(reciprocal bearing for 180 into 0)
+
+(test #reciprocal-270)
+	(reciprocal bearing for 270 into 90)
+
+(test #direction-0)
+	(direction for 0 into #north)
+
+(test #direction-22)
+	(direction for 22 into #north)
+
+(test #direction-23)
+	(direction for 23 into #northeast)
+
+(test #direction-67)
+	(direction for 67 into #northeast)
+
+(test #direction-68)
+	(direction for 68 into #east)
+
+(test #direction-112)
+	(direction for 112 into #east)
+
+(test #direction-113)
+	(direction for 113 into #southeast)
+
+(test #direction-157)
+	(direction for 157 into #southeast)
+
+(test #direction-158)
+	(direction for 158 into #south)
+
+(test #direction-202)
+	(direction for 202 into #south)
+
+(test #direction-203)
+	(direction for 203 into #southwest)
+
+(test #direction-247)
+	(direction for 247 into #southwest)
+
+(test #direction-248)
+	(direction for 248 into #west)
+
+(test #direction-292)
+	(direction for 292 into #west)
+
+(test #direction-293)
+	(direction for 293 into #northwest)
+
+(test #direction-337)
+	(direction for 337 into #northwest)
+
+(test #direction-338)
+	(direction for 338 into #north)
+
+(test #octant-1)
+	(initial state $Here)
+	(position for 3 4 6 3 into $There)
+	(octant from $Here to $There into 1)
+
+(test #octant-2)
+	(initial state $Here)
+	(position for 3 4 7 5 into $There)
+	(octant from $Here to $There into 2)
+
+(test #octant-3)
+	(initial state $Here)
+	(position for 3 4 7 7 into $There)
+	(octant from $Here to $There into 3)
+
+(test #octant-4)
+	(initial state $Here)
+	(position for 3 4 6 9 into $There)
+	(octant from $Here to $There into 4)
+
+(test #octant-5)
+	(initial state $Here)
+	(position for 3 4 4 9 into $There)
+	(octant from $Here to $There into 5)
+
+(test #octant-6)
+	(initial state $Here)
+	(position for 3 4 2 7 into $There)
+	(octant from $Here to $There into 6)
+
+(test #octant-7)
+	(initial state $Here)
+	(position for 3 4 3 5 into $There)
+	(octant from $Here to $There into 7)
+
+(test #octant-8)
+	(initial state $Here)
+	(position for 3 4 4 2 into $There)
+	(octant from $Here to $There into 8)
+
+(test #bfa-octant-1)
+	(bearing for 30 in octant 1 into 30)
+
+(test #bfa-octant-2)
+	(bearing for 30 in octant 2 into 60)
+
+(test #bfa-octant-3)
+	(bearing for 30 in octant 3 into 120)
+
+(test #bfa-octant-4)
+	(bearing for 30 in octant 4 into 150)
+
+(test #bfa-octant-5)
+	(bearing for 30 in octant 5 into 210)
+
+(test #bfa-octant-6)
+	(bearing for 30 in octant 6 into 240)
+
+(test #bfa-octant-7)
+	(bearing for 30 in octant 7 into 300)
+
+(test #bfa-octant-8)
+	(bearing for 30 in octant 8 into 330)
+
+(test #bfa-north)
+	(bearing for 0 in octant 1 into 0)
+	(bearing for 0 in octant 8 into 0)
+
+(test #bfa-northeast)
+	(bearing for 45 in octant 1 into 45)
+	(bearing for 45 in octant 2 into 45)
+
+(test #bfa-east)
+	(bearing for 0 in octant 2 into 90)
+	(bearing for 0 in octant 3 into 90)
+
+(test #bfa-southeast)
+	(bearing for 45 in octant 3 into 135)
+	(bearing for 45 in octant 4 into 135)
+
+(test #bfa-south)
+	(bearing for 0 in octant 4 into 180)
+	(bearing for 0 in octant 5 into 180)
+
+(test #bfa-southwest)
+	(bearing for 45 in octant 5 into 225)
+	(bearing for 45 in octant 6 into 225)
+
+(test #bfa-west)
+	(bearing for 0 in octant 6 into 270)
+	(bearing for 0 in octant 7 into 270)
+
+(test #bfa-northwest)
+	(bearing for 45 in octant 7 into 315)
+	(bearing for 45 in octant 8 into 315)
+
+(test #bearing-north)
+	(position for 1 1 2 2 into $Here)
+	(position for 1 1 2 1 into $There)
+	(calculate bearing from $Here to $There into 0)
+
+(test #bearing-east)
+	(position for 1 1 2 2 into $Here)
+	(position for 1 1 3 2 into $There)
+	(calculate bearing from $Here to $There into 90)
+
+(test #bearing-south)
+	(position for 1 1 2 2 into $Here)
+	(position for 1 1 2 3 into $There)
+	(calculate bearing from $Here to $There into 180)
+
+(test #bearing-west)
+	(position for 1 1 2 2 into $Here)
+	(position for 1 1 1 2 into $There)
+	(calculate bearing from $Here to $There into 270)
+
+(test #bearing-diagonal)
+	(position for 1 1 2 2 into $Here)
+	(position for 1 1 1 1 into $There)
+	(calculate bearing from $Here to $There into 315)
+
+(test #bearing-quadrant-1)
+	(position for 1 1 2 2 into $Here)
+	(position for 1 1 5 1 into $There)
+	(calculate bearing from $Here to $There into 72)
+
+(test #bearing-quadrant-2)
+	(position for 1 1 2 2 into $Here)
+	(position for 1 1 3 4 into $There)
+	(calculate bearing from $Here to $There into 153)
+
+(test #bearing-quadrant-3)
+	(position for 1 1 2 2 into $Here)
+	(position for 1 1 1 6 into $There)
+	(calculate bearing from $Here to $There into $Bearing)
+	$Bearing
+	(assert $Bearing = 193)
+
+(test #bearing-quadrant-4)
+	(position for 1 1 2 3 into $Here)
+	(position for 1 1 1 1 into $There)
+	(calculate bearing from $Here to $There into $Bearing)
+	$Bearing
+	(assert $Bearing = 333)
+
+(test #bearing-to-closest)
+	(bearing from #test-ship to #closest-target into $Bearing)
+	$Bearing
+	(assert $Bearing = 45)
+
+(test #bearing-to-near)
+	(bearing from #test-ship to #near-target into 315)
+
+(test #bearing-to-far)
+	(bearing from #test-ship to #far-target into $Bearing)
+	$Bearing
+	(assert $Bearing = 30)
+
+(test #bearing-to-distant)
+	(bearing from #test-ship to #distant-target into $Bearing)
+	$Bearing
+	(assert $Bearing = 200)
+
+(test #angle-30-to-45)
+	(angle clockwise from 30 to 45 into 15)
+
+(test #angle-45-to-30)
+	(angle clockwise from 45 to 30 into 345)
+
+(test #angle-315-to-45)
+	(angle clockwise from 315 to 45 into 90)
+
+(test #angle-45-to-315)
+	(angle clockwise from 45 to 315 into 270)
+
+(test #angle-0-to-180)
+	(angle clockwise from 0 to 180 into 180)
+
+(test #angle-179-to-359)
+	(angle clockwise from 181 to 1 into 180)
+
+(test #angle-to-closest)
+	(angle from #test-ship to #closest-target into 90)
+
+(test #angle-to-near)
+	(angle from #test-ship to #near-target into 0)
+
+(test #angle-to-far)
+	(angle from #test-ship to #far-target into 75)
+
+(test #angle-to-distant)
+	(angle from #test-ship to #distant-target into 245)
+
+(test #angle-counterclockwise)
+	(turn #test-ship to heading 359)
+	(angle from #test-ship to #near-target into $Angle)
+	$Angle
+	(assert $Angle = 316)
+
+(test #angle-counterclockwise-crossing-zero)
+	(turn #test-ship to heading 45)
+	(angle from #test-ship to #near-target into 270)
+
+(test #angle-clockwise-crossing-zero)
+	(turn #test-ship to heading 180)
+	(angle from #test-ship to #distant-target into 20)
+
+(test #turn-to-face-closest)
+	(turn #test-ship to face #closest-target)
+	(#test-ship heading $Heading)
+	$Heading
+	(assert $Heading = 45)
+	
+(test #turn-to-face-near)
+	(turn #test-ship to face #near-target)
+	(#test-ship heading 315)
+	
+(test #turn-to-face-far)
+	(turn #test-ship to face #far-target)
+	(#test-ship heading 30)
+	
+(test #turn-to-face-distant)
+	(turn #test-ship to face #distant-target)
+	(#test-ship heading 200)
+	
+(test #turn-hard-to-starboard)
+	(turn #test-ship hard to starboard)
+	(#test-ship heading 45)
+	
+(test #turn-hard-to-starboard-not-crossing-zero)
+	(turn #test-ship to heading 135)
+	(turn #test-ship hard to starboard)
+	(#test-ship heading 225)
+	
+(test #turn-hard-to-port)
+	(turn #test-ship to heading 315)
+	(turn #test-ship hard to port)
+	(#test-ship heading 225)
+	
+(test #turn-hard-to-port-crossing-zero)
+	(turn #test-ship to heading 315)
+	(turn #test-ship hard to port)
+	(#test-ship heading 225)
+	
+(test #turn-about)
+	(turn #test-ship about)
+	(#test-ship heading 135)
+
+(test #turn-away-from-near)
+	(turn #test-ship away from #near-target)
+	(#test-ship heading 135)
+	
+(test #turn-away-from-closest)
+	(turn #test-ship away from #closest-target)
+	(#test-ship heading 225)
+	
+(test #turn-away-from-far)
+	(turn #test-ship away from #far-target)
+	(#test-ship heading 210)
+	
+(test #turn-away-from-distant)
+	(turn #test-ship away from #distant-target)
+	(#test-ship heading 20)
+
+(test #turn-to-bearing)
+	(turn #test-ship to bearing 45)
+	(#test-ship heading 45)
+
+(test #turn-to-subsector)
+	(turn #test-ship to face 1 1 1 1)
+	(#test-ship heading $Heading)
+	$Heading
+	(assert $Heading = 326)
+	
+(test #next-coordinates-north)
+	(next coordinates #north from 5 5 into 5 4)
+
+(test #next-coordinates-northeast)
+	(next coordinates #northeast from 5 5 into 6 4)
+
+(test #next-coordinates-east)
+	(next coordinates #east from 5 5 into 6 5)
+
+(test #next-coordinates-southeast)
+	(next coordinates #southeast from 5 5 into 6 6)
+
+(test #next-coordinates-south)
+	(next coordinates #south from 5 5 into 5 6)
+
+(test #next-coordinates-southwest)
+	(next coordinates #southwest from 5 5 into 4 6)
+
+(test #next-coordinates-west)
+	(next coordinates #west from 5 5 into 4 5)
+
+(test #next-coordinates-northwest)
+	(next coordinates #northwest from 5 5 into 4 4)
+
+(assert that $Direction goes to $SX $SY $X $Y $PX $PY)
+	(position for 3 4 5 6 5 5 into $Here)
+	(position for $SX $SY $X $Y $PX $PY into $There)
+	(next square $Direction from $Here into $There)
+
+(test #next-square-north)
+	(assert that #north goes to 3 4 5 6 5 4)
+
+(test #next-square-northeast)
+	(assert that #northeast goes to 3 4 5 6 6 4)
+
+(test #next-square-east)
+	(assert that #east goes to 3 4 5 6 6 5)
+
+(test #next-square-southeast)
+	(assert that #southeast goes to 3 4 5 6 6 6)
+
+(test #next-square-south)
+	(assert that #south goes to 3 4 5 6 5 6)
+
+(test #next-square-southwest)
+	(assert that #southwest goes to 3 4 5 6 4 6)
+
+(test #next-square-west)
+	(assert that #west goes to 3 4 5 6 4 5)
+
+(test #next-square-northwest)
+	(assert that #northwest goes to 3 4 5 6 4 4)
+
+(assert that $Direction goes to $SX $SY $X $Y)
+	(position for 3 4 5 6 into $Here)
+	(position for $SX $SY $X $Y into $There)
+	(next subsector $Direction from $Here into $There)
+
+(test #next-subsector-north)
+	(assert that #north goes to 3 4 5 5)
+
+(test #next-subsector-northeast)
+	(assert that #northeast goes to 3 4 6 5)
+
+(test #next-subsector-east)
+	(assert that #east goes to 3 4 6 6)
+
+(test #next-subsector-southeast)
+	(assert that #southeast goes to 3 4 6 7)
+
+(test #next-subsector-south)
+	(assert that #south goes to 3 4 5 7)
+
+(test #next-subsector-southwest)
+	(assert that #southwest goes to 3 4 4 7)
+
+(test #next-subsector-west)
+	(assert that #west goes to 3 4 4 6)
+
+(test #next-subsector-northwest)
+	(assert that #northwest goes to 3 4 4 5)
+
+(test #closest-unoccupied-square-empty)
+	(position for 3 4 5 6 into $Here)
+	(position for 8 8 10 10 5 5 into $There)
+	(closest unoccupied square to $There from $Here into $There)
+
+(assert closest from $TSX $TSY $TX $TY $TPX $TPY is $SX $SY $X $Y $PX $PY)
+	(position for 3 4 5 6 5 5 into $Here)
+	(position for $TSX $TSY $TX $TY $TPX $TPY into $There)
+	(position for $SX $SY $X $Y $PX $PY into $Result)
+	(closest unoccupied square to $Here from $There into $Result)
+
+(test #closest-unoccupied-square-north)
+	(assert closest from 3 4 5 1 5 5 is 3 4 5 6 5 4)
+
+(test #closest-unoccupied-square-south)
+	(assert closest from 3 4 5 9 5 5 is 3 4 5 6 5 6)
+
+(test #closest-unoccupied-square-east)
+	(assert closest from 3 4 10 6 5 5 is 3 4 5 6 6 5)
+
+(test #closest-unoccupied-square-west)
+	(assert closest from 3 4 1 6 5 5 is 3 4 5 6 4 5)
+
+(test #closest-unoccupied-square-quadrant-1)
+	(assert closest from 3 4 10 4 1 1 is 3 4 5 6 6 4)
+
+(test #closest-unoccupied-square-quadrant-2)
+	(assert closest from 3 4 10 10 5 5 is 3 4 5 6 6 6)
+
+(test #closest-unoccupied-square-quadrant-3)
+	(assert closest from 3 4 1 8 5 5 is 3 4 5 6 4 6)
+
+(test #closest-unoccupied-square-quadrant-4)
+	(assert closest from 3 4 1 1 5 5 is 3 4 5 6 4 4)
+
+(test #closest-unoccupied-square-near-target)
+	(#test-ship state is $Here)
+	(#near-target state is $There)
+	(position for 3 4 2 3 6 6 into $Square)
+	([$X $Y] = $Square)
+	(closest unoccupied square to $There from $Here into [$X $Y 0])
+
+(test #closest-unoccupied-square-far-target)
+	(#test-ship state is $Here)
+	(#far-target state is $There)
+	(position for 4 3 3 2 4 6 into $Square)
+	([$X $Y] = $Square)
+	(closest unoccupied square to $There from $Here into [$X $Y 0])
+
+(test #closest-unoccupied-subsector-empty)
+	(position for 3 4 5 6 into $Here)
+	(position for 8 8 10 10 into $There)
+	(closest unoccupied subsector to $There from $Here into $There)
+
+(assert closest from $TSX $TSY $TX $TY is $SX $SY $X $Y)
+	(position for 3 4 5 6 into $Here)
+	(position for $TSX $TSY $TX $TY into $There)
+	(position for $SX $SY $X $Y into $Expected)
+	(closest unoccupied subsector to $Here from $There into $Result)
+	(assert $Result = $Expected)
+
+(test #closest-unoccupied-subsector-north)
+	(assert closest from 3 4 5 1 is 3 4 5 5)
+
+(test #closest-unoccupied-subsector-south)
+	(assert closest from 3 4 5 9 is 3 4 5 7)
+
+(test #closest-unoccupied-subsector-east)
+	(assert closest from 3 4 10 6 is 3 4 6 6)
+
+(test #closest-unoccupied-subsector-west)
+	(assert closest from 3 4 1 6 is 3 4 4 6)
+
+(test #closest-unoccupied-subsector-quadrant-1)
+	(assert closest from 3 4 10 4 is 3 4 6 6)
+
+(test #closest-unoccupied-subsector-quadrant-2)
+	(assert closest from 3 4 10 10 is 3 4 6 7)
+
+(test #closest-unoccupied-subsector-quadrant-3)
+	(assert closest from 3 4 1 8 is 3 4 4 7)
+
+(test #closest-unoccupied-subsector-quadrant-4)
+	(assert closest from 3 4 1 1 is 3 4 4 5)
+
+(test #closest-unoccupied-subsector-near-target)
+	(#test-ship state is $Here)
+	(#near-target state is $There)
+	(position for 3 4 3 4 into $Expected)
+	(closest unoccupied subsector to $There from $Here into $Result)
+	([$X $Y | $] = $Result)
+	(assert [$X $Y] = $Expected)
+
+(test #closest-unoccupied-subsector-far-target)
+	(#test-ship state is $Here)
+	(#far-target state is $There)
+	(position for 4 3 2 3 into $Expected)
+	(closest unoccupied subsector to $There from $Here into $Result)
+	([$X $Y | $] = $Result)
+	(assert [$X $Y] = $Expected)
+
+(test #closest-unoccupied-subsector-two-squares)
+	(assert closest from 3 4 10 3 is 3 4 7 4)
+
+(test #look-up-range-0-1)
+	(look up range for 0 1 into 100)
+
+(test #look-up-range-1-1)
+	(look up range for 1 1 into 141)
+
+(test #look-up-range-6-4)
+	(look up range for 6 4 into 721)
+
+(test #look-up-range-9-8)
+	(look up range for 9 8 into 1204)
+
+(test #range-to-closest)
+	(range from #test-ship to #closest-target into 141)
+
+(test #range-to-near)
+	(range from #test-ship to #near-target into 424)
+
+(test #range-to-far)
+	(range from #test-ship to #far-target into 1894)
+
+(test #range-to-distant)
+	(range from #test-ship to #distant-target into 6049)
+
+(test #range-to-very-distant) %% maximum distance we can represent!
+	(position for 1 1 1 1 into $Here)
+	(position for 12 12 7 7 into $There)
+	(calculate range from $Here to $There into $Range)
+	$Range
+	(assert $Range = 16359)
+
+(test #range-across-quadrant) %% maximum distance traversable in game
+	(position for 1 1 1 1 into $Here)
+	(position for 8 8 10 10 into $There)
+	(calculate range from $Here to $There into $Range)
+	$Range
+	(assert $Range = 11173)
+
+(test #range-along-quadrant)
+	(position for 1 1 1 1 into $Here)
+	(position for 8 1 10 1 into $There)
+	(calculate range from $Here to $There into $Range)
+	$Range
+	(assert $Range = 7900)
+
+(test #range-large-quadrant) %% maximum distance if we go to 10x10
+	(position for 1 1 1 1 into $Here)
+	(position for 10 10 10 10 into $There)
+	(calculate range from $Here to $There into $Range)
+	$Range
+	(assert $Range = 14003)
+
+(test #range-along-large-quadrant)
+	(position for 1 1 1 1 into $Here)
+	(position for 1 10 1 10 into $There)
+	(calculate range from $Here to $There into $Range)
+	$Range
+	(assert $Range = 9900)
+
+(test #range-due-north)
+	(position for 3 4 5 6 into $Here)
+	(position for 3 3 5 6 into $There)
+	(calculate range from $Here to $There into $Range)
+	$Range
+	(assert $Range = 1000)
+
+(test #range-due-south)
+	(position for 3 4 5 6 into $Here)
+	(position for 3 5 5 6 into $There)
+	(calculate range from $Here to $There into $Range)
+	$Range
+	(assert $Range = 1000)
+
+(test #range-due-east)
+	(position for 3 4 5 6 into $Here)
+	(position for 4 4 5 6 into $There)
+	(calculate range from $Here to $There into $Range)
+	$Range
+	(assert $Range = 1000)
+
+(test #range-due-west)
+	(position for 3 4 5 6 into $Here)
+	(position for 2 4 5 6 into $There)
+	(calculate range from $Here to $There into $Range)
+	$Range
+	(assert $Range = 1000)
+
+(assert $N squares $Direction is $SX $SY $X $Y $PX $PY)
+	(position for 3 4 5 6 5 5 into $Here)
+	(position for $SX $SY $X $Y $PX $PY into $There)
+	($N squares $Direction from $Here into $Place)
+	(assert $Place = $There)
+
+(test #7-squares-north)
+	(assert 7 squares #north is 3 4 5 5 5 8)
+
+(test #6-squares-northeast)
+	(assert 6 squares #northeast is 3 4 6 5 1 9)
+
+(test #2-squares-east)
+	(assert 2 squares #east is 3 4 5 6 7 5)
+
+(test #5-squares-southeast)
+	(assert 5 squares #southeast is 3 4 5 6 10 10)
+
+(test #20-squares-south)
+	(assert 20 squares #south is 3 4 5 8 5 5)
+
+(test #24-squares-southwest)
+	(assert 24 squares #southwest is 3 4 3 8 1 9)
+
+(test #50-squares-west)
+	(assert 50 squares #west is 2 4 10 6 5 5)
+
+(test #4-squares-northwest)
+	(assert 4 squares #northwest is 3 4 5 6 1 1)
+
+(test #11-squares-east)
+	(assert 11 squares #east is 3 4 6 6 6 5)
+
+(test #11-squares-north)
+	(assert 11 squares #north is 3 4 5 5 5 4)
+
+(test #angle-octant-1)
+	(octant for 30 into 30 #north #east)
+
+(test #angle-octant-2)
+	(octant for 60 into 30 #east #north)
+
+(test #angle-octant-3)
+	(octant for 121 into 31 #east #south)
+
+(test #angle-octant-4)
+	(octant for 151 into 29 #south #east)
+
+(test #angle-octant-5)
+	(octant for 215 into 35 #south #west)
+
+(test #angle-octant-6)
+	(octant for 230 into 40 #west #south)
+
+(test #angle-octant-7)
+	(octant for 301 into 31 #west #north)
+
+(test #angle-octant-8)
+	(octant for 359 into 1 #north #west)
+
+(test #slope-0)
+	(slope for 0 into 1 0)
+
+(test #slope-1)
+	(slope for 1 into 1 0)
+
+(test #slope-15)
+	(slope for 15 into 19 5)
+
+(test #slope-27)
+	(slope for 27 into 2 1)
+
+(test #slope-28)
+	(slope for 28 into 19 10)
+
+(test #slope-44)
+	(slope for 44 into 20 19)
+
+(test #slope-45)
+	(slope for 45 into 1 1)
+
+(assert bearing $B is $SX $SY $X $Y $PX $PY for $Num)
+	(position for 3 4 5 6 5 5 into $Here)
+	(position for $SX $SY $X $Y $PX $PY into $There)
+	(offset $Num on bearing $B from $Here into $Place)
+	(assert $Place = $There)
+
+(test #offset-north)
+	(assert bearing 0 is 3 4 5 6 5 4 for 1)
+
+(test #offset-northeast)
+	(assert bearing 45 is 3 4 5 6 6 4 for 1)
+
+(test #offset-east)
+	(assert bearing 90 is 3 4 5 6 6 5 for 1)
+
+(test #offset-southeast)
+	(assert bearing 135 is 3 4 5 6 6 6 for 1)
+
+(test #offset-south)
+	(assert bearing 180 is 3 4 5 6 5 6 for 1)
+
+(test #offset-southwest)
+	(assert bearing 225 is 3 4 5 6 4 6 for 1)
+
+(test #offset-west)
+	(assert bearing 270 is 3 4 5 6 4 5 for 1)
+
+(test #offset-northwest)
+	(assert bearing 315 is 3 4 5 6 4 4 for 1)
+
+(test #offset-30)
+	(assert bearing 30 is 3 4 6 4 6 6 for 1)
+
+(test #offset-61)
+	(assert bearing 61 is 3 4 7 5 5 4 for 1)
+
+(test #offset-121)
+	(assert bearing 121 is 3 4 5 6 10 8 for 1)
+
+(test #offset-145)
+	(assert bearing 145 is 3 4 6 7 2 5 for 1)
+
+(test #offset-210)
+	(assert bearing 210 is 3 4 4 8 4 4 for 1)
+
+(test #offset-240)
+	(assert bearing 240 is 3 4 3 7 6 6 for 1)
+
+(test #offset-300)
+	(assert bearing 300 is 3 4 3 5 6 4 for 1)
+
+(test #offset-358)
+	(assert bearing 358 is 3 4 5 4 4 5 for 1)
+
+(test #offset-359)
+	(assert bearing 359 is 3 4 5 6 5 4 for 1)
+
+(test #offset-2-north)
+	(assert bearing 0 is 3 4 5 6 5 3 for 2)
+
+(test #offset-3-northeast)
+	(assert bearing 45 is 3 4 5 6 8 2 for 3)
+
+(test #offset-4-east)
+	(assert bearing 90 is 3 4 5 6 9 5 for 4)
+
+(test #offset-5-southeast)
+	(assert bearing 135 is 3 4 5 6 10 10 for 5)
+
+(test #offset-6-south)
+	(assert bearing 180 is 3 4 5 7 5 1 for 6)
+
+(test #offset-7-southwest)
+	(assert bearing 225 is 3 4 4 7 8 2 for 7)
+
+(test #offset-8-west)
+	(assert bearing 270 is 3 4 4 6 7 5 for 8)
+
+(test #offset-15-northwest)
+	(assert bearing 315 is 3 4 3 4 10 10 for 15)
+
+(test #offset-2-30)
+	(assert bearing 30 is 3 4 7 2 7 7 for 2)
+
+(test #offset-3-61)
+	(assert bearing 61 is 4 4 1 3 5 2 for 3)
+
+(test #offset-4-121)
+	(assert bearing 121 is 3 4 7 7 5 7 for 4)
+
+(test #offset-2-145)
+	(assert bearing 145 is 3 4 6 8 9 5 for 2)
+
+(test #offset-3-210)
+	(assert bearing 210 is 3 5 2 2 2 2 for 3)
+
+(test #offset-4-240)
+	(assert bearing 240 is 2 4 7 10 9 9 for 4)
+
+(test #offset-2-300)
+	(assert bearing 300 is 3 4 1 4 7 3 for 2)
+
+(test #offset-3-358)
+	(assert bearing 358 is 3 3 5 10 2 5 for 3)
+
+(test #offset-4-359)
+	(assert bearing 359 is 3 4 5 6 5 1 for 4)
+
+(assert $Num orthogonal is $SX $SY $X $Y $PX $PY)
+	(position for 3 4 5 6 5 5 into $Here)
+	(position for 3 4 6 6 5 5 into $There)
+	(position for $SX $SY $X $Y $PX $PY into $Expected)
+	(square at $Num from $Here to $There into $Place)
+	(assert $Place = $Expected)
+
+(test #square-at-100-along-orthogonal)
+	(assert 100 orthogonal is 3 4 6 6 5 5)
+
+(test #square-at-50-along-orthogonal)
+	(assert 50 orthogonal is 3 4 5 6 10 5)
+
+(assert $Num diagonal is $SX $SY $X $Y $PX $PY)
+	(position for 3 4 5 6 5 5 into $Here)
+	(position for 3 4 6 5 5 5 into $There)
+	(position for $SX $SY $X $Y $PX $PY into $Expected)
+	(square at $Num from $Here to $There into $Place)
+	(assert $Place = $Expected)
+
+(test #square-at-141-along-diagonal)
+	(assert 141 diagonal is 3 4 6 5 5 5)
+
+(test #square-at-70-along-diagonal)
+	(assert 70 diagonal is 3 4 5 5 10 10)
+
+(assert $Num on bearing $B is $SX $SY $X $Y $PX $PY)
+	(position for 3 4 5 6 5 5 into $Here)
+	(position for $SX $SY $X $Y $PX $PY into $Expected)
+	(square at $Num on bearing $B from $Here into $Result)
+	(assert $Result = $Expected)
+
+(test #square-at-100-north)
+	(assert 100 on bearing 0 is 3 4 5 5 5 5)
+
+(test #square-at-50-north)
+	(assert 50 on bearing 0 is 3 4 5 5 5 10)
+
+(test #square-at-141-northeast)
+	(assert 141 on bearing 45 is 3 4 6 5 5 5)
+
+(test #square-at-70-northeast)
+	(assert 70 on bearing 45 is 3 4 5 5 10 10)
+
+(test #square-at-224-27)
+	(assert 224 on bearing 27 is 3 4 6 4 5 5)
+
+(test #square-in-next-sector-north)
+	(assert 900 on bearing 27 is 3 3 9 8 6 3)
+
+(test #square-in-next-sector-northwest)
+	(assert 1400 on bearing 316 is 2 3 6 7 9 5)
+
+(test #square-beyond-map-north)
+	(position for 1 1 1 1 1 1 into $Here)
+	~(square at 10000 on bearing 0 from $Here into $)
+
+(test #square-beyond-map-northwest)
+	(position for 1 1 1 1 1 1 into $Here)
+	~(square at 10000 on bearing 315 from $Here into $)
+	
+(assert that $Ship is at $Place)
+	($Ship sector x $SX)
+	($Ship sector y $SY)
+	($Ship subsector x $X)
+	($Ship subsector y $Y)
+	($Ship heading $H)
+	$SX $SY $X $Y $H
+	(assert [$SX $SY $X $Y $H] = $Place)
+
+(test #drag-to-same-sector)
+	(drag #test-ship to 3 4 8 7)
+	(assert that #test-ship is at [3 4 8 7 315])
+
+(test #drag-to-different-sector)
+	(drag #test-ship to 5 6 8 7)
+	(assert that #test-ship is at [5 6 8 7 315])
+
+(test #move-to-same-sector)
+	(move #test-ship to 3 4 8 7)
+	(assert that #test-ship is at [3 4 8 7 108])
+
+(test #move-to-different-sector)
+	(move #test-ship to 5 6 8 7)
+	(assert that #test-ship is at [5 6 8 7 132])
+
+(test #move-to-specified-subsector)
+	(move #test-ship to 8 8 10 10)
+	(assert that #test-ship is at [8 8 10 10 128])
+
+(test #move-to-other-subsector)
+	(position for 1 1 1 1 into $There)
+	(move #test-ship to subsector $There)
+	(assert that #test-ship is at [1 1 1 1 326])
+
+(test #move-to-third-subsector)
+	(move #test-ship to position [374 414])
+	(assert that #test-ship is at [3 4 8 2 38])
+
+(test #drag-100-north)
+	(drag #test-ship 100 on heading 0)
+	(assert that #test-ship is at [3 4 5 5 315])
+
+(test #move-100-north)
+	(move #test-ship 100 on heading 0)
+	(assert that #test-ship is at [3 4 5 5 0])
+
+(test #drag-141-southeast)
+	(drag #test-ship 141 on heading 135)
+	(assert that #test-ship is at [3 4 6 7 315])
+
+(test #move-141-southeast)
+	(move #test-ship 141 on heading 135)
+	(assert that #test-ship is at [3 4 6 7 135])
+
+(test #move-51-east)
+	(move #test-ship 51 on heading 90)
+	(assert that #test-ship is at [3 4 5 6 90])
+
+(test #move-71-southwest)
+	(move #test-ship 71 on heading 225)
+	(assert that #test-ship is at [3 4 4 6 225])
+
+(test #move-900-27)
+	(move #test-ship 900 on heading 27)
+	(assert that #test-ship is at [3 3 9 8 27])
+
+(test #move-1400-316)
+	(move #test-ship 1400 on heading 316)
+	(assert that #test-ship is at [2 3 6 7 316])
+
+(test #move-northwest-from-corner)
+	(move #test-ship to 1 1 1 1)
+	(assert that #test-ship is at [1 1 1 1 326])
+	(move #test-ship 100 on heading 315)
+	(assert that #test-ship is at [0 0 10 10 315])
+
+(test #move-10000-0)
+	~(move #test-ship 10000 on heading 0)
+
+(test #move-10000-314)
+	~(move #test-ship 10000 on heading 314)
+
+(test #long-move)
+	(move #test-ship to 1 1 1 1)
+	(move #test-ship 11100 on heading 135)
+	(assert that #test-ship is at [8 8 10 10 135])
+
+(test #drag-to-occupied-square)
+	(#near-target state is $There)
+	(drag #test-ship to position $There)
+	(assert that #test-ship is at [3 4 2 3 315])
+
+(test #move-to-occupied-square)
+	(#near-target state is $There)
+	(move #test-ship to position $There)
+	(assert that #test-ship is at [3 4 2 3 315])
+
+(test #drag-to-occupied-subsector)
+	(#near-target state is $There)
+	(drag #test-ship to subsector $There)
+	(assert that #test-ship is at [3 4 2 3 315])
+
+(test #move-to-occupied-subsector)
+	(#near-target state is $There)
+	(move #test-ship to subsector $There)
+	(assert that #test-ship is at [3 4 2 3 315])
+
+(test #move-toward-near-target)
+	(move #test-ship 300 toward #near-target)
+	(assert that #test-ship is at [3 4 3 4 315])
+
+(test #move-away-from-near-target)
+	(move #test-ship 300 away from #near-target)
+	(assert that #test-ship is at [3 4 7 8 135])
+
+(test #move-toward-far-target)
+	(move #test-ship 1701 toward #far-target)
+	(assert that #test-ship is at [4 3 3 2 30])
+
+(test #move-to-star-system)
+	(move #test-ship 2000 toward #sun)
+	(assert that #test-ship is at [5 5 1 5 118])
+
+(test #turn-30-starboard)
+	(turn #test-ship 30 to starboard)
+	(#test-ship heading 345)
+
+(test #turn-60-starboard-across-north)
+	(turn #test-ship 60 to starboard)
+	(#test-ship heading 15)
+
+(test #turn-30-port)
+	(turn #test-ship to heading 45)
+	(turn #test-ship 30 to port)
+	(#test-ship heading 15)
+
+(test #turn-60-port-across-north)
+	(turn #test-ship to heading 45)
+	(turn #test-ship 60 to port)
+	(#test-ship heading 345)
+
+(test #turn-30-toward-45)
+	(turn #test-ship 30 toward heading 45)
+	(#test-ship heading 345)
+
+(test #turn-60-toward-45)
+	(turn #test-ship 60 toward heading 45)
+	(#test-ship heading 15)
+
+(test #turn-90-toward-45)
+	(turn #test-ship 90 toward heading 45)
+	(#test-ship heading 45)
+
+(test #turn-91-toward-45)
+	(turn #test-ship 91 toward heading 45)
+	(#test-ship heading 45)
+
+(test #turn-30-toward-315)
+	(turn #test-ship to heading 45)
+	(turn #test-ship 30 toward heading 315)
+	(#test-ship heading 15)
+
+(test #turn-60-toward-315)
+	(turn #test-ship to heading 45)
+	(turn #test-ship 60 toward heading 315)
+	(#test-ship heading 345)
+
+(test #turn-90-toward-315)
+	(turn #test-ship to heading 45)
+	(turn #test-ship 90 toward heading 315)
+	(#test-ship heading 315)
+
+(test #turn-91-toward-315)
+	(turn #test-ship to heading 45)
+	(turn #test-ship 91 toward heading 315)
+	(#test-ship heading 315)
+
+(test #turn-90-toward-135)
+	(turn #test-ship 90 toward heading 135)
+	(#test-ship heading 45)
+
+(test #turn-180-toward-135)
+	(turn #test-ship 180 toward heading 135)
+	(#test-ship heading 135)
+
+(test #turn-181-toward-135)
+	(turn #test-ship 181 toward heading 135)
+	(#test-ship heading 135)
+
+(test #turn-90-toward-136)
+	(turn #test-ship 90 toward heading 136)
+	(#test-ship heading 225)
+
+(test #turn-180-toward-136)
+	(turn #test-ship 180 toward heading 136)
+	(#test-ship heading 136)
+
+(test #turn-45-starboard)
+	(turn #test-ship 45 to starboard)
+	(#test-ship heading 0)
+
+(test #turn-315-port)
+	(turn #test-ship 315 to port)
+	(#test-ship heading 0)

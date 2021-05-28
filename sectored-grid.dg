@@ -1,0 +1,892 @@
+%% sectored-grid.dg
+
+%% Divides a square grid into 10x10 sectors, and supports objects on the grid
+%% with a position and facing. Only one object may occupy a square at a time.
+%% Supports turning objects to new facings and moving them on the grid in
+%% either cartesian or polar coordinates.
+%%
+%% We'll represent the 10x10 grid per sector as 100x100, to support zooming
+%% in to each subsector as a 10x10 grid in cases where we care about the
+%% interior of the subsector. But we'll hide that behind the curtains when
+%% not actually peeking into the subsector.
+
+(extension version)	Sectored square grid v0.1 by Susan Davis
+
+%%-------------------------------- INTERFACES --------------------------------
+
+%% (grid object $) => object is present on our grid and occupies a square
+
+%% Grid objects all bind a per-object variable ($ state is $), which returns a
+%% list of at least three elements. The first two specify the coordinates of
+%% the object, and the third specifies its facing ("heading"). Operations on
+%% grid objects' states are required to preserve the tail beyond those first
+%% three elements, to support additional state without introducing new
+%% per-object variables. (The number of grid objects is expected to be a tiny
+%% fraction of the total objects in the game.)
+
+(interface ($<GridObject sector x $>SX))
+
+(interface ($<GridObject sector y $>SY))
+
+(interface ($<GridObject subsector x $>ZX))
+
+(interface ($<GridObject subsector y $>ZY))
+
+(interface ($<GridObject position x $>PX))
+
+(interface ($<GridObject position y $>PY))
+
+(interface ($<GridObject heading $>Heading))
+
+%% Positions and coordinates
+
+(interface (coordinates for $Position into $>SX $>SY $>X $>Y $>PX $>PY))
+
+(interface (position for $<SX $<SY $<X $<Y $<PX $<PY into $>Position))
+
+(interface (subsector for $Position into $>SX $>SY $>X $>Y))
+
+(interface (position for $<SX $<SY $<X $<Y into $>Position))
+
+%% Quadrant = 8x8 (expand to 10x10?) sectors. Sector = 10x10 subsectors.
+%% Subsector = 10x10 squares, each with at most one object.
+
+(interface ($<Here is in the same subsector as $<There))
+
+(interface ($<Position is in the quadrant))
+
+(interface (objects in sector $<X $<Y into $>List)) %% YAGNI?
+
+(interface (objects in subsector $<SX $<SY $<X $<Y into $>List))
+
+(interface (top object in subsector $<SX $<SY $<X $<Y into $>Obj))
+
+(interface (object at $<Position into $>Obj))
+
+%% Most other games use floating point numbers, floating point math,
+%% trignometry, square roots, and so forth, to get ranges and bearings
+%% actually right. We're restricted to unsigned integers, so we simplify
+%% down to integers (100/square, or 141 diagonally), and use a lookup table.
+
+(interface (calculate range from $<Here to $<There into $>Range))
+
+(interface (range from $<Object to $<Target into $>Range))
+
+%% Likewise, we don't have tangent or arctangent available, so we'll have
+%% to use a lookup table, and extrapolate for bearings involving distances
+%% larger than one sector. There's supposed to be some random sloppiness
+%% in navigation at warp speed in mainframe STARTREK anyway.
+
+(interface (calculate bearing from $<Here to $<There into $>Bearing))
+
+(interface (reciprocal bearing for $<Bearing into $>Result))
+
+(interface (bearing from $<Object to $<Target into $>Bearing))
+
+%% "Angle" means bow angle, converting bearing into a value relative
+%% to the object's heading.
+
+(interface (angle from $<Ship to $<Target into $>Angle))
+
+%% Turn, without moving the object
+
+(interface (turn $<Ship to bearing $<Bearing))
+
+(interface (turn $<Ship $<Degrees to starboard))
+
+(interface (turn $<Ship $<Degrees to port))
+
+(interface (turn $<Ship $<Degrees toward heading $<Bearing))
+
+(interface (turn $<Ship to face position $<Position))
+
+(interface (turn $<Ship to face subsector $<Position))
+
+(interface (turn $<Ship about))
+
+(interface (turn $<Ship hard to starboard))
+
+(interface (turn $<Ship hard to port))
+
+(interface (turn $<Ship to face $<Target))
+
+(interface (turn $<Ship away from $<Target))
+
+%% Drag: keep the object in the same orientation and translate the ship to
+%% its new position.
+
+(interface (drag $<Ship to position $<Position))
+
+(interface (drag $<Ship to subsector $<Position))
+
+(interface (drag $Ship to $SX $SY $X $Y))
+
+(interface (drag $<Ship $<Distance on heading $<Heading))
+
+(interface (drag $<Ship $<Distance toward $<GridObject))
+
+%% Move: turn the object toward the destination, and then drag there.
+
+(interface (move $<Ship to position $<Position))
+
+(interface (move $<Ship to subsector $<Position))
+
+(interface (move $<Ship to $<SX $<SY $<X $<Y))
+
+(interface (move $<Ship $<Distance on heading $<Heading))
+
+(interface (move $<Ship $<Distance forward))
+
+(interface (move $<Ship $<Distance toward $<GridObject))
+
+(interface (move $<Ship $<Distance away from $<GridObject))
+
+%% ------------------------------ HELPERS ------------------------------
+
+($Num1 delta $Num2 into $Result)
+	(if) ($Num1 > $Num2) (then)
+		($Num1 minus $Num2 into $Result)
+	(else)
+		($Num2 minus $Num1 into $Result)
+	(endif)
+
+(split $Number into $Thousands $Hundreds $Tens $Ones)
+	($Number divided by 1000 into $Thousands)
+	($Number modulo 1000 into $Remaining1)
+	($Remaining1 divided by 100 into $Hundreds)
+	($Remaining1 modulo 100 into $Remaining2)
+	($Remaining2 divided by 10 into $Tens)
+	($Remaining2 modulo 10 into $Ones)
+
+%% ensure that the "Y" is bigger so we don't run off the end of a table row
+
+(sort $X $Y into $RX $RY)
+	(if) ($X > $Y) (then)
+		($RX = $Y)
+		($RY = $X)
+	(else)
+		($RX = $X)
+		($RY = $Y)
+	(endif)
+
+%% ------------------------------ POSITIONS ------------------------------
+
+%% As a cheap, sleazy hack, we set our origin point at 100, 100 and not
+%% 0, 0, so that subtraction doesn't cross zero and fail, and so that we
+%% don't have to keep checking for overflows. Since classic mainframe
+%% STARTREK is 1-based rather than 0-based in its coordinates, that means
+%% correcting subsectors and position squares, but not sectors.
+
+(coordinates for $Position into $SX $SY $X $Y $PX $PY)
+	([$BigX $BigY | $] = $Position)
+	(split $BigX into $ $SX $RX $RPX)
+	(split $BigY into $ $SY $RY $RPY)
+	($RX  plus 1 into $X)
+	($RY  plus 1 into $Y)
+	($RPX plus 1 into $PX)
+	($RPY plus 1 into $PY)
+
+(position for $SX $SY $X $Y $PX $PY into $Position)
+	($SX times 100 into $HX)
+	($SY times 100 into $HY)
+	($X  minus 1   into $MX)
+	($Y  minus 1   into $MY)
+	($MX times 10  into $TX)
+	($MY times 10  into $TY)
+	($HX plus  $TX into $QX)
+	($HY plus  $TY into $QY)
+	($QX plus  $PX into $ZX)
+	($QY plus  $PY into $ZY)
+	($ZX minus 1   into $RX)
+	($ZY minus 1   into $RY)
+	([$RX $RY] = $Position)
+
+(subsector for $Position into $SX $SY $X $Y)
+	(coordinates for $Position into $SX $SY $X $Y $ $)
+
+(position for $SX $SY $X $Y into $Position)
+	(position for $SX $SY $X $Y 5 5 into $Position)
+
+($Here is in the same subsector as $There)
+	(subsector for $Here  into $HSX $HSY $HX $HY)
+	(subsector for $There into $TSX $TSY $TX $TY)
+	([$HSX $HSY $HX $HY] = [$TSX $TSY $TX $TY])
+
+%% ------------------------------ STATE ------------------------------
+
+($Object x $X)
+	($Object state is $State)
+	(nth $State 1 $X)
+
+($Object y $Y)
+	($Object state is $State)
+	(nth $State 2 $Y)
+
+($Object heading $Heading)
+	($Object state is $State)
+	(nth $State 3 $Heading)
+
+($Object sector x $SX)
+	($Object x $BigX)
+	(split $BigX into $ $SX $ $)
+
+($Object sector y $SY)
+	($Object y $BigY)
+	(split $BigY into $ $SY $ $)
+
+($Object subsector x $X) 
+	($Object x $BigX)
+	(split $BigX into $ $ $Result $)
+	($Result plus 1 into $X) %% subsectors are 1-based
+
+($Object subsector y $Y) 
+	($Object y $BigY)
+	(split $BigY into $ $ $Result $)
+	($Result plus 1 into $Y) %% subsectors are 1-based
+
+($Object position x $PX) 
+	($Object x $BigX)
+	(split $BigX into $ $ $ $Result)
+	($Result plus 1 into $PX) %% positions are 1-based
+
+($Object position y $PY) 
+	($Object y $BigY)
+	(split $BigY into $ $ $ $Result)
+	($Result plus 1 into $PY) %% positions are 1-based
+
+%% ------------------------------ NEARBY ------------------------------
+
+($Place is in the quadrant)
+	([$X $Y | $] = $Place)
+	($X > 99) ($X < 900) %% or 1100 if we go to 10x10 quadrants
+	($Y > 99) ($Y < 900) %% or 1100 if we go to 10x10 quadrants
+
+(objects in sector $X $Y into $List)
+	(collect $Obj)
+		*(grid object $Obj)
+		       ($Obj sector x $SX)
+		       ($Obj sector y $SY)
+		       ([$SX $SY] = [$X $Y])
+	(into $List)
+
+(objects in subsector $SX $SY $X $Y into $List)
+	(collect $Obj)
+		*(grid object $Obj)
+		       ($Obj sector x $SX)
+		       ($Obj sector y $SY)
+		       ($Obj subsector x $X) 
+		       ($Obj subsector y $Y)
+	(into $List)
+
+%% Declare all grid objects in ascending order of importance in scans,
+%% and the most important object in the subsector will come first.
+
+(top object in subsector $SX $SY $X $Y into $Obj)
+	(objects in subsector $SX $SY $X $Y into $List)
+	([$Obj | $] = $List)
+
+(object at $Position into $Obj)
+	([$X $Y | $] = $Position)
+	*(grid object $Obj)
+		($Obj x $X) 
+		($Obj y $Y)
+
+%% ------------------------- SQUARES AND COLLISIONS -------------------------
+
+(next coordinates $Relation from $X $Y into $NX $NY)
+	(if) ($Relation = #north) (then)
+		($X = $NX)
+		($Y minus 1 into $NY)
+	(elseif) ($Relation = #northeast) (then)
+		($X plus  1 into $NX)
+		($Y minus 1 into $NY)
+	(elseif) ($Relation = #east)      (then)
+		($X plus  1 into $NX)
+		($Y = $NY)
+	(elseif) ($Relation = #southeast) (then)
+		($X plus  1 into $NX)
+		($Y plus  1 into $NY)
+	(elseif) ($Relation = #south)     (then)
+		($X = $NX)
+		($Y plus 1 into $NY)
+	(elseif) ($Relation = #southwest) (then)
+		($X minus 1 into $NX)
+		($Y plus  1 into $NY)
+	(elseif) ($Relation = #west)      (then)
+		($X minus 1 into $NX)
+		($Y = $NY)
+	(elseif) ($Relation = #northwest) (then)
+		($X minus 1 into $NX)
+		($Y minus 1 into $NY)
+	(else)
+		(fail)
+	(endif)
+
+(next square $Relation from $Place into $Result)
+	([$X $Y | $Tail] = $Place)
+	(next coordinates $Relation from $X $Y into $NX $NY)
+	([$NX $NY | $Tail] = $Result)
+
+(closest unoccupied square to $Place from $Origin into $Result)
+	(if) ~(object at $Place into $) (or) ($Place = $Origin) (then)
+		($Result = $Place)
+	(else)
+		(calculate bearing from $Place to $Origin into $Bearing)
+		(direction for $Bearing into $Direction)
+		(next square $Direction from $Place into $New)
+		(closest unoccupied square to $New from $Origin into $Result)
+	(endif)
+
+(next subsector $Relation from $Place into $Result)
+	([$ $ | $Tail] = $Place)
+	(subsector for $Place into $SX $SY $X $Y)
+	(next coordinates $Relation from $X $Y into $NX $NY)
+	(position for $SX $SY $NX $NY into $Position)
+	([$RX $RY] = $Position)
+	([$RX $RY | $Tail] = $Result)
+
+(closest unoccupied subsector to $Place from $Origin into $Result)
+	(subsector for $Place into $SX $SY $X $Y)
+	(objects in subsector $SX $SY $X $Y into $List)
+	(if) ($Origin is in the same subsector as $Place)
+		(or) (empty $List)
+	(then)
+		($Result = $Place)
+	(else)
+		(calculate bearing from $Place to $Origin into $Bearing)
+		(direction for $Bearing into $Direction)
+		(next subsector $Direction from $Place into $New)
+		(closest unoccupied subsector to $New from $Origin into $Result)
+	(endif)
+
+%% Fails if we walk off the map to the north or west. Should we hit the
+%% boundary and stick at the point where we go out, instead?
+
+($Num squares $Direction from $Place into $Result)
+	($Place = [$BigX $BigY | $Tail])
+	(if) ($Direction = #east) (or) ($Direction = #northeast)
+		(or) ($Direction = #southeast)
+	(then)
+		($BigX plus  $Num into $NewX)
+	(elseif) ($Direction = #west) (or) ($Direction = #northwest)
+	     	(or) ($Direction = #southwest)
+	(then)
+		($BigX minus $Num into $NewX)
+	(else)
+		($NewX = $BigX)
+	(endif)
+	(if) ($Direction = #north) (or) ($Direction = #northeast)
+		(or) ($Direction = #northwest)
+	(then)
+		($BigY minus $Num into $NewY)
+	(elseif) ($Direction = #south) (or) ($Direction = #southeast)
+	     	(or) ($Direction = #southwest)
+	(then)
+		($BigY plus $Num into $NewY)
+	(else)
+		($NewY = $BigY)
+	(endif)
+	([$NewX $NewY | $Tail] = $Result)
+
+%% ------------------------------ BEARINGS ------------------------------
+
+(reciprocal bearing for $Bearing into $Result)
+	(180 plus $Bearing into $Sum)
+	(if) ~($Sum < 360) (then)
+		($Sum minus 360 into $Result)
+	(else)
+		($Result = $Sum)
+	(endif)
+
+(direction for $Bearing into $Direction)
+	(if) ($Bearing > 22)  ($Bearing < 68)  (then)
+		($Direction = #northeast)
+	(elseif) ($Bearing > 67)  ($Bearing < 113) (then)
+		($Direction = #east)
+	(elseif) ($Bearing > 112) ($Bearing < 158) (then)
+		($Direction = #southeast)
+	(elseif) ($Bearing > 157) ($Bearing < 203) (then)
+		($Direction = #south)
+	(elseif) ($Bearing > 202) ($Bearing < 248) (then)
+		($Direction = #southwest)
+	(elseif) ($Bearing > 247) ($Bearing < 293) (then)
+		($Direction = #west)
+	(elseif) ($Bearing > 292) ($Bearing < 338) (then)
+		($Direction = #northwest)
+	(else)
+		($Direction = #north)
+	(endif)
+
+%% Lookup table for calculating bearings, since we don't have tan/atan
+%% or floating point numbers available. Select the list equal to the
+%% y-delta, and pick the element equal to the x-delta, then adjust for
+%% which quadrant you're in by adding or subtracting from one of the
+%% cardinal bearing numbers. Note that we don't need entries for zero,
+%% since the value will be 0.
+
+(bearings table
+	[[45]
+	 [27 45]
+	 [18 34 45]
+	 [14 27 37 45]
+	 [11 22 31 39 45]
+	 [ 9 18 27 34 40 45]
+	 [ 8 16 23 30 36 41 45]
+	 [ 7 14 21 27 32 37 41 45]
+	 [ 6 13 18 24 29 34 38 42 45]
+	 [ 6 11 17 22 27 31 35 39 42 45]
+	 [ 5 10 15 20 24 29 32 36 39 42 45]
+	 [ 5  9 14 18 23 27 30 34 37 40 43 45]
+	 [ 4  9 13 17 21 25 28 32 35 38 40 43 45]
+	 [ 4  8 12 16 20 23 27 30 33 36 38 41 43 45]
+	 [ 4  8 11 15 18 22 25 28 31 34 36 39 41 43 45]
+	 [ 4  7 11 14 17 21 24 27 29 32 35 37 39 41 43 45]
+	 [ 3  7 10 13 16 19 22 25 28 30 33 35 37 39 41 43 45]
+	 [ 3  6  9 13 15 18 21 24 27 29 31 34 36 38 40 42 43 45]
+	 [ 3  6  9 12 15 18 20 23 25 28 30 32 34 36 38 40 42 43 45]
+	 [ 3  6  9 11 14 17 19 22 24 27 29 31 33 35 37 39 40 42 43 45]])
+
+%% "X" and "Y" in these bearing calculations don't necessarily mean the
+%% actual X and Y on the grid; it depends on which octant. Y is the larger
+%% of the two values.
+
+(look up bearing for $DX $DY into $Bearing)
+	(if) ($DX = 0) (then)
+		($Bearing = 0)
+	(else)
+		(scale $DX $DY into $NX $NY)
+		(sort $NX $NY into $X $Y)
+		(bearings table $Table)
+		(nth $Table $Y $Row)
+		(nth $Row $X $Bearing)
+	(endif)
+
+%% For targets more than 20 squares away, scale down so that we fit
+%% within 20x20 and don't overrun the bearing lookup table.
+
+(scale $DX $DY into $X $Y)
+	(if) ($DY > 10) (or) ($DX > 10) (then)
+		(if) ($DX > $DY) (then)
+			($Largest = $DX)
+			($DX divided by 20 into $Div)
+		(else)
+			($Largest = $DY)
+			($DY divided by 20 into $Div)
+		(endif)
+		($Div plus 1 into $Scale)
+		($DX divided by $Scale into $X)
+		($DY divided by $Scale into $Y)
+	(else)
+		($X = $DX)
+		($Y = $DY)
+	(endif)
+
+%% Dividing into eight octants allows us to make small tables that only
+%% cover a 45 degree sector.
+
+(octant from $Here to $There into $Octant)
+	([$HX $HY | $] = $Here)
+	([$TX $TY | $] = $There)
+	($HX delta $TX into $DX)
+	($HY delta $TY into $DY)
+	(if) ($HX < $TX) (then)
+		(if) ($HY > $TY) (then)
+			(if) ($DY > $DX) (then)
+				($Octant = 1)
+			(else)
+				($Octant = 2)
+			(endif)
+		(else)
+			(if) ($DY < $DX) (then)
+				($Octant = 3)
+			(else)
+				($Octant = 4)
+			(endif)
+		(endif)
+	(else)
+		(if) ($HY < $TY) (then)
+			(if) ($DY > $DX) (then)
+				($Octant = 5)
+			(else)
+				($Octant = 6)
+			(endif)
+		(else)
+			(if) ($DY < $DX) (then)
+				($Octant = 7)
+			(else)
+				($Octant = 8)
+			(endif)
+		(endif)
+	(endif)
+
+%% Convert from the table into the final compass bearing.
+
+(bearing for $Angle in octant $Octant into $Bearing)
+	(if)     ($Octant = 1) (then)
+		($Bearing = $Angle)
+	(elseif) ($Octant = 2) (then)
+		(90 minus $Angle into $Bearing)
+	(elseif) ($Octant = 3) (then)
+		($Angle plus 90 into $Bearing)
+	(elseif) ($Octant = 4) (then)
+		(180 minus $Angle into $Bearing)
+	(elseif) ($Octant = 5) (then)
+		($Angle plus 180 into $Bearing)
+	(elseif) ($Octant = 6) (then)
+		(270 minus $Angle into $Bearing)
+	(elseif) ($Octant = 7) (then)
+		($Angle plus 270 into $Bearing)
+	(elseif) ($Octant = 8) ($Angle > 0) (then)
+		(360 minus $Angle into $Bearing)
+	(else)
+		($Bearing = 0)
+	(endif)
+
+%% And all that adds up to this, which does the final calculation:
+
+(calculate bearing from $Here to $There into $Result)
+	(octant from $Here to $There into $Octant)
+	([$HX $HY | $] = $Here)
+	([$TX $TY | $] = $There)
+	($HX delta $TX into $DX)
+	($HY delta $TY into $DY)
+	(sort $DX $DY into $Little $Big)
+	(look up bearing for $Little $Big into $Angle)
+	(bearing for $Angle in octant $Octant into $Result)
+
+(bearing from $Ship to $Target into $Result)
+	($Ship state is $Here)
+	($Target state is $There)
+	(calculate bearing from $Here to $There into $Result)
+
+%% ------------------------------ BOW ANGLE ------------------------------
+
+%% bow angle = angle clockwise from the current heading to the bearing
+
+(angle clockwise from $Heading to $Bearing into $Result)
+	(if) ($Heading > $Bearing) (then)
+		(360 plus $Bearing into $B)
+	(else)
+		($Bearing = $B)
+	(endif)
+	($B minus $Heading into $Result)
+
+(angle from $Ship to $Target into $Result)
+	($Ship heading $Heading)
+	(bearing from $Ship to $Target into $Bearing)
+	(angle clockwise from $Heading to $Bearing into $Result)
+
+%% ------------------------- REVERSE BEARINGS ---------------------------
+
+%% Since we can't use trigonometry, we'll use a lookup table to get the
+%% approximately correct slope for the angle we want. We'll draw a line
+%% along that slope from the origin, measure out a certain number of
+%% units along that line, and go square by square at the very end.
+
+(angle table $Table) ($Table =
+	[[ 1  0] [20  1] [18  1] [15  1] [11  1] %% 5
+	 [ 9  1] [ 8  1] [ 7  1] [ 6  1] [11  2] %% 10
+	 [16  3] [19  4] [ 9  2] [ 4  1] [19  5] %% 15
+	 [17  5] [10  3] [19  6] [20  7] [19  7] %% 20
+	 [18  7] [ 5  2] [19  8] [20  9] [19  9] %% 25
+	 [ 2  1] [ 2  1] [19 10] [20 11] [19 11] %% 30
+	 [ 5  3] [19 12] [20 13] [19 13] [10  7] %% 35
+	 [19 14] [ 4  3] [19 15] [ 5  4] [20 17] %% 40
+	 [17 15] [10  9] [20 19] [20 19] [ 1  1]])
+
+(slope for $Angle into $X $Y)
+	(if) ($Angle = 0) (then)
+		($X = 1)
+		($Y = 0)
+	(else)
+		(angle table $Table)
+		(nth $Table $Angle $Tuple)
+		([$X $Y] = $Tuple)
+	(endif)
+
+(octant for $Bearing into $Angle $XDir $YDir)
+	(if) ($Bearing < 46) (then)
+		($Angle = $Bearing)
+		($XDir = #north)
+		($YDir = #east)
+	(elseif) ($Bearing > 45)  ($Bearing < 91) (then)
+		(90 minus $Bearing into $Angle)
+		($XDir = #east)
+		($YDir = #north)
+	(elseif) ($Bearing > 90)  ($Bearing < 136) (then)
+		($Bearing minus 90 into $Angle)
+		($XDir = #east)
+		($YDir = #south)
+	(elseif) ($Bearing > 135) ($Bearing < 181) (then)
+		(180 minus $Bearing into $Angle)
+		($XDir = #south)
+		($YDir = #east)
+	(elseif) ($Bearing > 180) ($Bearing < 226) (then)
+		($Bearing minus 180 into $Angle)
+		($XDir = #south)
+		($YDir = #west)
+	(elseif) ($Bearing > 225) ($Bearing < 271) (then)
+		(270 minus $Bearing into $Angle)
+		($XDir = #west)
+		($YDir = #south)
+	(elseif) ($Bearing > 270) ($Bearing < 316) (then)
+		($Bearing minus 270 into $Angle)
+		($XDir = #west)
+		($YDir = #north)
+	(else)
+		(360 minus $Bearing into $Angle)
+		($XDir = #north)
+		($YDir = #west)
+	(endif)
+
+(offset $Num on bearing $Bearing from $Place into $Result)
+	(octant for $Bearing into $Angle $XDir $YDir)
+	(slope for $Angle into $DX $DY)
+	($DX times $Num into $OX)
+	($DY times $Num into $OY)
+	($OX squares $XDir from $Place   into $XOffset)
+	($OY squares $YDir from $XOffset into $R)
+	($Result = $R)
+
+(square $Distance $Origin $Destination into $Result)
+	(calculate bearing from $Origin to $Destination into $Bearing)
+	(direction for $Bearing into $Direction)
+	(if) ($Direction = #northeast) (or) ($Direction = #northwest) (or)
+	     ($Direction = #southeast) (or) ($Direction = #southwest)
+	(then)
+		($Step = 14) ($Half = 7)
+	(else)
+		($Step = 10) ($Half = 5)
+	(endif)
+        (next square $Direction from $Origin into $Next)
+	(if) ($Origin = $Destination) (or) ($Distance < $Half)
+	     (or) ~($Next is in the quadrant)
+	(then)
+	     ($R = $Origin)
+	(else)
+	     (if) ($Distance < $Step) (then)
+		  ($R = $Next)
+	     (else)
+		  (calculate range from $Origin to $Next into $Travelled)
+		  ($Distance minus $Travelled into $Remaining)
+		  (square at $Remaining from $Next to $Destination into $R)
+	     (endif)
+	(endif)
+	($Result = $R)
+
+(square at $Distance from $Origin to $Destination into $Result)
+	(calculate range from $Origin to $Destination into $Range)
+	(if) ($Distance < $Range) (then)
+		(square $Distance $Origin $Destination into $Result)
+	(else)
+		($Result = $Destination)
+	(endif)
+
+(square at $Distance on bearing $Bearing from $Place into $Result)
+	(offset 1 on bearing $Bearing from $Place into $Offset)
+	(calculate range from $Place to $Offset into $Increment)
+	($Distance divided by $Increment into $Multiple)
+	($Distance modulo $Increment into $Remainder)
+	(offset $Multiple on bearing $Bearing from $Place into $Undershoot)
+	(if) ($Remainder > 0) (then)
+	     ($Multiple plus 1 into $Mult)
+	     (offset $Mult on bearing $Bearing from $Place into $Overshoot)
+	     ($Increment times $Multiple into $Base)
+	     ($Distance minus $Base into $Remaining)
+	     (square at $Remaining from $Undershoot to $Overshoot into $Result)
+	(else)
+	     ($Result = $Undershoot)
+	(endif)
+
+%% ------------------------------ RANGE ------------------------------
+
+%% Again, no square roots, so no Pythagorean Theorem, so we have to use
+%% another lookup table here.
+
+(range table 
+	[[ 141]
+	 [ 224  283]
+	 [ 316  361  424]
+	 [ 412  447  500  566]
+	 [ 510  539  583  640  707]
+	 [ 608  632  671  721  781  849]
+	 [ 707  728  762  806  860  922  990]
+	 [ 806  825  854  894  943 1000 1063 1131]
+	 [ 906  922  949  985 1030 1082 1140 1204 1273]
+	 [1005 1020 1044 1077 1118 1166 1221 1280 1345 1414]])
+
+(look up range for $X $Y into $Result)
+	(range table $Table)
+	(if) ($X = 0) (then)
+		($Y times 100 into $Result)
+	(elseif) ($Y = 0) (then)
+		($X times 100 into $Result)
+	(elseif) ($X > $Y) (then)
+		(nth $Table $X $Row)
+		(nth $Row $Y $Result)
+	(else)
+		(nth $Table $Y $Row)
+		(nth $Row $X $Result)
+	(endif)
+
+(calculate range from $Here to $There into $Range)
+	([$HX $HY | $] = $Here)
+	([$TX $TY | $] = $There)
+	($HX delta $TX into $DX)
+	($HY delta $TY into $DY)
+	(split $DX into $XThousands $XHundreds $XTens $XOnes)
+	(split $DY into $YThousands $YHundreds $YTens $YOnes)
+	(look up range for $XThousands $YThousands into $RangeThousands)
+	(look up range for $XHundreds $YHundreds into $RangeHundreds)
+	(look up range for $XTens $YTens into $Tens)
+	(look up range for $XOnes $YOnes into $RangeOnes)
+	($RangeThousands times 100 into $Thousands)
+	($RangeHundreds times 10 into $Hundreds)
+	($RangeOnes divided by 10 into $Ones)
+	($Thousands plus $Hundreds into $Sum1)
+	($Tens plus $Ones into $Sum2)
+	($Sum1 plus $Sum2 into $Range)
+
+(range from $Ship to $Target into $Range)
+	($Ship   state is $Here)
+	($Target state is $There)
+	(calculate range from $Here to $There into $Range)
+
+%% ------------------------------ TURNING ------------------------------
+
+(turn $Ship to heading $Heading)
+	($Ship state is $State)
+	([$X $Y $        | $Tail] = $State)
+	([$X $Y $Heading | $Tail] = $NewState)
+	(now) ($Ship state is $NewState)
+
+(turn $Ship $Degrees to starboard)
+	($Ship heading $Heading)
+	($Heading plus $Degrees into $New)
+	(if) ($New > 359) (then)
+		($New minus 360 into $NewHeading)
+	(else)
+		($NewHeading = $New)
+	(endif)
+	(turn $Ship to heading $NewHeading)
+
+(turn $Ship $Degrees to port)
+	($Ship heading $H)
+	(if) ($H < $Degrees) (then)
+		($H plus 360 into $Heading)
+	(else)
+		($Heading = $H)
+	(endif)
+	($Heading minus $Degrees into $NewHeading)
+	(turn $Ship to heading $NewHeading)
+
+(turn $Ship $Degrees toward heading $Heading)
+	($Ship heading $H)
+	(angle clockwise from $H to $Heading into $RawAngle)
+	(if) ($RawAngle > 180) (then)
+		(360 minus $RawAngle into $Angle)
+	(else)
+		($RawAngle = $Angle)
+	(endif)
+	(if) ($Angle > $Degrees) (then)
+		($Turn = $Degrees)
+	(else)
+		($Turn = $Angle)
+	(endif)
+	(if) ($RawAngle > 180) (then)
+		(turn $Ship $Turn to port)
+	(else)
+		(turn $Ship $Turn to starboard)
+	(endif)
+	
+(turn $Ship to face position $There)
+	($Ship state is $State)
+	(calculate bearing from $State to $There into $Bearing)
+	(turn $Ship to heading $Bearing)
+
+(turn $Ship to face $SX $SY $X $Y)
+	(position for $SX $SY $X $Y into $There)
+	(turn $Ship to face position $There)
+
+(turn $Ship to face subsector $Position)
+	(subsector for $Position into $SX $SY $X $Y)
+	(turn $Ship to face $SX $SY $X $Y)
+
+(turn $Ship to face $Target)
+	($Target state is $There)
+	(turn $Ship to face position $There)
+
+(turn $Ship away from $Target)
+	(turn $Ship to face $Target)
+	(turn $Ship about)
+
+(turn $Ship about)
+	($Ship heading $Course)
+	(reciprocal bearing for $Course into $NewHeading)
+	(turn $Ship to heading $NewHeading)
+
+(turn $Ship hard to starboard)
+	(turn $Ship 90 to starboard)
+
+(turn $Ship hard to port)
+	(turn $Ship 90 to port)
+
+%% ------------------------------ MOVEMENT ------------------------------
+
+%% drag == move, but leave heading alone
+
+(drag $Ship to position $Desired)
+	($Ship state is $Origin)
+	([$ $ | $Tail]   = $Origin)
+	(closest unoccupied square to $Desired from $Origin into $Square)
+	([$X $Y | $]     = $Square)
+	([$X $Y | $Tail] = $NewState)
+	(now) ($Ship state is $NewState)
+
+(drag $Ship to subsector $Desired)
+	(subsector for $Desired into $SX $SY $X $Y)
+	(position for $SX $SY $X $Y into $There)
+	(drag $Ship to position $There)
+
+(drag $Ship to $SX $SY $X $Y)
+	(position for $SX $SY $X $Y into $There)
+	(drag $Ship to position $There)
+
+(drag $Ship $Distance on heading $Heading)
+	($Ship state is $Origin)
+	(square at $Distance on bearing $Heading from $Origin into $Desired)
+	(drag $Ship to position $Desired)
+
+(drag $Ship $Distance toward $Target)
+	(bearing from $Ship to $Target into $Bearing)
+	(drag $Ship $Distance on heading $Bearing)
+
+%% move == turn, then drag
+
+(move $Ship to position $Destination)
+	(turn $Ship to face position $Destination)
+	(drag $Ship to position $Destination)
+
+(move $Ship to subsector $Destination)
+	(turn $Ship to face subsector $Destination)
+	(drag $Ship to subsector $Destination)
+
+(move $Ship to $SX $SY $X $Y)
+	(turn $Ship to face $SX $SY $X $Y)
+	(drag $Ship to $SX $SY $X $Y)
+
+(move $Ship $Distance on heading $Heading)
+	(turn $Ship to heading $Heading)
+	(drag $Ship $Distance on heading $Heading)
+
+(move $Ship $Distance forward)
+	($Ship heading $Heading)
+	(move $Ship $Distance on heading $Heading)
+
+(move $Ship $Distance toward $Target)
+	(turn $Ship to face $Target)
+	(drag $Ship $Distance toward $Target)
+
+(move $Ship $Distance away from $Target)
+	(turn $Ship away from $Target)
+	(move $Ship $Distance forward)

@@ -1,0 +1,107 @@
+%% maneuvering.dg
+%% Also include sectored-grid.dg when compiling or debugging.
+
+(extension version)	Ship maneuvering v0.1 by Susan Davis
+
+%%-------------------------------- INTERFACES --------------------------------
+
+(interface (update $<Ship))
+
+(interface (move $<Ship for $<Ticks minutes))
+
+(interface (move $<Ship randomly))
+
+(interface (attract nearby ships to $<Object))
+
+%%------------------------------ IMPLEMENTATION ------------------------------
+
+(distance for speed $Speed into $Distance)
+	(if) ($Speed = 0) (then)
+		($Distance = 10)
+	(else)
+		($Speed times 100 into $Distance)
+	(endif)
+
+($Ship energy needed for distance $Distance into $Energy)
+	($Distance divided by 100 into $Squares)
+
+($Ship can move $Distance with remaining energy)
+
+(turn $Ship to helm setting)
+	($Ship effective turn mode $Mode)
+	($Ship helm setting $Helm)
+	(turn $Ship $Mode toward heading $Helm)
+
+(accelerate $Ship to throttle setting)
+	($Ship speed $Speed)
+	($Ship throttle setting $Throttle)
+	(if) ($Speed < $Throttle) (then)
+		($Ship acceleration $Accel)
+		($Speed plus $Accel into $MaxSpeed)
+		(if) ($MaxSpeed > $Throttle) (then)
+			($NewSpeed = $Throttle)
+		(else)
+			($NewSpeed = $MaxSpeed)
+		(endif)
+	(else)
+		($NewSpeed = $Throttle)
+	(endif)
+	(accelerate $Ship to $NewSpeed)
+
+($Ship should move $Result)
+	($Ship state is $State)
+	($Ship destination $Destination)
+	(calculate range from $State to $Destination into $Range)
+	($Ship speed $Speed)
+	(distance for speed $Speed into $Distance)
+	(if) ($Range > $Distance) (then)
+		($Result = $Distance)
+	(else)
+		($Result = $Range)
+	(endif)
+
+(move $Ship toward destination)
+	($Ship should move $Distance)
+	($Ship energy needed for distance $Distance into $Needed)
+	($Ship energy $Energy)
+	(if) ~($Energy < $Needed) (then)
+		(move $Ship $Distance toward $Destination)
+		(decrease energy for $Ship by $Needed)
+	(else)
+		($Ship can move $Remaining with remaining energy)
+		(move $Ship $Remaining toward $Destination)
+		(decrease energy for $Ship by $Energy)
+	(endif)
+	(if) ($Distance = 0) (or) ($Energy < $Needed) (then)
+		(accelerate $Ship to 0)
+	(endif)
+
+(update $Ship)
+	(turn $Ship to helm setting)
+	(accelerate $Ship to throttle setting)
+	(move $Ship toward destination)
+	(regenerate energy for $Ship)
+
+(move $Ship for $Ticks minutes)
+	($Ticks > 0)
+	(update $Ship)
+	($Ticks minus 1 into $Remaining)
+	(move $Ship for $Remaining minutes)
+
+(move $Ship randomly)
+	($Ship subsector into $SX $SY $ $)
+	(random from 1 to 10 into $X)
+	(random from 1 to 10 into $Y)
+	(random from 1 to 10 into $PX)
+	(random from 1 to 10 into $PY)
+	(set destination for $Ship to $SX $SY $X $Y $PX $PY)
+
+(attract nearby ships to $Object)
+	($Object subsector into $SX $SY $X $Y)
+	(exhaust) {
+		*(ship $Ship)
+		($Ship subsector into $SX $SY $X $Y)
+		(drag $Ship 12 toward $Object)
+	}
+	
+	

@@ -1,0 +1,265 @@
+%% dgdebug -q schema-tests.dg schema.dg sectored-grid.dg \
+%%	testrunner.dg stdlib.dg
+
+(list of tests [
+	#coordinates
+	#subsector
+	#speed
+	#energy
+	#crystals
+	#shields
+	#shield-levels
+	#ammo
+	#damage
+	#helm
+	#throttle
+	#destination
+	#destination-subsector
+	#destination-precisely
+	#turn-mode
+	#effective-turn-mode
+	#effective-turn-mode-sublight
+	#acceleration
+	#drive-params
+	#efficiency
+	#top-speed
+	#class
+	#ship-class
+	#initialize
+	#place-at
+	#place-at-subsector
+	#place-in-sector
+	#take-last-n
+	#take-last-zero
+	#take-last-more-than-len
+	#replace-element
+	#replace-element-zero
+	#replace-element-beyond-end
+	#increase-element
+	#decrease-element
+	#decrease-element-below-zero
+	#set-destination
+	#set-destination-subsector
+	#set-destination-precisely
+	#set-helm
+	#set-throttle
+	#set-throttle-too-fast
+	#decrease-ammo
+	#decrease-ammo-below-zero
+	#decrease-energy
+	#decrease-energy-below-zero
+	#regenerate
+	#accelerate
+	#accelerate-too-fast
+	#decelerate
+	])
+
+%% ----------------------------------------------------------------------
+
+#test-ship
+(grid object *)
+(initial state [344 454 315 4 300 400 #cygnus-class
+		932 4 500 [100 100 100 100] 10 315 4])
+
+(set up $)  	(initial state $State)
+		(now) (* state is $State)
+
+#cygnus-class
+(name *)	Cygnus
+(type *)	scout ship
+(* state is [0 0 180 3 5 7 #cygnus-class 1000 4 500 [100 100 100 100] 10])
+
+%% ----------------------------------------------------------------------
+
+(test #coordinates)
+	(#test-ship coordinates into 3 4 5 6 5 5)
+
+(test #subsector)
+	(#test-ship subsector into 3 4 5 6)
+
+(test #speed)
+	(#test-ship speed 4)
+
+(test #energy)
+	(#test-ship energy 932)
+
+(test #crystals)
+	(#test-ship crystals 4)
+
+(test #shields)
+	(#test-ship shields 500)
+
+(test #shield-levels)
+	(#test-ship shield levels [100 100 100 100])
+
+(test #ammo)
+	(#test-ship ammo 10)
+
+(test #damage)
+	(#test-ship damage [])
+
+(test #helm)
+	(#test-ship helm setting 315)
+
+(test #throttle)
+	(#test-ship throttle setting 4)
+
+(test #destination)
+	(#test-ship destination [300 400])
+
+(test #destination-subsector)
+	(#test-ship destination 3 4 1 1)
+
+(test #destination-precisely)
+	(#test-ship destination 3 4 1 1 1 1)
+
+(test #turn-mode)
+	(#test-ship turn mode 180)
+
+(test #effective-turn-mode)
+	(#test-ship effective turn mode 45)
+
+(test #effective-turn-mode-sublight)
+	(accelerate #test-ship to 0)
+	(#test-ship effective turn mode 360)
+
+(test #acceleration)
+	(#test-ship acceleration 3)
+
+(test #drive-params)
+	(#test-ship drive parameters [5 7])
+
+(test #efficiency)
+	(#test-ship drive efficiency 5)
+
+(test #top-speed)
+	(#test-ship top speed 7)
+
+(test #class)
+	(#test-ship class #cygnus-class)
+
+(test #ship-class)
+	(collect words) (class #test-ship) (into $Words)
+	($Words = [cygnus -class scout ship])
+
+(test #initialize)
+	(initialize #test-ship as #cygnus-class)
+	(#test-ship class #cygnus-class)
+	(#test-ship energy 1000)
+	(#test-ship crystals 4)
+	(#test-ship shields 500)
+	(#test-ship shield levels [100 100 100 100])
+	(#test-ship ammo 10)
+	(#test-ship damage [])
+	(#test-ship helm setting 0)
+	(#test-ship throttle setting 0)
+
+(test #place-at)
+	(initialize #test-ship as #cygnus-class)
+	(place #test-ship at 2 3 4 5)
+	(#test-ship sector x 2)
+	(#test-ship sector y 3)
+	(#test-ship subsector x 4)
+	(#test-ship subsector y 5)
+
+(test #place-at-subsector)
+	(place #test-ship at 2 3 4 5 6 7)
+	(#test-ship sector x 2)
+	(#test-ship sector y 3)
+	(#test-ship subsector x 4)
+	(#test-ship subsector y 5)
+	(#test-ship position x 6)
+	(#test-ship position y 7)
+
+(test #place-in-sector)
+	(place #test-ship in sector 7 7)
+	(#test-ship sector x 7)
+	(#test-ship sector y 7)
+
+(test #take-last-n)
+	(take last 3 from [1 2 3 4 5 6] into [4 5 6])
+
+(test #take-last-zero)
+	(take last 0 from [1 2 3 4 5 6] into [])
+
+(test #take-last-more-than-len)
+	~(take last 7 from [1 2 3 5 6 7] into $)
+
+(test #replace-element)
+	(replace element 3 in [1 2 3 4 5] with 6 into [1 2 6 4 5])
+
+(test #replace-element-zero)
+	~(replace element 0 in [1 2 3 4 5] with 6 into $)
+
+(test #replace-element-beyond-end)
+	~(replace element 6 in [1 2 3 4 5] with 6 into $)
+
+(test #increase-element)
+	(increase element 3 in [1 2 3 4 5] by 3 into [1 2 6 4 5])
+
+(test #decrease-element)
+	(decrease element 3 in [1 2 3 4 5] by 2 into [1 2 1 4 5])
+
+(test #decrease-element-below-zero)
+	~(decrease element 3 in [1 2 3 4 5] by 4 into $)
+
+(test #set-destination)
+	(position for 4 5 6 7 into $Position)
+	(set destination for #test-ship to $Position)
+	(#test-ship destination 4 5 6 7)
+	(#test-ship heading 315)
+	(#test-ship helm setting 135)
+
+(test #set-destination-subsector)
+	(set destination for #test-ship to 4 5 6 7)
+	(#test-ship destination $There)
+	([454 564 | $] = $There)
+	(#test-ship helm setting 135)
+
+(test #set-destination-precisely)
+	(set destination for #test-ship to 4 5 6 7 8 9)
+	(#test-ship destination 4 5 6 7 8 9)
+	(#test-ship helm setting 137)
+
+(test #set-helm)
+	(set helm for #test-ship to 135)
+	(#test-ship helm setting 135)
+
+(test #set-throttle)
+	(set throttle for #test-ship to 6)
+	(#test-ship throttle setting 6)
+
+(test #set-throttle-too-fast)
+	(set throttle for #test-ship to 10)
+	(#test-ship throttle setting 9)
+
+(test #decrease-ammo)
+	(decrease ammo for #test-ship by 3)
+	(#test-ship ammo 7)
+
+(test #decrease-ammo-below-zero)
+	~(decrease ammo for #test-ship by 11)
+
+(test #decrease-energy)
+	(decrease energy for #test-ship by 32)
+	(#test-ship energy 900)
+
+(test #decrease-energy-below-zero)
+	~(decrease energy for #test-ship by 1001)
+
+(test #regenerate)
+	(regenerate energy for #test-ship)
+	(#test-ship energy 972)
+
+(test #accelerate)
+	(accelerate #test-ship to 6)
+	(#test-ship speed 6)
+
+(test #accelerate-too-fast)
+	(accelerate #test-ship to 10)
+	(#test-ship speed 9)
+
+(test #decelerate)
+	(accelerate #test-ship to 0)
+	(#test-ship speed 0)
+

@@ -1,0 +1,875 @@
+%% cygnus.dg
+
+%% -------------------- SHIP --------------------
+
+(dict #north)	forward fwd
+(dict #south)	aft
+(dict #east)	starboard stbd
+(dict #west)	port
+
+(room *(onboard $))
+
+#deck
+(name *)	deck
+(descr *)	The deck is made of a series of deck plates, of a medium grey
+       		texture that hides dust	tracked on it. Crew members still spend
+		hours swabbing it anyway.
+((onboard $) attracts *)
+
+#bulkhead
+(name *)	bulkhead
+(descr *)	Write me!
+((onboard $) attracts *)
+
+#overhead
+(name *)	overhead
+(descr *)	Write me!
+((onboard $) attracts *)
+
+(onboard *(compartment $))
+((compartment $) is visited)
+
+#sliding-door
+(name *)	sliding door
+(descr *)	Write me!
+((compartment $) attracts *)
+
+(compartment *(passageway $))
+
+(compartment *(airlock $))
+
+(door *(airlock-door $))
+(lockable *(airlock-door $))
+
+(compartment *(stateroom $))
+
+(onboard *(maintenance-access $))
+
+(room *(on-hull $))
+
+#hull
+(name *)	hull
+(descr *)	Write me!
+((on-hull $) attracts *)
+
+%% -------------------- BRIDGE --------------------
+
+#bridge
+(compartment *)
+(name *)	Bridge
+(singleton *)
+(look *)	The bridge is much smaller than is typical for a Stellar
+		Union starship. Aside from the usual captain's chair behind
+		the helm and operations stations, there are only two other
+		workstations: one for engineering and one for the science
+		officer. A pair	of double doors leads aft.
+(from * go #south to #upper-entry)
+
+#helm-station
+(name *)	helm station
+(in-seat *)
+(singleton *)
+(* is #in #bridge)
+
+#nav-station
+(name *)	navigation station
+(in-seat *)
+(singleton *)
+(* is #in #bridge)
+
+#engineering-station
+(name *)	engineering station
+(in-seat *)
+(singleton *)
+(* is #in #bridge)
+
+#science-station
+(name *)	science station
+(in-seat *)
+(singleton *)
+(* is #in #bridge)
+
+#tactical-station
+(name *)	tactical station
+(in-seat *)
+(singleton *)
+(* is #in #bridge)
+
+#comm-station
+(name *)	communications station
+(in-seat *)
+(singleton *)
+(* is #in #bridge)
+
+#captains-chair
+(name *)	captain's chair
+(in-seat *)
+(singleton *)
+(* is #in #bridge)
+
+#viewscreen
+(name *)	viewscreen
+(dict *)	window windows screen
+(singleton *)
+(descr *)	(if) (red alert) (or) (yellow alert) (then)
+		     With the ship on alert, the windows in front of the
+		     main console have polarized, to form a display screen
+		     showing the ship's tactical situation:
+		(else)
+		     In front of the main console are windows looking out
+		     into space. The windows double as an augmented reality
+		     display, highlighting nearby stars and showing their
+		     distance, spectral data, and related information. In
+		     the lower right corner, an icon window summarizes the
+		     ship's current situation:
+		(endif)
+		(par) (short-range scan)
+(appearance *)	(descr *)
+(* is #in #bridge)
+
+#builders-plate
+(name *)	builder's plate
+(dict *)	commissioning plaque small rectangular brass
+(singleton *)
+(descr *)	(if) (current ship #delphinus) (then)
+			SUS (italic) Delphinus (roman) \(SC-384\) (line)
+			Built by Phobos Orbital Constructors (line)
+			Laid down September 3, 2267 (line)
+			Launched July 25, 2268 (line)
+			Commissioned April 1, 2269 (par)
+			"The happiness of the bee and the dolphin is to exist.
+			For humans, it is to know that, and to wonder at it."
+			(line) (space 4) -- Jacques Yves Cousteau
+		(else)
+			SUS (italic) Eridanus (roman) \(SC-386\) (line)
+			Built by Sinus Iridum Yard 17 (line)
+			Laid down August 23, 2267 (line)
+			Launched March 24, 2268 (line)
+			Commissioned January 12, 2269 (par)
+			"Time is a river which carries me along, but I
+			am the river." (line)
+			(space 4) -- Jorge Luis Borges
+		(endif)
+(* is #in #bridge)
+(perform [read *])	(descr *)
+
+%% -------------------- DECK 1 --------------------
+
+#upper-entry
+(passageway *)
+(name *)	Upper Entry
+(room header *)	Deck 1 Amidships
+(look *)	The Rapidlift landing on this deck is flanked on both sides by
+      		vacc suit lockers, and there are airlocks to starboard and to
+		port. A set of double doors leads forward to the Bridge. Next
+		to the Rapidlift is a sliding door leading aft.
+(from * go #north to #bridge)
+(from * go #west through #port-airlock-inner-door to #port-airlock)
+(from * go #east through #starboard-airlock-inner-door to #starboard-airlock)
+(from * go #south to #upper-passageway)
+(from * go #northwest through #matt-1-1-panel to #matt-1-1)
+(from * go #northeast through #matt-2-1-panel to #matt-2-1)
+%% (from * go #in to #rapidlift)
+
+#matt-1-1-panel
+(door *)
+(name *)	panel
+(descr *)	write me
+
+#matt-2-1-panel
+(door *)
+(name *)	panel
+(descr *)	write me
+
+#port-airlock-inner-door
+(airlock-door *)
+(name *)	inner door
+(descr *)	write me
+
+#starboard-airlock-inner-door
+(airlock-door *)
+(name *)	inner door
+(descr *)	write me
+
+#port-airlock
+(airlock *)
+(name *)	Port Airlock
+(room header *)	Airlock
+(look *)     	You're in an airlock. Through the exterior window, you can see
+      		the dorsal side of the main hull, and the port main engine
+		nacelle. Doors lead out to port and in to starboard.
+(from * go #east through #port-airlock-inner-door to #upper-entry)
+(from * go #in to #east)
+%% go west to exit onto the hull
+(from * go #out to #west)
+
+#starboard-airlock
+(airlock *)
+(name *)	Starboard Airlock
+(room header *)	Airlock
+(look *)     	You're in an airlock. Through the exterior window, you can see
+      		the dorsal side of the main hull, and the starboard main engine
+		nacelle. Doors lead in to port and out to starboard.
+(from * go #west through #starboard-airlock-inner-door to #upper-entry)
+(from * go #in to #west)
+%% go east to exit onto the hull
+(from * go #out to #east)
+
+#upper-passageway
+(passageway *)
+(name *)	Upper Passageway
+(room header *)	Deck 1 Aft
+(look *)	This is passageway leading forward and aft, with
+      		sliding doors at both ends. The head is to starboard, and the
+		matter transmission room is to port. (par)
+		At the forward end of the passageway, there is a small alcove
+		to port. A ladder runs from the deck to the overhead in the
+		alcove, with iris hatches in both the deck and the overhead.
+(from * go #north to #upper-entry)
+(from * go #south to #day-cabin)
+(from * go #east to #upper-head)
+(from * go #west to #matter-transmission-room)
+(from * go #down to #computer-core) %% on deck 2
+(from * go #northwest to #down)
+%% up to dorsal docking hatch, implement later
+
+#upper-head
+(compartment *)
+(name *)	Upper Head
+(room header *)	Head
+(look *)	You're in a small one-person head with a toilet and a sink.
+      		The exit is to starboard.
+(from * go #west to #upper-passageway)
+(from * go #out to #west)
+
+#matter-transmission-room
+(compartment *)
+(name *)	Matter Transmission Room
+(look *)	The matter transmission room is much smaller than similar
+      		ones aboard large exploration cruisers. The transmitter has
+		just four pads for crew transfer, and there's no room in
+		the compartment for anything other than the transmitter and
+		the matter transmission beam control console.
+(from * go #east to #upper-passageway)
+(from * go #out to #east)
+
+#day-cabin
+(compartment *)
+(name *)	Day Cabin
+(room header *)	Captain's Day Cabin
+(look *)     	This is the captain's day cabin, which serves as an office and
+      		ready room. The room is furnished with a desk, a Replimat, and
+		a conference table with five chairs. A viewscreen fills the
+		bulkhead behind the conference table. A sliding door leads to
+		the sleeping cabin to port, and there is a head to forward
+		and starboard. The exit is forward.
+(from * go #north to #upper-passageway)
+(from * go #out to #north)
+(from * go #northeast to #captains-head)
+(from * go #west to #sleeping-cabin)
+(from * go #in to #west)
+
+#sleeping-cabin
+(stateroom *)
+(name *)	Sleeping Cabin
+(room header *)	Captain's Sleeping Cabin
+(look *)     	This rather small compartment is the captain's sleeping
+      		cabin, with a bed, hanging locker, and dresser. The exit
+		is to starboard.
+(from * go #east to #day-cabin)
+(from * go #out to #day-cabin)
+
+#captains-head
+(compartment *)
+(name *)	Captain's Head
+(room header *)	Head
+(look *)     	You're in a one-person head with a sink and a toilet. The exit
+      		is aft.
+(from * go #south to #day-cabin)
+(from * go #southwest to #south)
+(from * go #out to #south)
+
+%% -------------------- DECK 2 --------------------
+
+#computer-core
+(compartment *)
+(name *)	Computer Core
+(look *)	This large cirrcular compartment is surrounded by the machinery
+      		for the main computer core. The Rapidlift landing is in the
+		center of the room, and a ladder on the aft side of the lift
+		shaft climbs from the deck to the overhead, with iris hatches
+		above and below. Doors lead away in all four directions, and
+		a clearly marked head is to starboard and aft.
+(from * go #north to #forward-lounge)
+(from * go #south through #shuttle-bay-inner-door to #shuttle-bay)
+(from * go #east to #wardroom)
+(from * go #west to #simulator)
+(from * go #up to #upper-passageway)
+(from * go #down to #escape-pods)
+(from * go #southeast to #central-head)
+
+#central-head
+(compartment *)
+(name *)	Central Head
+(room header *)	Head
+(look *)     	You're in a one-person head with a sink and a toilet. The exit
+      		is to port.
+(from * go #west to #computer-core)
+(from * go #northwest to #west)
+(from * go #out to #west)
+
+#forward-lounge
+(compartment *)
+(name *)	Forward Lounge
+(look *)	Write me!
+(from * go #west to #port-forward)
+(from * go #east to #starboard-forward)
+(from * go #south to #computer-core)
+(from * go #southeast to #armory)
+
+#simulator
+(compartment *)
+(name *)	Simulator
+(look *)	Write me!
+(from * go #east to #computer-core)
+(from * go #west to #port-passageway)
+
+#wardroom
+(compartment *)
+(name *)	Wardroom
+(look *)	Write me!
+(from * go #west to #computer-core)
+(from * go #east to #starboard-passageway)
+(from * go #northwest to #pantry)
+
+#pantry
+(compartment *)
+(name *)	Pantry
+(look *)	Write me!
+(from * go #east to #wardroom)
+(from * go #southeast to #east)
+(from * go #out to #east)
+
+#shuttle-bay-inner-door
+(airlock-door *)
+(name *)	inner door
+(descr *)	write me
+
+#shuttle-bay
+(airlock *)
+(name *)	Shuttle Bay
+(look *)	Write me!
+(from * go #north to #computer-core)
+
+#port-passageway
+(passageway *)
+(name *)	Port Passageway
+(room header *)	Deck 2 Port
+(look *)     	Write me!
+(from * go #east to #simulator)
+(from * go #south to #main-storage)
+(from * go #north to #port-forward)
+(from * go #down to #port-cargo-gallery)
+(from * go #west through #port-shield-panel to #port-shield-access)
+
+#port-shield-access
+(maintenance-access *)
+(name *)	Port Shield Access
+(look *)	Write me!
+(from * go #east through #port-shield-panel to #port-passageway)
+
+#port-shield-panel
+(door *)
+(name *)	panel
+(descr *)	Write me!
+
+#port-forward
+(passageway *)
+(name *)	Port Forward
+(room header *)	Deck 2 Port
+(look *)	Write me!
+(from * go #south to #port-passageway)
+(from * go #northeast to #forward-lounge)
+(from * go #north to #northeast)
+(from * go #east to #showers)
+(from * go #southwest to #science-officer-quarters)
+(from * go #west to #surgeon-quarters)
+(from * go #northwest to #joq-port)
+
+#starboard-passageway
+(passageway *)
+(name *)	Starboard Passageway
+(room header *)	Deck 2 Starboard
+(look *)	Write me!
+(from * go #south to #brig)
+(from * go #west to #wardroom)
+(from * go #north to #starboard-forward)
+(from * go #down to #starboard-cargo-gallery)
+(from * go #east through #starboard-shield-panel to #starbord-shield-access)
+
+#starboard-shield-access
+(maintenance-access *)
+(name *)	Starboard Shield Access
+(look *)	Write me!
+(from * go #west through #starboard-shield-panel to #starboard-passageway)
+
+#starboard-shield-panel
+(door *)
+(name *)	panel
+(descr *)	Write me!
+
+#starboard-forward
+(passageway *)
+(name *)	Starboard Forward
+(room header *)	Deck 2 Starboard
+(look *)	Write me!
+(from * go #south to #starboard-passageway)
+(from * go #northwest to #forward-lounge)
+(from * go #north to #northwest)
+(from * go #west to #starboard-head)
+(from * go #southeast to #xo-quarters)
+(from * go #east to #engineer-quarters)
+(from * go #northeast to #joq-starboard)
+
+#main-storage
+(compartment *)
+(name *)	Main Storage
+(look *)	Write me!
+(from * go #north to #port-passageway)
+(from * go #out to #north)
+
+#brig
+(compartment *)
+(name *)	Brig
+(look *)	Write me!
+(from * go #north to #starboard-passageway)
+(from * go #out to #north)
+
+#cell-1
+(compartment *)
+(name *)	Cell #1
+(room header *)	Cell
+(look *)	Write me!
+(from * go #west to #brig)
+(from * go #out to #west)
+
+#cell-2
+(compartment *)
+(name *)	Cell #2
+(room header *)	Cell
+(look *)	Write me!
+(from * go #north to #brig)
+(from * go #out to #north)
+
+#showers
+(compartment *)
+(name *)	Showers
+(look *)	Write me!
+(from * go #northwest to #port-forward)
+(from * go #west to #northwest)
+(from * go #out to #northwest)
+
+#starboard-head
+(compartment *)
+(name *)	Starboard Head
+(room header *)	Head
+(look *)	Write me!
+(from * go #northeast to #starboard-forward)
+(from * go #east to #starboard-forward)
+
+#armory
+(compartment *)
+(name *)	Armory
+(look *)	Write me!
+(from * go #west to #forward-lounge)
+(from * go #northwest to #west)
+(from * go #out to #west)
+
+#science-officer-quarters
+(stateroom *)
+(name *)	Science Officer's Quarters
+(look *) 	Write me!
+(from * go #east to #port-forward)
+(from * go #northeast to #east)
+(from * go #out to #east)
+
+#surgeon-quarters
+(stateroom *)
+(name *)	Surgeon's Quarters
+(look *)	Write me!
+(from * go #east to #port-foward)
+(from * go #out to #east)
+
+#xo-quarters
+(stateroom *)
+(name *)	Executive Officer's Quarters
+(look *)	Write me!
+(from * go #west to #starboard-forward)
+(from * go #northwest to #west)
+(from * go #out to #west)
+
+#engineer-quarters
+(stateroom *)
+(name *)	Chief Engineer's Quarters
+(look *)	Write me!
+(from * go #west to #starboard-forward)
+(from * go #out to #west)
+
+#joq-port
+(stateroom *)
+(name *)	Port Junior Officers' Quarters
+(room header *)	Junior Officers' Quarters
+(look *)	Write me!
+(from * go #east to #port-forward)
+(from * go #southeast to #east)
+(from * go #out to #east)
+
+#joq-starboard
+(stateroom *)
+(name *)	Starboard Junior Officers' Quarters
+(room header *)	Junior Officers' Quarters
+(look *)	Write me!
+(from * go #west to #starboard-forward)
+(from * go #southwest to #west)
+(from * go #out to #west)
+
+%% -------------------- DECK 3 --------------------
+
+#escape-pods
+(compartment *)
+(name *)	Escape Pods
+(look *)	Write me!
+(from * go #up to #computer-core)
+(from * go #north to #deck-3)
+(from * go #south to #main-engineering)
+(from * go #east to #sick-bay)
+(from * go #west to #laboratory)
+
+#deck-3
+(passageway *)
+(name *)	Deck 3 Forward
+(look *)	Write me!
+(from * go #south to #escape-pods)
+(from * go #north through #boarding-inner-door to #boarding-ramp)
+(from * go #east to #starboard-crew-quarters)
+(from * go #west to #port-crew-quarters)
+
+#boarding-inner-door
+(airlock-door *)
+(name *)	inner door
+(descr *)	Write me!
+
+#boarding-ramp
+(airlock *)
+(name *)	Boarding Ramp
+(look *)	Write me!
+(from * go #south to #deck-3)
+(from * go #in to #south)
+(from * go #north through #forward-shield-panel to #forward-shield-access)
+%%(from * go #down to #on-ramp)
+%%(from * go #out to #down)
+
+#forward-shield-access
+(maintenance-access *)
+(name *)	Forward Shield Access
+(look *)	Write me!
+(from * go #south through #forward-shield-panel to #boarding-ramp)
+
+#forward-shield-panel
+(door *)
+(name *)	panel
+(descr *)	Write me!
+
+#on-ramp
+(room *)
+(name *)	On Ramp
+(room header *)	On the Boarding Ramp
+(look *)	Write me!
+(from * go #south to #boarding-ramp)
+(from * go #in to #south)
+(from * go #up to #south)
+
+#main-engineering
+(compartment *)
+(name *)	Main Engineering
+(look *)	Write me!
+(from * go #north to #escape-pods)
+(from * go #out to #north)
+
+#laboratory
+(compartment *)
+(name *)	Laboratory
+(look *)	Write me!
+(from * go #east to #escape-pods)
+(from * go #west to #port-cargo-gallery)
+(from * go #northeast to #lab-storage)
+(from * go #southeast to #main-engineering)
+
+#lab-storage
+(compartment *)
+(name *)	Lab Storage
+(look *)	Write me!
+(from * go #west to #laboratory)
+(from * go #out to #west)
+(from * go #southwest to #west)
+
+#sick-bay
+(compartment *)
+(name *)	Sick Bay
+(look *)	Write me!
+(from * go #west to #escape-pods)
+(from * go #east to #starboard-cargo-gallery)
+(from * go #northwest to #sick-bay-head)
+
+#sick-bay-head
+(compartment *)
+(name *)	Sick Bay Head
+(look *)	Write me!
+(from * go #east to #sick-bay)
+(from * go #out to #east)
+(from * go #southeast to #east)
+
+#starboard-crew-quarters
+(stateroom *)
+(name *)	Starboard Crew Quarters
+(room header *)	Crew Quarters
+(from * go #west to #deck-3)
+(from * go #out to #west)
+
+#port-crew-quarters
+(stateroom *)
+(name *)	Port Crew Quarters
+(room header *)	Crew Quarters
+(from * go #east to #deck-3)
+(from * go #out to #east)
+
+#starboard-cargo-gallery
+(passageway *)
+(name *)	Starboard Cargo Gallery
+(room header *)	Deck 3 Starboard
+(look *)	Write me!
+(from * go #down to #cargo-bay-2)
+(from * go #east to #down)
+(from * go #west to #sick-bay)
+(from * go #up to #starboard-passageway)
+
+#port-cargo-gallery
+(passageway *)
+(name *)	Port Cargo Gallery
+(room header *)	Deck 3 Port
+(look *)	Write me!
+(from * go #down to #cargo-bay-1)
+(from * go #down to #port-cargo-bay)
+(from * go #west to #down)
+(from * go #east to #laboratory)
+(from * go #up to #port-passageway)
+
+%% -------------------- DECK 4 --------------------
+
+#cargo-bay-1
+(compartment *)
+(name *)	Cargo Bay 1
+(look *)	Write me!
+(from * go #up to #port-cargo-gallery)
+(from * go #east to #port-probe-bay)
+(from * go #north to #port-sensor-access)
+(from * go #south to #port-engine-access)
+(from * go #northeast to #matt-1-4)
+(from * go #southeast to #matt-3-4)
+
+#cargo-bay-2
+(compartment *)
+(name *)	Cargo Bay 2
+(look *)	Write me!
+(from * go #up to #starboard-cargo-gallery)
+(from * go #west to #starboard-probe-bay)
+(from * go #north to #starboard-sensor-access)
+(from * go #south to #starboard-sensor-access)
+(from * go #northwest to #matt-2-4)
+(from * go #southwest to #matt-4-4)
+
+#port-probe-bay
+(compartment *)
+(name *)	Port Probe Bay
+(look *)	Write me!
+(from * go #west to #cargo-bay-1)
+
+#starboard-probe-bay
+(compartment *)
+(name *)	Starboard Probe Bay
+(look *)	Write me!
+(from * go #east to #cargo-bay-2)
+
+#port-sensor-access
+(maintenance-access *)
+(name *)	Port Sensor Access
+(look *)	Write me!
+(from * go #south to #cargo-bay-1)
+(from * go #up to #matt-1-4)
+(from * go #southeast to #up)
+
+#starboard-sensor-access
+(maintenance-access *)
+(name *)	Starboard Sensor Access
+(look *)	Write me!
+(from * go #south to #cargo-bay-2)
+(from * go #up to #matt-2-4)
+(from * go #southwest to #up)
+
+#port-engine-access
+(maintenance-access *)
+(name *)	Port Engine Access
+(look *)	Write me!
+(from * go #north to #cargo-bay-1)
+(from * go #up to #matt-3-4)
+(from * go #northeast to #up)
+
+#starboard-engine-access
+(maintenance-access *)
+(name *)	Starboard Engine Access
+(look *)	Write me!
+(from * go #north to #cargo-bay-2)
+(from * go #up to #matt-4-4)
+(from * go #northwest to #up)
+
+%% -------------------- Maintenance Tubes --------------------
+
+#matt-1-1
+(maintenance-access *)
+(name *)	MATT 1, Deck 1
+(look *)	Write me!
+(from * go #down to #matt-1-2)
+(from * go #east to #upper-entry)
+(from * go #out to #east)
+(from * go #up to #east)
+
+#matt-1-2
+(maintenance-access *)
+(name *)	MATT 1, Deck 2
+(look *)	Write me!
+(from * go #up to #matt-1-1)
+(from * go #down to #matt-1-3)
+(from * go #north to #forward-lounge)
+(from * go #out to #north)
+
+#matt-1-3
+(maintenance-access *)
+(name *)	MATT 1, Deck 3
+(look *)	Write me!
+(from * go #up to #matt-1-2)
+(from * go #down to #matt-1-4)
+(from * go #south to #simulator)
+(from * go #out to #south)
+
+#matt-1-4
+(maintenance-access *)
+(name *)	MATT 1, Deck 4
+(look *)	Write me!
+(from * go #up to #matt-1-3)
+(from * go #down to #port-sensor-access)
+(from * go #north to #down)
+(from * go #west to #cargo-bay-1)
+(from * go #out to #west)
+
+#matt-2-1
+(maintenance-access *)
+(name *)	MATT 2, Deck 1
+(look *)	Write me!
+(from * go #down to #matt-2-2)
+(from * go #west to #upper-entry)
+(from * go #out to #west)
+(from * go #up to #west)
+
+#matt-2-2
+(maintenance-access *)
+(name *)	MATT 2, Deck 2
+(look *)	Write me!
+(from * go #up to #matt-2-1)
+(from * go #down to #matt-2-3)
+(from * go #south to #pantry)
+(from * go #out to #south)
+
+#matt-2-3
+(maintenance-access *)
+(name *)	MATT 2, Deck 3
+(look *)	Write me!
+(from * go #up to #matt-2-2)
+(from * go #down to #matt-2-4)
+(from * go #south to #sick-bay)
+(from * go #out to #south)
+
+#matt-2-4
+(maintenance-access *)
+(name *)	MATT 2, Deck 4
+(look *)	Write me!
+(from * go #up to #matt-2-3)
+(from * go #down to #starboard-sensor-access)
+(from * go #north to #down)
+(from * go #east to #cargo-bay-2)
+(from * go #out to #east)
+
+#matt-3-2
+(maintenance-access *)
+(name *)	MATT 3, Deck 2
+(look *)	Write me!
+(from * go #down to #matt-3-3)
+(from * go #north to #simulator-storage)
+(from * go #out to #north)
+(from * go #up to #aft-shield-access)
+
+#matt-3-3
+(maintenance-access *)
+(name *)	MATT 3, Deck 3
+(look *)	Write me!
+(from * go #up to #matt-3-2)
+(from * go #down to #matt-3-4)
+(from * go #east to #main-engineering)
+(from * go #out to #east)
+
+#matt-3-4
+(maintenance-access *)
+(name *)	MATT 3, Deck 4
+(look *)	Write me!
+(from * go #up to #matt-3-3)
+(from * go #down to #port-engine-access)
+(from * go #south to #down)
+(from * go #west to #cargo-bay-1)
+(from * go #out to #west)
+
+#matt-4-2
+(maintenance-access *)
+(name *)	MATT 4, Deck 2
+(look *)	Write me!
+(from * go #down to #matt-4-3)
+(from * go #north to #wardroom-storage)
+(from * go #out to #north)
+(from * go #up to #aft-shield-access)
+
+#matt-4-3
+(maintenance-access *)
+(name *)	MATT 4, Deck 3
+(look *)	Write me!
+(from * go #up to #matt-4-2)
+(from * go #down to #matt-4-4)
+(from * go #west to #main-engineering)
+(from * go #out to #west)
+
+#matt-4-4
+(maintenance-access *)
+(name *)	MATT 4, Deck 4
+(look *)	Write me!
+(from * go #up to #matt-4-3)
+(from * go #down to #starboard-engine-access)
+(from * go #south to #down)
+(from * go #east to #cargo-bay-2)
+(from * go #out to #east)
+
+#aft-shield-access
+(maintenance-access *)
+(name *)	Aft Shield Access
+(look *)	Write me!
+(from * go #east to #matt-4-2)
+(from * go #west to #matt-3-2)
+
+%% -------------------- Hull exterior --------------------
+

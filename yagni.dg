@@ -1,0 +1,68 @@
+%% yagni.dg
+
+($Num subsectors $Direction from $Place into $Result)
+	(subsector for $Place into $SX $SY $X $Y)
+	(position for $SX $SY $X $Y into $Here)
+	($Num times 10 into $Squares)
+	($Squares squares $Direction from $Here into $Result)
+
+%%------------------------------ CONVENIENCE ------------------------------
+
+%% convenience routines
+
+(interface (sector x $>SX))
+
+(interface (sector y $>SY))
+
+(interface (subsector x $>ZX))
+
+(interface (subsector y $>ZY))
+
+(interface (position x $>PX))
+
+(interface (position y $>PY))
+
+(interface (heading $>Heading))
+
+(interface (speed $>Speed))
+
+(sector x $SX)
+	(current ship $Ship)
+	($Ship sector x $SX)
+
+(sector y $SY)
+	(current ship $Ship)
+	($Ship sector y $SY)
+
+(subsector x $X)
+	(current ship $Ship)
+	($Ship subsector x $X)
+
+(subsector y $Y)
+	(current ship $Ship)
+	($Ship subsector y $Y)
+
+(position x $PX)
+	(current ship $Ship)
+	($Ship position x $PX)
+
+(position y $PY)
+	(current ship $Ship)
+	($Ship position y $PY)
+
+(heading $Heading)
+	(current ship $Ship)
+	($Ship heading $Heading)
+
+(speed $Speed)
+	(current ship $Ship)
+	($Ship speed $Speed)
+
+(energy $Energy)
+	(current ship $Ship)
+	($Ship energy $Energy)
+
+(crystals $Crystals)
+	(current ship $Ship)
+	($Ship crystals $Crystals)
+

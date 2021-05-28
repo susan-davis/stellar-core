@@ -1,0 +1,391 @@
+%% dgdebug -q sensor-tests.dg sensors.dg sectored-grid.dg \
+%%            testrunner.dg stdlib.dg
+
+(list of tests [
+	#object-at-precise-ship-position
+	#object-at-imprecise-ship-position
+	#top-object-at-ship-location
+	#glyph-at-ship-location
+	#scan-ship-location
+	#range-5-3
+	#range-3-5
+	#range-3-3
+	#range-0-3
+	#range-0-0
+	#closest-target-in-sensor-range
+	#near-target-in-sensor-range
+	#far-target-in-sensor-range
+	#distant-target-not-in-sensor-range
+	#non-grid-object-not-in-sensor-range
+	#closest-target-in-weapons-range
+	#near-target-in-weapons-range
+	#far-target-not-in-weapons-range
+	#distant-target-not-in-weapons-range
+	#non-grid-object-not-in-weapons-range
+	#closest-target-in-matter-transmission-range
+	#near-target-not-in-matter-transmission-range
+	#far-target-not-in-matter-transmission-range
+	#distant-target-not-in-matter-transmission-range
+	#non-grid-object-not-in-matter-transmission-range
+	#condition-1
+	#condition-2
+	#condition-3
+	#condition-4
+	#shouldnt-display-subsector
+	#should-display-subsector-base
+	#should-display-subsector-gravity-well
+	#should-display-subsector-other-ship
+	#long-range-scan-zeros-suppressed
+	#long-range-scan-in-corner
+	#long-range-scan-in-corner-classic-behaviour
+	#quadrant-chart-zeros-suppressed
+	#quadrant-chart-question-marks-suppressed
+	#dont-display-subsector
+	#display-subsector-base
+	#display-subsector-gravity-well
+	#display-subsector-other-ship
+	#short-range-scan
+	#long-range-scan
+	#quadrant-chart
+	])
+
+%% ----------------------------------------------------------------------
+
+(nato time)		051235 Mar 73
+
+(current quadrant)	(space) -103 (space) -37
+
+#test-ship
+(current ship *)
+(ship *)
+(friendly *)
+(code *)		E
+(* initial state is
+   [344 454 315 4 300 400 #cygnus-class 932 4 500 [100 100 100 100] 10 315 4])
+
+(clean up $)  	(set condition 3)
+		(now) (display zeros for empty categories)
+		(now) ~(display question marks for undetectable ships)
+
+#cygnus-class
+(name *)	Cygnus
+(type *)	scout ship
+(* state is
+    [0 0 0 0 0 0 #cygnus-class 1000 4 500 [100 100 100 100] 10 180 3])
+
+#starbase
+(base *)
+(friendly *)
+(code *)		\#
+(* state is [766 766])
+
+#enemy-base
+(base *)
+(hostile *)
+(code *)		\#
+(* state is [211 211])
+
+#sun
+(stellar object *)
+(code *)		\*
+%%(scan code *)		O
+(* state is [578 578])
+
+#planet
+(stellar object *)
+(code *)		\@
+(* state is [575 576])
+
+#other-planet
+(stellar object *)
+(code *)		\@
+(* state is [577 572])
+
+#attack-class
+(name *)	Attack
+(type *)	attack ship
+(* state is
+     [0 0 0 0 0 0 #attack-class 500 2 250 [100 50 50 50] 0 90 1])
+
+#closest-target
+(ship *)
+(hostile *)
+(code *)		q
+(* initial state is
+     [355 445 225 2 0 0 #attack-class 500 2 250 [100 50 50 50] 0 90 1])
+
+#near-target
+(ship *)
+(hostile *)
+(code *)		q
+(* initial state is
+     [314 424 45 3 0 0 #attack-class 500 2 250 [100 50 50 50] 0 90 1])
+
+#far-target
+(ship *)
+(hostile *)
+(code *)		q
+(* initial state is
+     [424 314 225 5 0 0 #attack-class 500 2 250 [100 50 50 50] 0 90 1])
+
+#distant-target
+(ship *)
+(hostile *)
+(code *)		q
+(* initial state is
+     [154 984 135 6 0 0 #attack-class 500 2 250 [100 50 50 50] 0 90 1])
+
+#neutral-ship
+(ship *)
+(code *)		s
+(* initial state is
+     [544 544 180 1 0 0 #maru-class 500 2 50 [50 50 50 50] 0 60 1])
+
+#maru-class
+(name *)	Ko Maru
+(type *)	freighter
+(* state is
+     [0 0 0 0 0 0 #maru-class 500 2 50 [50 50 50 50] 0 60 1])
+
+#non-grid-object
+(code *)		\*
+(* state is [374 474 0])
+
+#asteroid
+(stellar object *)
+(code *)		\*
+(* state is [385 415 0])
+
+#asteroid-2
+(stellar object *)
+(code *)		\*
+(* state is [585 515 0])
+
+%% ----------------------------------------------------------------------
+
+(reset $Ship)	($Ship initial state is $State)
+		(now) ($Ship state is $State)
+
+(set up $)	(exhaust) { *(ship $Ship) (reset $Ship) }
+
+%% ----------------------------------------------------------------------
+
+(test #object-at-precise-ship-position)
+	(object at 3 4 5 6 5 5 into $Obj)
+	(assert $Obj = #test-ship)
+
+(test #object-at-imprecise-ship-position)
+	(position for 3 4 5 6 1 1 into $Here)
+	~(object at $Here into $)
+
+(test #top-object-at-ship-location)
+	(top object in subsector 3 4 5 6 into $Obj)
+	(assert $Obj = #test-ship)
+
+(test #glyph-at-ship-location)
+	(collect words)
+		(glyph at 3 4 5 6)
+	(into $Words)
+	(assert $Words = [ e ])
+
+(test #scan-ship-location)
+	(collect words)
+		(scan 3 4 5 6)
+	(into $Words)
+	(assert $Words = [ e | $ ])
+
+(test #range-5-3)
+	(5 is within 2 of 3)
+
+(test #range-3-5)
+	(3 is within 2 of 5)
+
+(test #range-3-3)
+	(3 is within 0 of 3)
+
+(test #range-0-3)
+	(0 is within 3 of 3)
+
+(test #range-0-0)
+	(0 is within 0 of 0)
+
+(test #closest-target-in-sensor-range)
+	(#closest-target sector x 3)
+	3
+	(#closest-target sector y 4)
+	4
+	(#closest-target is in sensor range)
+
+(test #near-target-in-sensor-range)
+	(#near-target is in sensor range)
+
+(test #far-target-in-sensor-range)
+	(#far-target is in sensor range)
+
+(test #distant-target-not-in-sensor-range)
+	~(#distant-target is in sensor range)
+
+(test #non-grid-object-not-in-sensor-range)
+	~(#non-grid-object is in sensor range)
+
+(test #asteroid-in-sensor-range)
+	(#asteroid is in sensor range)
+
+(test #closest-target-in-weapons-range)
+	(#closest-target is in weapons range)
+
+(test #near-target-in-weapons-range)
+	(#near-target is in weapons range)
+
+(test #far-target-not-in-weapons-range)
+	~(#far-target is in weapons range)
+
+(test #distant-target-not-in-weapons-range)
+	~(#distant-target is in weapons range)
+
+(test #non-grid-object-not-in-weapons-range)
+	~(#non-grid-object is in weapons range)
+
+(test #asteroid-in-weapons-range)
+	(#asteroid is in weapons range)
+	
+(test #closest-target-in-matter-transmission-range)
+	(#closest-target is in matter transmission range)
+
+(test #near-target-not-in-matter-transmission-range)
+	~(#near-target is in matter transmission range)
+
+(test #far-target-not-in-matter-transmission-range)
+	~(#far-target is in matter transmission range)
+
+(test #distant-target-not-in-matter-transmission-range)
+	~(#distant-target is in matter transmission range)
+
+(test #non-grid-object-not-in-matter-transmission-range)
+	~(#non-grid-object is in matter transmission range)
+
+(test #condition-1)
+	(set condition 1)
+	(collect words) (alert status) (into $Words)
+	($Words contains sublist [red alert])
+
+(test #condition-2)
+	(set condition 2)
+	(collect words) (alert status) (into $Words)
+	($Words contains sublist [yellow alert])
+
+(test #condition-3)
+	(set condition 3)
+	(collect words) (alert status) (into $Words)
+	($Words contains sublist [under way])
+
+(test #condition-4)
+	(set condition 4)
+	(collect words) (alert status) (into $Words)
+	($Words contains sublist [docked])
+
+(test #shouldnt-display-subsector)
+	~(should display subsector)
+
+(test #should-display-subsector-base)
+	(move #test-ship to 7 7 7 7)
+	(should display subsector)
+
+(test #should-display-subsector-gravity-well)
+	(move #test-ship to 3 4 9 2)
+	(should display subsector)
+
+(test #should-display-subsector-other-ship)
+	(move #test-ship to 3 4 6 5)
+	(should display subsector)
+
+%% put these tests last in (list of tests $)
+
+(test #short-range-scan)
+	(line) (short range scan)
+	(log) { 1234567890123456789012345678901234567890 }
+	(collect words) (short range scan) (into $Words)
+	($Words contains sublist [3 . q])
+	($Words contains sublist [5 . . . . . q])
+	($Words contains sublist [6 . . . . e])
+	($Words contains sublist [heading: 315])
+	($Words contains sublist [warp gradient: 4])
+	($Words contains sublist [position: 3 - 4 \/ 5 - 6])
+	($Words contains sublist [energy: 932 , 4 crystals online])
+
+(test #long-range-scan)
+	(line) (long range scan)
+	(log) { 1234567890123456789012345678901234567890 }
+	(collect words) (long range scan) (into $Words)
+	($Words contains sublist [1 0 0 0 0 0 2 e 1])
+
+(test #quadrant-chart)
+	(line) (quadrant chart)
+	(log) { 1234567890123456789012345678901234567890 }
+	(collect words) (quadrant chart) (into $Words)
+	($Words contains sublist [\| 1 0 0 \|])
+	($Words contains sublist [\| 2 e 1 \|])
+
+%% end of "put these last" group
+
+(test #long-range-scan-zeros-suppressed)
+	(now) ~(display zeros for empty categories)
+%%	(line) (long range scan)
+	(collect words) (long range scan) (into $Words)
+	($Words contains sublist [1 0 0 0 2 e 1])
+
+(test #long-range-scan-in-corner)
+	(move #test-ship to 1 1 1 1)
+%%	(line) (long range scan)
+	(collect words) (long range scan) (into $Words)
+	($Words contains sublist [e 0 0 0 0 0 0 0 0 0 0 \#])
+
+(test #long-range-scan-in-corner-classic-behaviour)
+	(now) ~(display sectors beyond quadrant)
+	(move #test-ship to 1 1 1 1)
+%%	(line) (long range scan)
+	(collect words) (long range scan) (into $Words)
+	($Words contains sublist [e 0 0 0 0 0 0 0 \#])
+	(now) (display sectors beyond quadrant)
+
+(test #quadrant-chart-zeros-suppressed)
+	(now) ~(display zeros for empty categories)
+%%	(line) (quadrant chart)
+	(collect words) (quadrant chart) (into $Words)
+	($Words contains sublist [\| 1 0 0 \|])
+	($Words contains sublist [\| 2 e 1 \|])
+	($Words contains sublist [\| 0 \|])
+	($Words contains sublist [\| \# \? 0 \|])
+
+(test #quadrant-chart-question-marks-suppressed)
+	(now) ~(display question marks for undetectable ships)
+%%	(line) (quadrant chart)
+	(collect words) (quadrant chart) (into $Words)
+	($Words contains sublist [\| 1 0 0 \|])
+	($Words contains sublist [\| 2 e 1 \|])
+	($Words contains sublist [\| 0 0 0 \|])
+	($Words contains sublist [\| 4 \|])
+
+(assert displays subsector)
+	(collect words) (short range scan) (into $Words)
+	($Words contains sublist [8 9 10 1 2 3])
+	($Words contains sublist [e . . . . . destination:])
+
+(test #dont-display-subsector)
+	~(assert displays subsector)
+
+(test #display-subsector-base)
+	(move #test-ship to 7 7 7 7)
+	(line) (short range scan)
+	(assert displays subsector)
+
+(test #display-subsector-gravity-well)
+	(move #test-ship to 5 5 8 8)
+	(line) (short range scan)
+	(assert displays subsector)
+
+(test #display-subsector-other-ship)
+	(move #test-ship to 3 4 6 5)
+	(line) (short range scan)
+	(assert displays subsector)
+

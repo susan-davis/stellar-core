@@ -1,0 +1,319 @@
+%% ship-schema.dg
+%% Include sectored-grid.dg when compiling or debugging
+
+%%---------------------------------- SCHEMA ----------------------------------
+%% State about a ship is stored as one list, to cut down on storage.
+%% The class of a ship is 
+%%
+%% state = [ PositionX PositionY Heading Speed DestX DestY Class Energy
+%%   	     Crystals Shields [S1 S2 S3 S4] Ammo Damage Helm Throttle ]
+%%
+%%-------------------------------- INTERFACES --------------------------------
+
+%% schema definition
+%% PosX, PosY, and Heading are defined in sectored-grid.dg
+
+(interface ($<Ship coordinates into $>SX $>SY $>X $>Y $>PX $>PY))
+
+(interface ($<Ship subsector into $>SX $>SY $>X $>Y))
+
+(interface ($<Ship speed $>Speed))
+
+(interface ($<Ship destination $>Destination))
+
+(interface ($<Ship destination $>SX $>SY $>X $>Y $>PX $>PY))
+
+(interface ($<Ship destination $>SX $>SY $>X $>Y))
+
+(interface ($<Ship class $>Class))
+
+(interface ($<Ship energy $>Energy))
+
+(interface ($<Ship crystals $>Crystals))
+
+(interface ($<Ship shields $>Shields))
+
+(interface ($<Ship shield levels $>Levels))
+
+(interface ($<Ship ammo $>Ammo))
+
+(interface ($<Ship damage $>Damage))
+
+(interface ($<Ship helm setting $>Helm))
+
+(interface ($<Ship throttle setting $>Throttle))
+
+(interface ($<Ship turn mode $>Mode))
+
+(interface ($<Ship effective turn mode $>Mode))
+
+(interface ($<Ship acceleration $>Accel))
+
+(interface ($<Ship drive parameters $>Params))
+
+(interface ($<Ship drive efficiency $>Params))
+
+(interface ($<Ship top speed $>Params))
+
+(interface (class $<Ship)) %% prints the name of the ship class
+
+%% mutators
+
+(interface (set destination for $<Ship to $<Destination))
+
+(interface (set destination for $<Ship to $<SX $<SY $<X $<Y))
+
+(interface (set helm for $<Ship to $<Setting))
+
+(interface (set throttle for $<Ship to $<Setting))
+
+(interface (accelerate $<Ship to $<Speed))
+
+(interface (decrease ammo for $<Ship by $<Num))
+
+(interface (decrease energy for $<Ship by $<Num))
+
+(interface (regenerate energy for $<Ship))
+
+%% setup and placement
+%% setting the heading is defined in sectored-grid.dg
+
+(interface (initialize $<Ship as $<Class))
+
+(interface (place $<Ship at $<Position))
+
+(interface (place $<Ship at $<SX $<SY $<X $<Y))
+
+(interface (place $<Ship at $<SX $<SY $<X $<Y $<PX $<PY))
+
+(interface (place $<Ship in sector $<SX $<SY))
+
+%% Useful helper routines
+
+(interface (take last $<N from $<List into $>Suffix))
+
+(interface (replace element $<N in $<List with $<Element into $>NewList))
+
+(interface (decrease element $<N in $<List by $Num into $>NewList))
+
+(interface (increase element $<N in $<List by $Num into $>NewList))
+
+%%------------------------------ IMPLEMENTATION ------------------------------
+
+(initialize $Ship as $Class)
+	($Class state is $Default)
+	($Default = 
+	 [$ $ $ $ $ $ $ $Energy $Crystals $Shields $Levels $Ammo | $])
+	(now) ($Ship state is [0 0 0 0 0 0
+		 $Class $Energy $Crystals $Shields $Levels $Ammo 0 0])
+
+(place $Ship at $Position)
+	($Ship state is $State)
+	([$ $ | $Tail] = $State)
+	([$X $Y | $] = $Position)
+	([$X $Y | $Tail] = $NewState)
+	(now) ($Ship state is $NewState)
+
+(place $Ship at $SX $SY $X $Y $PX $PY)
+	(position for $SX $SY $X $Y $PX $PY into $Position)
+	(place $Ship at $Position)
+
+(place $Ship at $SX $SY $X $Y)
+	(position for $SX $SY $X $Y into $Position)
+	(place $Ship at $Position)
+
+(place $Ship in sector $SX $SY)
+	(random from 1 to 10 into $X)
+	(random from 1 to 10 into $Y)
+	(random from 1 to 10 into $PX)
+	(random from 1 to 10 into $PY)
+	(place $Ship at $SX $SY $X $Y $PX $PY)
+
+%% schema definition
+
+($Ship coordinates into $SX $SY $X $Y $PX $PY)
+	($Ship state is $State)
+	(coordinates for $State into $SX $SY $X $Y $PX $PY)
+
+($Ship subsector into $SX $SY $X $Y)
+	($Ship state is $State)
+	(subsector for $State into $SX $SY $X $Y)
+
+($Ship speed $Speed)
+	($Ship state is $State)
+	(nth $State 4 $Speed)
+
+($Ship class $Class)
+	($Ship state is $State)
+	(nth $State 7 $Class)
+
+($Ship energy $Energy)
+	($Ship state is $State)
+	(nth $State 8 $Energy)
+
+($Ship crystals $Crystals)
+	($Ship state is $State)
+	(nth $State 9 $Crystals)
+
+($Ship shields $Shields)
+	($Ship state is $State)
+	(nth $State 10 $Shields)
+
+($Ship shield levels $Levels)
+	($Ship state is $State)
+	(nth $State 11 $Levels)
+
+($Ship ammo $Ammo)
+	($Ship state is $State)
+	(nth $State 12 $Ammo)
+
+($Ship helm setting $Helm)
+	($Ship state is $State)
+	(nth $State 13 $Helm)
+
+($Ship throttle setting $Throttle)
+	($Ship state is $State)
+	(nth $State 14 $Throttle)
+
+($Ship turn mode $Mode)
+	($Ship class $Class)
+	($Class heading $Mode)
+
+($Ship acceleration $Accel)
+	($Ship class $Class)
+	($Class speed $Accel)
+
+($Ship effective turn mode $Mode)
+	($Ship turn mode $TurnMode)
+	($Ship speed $Speed)
+	(if) ($Speed > 0) (then)
+		($TurnMode divided by $Speed into $Mode)
+	(else)
+		($TurnMode times 2 into $Mode)
+	(endif)
+
+($Ship drive parameters $Params)
+	($Ship class $Class)
+	($Class destination $Params)
+
+($Ship drive efficiency $Efficiency)
+	($Ship drive parameters $Params)
+	([$Efficiency $] = $Params)
+
+($Ship top speed $Speed)
+	($Ship drive parameters $Params)
+	([$ $Speed] = $Params)
+
+($Ship damage $Damage)
+	($Ship state is $State)
+	([$ $ $ $ $ $ $ $ $ $ $ $ $ $ | $Damage] = $State)
+
+($Ship destination $Destination)
+	($Ship state is $State)
+	([$ $ $ $ $DX $DY | $] = $State)
+	([$DX $DY] = $Destination)
+
+($Ship destination $SX $SY $X $Y $PX $PY)
+	($Ship destination $Position)
+	(coordinates for $Position into $SX $SY $X $Y $PX $PY)
+
+($Ship destination $SX $SY $X $Y)
+	($Ship destination $Position)
+	(subsector for $Position into $SX $SY $X $Y)
+
+(class $Ship)
+	($Ship class $Class)
+	(name $Class) (no space) -class (type $Class)
+
+%% useful helper routines
+
+(take last $N from $List into $Suffix)
+	(reverse $List $Reverse)
+	(take $N from $Reverse into $After)
+	(reverse $After $Suffix)
+
+(replace element $N in $List with $Element into $NewList)
+	($N > 0)
+	(length of $List into $Len)
+	~($Len < $N) %% fail fast if trying to replace past end of list
+	($N minus 1 into $PrefixLen)
+	($Len minus $N into $SuffixLen)
+	(take $PrefixLen from $List into $Prefix)
+	(take last $SuffixLen from $List into $Suffix)
+	(append $Prefix [$Element] $Front)
+	(append $Front $Suffix $NewList)
+
+(increase element $N in $List by $Num into $NewList)
+	(nth $List $N $Element)
+	($Element plus $Num into $NewElement)
+	(replace element $N in $List with $NewElement into $NewList)
+
+(decrease element $N in $List by $Num into $NewList)
+	(nth $List $N $Element)
+	($Element minus $Num into $NewElement)
+	(replace element $N in $List with $NewElement into $NewList)
+
+%% mutators
+
+(set destination for $Ship to $Destination)
+	($Ship state is $State)
+	([$DX $DY | $] = $Destination)
+	([$PX $PY $Heading $Speed $ $ | $Tail] = $State)
+	([$PX $PY $Heading $Speed $DX $DY | $Tail] = $NewState)
+	(now) ($Ship state is $NewState)
+	(calculate bearing from $State to $Destination into $Course)
+	(set helm for $Ship to $Course)
+
+(set destination for $Ship to $SX $SY $X $Y $PX $PY)
+	(position for $SX $SY $X $Y $PX $PY into $Position)
+	(set destination for $Ship to $Position)
+
+(set destination for $Ship to $SX $SY $X $Y)
+	(position for $SX $SY $X $Y into $Position)
+	(set destination for $Ship to $Position)
+
+(set helm for $Ship to $Setting)
+	($Ship state is $State)
+	(replace element 13 in $State with $Setting into $NewState)
+	(now) ($Ship state is $NewState)
+
+(set throttle for $Ship to $Setting)
+	($Ship state is $State)
+	($Ship top speed $Speed)
+	($Speed plus 2 into $MaxSpeed)
+	(if) ($Setting > $MaxSpeed) (then)
+		($Throttle = $MaxSpeed)
+	(else)
+		($Throttle = $Setting)
+	(endif)
+	(replace element 14 in $State with $Throttle into $NewState)
+	(now) ($Ship state is $NewState)
+
+(decrease ammo for $Ship by $Num)
+	($Ship state is $State)
+	(decrease element 12 in $State by $Num into $NewState)
+	(now) ($Ship state is $NewState)
+
+(decrease energy for $Ship by $Num)
+	($Ship state is $State)
+	(decrease element 8 in $State by $Num into $NewState)
+	(now) ($Ship state is $NewState)
+
+(regenerate energy for $Ship)
+	($Ship crystals $Crystals)
+	($Crystals times 10 into $Energy)
+	($Ship state is $State)
+	(increase element 8 in $State by $Energy into $NewState)
+	(now) ($Ship state is $NewState)
+
+(accelerate $Ship to $Speed)
+	($Ship state is $State)
+	($Ship top speed $TopSpeed)
+	($TopSpeed plus 2 into $MaxSpeed)
+	(if) ($Speed > $MaxSpeed) (then)
+		($NewSpeed = $MaxSpeed)
+	(else)
+		($NewSpeed = $Speed)
+	(endif)
+	(replace element 4 in $State with $NewSpeed into $NewState)
+	(now) ($Ship state is $NewState)
