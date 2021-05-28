@@ -5,6 +5,7 @@
 	#coordinates
 	#subsector
 	#speed
+	#warp-gradient
 	#energy
 	#crystals
 	#shields
@@ -13,6 +14,7 @@
 	#damage
 	#helm
 	#throttle
+	#throttle-gradient
 	#destination
 	#destination-subsector
 	#destination-precisely
@@ -22,6 +24,7 @@
 	#acceleration
 	#drive-params
 	#efficiency
+	#cruising-speed
 	#top-speed
 	#class
 	#ship-class
@@ -42,8 +45,10 @@
 	#set-destination-subsector
 	#set-destination-precisely
 	#set-helm
-	#set-throttle
-	#set-throttle-too-fast
+	#set-throttle-speed
+	#set-throttle-speed-too-fast
+	#set-throttle-gradient
+	#set-throttle-gradient-too-fast
 	#decrease-ammo
 	#decrease-ammo-below-zero
 	#decrease-energy
@@ -58,8 +63,8 @@
 
 #test-ship
 (grid object *)
-(initial state [344 454 315 4 300 400 #cygnus-class
-		932 4 500 [100 100 100 100] 10 315 4])
+(initial state [344 454 315 400 300 400 #cygnus-class
+		932 4 500 [100 100 100 100] 10 315 400])
 
 (set up $)  	(initial state $State)
 		(now) (* state is $State)
@@ -67,7 +72,7 @@
 #cygnus-class
 (name *)	Cygnus
 (type *)	scout ship
-(* state is [0 0 180 3 5 7 #cygnus-class 1000 4 500 [100 100 100 100] 10])
+(* state is [0 0 180 0 500 963 #cygnus-class 1000 4 500 [100 100 100 100] 10])
 
 %% ----------------------------------------------------------------------
 
@@ -78,7 +83,10 @@
 	(#test-ship subsector into 3 4 5 6)
 
 (test #speed)
-	(#test-ship speed 4)
+	(#test-ship speed 400)
+
+(test #warp-gradient)
+	(#test-ship warp gradient 4)
 
 (test #energy)
 	(#test-ship energy 932)
@@ -102,7 +110,10 @@
 	(#test-ship helm setting 315)
 
 (test #throttle)
-	(#test-ship throttle setting 4)
+	(#test-ship throttle setting 400)
+
+(test #throttle-gradient)
+	(#test-ship throttle gradient 4)
 
 (test #destination)
 	(#test-ship destination [300 400])
@@ -120,20 +131,23 @@
 	(#test-ship effective turn mode 45)
 
 (test #effective-turn-mode-sublight)
-	(accelerate #test-ship to 0)
+	(accelerate #test-ship to speed 0)
 	(#test-ship effective turn mode 360)
+
+(test #drive-params)
+	(#test-ship drive parameters [500 963])
+
+(test #efficiency)
+	(#test-ship drive efficiency 500)
+
+(test #cruising-speed)
+	(#test-ship cruising speed 6)
+
+(test #top-speed)
+	(#test-ship top speed 9)
 
 (test #acceleration)
 	(#test-ship acceleration 3)
-
-(test #drive-params)
-	(#test-ship drive parameters [5 7])
-
-(test #efficiency)
-	(#test-ship drive efficiency 5)
-
-(test #top-speed)
-	(#test-ship top speed 7)
 
 (test #class)
 	(#test-ship class #cygnus-class)
@@ -225,13 +239,21 @@
 	(set helm for #test-ship to 135)
 	(#test-ship helm setting 135)
 
-(test #set-throttle)
-	(set throttle for #test-ship to 6)
-	(#test-ship throttle setting 6)
+(test #set-throttle-speed)
+	(set throttle for #test-ship to speed 610)
+	(#test-ship throttle setting 610)
 
-(test #set-throttle-too-fast)
-	(set throttle for #test-ship to 10)
-	(#test-ship throttle setting 9)
+(test #set-throttle-speed-too-fast)
+	(set throttle for #test-ship to speed 1099)
+	(#test-ship throttle setting 900)
+
+(test #set-throttle-gradient)
+	(set throttle for #test-ship to gradient 6)
+	(#test-ship throttle setting 600)
+
+(test #set-throttle-gradient-too-fast)
+	(set throttle for #test-ship to gradient 10)
+	(#test-ship throttle setting 900)
 
 (test #decrease-ammo)
 	(decrease ammo for #test-ship by 3)
@@ -252,14 +274,26 @@
 	(#test-ship energy 972)
 
 (test #accelerate)
-	(accelerate #test-ship to 6)
-	(#test-ship speed 6)
+	(accelerate #test-ship to speed 600)
+	(#test-ship speed 600)
 
 (test #accelerate-too-fast)
-	(accelerate #test-ship to 10)
-	(#test-ship speed 9)
+	(accelerate #test-ship to speed 1000)
+	(#test-ship speed 900)
 
 (test #decelerate)
-	(accelerate #test-ship to 0)
+	(accelerate #test-ship to speed 0)
+	(#test-ship speed 0)
+
+(test #accelerate-gradient)
+	(accelerate #test-ship to gradient 6)
+	(#test-ship warp gradient 6)
+
+(test #accelerate-gradient-too-fast)
+	(accelerate #test-ship to gradient 10)
+	(#test-ship warp gradient 9)
+
+(test #decelerate-gradient)
+	(accelerate #test-ship to gradient 0)
 	(#test-ship speed 0)
 

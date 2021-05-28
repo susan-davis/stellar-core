@@ -19,6 +19,8 @@
 
 (interface ($<Ship speed $>Speed))
 
+(interface ($<Ship warp gradient $>Gradient))
+
 (interface ($<Ship destination $>Destination))
 
 (interface ($<Ship destination $>SX $>SY $>X $>Y $>PX $>PY))
@@ -43,17 +45,21 @@
 
 (interface ($<Ship throttle setting $>Throttle))
 
+(interface ($<Ship throttle gradient $>Throttle))
+
 (interface ($<Ship turn mode $>Mode))
 
 (interface ($<Ship effective turn mode $>Mode))
-
-(interface ($<Ship acceleration $>Accel))
 
 (interface ($<Ship drive parameters $>Params))
 
 (interface ($<Ship drive efficiency $>Params))
 
-(interface ($<Ship top speed $>Params))
+(interface ($<Ship acceleration $>Accel))
+
+(interface ($<Ship cruising speed $>Gradient))
+
+(interface ($<Ship top speed $>Gradient))
 
 (interface (class $<Ship)) %% prints the name of the ship class
 
@@ -65,9 +71,13 @@
 
 (interface (set helm for $<Ship to $<Setting))
 
-(interface (set throttle for $<Ship to $<Setting))
+(interface (set throttle for $<Ship to speed $<Setting))
 
-(interface (accelerate $<Ship to $<Speed))
+(interface (set throttle for $<Ship to gradient $<Setting))
+
+(interface (accelerate $<Ship to speed $<Speed))
+
+(interface (accelerate $<Ship to gradient $<Speed))
 
 (interface (decrease ammo for $<Ship by $<Num))
 
@@ -143,6 +153,10 @@
 	($Ship state is $State)
 	(nth $State 4 $Speed)
 
+($Ship warp gradient $Gradient)
+	($Ship speed $Speed)
+	($Speed divided by 100 into $Gradient)
+
 ($Ship class $Class)
 	($Ship state is $State)
 	(nth $State 7 $Class)
@@ -175,17 +189,17 @@
 	($Ship state is $State)
 	(nth $State 14 $Throttle)
 
+($Ship throttle gradient $Gradient)
+	($Ship throttle setting $Throttle)
+	($Throttle divided by 100 into $Gradient)
+
 ($Ship turn mode $Mode)
 	($Ship class $Class)
 	($Class heading $Mode)
 
-($Ship acceleration $Accel)
-	($Ship class $Class)
-	($Class speed $Accel)
-
 ($Ship effective turn mode $Mode)
 	($Ship turn mode $TurnMode)
-	($Ship speed $Speed)
+	($Ship warp gradient $Speed)
 	(if) ($Speed > 0) (then)
 		($TurnMode divided by $Speed into $Mode)
 	(else)
@@ -200,9 +214,20 @@
 	($Ship drive parameters $Params)
 	([$Efficiency $] = $Params)
 
+($Ship acceleration $Accel)
+	($Ship drive parameters $Params)
+	([$ $Engine] = $Params)
+	(split $Engine into $ $ $ $Accel)
+
 ($Ship top speed $Speed)
 	($Ship drive parameters $Params)
-	([$ $Speed] = $Params)
+	([$ $Engine] = $Params)
+	(split $Engine into $ $Speed $ $)
+
+($Ship cruising speed $Speed)
+	($Ship drive parameters $Params)
+	([$ $Engine] = $Params)
+	(split $Engine into $ $ $Speed $)
 
 ($Ship damage $Damage)
 	($Ship state is $State)
@@ -277,10 +302,13 @@
 	(replace element 13 in $State with $Setting into $NewState)
 	(now) ($Ship state is $NewState)
 
-(set throttle for $Ship to $Setting)
+(max speed for $Ship into $MaxSpeed)
+	($Ship top speed $Gradient)
+	($Gradient times 100 into $MaxSpeed)
+
+(set throttle for $Ship to speed $Setting)
 	($Ship state is $State)
-	($Ship top speed $Speed)
-	($Speed plus 2 into $MaxSpeed)
+	(max speed for $Ship into $MaxSpeed)
 	(if) ($Setting > $MaxSpeed) (then)
 		($Throttle = $MaxSpeed)
 	(else)
@@ -288,6 +316,10 @@
 	(endif)
 	(replace element 14 in $State with $Throttle into $NewState)
 	(now) ($Ship state is $NewState)
+
+(set throttle for $Ship to gradient $Gradient)
+	($Gradient times 100 into $Speed)
+	(set throttle for $Ship to speed $Speed)
 
 (decrease ammo for $Ship by $Num)
 	($Ship state is $State)
@@ -306,10 +338,9 @@
 	(increase element 8 in $State by $Energy into $NewState)
 	(now) ($Ship state is $NewState)
 
-(accelerate $Ship to $Speed)
+(accelerate $Ship to speed $Speed)
 	($Ship state is $State)
-	($Ship top speed $TopSpeed)
-	($TopSpeed plus 2 into $MaxSpeed)
+	(max speed for $Ship into $MaxSpeed)
 	(if) ($Speed > $MaxSpeed) (then)
 		($NewSpeed = $MaxSpeed)
 	(else)
@@ -317,3 +348,7 @@
 	(endif)
 	(replace element 4 in $State with $NewSpeed into $NewState)
 	(now) ($Ship state is $NewState)
+
+(accelerate $Ship to gradient $Gradient)
+	($Gradient times 100 into $Speed)
+	(accelerate $Ship to speed $Speed)

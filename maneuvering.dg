@@ -15,7 +15,7 @@
 
 %%------------------------------ IMPLEMENTATION ------------------------------
 
-(distance for speed $Speed into $Distance)
+(distance for gradient $Speed into $Distance)
 	(if) ($Speed = 0) (then)
 		($Distance = 10)
 	(else)
@@ -37,7 +37,8 @@
 	($Ship throttle setting $Throttle)
 	(if) ($Speed < $Throttle) (then)
 		($Ship acceleration $Accel)
-		($Speed plus $Accel into $MaxSpeed)
+		($Accel times 100 into $Acceleration)
+		($Speed plus $Acceleration into $MaxSpeed)
 		(if) ($MaxSpeed > $Throttle) (then)
 			($NewSpeed = $Throttle)
 		(else)
@@ -46,14 +47,13 @@
 	(else)
 		($NewSpeed = $Throttle)
 	(endif)
-	(accelerate $Ship to $NewSpeed)
+	(accelerate $Ship to speed $NewSpeed)
 
 ($Ship should move $Result)
 	($Ship state is $State)
 	($Ship destination $Destination)
 	(calculate range from $State to $Destination into $Range)
-	($Ship speed $Speed)
-	(distance for speed $Speed into $Distance)
+	($Ship speed $Distance)
 	(if) ($Range > $Distance) (then)
 		($Result = $Distance)
 	(else)

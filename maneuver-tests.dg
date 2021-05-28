@@ -20,12 +20,13 @@
 #test-ship
 (ship *)
 (* initial state is
-   [344 454 315 4 304 414 #cygnus-class 932 4 500 [100 100 100 100] 10 90 7])
+ [344 454 315 400 304 414 #cygnus-class 932 4 500 [100 100 100 100] 10 90 700])
 
 #cygnus-class
 (name *)	Cygnus
 (type *)	scout ship
-(* state is [0 0 180 3 5 7 #cygnus-class 1000 4 500 [100 100 100 100] 10])
+(* state is
+ [0 0 180 300 500 2963 #cygnus-class 1000 4 500 [100 100 100 100] 10])
 
 #sun
 (grid object *)
@@ -42,27 +43,28 @@
 #closest-target
 (ship *)
 (* initial state is
-     [355 445 225 2 0 0 #attack-class 500 2 250 [100 50 50 50] 0 225 2])
+     [355 445 225 200 0 0 #attack-class 500 2 250 [100 50 50 50] 0 225 200])
      
 #attack-class
 (name *)	Attack
 (type *)	attack ship
-(* state is [0 0 90 1 2 6 #attack-class 500 2 250 [100 50 50 50] 0])
+(* state is
+ [0 0 90 100 200 751 #attack-class 500 2 250 [100 50 50 50] 0])
 
 #near-target
 (ship *)
 (* initial state is
-     [314 424 45 3 0 0 #attack-class 500 2 250 [100 50 50 50] 0 45 3])
+     [314 424 45 300 0 0 #attack-class 500 2 250 [100 50 50 50] 0 45 310])
 
 #far-target
 (ship *)
 (* initial state is
-     [424 314 225 5 0 0 #attack-class 500 2 250 [100 50 50 50] 0 225 5])
+     [424 314 225 500 0 0 #attack-class 500 2 250 [100 50 50 50] 0 225 410])
 
 #distant-target
 (ship *)
 (* initial state is
-     [154 984 135 6 0 0 #attack-class 500 2 250 [100 50 50 50] 0 135 6])
+     [154 984 135 600 0 0 #attack-class 500 2 250 [100 50 50 50] 0 135 525])
 
 %% ----------------------------------------------------------------------
 
@@ -113,32 +115,32 @@
 
 (test #accelerate)
 	(accelerate #test-ship to throttle setting)
-	(#test-ship speed 7)
+	(#test-ship warp gradient 7)
 
 (test #accelerate-too-fast)
-	(set throttle for #test-ship to 9)
+	(set throttle for #test-ship to gradient 9)
 	(accelerate #test-ship to throttle setting)
-	(#test-ship speed 7)
+	(#test-ship warp gradient 7)
 	(accelerate #test-ship to throttle setting)
-	(#test-ship speed 9)
+	(#test-ship warp gradient 9)
 
 (test #accelerate-way-too-fast)
-	(set throttle for #test-ship to 10)
+	(set throttle for #test-ship to gradient 10)
 	(accelerate #test-ship to throttle setting)
-	(#test-ship speed 7)
+	(#test-ship warp gradient 7)
 	(accelerate #test-ship to throttle setting)
-	(#test-ship speed 9)
+	(#test-ship warp gradient 9)
 
 (test #decelerate)
-	(set throttle for #test-ship to 0)
+	(set throttle for #test-ship to speed 0)
 	(accelerate #test-ship to throttle setting)
-	(#test-ship speed 0)
+	(#test-ship warp gradient 0)
 
 (test #distance-gradient-4)
-	(distance for speed 4 into 400)
+	(distance for gradient 4 into 400)
 
 (test #distance-sublight)
-	(distance for speed 0 into 10)
+	(distance for gradient 0 into 10)
 
 (test #should-move-400)
 	(#test-ship should move 400)
