@@ -4,11 +4,15 @@ The *Stellar Union* universe is an optimistic, handwave-y future history inspire
 
 ## The *Stellar Union* Universe
 
-*Stellar Union* takes place in the 2270s. Earth has joined
+*Stellar Union* takes place in the 2270s. Earth has formed a Stellar Union of Earth, its colonies, and several alien races. 
 
 ## Major Powers
 ### The Stellar Union
 The Stellar Union is 
+#### Stellar Command
+#### Earth
+#### The Galdorites
+#### The 
 
 ### The Quellan Empire
 The Quellans are a militaristic 
@@ -36,6 +40,6 @@ The Regulans are bipedal carnivores
 
 ### Sublight Worlds
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3NTM1MjQwMTcsMTQzNjgxNzM3Myw5Nz
-I3MjQwNzYsMjEzMDExNjMwLDM3NDMxMzY1MF19
+eyJoaXN0b3J5IjpbLTIyNTIwNzc3MywxNDM2ODE3MzczLDk3Mj
+cyNDA3NiwyMTMwMTE2MzAsMzc0MzEzNjUwXX0=
 -->
