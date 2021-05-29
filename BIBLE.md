@@ -19,13 +19,13 @@ Stellar Command personnel have
 ### The Stellar Union
 The Stellar Union is 
 
-#### Stellar Command
-
 
 #### Earth
 #### Outlying Human Colonies
 #### The Galdorites
 #### The 
+#### Stellar Command
+
 
 ### The Quellan Empire
 The Quellans are an expansionist empire of Proud Warrior Race Guys. 
@@ -41,7 +41,7 @@ The Regulans are bipedal carnivores
 
 ## New Threats
 ### Harmony
-Harmony is the Big Bad of the series (or 
+Harmony is the Big Bad of the series (or of at least the initial three seasons, if *SU* runs longer). They are a parasitic hive mind that takes over 
 
 ### The Alliance of Independent Worlds
 
@@ -54,7 +54,7 @@ Harmony is the Big Bad of the series (or
 
 ### Sublight Worlds
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTM2NzQ2NDkyMiwtNTQ4OTM1MjA1LDE0Mz
-Y4MTczNzMsOTcyNzI0MDc2LDIxMzAxMTYzMCwzNzQzMTM2NTBd
-fQ==
+eyJoaXN0b3J5IjpbLTIzNTYxODQ5LC01NDg5MzUyMDUsMTQzNj
+gxNzM3Myw5NzI3MjQwNzYsMjEzMDExNjMwLDM3NDMxMzY1MF19
+
 -->
