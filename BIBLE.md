@@ -8,7 +8,7 @@ The *Stellar Union* universe is an optimistic, handwave-y future history inspire
 
 ## Major Powers
 ### The Stellar Union
-The Stellar Union is
+The Stellar Union is 
 
 ### The Quellan Empire
 The Quellans are a militaristic 
@@ -29,8 +29,13 @@ The Regulans are bipedal carnivores
 
 ### The Grey Goo
 
+### The Alliance of Independent Worlds
 
+## Minor Powers
+### Minor Interstellar Powers
+
+### Sublight Worlds
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTY4NzU1NDE0NCw5NzI3MjQwNzYsMjEzMD
+eyJoaXN0b3J5IjpbMTQzNjgxNzM3Myw5NzI3MjQwNzYsMjEzMD
 ExNjMwLDM3NDMxMzY1MF19
 -->
