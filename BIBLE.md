@@ -17,8 +17,7 @@ Stellar Command personnel have
 
 ## Major Powers
 ### The Stellar Union
-The Stellar Union is 
-
+The Stellar Union is optimistic and utopian 
 
 #### Earth
 #### Outlying Human Colonies
@@ -54,7 +53,7 @@ Harmony is the Big Bad of the series (or of at least the initial three seasons, 
 
 ### Sublight Worlds
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIzNTYxODQ5LC01NDg5MzUyMDUsMTQzNj
-gxNzM3Myw5NzI3MjQwNzYsMjEzMDExNjMwLDM3NDMxMzY1MF19
-
+eyJoaXN0b3J5IjpbLTE2MzA5NTUxNTUsLTU0ODkzNTIwNSwxND
+M2ODE3MzczLDk3MjcyNDA3NiwyMTMwMTE2MzAsMzc0MzEzNjUw
+XX0=
 -->
