@@ -1,8 +1,6 @@
 %% maneuvering.dg
 %% Also include sectored-grid.dg when compiling or debugging.
 
-(extension version)	Ship maneuvering v0.1 by Susan Davis
-
 %%-------------------------------- INTERFACES --------------------------------
 
 (interface (update $<Ship))
@@ -14,18 +12,6 @@
 (interface (attract nearby ships to $<Object))
 
 %%------------------------------ IMPLEMENTATION ------------------------------
-
-(distance for gradient $Speed into $Distance)
-	(if) ($Speed = 0) (then)
-		($Distance = 10)
-	(else)
-		($Speed times 100 into $Distance)
-	(endif)
-
-($Ship energy needed for distance $Distance into $Energy)
-	($Distance divided by 100 into $Squares)
-
-($Ship can move $Distance with remaining energy)
 
 (turn $Ship to helm setting)
 	($Ship effective turn mode $Mode)

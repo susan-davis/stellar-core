@@ -1,6 +1,7 @@
 *~
 stdlib.dg
+stddebug.dg
 *.z5
 *.z8
 *.aastory
-
+nohup.out
