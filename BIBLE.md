@@ -10,7 +10,7 @@ The *Stellar Union* universe is an optimistic, handwave-y future history inspire
 Technology in the 2270s follows all the tropes of the source material. 
 
 #### Starship Technology
-Warp-powered starships, with decks parallel to the direction of travel, ply the ocean of space, but always seem to be aligned on a common up and down direction when they meet. Ships are powered by Applied Phlebotinum ("Energon crystals"), and 
+Warp-powered starships, with decks parallel to the direction of travel, ply the ocean of space, but always seem to be aligned on a common up and down direction when they meet. Ships are powered by Applied Phlebotinum ("Energon crystals"), and attack and defend with beams and fields of energy.
 
 #### Personal Technology
 Stellar Command personnel have 
@@ -20,6 +20,8 @@ Stellar Command personnel have
 The Stellar Union is 
 
 #### Stellar Command
+
+
 #### Earth
 #### Outlying Human Colonies
 #### The Galdorites
@@ -39,6 +41,7 @@ The Regulans are bipedal carnivores
 
 ## New Threats
 ### Harmony
+Harmony is the Big Bad of the series (or 
 
 ### The Alliance of Independent Worlds
 
@@ -51,7 +54,7 @@ The Regulans are bipedal carnivores
 
 ### Sublight Worlds
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjY3MTI0NjEwLC01NDg5MzUyMDUsMTQzNj
-gxNzM3Myw5NzI3MjQwNzYsMjEzMDExNjMwLDM3NDMxMzY1MF19
-
+eyJoaXN0b3J5IjpbMTM2NzQ2NDkyMiwtNTQ4OTM1MjA1LDE0Mz
+Y4MTczNzMsOTcyNzI0MDc2LDIxMzAxMTYzMCwzNzQzMTM2NTBd
+fQ==
 -->
