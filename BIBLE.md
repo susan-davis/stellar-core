@@ -7,7 +7,13 @@ The *Stellar Union* universe is an optimistic, handwave-y future history inspire
 *Stellar Union* takes place in the 2270s. Earth has formed a Stellar Union of Earth, its colonies, and several alien races. 
 
 ### Technology
-Technology in the 2270s follows all the tropes of the source material
+Technology in the 2270s follows all the tropes of the source material. 
+
+#### Starship Technology
+Warp-powered starships, with decks parallel to the direction of travel, ply the ocean of space, always 
+
+#### Personal Technology
+The 
 
 ## Major Powers
 ### The Stellar Union
@@ -45,7 +51,7 @@ The Regulans are bipedal carnivores
 
 ### Sublight Worlds
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTcwMzU2ODA3OCwtNTQ4OTM1MjA1LDE0Mz
+eyJoaXN0b3J5IjpbLTIxMzgzNDU3NiwtNTQ4OTM1MjA1LDE0Mz
 Y4MTczNzMsOTcyNzI0MDc2LDIxMzAxMTYzMCwzNzQzMTM2NTBd
 fQ==
 -->
