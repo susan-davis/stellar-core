@@ -9,7 +9,21 @@ The *Stellar Union* universe is an optimistic, handwave-y future history inspire
 ## Major Powers
 ### The Stellar Union
 The Stellar Union is
+
+### The Quellan Empire
+The Quellans are a militaristic 
+
+### The Tiberian Public Sector
+The Tiberians are 
+
+### The Generon Regime
+The Generons are 
+
+### The Regulan Matriarchy
+The Regulans are bipedal carnivores 
+
+## 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzIyNjgwMDEzLDk3MjcyNDA3NiwyMTMwMT
-E2MzAsMzc0MzEzNjUwXX0=
+eyJoaXN0b3J5IjpbLTI4NTU0MDUxNyw5NzI3MjQwNzYsMjEzMD
+ExNjMwLDM3NDMxMzY1MF19
 -->
