@@ -10,10 +10,10 @@ The *Stellar Union* universe is an optimistic, handwave-y future history inspire
 Technology in the 2270s follows all the tropes of the source material. 
 
 #### Starship Technology
-Warp-powered starships, with decks parallel to the direction of travel, ply the ocean of space, always 
+Warp-powered starships, with decks parallel to the direction of travel, ply the ocean of space, but always seem to be aligned on a common up and down direction when they meet. 
 
 #### Personal Technology
-The 
+Stellar Command personnel have 
 
 ## Major Powers
 ### The Stellar Union
@@ -51,7 +51,7 @@ The Regulans are bipedal carnivores
 
 ### Sublight Worlds
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIxMzgzNDU3NiwtNTQ4OTM1MjA1LDE0Mz
-Y4MTczNzMsOTcyNzI0MDc2LDIxMzAxMTYzMCwzNzQzMTM2NTBd
-fQ==
+eyJoaXN0b3J5IjpbNDQ2MTQ1MDk5LC01NDg5MzUyMDUsMTQzNj
+gxNzM3Myw5NzI3MjQwNzYsMjEzMDExNjMwLDM3NDMxMzY1MF19
+
 -->
