@@ -7,7 +7,7 @@ Common functionality for *Stellar Union* games. This project contains all the in
 
 `maneuvering.dg` -- implements moving ships around to various destinations in a quadrant
 
-sensors.dg -- implements short and long range sensors, and the quadrant map, along t
+`sensors.dg` -- implements short and long range sensors, and the quadrant map, along the lines of the classic STARTREK game from the 1970s
 
 `time.dg` -- implements time, timekeeping, formatted output, and related functions
 
@@ -24,5 +24,5 @@ A `runtests.sh` script is in development, and will eventually be useful for runn
 Build instructions to follow when development is far enough to have integration tests that can be built into Z-machine and `.aastory` files.
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTIzNDI4NzgxNCwtODg4Mjg2NDBdfQ==
+eyJoaXN0b3J5IjpbLTY2ODg2OTMwMywtODg4Mjg2NDBdfQ==
 -->
