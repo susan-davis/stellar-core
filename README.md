@@ -1,4 +1,4 @@
-﻿# stellar-core
+# stellar-core
 Common functionality for *Stellar Union* games. This project contains all the infrastructure needed to implement a *Cygnus*-class (or other) starship in the Stellar Union universe, fly it around, dock and undock, land and take off, repair damage, scan for anomalies, go for EVAs outside the ship, beam to places with the Matter Transport Beam, and generally make an IF game that plays like an episode of a show along the lines of *Star Trek*, *Galaxy Quest*, *The Orville*, or the like.
 ## Modules
 `sectored-grid.dg` -- implements the basics of ranges, bearings, and moving objects around on a square grid divided into sectors
@@ -21,3 +21,6 @@ A `runtests.sh` script is in development, and will eventually be useful for runn
 
 Build instructions to follow when development is far enough to have integration tests that can be built into Z-machine and `.aastory` files.
 
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTg4ODI4NjQwXX0=
+-->
