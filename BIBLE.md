@@ -11,11 +11,12 @@ The *Stellar Union* universe is an optimistic, handwave-y future history inspire
 The Stellar Union is 
 #### Stellar Command
 #### Earth
+#### Outlying Human Colonies
 #### The Galdorites
 #### The 
 
 ### The Quellan Empire
-The Quellans are a militaristic 
+The Quellans are an expansionist empire of Proud Warrior Race Guys. 
 
 ### The Tiberian Public Sector
 The Tiberians are 
@@ -40,6 +41,6 @@ The Regulans are bipedal carnivores
 
 ### Sublight Worlds
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIyNTIwNzc3MywxNDM2ODE3MzczLDk3Mj
-cyNDA3NiwyMTMwMTE2MzAsMzc0MzEzNjUwXX0=
+eyJoaXN0b3J5IjpbLTIxNDI3MzQxMzAsMTQzNjgxNzM3Myw5Nz
+I3MjQwNzYsMjEzMDExNjMwLDM3NDMxMzY1MF19
 -->
