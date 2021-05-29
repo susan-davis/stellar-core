@@ -25,17 +25,17 @@ The Regulans are bipedal carnivores
 ## New Threats
 ### Harmony
 
+### The Alliance of Independent Worlds
+
 ### The Tarantulans
 
 ### The Grey Goo
-
-### The Alliance of Independent Worlds
 
 ## Minor Powers
 ### Minor Interstellar Powers
 
 ### Sublight Worlds
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQzNjgxNzM3Myw5NzI3MjQwNzYsMjEzMD
-ExNjMwLDM3NDMxMzY1MF19
+eyJoaXN0b3J5IjpbLTE3NTM1MjQwMTcsMTQzNjgxNzM3Myw5Nz
+I3MjQwNzYsMjEzMDExNjMwLDM3NDMxMzY1MF19
 -->
