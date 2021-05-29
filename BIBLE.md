@@ -6,9 +6,13 @@ The *Stellar Union* universe is an optimistic, handwave-y future history inspire
 
 *Stellar Union* takes place in the 2270s. Earth has formed a Stellar Union of Earth, its colonies, and several alien races. 
 
+### Technology
+
+
 ## Major Powers
 ### The Stellar Union
 The Stellar Union is 
+
 #### Stellar Command
 #### Earth
 #### Outlying Human Colonies
@@ -41,6 +45,6 @@ The Regulans are bipedal carnivores
 
 ### Sublight Worlds
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIxNDI3MzQxMzAsMTQzNjgxNzM3Myw5Nz
-I3MjQwNzYsMjEzMDExNjMwLDM3NDMxMzY1MF19
+eyJoaXN0b3J5IjpbLTU0ODkzNTIwNSwxNDM2ODE3MzczLDk3Mj
+cyNDA3NiwyMTMwMTE2MzAsMzc0MzEzNjUwXX0=
 -->
