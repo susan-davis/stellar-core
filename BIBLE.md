@@ -7,10 +7,10 @@ The *Stellar Union* universe is an optimistic future history inspired by *Star T
 *Stellar Union* takes place in the 2270s. Earth has formed a Stellar Union of Earth, its colonies, and several alien races. 
 
 ### Technology
-Technology in the 2270s follows all the tropes of the source material, taking a cheerfully handwave-y approarch 
+Technology in the 2270s follows all the tropes of the source material, taking a cheerfully handwave-y attitude to science fiction.  
 
 #### Starship Technology
-Warp-powered starships, with decks parallel to the direction of travel, ply the ocean of space, but always seem to be aligned on a common up and down direction when they meet. Ships are powered by Applied Phlebotinum ("Energon crystals"), and attack and defend with beams and fields of energy.
+Warp-powered starships, with decks parallel to the direction of travel, ply the ocean of space, but always seem to be aligned on a common up and down direction when they meet. Ships are powered by Applied Phlebotinum ("Energon crystals"), and attack and defend with beams and fields of energy. Ships have energy projectors, an assortment of missiles and torpedoes, deflector shields, and warp ("Alcubierre") and impulse ("reaction") engines. 
 
 #### Personal Technology
 Stellar Command personnel have 
@@ -53,7 +53,7 @@ Harmony is the Big Bad of the series (or of at least the initial three seasons, 
 
 ### Sublight Worlds
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTgwNTAyMjcxMywtMTYzMDk1NTE1NSwtNT
+eyJoaXN0b3J5IjpbMTQyMjU3OTYyNCwtMTYzMDk1NTE1NSwtNT
 Q4OTM1MjA1LDE0MzY4MTczNzMsOTcyNzI0MDc2LDIxMzAxMTYz
 MCwzNzQzMTM2NTBdfQ==
 -->
