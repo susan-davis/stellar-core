@@ -22,8 +22,15 @@ The Generons are
 ### The Regulan Matriarchy
 The Regulans are bipedal carnivores 
 
-## 
+## New Threats
+### Harmony
+
+### The Tarantulans
+
+### The Grey Goo
+
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTI4NTU0MDUxNyw5NzI3MjQwNzYsMjEzMD
+eyJoaXN0b3J5IjpbLTY4NzU1NDE0NCw5NzI3MjQwNzYsMjEzMD
 ExNjMwLDM3NDMxMzY1MF19
 -->
