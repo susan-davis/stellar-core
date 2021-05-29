@@ -7,11 +7,13 @@ Common functionality for *Stellar Union* games. This project contains all the in
 
 `maneuvering.dg` -- implements moving ships around to various destinations in a quadrant
 
+sensors.dg -- implements short and long range sensors, and the quadrant map, along t
+
 `time.dg` -- implements time, timekeeping, formatted output, and related functions
 
-`yagni.dg` -- miscellaneous code that turned out not to be needed, squirreled away in case it's needed later
-
 `cygnus.dg` -- the interior of a *Cygnus*-class scout ship, with controls hooked up to the other modules
+
+`yagni.dg` -- miscellaneous code that turned out not to be needed, squirreled away in case it's needed later
 
 `stdlib.dg` -- the Dialog standard library, not included in source control; get this from the Dialog distribution
 ## Building and Testing
@@ -22,5 +24,5 @@ A `runtests.sh` script is in development, and will eventually be useful for runn
 Build instructions to follow when development is far enough to have integration tests that can be built into Z-machine and `.aastory` files.
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTg4ODI4NjQwXX0=
+eyJoaXN0b3J5IjpbMTIzNDI4NzgxNCwtODg4Mjg2NDBdfQ==
 -->
