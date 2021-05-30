@@ -25,8 +25,10 @@ The Stellar Union is idealistic and utopian
 #### The 
 
 ### The Quellan Empire
-The Quellans are an expansionist empire of Proud Warrior Race Guys. 
+The Quellans are an expansionist empire of Proud Warrior Race Guys. The 
 #### Quellan Society and Government
+The 
+
 #### Quellan Ships
 - *Q1*-class attack ship ("Attack I")
 - *Q2*-class scout ("Ambush I")
@@ -90,7 +92,7 @@ Harmony is the Big Bad of the series (or of at least the initial three seasons, 
 #### *Union*-class Battleship
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTcwNTU0OTMxNSwxMDgzNDU0MjY0LDE3Nz
-M3MjYyNDksLTE2MzA5NTUxNTUsLTU0ODkzNTIwNSwxNDM2ODE3
-MzczLDk3MjcyNDA3NiwyMTMwMTE2MzAsMzc0MzEzNjUwXX0=
+eyJoaXN0b3J5IjpbLTE1NjA3NjY1MjksMTA4MzQ1NDI2NCwxNz
+czNzI2MjQ5LC0xNjMwOTU1MTU1LC01NDg5MzUyMDUsMTQzNjgx
+NzM3Myw5NzI3MjQwNzYsMjEzMDExNjMwLDM3NDMxMzY1MF19
 -->
