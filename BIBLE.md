@@ -52,21 +52,23 @@ Harmony is the Big Bad of the series (or of at least the initial three seasons, 
 ### Sublight Worlds
 
 ## Stellar Command
+### Organization
+#### 
 ### Ship Classes
 #### *Cygnus*-class Scout
 #### *Genbu*-class Frigate
-#### *Hero*-class Destroyer
+#### *Glidwarg*-class Destroyer
 #### *Argo Navis*-class Cruiser
 #### *Zheng He*-class Exploration Cruiser
 #### *Eratosthanes*-class Fleet Tug
-#### *Planet*-class Monitor
+#### *North America*-class Monitor
 #### **-class Tender
 #### **-class Research Vessel
 #### **-class Personnel Transport
 #### *Union*-class Battleship
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExOTY5NDk4MiwxNzczNzI2MjQ5LC0xNj
-MwOTU1MTU1LC01NDg5MzUyMDUsMTQzNjgxNzM3Myw5NzI3MjQw
-NzYsMjEzMDExNjMwLDM3NDMxMzY1MF19
+eyJoaXN0b3J5IjpbLTIwNzMyNzY0NzgsMTc3MzcyNjI0OSwtMT
+YzMDk1NTE1NSwtNTQ4OTM1MjA1LDE0MzY4MTczNzMsOTcyNzI0
+MDc2LDIxMzAxMTYzMCwzNzQzMTM2NTBdfQ==
 -->
