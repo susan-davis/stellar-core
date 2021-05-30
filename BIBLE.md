@@ -29,7 +29,7 @@ The Quellans are an expansionist empire of Proud Warrior Race Guys.
 #### Quellan Society and Government
 #### Quellan Ships
 - *Q1*-class attack ship ("Attack I")
-- *Q2*-class invasion transport ("Conquest")
+- *Q2*-class scout ("Ambush I")
 - *Q3*-class attack ship ("Attack II")
 - *Q4*-class cruiser ("Victory I")
 - *Q5*-class invasion transport ("Conquest")
@@ -38,7 +38,8 @@ The Quellans are an expansionist empire of Proud Warrior Race Guys.
 - *Q8*-class battlecruiser ("Vengeance")
 - *Q10*-class pocket battleship ("Glory")
 - *Q11*-class attack ship ("Attack III")
-- *Q12*-class scout 
+- *Q12*-class scout ("Ambush II")
+- *Q13*-class battleship ("Emperor")
 
 ### The Tiberian Public Sector
 The Tiberians are 
@@ -89,7 +90,7 @@ Harmony is the Big Bad of the series (or of at least the initial three seasons, 
 #### *Union*-class Battleship
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzI3OTMyOTY5LDEwODM0NTQyNjQsMTc3Mz
-cyNjI0OSwtMTYzMDk1NTE1NSwtNTQ4OTM1MjA1LDE0MzY4MTcz
-NzMsOTcyNzI0MDc2LDIxMzAxMTYzMCwzNzQzMTM2NTBdfQ==
+eyJoaXN0b3J5IjpbMTcwNTU0OTMxNSwxMDgzNDU0MjY0LDE3Nz
+M3MjYyNDksLTE2MzA5NTUxNTUsLTU0ODkzNTIwNSwxNDM2ODE3
+MzczLDk3MjcyNDA3NiwyMTMwMTE2MzAsMzc0MzEzNjUwXX0=
 -->
