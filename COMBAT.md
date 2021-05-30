@@ -9,8 +9,7 @@ Eventually, there might be shuttlecraft movement involving subdivisions of posit
 We use "quadrant" and "sector" in a different way than classic `STARTREK`, which called a sector a "quadrant" and a subsector a "sector."
 
 ## Movement
-Ships have a "drive efficiency" rating that measures the number of millisectors of distance that the ship can travel per unit of energy. 
-
+Ships have a "drive efficiency" rating that measures the number of millisectors of distance that the ship can travel per unit of energy. A cruiser with an efficiency of 100 would 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTkxNTAyOTE4NywxNDYzMzE0MTg0XX0=
+eyJoaXN0b3J5IjpbNDg0MTU3MDA2LDE0NjMzMTQxODRdfQ==
 -->
