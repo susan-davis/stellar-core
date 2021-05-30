@@ -53,11 +53,14 @@ Harmony is the Big Bad of the series (or of at least the initial three seasons, 
 
 ## Stellar Command
 ### Organization
-#### 
+#### Exploration Command
+#### Patrol Command
+#### Planetary Command
+
 ### Ship Classes
 #### *Cygnus*-class Scout
 #### *
-#### *Genbu*-class Frigate
+#### *Genbu*-class Heavy Scout
 #### *Glidwarg*-class Destroyer
 #### *Argo Navis*-class Cruiser
 #### *Zheng He*-class Exploration Cruiser
@@ -69,7 +72,7 @@ Harmony is the Big Bad of the series (or of at least the initial three seasons, 
 #### *Union*-class Battleship
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTg4OTIwNzAsMTc3MzcyNjI0OSwtMTYzMD
+eyJoaXN0b3J5IjpbMzg4ODE2MTMsMTc3MzcyNjI0OSwtMTYzMD
 k1NTE1NSwtNTQ4OTM1MjA1LDE0MzY4MTczNzMsOTcyNzI0MDc2
 LDIxMzAxMTYzMCwzNzQzMTM2NTBdfQ==
 -->
