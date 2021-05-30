@@ -66,13 +66,13 @@ Harmony is the Big Bad of the series (or of at least the initial three seasons, 
 #### *Amundsen*-class Exploration Cruiser
 #### *Eratosthanes*-class Fleet Tug
 #### *North America*-class Monitor
-#### *Admiral*-class Tender
+#### *Admiral Vordrek*-class Tender
 #### *Calypso*-class Research Vessel
 #### *Mauretania*-class Personnel Transport
 #### *Union*-class Battleship
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyOTY4MTkyOTEsMTc3MzcyNjI0OSwtMT
-YzMDk1NTE1NSwtNTQ4OTM1MjA1LDE0MzY4MTczNzMsOTcyNzI0
-MDc2LDIxMzAxMTYzMCwzNzQzMTM2NTBdfQ==
+eyJoaXN0b3J5IjpbMTA4MzQ1NDI2NCwxNzczNzI2MjQ5LC0xNj
+MwOTU1MTU1LC01NDg5MzUyMDUsMTQzNjgxNzM3Myw5NzI3MjQw
+NzYsMjEzMDExNjMwLDM3NDMxMzY1MF19
 -->
