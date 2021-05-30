@@ -55,13 +55,13 @@ Harmony is the Big Bad of the series (or of at least the initial three seasons, 
 ### Ship Classes
 #### *Cygnus*-class Scout
 #### *Genbu*-class Frigate
-#### **-class Destroyer
+#### *Sargon*-class Destroyer
 #### *Argo Navis*-class Cruiser
 #### *Zheng He*-class Exploration Cruiser
 #### *Eratosthanes*-class Fleet Tug
 #### 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIxMjc0MjgwNDYsMTc3MzcyNjI0OSwtMT
-YzMDk1NTE1NSwtNTQ4OTM1MjA1LDE0MzY4MTczNzMsOTcyNzI0
-MDc2LDIxMzAxMTYzMCwzNzQzMTM2NTBdfQ==
+eyJoaXN0b3J5IjpbNjkxNDU3NTI0LDE3NzM3MjYyNDksLTE2Mz
+A5NTUxNTUsLTU0ODkzNTIwNSwxNDM2ODE3MzczLDk3MjcyNDA3
+NiwyMTMwMTE2MzAsMzc0MzEzNjUwXX0=
 -->
