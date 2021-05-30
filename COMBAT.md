@@ -8,8 +8,10 @@ Eventually, there might be shuttlecraft movement involving subdivisions of posit
 
 We use "quadrant" and "sector" in a different way than classic `STARTREK`, which called a sector a "quadrant" and a subsector a "sector."
 
+Speed is measured by "warp gradient" (warp factor). `STARTREK` and *Star Fleet 1* both use linear measures of 
+
 ## Movement
-Ships have a "drive efficiency" rating that measures the number of millisectors of distance that the ship can travel per unit of energy. A cruiser with an efficiency of 100 would 
+Ships have a "drive efficiency" rating that measures the number of millisectors of distance that the ship can travel per unit of energy at its cruising speed or less. A cruiser with an efficiency of 100 would require 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDg0MTU3MDA2LDE0NjMzMTQxODRdfQ==
+eyJoaXN0b3J5IjpbMTM5Mzc1NzIzMiwxNDYzMzE0MTg0XX0=
 -->
