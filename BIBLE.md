@@ -28,10 +28,14 @@ The Stellar Union is idealistic and utopian
 The Quellans are an expansionist empire of Proud Warrior Race Guys. 
 #### Quellan Society and Government
 #### Quellan Ships
-- *
-- *Q3*-class attack ship
-- *Q4*-class cruiser
-- *Q5*-class 
+- *Q1*-class attack ship ("Attack I")
+- *Q3*-class attack ship ("Attack III")
+- *Q4*-class cruiser ("Victory I")
+- *Q5*-class invasion transport
+- *Q6*-class cruiser ("Victory II")
+- *Q7*-class cruiser ("Victory III")
+- *Q8*-class battlecruiser ("Vengeance")
+- Q10-c
 
 ### The Tiberian Public Sector
 The Tiberians are 
@@ -82,7 +86,7 @@ Harmony is the Big Bad of the series (or of at least the initial three seasons, 
 #### *Union*-class Battleship
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDQ0ODY5ODM4LDEwODM0NTQyNjQsMTc3Mz
-cyNjI0OSwtMTYzMDk1NTE1NSwtNTQ4OTM1MjA1LDE0MzY4MTcz
-NzMsOTcyNzI0MDc2LDIxMzAxMTYzMCwzNzQzMTM2NTBdfQ==
+eyJoaXN0b3J5IjpbLTE0MTM4NjIyNzUsMTA4MzQ1NDI2NCwxNz
+czNzI2MjQ5LC0xNjMwOTU1MTU1LC01NDg5MzUyMDUsMTQzNjgx
+NzM3Myw5NzI3MjQwNzYsMjEzMDExNjMwLDM3NDMxMzY1MF19
 -->
