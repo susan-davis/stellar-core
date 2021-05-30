@@ -52,6 +52,10 @@ Harmony is the Big Bad of the series (or of at least the initial three seasons, 
 ### Sublight Worlds
 
 ## Stellar Command
+### Ranks
+#### Enlisted Ranks
+#### Officer Ranks
+
 ### Organization
 #### Exploration Command
 #### Patrol Command
@@ -72,7 +76,7 @@ Harmony is the Big Bad of the series (or of at least the initial three seasons, 
 #### *Union*-class Battleship
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA4MzQ1NDI2NCwxNzczNzI2MjQ5LC0xNj
-MwOTU1MTU1LC01NDg5MzUyMDUsMTQzNjgxNzM3Myw5NzI3MjQw
-NzYsMjEzMDExNjMwLDM3NDMxMzY1MF19
+eyJoaXN0b3J5IjpbLTQwODI4NDMwMCwxMDgzNDU0MjY0LDE3Nz
+M3MjYyNDksLTE2MzA5NTUxNTUsLTU0ODkzNTIwNSwxNDM2ODE3
+MzczLDk3MjcyNDA3NiwyMTMwMTE2MzAsMzc0MzEzNjUwXX0=
 -->
