@@ -60,9 +60,13 @@ Harmony is the Big Bad of the series (or of at least the initial three seasons, 
 #### *Zheng He*-class Exploration Cruiser
 #### *Eratosthanes*-class Fleet Tug
 #### *Planet*-class Monitor
-#### 
+#### **-class Tender
+#### **-class Research Vessel
+#### **-class Personnel Transport
+#### *Union*-class Battleship
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyMjA0MTA0MjUsMTc3MzcyNjI0OSwtMT
-YzMDk1NTE1NSwtNTQ4OTM1MjA1LDE0MzY4MTczNzMsOTcyNzI0
-MDc2LDIxMzAxMTYzMCwzNzQzMTM2NTBdfQ==
+eyJoaXN0b3J5IjpbLTExOTY5NDk4MiwxNzczNzI2MjQ5LC0xNj
+MwOTU1MTU1LC01NDg5MzUyMDUsMTQzNjgxNzM3Myw5NzI3MjQw
+NzYsMjEzMDExNjMwLDM3NDMxMzY1MF19
 -->
