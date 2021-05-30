@@ -1,6 +1,9 @@
 # Combat in *Stellar Union*
-## Energy
+## Sectors, Quadrants, and Distance
+The 
+## Movement
+Ships have a "drive efficiency" rating that 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQ2MzMxNDE4NF19
+eyJoaXN0b3J5IjpbLTEwMzgyNDM5NzEsMTQ2MzMxNDE4NF19
 -->
