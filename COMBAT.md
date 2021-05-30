@@ -1,6 +1,6 @@
 # Combat in *Stellar Union*
 ## Sectors, Quadrants, and Distance
-Space is divided into 8 x 8 *quadrants*, which are divided into 10 x 10 *sectors*. Sectors can further be divided into 10 x 10 *subsectors*; this happens normally under the hood, and is displayed when the PC ship enters a sector containing some other object of interest such as a gravity well or an enemy ship. There's an outside chance that we might enlarge quadrants to 10 x 10 at some point before the release of the first game, but that makes quadrant maps on an 
+Space is divided into 8 x 8 *quadrants*, which are divided into 10 x 10 *sectors*. Sectors can further be divided into 10 x 10 *subsectors*; this happens normally under the hood, and is displayed when the PC ship enters a sector containing some other object of interest such as a gravity well or an enemy ship. There's an outside chance that we might enlarge quadrants to 10 x 10 at some point before the release of the first game, but that makes quadrant maps on a 40 x 24 Commodore 64 screen, or 80 x 24 old school terminal, awkward.
 
 Distances are measured in *millisectors*. A sector is 1000 millisectors across, a subsector 100, and a position within a subsector 10. These are necessary because we only have unsigned integers available for math. 
 
@@ -9,8 +9,8 @@ Eventually, there might be shuttlecraft movement involving subdivisions of posit
 We use "quadrant" and "sector" in a different way than classic `STARTREK`, which called a sector a "quadrant" and a subsector a "sector."
 
 ## Movement
-Ships have a "drive efficiency" rating that 
+Ships have a "drive efficiency" rating that measures the number of millisectors of distance that the ship can travel per unit of energy. 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzc3MzM3ODc1LDE0NjMzMTQxODRdfQ==
+eyJoaXN0b3J5IjpbMTkxNTAyOTE4NywxNDYzMzE0MTg0XX0=
 -->
