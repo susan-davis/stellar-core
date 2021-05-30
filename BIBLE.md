@@ -23,8 +23,6 @@ The Stellar Union is idealistic and utopian
 #### Outlying Human Colonies
 #### The Galdorites
 #### The 
-#### Stellar Command
-
 
 ### The Quellan Empire
 The Quellans are an expansionist empire of Proud Warrior Race Guys. 
@@ -52,8 +50,14 @@ Harmony is the Big Bad of the series (or of at least the initial three seasons, 
 ### Minor Interstellar Powers
 
 ### Sublight Worlds
+
+## Stellar Command
+### Ship Classes
+#### *Cygnus*-class Scout
+#### *Genbu*-class Frigate
+#### 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTc3MzcyNjI0OSwtMTYzMDk1NTE1NSwtNT
-Q4OTM1MjA1LDE0MzY4MTczNzMsOTcyNzI0MDc2LDIxMzAxMTYz
-MCwzNzQzMTM2NTBdfQ==
+eyJoaXN0b3J5IjpbNTgxNjc4NjQ0LDE3NzM3MjYyNDksLTE2Mz
+A5NTUxNTUsLTU0ODkzNTIwNSwxNDM2ODE3MzczLDk3MjcyNDA3
+NiwyMTMwMTE2MzAsMzc0MzEzNjUwXX0=
 -->
