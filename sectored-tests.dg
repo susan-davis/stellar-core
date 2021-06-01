@@ -313,6 +313,15 @@
 	#turn-180-toward-136
 	#turn-45-starboard
 	#turn-315-port
+	#bearing-to-3-4-1-2
+	#bearing-to-3-4-9-10
+	#bearing-to-1-8-1-10
+	#drag-141-toward-near-target
+	#drag-750-toward-far-target
+	#drag-1500-toward-distant-target
+	#move-141-toward-near-target
+	#move-750-toward-far-target
+	#move-1500-toward-distant-target
 	])
 
 %% ----------------------------------------------------------------------
@@ -1594,3 +1603,57 @@
 (test #turn-315-port)
 	(turn #test-ship 315 to port)
 	(#test-ship heading 0)
+
+(assert bearing to $SX $SY $X $Y is $Result)
+	(position for $SX $SY $X $Y into $Destination)
+	(bearing from #test-ship to position $Destination into $Result)
+	$Result
+
+(test #bearing-to-3-4-1-2)
+	(assert bearing to 3 4 1 2 is 315)
+
+(test #bearing-to-3-4-9-10)
+	(assert bearing to 3 4 9 10 is 135)
+
+(test #bearing-to-1-8-1-10)
+	(assert bearing to 1 8 1 10 is 208)
+
+(assert drag $Distance toward $Position is $SX $SY $X $Y $PX $PY)
+	(drag #test-ship $Distance toward position $Position)
+	(position for $SX $SY $X $Y $PX $PY into $Here)
+	(#test-ship state is $There)
+	$There
+	([$DX $DY | $] = $There)
+	(assert $Here = [$DX $DY | $])
+
+(test #drag-141-toward-near-target)
+	(#near-target state is $There)
+	(assert drag 141 toward $There is 3 4 4 5 5 5)
+
+(test #drag-750-toward-far-target)
+	(#far-target state is $There)
+	(assert drag 750 toward $There is 3 3 9 10 2 4)
+
+(test #drag-1500-toward-distant-target)
+	(#distant-target state is $There)
+	(assert drag 1500 toward $There is 2 5 10 9 6 8)
+
+(assert move $Distance toward $Position is $SX $SY $X $Y $PX $PY)
+	(move #test-ship $Distance toward position $Position)
+	(position for $SX $SY $X $Y $PX $PY into $Here)
+	(#test-ship state is $There)
+	$There
+	([$DX $DY | $] = $There)
+	(assert $Here = [$DX $DY | $])
+
+(test #move-141-toward-near-target)
+	(#near-target state is $There)
+	(assert move 141 toward $There is 3 4 4 5 5 5)
+
+(test #move-750-toward-far-target)
+	(#far-target state is $There)
+	(assert move 750 toward $There is 3 3 9 10 2 4)
+
+(test #move-1500-toward-distant-target)
+	(#distant-target state is $There)
+	(assert move 1500 toward $There is 2 5 10 9 6 8)

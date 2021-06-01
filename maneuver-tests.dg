@@ -13,6 +13,11 @@
 	#accelerate-way-too-fast
 	#decelerate
 	#should-move-400
+	#should-move-141
+	#energy-for-warp-4
+	#energy-for-warp-8
+	#can-move-16000
+	#can-move-1000
 	])
 
 %% ----------------------------------------------------------------------
@@ -138,4 +143,26 @@
 
 (test #should-move-400)
 	(#test-ship should move 400)
+
+(test #should-move-141)
+	(set destination for #test-ship to 3 4 4 5)
+	(#test-ship should move 141)
+
+(test #energy-for-warp-4)
+	(#test-ship energy needed for distance 400 into 1)
+
+(test #energy-for-warp-8)
+	(#test-ship energy needed for distance 800 into $E)
+	$E
+	(assert $E = 6)
+
+(test #can-move-16000)
+	(decrease energy for #test-ship by 900)
+	(#test-ship can move 16000 with remaining energy)
+
+(test #can-move-1000)
+	(decrease energy for #test-ship by 930)
+	(#test-ship can move $Distance with remaining energy)
+	$Distance
+	(assert $Distance = 1000)
 

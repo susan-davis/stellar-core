@@ -83,6 +83,8 @@
 
 (interface (bearing from $<Object to $<Target into $>Bearing))
 
+(interface (bearing from $<Object to position $<Position into $>Bearing))
+
 %% "Angle" means bow angle, converting bearing into a value relative
 %% to the object's heading.
 
@@ -125,6 +127,8 @@
 
 (interface (drag $<Ship $<Distance toward $<GridObject))
 
+(interface (drag $<Ship $<Distance toward position $<Position))
+
 %% Move: turn the object toward the destination, and then drag there.
 
 (interface (move $<Ship to position $<Position))
@@ -140,6 +144,8 @@
 (interface (move $<Ship $<Distance toward $<GridObject))
 
 (interface (move $<Ship $<Distance away from $<GridObject))
+
+(interface (move $<Ship $<Distance toward position $<Position))
 
 %% ------------------------------ HELPERS ------------------------------
 
@@ -554,6 +560,10 @@
 	(look up bearing for $Little $Big into $Angle)
 	(bearing for $Angle in octant $Octant into $Result)
 
+(bearing from $Ship to position $There into $Result)
+	($Ship state is $Here)
+	(calculate bearing from $Here to $There into $Result)
+
 (bearing from $Ship to $Target into $Result)
 	($Ship state is $Here)
 	($Target state is $There)
@@ -861,6 +871,10 @@
 	(bearing from $Ship to $Target into $Bearing)
 	(drag $Ship $Distance on heading $Bearing)
 
+(drag $Ship $Distance toward position $Destination)
+	(bearing from $Ship to position $Destination into $Bearing)
+	(drag $Ship $Distance on heading $Bearing)
+
 %% move == turn, then drag
 
 (move $Ship to position $Destination)
@@ -890,3 +904,7 @@
 (move $Ship $Distance away from $Target)
 	(turn $Ship away from $Target)
 	(move $Ship $Distance forward)
+
+(move $Ship $Distance toward position $Destination)
+	(turn $Ship to face position $Destination)
+	(drag $Ship $Distance toward position $Destination)

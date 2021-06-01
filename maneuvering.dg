@@ -33,7 +33,7 @@
 	(else)
 		($NewSpeed = $Throttle)
 	(endif)
-	(accelerate $Ship to speed $NewSpeed)
+	(accelerate $Ship to speed $NewSpeed) 
 
 ($Ship should move $Result)
 	($Ship state is $State)
@@ -46,20 +46,51 @@
 		($Result = $Range)
 	(endif)
 
+($Ship energy needed for distance $Distance into $Result)
+	($Ship drive efficiency $Efficiency)
+	($Distance divided by $Efficiency into $Dividend)
+	($Distance modulo $Efficiency into $Remainder)
+	(if) ($Remainder > 0) (then)
+		($Dividend plus 1 into $Energy)
+	(else)
+		($Dividend = $Energy)
+	(endif)
+	($Distance divided by 100 into $Gradient)
+	($Ship cruising speed $Cruising)
+	(if) ($Gradient > $Cruising) (then)
+		($Gradient minus $Cruising into $Difference)
+		($Difference plus 1 into $Multiplier)
+		($Energy times $Multiplier into $Result)
+	(else)
+		($Result = $Energy)
+	(endif)
+
+%% random result unless ship is low energy, but never called if it isn't
+($Ship can move $Distance with remaining energy)
+	($Ship energy $Energy)
+	($Ship drive efficiency $Efficiency)
+	($Energy times $Efficiency into $Distance)
+
 (move $Ship toward destination)
+	($Ship destination $Destination)
 	($Ship should move $Distance)
 	($Ship energy needed for distance $Distance into $Needed)
 	($Ship energy $Energy)
-	(if) ~($Energy < $Needed) (then)
-		(move $Ship $Distance toward $Destination)
-		(decrease energy for $Ship by $Needed)
-	(else)
+	(if) ($Energy < $Needed) (then)
 		($Ship can move $Remaining with remaining energy)
+		(log) { moving just $Remaining }
 		(move $Ship $Remaining toward $Destination)
+		(log) { expending $Energy energy }
 		(decrease energy for $Ship by $Energy)
+	(else)
+		(log) { moving $Distance }
+		(move $Ship $Distance toward $Destination)
+		(log) { expending $Energy energy }
+		(decrease energy for $Ship by $Needed)
 	(endif)
 	(if) ($Distance = 0) (or) ($Energy < $Needed) (then)
-		(accelerate $Ship to 0)
+		(log) stopping
+		(accelerate $Ship to speed 0)
 	(endif)
 
 (update $Ship)
