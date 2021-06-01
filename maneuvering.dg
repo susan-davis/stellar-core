@@ -85,7 +85,7 @@
 	(else)
 		(log) { moving $Distance }
 		(move $Ship $Distance toward position $Destination)
-		(log) { expending $Energy energy }
+		(log) { expending $Needed energy }
 		(decrease energy for $Ship by $Needed)
 	(endif)
 	(if) ($Distance = 0) (or) ($Energy < $Needed) (then)
