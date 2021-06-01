@@ -18,6 +18,7 @@
 	#energy-for-warp-8
 	#can-move-16000
 	#can-move-1000
+	#move-toward-dest
 	])
 
 %% ----------------------------------------------------------------------
@@ -166,3 +167,8 @@
 	$Distance
 	(assert $Distance = 1000)
 
+(test #move-toward-dest)
+	(move #test-ship toward destination)
+	(#test-ship coordinates into $SX $SY $X $Y $PX $PY)
+	$SX $SY $X $Y $PX $PY
+	(assert [$SX $SY $X $Y $PX $PY] = [3 4 2 3 6 6])
