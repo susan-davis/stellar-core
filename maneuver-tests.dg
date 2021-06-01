@@ -19,6 +19,7 @@
 	#can-move-16000
 	#can-move-1000
 	#move-toward-dest
+	#move-slower
 	])
 
 %% ----------------------------------------------------------------------
@@ -170,6 +171,14 @@
 (test #move-toward-dest)
 	(move #test-ship toward destination)
 	(#test-ship coordinates into 3 4 2 3 6 6)
+	(#test-ship energy 931)
+
+(test #move-slower)
+	(accelerate #test-ship to gradient 2)
+	(move #test-ship toward destination)
+	(#test-ship coordinates into $SX $SY $X $Y $PX $PY)
+	$SX $SY $X $Y $PX $PY
+	(assert [$SX $SY $X $Y $PX $PY] = [3 4 4 5 1 1])
 	(#test-ship energy 931)
 
 
