@@ -78,18 +78,13 @@
 	($Ship energy $Energy)
 	(if) ($Energy < $Needed) (then)
 		($Ship can move $Remaining with remaining energy)
-		(log) { moving just $Remaining }
 		(move $Ship $Remaining toward position $Destination)
-		(log) { expending $Energy energy }
 		(decrease energy for $Ship by $Energy)
 	(else)
-		(log) { moving $Distance }
 		(move $Ship $Distance toward position $Destination)
-		(log) { expending $Needed energy }
 		(decrease energy for $Ship by $Needed)
 	(endif)
 	(if) ($Distance = 0) (or) ($Energy < $Needed) (then)
-		(log) stopping
 		(accelerate $Ship to speed 0)
 	(endif)
 
