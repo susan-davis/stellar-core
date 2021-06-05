@@ -214,20 +214,21 @@
 	($Ship drive parameters $Params)
 	([$Efficiency $] = $Params)
 
-($Ship acceleration $Accel)
+($Ship acceleration $Acceleration)
 	($Ship drive parameters $Params)
 	([$ $Engine] = $Params)
 	(split $Engine into $ $ $ $Accel)
+	($Accel times 100 into $Acceleration)
 
-($Ship top speed $Speed)
+($Ship top speed $Gradient)
 	($Ship drive parameters $Params)
 	([$ $Engine] = $Params)
-	(split $Engine into $ $Speed $ $)
+	(split $Engine into $ $Gradient $ $)
 
-($Ship cruising speed $Speed)
+($Ship cruising speed $Gradient)
 	($Ship drive parameters $Params)
 	([$ $Engine] = $Params)
-	(split $Engine into $ $ $Speed $)
+	(split $Engine into $ $ $Gradient $)
 
 ($Ship damage $Damage)
 	($Ship state is $State)

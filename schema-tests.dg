@@ -147,7 +147,7 @@
 	(#test-ship top speed 9)
 
 (test #acceleration)
-	(#test-ship acceleration 3)
+	(#test-ship acceleration 300)
 
 (test #class)
 	(#test-ship class #cygnus-class)
