@@ -24,6 +24,13 @@
 	#update-ship-near-target
 	#update-ship-far-target
 	#update-ship-distant-target
+	#move-1-at-7
+	#move-2-at-7
+	#move-5-at-7
+	#move-10-at-4
+	#move-1-toward-corner
+	#move-2-toward-corner
+	#move-5-toward-corner
 	])
 
 %% ----------------------------------------------------------------------
@@ -161,8 +168,6 @@
 
 (assert moves to $SX $SY $X $Y $PX $PY)
 	(move #test-ship on course and speed)
-	(#test-ship state is $State)
-	$State
 	(#test-ship coordinates into $SX $SY $X $Y $PX $PY)
 
 (test #move-on-course)
@@ -215,4 +220,36 @@
 (test #update-ship-distant-target)
 	(assert #distant-target goes to 2 4 8 6
 	 heading 270 speed 700 energy 968)
+
+(assert $N minutes goes to $SX $SY $X $Y $PX $PY at throttle $Throttle)
+	(set throttle for #test-ship to gradient $Throttle)
+	(move #test-ship for $N minutes)
+	(#test-ship coordinates into $SX $SY $X $Y $PX $PY)
+
+(test #move-1-at-7)
+	(assert 1 minutes goes to 3 3 5 9 5 5 at throttle 7)
+
+(test #move-2-at-7)
+	(assert 2 minutes goes to 3 3 8 3 3 7 at throttle 7)
+
+(test #move-5-at-7)
+	(assert 5 minutes goes to 5 2 6 7 7 9 at throttle 7)
+
+(test #move-10-at-4)
+	(assert 10 minutes goes to 6 3 10 9 4 6 at throttle 4)
+
+(assert $N minutes toward $Destination goes to $SX $SY $X $Y $PX $PY)
+	(set destination for #test-ship to $Destination)
+	(set throttle for #test-ship to gradient 4)
+	(move #test-ship for $N minutes)
+	(#test-ship coordinates into $SX $SY $X $Y $PX $PY)
+
+(test #move-1-toward-corner)
+	(assert 1 minutes toward [899 899] goes to 3 4 5 2 5 5)
+
+(test #move-2-toward-corner)
+	(assert 2 minutes toward [899 899] goes to 3 3 8 9 4 6)
+
+(test #move-5-toward-corner)
+	(assert 5 minutes toward [899 899] goes to 4 4 8 4 4 8)
 

@@ -89,10 +89,11 @@
 	(adjust $Ship throttle for remaining energy)
 
 (move $Ship for $Ticks minutes)
-	($Ticks > 0)
-	(update $Ship)
-	($Ticks minus 1 into $Remaining)
-	(move $Ship for $Remaining minutes)
+	(if) ($Ticks > 0) (then)
+		(update $Ship)
+		($Ticks minus 1 into $Remaining)
+		(move $Ship for $Remaining minutes)
+	(endif)
 
 (move $Ship randomly)
 	($Ship subsector into $SX $SY $ $)
