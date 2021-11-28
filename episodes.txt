@@ -28,7 +28,7 @@
 201	He Works His Work, I Mine
 	Promoted to XO of the Odysseus, CDR Player finds CPT Stewart less of
 	a kindred spirit than expected, when they disagree over how to handle
-	[TBD].
+	a refugee crisis.
 202	Mine Own Telemachus
 	LCDR Kaur and the Eridanus must stop a large interstellar creature
 	that threatens the heart of the Union.
@@ -39,21 +39,22 @@
 204	Offices of Tenderness
 	The ship's surgeon of the Eridanus must find the cure for a
 	devastating pandemic, before it spreads beyond its planet of origin.
-205	TBD
+205	Drink Life to the Lees
 	A "Mary Sue" officer aboard the Odysseus turns out to be Harmony,
 	and triggers an internal crisis that threatens the Union.
-206	TBD
-	TBD (Kaur)
+206	Souls That Have Toiled, and Wrought, and Thought With Me
+	Harmony must take over a Cygnus-class vessel, and use it to spread
+	herself across the Union and beyond.
 207	TBD
-	TBD (Player)
-208	TBD
-	TBD (Both)
+	TBD 
+208	The Long Day Wanes
+	Human separatists in the Union want to break away over the handling
+	of the Harmony crisis, and CPT Stewart is on their side.
 
 301	TBD
 	TBD
-302	Souls That Have Toiled, and Wrought, and Thought With Me
-	Harmony must take over a Cygnus-class vessel, and use it to spread
-	herself across the Union and beyond.
+302	TBD
+	TBD
 303	TBD
 	TBD
 304	TBD
@@ -68,24 +69,21 @@
 308	The Baths of All the Western Stars
 	Another "sandbox" episode, but with the Odysseus.
 
-This Gray Spirit, Yearning in Desire
 Life Piled on Life
+This Gray Spirit, Yearning in Desire
 Unequal Laws to a Savage Race
-Drink Life to the Lees
+Manners, Climates, Councils, Governments
+Alone, On Shore
+I Am Become a Name
+Men That Strove With Gods
+Some Work of Noble Note
 Roaming With a Hungry Heart
 Delight of Battle
-All Experience is an Arch
-Some Work of Noble Note
-Men That Strove With Gods
 The Deep Moans Round
 To Seek A Newer World
 Smite the Sounding Furrows
 To Sail Beyond the Sunset
 One Equal Temper of Heroic Hearts
 To Strive, To Seek, To Find
-The Long Day Wanes
-Manners, Climates, Councils, Governments
 Cities of Men
-Alone, On Shore
-I Am Become a Name
 A Bringer of New Things
