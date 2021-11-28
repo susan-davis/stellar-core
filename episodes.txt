@@ -24,32 +24,30 @@
 108	There Gloom the Dark, Broad Seas
 	The Eridanus surveys a previously uncharted quadrant, encountering
 	a number of shorter adventures along the way.
-1xx	???
-	A "Mary Sue" officer turns out to be either Harmony or an alien
-	predator.
 
-201	This Gray Spirit, Yearning in Desire
-	The Eridanus encounteres a large interstellar creature that
-	threatens the heart of the Union.
-202	He Works His Work, I Mine
+201	He Works His Work, I Mine
 	Promoted to XO of the Odysseus, CDR Player finds CPT Stewart less of
 	a kindred spirit than expected, when they disagree over how to handle
-	the 
-203	Mine Own Telemachus
-	LCDR Kaur and the Eridanus must [SOLVE SOME PROBLEM].
-204	To Make Mild a Rugged People
+	[TBD].
+202	Mine Own Telemachus
+	LCDR Kaur and the Eridanus must stop a large interstellar creature
+	that threatens the heart of the Union.
+203	To Make Mild a Rugged People
 	Assigned as liason to the Regulan Matriarchy, Player must find a way
 	to restore the balance of power before the Quellan-Regulan War spills
 	over into a regional conflict.
-205	Offices of Tenderness
+204	Offices of Tenderness
 	The ship's surgeon of the Eridanus must find the cure for a
 	devastating pandemic, before it spreads beyond its planet of origin.
+205	TBD
+	A "Mary Sue" officer aboard the Odysseus turns out to be Harmony,
+	and triggers an internal crisis that threatens the Union.
 206	TBD
-	TBD
+	TBD (Kaur)
 207	TBD
-	TBD
+	TBD (Player)
 208	TBD
-	TBD
+	TBD (Both)
 
 301	TBD
 	TBD
@@ -70,7 +68,7 @@
 308	The Baths of All the Western Stars
 	Another "sandbox" episode, but with the Odysseus.
 
-
+This Gray Spirit, Yearning in Desire
 Life Piled on Life
 Unequal Laws to a Savage Race
 Drink Life to the Lees
