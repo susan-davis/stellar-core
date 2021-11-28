@@ -1,0 +1,93 @@
+001	All Experience is an Arch
+	LCR Player attends the Command Fitness Course.
+	
+101	That Untravelled World, Whose Margin Fades
+	Eridanus finds the Delphinus adrift, her crew missing. 
+102	The Ringing Plains of Windy Troy
+	LCR Player is court-martialled for the loss of the Argo Navis.
+103	That Eternal Silence
+	When a diplomat is found murdered aboard the Eridanus, Player and
+	the crew must solve the case before it becomes an interstellar
+	incident.
+104	Free Hearts, Free Foreheads
+	The Eridanus first encounters Harmony, while rescuing a refugee ship
+	from a planet she's taken over.
+105	Through Scudding Drifts, the Rainy Hyades
+	An ion storm threatens the Eridanus, forcing her to seek new
+	Energon crystals from a pre-industrial planet.
+106	And Not To Yield
+	When Eridanus is captured by the Quellans, LCR Player and the crew
+	must recapture her.
+107	An Idle King
+	Eridanus and Odysseus must collaborate closely to parry the Quellan
+	threat to the region.
+108	There Gloom the Dark, Broad Seas
+	The Eridanus surveys a previously uncharted quadrant, encountering
+	a number of shorter adventures along the way.
+1xx	???
+	A "Mary Sue" officer turns out to be either Harmony or an alien
+	predator.
+
+201	This Gray Spirit, Yearning in Desire
+	The Eridanus encounteres a large interstellar creature that
+	threatens the heart of the Union.
+202	He Works His Work, I Mine
+	Promoted to XO of the Odysseus, CDR Player finds CPT Stewart less of
+	a kindred spirit than expected, when they disagree over how to handle
+	the 
+203	Mine Own Telemachus
+	LCDR Kaur and the Eridanus must [SOLVE SOME PROBLEM].
+204	To Make Mild a Rugged People
+	Assigned as liason to the Regulan Matriarchy, Player must find a way
+	to restore the balance of power before the Quellan-Regulan War spills
+	over into a regional conflict.
+205	Offices of Tenderness
+	The ship's surgeon of the Eridanus must find the cure for a
+	devastating pandemic, before it spreads beyond its planet of origin.
+206	TBD
+	TBD
+207	TBD
+	TBD
+208	TBD
+	TBD
+
+301	TBD
+	TBD
+302	Souls That Have Toiled, and Wrought, and Thought With Me
+	Harmony must take over a Cygnus-class vessel, and use it to spread
+	herself across the Union and beyond.
+303	TBD
+	TBD
+304	TBD
+	TBD
+305	TBD
+	TBD
+306	TBD
+	TBD
+307	Beyond the Utmost Bound of Human Thought
+	The fate of the Union hangs in the balance, in the final confrontation
+	with Harmony.
+308	The Baths of All the Western Stars
+	Another "sandbox" episode, but with the Odysseus.
+
+
+Life Piled on Life
+Unequal Laws to a Savage Race
+Drink Life to the Lees
+Roaming With a Hungry Heart
+Delight of Battle
+All Experience is an Arch
+Some Work of Noble Note
+Men That Strove With Gods
+The Deep Moans Round
+To Seek A Newer World
+Smite the Sounding Furrows
+To Sail Beyond the Sunset
+One Equal Temper of Heroic Hearts
+To Strive, To Seek, To Find
+The Long Day Wanes
+Manners, Climates, Councils, Governments
+Cities of Men
+Alone, On Shore
+I Am Become a Name
+A Bringer of New Things
