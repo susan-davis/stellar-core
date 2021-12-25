@@ -18,12 +18,21 @@
 
 #bulkhead
 (name *)	bulkhead
-(descr *)	Write me!
+(descr *)	The bulkhead is painted in regulation Stellar Command beige.
 ((onboard $) attracts *)
 
 #overhead
 (name *)	overhead
-(descr *)	Write me!
+(descr *)	The overhead here is a dark grey mesh, behind which you can
+       		see several conduits. Lighting panels are set into it every
+		so often, illuminating the compartment.
+((onboard $) attracts *)
+
+#lighting-panel
+(name *)	lighting panel
+(dict *)	light
+(descr *)	A series of rectangular lighting panels are embedded in the
+		overhead.
 ((onboard $) attracts *)
 
 (onboard *(compartment $))
@@ -31,7 +40,8 @@
 
 #sliding-door
 (name *)	sliding door
-(descr *)	Write me!
+(descr *)	The sliding door to the next compartment is a slightly darker
+       		shade of regulation beige. 
 ((compartment $) attracts *)
 
 (compartment *(passageway $))
@@ -49,7 +59,9 @@
 
 #hull
 (name *)	hull
-(descr *)	Write me!
+(descr *)	The exterior hull plating is painted in regulation Stellar
+       		Command grey. The hull is lightly pitted from micrometeoroid
+		impacts.
 ((on-hull $) attracts *)
 
 %% -------------------- BRIDGE --------------------
@@ -73,6 +85,7 @@
 
 #nav-station
 (name *)	navigation station
+(dict *)	nav
 (in-seat *)
 (singleton *)
 (* is #in #bridge)
@@ -169,7 +182,7 @@
 (from * go #south to #upper-passageway)
 (from * go #northwest through #matt-1-1-panel to #matt-1-1)
 (from * go #northeast through #matt-2-1-panel to #matt-2-1)
-%% (from * go #in to #rapidlift)
+(from * go #in to #rapidlift)
 
 #matt-1-1-panel
 (door *)

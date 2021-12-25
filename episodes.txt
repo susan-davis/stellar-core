@@ -1,5 +1,6 @@
 001	All Experience is an Arch
 	LCR Player attends the Command Fitness Course.
+	Do we need this one? Could just fold this into 102.
 	
 101	That Untravelled World, Whose Margin Fades
 	Eridanus finds the Delphinus adrift, her crew missing. 
@@ -29,7 +30,7 @@
 	Promoted to XO of the Odysseus, CDR Player finds CPT Stewart less of
 	a kindred spirit than expected, when they disagree over how to handle
 	a refugee crisis.
-202	Mine Own Telemachus
+202	This Gray Spirit, Yearning in Desire
 	LCDR Kaur and the Eridanus must stop a large interstellar creature
 	that threatens the heart of the Union.
 203	To Make Mild a Rugged People
@@ -39,7 +40,7 @@
 204	Offices of Tenderness
 	The ship's surgeon of the Eridanus must find the cure for a
 	devastating pandemic, before it spreads beyond its planet of origin.
-205	Drink Life to the Lees
+205	Mine Own Telemachus
 	A "Mary Sue" officer aboard the Odysseus turns out to be Harmony,
 	and triggers an internal crisis that threatens the Union.
 206	Souls That Have Toiled, and Wrought, and Thought With Me
@@ -70,7 +71,6 @@
 	Another "sandbox" episode, but with the Odysseus.
 
 Life Piled on Life
-This Gray Spirit, Yearning in Desire
 Unequal Laws to a Savage Race
 Manners, Climates, Councils, Governments
 Alone, On Shore
@@ -87,3 +87,4 @@ One Equal Temper of Heroic Hearts
 To Strive, To Seek, To Find
 Cities of Men
 A Bringer of New Things
+Drink Life to the Lees
