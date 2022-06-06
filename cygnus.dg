@@ -294,7 +294,7 @@
 #computer-core
 (compartment *)
 (name *)	Computer Core
-(look *)	This large cirrcular compartment is surrounded by the machinery
+(look *)	This large circular compartment is surrounded by the machinery
       		for the main computer core. The Rapidlift landing is in the
 		center of the room, and a ladder on the aft side of the lift
 		shaft climbs from the deck to the overhead, with iris hatches
@@ -321,7 +321,13 @@
 #forward-lounge
 (compartment *)
 (name *)	Forward Lounge
-(look *)	Write me!
+(look *)	The main crew lounge is dominated by large windows forward
+      		and overhead. Food printers are set into the bulkheads, and
+		there's a bar with stools, a large display screen, and
+		several tables of various sizes, with chairs around them.
+		Sliding doors lead port, starboard, and aft, and a smaller
+		door marked "restricted" is just starboard of the main aft
+		door.
 (from * go #west to #port-forward)
 (from * go #east to #starboard-forward)
 (from * go #south to #computer-core)
@@ -330,7 +336,10 @@
 #simulator
 (compartment *)
 (name *)	Simulator
-(look *)	Write me!
+(look *)	You're in a large simulator compartment, with exits to
+      		port and starboard. The simulator is deactivated, and the
+		bulkheads, sole, and overhead are covered with a black and
+		yellow grid pattern.
 (from * go #east to #computer-core)
 (from * go #west to #port-passageway)
 

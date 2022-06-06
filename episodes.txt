@@ -1,5 +1,6 @@
-001	All Experience is an Arch
-	LCR Player attends the Command Fitness Course.
+001	All Experience is an Arch [DO WE NEED THIS?]
+	LCR Player attends the Command Fitness Course. [Possibly do this
+	in an expanded 102 instead.]
 	
 101	That Untravelled World, Whose Margin Fades
 	Eridanus finds the Delphinus adrift, her crew missing. 
@@ -10,8 +11,8 @@
 	the crew must solve the case before it becomes an interstellar
 	incident.
 104	Free Hearts, Free Foreheads
-	The Eridanus first encounters Harmony, while rescuing a refugee ship
-	from a planet she's taken over.
+	The Eridanus first encounters Harmony, while rescuing a refugee
+	ship from a planet she's taken over.
 105	Through Scudding Drifts, the Rainy Hyades
 	An ion storm threatens the Eridanus, forcing her to seek new
 	Energon crystals from a pre-industrial planet.
@@ -19,34 +20,35 @@
 	When Eridanus is captured by the Quellans, LCR Player and the crew
 	must recapture her.
 107	An Idle King
-	Eridanus and Odysseus must collaborate closely to parry the Quellan
-	threat to the region.
+	LCR Player and the Eridanus come to the aid of CPT Stewart and the
+	Odysseus when a first contact situation goes sideways.
 108	There Gloom the Dark, Broad Seas
 	The Eridanus surveys a previously uncharted quadrant, encountering
 	a number of shorter adventures along the way.
 
 201	He Works His Work, I Mine
-	Promoted to XO of the Odysseus, CDR Player finds CPT Stewart less of
-	a kindred spirit than expected, when they disagree over how to handle
-	a refugee crisis.
+	Promoted to XO of the Odysseus, CDR Player clashes with CPT Stewart
+	when a mistaken transmission results in Union vessels being ordered
+	to attack Quellan industrial targets.
 202	Mine Own Telemachus
 	LCDR Kaur and the Eridanus must stop a large interstellar creature
 	that threatens the heart of the Union.
 203	To Make Mild a Rugged People
-	Assigned as liason to the Regulan Matriarchy, Player must find a way
-	to restore the balance of power before the Quellan-Regulan War spills
-	over into a regional conflict.
+	Assigned as liason to the Regulan Matriarchy, CDR Player must find
+	a way to restore the balance of power before the Quellan-Regulan War
+	spills over into a regional conflict.
 204	Offices of Tenderness
 	The ship's surgeon of the Eridanus must find the cure for a
 	devastating pandemic, before it spreads beyond its planet of origin.
-205	Drink Life to the Lees
-	A "Mary Sue" officer aboard the Odysseus turns out to be Harmony,
-	and triggers an internal crisis that threatens the Union.
-206	Souls That Have Toiled, and Wrought, and Thought With Me
+205	Souls That Have Toiled, and Wrought, and Thought With Me
 	Harmony must take over a Cygnus-class vessel, and use it to spread
 	herself across the Union and beyond.
-207	TBD
-	TBD 
+206	Drink Life to the Lees
+	A "Mary Sue" officer aboard the Odysseus turns out to be Harmony,
+	and triggers an internal crisis that threatens the Union.
+207	To Strive, To Seek, To Find
+	As Patrol Fleet imposes a lockdown across Union space, an
+	investigative journalist searches for the truth of what's going on.
 208	The Long Day Wanes
 	Human separatists in the Union want to break away over the handling
 	of the Harmony crisis, and CPT Stewart is on their side.
@@ -84,6 +86,5 @@ To Seek A Newer World
 Smite the Sounding Furrows
 To Sail Beyond the Sunset
 One Equal Temper of Heroic Hearts
-To Strive, To Seek, To Find
 Cities of Men
 A Bringer of New Things
