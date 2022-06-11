@@ -1,17 +1,11 @@
-<<<<<<< HEAD
-001	All Experience is an Arch [DO WE NEED THIS?]
-	LCR Player attends the Command Fitness Course. [Possibly do this
-	in an expanded 102 instead.]
-=======
-001	All Experience is an Arch
-	LCR Player attends the Command Fitness Course.
-	Do we need this one? Could just fold this into 102.
->>>>>>> c169156277ea9f660c1ebe0242a92e4cc10a80a0
-	
 101	That Untravelled World, Whose Margin Fades
-	Eridanus finds the Delphinus adrift, her crew missing. 
+	Eridanus finds the Delphinus adrift, her crew missing. Presents the
+	ship as a busybox, and there are multiple solutions depending on
+	the crew selected for the boarding party.
 102	The Ringing Plains of Windy Troy
 	LCR Player is court-martialled for the loss of the Argo Navis.
+	(Faces a review board?) Flashbacks to Player attending SUS Punisher,
+	and a post-solution mode for the player to just play Trek.
 103	That Eternal Silence
 	When a diplomat is found murdered aboard the Eridanus, Player and
 	the crew must solve the case before it becomes an interstellar
@@ -33,17 +27,10 @@
 	a number of shorter adventures along the way.
 
 201	He Works His Work, I Mine
-<<<<<<< HEAD
-	Promoted to XO of the Odysseus, CDR Player clashes with CPT Stewart
-	when a mistaken transmission results in Union vessels being ordered
-	to attack Quellan industrial targets.
-202	Mine Own Telemachus
-=======
 	Promoted to XO of the Odysseus, CDR Player finds CPT Stewart less of
 	a kindred spirit than expected, when they disagree over how to handle
 	a refugee crisis.
 202	This Gray Spirit, Yearning in Desire
->>>>>>> c169156277ea9f660c1ebe0242a92e4cc10a80a0
 	LCDR Kaur and the Eridanus must stop a large interstellar creature
 	that threatens the heart of the Union.
 203	To Make Mild a Rugged People
@@ -53,14 +40,10 @@
 204	Offices of Tenderness
 	The ship's surgeon of the Eridanus must find the cure for a
 	devastating pandemic, before it spreads beyond its planet of origin.
-<<<<<<< HEAD
-205	Souls That Have Toiled, and Wrought, and Thought With Me
-=======
 205	Mine Own Telemachus
 	A "Mary Sue" officer aboard the Odysseus turns out to be Harmony,
 	and triggers an internal crisis that threatens the Union.
 206	Souls That Have Toiled, and Wrought, and Thought With Me
->>>>>>> c169156277ea9f660c1ebe0242a92e4cc10a80a0
 	Harmony must take over a Cygnus-class vessel, and use it to spread
 	herself across the Union and beyond.
 206	Drink Life to the Lees
@@ -85,12 +68,15 @@
 	TBD
 306	TBD
 	TBD
-307	Beyond the Utmost Bound of Human Thought
+307	The Utmost Bound of Human Thought
 	The fate of the Union hangs in the balance, in the final confrontation
 	with Harmony.
 308	The Baths of All the Western Stars
 	Another "sandbox" episode, but with the Odysseus.
 
+Unused titles:
+
+All Experience Is An Arch
 Life Piled on Life
 Unequal Laws to a Savage Race
 Manners, Climates, Councils, Governments
@@ -108,3 +94,8 @@ One Equal Temper of Heroic Hearts
 Cities of Men
 A Bringer of New Things
 Drink Life to the Lees
+
+Unused concepts:
+
+Submarine-style duel with a Tiberian Raptor.
+Advanced new civilization with a dark secret.
