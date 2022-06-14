@@ -1,0 +1,108 @@
+SUS _Eridanus_ (SF-386)
+
+Season 1 crew manifest:
+
+COMMAND DIVISION
+
+Commanding officer: LCR Alex Player (human non-binary)
+Duty station: watch 1, captain's chair, bridge (watch 1 OOW)
+Battle station: captain's chair, bridge
+Quarters: captain's day cabin, deck 1
+No replacement -- is series protagonist
+
+Executive officer: SLT Amrit Kaur (human female)
+Duty station: watch 1, captain's chair, bridge (watch 1 OOW)
+Battle station: auxiliary control station, computer core
+Quarters: XO's cabin, deck 2
+Replacement: 
+
+OPERATIONS DIVISION
+
+Navigation officer: LT
+Duty station: 
+Battle station: nav station, bridge
+Quarters: port JO quarters, deck 2
+Replacement: 
+
+Tactical officer: LT 
+Duty station: 
+Battle station: tac station, computer core
+Quarters: port JO quarters, deck 2
+Replacement: 
+
+Quartermaster: CWO 
+Duty station: 
+Battle station: helm station, bridge
+Quarters:
+Replacement: 
+
+ENGINEERING DIVISION
+
+Chief engineer: LT 
+Duty station: main engineering, watch 1
+Battle station: main engineering, deck 2
+Quarters:
+Replacement: 
+
+Second engineer: ENS 
+Duty station: main engineering, watch 2
+Battle station: engineering sation, bridge
+Quarters:
+Replacement: 
+
+Third engineer: ENS 
+Duty station: main engineering, watch 3
+Battle station: main engineering, deck 2
+Quarters:
+Replacement: 
+
+MTD operator: WO 
+Duty station: 
+Battle station:
+Quarters:
+Replacement: 
+
+SCIENCES DIVISION
+
+Science officer: SLT V'ronek (Galdorite male)
+Duty station: 
+Battle station: 
+Quarters:
+Replacement: 
+
+Astrophysics researcher: LT
+Duty station: astrophysics lab, idler
+Battle station:
+Quarters:
+Replacement: 
+
+Planetary geology researcher: LT 
+Duty station: 
+Battle station:
+Quarters:
+Replacement: 
+
+Xenolinguistics researcher: LT 
+Duty station: 
+Battle station:
+Quarters:
+Replacement: 
+
+MEDICAL DIVISION
+
+Medical officer/Xenobiology researcher: LT 
+Duty station: 
+Battle station: sick bay, deck 3
+Quarters: surgeon's quarters, deck 2
+Replacement: 
+
+Medic: WO 
+Duty station: 
+Battle station: sick bay, deck 3
+Quarters:
+Replacement: 
+
+
+Season 2 crew manifest:
+
+Commanding officer: SLT Amrit Kaur
