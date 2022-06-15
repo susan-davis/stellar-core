@@ -41,10 +41,19 @@ The Stellar Union is idealistic and utopian
 #### Earth
 #### Outlying Human Colonies
 #### The Galdorites
-#### The 
+#### The Kwom
+#### The Denerons
 
 ### The Quellan Empire
-The Quellans are an expansionist empire of Proud Warrior Race Guys. The
+The Quellans are an expansionist empire of Proud Warrior Race
+Guys. The Quellan Empire is the Stellar Union's chief rival in the
+region where the series takes place. Quellan society is tribal, and
+still organized around the social structures of nomadic tribal life on
+Quell f, the Quellan homeworld.
+
+The Quellans are strongly religious, and have an honour culture based
+on family and tribal loyalty bonds. The Empire, an authoritarian to
+totalitarian social structure that arose 
 
 #### Quellan Ranks
 The Quellan rank system spans both military and civil society. Indeed, the
@@ -87,7 +96,8 @@ equivalent to long-service career NCOs from other galactic powers.
 "Hand Weapon," "Ear," "Eye," "Hand," and "Mouth" are special religious
 ranks, whose holders act in both religious and police functions. The
 ranks always refer to a specific Quellan deity, generally either
-Quelil or Gronkadonk, but occasionally to a minor deity. 
+Quelil or Gronkadonk, but occasionally to a minor deity. (TBD: is Eye
+R3 and Hand R4, or is it the other way around?)
 
 #### Quellan Ships
 - *Q1*-class attack ship ("Attack I")
@@ -103,14 +113,59 @@ Quelil or Gronkadonk, but occasionally to a minor deity.
 - *Q12*-class scout ("Ambush II")
 - *Q13*-class battleship ("Emperor")
 
-### The Tiberian Public Sector
-The Tiberians are 
+The Union has detected only up to Q8 at the start of the series, with
+Player's encounter with Q8 #1 the Union's first encounter with that
+class. Later vessels are new construction with improved technology
+from Quellan espionage efforts, and will be introduced piecemeal as
+the series progresses. Early Q8s were designed "for but not with"
+Tiberian-style cloaking; when the whole class has them installed, it
+comes as a complete surprise to the Union. Current Union tatical
+doctrine was developed with knowledge only up to the Q6, and hasn't
+had significant update for the Q7. 
 
-### The Generon Regime
-The Generons are 
+### The Tiberian Public Sector
+The Tiberians are
+
+#### Tiberian Ranks
+
+#### Tiberian Ships
 
 ### The Regulan Matriarchy
-The Regulans are bipedal carnivores 
+The Regulans are bipedal carnivores hostile to the Quellans. The Union
+has fought a number of skirmishes with the Regulans, but relations
+between the powers have calmed in recent years, with both sides
+recognizing the threat that 
+
+#### Regulan Ranks
+
+#### Regulan Ships
+- *R1*-class missile frigate
+- *R2*-class fast scout
+- *R3*-class strike cruiser
+- *R4*-class transport
+- *R5*-class arsenal ship
+- *R6*-class destroyer escort
+- *R7*-class long-range armed shuttle
+- *R8*-class escort cruiser
+- *R9*-class space control ship
+- *R10*-class minelayer
+- *R11*-class escort carrier
+- *R12*-class light transport
+- *R13*-class frigate
+- *R14*-class cruiser
+- *R15*-class transport
+- *R16*-class scout
+
+The Union has detected only up to R4 as of the start of the
+series. Episode 203 introduces the Union to R5 through R10. R10 and
+R11 are variants of the R4. Unlike the Quellans, the ships that the
+Union knows about are the current top-of-the-line models deployed in
+front-line service. R13 through R16 are older ships held in mothballs
+or assigned to patrol duties in quiet areas, and the Union won't learn
+of them until the Q-R war gets serious enough to require the Regulans
+to mobilize them. R16 doubles as a patrol cutter, and is still
+deployed in large numbers. R10 doubles as an underway replenishment
+ship, "mines" being missiles deployed in loiter mode. 
 
 ## New Threats
 ### Harmony
