@@ -46,8 +46,7 @@ Season 1: Command of Eridanus
 
 	Good Ending: Cleared.
 
-	Best Ending: Cleared, and acquired a lasting advantage over
-	the Quellans. 
+	Best Ending: Cleared, and got top marks in The Punisher.
 
 	Development Opportunities: 
 
@@ -122,7 +121,8 @@ Season 1: Command of Eridanus
 	confined in shuttle bay. Break out of brig, sneak around
 	undetected, free enough friendlies to overpower the prize crew.
 
-	The End: Eridanus destroyed, or PC killed by Quellans.
+	The End: Eridanus destroyed or self-destructs, or PC killed by
+	Quellans. 
 
 	Bad Ending: Escape Quellans in shuttle, but ship and crew
 	still captured. 
@@ -136,28 +136,53 @@ Season 1: Command of Eridanus
 107	An Idle King
 	LCR Player and the Eridanus come to the aid of CPT Stewart and the
 	Odysseus when a first contact situation goes sideways.
-108	There Gloom the Dark, Broad Seas
+	
+108	There Gloom the Broad, Dark Seas (FULL LENGTH)
 	The Eridanus surveys a previously uncharted quadrant, encountering
 	a number of shorter adventures along the way.
+
+109	All Experience Is An Arch (FULL LENGTH) (OPTIONAL)
+	In a flashback, LCR player attends the Command Fitness Course.
+	(TBD: Do we need this?)
+
+	This is a tutorial on how to fly Union ships and play TREK
+	very well, framed as a classroom course set at Stellar
+	Academy. Over the course of a whole syllabus of training runs,
+	Player mans all the bridge stations, flies and commands the
+	ship, and eventually graduates to the shipboard portion of the
+	course. Other students are also taking the class, and do well
+	or poorly, and the students and instructors comment on how
+	well each scenario was played.
+
+	The End: Player flunks.
+
+	Good Ending: Player moves on to the shipboard portion,
+	portrayed in "The Ringing Plains of Windy Troy." This is
+	presumed to have happened before episode 101, and doesn't
+	result in changes to the campaign records.
+
+	Development Opportunities: none -- 101 starts the campaign,
+	not this, and this isn't sequentially next in the chronology.
 
 Season 2: First Officer on Odysseus
 
 201	He Works His Work, I Mine
 	Promoted to XO of the Odysseus, CDR Player finds CPT Stewart
-	less of a kindred spirit than expected, when they disagree
-	over how to handle a refugee crisis.
+	less of a kindred spirit than expected.
 	
 202	This Gray Spirit, Yearning in Desire
-	LCDR Kaur and the Eridanus must stop a large interstellar
+	LCR Kaur and the Eridanus must stop a large interstellar
 	creature that threatens the heart of the Union.
 	
 203	To Make Mild a Rugged People
-	Assigned as liason to the Regulan Matriarchy, CDR Player must
-	find a way to restore the balance of power before the
-	Quellan-Regulan War spills over into a regional conflict.
+	On the heels of their success in uncovering the Regulan
+	ambassador's murder, CDR Player and the Odysseus are sent to
+	negotiate an allance with the Regulans. But who invited the
+	Quellans? 
 	
-204	TBD
-	TBD
+204	Alone, On Shore
+	CDR Player must survive in a hostile environment after
+	crashing their shuttle.
 	
 205	Offices of Tenderness
 	The ship's surgeon of the Eridanus must find the cure for a
@@ -216,13 +241,11 @@ Season 3: Command of Odysseus
 
 Unused titles:
 
-All Experience Is An Arch
 To Strive, To Seek, To Find
 Drink Life to the Lees
 Mine Own Telemachus
 Unequal Laws to a Savage Race
 Manners, Climates, Councils, Governments
-Alone, On Shore
 I Am Become a Name
 Men That Strove With Gods
 Some Work of Noble Note
@@ -239,5 +262,35 @@ Drink Life to the Lees
 
 Unused concepts:
 
-Submarine-style duel with a Tiberian Raptor.
-Advanced new civilization with a dark secret.
+* Stable time loop
+* Undo an error that resulted in a dystopian timeline
+* Submarine-style duel with a Tiberian Raptor.
+* Advanced new civilization with a dark secret.
+* Previous Union survey team affected developing civilization, creating
+  a dystopian mess
+* Monster crawl; the monster is a misunderstood alien life form
+* Hyperintelligent civilization doesn't understand Union is sentient;
+  collects specimens for zoo
+* Competing with the Quellans for a developing system
+* Meditation about the nature of sentient life
+* Lower decks episode
+* Clip show
+
+Admired source episodes:
+
+* TOS, City on the Edge of Forever
+* TOS, The Trouble with Tribbles
+* TOS, Mirror Mirror
+* TNG, The Inner Light
+* TNG, The Best of Both Worlds
+* TNG, Darmok
+* TNG, Measure of a Man
+* SNW, Lift Us Where Suffering Cannot Reach
+* DS9, In The Pale Moonlight
+* ORV, About a Girl
+* ORV, Identity
+* ORV, The Road Not Taken
+* B5, The Coming of Shadows
+* B5, Severed Dreams
+* B5, The Deconstruction of Falling Stars
+

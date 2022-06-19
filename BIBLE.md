@@ -9,7 +9,32 @@ from Earth (with a few token aliens sprinkled in the crew to make the
 cast seem more diverse) boldly go where angels fear to tread, bringing
 the hegemonic values of the civilized Union to the backward natives of
 primitive worlds and barbaric empires, while paternalistically
-declining to "meddle" in their affairs "for their own good." 
+declining to "meddle" in their affairs "for their own good."
+
+## General Principles
+
+*Stellar Union* is played in a series of "competition length" (2-hour 
+or so) interactive fiction adventures. The game is parser-based, but
+could be adapted to choice or hybride on mobile if there's a business
+opportunity there. Three "seasons" of about eight adventures each  are
+planned, with an over-arching series metaplot, and at least two
+"full-length" (10+ hour) sandbox-style adventures, where the player's
+ship has a sector (or more!) to explore, and encounters a number of
+mini-adventures along the way.
+
+Unlike *Nikolai Grozny*, the series is linear -- episode 101 always
+leads to episode 102, and so forth.
+
+Each episode has multiple endings, which can be terminal (the series
+won't progress further if reached), bad, fair, good, or best. Reaching
+a bad or fair ending is generally Polite on the Zarf scale; getting to
+a good ending may be Tough. The best ending and the series metaplot
+are both Cruel, and it's possible to ruin a playthrough of the series
+during season 1.
+
+### Series Plot and Inter-Game Communication
+
+#### Campaign State Schema
 
 ## The *Stellar Union* Universe
 
@@ -165,7 +190,8 @@ or assigned to patrol duties in quiet areas, and the Union won't learn
 of them until the Q-R war gets serious enough to require the Regulans
 to mobilize them. R16 doubles as a patrol cutter, and is still
 deployed in large numbers. R10 doubles as an underway replenishment
-ship, "mines" being missiles deployed in loiter mode. 
+ship, "mines" being missiles deployed in loiter mode. R2 inspired the
+Union's *Cygnus*-class fast scouts.
 
 ## New Threats
 ### Harmony
@@ -186,25 +212,152 @@ takes over
 
 ## Stellar Command
 ### Ranks
-#### Enlisted Ranks
-#### Officer Ranks
+
+- E0: Recruit (REC)
+- E1: Crewmember (CRM)
+- E2: Able Crewmember (AC)
+- E3: Leading Crewmember (LC)
+- W0: Cadet (CDT)
+- W1: Warrant Officer (WO)
+- W2: Chief Warrant Officer (CWO)
+- W3: Master Chief Warrant Officer (MC)
+- J0: Senior Cadet (SC)
+- J1: Ensign (ENS)
+- J2: Lieutenant (LT)
+- J3: Senior Lieutenant (SLT)
+- C1: Lieutenant Commander (LCR)
+- C2: Commander (CDR)
+- C3: Captain (CPT)
+- F0: Flag Captain (FC)
+- F1: Commodore (COM)
+- F2: Flag Officer (FO)
+- F3: Admiral (ADM)
 
 ### Organization
+
+Stellar Command is the Stellar Union's 
+
 #### Exploration Command
+
+Exploration Command is responsible for the exploration of space both
+within and beyond the boundaries of Union space.
+
+Exploration Command vessels are organized into Exploration Squadrons,
+which perform exploration missions at the edge of Union space, and
+type-specific squadrons to which ships are assigned during refits,
+when working up, and when on reserve duty. Ships rotate in and out of
+Exploration Squadrons 
+
 #### Patrol Command
 #### Planetary Command
+#### Defence Command
+
+The Stellar Union prides itself on not keeping a standing fleet of
+warships mobilized in peacetime. In peacetime, Defence Command
+consists of a Defence Staff and a Defence College, both located at
+Stellar Command Headquarters. In time of war, key officers from the
+three other commands would be mobilized to take command of Defence
+Command, which would then command the Union's entire fleet. This has
+occurred three times in Union history, during conflicts against the
+Quellans, the Tiberians, and the Kwom.
+
+In practice, Defence Command has greater influence over the culture
+and procurement of the Union fleet than Stellar Command lets on. The
+*Cygnus*-class fast scout (originally a torpedo boat design) becoming
+the new Exploration Command standard, the high procurement levels of
+the *Eratosthanes*-classfleet tug and its monitor pod, and the attempt
+to pass off the *Union*-class battleship as a "new technology
+destroyer" are all initiatives of the "Defence mafia," consisting
+mostly of officers from the outlying human colonies, and the Kwom. A
+critical mass of these officers occupy teaching positions at Stellar
+Academy, and influence the careers of new junior officers, ensuring a
+steady stream of new recruits.
 
 ### Ship Classes
-#### *Cygnus*-class Scout
-#### *Apollo*-class Scout
-#### *Genbu*-class Heavy Scout
-#### *Glidwarg*-class Destroyer
-#### *Argo Navis*-class Cruiser
-#### *Amundsen*-class Exploration Cruiser
-#### *Eratosthanes*-class Fleet Tug
-#### *North America*-class Monitor
-#### *Admiral Vordrek*-class Tender
-#### *Calypso*-class Research Vessel
-#### *Mauretania*-class Personnel Transport
-#### *Union*-class Battleship
+#### *Gagarin*-class Scout (SC)
+
+The *Gagarin* class Scout was the mainstay of the Exploration Fleet,
+and of the UN Space Probe Agency before it, during the founding years
+of the Union. All ships of the class have been long since retired,
+with three preserved as museum ships. About two dozen decommissioned
+scouts of the class, sold into civilian service, still soldier on as
+tramp light freighters and yachts. (And in at least one case, as a
+pirate ship.)
+
+A visit from a *Gagarin* to an alien planet a century or more ago
+could serve as the seed for a "clean up the previous explorers' mess"
+plot, with the wreckage of one optionally sprinkled on a mountainside
+for flavour.
+
+A human design that predates the formation of the Stellar Union, the
+*Gagarin* class set the general pattern for Union scout ships: a
+lenticular hull with two Alcubierre drive emitter nacelles, and
+reactionless drives at the aft end of the main hull. Crude-looking by
+modern standards, the *Gagarin*'s hull is more disc-like than
+lenticular, but the ship is still recognizable as a Union ship.
+
+#### *Genbu*-class Scout (SC)
+
+The previous class of Union scout ship was the *Genbu* class, and it
+is stil by far the most numerous. Compared with the newer *Cygnus*
+class, the *Genbu* is slower, sturdier, and smaller in tonnage but
+larger in usable internal volume. The lenticular main hull is
+stretched into an oval shape, below which are attached two rectangular
+Alcubierre drive emitters. The total crew complement is more than
+double that of the later *Cygnus* class, with much more generous lab
+space, and a larger shuttle bay.
+
+The *Genbu* class has earned the nickname "the Turtle," which is a pun
+on the class name, an observation about the oval shape of the ship's
+hull, an appreciation of the sturdy construction of the ship,  and a
+derisive description of the ship's performance. With undersized
+reactionless drives and an Alcubierre drive optimized for reliability
+rather than performance, early ships in the class, especially the
+eight vessels in Block I, were noted for their slow speed and awkward
+handling both above and below lightspeed. Later models added
+supplementary reactionless drive boosters to the aft ends of the
+Alcubierre drive nacelles, but the ship's reputation was long since
+made. 
+
+The *Genbu* class is rapidly being supplanted by the newer *Cygnus*
+class in front-line exploration service, but not enough newer fast
+scouts have been constructed yet, and most exploration squadrons still
+contain at least one older *Genbu*. 
+
+#### *Cygnus*-class Scout (SF)
+
+The *Cygnus*-class fast scout is the 
+
+#### *Senior Lieutenant Kwandwarg*-class Patrol Cutter (PC)
+
+Informally known as the 
+
+#### *Rohini*-class Patrol Frigate (PS)
+
+With the new *Cygnus*-class fast scouts entering service in
+Exploration Command, 
+
+#### *Glidwarg*-class Destroyer (DD)
+
+Informally known as the *Adjective* class, the *Glidwarg*-class
+Destroyer is currently the only pure combat ship fielded by the
+Stellar Union. 
+
+#### *Excalibur*-class Light Cruiser (CL)
+
+Only a single example of the *Excalibur*-class light cruiser has been
+constructed, as a proof of concept of the design. The ship is a
+modified version of the *Eratosthanes*-class fleet tug, with a
+permanently installed "Atlatl" torpedo pod installed in place of the
+tug's pod grapple. 
+
+#### *Argo Navis*-class Cruiser (CA)
+#### *Amundsen*-class Exploration Cruiser (CN)
+#### *Eratosthanes*-class Fleet Tug (AT)
+#### *North America*-class Monitor (TB)
+#### *Admiral Vordrek*-class Tender (TO)
+#### *Calypso*-class Research Vessel (TS)
+#### *Mauretania*-class Personnel Transport (TT)
+#### *Union*-class "New Technology Destroyer" (dreadnought) (DN)
+
 
