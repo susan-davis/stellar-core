@@ -39,7 +39,7 @@ during season 1.
 ## The *Stellar Union* Universe
 
 *Stellar Union* takes place in the 2270s. Earth has formed a Stellar
- Union of Earth, its colonies, and several alien races.  
+Union of Earth, its colonies, and several alien races.  
 
 ### Technology
 Technology in the 2270s follows all the tropes of the source material,
@@ -50,14 +50,34 @@ Warp-powered starships, with decks parallel to the direction of
 travel, ply the ocean of space, but always seem to be aligned on a
 common up and down direction when they meet. Ships are powered by
 Applied Phlebotinum ("Energon crystals"), and attack and defend with
-beams and fields of energy. Ships have energy projectors, an
-assortment of missiles and torpedoes, deflector shields, and warp
-("Alcubierre") and impulse ("reaction") engines. Ships are equipped
-with tractor beams, transporters ("matter transport beams"), and
-shuttlecraft.  
+beams ("energy projectors")  and fields of energy ("shields"). Ships
+have energy projectors, an assortment of missiles and torpedoes,
+deflector shields, and warp ("Alcubierre") and impulse ("reaction")
+engines. Ships are equipped with tractor beams, transporters ("matter
+transport device"), and shuttlecraft.  
 
 #### Personal Technology
-Stellar Command personnel have 
+Typical items available for PCs from ship's stores include:
+
+- Uniform
+- Comm
+- Comm Repeater
+- Multiscanner
+- Stunner
+- Laser Cutter
+- Medical Kit
+- Repair Kit
+- Survival Kit
+- Environment Suit
+- EVA Pack
+- Maneuvering Pack
+- Portable Shelter
+- MTD Anchor
+
+More militaristic gear, such as handheld energy projectors and energy
+pavises, is generally restricted to Patrol Command or Defence Command
+missions, or to invasion scenarios. Unless a ground combat war story
+is the point of the episode, omit these from your game.
 
 ## Major Powers
 ### The Stellar Union
@@ -66,8 +86,12 @@ The Stellar Union is idealistic and utopian
 #### Earth
 #### Outlying Human Colonies
 #### The Galdorites
+
+The Galdorites are one of the founding members of the Union, and
+Earth's oldest allies. They are humanoid 
+
 #### The Kwom
-#### The Denerons
+#### The Generons
 
 ### The Quellan Empire
 The Quellans are an expansionist empire of Proud Warrior Race
@@ -328,7 +352,7 @@ contain at least one older *Genbu*.
 
 The *Cygnus*-class fast scout is the 
 
-#### *Senior Lieutenant Kwandwarg*-class Patrol Cutter (PC)
+#### *Branbrambog*-class Patrol Cutter (PC)
 
 Informally known as the 
 
@@ -347,7 +371,7 @@ Stellar Union.
 
 Only a single example of the *Excalibur*-class light cruiser has been
 constructed, as a proof of concept of the design. The ship is a
-modified version of the *Eratosthanes*-class fleet tug, with a
+lightly modified version of the *Eratosthanes*-class fleet tug, with a
 permanently installed "Atlatl" torpedo pod installed in place of the
 tug's pod grapple. 
 
