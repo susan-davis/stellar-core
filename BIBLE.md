@@ -123,14 +123,16 @@ advancement from rank 2 to rank 3, and no separate recruiting pipeline
 that moves trainees from a cadet status to rank 3. 
 
 Quellan ranks are divided into sub-ranks, each with its own
-modifier prefix. Sub-rank -1 takes the prefix "Second", sub-rank 0
-takes no prefix, sub-rank +1 takes the prefix "Senior", and sub-rank
-+2 takes the prefix "Grand." ("Second Supreme" and "Supreme" are
-sub-ranks +3 and +4 respectively, but are restricted in the number of
+modifier prefix. Sub-rank 1 takes the prefix "Second", sub-rank 2
+takes no prefix, sub-rank 3 takes the prefix "Senior", and sub-rank
+4 takes the prefix "Grand." ("Second Supreme" and "Supreme" are
+sub-ranks 5 and 6 respectively, but are restricted in the number of
 Quellans who can hold that sub-rank.) Generally, the "Second" sub-rank
 is used for second-in-command figures at each command level, and for
 trainees earmarked to take on a new position, with "Second Warrior"
-being the Quellan term for a cadet or recruit.
+being the Quellan term for a cadet or recruit. Young Quellans of
+pre-military age are referred to as "Third Warrior" or the equivalent
+on ceremonial occasions.
 
 Sub-ranks have a second function: they qualify Quellans for membership
 in the Senior Council, Grand Council, and Supreme Council,
@@ -241,21 +243,44 @@ takes over
 - E1: Crewmember (CRM)
 - E2: Able Crewmember (AC)
 - E3: Leading Crewmember (LC)
+- E4: Chief Crewmember of the Fleet/Union (CCF) (unique)
 - W0: Cadet (CDT)
 - W1: Warrant Officer (WO)
 - W2: Chief Warrant Officer (CWO)
 - W3: Master Chief Warrant Officer (MC)
+- W4: Master Chief Warrant Officer of the Fleet/Union (MCF) (unique)
 - J0: Senior Cadet (SC)
 - J1: Ensign (ENS)
 - J2: Lieutenant (LT)
 - J3: Senior Lieutenant (SLT)
+- J4: Flag Lieutenant of the Fleet/Union (FLF) (unique)
+- C0: Command Candidate (CND)
 - C1: Lieutenant Commander (LCR)
 - C2: Commander (CDR)
 - C3: Captain (CPT)
-- F0: Flag Captain (FC)
+- C4: Flagship Captain of the Fleet/Union (FCF) (unique)
+- F0: Fleet Captain (FC)
 - F1: Commodore (COM)
 - F2: Flag Officer (FO)
 - F3: Admiral (ADM)
+- F4: Admiral of the Fleet/Union (AOF) (unique)
+
+The '0' ranks in each group are temporary ranks assigned to trainees, except
+Fleet Captain, which becomes permanent (and terminal) for selectees who don't
+progress to Flag Officer. Flag Captain is also frequently awarded at
+retirement for distinguished Captains who weren't selected for flag rank.
+
+The '4' ranks are unique advisors to the Admiralty, representing different
+constituent groups of fleet personnel. Except for the Admiral of the Fleet,
+they are also temporary, for the duration of the holder's assignment to the
+post, though they're restored at retirement as a courtesy if the holder
+hasn't been promoted further, and past holders continue to draw the higher
+pay until they are promoted. The Flag Lieutenant and Flagship Captain serve
+as aides-de-camp to the Admiral of the Fleet.
+
+### Uniform
+
+Lorem ipsum, dolor sit facet, adipiscing consectetuer elit.
 
 ### Organization
 

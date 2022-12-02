@@ -145,7 +145,7 @@
 (dict *)	commissioning plaque small rectangular brass
 (singleton *)
 (descr *)	(if) (current ship #delphinus) (then)
-			SUS (italic) Delphinus (roman) \(SC-384\) (line)
+			SUS (italic) Delphinus (roman) \(SF-384\) (line)
 			Built by Phobos Orbital Constructors (line)
 			Laid down September 3, 2267 (line)
 			Launched July 25, 2268 (line)
@@ -154,7 +154,7 @@
 			For humans, it is to know that, and to wonder at it."
 			(line) (space 4) -- Jacques Yves Cousteau
 		(else)
-			SUS (italic) Eridanus (roman) \(SC-386\) (line)
+			SUS (italic) Eridanus (roman) \(SF-386\) (line)
 			Built by Sinus Iridum Yard 17 (line)
 			Laid down August 23, 2267 (line)
 			Launched March 24, 2268 (line)
@@ -187,12 +187,18 @@
 #matt-1-1-panel
 (door *)
 (name *)	panel
-(descr *)	write me
+(descr *)	A small, unobtrusive access panel, roughly one metre high, is
+       		set in the forward end of the port bulkhead here. It is labeled
+		"M.A.T.T. 1-1".
+(perform [read *])	  (descr *) (notice *)
 
 #matt-2-1-panel
 (door *)
 (name *)	panel
-(descr *)	write me
+(descr *)	A small, unobtrusive access panel, roughly one metre high, is
+       		set in the forward end of the starboard bulkhead here. It is
+		labeled	"M.A.T.T. 2-1".
+(perform [read *])	  (descr *) (notice *)
 
 #port-airlock-inner-door
 (airlock-door *)

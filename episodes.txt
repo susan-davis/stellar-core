@@ -38,7 +38,8 @@ Season 1: Command of Eridanus
 	is a hard tactical problem for the player to solve.
 
 	NOTE: Move this later in the season? More technically demanding
-	than 103, 105, and maybe 104.
+	than 103, 105, and maybe 104. But this needs to happen as early as
+	possible in Player's command.
 
 	Bad Ending: Convicted.
 
@@ -135,16 +136,26 @@ Season 1: Command of Eridanus
 
 107	An Idle King
 	LCR Player and the Eridanus come to the aid of CPT Stewart and the
-	Odysseus when a first contact situation goes sideways.
+	Odysseus when a first contact situation goes sideways. (TBD: I don't
+	yet feel like I have a strong handle on this one, beyond needing to
+	introduce Stewart to the series plot.)
+
+	Good Ending: The Eridanus crew saves the day, and saves the Odysseus
+	crew. Player catches Stewart's eye as an officer to mentor.
+
+	Bad Ending:
+
+	Development Opportunities: 
 	
 108	There Gloom the Broad, Dark Seas (FULL LENGTH)
 	The Eridanus surveys a previously uncharted quadrant, encountering
 	a number of shorter adventures along the way.
 
-109	All Experience Is An Arch (FULL LENGTH) (OPTIONAL)
+100	All Experience is an Arch (FULL LENGTH) (OPTIONAL)
 	In a flashback, LCR player attends the Command Fitness Course.
-	(TBD: Do we need this?)
-
+	Numbered as 100, but implemented last. Or possibly right after 102.
+	(TBD: Do we need this?) 
+	
 	This is a tutorial on how to fly Union ships and play TREK
 	very well, framed as a classroom course set at Stellar
 	Academy. Over the course of a whole syllabus of training runs,
@@ -153,6 +164,11 @@ Season 1: Command of Eridanus
 	course. Other students are also taking the class, and do well
 	or poorly, and the students and instructors comment on how
 	well each scenario was played.
+
+	This is essentially a straight-up remake of TREK, for players who
+	enjoy solving tactical problems. The course will pose quite a few
+	interesting ones, and then the open simulator time will let the
+	player create their own.
 
 	The End: Player flunks.
 
@@ -168,11 +184,13 @@ Season 2: First Officer on Odysseus
 
 201	He Works His Work, I Mine
 	Promoted to XO of the Odysseus, CDR Player finds CPT Stewart
-	less of a kindred spirit than expected.
+	less of a kindred spirit than expected. (I'm vague about this.)
 	
 202	This Gray Spirit, Yearning in Desire
 	LCR Kaur and the Eridanus must stop a large interstellar
-	creature that threatens the heart of the Union.
+	creature that threatens the heart of the Union. (This has a
+	first season vibe, and could be sacrificed to squeeze in a more
+	plot-heavy episode in S2.)
 	
 203	To Make Mild a Rugged People
 	On the heels of their success in uncovering the Regulan
@@ -180,9 +198,11 @@ Season 2: First Officer on Odysseus
 	negotiate an allance with the Regulans. But who invited the
 	Quellans? 
 	
-204	Alone, On Shore
+204	Alone, on Shore
 	CDR Player must survive in a hostile environment after
-	crashing their shuttle.
+	crashing their shuttle. (This has a first season vibe, and could
+	be sacrificed if necessary to squeeze in a more plot-heavy episode
+	in S2.)
 	
 205	Offices of Tenderness
 	The ship's surgeon of the Eridanus must find the cure for a
@@ -202,15 +222,15 @@ Season 2: First Officer on Odysseus
 	Harmony must take over a Cygnus-class vessel, and use it to
 	spread herself across the Union and beyond.
 	
-207	Life Piled On Life
+207	Life Piled on Life
 	A "Mary Sue" officer aboard the Odysseus turns out to be
 	Harmony, and triggers an internal crisis that threatens the
-	Union. 
+	Union. (I'm vague about this.)
 	
 208	The Long Day Wanes
 	Human separatists in the Union want to break away over the
 	handling of the Harmony crisis, and CPT Stewart is on their
-	side. 
+	side. (I'm vague about this.)
 
 Season 3: Command of Odysseus
 
@@ -234,7 +254,7 @@ Season 3: Command of Odysseus
 	
 307	The Utmost Bound of Human Thought
 	The fate of the Union hangs in the balance, in the final confrontation
-	with Harmony.
+	with Harmony. (I'm vague about this.)
 	
 308	The Baths of All the Western Stars
 	Another "sandbox" episode, but with the Odysseus.
