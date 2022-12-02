@@ -1,5 +1,16 @@
 # *Stellar Union* series bible
 
+*Our galaxy is an endless ocean of stars. Plying that ocean are the
+ships of the* Stellar Union. *Their mandate:*
+
+- *Keep the peace among the stars.*
+- *Explore the galaxy and its many planets.*
+- *Follow knowledge like a sinking star, beyond the utmost bound of
+  intelligent thought.*
+
+*Upholding that mandate is the starship* Eridanus, *on a three-year
+voyage of discovery.*
+
 The *Stellar Union* universe is an optimistic future history inspired
 by *Star Trek*, *Galaxy Quest*, *The Orville*,  the classic mainframe
 `STARTREK` game from the 1970s, the 8-bit microcomputer *Star Fleet*
@@ -147,8 +158,9 @@ equivalent to long-service career NCOs from other galactic powers.
 "Hand Weapon," "Ear," "Eye," "Hand," and "Mouth" are special religious
 ranks, whose holders act in both religious and police functions. The
 ranks always refer to a specific Quellan deity, generally either
-Quelil or Gronkadonk, but occasionally to a minor deity. (TBD: is Eye
-R3 and Hand R4, or is it the other way around?)
+Quelil or Qvortalan, but occasionally to a minor deity, or a mythological
+hero such as Gronkadonk. (TBD: is Eye R3 and Hand R4, or is it the other
+way around?)
 
 #### Quellan Ships
 - *Q1*-class attack ship ("Attack I")
