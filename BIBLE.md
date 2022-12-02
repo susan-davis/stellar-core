@@ -26,7 +26,7 @@ declining to "meddle" in their affairs "for their own good."
 
 *Stellar Union* is played in a series of "competition length" (2-hour 
 or so) interactive fiction adventures. The game is parser-based, but
-could be adapted to choice or hybride on mobile if there's a business
+could be adapted to choice or hybrid on mobile if there's a business
 opportunity there. Three "seasons" of about eight adventures each  are
 planned, with an over-arching series metaplot, and at least two
 "full-length" (10+ hour) sandbox-style adventures, where the player's
@@ -42,6 +42,8 @@ a bad or fair ending is generally Polite on the Zarf scale; getting to
 a good ending may be Tough. The best ending and the series metaplot
 are both Cruel, and it's possible to ruin a playthrough of the series
 during season 1.
+
+
 
 ### Series Plot and Inter-Game Communication
 
@@ -61,9 +63,8 @@ Warp-powered starships, with decks parallel to the direction of
 travel, ply the ocean of space, but always seem to be aligned on a
 common up and down direction when they meet. Ships are powered by
 Applied Phlebotinum ("Energon crystals"), and attack and defend with
-beams ("energy projectors")  and fields of energy ("shields"). Ships
-have energy projectors, an assortment of missiles and torpedoes,
-deflector shields, and warp ("Alcubierre") and impulse ("reaction")
+beams ("energy projectors") and fields of energy ("shields"). Ships 
+are propelled by  warp ("Alcubierre") and impulse ("reaction")
 engines. Ships are equipped with tractor beams, transporters ("matter
 transport device"), and shuttlecraft.  
 
@@ -86,9 +87,9 @@ Typical items available for PCs from ship's stores include:
 - MTD Anchor
 
 More militaristic gear, such as handheld energy projectors and energy
-pavises, is generally restricted to Patrol Command or Defence Command
-missions, or to invasion scenarios. Unless a ground combat war story
-is the point of the episode, omit these from your game.
+pavises (portable shields), is generally restricted to Patrol Command
+or Defence Command missions, or to invasion scenarios. Unless a ground
+combat war story is the point of the episode, omit these from your game.
 
 ## Major Powers
 ### The Stellar Union
