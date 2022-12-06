@@ -90,6 +90,8 @@
 
 (interface (angle from $<Ship to $<Target into $>Angle))
 
+(interface (angle from $<Ship to position $<Position into $>Bearing))
+
 %% Turn, without moving the object
 
 (interface (turn $<Ship to bearing $<Bearing))
@@ -580,6 +582,11 @@
 		($Bearing = $B)
 	(endif)
 	($B minus $Heading into $Result)
+
+(angle from $Ship to position $There into $Result)
+	($Ship heading $Heading)
+	(bearing from $Ship to position $There into $Bearing)
+	(angle clockwise from $Heading to $Bearing into $Result)
 
 (angle from $Ship to $Target into $Result)
 	($Ship heading $Heading)

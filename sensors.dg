@@ -1,4 +1,5 @@
 %% sensors.dg
+%% Handles ship's sensors, including displaying output to the player.
 %% Also include sectored-grid.dg, ship-schema.dg, and time.dg
 
 %%-------------------------------- INTERFACES --------------------------------

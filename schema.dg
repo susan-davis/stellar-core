@@ -1,4 +1,5 @@
-%% ship-schema.dg
+%% schema.dg
+%% Defines data structures for a ship's status.
 %% Include sectored-grid.dg when compiling or debugging
 
 %%---------------------------------- SCHEMA ----------------------------------
