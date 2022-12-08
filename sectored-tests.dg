@@ -162,10 +162,6 @@
 	#bearing-to-near
 	#bearing-to-far
 	#bearing-to-distant
-	#bearing-to-closest-position
-	#bearing-to-near-position
-	#bearing-to-far-position
-	#bearing-to-distant-position
 	#angle-30-to-45
 	#angle-45-to-30
 	#angle-315-to-45
@@ -798,22 +794,6 @@
 
 (test #angle-to-distant)
 	(angle from #test-ship to #distant-target into 245)
-
-(test #angle-to-closest-position)
-	(#closest-target state is $There)
-	(angle from #test-ship to position $There into 90)
-
-(test #angle-to-near-position)
-	(#near-target state is $There)
-	(angle from #test-ship to position $There into 0)
-
-(test #angle-to-far-position)
-	(#far-target state is $There)
-	(angle from #test-ship to position $There into 75)
-
-(test #angle-to-distant-position)
-	(#distant-target state is $There)
-	(angle from #test-ship to position $There into 245)
 
 (test #angle-counterclockwise)
 	(turn #test-ship to heading 359)

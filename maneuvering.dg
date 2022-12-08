@@ -1,5 +1,4 @@
 %% maneuvering.dg
-%% Handles ship movement, including energy consumption.
 %% Also include sectored-grid.dg when compiling or debugging.
 
 %%-------------------------------- INTERFACES --------------------------------
