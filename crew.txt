@@ -11,30 +11,43 @@ Quarters: captain's day cabin, deck 1
 No replacement -- is series protagonist
 
 Executive officer: SLT Amrit Kaur (human female)
-Duty station: watch 1, captain's chair, bridge (watch 1 OOW)
+Duty station: watch 2, captain's chair, bridge (watch 2 OOW)
 Battle station: auxiliary control station, computer core
 Quarters: XO's cabin, deck 2
 Replacement: 
 
-OPERATIONS DIVISION
-
-Navigation officer: LT
-Duty station: 
-Battle station: nav station, bridge
-Quarters: port JO quarters, deck 2
-Replacement: 
-
-Tactical officer: LT 
-Duty station: 
+Tactical officer/Second officer: LT Zhou Xiaoping (human male)
+Duty station: watch 3, captain's chair, bridge (watch 3 OOW)
 Battle station: tac station, computer core
 Quarters: port JO quarters, deck 2
 Replacement: 
 
-Quartermaster: CWO 
-Duty station: 
+OPERATIONS DIVISION
+
+Navigation officer/Third officer: ENS Mahalia Washington (human female)
+Duty station: watch 2, helm station, bridge
+Battle station: nav station, bridge
+Quarters: port JO quarters, deck 2
+Replacement: 
+
+Quartermaster: WO Alexandru Ionescu (human male)
+Duty station: watch 1, helm station, bridge
 Battle station: helm station, bridge
 Quarters:
 Replacement: 
+
+MTD operator/Relief quartermaster: WO 
+Duty station: watch 3, helm station, bridge
+Battle station: deck 1 DC locker
+Quarters: 
+Replacement:
+
+[TBD: replace with a steward?]
+Security guard: BILLET NOT FILLED (usually an OC or AC)
+Duty station: idler, patrol throughout ship
+Battle station: security station, computer core, and as needed
+Quarters: 
+Replacement: no replacement, billet not filled during S1
 
 ENGINEERING DIVISION
 
@@ -46,58 +59,56 @@ Replacement:
 
 Second engineer: ENS 
 Duty station: main engineering, watch 2
-Battle station: engineering sation, bridge
+Battle station: engineering station, bridge
 Quarters:
 Replacement: 
 
-Third engineer: ENS 
+Third engineer: CWO 
 Duty station: main engineering, watch 3
 Battle station: main engineering, deck 2
 Quarters:
 Replacement: 
 
-MTD operator: WO 
-Duty station: 
-Battle station:
-Quarters:
-Replacement: 
-
 SCIENCES DIVISION
 
-Science officer: SLT V'ronek (Galdorite male)
-Duty station: 
-Battle station: 
+Science officer: SLT NFN V'ronek (Galdorite male)
+Duty station: idler, any lab
+Alternate duty station: science station, bridge
+Battle station: science station, bridge
 Quarters:
 Replacement: 
 
-Astrophysics researcher: LT
-Duty station: astrophysics lab, idler
-Battle station:
+Astrophysics researcher: LT Osman Yilmaz (human male)
+Duty station: watch 1, science station, bridge
+Alternate duty station: idler, astrophysics lab
+Battle station: deck 3 DC locker
 Quarters:
 Replacement: 
 
 Planetary geology researcher: LT 
-Duty station: 
-Battle station:
+Duty station: watch 2, science station, bridge
+Alternate duty station: idler, geology lab
+Battle station: deck 2 DC locker
 Quarters:
 Replacement: 
 
-Xenolinguistics researcher: LT 
-Duty station: 
-Battle station:
+Xenolinguistics researcher/Communications officer: LT 
+Duty station: watch 3, science station, bridge
+Alternate duty station: idler, communications station, computer core
+Battle station: communications station, computer core
 Quarters:
 Replacement: 
 
 MEDICAL DIVISION
 
 Medical officer/Xenobiology researcher: LT 
-Duty station: 
+Duty station: idler, sick bay
 Battle station: sick bay, deck 3
 Quarters: surgeon's quarters, deck 2
 Replacement: 
 
-Medic: WO 
-Duty station: 
+Nurse/Medic: WO 
+Duty station: idler, sick bay
 Battle station: sick bay, deck 3
 Quarters:
 Replacement: 
