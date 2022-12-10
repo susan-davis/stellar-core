@@ -5,94 +5,107 @@ Season 1 crew manifest:
 COMMAND DIVISION
 
 Commanding officer: LCR Alex Player (human non-binary)
+Traits: Conf 3, Ops 3, Ldr 3, Tac 2, Eng 2, Sci 1, Med 0, Phys 2
 Duty station: watch 1, captain's chair, bridge (watch 1 OOW)
 Battle station: captain's chair, bridge
 Quarters: captain's day cabin, deck 1
 No replacement -- is series protagonist
 
 Executive officer: SLT Amrit Kaur (human female)
+Traits: 
 Duty station: watch 2, captain's chair, bridge (watch 2 OOW)
 Battle station: auxiliary control station, computer core
 Quarters: XO's cabin, deck 2
-Replacement: 
+Replacement: SLT Zhou Xiaoping (human male)
 
-Tactical officer/Second officer: LT Zhou Xiaoping (human male)
+Navigation officer/Second officer: ENS Mahalia Washington (human female)
+Traits:
 Duty station: watch 3, captain's chair, bridge (watch 3 OOW)
-Battle station: tac station, computer core
+Battle station: nav station, bridge
 Quarters: port JO quarters, deck 2
-Replacement: 
+Replacement: LT 
 
 OPERATIONS DIVISION
 
-Navigation officer/Third officer: ENS Mahalia Washington (human female)
-Duty station: watch 2, helm station, bridge
-Battle station: nav station, bridge
-Quarters: port JO quarters, deck 2
-Replacement: 
-
 Quartermaster: WO Alexandru Ionescu (human male)
+Traits:
 Duty station: watch 1, helm station, bridge
 Battle station: helm station, bridge
-Quarters:
+Quarters: port crew quarters, deck 3
 Replacement: 
 
 MTD operator/Relief quartermaster: WO 
-Duty station: watch 3, helm station, bridge
+Traits:
+Duty station: watch 2, helm station, bridge
 Battle station: deck 1 DC locker
-Quarters: 
+Quarters: port crew quarters, deck 3
 Replacement:
 
-[TBD: replace with a steward?]
+Steward/Relief quartermaster: WO
+Traits:
+Duty station: watch 3, helm station, bridge
+Battle station: deck 2 DC locker
+Quarters: port crew quarters, deck 3
+Replacement: 
+
 Security guard: BILLET NOT FILLED (usually an OC or AC)
+Traits:
 Duty station: idler, patrol throughout ship
 Battle station: security station, computer core, and as needed
-Quarters: 
+Quarters: port crew quarters, deck 3
 Replacement: no replacement, billet not filled during S1
 
 ENGINEERING DIVISION
 
-Chief engineer: LT 
+Chief engineer: SLT 
+Traits:
 Duty station: main engineering, watch 1
 Battle station: main engineering, deck 2
-Quarters:
+Quarters: chief engineer's quarters, deck 2
 Replacement: 
 
-Second engineer: ENS 
+Second engineer: LT
+Traits:
 Duty station: main engineering, watch 2
 Battle station: engineering station, bridge
-Quarters:
+Quarters: starboard JO quarters, deck 2
 Replacement: 
 
-Third engineer: CWO 
+Third engineer: ENS
+Traits:
 Duty station: main engineering, watch 3
 Battle station: main engineering, deck 2
-Quarters:
+Quarters: starboard JO quarters, deck 2
 Replacement: 
 
 SCIENCES DIVISION
 
 Science officer: SLT NFN V'ronek (Galdorite male)
+Traits:
 Duty station: idler, any lab
 Alternate duty station: science station, bridge
 Battle station: science station, bridge
-Quarters:
+Quarters: science officer's quarters, deck 2
 Replacement: 
 
-Astrophysics researcher: LT Osman Yilmaz (human male)
+Astrophysics researcher: ENS Osman Yilmaz (human male)
+Traits:
 Duty station: watch 1, science station, bridge
 Alternate duty station: idler, astrophysics lab
 Battle station: deck 3 DC locker
 Quarters:
 Replacement: 
 
-Planetary geology researcher: LT 
+Planetary geology researcher: ENS 
+Traits:
 Duty station: watch 2, science station, bridge
 Alternate duty station: idler, geology lab
 Battle station: deck 2 DC locker
 Quarters:
 Replacement: 
 
-Xenolinguistics researcher/Communications officer: LT 
+Xenolinguistics researcher/Communications officer: ENS 
+Traits:
 Duty station: watch 3, science station, bridge
 Alternate duty station: idler, communications station, computer core
 Battle station: communications station, computer core
@@ -102,12 +115,14 @@ Replacement:
 MEDICAL DIVISION
 
 Medical officer/Xenobiology researcher: LT 
+Traits:
 Duty station: idler, sick bay
 Battle station: sick bay, deck 3
 Quarters: surgeon's quarters, deck 2
 Replacement: 
 
 Nurse/Medic: WO 
+Traits:
 Duty station: idler, sick bay
 Battle station: sick bay, deck 3
 Quarters:
