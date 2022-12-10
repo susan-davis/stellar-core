@@ -1,15 +1,15 @@
 SUS _Eridanus_ (SF-386)
 
-Season 1 crew manifest:
-
-COMMAND DIVISION
+CREW MANIFEST
 
 Commanding officer: LCR Alex Player (human non-binary)
-Traits: Conf 3, Ops 3, Ldr 3, Tac 2, Eng 2, Sci 1, Med 0, Phys 2
+Traits: 
 Duty station: watch 1, captain's chair, bridge (watch 1 OOW)
 Battle station: captain's chair, bridge
-Quarters: captain's day cabin, deck 1
-No replacement -- is series protagonist
+Quarters: captain's sleeping cabin, deck 1
+Season 2+ replacement: SLT/CND/LCR Amrit Kaur or SLT Zhou Xiaoping
+
+DECK DEPARTMENT
 
 Executive officer: SLT Amrit Kaur (human female)
 Traits: 
@@ -25,37 +25,37 @@ Battle station: nav station, bridge
 Quarters: port JO quarters, deck 2
 Replacement: LT 
 
-OPERATIONS DIVISION
-
-Quartermaster: WO Alexandru Ionescu (human male)
+Boatswain/Quartermaster: CWO 
 Traits:
 Duty station: watch 1, helm station, bridge
 Battle station: helm station, bridge
-Quarters: port crew quarters, deck 3
+Quarters: port (deck) crew quarters, deck 3
 Replacement: 
 
-MTD operator/Relief quartermaster: WO 
+MTD operator/Relief quartermaster: WO Alexandru Ionescu (human male)
 Traits:
 Duty station: watch 2, helm station, bridge
 Battle station: deck 1 DC locker
-Quarters: port crew quarters, deck 3
+Quarters: port (deck) crew quarters, deck 3
 Replacement:
 
-Steward/Relief quartermaster: WO
+Shuttle coxwain/Relief quartermaster: WO
 Traits:
 Duty station: watch 3, helm station, bridge
-Battle station: deck 2 DC locker
-Quarters: port crew quarters, deck 3
-Replacement: 
+Battle station: aboard shuttle, shuttle bay
+Quarters: port (deck) crew quarters, deck 3
+Replacement:
 
-Security guard: BILLET NOT FILLED (usually an OC or AC)
-Traits:
-Duty station: idler, patrol throughout ship
-Battle station: security station, computer core, and as needed
-Quarters: port crew quarters, deck 3
+SUPPLY DEPARTMENT (merged with Deck)
+
+Steward/Supercargo: AC 
+Traits: 
+Duty station: idler, duties throughout ship
+Battle station: deck 2 DC locker
+Quarters: port (deck) crew quarters, deck 3
 Replacement: no replacement, billet not filled during S1
 
-ENGINEERING DIVISION
+ENGINEERING DEPARTMENT
 
 Chief engineer: SLT 
 Traits:
@@ -68,17 +68,17 @@ Second engineer: LT
 Traits:
 Duty station: main engineering, watch 2
 Battle station: engineering station, bridge
-Quarters: starboard JO quarters, deck 2
+Quarters: starboard (engineering) JO quarters, deck 2
 Replacement: 
 
 Third engineer: ENS
 Traits:
 Duty station: main engineering, watch 3
 Battle station: main engineering, deck 2
-Quarters: starboard JO quarters, deck 2
+Quarters: starboard (engineering) JO quarters, deck 2
 Replacement: 
 
-SCIENCES DIVISION
+SCIENCE DEPARTMENT
 
 Science officer: SLT NFN V'ronek (Galdorite male)
 Traits:
@@ -92,16 +92,16 @@ Astrophysics researcher: ENS Osman Yilmaz (human male)
 Traits:
 Duty station: watch 1, science station, bridge
 Alternate duty station: idler, astrophysics lab
-Battle station: deck 3 DC locker
-Quarters:
+Battle station: astrophysics lab, deck 3
+Quarters: starboard (science) crew quarters, deck 3
 Replacement: 
 
 Planetary geology researcher: ENS 
 Traits:
 Duty station: watch 2, science station, bridge
 Alternate duty station: idler, geology lab
-Battle station: deck 2 DC locker
-Quarters:
+Battle station: deck 3 DC locker
+Quarters: starboard (science) crew quarters, deck 3
 Replacement: 
 
 Xenolinguistics researcher/Communications officer: ENS 
@@ -109,10 +109,10 @@ Traits:
 Duty station: watch 3, science station, bridge
 Alternate duty station: idler, communications station, computer core
 Battle station: communications station, computer core
-Quarters:
+Quarters: starboard (science) crew quarters, deck 3
 Replacement: 
 
-MEDICAL DIVISION
+MEDICAL DEPARTMENT
 
 Medical officer/Xenobiology researcher: LT 
 Traits:
@@ -125,10 +125,22 @@ Nurse/Medic: WO
 Traits:
 Duty station: idler, sick bay
 Battle station: sick bay, deck 3
-Quarters:
+Quarters: starboard (science) crew quarters, deck 3
 Replacement: 
 
+-----
 
-Season 2 crew manifest:
-
-Commanding officer: SLT Amrit Kaur
+South America: 
+Mexico/Central America: Ignacio ("Nacho") Martinez (m)
+Canada: Rajiv Patel (m)
+India: 
+Arab World: 
+Indonesia: 
+West Africa: 
+East Africa: Timnit Gebreselassie (f)
+Southern Africa: Tshepo Seretse (f)
+Pacific Islands: 
+China: 
+Japan/Korea: 
+Western Europe: Sophie Brochu (f)
+Eastern Europe: Alexandru Ionescu (m)
