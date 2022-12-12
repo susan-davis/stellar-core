@@ -7,9 +7,7 @@ Traits:
 Duty station: watch 1, captain's chair, bridge (watch 1 OOW)
 Battle station: captain's chair, bridge
 Quarters: captain's sleeping cabin, deck 1
-Season 2+ replacement: SLT/CND/LCR Amrit Kaur or SLT Zhou Xiaoping
-
-DECK DEPARTMENT
+Season 2+ replacement: SLT/CND/LCR Amrit Kaur or LCR Zhou Xiaoping
 
 Executive officer: SLT Amrit Kaur (human female)
 Traits: 
@@ -18,19 +16,21 @@ Battle station: auxiliary control station, computer core
 Quarters: XO's cabin, deck 2
 Replacement: SLT Zhou Xiaoping (human male)
 
+DECK DEPARTMENT
+
 Navigation officer/Second officer: ENS Mahalia Washington (human female)
 Traits:
 Duty station: watch 3, captain's chair, bridge (watch 3 OOW)
 Battle station: nav station, bridge
 Quarters: port JO quarters, deck 2
-Replacement: LT 
+Replacement: LT Gord Mackenzie (human male)
 
-Boatswain/Quartermaster: CWO 
+Boatswain/Quartermaster: CWO Destra Tesfaye (human female)
 Traits:
 Duty station: watch 1, helm station, bridge
 Battle station: helm station, bridge
 Quarters: port (deck) crew quarters, deck 3
-Replacement: 
+Replacement: Promote Martinez to CWO, and replace him
 
 MTD operator/Relief quartermaster: WO Alexandru Ionescu (human male)
 Traits:
@@ -39,54 +39,56 @@ Battle station: deck 1 DC locker
 Quarters: port (deck) crew quarters, deck 3
 Replacement:
 
-Shuttle coxwain/Relief quartermaster: WO
+Shuttle coxwain/Relief quartermaster: WO Ignacio "Nacho" Martinez (human male)
 Traits:
 Duty station: watch 3, helm station, bridge
 Battle station: aboard shuttle, shuttle bay
 Quarters: port (deck) crew quarters, deck 3
-Replacement:
+Replacement: 
+Second replacement: 
 
 SUPPLY DEPARTMENT (merged with Deck)
 
-Steward/Supercargo: AC 
+Steward/Supercargo: AC NFN Suparman (human male)
 Traits: 
 Duty station: idler, duties throughout ship
 Battle station: deck 2 DC locker
 Quarters: port (deck) crew quarters, deck 3
-Replacement: no replacement, billet not filled during S1
+Replacement: OC Melissa "Missy" Van Dusen
 
 ENGINEERING DEPARTMENT
 
-Chief engineer: SLT 
+Chief engineer: SLT Musa Adamu (human male)
 Traits:
 Duty station: main engineering, watch 1
 Battle station: main engineering, deck 2
 Quarters: chief engineer's quarters, deck 2
-Replacement: 
+Replacement: promote Wang to SLT, replace her
 
-Second engineer: LT
+Second engineer: LT Wang Li (human female)
 Traits:
 Duty station: main engineering, watch 2
 Battle station: engineering station, bridge
 Quarters: starboard (engineering) JO quarters, deck 2
-Replacement: 
+Replacement: LT Hye-Kyung Pak (human female)
+Second replacement: ENS 
 
-Third engineer: ENS
+Third engineer: ENS Rajiv Patel (human male)
 Traits:
 Duty station: main engineering, watch 3
 Battle station: main engineering, deck 2
 Quarters: starboard (engineering) JO quarters, deck 2
-Replacement: 
+Replacement: ENS 
 
 SCIENCE DEPARTMENT
 
-Science officer: SLT NFN V'ronek (Galdorite male)
+Science officer: SLT NFN V'ronek (Galdorite bearer)
 Traits:
 Duty station: idler, any lab
 Alternate duty station: science station, bridge
 Battle station: science station, bridge
 Quarters: science officer's quarters, deck 2
-Replacement: 
+Replacement: LT 
 
 Astrophysics researcher: ENS Osman Yilmaz (human male)
 Traits:
@@ -94,23 +96,23 @@ Duty station: watch 1, science station, bridge
 Alternate duty station: idler, astrophysics lab
 Battle station: astrophysics lab, deck 3
 Quarters: starboard (science) crew quarters, deck 3
-Replacement: 
+Replacement: ENS
 
-Planetary geology researcher: ENS 
+Planetary geology researcher: ENS Sophie Brochu (human female)
 Traits:
 Duty station: watch 2, science station, bridge
 Alternate duty station: idler, geology lab
 Battle station: deck 3 DC locker
 Quarters: starboard (science) crew quarters, deck 3
-Replacement: 
+Replacement: ENS 
 
-Xenolinguistics researcher/Communications officer: ENS 
+Xenolinguistics researcher/Communications officer: ENS John Paul Santos (hm)
 Traits:
 Duty station: watch 3, science station, bridge
 Alternate duty station: idler, communications station, computer core
 Battle station: communications station, computer core
 Quarters: starboard (science) crew quarters, deck 3
-Replacement: 
+Replacement: LT 
 
 MEDICAL DEPARTMENT
 
@@ -119,28 +121,12 @@ Traits:
 Duty station: idler, sick bay
 Battle station: sick bay, deck 3
 Quarters: surgeon's quarters, deck 2
-Replacement: 
+Replacement: SLT 
 
-Nurse/Medic: WO 
+Nurse/Medic: WO Tshepo Seretse (human female)
 Traits:
 Duty station: idler, sick bay
 Battle station: sick bay, deck 3
 Quarters: starboard (science) crew quarters, deck 3
-Replacement: 
+Replacement: WO 
 
------
-
-South America: 
-Mexico/Central America: Ignacio ("Nacho") Martinez (m)
-Canada: 
-India: Rajiv Patel (m)
-Arab World: 
-Indonesia: 
-West Africa: 
-East Africa: Timnit Gebreselassie (f)
-Southern Africa: Tshepo Seretse (f)
-Pacific Islands: 
-China: 
-Japan/Korea: 
-Western Europe: Sophie Brochu (f)
-Eastern Europe: Alexandru Ionescu (m)
