@@ -37,15 +37,15 @@ Traits:
 Duty station: watch 2, helm station, bridge
 Battle station: deck 1 DC locker
 Quarters: port (deck) crew quarters, deck 3
-Replacement:
+Replacement: WO Svanhvit Ellidardottir (human female)
 
 Shuttle coxwain/Relief quartermaster: WO Ignacio "Nacho" Martinez (human male)
 Traits:
 Duty station: watch 3, helm station, bridge
 Battle station: aboard shuttle, shuttle bay
 Quarters: port (deck) crew quarters, deck 3
-Replacement: 
-Second replacement: 
+Replacement: WO Hans Mueller (human male)
+Second replacement (for Tesfaye): 
 
 SUPPLY DEPARTMENT (merged with Deck)
 
@@ -71,7 +71,7 @@ Duty station: main engineering, watch 2
 Battle station: engineering station, bridge
 Quarters: starboard (engineering) JO quarters, deck 2
 Replacement: LT Hye-Kyung Pak (human female)
-Second replacement: ENS 
+Second replacement: ENS Sita Ramakrishnan (human female)
 
 Third engineer: ENS Rajiv Patel (human male)
 Traits:
@@ -88,7 +88,7 @@ Duty station: idler, any lab
 Alternate duty station: science station, bridge
 Battle station: science station, bridge
 Quarters: science officer's quarters, deck 2
-Replacement: LT 
+Replacement: LT Fatima Mohammed (human female)
 
 Astrophysics researcher: ENS Osman Yilmaz (human male)
 Traits:
@@ -96,7 +96,7 @@ Duty station: watch 1, science station, bridge
 Alternate duty station: idler, astrophysics lab
 Battle station: astrophysics lab, deck 3
 Quarters: starboard (science) crew quarters, deck 3
-Replacement: ENS
+Replacement: ENS NFN K'solmar (Galdorite nurturer)
 
 Planetary geology researcher: ENS Sophie Brochu (human female)
 Traits:
@@ -116,17 +116,17 @@ Replacement: LT
 
 MEDICAL DEPARTMENT
 
-Medical officer/Xenobiology researcher: LT 
+Medical officer/Xenobiology researcher: LT Hakim al-Masri (human male)
 Traits:
 Duty station: idler, sick bay
 Battle station: sick bay, deck 3
 Quarters: surgeon's quarters, deck 2
 Replacement: SLT 
 
-Nurse/Medic: WO Tshepo Seretse (human female)
+Nurse/Medic: WO Lucy Qitsualik (human female)
 Traits:
 Duty station: idler, sick bay
 Battle station: sick bay, deck 3
 Quarters: starboard (science) crew quarters, deck 3
-Replacement: WO 
+Replacement: WO Tshepo Seretse (human female)
 
