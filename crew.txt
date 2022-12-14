@@ -45,7 +45,7 @@ Duty station: watch 3, helm station, bridge
 Battle station: aboard shuttle, shuttle bay
 Quarters: port (deck) crew quarters, deck 3
 Replacement: WO Hans Mueller (human male)
-Second replacement (for Tesfaye): 
+Second replacement (for Tesfaye): WO Randok (Kwom)
 
 SUPPLY DEPARTMENT (merged with Deck)
 
