@@ -250,9 +250,6 @@ Season 2: First Officer on Odysseus
 	handling of the Harmony crisis, and CPT Stewart is on their
 	side. (I'm vague about this.) (Make this full length?)
 
-209??	All Experience is an Arch?? (with Kaur instead of Player)
-	Probably better to leave as 100; S2 should end on a downer note.
-
 
 Season 3: Command of Odysseus
 
@@ -273,20 +270,26 @@ Season 3: Command of Odysseus
 	
 306	TBD
 	TBD
+
+307	TBD
+	TBD
 	
-307	The Utmost Bound of Human Thought
+308	The Utmost Bound of Human Thought
 	The fate of the Union hangs in the balance, in the final
-	confrontation with Harmony. (I'm vague about this.)
+	confrontation with Harmony. Harmony is everywhere, the PC and
+	their ride-or-die crew have had to resort to stealing the
+	_Eridanus_ (Star Trek III-style), 
 	
-308	The Baths of All the Western Stars (FULL LENGTH PLUS
-)
+309	The Baths of All the Western Stars (FULL LENGTH PLUS)
 	Another "sandbox" episode, but with the Odysseus. Not confined
 	to a single quadrant. Lots of procedural generation, full
 	implementation of the Odysseus, at least a dozen scripted
 	miniplots on planets. Possibly needs to move to Glulx. Getting
 	100% completion, after a successful playthrough of 307,
 	triggers a "series end" sequence, after which the Odysseus
-	sets out on deeper-range exploration, on a hopeful note.
+	sets out on deeper-range exploration, on a hopeful note. Throw
+	in the discover and handling of another threat from the treat
+	file? It's Star Control II, but it's TREK.
 
 
 Unused titles:
