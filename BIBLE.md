@@ -12,7 +12,7 @@ ships of the* Stellar Union. *Their mandate:*
 voyage of discovery.*
 
 The *Stellar Union* universe is an optimistic future history inspired
-by *Star Trek*, *Galaxy Quest*, *The Orville*,  the classic mainframe
+by *Star Trek*, *Galaxy Quest*, *The Orville*, the classic mainframe
 `STARTREK` game from the 1970s, the 8-bit microcomputer *Star Fleet*
 series of games, the Infocom classic games *Planetfall* and
 *Stationfall*, and similar fare. Intrepid, multicultural explorers
@@ -38,12 +38,10 @@ leads to episode 102, and so forth.
 
 Each episode has multiple endings, which can be terminal (the series
 won't progress further if reached), bad, fair, good, or best. Reaching
-a bad or fair ending is generally Polite on the Zarf scale; getting to
-a good ending may be Tough. The best ending and the series metaplot
-are both Cruel, and it's possible to ruin a playthrough of the series
-during season 1.
-
-
+a fair ending is generally Polite on the Zarf scale; getting to a good
+ending may be Tough. The best ending and the series metaplot are both
+Cruel, and it's possible to ruin a playthrough of the series during
+season 1. 
 
 ### Series Plot and Inter-Game Communication
 
@@ -51,40 +49,70 @@ during season 1.
 
 ## The *Stellar Union* Universe
 
-*Stellar Union* takes place in the 2270s. Earth has formed a Stellar
-Union of Earth, its colonies, and several alien races.  
+*Stellar Union* takes place in the 2270s. Earth is part of the Stellar
+Union, which comprises Earth, its colonies, and several alien
+species. The Stellar Union implements the "fully automated luxury
+space communism" trope that *Star Trek*, *The Orville*, and similar
+shows indulge in.
 
 ### Technology
+
 Technology in the 2270s follows all the tropes of the source material,
-taking a cheerfully handwave-y attitude to science fiction.   
+taking a cheerfully handwave-y attitude to science fiction. 
 
 #### Starship Technology
+
 Warp-powered starships, with decks parallel to the direction of
 travel, ply the ocean of space, but always seem to be aligned on a
 common up and down direction when they meet. Ships are powered by
 Applied Phlebotinum ("Energon crystals"), and attack and defend with
 beams ("energy projectors") and fields of energy ("shields"). Ships 
-are propelled by  warp ("Alcubierre") and impulse ("reaction")
+are propelled by  warp ("Alcubierre") and impulse ("reactionless")
 engines. Ships are equipped with tractor beams, transporters ("matter
 transport device"), and shuttlecraft.  
 
 #### Personal Technology
+
 Typical items available for PCs from ship's stores include:
 
-- Uniform
-- Comm
-- Comm Repeater
-- Multiscanner
-- Stunner
-- Laser Cutter
+- The Stellar Union uniform, which functions as a pressure
+  suit. Pressure gloves are always provided, and the uniform has a
+  special easy access pocket for them.
+- Comm, built into the uniform. Orbital range, plus or minus what the
+  plot demands.
+- Multiscanner, useful for providing basic scans of objects and the
+  nearby environment, as well as access to the ship's library (and the
+  game's help system). Multiscanner functions need to be not so useful
+  that they derail essential mysteries. Issued to scientific and
+  medical personnel on scientific excursions away from the ship.
+- Stunner, generally issued to personnel leaving the ship in wild
+  environments, and when intruders or boarders are suspected. 
+- Pressure Helmet, with built-in short-term oxygen supply. Turns any
+  uniform into a spacesuit, and builds in an urgency clock to move the
+  PC onward.
+- EVA pack, with long-term oxygen supply. A functioning EVA pack
+  should let the PC not worry about survival away from the ship.
+- Maneuvering Pack, with medium-term oxygen supply, and zero-g
+  thrusters. Enables spacewalk scenes. The range should be short
+  enough to make the PC uncomfortable, except in controlled
+  environments such as the interior of a starbase.
+- Repair Kit, full of items useful for engineering personnel to effect
+  repairs to damaged systems and areas. Heavier tools, such as laser
+  cutters and plasma welders, should be issued sparingly, and should
+  fail quickly.
 - Medical Kit
-- Repair Kit
 - Survival Kit
-- Environment Suit
-- EVA Pack
-- Maneuvering Pack
 - Portable Shelter
-- MTD Anchor
+- MTD Anchor, which allows other MTD stations to lock on and transport
+  people and items from its location. Transporting down to a planet
+  involves scanning carefully for a place to set down the MTD anchor,
+  transporting down the anchor, and then sending any
+  personnel. Transport can be initiated from the anchor to any station
+  within range. The anchor is transported back aboard before the ship
+  leaves the vicinity, except in case of emergency. There is an alcove
+  in the MTD compartment for stowage of the anchor when the ship is
+  underway, and usually at least two backup anchors aboard. A shortage
+  of anchors can be used as a plot point.
 
 More militaristic gear, such as handheld energy projectors and energy
 pavises (portable shields), is generally restricted to Patrol Command
@@ -93,16 +121,34 @@ combat war story is the point of the episode, omit these from your game.
 
 ## Major Powers
 ### The Stellar Union
-The Stellar Union is idealistic and utopian 
+
+The Stellar Union is idealistic and utopian in principle, but with
+some messy internal politics beneath the surface. An unacknowledged
+internal rift that no one will confront will trigger a crisis late in
+season 2, leading to the Alliance splitting off.
 
 #### Earth
+
+Earth and its nearby colonies 
+
 #### Outlying Human Colonies
+
+Outlying human colonies 
+
 #### The Galdorites
 
 The Galdorites are one of the founding members of the Union, and
-Earth's oldest allies. They are humanoid 
+Earth's oldest allies. Galdorite culture strongly values scientific 
+
+Galdorites are bipedal humanoids, with three sexes: producer, bearer,
+and nurturer. Pronouns are usually he/him, she/her, and they/them, but
+there's variation. All three sexes must cooperate for successful
+reproduction. 
 
 #### The Kwom
+
+The Kwom are 
+
 #### The Generons
 
 ### The Quellan Empire
@@ -139,12 +185,10 @@ modifier prefix. Sub-rank 1 takes the prefix "Second", sub-rank 2
 takes no prefix, sub-rank 3 takes the prefix "Senior", and sub-rank
 4 takes the prefix "Grand." ("Second Supreme" and "Supreme" are
 sub-ranks 5 and 6 respectively, but are restricted in the number of
-Quellans who can hold that sub-rank.) Generally, the "Second" sub-rank
-is used for second-in-command figures at each command level, and for
-trainees earmarked to take on a new position, with "Second Warrior"
-being the Quellan term for a cadet or recruit. Young Quellans of
-pre-military age are referred to as "Third Warrior" or the equivalent
-on ceremonial occasions.
+Quellans who can hold that sub-rank.) There is also a training
+sub-rank 0, which takes the prefix "Third." Generally, the "Second"
+sub-rank is used for second-in-command figures at each command level,
+and is the entry level rank for individual contributors at each level.
 
 Sub-ranks have a second function: they qualify Quellans for membership
 in the Senior Council, Grand Council, and Supreme Council,
@@ -162,6 +206,26 @@ ranks always refer to a specific Quellan deity, generally either
 Quelil or Qvortalan, but occasionally to a minor deity, or a mythological
 hero such as Gronkadonk. (TBD: is Eye R3 and Hand R4, or is it the other
 way around?)
+
+Quellans are trained from birth into the Quellan rank system, and
+young Quellans of pre-military age are given the rank "Third Warrior"
+or "Third Herder," depending on social status, gender, and parents'
+occupation. Some young Quellans move back and forth between
+categories, for reasons more complex than is worth going into unless
+you're writing a game with Quellan protagonists. The equivalent of
+basic training takes place during childhood and secondary education,
+which solidifies the category the Quellan will progress
+in. (Additional "Third" ranks become available during this training;
+for example, a devout young Quellan might be trained as a Third Hand
+Weapon of their deity.) At the age of majority, a Quellan is promoted
+to Second Warrior/Herder/whatnot, and posted to an assignment, with a
+promotion to the second sub-rank automatic one Quellan year later,
+except in cases of serious incompetence. Quellans can be demoted to
+Second Warrior, or the equivalent, as punishment, but no adult Quellan
+is ever "Third" at rank 0. Quellan society expects that both members
+of a couple will hold down equally responsible positions, and it is
+considered a mark of shame if one does not. "Your spouse is a Second
+Herder" is a fairly serious Quellan insult.
 
 #### Quellan Ships
 - *Q1*-class attack ship ("Attack I")
@@ -188,7 +252,8 @@ doctrine was developed with knowledge only up to the Q6, and hasn't
 had significant update for the Q7. 
 
 ### The Tiberian Public Sector
-The Tiberians are
+The Tiberians occupy space fairly far from the Quellan and Regulan
+frontiers, and 
 
 #### Tiberian Ranks
 
@@ -198,7 +263,7 @@ The Tiberians are
 The Regulans are bipedal carnivores hostile to the Quellans. The Union
 has fought a number of skirmishes with the Regulans, but relations
 between the powers have calmed in recent years, with both sides
-recognizing the threat that 
+recognizing the threat that Quellan technological progress poses.
 
 #### Regulan Ranks
 
@@ -207,10 +272,10 @@ recognizing the threat that
 - *R2*-class fast scout
 - *R3*-class strike cruiser
 - *R4*-class transport
-- *R5*-class arsenal ship
+- *R5*-class long-range armed shuttle
 - *R6*-class destroyer escort
-- *R7*-class long-range armed shuttle
-- *R8*-class escort cruiser
+- *R7*-class escort cruiser
+- *R8*-class arsenal ship
 - *R9*-class space control ship
 - *R10*-class minelayer
 - *R11*-class escort carrier
@@ -219,18 +284,23 @@ recognizing the threat that
 - *R14*-class cruiser
 - *R15*-class transport
 - *R16*-class scout
+- *R17*-class Q-ship
+- *R18*-class long-range armed shuttle
+- *R19*-class Q-ship
 
 The Union has detected only up to R4 as of the start of the
-series. Episode 203 introduces the Union to R5 through R10. R10 and
-R11 are variants of the R4. Unlike the Quellans, the ships that the
-Union knows about are the current top-of-the-line models deployed in
-front-line service. R13 through R16 are older ships held in mothballs
-or assigned to patrol duties in quiet areas, and the Union won't learn
-of them until the Q-R war gets serious enough to require the Regulans
-to mobilize them. R16 doubles as a patrol cutter, and is still
-deployed in large numbers. R10 doubles as an underway replenishment
-ship, "mines" being missiles deployed in loiter mode. R2 inspired the
-Union's *Cygnus*-class fast scouts.
+series. Episode 203 introduces the Union to R5 through R9. R10 and
+R11 are variants of the R4. R7 is a variant of the R3. R17 is a
+variant of the R15. R19 is a variant of the R12. Unlike the Quellans,
+the ships that the Union knows about are the current top-of-the-line
+models deployed in front-line service. R13 through R16 are older ships
+held in mothballs or assigned to patrol duties in quiet areas, and the
+Union won't learn of them until the Q-R war gets serious enough to
+require the Regulans to mobilize them. R16 doubles as a patrol
+cutter,and is still deployed in large numbers. R10 doubles as an
+underway R17 through R19 are new developments during the Q-R war. 
+replenishment ship, "mines" being missiles deployed in loiter mode. R2
+inspired the Union's *Cygnus*-class fast scouts.
 
 ## New Threats
 ### Harmony
@@ -253,30 +323,35 @@ takes over
 ### Ranks
 
 - E0: Recruit (REC)
-- E1: Crewmember (CRM)
+- E1: Crewmember (OC)
 - E2: Able Crewmember (AC)
 - E3: Leading Crewmember (LC)
-- E4: Chief Crewmember of the Fleet/Union (CCF) (unique)
+- E4: Chief Crewmember of the Fleet (CCF) (one per fleet)
+- E5: Cheif Crewmember of the Union (CCU) (unique)
 - W0: Cadet (CDT)
 - W1: Warrant Officer (WO)
 - W2: Chief Warrant Officer (CWO)
 - W3: Master Chief Warrant Officer (MC)
-- W4: Master Chief Warrant Officer of the Fleet/Union (MCF) (unique)
-- J0: Senior Cadet (SC)
+- W4: Master Chief Warrant Officer of the Fleet (MCF) (one per fleet)
+- W5: Master Chief Warrant Officer of the Union (MCU) (unique)
+- J0: Midshipman (MS)
 - J1: Ensign (ENS)
 - J2: Lieutenant (LT)
 - J3: Senior Lieutenant (SLT)
-- J4: Flag Lieutenant of the Fleet/Union (FLF) (unique)
+- J4: Flag Lieutenant (FL) (one per fleet)
+- J5: Flag Lieutenant of the Union (FLU) (unique)
 - C0: Command Candidate (CND)
 - C1: Lieutenant Commander (LCR)
 - C2: Commander (CDR)
 - C3: Captain (CPT)
-- C4: Flagship Captain of the Fleet/Union (FCF) (unique)
+- C4: Flagship Captain (FSC) (one per fleet)
+- C4: Flagship Captain of the Union (FCU) (unique)
 - F0: Fleet Captain (FC)
 - F1: Commodore (COM)
 - F2: Flag Officer (FO)
 - F3: Admiral (ADM)
-- F4: Admiral of the Fleet/Union (AOF) (unique)
+- F4: Fleet Admiral (FA) (one per fleet)
+- F5: Admiral of the Union Fleet (FAU) (unique)
 
 The '0' ranks in each group are temporary ranks assigned to trainees, except
 Fleet Captain, which becomes permanent (and terminal) for selectees who don't
@@ -312,6 +387,10 @@ Exploration Squadrons
 
 #### Patrol Command
 #### Planetary Command
+
+Planetary Command manages the Union's starbases, outposts, and
+planetary installations. 
+
 #### Defence Command
 
 The Stellar Union prides itself on not keeping a standing fleet of
