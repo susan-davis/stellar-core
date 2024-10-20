@@ -9,6 +9,14 @@ in failure, with the CO relieved for excessive crew casualties.
 Replacement characters are designed to be slotted in with minimal code
 and branch changes, following similar arcs with less colour.
 
+In the inter-episode schema, each billet is marked with five bits for
+the episode when the first officer became a casualty, two bits for the
+officer's development (-1 to +2), and one bit for going to the second
+alternate, which fits each billet in one byte. A +2 locks in the
+holder as one of Player's ride-or-die companions.
+
+SHIP COMMAND
+
 Commanding officer: LCR Alex Player (human non-binary)
 Traits: Is the PC. Aro ace, thereby eliminating any need to write
   romance subplots, and non-binary gender eliminates the need to ask
