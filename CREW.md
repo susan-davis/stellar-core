@@ -130,13 +130,13 @@ Quarters: port (deck) crew quarters, deck 3
 **Incumbent:** WO Alexandru Ionescu
 
 Service Number: 123-456-7890. Date of birth: XX/XX/XX (age: yy). Species/Gender: HM.
-Birthplace: 
+Birthplace: Timisoara, Europe, Earth
 Traits: 
 
 **Replacement:** WO Svanhvit Ellidardóttir 
 
 Service Number: 123-456-7890. Date of birth: XX/XX/XX (age: yy). Species/Gender: HF.
-Birthplace: 
+Birthplace: Akureyri, Iceland, Earth
 Traits: 
 
 ## SUPPLY DEPARTMENT
@@ -160,8 +160,8 @@ Is by FAR the most competent holder for this billet; replacement #1 is pretty mu
 **Scripted replacement:** OC Melissa "Missy" Van Dusen
 
 Service Number: 123-456-7890. Date of birth: XX/XX/XX (age: yy). Species/Gender: HF.
-Birthplace: 
-Traits: 
+Birthplace: Mamaroneck, North America, Earth
+Traits: From a wealthy family, and has coasted on family connections until she joined Stellar Command. Is expecting to be selected for the Academy, but is *far* from being on track for it, and her parents are less influential with ExCom than they are with figures on Earth. This is her first assignment, and she considers the Supply Department beneath her; she'll "phone it in" if not closely managed.
 
 **Second replacement** (if Missy is lost after Galbar is recalled): AC Shi Zhenghong
 
