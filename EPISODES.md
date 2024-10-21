@@ -1,14 +1,20 @@
 # STELLAR UNION
 ### Seasons and Episodes
 
-Episodes run in a fixed order, unlike *Nikolai Grozny*. Each episode has multiple endings, including at least one “good” ending, and usually a “best” one, and the player will get a code to enter into the next episode, for metaplot state. A “bad” ending does not generate a code, and doesn’t allow the campaign to continue. A “The End” is a failure termination before the end of the episode. There will generally also be opportunities to develop one or more crew members. The difficulty of the climax of Season 3, when Player must steal the Eridanus to confront Harmony, depends on how many of the crew are leveled up to +2.
+Episodes run in a fixed order, unlike *Nikolai Grozny*. Each episode has multiple endings, including at least one “good” ending, and usually a “best” one, and the player will get a code to enter into the next episode, for metaplot state. A “bad” ending does not generate a code, and doesn’t allow the campaign to continue. A "hidden bad" ending *does* generate a code, and the campaign can continue, but will be harder, possibly unwinnable. A “The End” is a failure termination before the end of the episode. There will generally also be opportunities to develop one or more crew members. The difficulty of the climax of Season 3, when Player must steal the Eridanus to confront Harmony, depends on how many of the crew are leveled up to +2.
 
-## Season 1: Command of Eridanus
+## Season 1: Command of *Eridanus*
 ### 101:	*That Untravelled World, Whose Margin Fades*
 
-*Eridanus* finds the *Delphinus* adrift, her crew missing. Presents the ship as a busybox, and there are multiple solutions depending on the crew selected for the boarding party. Getting Delphinus online and investigating what happened requires teamwork of boarding party, Suspended-style. 
+*Eridanus* finds the *Delphinus* adrift, her crew missing, amidst a Negative Space Wedgie that the *Eridanus* crew at first assumes to be a natural phenomenon. Presents the ship as a busybox, familiarizing the player with how it works, and there are multiple solutions depending on the crew selected for the boarding party. Getting *Delphinus* online and investigating what happened requires teamwork of boarding party, *Suspended*-style. 
 
-**The End:** PC dies or ship PC is on vanishes for good.
+- *What is the nature of the Negative Space Wedgie?* It's an improperly formed hyperspace entry, and the machinery is stuck on "full blast."
+- *What caused the Negative Space Wedgie?* DefCom is trying to reverse engineer the Tiberian Raptor, and pressed one of ExCom's shiny new fast scouts into service. But there are design flaws in the Union copy of the Tiberian entry device, and it isn't calibrated properly.
+- *Where's the crew, and how do we get them back?* 
+- *How do we fix the ship?* 
+- *How do we fix the Negative Space Wedgie?* 
+
+**The End:** PC dies, or ship PC is on vanishes for good.
 
 **Bad Ending:** PC escapes to *Eridanus*, but *Delphinus* vanishes.
 
@@ -18,13 +24,13 @@ Episodes run in a fixed order, unlike *Nikolai Grozny*. Each episode has multipl
 
 **Good Ending:** Boarding party stabilizes *Delphinus* and rescues crew; *Eridanus* is fine.
 
-**Best Ending:** Good ending, got full explanation of Negative Space Wedgie.
+**Best Ending:** Good ending, and actually worked out how to make entry and exit from hyperspace happen safely.
 
 **Development Opportunities:** On good or best ending, increment the other members of the boarding party. Development is through the main plot, not a B-plot. On bad ending, decrement Kaur, Adamu, and boarding party members.
 
 ### 102:	*The Ringing Plains of Windy Troy*
 
-LCR Player is court-martialled for the loss of the *Argo Navis*. (Faces a review board?) Flashbacks to Player attending SUS *Punisher*, and a post-solution mode for the player to just play Trek.  Gives a series of flashbacks from the courtroom to the battle, from a number of POVs. Introduces perspective switching. The battle is a hard tactical problem for the player to solve. 
+LCR Player is court-martialled for the loss of SUS *Argo Navis*. (Faces a review board?) Flashbacks to Player attending SUS *Punisher*, and a post-solution mode for the player to just play Trek.  Gives a series of flashbacks from the courtroom to the battle, from a number of POVs. Introduces perspective switching. The battle is a hard tactical problem for the player to solve. 
 
 NOTE: Move this later in the season? More technically demanding than 103, 105, and maybe 104. But this needs to happen as early as possible in Player's command.
 
