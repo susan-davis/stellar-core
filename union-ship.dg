@@ -1,0 +1,65 @@
+%% union-ship.dg
+%% common properties of Stellar Union ships
+
+(dict #north)	forward fwd
+(dict #south)	aft
+(dict #east)	starboard stbd
+(dict #west)	port
+
+(room *(onboard $))
+
+#deck
+(name *)	deck
+(descr *)	The deck is made of a series of deck plates, of a medium grey
+       		texture that hides dust	tracked on it. Crew members still spend
+		hours swabbing it anyway.
+((onboard $) attracts *)
+
+#bulkhead
+(name *)	bulkhead
+(descr *)	The bulkhead is painted in regulation Stellar Command beige.
+((onboard $) attracts *)
+
+#overhead
+(name *)	overhead
+(descr *)	The overhead here is a dark grey mesh, behind which you can
+       		see several conduits. Lighting panels are set into it every
+		so often, illuminating the compartment.
+((onboard $) attracts *)
+
+#lighting-panel
+(name *)	lighting panel
+(dict *)	light
+(descr *)	A series of rectangular lighting panels are embedded in the
+		overhead.
+((onboard $) attracts *)
+
+(onboard *(compartment $))
+((compartment $) is visited)
+
+#sliding-door
+(name *)	sliding door
+(descr *)	The sliding door to the next compartment is a slightly darker
+       		shade of regulation beige. 
+((compartment $) attracts *)
+
+(compartment *(passageway $))
+
+(compartment *(airlock $))
+
+(door *(airlock-door $))
+(lockable *(airlock-door $))
+
+(compartment *(stateroom $))
+
+(onboard *(maintenance-access $))
+
+(room *(on-hull $))
+
+#hull
+(name *)	hull
+(descr *)	The exterior hull plating is painted in regulation Stellar
+       		Command grey. The hull is lightly pitted from micrometeoroid
+		impacts.
+((on-hull $) attracts *)
+

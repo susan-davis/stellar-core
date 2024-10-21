@@ -1,68 +1,6 @@
 %% cygnus.dg
-
-%% -------------------- SHIP --------------------
-
-(dict #north)	forward fwd
-(dict #south)	aft
-(dict #east)	starboard stbd
-(dict #west)	port
-
-(room *(onboard $))
-
-#deck
-(name *)	deck
-(descr *)	The deck is made of a series of deck plates, of a medium grey
-       		texture that hides dust	tracked on it. Crew members still spend
-		hours swabbing it anyway.
-((onboard $) attracts *)
-
-#bulkhead
-(name *)	bulkhead
-(descr *)	The bulkhead is painted in regulation Stellar Command beige.
-((onboard $) attracts *)
-
-#overhead
-(name *)	overhead
-(descr *)	The overhead here is a dark grey mesh, behind which you can
-       		see several conduits. Lighting panels are set into it every
-		so often, illuminating the compartment.
-((onboard $) attracts *)
-
-#lighting-panel
-(name *)	lighting panel
-(dict *)	light
-(descr *)	A series of rectangular lighting panels are embedded in the
-		overhead.
-((onboard $) attracts *)
-
-(onboard *(compartment $))
-((compartment $) is visited)
-
-#sliding-door
-(name *)	sliding door
-(descr *)	The sliding door to the next compartment is a slightly darker
-       		shade of regulation beige. 
-((compartment $) attracts *)
-
-(compartment *(passageway $))
-
-(compartment *(airlock $))
-
-(door *(airlock-door $))
-(lockable *(airlock-door $))
-
-(compartment *(stateroom $))
-
-(onboard *(maintenance-access $))
-
-(room *(on-hull $))
-
-#hull
-(name *)	hull
-(descr *)	The exterior hull plating is painted in regulation Stellar
-       		Command grey. The hull is lightly pitted from micrometeoroid
-		impacts.
-((on-hull $) attracts *)
+%% Cygnus-class fast scouts
+%% include union-ship.dg when using this file
 
 %% -------------------- BRIDGE --------------------
 
@@ -152,7 +90,7 @@
 			Commissioned April 1, 2269 (par)
 			"The happiness of the bee and the dolphin is to exist.
 			For humans, it is to know that, and to wonder at it."
-			(line) (space 4) -- Jacques Yves Cousteau
+			(line) (space 4) -- Jacques-Yves Cousteau
 		(else)
 			SUS (italic) Eridanus (roman) \(SF-386\) (line)
 			Built by Sinus Iridum Yard 17 (line)
@@ -160,8 +98,8 @@
 			Launched March 24, 2268 (line)
 			Commissioned January 12, 2269 (par)
 			"Time is a river which carries me along, but I
-			am the river." (line)
-			(space 4) -- Jorge Luis Borges
+			am the river." 
+			(line) (space 4) -- Jorge Luis Borges
 		(endif)
 (* is #in #bridge)
 (perform [read *])	(descr *)
@@ -765,7 +703,8 @@
 #matt-1-1
 (maintenance-access *)
 (name *)	MATT 1, Deck 1
-(look *)	Write me!
+(look *)	You are at the top of a maintenance access tube. The ladder
+      		runs downward and to port, and an exit hatch is to starboard.
 (from * go #down to #matt-1-2)
 (from * go #east to #upper-entry)
 (from * go #out to #east)
@@ -774,7 +713,9 @@
 #matt-1-2
 (maintenance-access *)
 (name *)	MATT 1, Deck 2
-(look *)	Write me!
+(look *)	You are in a maintenance access tube. The ladder runs down to
+      		port and up to starboard, and there is an exit hatch leading
+		forward.
 (from * go #up to #matt-1-1)
 (from * go #down to #matt-1-3)
 (from * go #north to #forward-lounge)
@@ -783,7 +724,9 @@
 #matt-1-3
 (maintenance-access *)
 (name *)	MATT 1, Deck 3
-(look *)	Write me!
+(look *)	You are in a maintenance access tube. The ladder runs down to
+      		port and up to starboard, and there is an exit hatch leading
+		aft.
 (from * go #up to #matt-1-2)
 (from * go #down to #matt-1-4)
 (from * go #south to #simulator)
@@ -792,7 +735,9 @@
 #matt-1-4
 (maintenance-access *)
 (name *)	MATT 1, Deck 4
-(look *)	Write me!
+(look *)	You are in a maintenance access tube. The ladder runs
+      		upward to starboard, or you can climb down into the sensor
+		machinery. There is an exit hatch to port.
 (from * go #up to #matt-1-3)
 (from * go #down to #port-sensor-access)
 (from * go #north to #down)
@@ -802,7 +747,8 @@
 #matt-2-1
 (maintenance-access *)
 (name *)	MATT 2, Deck 1
-(look *)	Write me!
+(look *)	You are at the top of a maintenance access tube. The ladder
+      		runs downward and to starboard, and an exit hatch is to port.
 (from * go #down to #matt-2-2)
 (from * go #west to #upper-entry)
 (from * go #out to #west)
@@ -811,7 +757,9 @@
 #matt-2-2
 (maintenance-access *)
 (name *)	MATT 2, Deck 2
-(look *)	Write me!
+(look *)	You are in a maintenance access tube. The ladder runs down to
+      		starboard and up to port, and there is an exit hatch leading
+		forward.
 (from * go #up to #matt-2-1)
 (from * go #down to #matt-2-3)
 (from * go #south to #pantry)
@@ -820,7 +768,9 @@
 #matt-2-3
 (maintenance-access *)
 (name *)	MATT 2, Deck 3
-(look *)	Write me!
+(look *)	You are in a maintenance access tube. The ladder runs down to
+      		starboard and up to port, and there is an exit hatch leading
+		aft.
 (from * go #up to #matt-2-2)
 (from * go #down to #matt-2-4)
 (from * go #south to #sick-bay)
@@ -829,7 +779,9 @@
 #matt-2-4
 (maintenance-access *)
 (name *)	MATT 2, Deck 4
-(look *)	Write me!
+(look *)	You are in a maintenance access tube. The ladder runs
+      		upward to port, or you can climb down into the sensor
+		machinery. There is an exit hatch to starboard.
 (from * go #up to #matt-2-3)
 (from * go #down to #starboard-sensor-access)
 (from * go #north to #down)
