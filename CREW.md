@@ -1,8 +1,6 @@
 # CREW MANIFEST
 ### SUS *Eridanus* (SF-386)
 
-*Note: keep synced with Google Docs.*
-
 ## GENERAL NOTES
 
 Each billet has one replacement, two for billets where the incumbent as of episode 101 is plotted to leave the ship during the first three seasons. If no one is available for a given billet, it doesn’t get filled with replacement crew. There are four watch-standing rota: OOW, quartermaster, engineer, and science station. If any rota drops below two members, the campaign ends in failure, with the CO relieved for excessive crew casualties. Replacement characters are designed to be slotted in with minimal code and branch changes, following similar arcs, possibly with a bit with less colour. Incumbent crew start at 0 or +1; replacements generally start at -1, with exceptions.
