@@ -154,7 +154,7 @@ Might hold the development and release of this one until after 208.
 
 **Development Opportunities:** none -- 101 starts the campaign, not this, and this isn't sequentially next in the chronology.
 	
-## Season 2: First Officer on Odysseus
+## Season 2: First Officer on *Odysseus*
 ### 201:	*He Works His Work, I Mine*
 
 Promoted to XO of the Odysseus, CDR Player finds CPT Stewart less of a kindred spirit than expected. The first seeds of the Alliance breakaway are sown. (I'm vague about this.)
@@ -207,7 +207,7 @@ Okay, how might this go?
 
 Human separatists in the Union want to break away over the handling of the Harmony crisis, and CPT Stewart is on their side. (I'm vague about this.) (Make this full length?)
 
-## Season 3: Command of Odysseus
+## Season 3: Command of *Odysseus*
 ### 301:	TBD
 
 TBD
@@ -290,18 +290,17 @@ Another "sandbox" episode, but with the *Odysseus*. Not confined to a single qua
 - Undo an error that resulted in a dystopian timeline
 - Submarine-style duel with a Tiberian Raptor
 - Advanced new civilization with a dark secret
-- Previous Union survey team affected developing civilization, creating
-  a dystopian mess
+- Previous Union survey team affected developing civilization, creating a dystopian mess
 - Monster crawl; the monster is a misunderstood alien life form
-- Hyperintelligent civilization doesn't understand Union is sentient;
-  collects specimens for zoo
-- Competing with the Quellans for a developing system
+- Hyperintelligent civilization doesn't understand Union is sentient; collects specimens for zoo (overdone?)
 - Meditation about the nature of sentient life
 - Lower decks episode
 - Clip show
-- A recurring Quellan ship leader becomes an interesting nemesis
-- A conspiracy (Harmony?) at the centre of the Fleet leadership
-- Captured and interrogated by the Bad Guys
+- First contact with a very different form of intelligent life
+- Botched first contact from the contactee's perspective
+- Race for the ruins of an ascended hyperadvanced civilization
+- Charismatic rogue criminal steals something vital to the Union at a critical moment
+- 
 
 ## Admired source episodes:
 
@@ -312,6 +311,8 @@ Another "sandbox" episode, but with the *Odysseus*. Not confined to a single qua
 - TNG, *The Best of Both Worlds*
 - TNG, *Darmok*
 - TNG, *Measure of a Man*
+- TNG, *Remember Me*
+- TNG, *Yesterday's Enterprise*
 - SNW, *Lift Us Where Suffering Cannot Reach*
 - SNW, *Ad Atra Per Aspera*
 - SNW, *Tomorrow and Tomorrow and Tomorrow*
