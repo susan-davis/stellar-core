@@ -275,11 +275,41 @@ Another "sandbox" episode, but with the Odysseus. Not confined to a single quadr
 - Things get worse with the Quellans (Chekov's hand weapon). They go to war with the Regulans, and the war gets worse.
 - Harmony takes over the Quellans. And the Tiberians? And at least one faction in the Union-Alliance dispute.
 
-## Unused Concepts
+Unused concepts:
 
 - Stable time loop
 - Undo an error that resulted in a dystopian timeline
-- Submarine-style duel with a Tiberian Raptor or Quellan Q12
+- Submarine-style duel with a Tiberian Raptor
 - Advanced new civilization with a dark secret
-- Previous Union survey team affected developing civilization, creating bad outcomes for the locals
-- Shuttle crash, and the PC has to survive a hostile planet and work out a rescue
+- Previous Union survey team affected developing civilization, creating
+  a dystopian mess
+- Monster crawl; the monster is a misunderstood alien life form
+- Hyperintelligent civilization doesn't understand Union is sentient;
+  collects specimens for zoo
+- Competing with the Quellans for a developing system
+- Meditation about the nature of sentient life
+- Lower decks episode
+- Clip show
+- A recurring Quellan ship leader becomes an interesting nemesis
+- A conspiracy (Harmony?) at the centre of the Fleet leadership
+- Captured and interrogated by the Bad Guys
+
+Admired source episodes:
+
+- TOS, *City on the Edge of Forever*
+- TOS, *The Trouble with Tribbles*
+- TOS, *Mirror Mirror*
+- TNG, *The Inner Light*
+- TNG, *The Best of Both Worlds*
+- TNG, *Darmok*
+- TNG, *Measure of a Man*
+- SNW, *Lift Us Where Suffering Cannot Reach*
+- SNW, *Ad Atra Per Aspera*
+- SNW, *Tomorrow and Tomorrow and Tomorrow*
+- DS9, *In The Pale Moonlight*
+- ORV, *About a Girl*
+- ORV, *Identity*
+- ORV, *The Road Not Taken*
+- B5, *The Coming of Shadows*
+- B5, *Severed Dreams*
+- B5, *The Deconstruction of Falling Stars*
