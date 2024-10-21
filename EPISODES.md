@@ -10,8 +10,8 @@ Episodes run in a fixed order, unlike *Nikolai Grozny*. Each episode has multipl
 
 - *What is the nature of the Negative Space Wedgie?* It's an improperly formed hyperspace entry, and the machinery is stuck on "full blast."
 - *What caused the Negative Space Wedgie?* DefCom is trying to reverse engineer the Tiberian Raptor, and pressed one of ExCom's shiny new fast scouts into service. But there are design flaws in the Union copy of the Tiberian entry device, and it isn't calibrated properly. And it's stuck on "full blast."
-- *What's the danger to* Delphinus*?*
-- *What's the danger to* Eridanus*?* 
+- *What's the danger to* Delphinus?
+- *What's the danger to* Eridanus? 
 - *Where's the crew, and how do we get them back?* 
 - *How do we fix the ship?* 
 - *How do we fix the Negative Space Wedgie?*
