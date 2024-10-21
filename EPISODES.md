@@ -1,6 +1,5 @@
 # STELLAR UNION
 ### Seasons and Episodes
-*Note: keep synced with Google Docs.*
 
 Episodes run in a fixed order, unlike *Nikolai Grozny*. Each episode has multiple endings, including at least one “good” ending, and usually a “best” one, and the player will get a code to enter into the next episode, for metaplot state. A “bad” ending does not generate a code, and doesn’t allow the campaign to continue. A “The End” is a failure termination before the end of the episode. There will generally also be opportunities to develop one or more crew members. The difficulty of the climax of Season 3, when Player must steal the Eridanus to confront Harmony, depends on how many of the crew are leveled up to +2.
 
