@@ -7,17 +7,17 @@ Episodes run in a fixed order, unlike *Nikolai Grozny*. Each episode has multipl
 ## Season 1: Command of Eridanus
 ### 101:	*That Untravelled World, Whose Margin Fades*
 
-Eridanus finds the Delphinus adrift, her crew missing. Presents the ship as a busybox, and there are multiple solutions depending on the crew selected for the boarding party. Getting Delphinus online and investigating what happened requires teamwork of boarding party, Suspended-style. 
+*Eridanus* finds the *Delphinus* adrift, her crew missing. Presents the ship as a busybox, and there are multiple solutions depending on the crew selected for the boarding party. Getting Delphinus online and investigating what happened requires teamwork of boarding party, Suspended-style. 
 
 **The End:** PC dies or ship PC is on vanishes for good.
 
-**Bad Ending:** PC escapes to Eridanus, but Delphinus vanishes.
+**Bad Ending:** PC escapes to *Eridanus*, but *Delphinus* vanishes.
 
-**Bad Ending:** Boarding party stabilizes Delphinus, but Eridanus vanishes.
+**Bad Ending:** Boarding party stabilizes *Delphinus*, but *Eridanus* vanishes.
 
-**Fair Ending:** Boarding party stabilizes Delphinus; Eridanus is fine. Delphinus' crew is lost.
+**Fair Ending:** Boarding party stabilizes *Delphinus*; *Eridanus* is fine. *Delphinus'* crew is lost.
 
-**Good Ending:** Boarding party stabilizes Delphinus and rescues crew; Eridanus is fine.
+**Good Ending:** Boarding party stabilizes *Delphinus* and rescues crew; *Eridanus* is fine.
 
 **Best Ending:** Good ending, got full explanation of Negative Space Wedgie.
 
@@ -25,7 +25,7 @@ Eridanus finds the Delphinus adrift, her crew missing. Presents the ship as a bu
 
 ### 102:	*The Ringing Plains of Windy Troy*
 
-LCR Player is court-martialled for the loss of the Argo Navis. (Faces a review board?) Flashbacks to Player attending SUS Punisher, and a post-solution mode for the player to just play Trek.  Gives a series of flashbacks from the courtroom to the battle, from a number of POVs. Introduces perspective switching. The battle is a hard tactical problem for the player to solve. 
+LCR Player is court-martialled for the loss of the *Argo Navis*. (Faces a review board?) Flashbacks to Player attending SUS *Punisher*, and a post-solution mode for the player to just play Trek.  Gives a series of flashbacks from the courtroom to the battle, from a number of POVs. Introduces perspective switching. The battle is a hard tactical problem for the player to solve. 
 
 NOTE: Move this later in the season? More technically demanding than 103, 105, and maybe 104. But this needs to happen as early as possible in Player's command.
 
@@ -43,7 +43,7 @@ NOTE: Move this later in the season? More technically demanding than 103, 105, a
 
 ### 103:	*That Eternal Silence*
 
-When a Regulan diplomat is found murdered aboard the Eridanus, Player and the crew must solve the case before it becomes an interstellar incident. Straight-up murder mystery. Lots of NPCs to converse with. Bottle show. (Include the Kwom B-plot in this one?)
+When a Regulan diplomat is found murdered aboard the *Eridanus*, Player and the crew must solve the case before it becomes an interstellar incident. Straight-up murder mystery. Lots of NPCs to converse with. Bottle show. (Include the Kwom B-plot in this one?)
 
 **The End:** Murderer kills PC or destroys ship.
 
@@ -61,7 +61,7 @@ When a Regulan diplomat is found murdered aboard the Eridanus, Player and the cr
 
 ### 104:	*Free Hearts, Free Foreheads*
 
-The Eridanus first encounters Harmony, while rescuing a refugee ship from a planet she's taken over.
+The *Eridanus* first encounters Harmony, while rescuing a refugee ship from a planet she's taken over.
 
 Okay, so how does that play out?
 
@@ -71,9 +71,9 @@ Receive distress signal, and respond to it. Maybe the ship weirdly claims to be 
 
 **Hidden Bad Ending:** Kaur is taken over by Harmony, which derails episode 204. Presents as another ending, but derails the metaplot later.
 
-**Fair Ending:** Eridanus blows up the refugee ship to escape.
+**Fair Ending:** *Eridanus* blows up the refugee ship to escape.
 
-**Good Ending:** Refugees and Eridanus crew are safe.
+**Good Ending:** Refugees and *Eridanus* crew are safe.
 
 **Best Ending:** Good ending, member of Harmony is captured for study. 
 
@@ -83,7 +83,7 @@ Receive distress signal, and respond to it. Maybe the ship weirdly claims to be 
 	
 An ion storm threatens the Eridanus, forcing her to seek new Energon crystals from a pre-industrial planet. Fly ship into sector; storm is unavoidable. Limp under reactionless to nearest E-class planet, and land. Proceed on foot to hunt for crystals; get caught up in medieval drama with locals. 
 
-Include the Quellans in this? A Friday’s Child/Private Little War/Errand of Mercy scenario, in which the Quellans are behind the other end of the medieval drama, and Ship Leader Qavolneq is set up as the local overlord, could add to this, and make the segue to 106 smoother.
+Include the Quellans in this? A *Friday’s Child/Private Little War/Errand of Mercy* scenario, in which the Quellans are behind the other end of the medieval drama, and Ship Leader Qavolneq is set up as the local overlord, could add to this, and make the segue to 106 smoother.
 
 **The End:** PC dies; Eridanus doesn't survive ion storm.
 
@@ -97,11 +97,11 @@ Include the Quellans in this? A Friday’s Child/Private Little War/Errand of Me
 
 ### 106:	*And Not To Yield*
 	
-When Eridanus is captured by the Quellans, LCR Player and the crew must recapture her. Eridanus is ambushed by a Q7 cruiser. Futile pursuit, shields blown down, boarding of damaged Eridanus. Player thrown in brig; crew confined in shuttle bay. Break out of brig, sneak around undetected, free enough friendlies to overpower the prize crew.
+When *Eridanus* is captured by the Quellans, LCR Player and the crew must recapture her. *Eridanus* is ambushed by a Q7 cruiser. Futile pursuit, shields blown down, boarding of damaged *Eridanus*. Player thrown in brig; crew confined in shuttle bay. Break out of brig, sneak around undetected, free enough friendlies to overpower the prize crew.
 
 Introduces Ship Leader Qavolneq, a foil for Player over the coming seasons, unless the previous episode introduced him.
 
-**The End:** Eridanus destroyed or self-destructs, or PC killed by Quellans.
+**The End:** *Eridanus* destroyed or self-destructs, or PC killed by Quellans.
 
 **Bad Ending:** The Quellans evacuate the air from the shuttle bay and kill the crew.
 
@@ -117,11 +117,11 @@ Introduces Ship Leader Qavolneq, a foil for Player over the coming seasons, unle
 
 ### 107:	*This Gray Spirit, Yearning in Desire*
 	
-LCR Player and the Eridanus must work together with CPT Stewart and the Odysseus, and the rest of the squadron, in confronting a giant space creature that threatens the heart of the Union.
+LCR Player and the *Eridanus* must work together with CPT Stewart and the *Odysseus*, and the rest of the squadron, in confronting a giant space creature that threatens the heart of the Union.
 	
 **Bad Ending:**
 
-**Good Ending:** The Eridanus crew saves the day, and saves the Odysseus crew. Player catches Stewart's eye as an officer to mentor.
+**Good Ending:** The *Eridanus* crew saves the day, and saves the *Odysseus* crew. Player catches Stewart's eye as an officer to mentor.
 
 **Development Opportunities:** 
 	
@@ -131,7 +131,7 @@ The Eridanus surveys a previously uncharted quadrant, encountering a number of s
 
 ### 100:	*All Experience is an Arch* (FULL LENGTH, OPTIONAL)
 	
-In a flashback, LCR player attends the Command Fitness Course. Numbered as 100, but implemented last. Or possibly right after 102. (TBD: Do we need this? Should this be the S2 ender, with Kaur actually going through Punisher at the time?)
+In a flashback, LCR player attends the Command Fitness Course. Numbered as 100, but implemented last. Or possibly right after 102. (TBD: Do we need this? Should this be the S2 ender, with Kaur actually going through *Punisher* at the time?)
 	
 This is a tutorial on how to fly Union ships and play TREK very well, framed as a classroom course set at Stellar Academy. Over the course of a whole syllabus of training runs, Player mans all the bridge stations, flies and commands the ship, and eventually graduates to the shipboard portion of the course. Other students are also taking the class, and do well or poorly, and the students and instructors comment on how well each scenario was played. This is essentially a straight-up remake of TREK, for players who enjoy solving tactical problems. The course will pose quite a few interesting ones, and then the open simulator time will let the player create their own.
 
@@ -141,7 +141,7 @@ Might hold the development and release of this one until after 208.
 
 **The End:** Player flunks.
 	
-**Good Ending:** Player moves on to the shipboard portion, portrayed in "The Ringing Plains of Windy Troy." This is presumed to have happened before episode 101, and doesn't result in changes to the campaign records.
+**Good Ending:** Player moves on to the shipboard portion, portrayed in *The Ringing Plains of Windy Troy.* This is presumed to have happened before episode 101, and doesn't result in changes to the campaign records.
 
 **Development Opportunities:** none -- 101 starts the campaign, not this, and this isn't sequentially next in the chronology.
 	
@@ -180,11 +180,11 @@ Characterize the disease
 
 ### 205:	*Souls That Have Toiled, and Wrought, and Thought With Me*
 
-Harmony must take over a Cygnus-class vessel, and use it to spread herself across the Union and beyond. If 104 and 205 had Hidden Bad Endings, the ship is the Eridanus. Otherwise, it’s the Pyxis.
+Harmony must take over a *Cygnus*-class vessel, and use it to spread herself across the Union and beyond. If 104 and 205 had Hidden Bad Endings, the ship is the *Eridanus*. Otherwise, it’s the *Pyxis*.
 	
 ### 206:	*Unequal Laws to a Savage Race*
 
-As tensions between the Union and the Quellans reach a boiling point, a false alarm orders the Exploration Fleet’s Cygnus-class fast scouts to bomb critical infrastructure within the Quellan Empire. One ship, the Canes Venatici (or Octans?), fails to heed the recall signal, and Odysseus and a flotilla of Cygnuses are ordered to intercept her. This is really a Trojan horse to enable Harmony to infect the Quellans, which the player might know from the dramatic irony of 205, but Player won’t. And of course Senior Ship Leader Qavolneq turns up at the critical moment.
+As tensions between the Union and the Quellans reach a boiling point, a false alarm orders the Exploration Fleet’s Cygnus-class fast scouts to bomb critical infrastructure within the Quellan Empire. One ship, the *Canes Venatici*, fails to heed the recall signal, and *Odysseus* and a flotilla of *Cygnus*es are ordered to intercept her. This is really a Trojan horse to enable Harmony to infect the Quellans, which the player might know from the dramatic irony of 205, but Player won’t. And of course Senior Ship Leader Qavolneq turns up at the critical moment.
 	
 ### 207:	*Life Piled on Life*
 
@@ -225,26 +225,26 @@ TBD
 
 ### 307:	*Men That Strove With Gods*
 
-Harmony seizes control of the Union, and Player and the ride-or-die Level 2 crew must escape by stealing the Eridanus.
+Harmony seizes control of the Union, and Player and the ride-or-die Level 2 crew must escape by stealing the *Eridanus*.
 	
 ### 308:	*The Utmost Bound of Human Thought*
 
-The fate of the Union hangs in the balance, in the final confrontation with Harmony. The stolen Eridanus is pursued by half the Union fleet, and must get away and somehow prevent Harmony from overrunning what’s left of the Union… and perhaps recover what was lost?
+The fate of the Union hangs in the balance, in the final confrontation with Harmony. The stolen *Eridanus* is pursued by half the Union fleet, and must get away and somehow prevent Harmony from overrunning what’s left of the Union… and perhaps recover what was lost?
 
 How do you recover from a Harmony pandemic? 
 
-- Avoid getting captured yourself. The escape sequence in 307, the opening scene of 308, and inoculating the crew with a vaccine all make this happen. You start with two Cygnuses in pursuit (Pyxis and Delphinus? Pyxis and Vulpecula?), and the rest of Harmony’s lagging behind. Encounter a third Cygnus that isn’t Harmony-infected (Vulpecula? Delphinus?), and convince them that you’re uninfected before the infected pursuers can give them the idea that you’re the infected ship.
+- Avoid getting captured yourself. The escape sequence in 307, the opening scene of 308, and inoculating the crew with a vaccine all make this happen. You start with two Cygnuses in pursuit (*Pyxis* and *Delphinus? Pyxis* and *Vulpecula?*), and the rest of Harmony’s lagging behind. Encounter a third *Cygnus* that isn’t Harmony-infected (*Vulpecula? Delphinus?*), and convince them that you’re uninfected before the infected pursuers can give them the idea that you’re the infected ship.
 - Prevent the core of the Union from being overrun. This can be as simple as breaking away from Harmony’s fleet and getting the Union to listen, but if not done, it’ll prevent the inoculation campaign, and result in a Bad Ending.
-- Find a cure. Al-Masri developed one in 204, which Harmony!Kaur would have suppressed if the Hidden Bad Ending of 104 happened. In that case, al-Masri’s notes are still in the bio lab computer on the Eridanus, and a xenobiology researcher with access to that lab can recreate his work. If 104 ended badly, and Eridanus is abandoned, the game is nearly unwinnable – somehow figuring out which planet al-Masri helped, and getting samples from their population, is necessary to recreate his work. Or somehow figuring out that the Regulans are immune.
+- Find a cure. Al-Masri developed one in 204, which Harmony!Kaur would have suppressed if the Hidden Bad Ending of 104 happened. In that case, al-Masri’s notes are still in the bio lab computer on the *Eridanus*, and a xenobiology researcher with access to that lab can recreate his work. If 104 ended badly, and *Eridanus* is abandoned, the game is nearly unwinnable – somehow figuring out which planet al-Masri helped, and getting samples from their population, is necessary to recreate his work. Or somehow figuring out that the Regulans are immune.
 - Administer the cure/vaccine to a large enough population to know that it works, without being intercepted by Harmony’s fleet.
 - Wrestle with the moral implications of wiping out Harmony. That’s genocide, isn’t it? How do you balance the freedom of entire populations with the existence of a life form that depends on taking them over? Who gets to decide?
 - Negotiate with Harmony, or wipe her out. (The latter won’t work, and will leave an enraged Harmony as a threat in any hypothetical full-length sequel games.) This is an intentionally stark choice; don’t let the player off the hook by giving them an easy out.
 
-Success triggers a victory sequence, in which the surviving crew are reunited to depart in a refitted Odysseus.
+Success triggers a victory sequence, in which the surviving crew are reunited to depart in a refitted *Odysseus*.
 	
 ### 309	*The Baths of All the Western Stars* (FULL LENGTH PLUS)
 	
-Another "sandbox" episode, but with the Odysseus. Not confined to a single quadrant. Lots of procedural generation, full implementation of the Odysseus, at least a dozen scripted miniplots on planets. Possibly needs to move to Glulx. Getting 100% completion, after a successful playthrough of 307, triggers a "series end" sequence, after which the Odysseus sets out on deeper-range exploration, on a hopeful note. Throw in the discover and handling of another threat from the treat file? It's Star Control II, but it's TREK. (Is this 309, or 401?)
+Another "sandbox" episode, but with the *Odysseus*. Not confined to a single quadrant. Lots of procedural generation, full implementation of the *Odysseus*, at least a dozen scripted miniplots on planets. Needs to move to Glulx. Getting 100% completion, after a successful playthrough of 307, triggers a "series end" sequence, after which the *Odysseus* sets out on deeper-range exploration, on a hopeful note. Throw in the discover and handling of another threat from the treat file? It's Star Control II, but it's TREK. (Is this 309, or 401?)
 
 ## Unused Titles
 
