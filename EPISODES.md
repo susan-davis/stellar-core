@@ -275,7 +275,7 @@ Another "sandbox" episode, but with the Odysseus. Not confined to a single quadr
 - Things get worse with the Quellans (Chekov's hand weapon). They go to war with the Regulans, and the war gets worse.
 - Harmony takes over the Quellans. And the Tiberians? And at least one faction in the Union-Alliance dispute.
 
-Unused concepts:
+## Unused concepts:
 
 - Stable time loop
 - Undo an error that resulted in a dystopian timeline
@@ -294,7 +294,7 @@ Unused concepts:
 - A conspiracy (Harmony?) at the centre of the Fleet leadership
 - Captured and interrogated by the Bad Guys
 
-Admired source episodes:
+## Admired source episodes:
 
 - TOS, *City on the Edge of Forever*
 - TOS, *The Trouble with Tribbles*
