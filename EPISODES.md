@@ -8,10 +8,11 @@ Episodes run in a fixed order, unlike *Nikolai Grozny*. Each episode has multipl
 
 *Eridanus* finds the *Delphinus* adrift, her crew missing, amidst a Negative Space Wedgie that the *Eridanus* crew at first assumes to be a natural phenomenon. Presents the ship as a busybox, familiarizing the player with how it works, and there are multiple solutions depending on the crew selected for the boarding party. Getting *Delphinus* online and investigating what happened requires teamwork of boarding party, *Suspended*-style. 
 
-- *What is the nature of the Negative Space Wedgie?* It's an improperly formed hyperspace entry, and the machinery is stuck on "full blast."
-- *What caused the Negative Space Wedgie?* DefCom is trying to reverse engineer the Tiberian Raptor, and pressed one of ExCom's shiny new fast scouts into service. But there are design flaws in the Union copy of the Tiberian entry device, and it isn't calibrated properly. And it's stuck on "full blast."
+- *What is the nature of the Negative Space Wedgie?* It's an improperly formed hyperspace entry. The prototype entry generator on *Delphinus* is stuck in a loop, creating nested entries inside each other, with profoundly negative consequences for the structure of spacetime in the immediate area.
+- *What caused the Negative Space Wedgie?* DefCom is trying to reverse engineer the Tiberian Raptor, and pressed one of ExCom's shiny new fast scouts into service. But there are design flaws in the Union copy of the Tiberian entry device, and it isn't calibrated properly. And it's stuck on "full blast," and in an infinite loop.
 - *What's the danger to* Delphinus?
-- *What's the danger to* Eridanus? 
+- *What's the danger to* Eridanus?
+- *What's the danger to personnel in the transition zone?* 
 - *Where's the crew, and how do we get them back?* 
 - *How do we fix the ship?* 
 - *How do we fix the Negative Space Wedgie?*
