@@ -791,8 +791,9 @@
 #matt-3-2
 (maintenance-access *)
 (name *)	MATT 3, Deck 2
-(look *)	You are at the top of a maintenance access tube. The ladder
-      		runs down at an angle, and there's an exit hatch forward.
+(look *)	You are near the top of a maintenance access tube. The ladder
+      		runs up and down at an angle. There's an exit hatch forward,
+		or you can climb up into the shield machinery.
 (from * go #down to #matt-3-3)
 (from * go #north to #simulator-storage)
 (from * go #out to #north)
@@ -823,8 +824,9 @@
 #matt-4-2
 (maintenance-access *)
 (name *)	MATT 4, Deck 2
-(look *)	You are at the top of a maintenance access tube. The ladder
-      		runs down at an angle, and there's an exit hatch forward.
+(look *)	You are near the top of a maintenance access tube. The ladder
+      		runs up and down at an angle. There's an exit hatch forward,
+		or you can climb up into the shield machinery.
 (from * go #down to #matt-4-3)
 (from * go #north to #wardroom-storage)
 (from * go #out to #north)
@@ -855,7 +857,9 @@
 #aft-shield-access
 (maintenance-access *)
 (name *)	Aft Shield Access
-(look *)	Write me!
+(look *)	You're in a crawlway among the shield machinery, with not
+      		quite enough space to easily get at anything. There are
+		ladders leading away to both port and starboard.
 (from * go #east to #matt-4-2)
 (from * go #west to #matt-3-2)
 
