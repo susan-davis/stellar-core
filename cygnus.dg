@@ -87,10 +87,18 @@
 			Built by Phobos Orbital Constructors (line)
 			Laid down September 3, 2267 (line)
 			Launched July 25, 2268 (line)
-			Commissioned April 1, 2269 (par)
+			Commissioned February 24, 2269 (par)
 			"The happiness of the bee and the dolphin is to exist.
 			For humans, it is to know that, and to wonder at it."
 			(line) (space 4) -- Jacques-Yves Cousteau
+		(elsif) (current ship #pyxis) (then)
+			SUS (italic) Pyxis (roman) \(SF-391\) (line)
+			Built by Scientific Vessels of Galdor (line)
+			Laid down February 24, 2269 (line)
+			Launched September 30, 2269 (line)
+			Commissioned June 1, 2270 (par)
+			"Conscience is a man's compass."
+			(line) (space 4) -- Vincent Van Gogh
 		(else)
 			SUS (italic) Eridanus (roman) \(SF-386\) (line)
 			Built by Sinus Iridum Yard 17 (line)
