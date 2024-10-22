@@ -799,7 +799,8 @@
 #matt-3-2
 (maintenance-access *)
 (name *)	MATT 3, Deck 2
-(look *)	Write me!
+(look *)	You are at the top of a maintenance access tube. The ladder
+      		runs down at an angle, and there's an exit hatch forward.
 (from * go #down to #matt-3-3)
 (from * go #north to #simulator-storage)
 (from * go #out to #north)
@@ -808,7 +809,8 @@
 #matt-3-3
 (maintenance-access *)
 (name *)	MATT 3, Deck 3
-(look *)	Write me!
+(look *)	You are in a maintenance access tube. The ladder runs up and
+      		down at an angle, and there's an exit hatch to starboard.
 (from * go #up to #matt-3-2)
 (from * go #down to #matt-3-4)
 (from * go #east to #main-engineering)
@@ -817,7 +819,9 @@
 #matt-3-4
 (maintenance-access *)
 (name *)	MATT 3, Deck 4
-(look *)	Write me!
+(look *)	You are near the bottom of a maintenance access tube. The
+      		ladder runs up and down at an angle. There is an exit hatch
+		to port, or you can climb down into the engine machinery.
 (from * go #up to #matt-3-3)
 (from * go #down to #port-engine-access)
 (from * go #south to #down)
@@ -827,7 +831,8 @@
 #matt-4-2
 (maintenance-access *)
 (name *)	MATT 4, Deck 2
-(look *)	Write me!
+(look *)	You are at the top of a maintenance access tube. The ladder
+      		runs down at an angle, and there's an exit hatch forward.
 (from * go #down to #matt-4-3)
 (from * go #north to #wardroom-storage)
 (from * go #out to #north)
@@ -836,7 +841,8 @@
 #matt-4-3
 (maintenance-access *)
 (name *)	MATT 4, Deck 3
-(look *)	Write me!
+(look *)	You are in a maintenance access tube. The ladder runs up and
+      		down at an angle, and there's an exit hatch to port.
 (from * go #up to #matt-4-2)
 (from * go #down to #matt-4-4)
 (from * go #west to #main-engineering)
@@ -845,7 +851,9 @@
 #matt-4-4
 (maintenance-access *)
 (name *)	MATT 4, Deck 4
-(look *)	Write me!
+(look *)	You are near the bottom of a maintenance access tube. The
+      		ladder runs up and down at an angle. There is an exit hatch
+		to starboard, or you can climb down into the engine machinery.
 (from * go #up to #matt-4-3)
 (from * go #down to #starboard-engine-access)
 (from * go #south to #down)
