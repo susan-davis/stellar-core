@@ -1,4 +1,4 @@
-# CREW MANIFEST
+﻿# CREW MANIFEST
 ### SUS *Eridanus* (SF-386)
 
 ## GENERAL NOTES
@@ -321,7 +321,7 @@ Traits:
 **Replacement:** SLT Madrid Gallego 
 
 Service Number: 123-456-7890. Date of birth: XX/XX/XX (age: yy). Species/Gender: HX.
-Birthplace: Valencia, Europe, Earth
+Birthplace: Toledo, Europe, Earth
 Traits:
 
 ### Nurse/Medic
