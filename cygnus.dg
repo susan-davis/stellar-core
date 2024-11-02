@@ -1,6 +1,6 @@
 %% cygnus.dg
 %% Cygnus-class fast scouts
-%% include union-ship.dg when using this file
+%% (require union-ship.dg)
 
 %% -------------------- BRIDGE --------------------
 
@@ -74,7 +74,7 @@
 		     the lower right corner, an icon window summarizes the
 		     ship's current situation:
 		(endif)
-		(par) (short-range scan)
+		(par) (short range scan)
 (appearance *)	(descr *)
 (* is #in #bridge)
 
@@ -91,7 +91,7 @@
 			"The happiness of the bee and the dolphin is to exist.
 			For humans, it is to know that, and to wonder at it."
 			(line) (space 4) -- Jacques-Yves Cousteau
-		(elsif) (current ship #pyxis) (then)
+		(elseif) (current ship #pyxis) (then)
 			SUS (italic) Pyxis (roman) \(SF-391\) (line)
 			Built by Scientific Vessels of Galdor (line)
 			Laid down February 24, 2269 (line)

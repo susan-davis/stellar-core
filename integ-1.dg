@@ -43,3 +43,5 @@
 (descr *)	You look the same as you usually do.
 (* is #in #captains-chair)
 
+(current date 3 5 2273)
+(current time 495)
