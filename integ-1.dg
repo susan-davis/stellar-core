@@ -1,4 +1,5 @@
 %% Stellar Union integration tests
+%% (requires union-ship.dg cygnus.dg stdlib.dg)
 
 (story author)	Susan Davis
 (story title)	Maneuvering Test

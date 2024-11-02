@@ -8,8 +8,8 @@
 %% Space is divided into 10x10 sectors arranged in 8x8 quadrants. In
 %% theory, the quadrants have a grid system; in practice, an adventure
 %% takes place within a single quadrant. The Y axis increases as it
-%% goes downward, and the numbers start from 1, in mainfraim STARTREK
-%% fashhion.
+%% goes downward, and the numbers start from 1, in mainframe STARTREK
+%% fashion. (Make the quadrants 10x10, too?)
 %%
 %% Sensor range: adjacent sector
 %% Weapons range: same sector

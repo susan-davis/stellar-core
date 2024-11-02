@@ -130,22 +130,6 @@
 (from * go #northeast through #matt-2-1-panel to #matt-2-1)
 (from * go #in to #rapidlift)
 
-#matt-1-1-panel
-(door *)
-(name *)	panel
-(descr *)	A small, unobtrusive access panel, roughly one metre high, is
-       		set in the forward end of the port bulkhead here. It is labeled
-		"M.A.T.T. 1-1".
-(perform [read *])	  (descr *) (notice *)
-
-#matt-2-1-panel
-(door *)
-(name *)	panel
-(descr *)	A small, unobtrusive access panel, roughly one metre high, is
-       		set in the forward end of the starboard bulkhead here. It is
-		labeled	"M.A.T.T. 2-1".
-(perform [read *])	  (descr *) (notice *)
-
 #port-airlock-inner-door
 (airlock-door *)
 (name *)	inner door
@@ -714,9 +698,13 @@
 (look *)	You are at the top of a maintenance access tube. The ladder
       		runs downward and to port, and an exit hatch is to starboard.
 (from * go #down to #matt-1-2)
-(from * go #east to #upper-entry)
+(from * go #east through #matt-1-1-panel to #upper-entry)
 (from * go #out to #east)
 (from * go #up to #east)
+
+#matt-1-1-panel
+(access-panel *)
+(label *)	1-1
 
 #matt-1-2
 (maintenance-access *)
@@ -758,9 +746,13 @@
 (look *)	You are at the top of a maintenance access tube. The ladder
       		runs downward and to starboard, and an exit hatch is to port.
 (from * go #down to #matt-2-2)
-(from * go #west to #upper-entry)
+(from * go #west through #matt-2-1-panel to #upper-entry)
 (from * go #out to #west)
 (from * go #up to #west)
+
+#matt-2-1-panel
+(access-panel *)
+(label *)	2-1
 
 #matt-2-2
 (maintenance-access *)
