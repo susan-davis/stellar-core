@@ -15,11 +15,11 @@
 %% Weapons range: same sector
 %% Matter transmission range: adjacent subsector
 
-(interface ($<GridObject is within sensor range))
+(interface ($<GridObject is in sensor range))
 
-(interface ($<GridObject is within weapons range))
+(interface ($<GridObject is in weapons range))
 
-(interface ($<GridObject is within matter transmission range))
+(interface ($<GridObject is in matter transmission range))
 
 %% (grid object $) => object exists in space and is sensor-detectable
 %% (stellar object $) => object is a star/planet/asteroid: right column
