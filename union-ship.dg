@@ -14,7 +14,7 @@
        		texture that hides dust	tracked on it. Crew members still spend
 		hours swabbing it anyway.
 ((onboard $) attracts *)
-(from (onboard $) go #down to *)
+%% (from (onboard $) go #down to *)
 
 #bulkhead
 (name *)	bulkhead
@@ -27,7 +27,7 @@
        		see several conduits. Lighting panels are set into it every
 		so often, illuminating the compartment.
 ((onboard $) attracts *)
-(from (onboard $) go #up to *)
+%% (from (onboard $) go #up to *)
 
 #lighting-panel
 (name *)	lighting panel

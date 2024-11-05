@@ -714,8 +714,12 @@
 		forward.
 (from * go #up to #matt-1-1)
 (from * go #down to #matt-1-3)
-(from * go #north to #forward-lounge)
+(from * go #north through #matt-1-2-panel to #forward-lounge)
 (from * go #out to #north)
+
+#matt-1-2-panel
+(access-panel *)
+(label *)     1-2
 
 #matt-1-3
 (maintenance-access *)
@@ -725,8 +729,12 @@
 		aft.
 (from * go #up to #matt-1-2)
 (from * go #down to #matt-1-4)
-(from * go #south to #simulator)
+(from * go #south through #matt-1-3-panel to #simulator)
 (from * go #out to #south)
+
+#matt-1-3-panel
+(access-panel *)
+(label *)     1-3
 
 #matt-1-4
 (maintenance-access *)
@@ -737,8 +745,12 @@
 (from * go #up to #matt-1-3)
 (from * go #down to #port-sensor-access)
 (from * go #north to #down)
-(from * go #west to #cargo-bay-1)
+(from * go #west through #matt-1-4-panel to #cargo-bay-1)
 (from * go #out to #west)
+
+#matt-1-4-panel
+(access-panel *)
+(label *)     1-4
 
 #matt-2-1
 (maintenance-access *)
@@ -762,8 +774,12 @@
 		forward.
 (from * go #up to #matt-2-1)
 (from * go #down to #matt-2-3)
-(from * go #south to #pantry)
+(from * go #south through #matt-2-2-panel to #pantry)
 (from * go #out to #south)
+
+#matt-2-2-panel
+(access-panel *)
+(label *)     2-2
 
 #matt-2-3
 (maintenance-access *)
@@ -773,8 +789,12 @@
 		aft.
 (from * go #up to #matt-2-2)
 (from * go #down to #matt-2-4)
-(from * go #south to #sick-bay)
+(from * go #south through #matt-2-3-panel to #sick-bay)
 (from * go #out to #south)
+
+#matt-2-3-panel
+(access-panel *)
+(label *)     2-3
 
 #matt-2-4
 (maintenance-access *)
@@ -785,8 +805,12 @@
 (from * go #up to #matt-2-3)
 (from * go #down to #starboard-sensor-access)
 (from * go #north to #down)
-(from * go #east to #cargo-bay-2)
+(from * go #east through #matt-2-4-panel to #cargo-bay-2)
 (from * go #out to #east)
+
+#matt-2-4-panel
+(access-panel *)
+(label *)     2-4
 
 #matt-3-2
 (maintenance-access *)
@@ -795,9 +819,13 @@
       		runs up and down at an angle. There's an exit hatch forward,
 		or you can climb up into the shield machinery.
 (from * go #down to #matt-3-3)
-(from * go #north to #simulator-storage)
+(from * go #north through #matt-3-2-panel to #simulator-storage)
 (from * go #out to #north)
 (from * go #up to #aft-shield-access)
+
+#matt-3-2-panel
+(access-panel *)
+(label *)     3-2
 
 #matt-3-3
 (maintenance-access *)
@@ -806,8 +834,12 @@
       		down at an angle, and there's an exit hatch to starboard.
 (from * go #up to #matt-3-2)
 (from * go #down to #matt-3-4)
-(from * go #east to #main-engineering)
+(from * go #east through #matt-3-3-panel to #main-engineering)
 (from * go #out to #east)
+
+#matt-3-3-panel
+(access-panel *)
+(label *)     3-3
 
 #matt-3-4
 (maintenance-access *)
