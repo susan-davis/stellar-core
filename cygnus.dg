@@ -632,8 +632,8 @@
 (from * go #east to #port-probe-bay)
 (from * go #north to #port-sensor-access)
 (from * go #south to #port-engine-access)
-(from * go #northeast to #matt-1-4)
-(from * go #southeast to #matt-3-4)
+(from * go #northeast through #matt-1-4-panel to #matt-1-4)
+(from * go #southeast through #matt-3-4-panel to #matt-3-4)
 
 #cargo-bay-2
 (compartment *)
@@ -643,8 +643,8 @@
 (from * go #west to #starboard-probe-bay)
 (from * go #north to #starboard-sensor-access)
 (from * go #south to #starboard-sensor-access)
-(from * go #northwest to #matt-2-4)
-(from * go #southwest to #matt-4-4)
+(from * go #northwest through #matt-2-4-panel to #matt-2-4)
+(from * go #southwest through #matt-4-4-panel to #matt-4-4)
 
 #port-probe-bay
 (compartment *)
@@ -850,8 +850,12 @@
 (from * go #up to #matt-3-3)
 (from * go #down to #port-engine-access)
 (from * go #south to #down)
-(from * go #west to #cargo-bay-1)
+(from * go #west through #matt-3-4-panel  to #cargo-bay-1)
 (from * go #out to #west)
+
+#matt-3-4-panel
+(access-panel *)
+(label *)     3-4
 
 #matt-4-2
 (maintenance-access *)
@@ -860,9 +864,13 @@
       		runs up and down at an angle. There's an exit hatch forward,
 		or you can climb up into the shield machinery.
 (from * go #down to #matt-4-3)
-(from * go #north to #wardroom-storage)
+(from * go #north through #matt-4-2-panel to #wardroom-storage)
 (from * go #out to #north)
 (from * go #up to #aft-shield-access)
+
+#matt-4-2-panel
+(access-panel *)
+(label *)     4-2
 
 #matt-4-3
 (maintenance-access *)
@@ -871,8 +879,12 @@
       		down at an angle, and there's an exit hatch to port.
 (from * go #up to #matt-4-2)
 (from * go #down to #matt-4-4)
-(from * go #west to #main-engineering)
+(from * go #west through #matt-4-3-panel to #main-engineering)
 (from * go #out to #west)
+
+#matt-4-3-panel
+(access-panel *)
+(label *)     4-3
 
 #matt-4-4
 (maintenance-access *)
@@ -883,8 +895,12 @@
 (from * go #up to #matt-4-3)
 (from * go #down to #starboard-engine-access)
 (from * go #south to #down)
-(from * go #east to #cargo-bay-2)
+(from * go #east through #matt-4-4-panel to #cargo-bay-2)
 (from * go #out to #east)
+
+#matt-4-4-panel
+(access-panel *)
+(label *)     4-4
 
 #aft-shield-access
 (maintenance-access *)

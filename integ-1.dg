@@ -2,8 +2,6 @@
 %% dialogc -o integ-1.z5 -t z5 integ-1.dg union-ship.dg cygnus.dg
 %%   maneuvering.dg sensors.dg schema.dg sectored-grid.dg time.dg stdlib.dg
 
-
-
 (story author)	Susan Davis
 (story title)	Maneuvering Test
 (story noun)	Stellar Union integration test 1
