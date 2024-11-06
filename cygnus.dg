@@ -281,6 +281,7 @@
 (from * go #east to #starboard-forward)
 (from * go #south to #computer-core)
 (from * go #southeast to #armory)
+(from * go #southwest through #matt-1-2-panel to #matt-1-2)
 
 #simulator
 (compartment *)
@@ -291,6 +292,17 @@
 		yellow grid pattern.
 (from * go #east to #computer-core)
 (from * go #west to #port-passageway)
+(from * go #northeast to #wardroom-storage)
+(from * go #north to #northeast)
+
+#wardroom-storage
+(compartment *)
+(name *)	Wardroom Storage
+(look *)	Write me!
+(from * go #west to #simulator)
+(from * go #southwest to #west)
+(from * go #out to #west)
+(from * go #north to #matt-4-2)
 
 #wardroom
 (compartment *)
@@ -307,6 +319,7 @@
 (from * go #east to #wardroom)
 (from * go #southeast to #east)
 (from * go #out to #east)
+(from * go #north through #matt-2-2-panel to #matt-2-2)
 
 #shuttle-bay-inner-door
 (airlock-door *)
@@ -553,6 +566,8 @@
 (look *)	Write me!
 (from * go #north to #escape-pods)
 (from * go #out to #north)
+(from * go #west through #matt-3-3-panel to #matt-3-3)
+(from * go #east through #matt-4-3-panel to #matt-4-3)
 
 #laboratory
 (compartment *)
@@ -578,6 +593,7 @@
 (from * go #west to #escape-pods)
 (from * go #east to #starboard-cargo-gallery)
 (from * go #northwest to #sick-bay-head)
+(from * go #north through #matt-2-3-panel to #matt-2-3)
 
 #sick-bay-head
 (compartment *)
@@ -805,7 +821,7 @@
 (from * go #up to #matt-2-3)
 (from * go #down to #starboard-sensor-access)
 (from * go #north to #down)
-(from * go #east through #matt-2-4-panel to #cargo-bay-2)
+(from * go #east through #matt-2-4-panel to #cargo-bay-1)
 (from * go #out to #east)
 
 #matt-2-4-panel
