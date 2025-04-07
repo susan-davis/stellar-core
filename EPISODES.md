@@ -275,6 +275,12 @@ Another "sandbox" episode, but with the *Odysseus*. Not confined to a single qua
 - Drink Life to the Lees
 - An Idle King
 - Alone, On Shore
+- The Sphere of Common Duties
+- The Sceptre and the Isle
+- Ever With a Frolic Welcome
+- The Great Achilles, Whom We Knew
+- To Shine in Use
+- To Make an End
 
 ## Want To Fit In
 
