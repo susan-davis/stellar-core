@@ -1,0 +1,54 @@
+%% Stellar Union episode 101
+
+(story author)	Susan Davis
+(story title)	That Untravelled World, Whose Margin Fades
+(story noun)	Stellar Union episode 101,
+(story ifid)	57AD60A1-B515-4731-8BB1-49C6BD262382
+(story release 1)
+
+(story blurb)	Captain's log, Earth date March 5, 2273. The starship 
+		Eridanus has been sent to reestablish contact with 
+		SUS Delphinus, which has been out of contact with Stellar
+		Command for over three weeks. In her last communication
+		with Starbase 37, she reported that she was investigating
+		a spatial anomaly in Quadrant 103 by 37. We are proceeding
+		to that quadrant to search for our missing sister ship, and
+		to render assistance if necessary.
+		
+(intro)		Our galaxy is an endless ocean of stars. Plying that ocean
+		are the ships of the (bold) Stellar Union (roman) (no space).
+		Their mandate: (par)
+		(space 4) \* Keep the peace among the stars. (line)
+		(space 4) \* Explore the galaxy and its many planets. (line)
+		(space 4) \* Follow knowledge like a sinking star, (line)
+		(space 6) beyond the utmost bound of intelligent thought. (par)
+		Upholding that mandate is the starship (italic) Eridanus
+		(roman) (no space), on a three-year mission of discovery.
+		(banner)
+		(captains-log)
+		(par)
+		(try [look])
+
+(captains-log)	"Captain's log, Earth date March 5, 2273. The (italic) 
+		Eridanus (roman) has been sent to reestablish contact with 
+		SUS (italic) Delphinus (roman), which has been out of contact 
+		with Stellar Command for over three weeks. In her last 
+		communication with Starbase 37, she reported that she was 
+		investigating a spatial anomaly in Quadrant 103 by 37. We 
+		are proceeding to that quadrant to search for our missing 
+		sister ship, and to render assistance if necessary." (par)
+		You press the "End Recording" button on the arm of your
+		captain's chair, and the recording light goes out.
+
+%% -------------------- CREW --------------------
+
+#captain
+(current player *)
+(name *)	Alex
+(lastname *)	Player
+(rank *)	Lieutenant Commander
+(billet *)	Captain
+(animate *)
+(descr *)	You look the same as you usually do.
+(* is #in #captains-chair)
+
