@@ -27,6 +27,10 @@
 	#far-target-not-in-matter-transmission-range
 	#distant-target-not-in-matter-transmission-range
 	#non-grid-object-not-in-matter-transmission-range
+	#closest-in-sensor-range-of-near
+	#closest-in-weapons-range-of-near
+	#near-out-of-range-of-far
+	#near-out-of-range-of-distant
 	#condition-1
 	#condition-2
 	#condition-3
@@ -215,54 +219,83 @@
 	(#closest-target sector y 4)
 	4
 	(#closest-target is in sensor range)
+	(#closest-target is in sensor range of #test-ship)
 
 (test #near-target-in-sensor-range)
 	(#near-target is in sensor range)
+	(#near-target is in sensor range of #test-ship)
 
 (test #far-target-in-sensor-range)
 	(#far-target is in sensor range)
+	(#far-target is in sensor range of #test-ship)
 
 (test #distant-target-not-in-sensor-range)
 	~(#distant-target is in sensor range)
+	~(#distant-target is in sensor range of #test-ship)
 
 (test #non-grid-object-not-in-sensor-range)
 	~(#non-grid-object is in sensor range)
+	~(#non-grid-object is in sensor range of #test-ship)
 
 (test #asteroid-in-sensor-range)
 	(#asteroid is in sensor range)
+	(#asteroid is in sensor range of #test-ship)
 
 (test #closest-target-in-weapons-range)
 	(#closest-target is in weapons range)
+	(#closest-target is in weapons range of #test-ship)
 
 (test #near-target-in-weapons-range)
 	(#near-target is in weapons range)
+	(#near-target is in weapons range of #test-ship)
 
 (test #far-target-not-in-weapons-range)
 	~(#far-target is in weapons range)
+	~(#far-target is in weapons range of #test-ship)
 
 (test #distant-target-not-in-weapons-range)
 	~(#distant-target is in weapons range)
+	~(#distant-target is in weapons range of #test-ship)
 
 (test #non-grid-object-not-in-weapons-range)
 	~(#non-grid-object is in weapons range)
+	~(#non-grid-object is in weapons range of #test-ship)
 
 (test #asteroid-in-weapons-range)
 	(#asteroid is in weapons range)
+	(#asteroid is in weapons range of #test-ship)
 	
 (test #closest-target-in-matter-transmission-range)
 	(#closest-target is in matter transmission range)
+	(#closest-target is in matter transmission range of #test-ship)
 
 (test #near-target-not-in-matter-transmission-range)
 	~(#near-target is in matter transmission range)
+	~(#near-target is in matter transmission range of #test-ship)
 
 (test #far-target-not-in-matter-transmission-range)
 	~(#far-target is in matter transmission range)
+	~(#far-target is in matter transmission range of #test-ship)
 
 (test #distant-target-not-in-matter-transmission-range)
 	~(#distant-target is in matter transmission range)
+	~(#distant-target is in matter transmission range of #test-ship)
 
 (test #non-grid-object-not-in-matter-transmission-range)
 	~(#non-grid-object is in matter transmission range)
+	~(#non-grid-object is in matter transmission range of #test-ship)
+
+(test #closest-in-sensor-range-of-near)
+      (#closest-target is in sensor range of #near-target)
+
+(test #closest-in-weapons-range-of-near)
+      (#closest-target is in weapons range of #near-target)
+
+(test #near-out-of-range-of-far)
+      ~(#near-target is in weapons range of #far-target)
+
+(test #near-out-of-range-of-distant)
+      ~(#near-target is in sensor range of #distant-target)
 
 (test #condition-1)
 	(set condition 1)

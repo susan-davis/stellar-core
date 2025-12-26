@@ -15,9 +15,15 @@
 %% Weapons range: same sector
 %% Matter transmission range: adjacent subsector
 
+(interface ($<GridObject is in sensor range of $<Ship))
+
 (interface ($<GridObject is in sensor range))
 
+(interface ($<GridObject is in weapons range of $<Ship))
+
 (interface ($<GridObject is in weapons range))
+
+(interface ($<GridObject is in matter transmission range of $<Ship))
 
 (interface ($<GridObject is in matter transmission range))
 
@@ -86,21 +92,27 @@
 
 %% basics of who's nearby
 
-(sector $X $Y is in sensor range)
-	(current ship $Ship)
+(sector $X $Y is in sensor range of $Ship)
 	($Ship sector x $SX)
 	($Ship sector y $SY)
 	($X is within 1 of $SX)
 	($Y is within 1 of $SY)
 
-($Object is in sensor range)
+(sector $X $Y is in sensor range)
+	(current ship $Ship)
+	(sector $X $Y is in sensor range of $Ship)
+
+($Object is in sensor range of $Ship)
 	(grid object $Object)
 	($Object sector x $X)
 	($Object sector y $Y)
-	(sector $X $Y is in sensor range)
+	(sector $X $Y is in sensor range of $Ship)
 
-($Object is in weapons range)
+($Object is in sensor range)
 	(current ship $Ship)
+	($Object is in sensor range of $Ship)
+
+($Object is in weapons range of $Ship)
 	(grid object $Object)
 	($Object sector x $X)
 	($Object sector y $Y)
@@ -108,8 +120,11 @@
 	($Ship sector y $SY)
 	([$X $Y] = [$SX $SY])
 
-($Object is in matter transmission range)
+($Object is in weapons range)
 	(current ship $Ship)
+	($Object is in weapons range of $Ship)
+
+($Object is in matter transmission range of $Ship)
 	(grid object $Object)
 	($Object is in weapons range)
 	($Object subsector x $X)
@@ -118,6 +133,10 @@
 	($Ship subsector y $PY)
 	($X is within 1 of $PX)
 	($Y is within 1 of $PY)
+
+($Object is in matter transmission range)
+	(current ship $Ship)
+	($Object is in matter transmission range of $Ship)
 
 (hostile ships in sector $X $Y into $List)
 	(collect $Obj)
