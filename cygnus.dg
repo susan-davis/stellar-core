@@ -295,14 +295,19 @@
 (from * go #northeast to #wardroom-storage)
 (from * go #north to #northeast)
 
+#wardroom-storage-panel
+(door *)
+(name *)	maintenance panel
+(descr *)	There is a maintenance access panel in the forward bulkhead.
+
 #wardroom-storage
 (compartment *)
 (name *)	Wardroom Storage
-(look *)	Write me!
+(look *)	This is a small storage compartment. The exit is to port.
 (from * go #west to #simulator)
 (from * go #southwest to #west)
 (from * go #out to #west)
-(from * go #north to #matt-4-2)
+(from * go #north through #wardroom-storage-panel to #matt-4-2)
 
 #wardroom
 (compartment *)

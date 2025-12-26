@@ -21,6 +21,10 @@
 
 (interface ($<GridObject is in matter transmission range))
 
+(interface ($<Ship has sensor lock on $<GridObject))
+
+(interface ($<Ship has weapons lock on $<GridObject))
+
 %% (grid object $) => object exists in space and is sensor-detectable
 %% (stellar object $) => object is a star/planet/asteroid: right column
 %% (ship $) => object can maneuver
