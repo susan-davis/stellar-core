@@ -31,6 +31,17 @@
 	#closest-in-weapons-range-of-near
 	#near-out-of-range-of-far
 	#near-out-of-range-of-distant
+	#detected-closest
+	#detected-near
+	#detected-far
+	#not-detected-distant
+	#sensor-lock-closest
+	#sensor-lock-near
+	#sensor-lock-far
+	#not-sensor-lock-distant
+	#weapons-lock-closest
+	#weapons-lock-near
+	#not-weapons-lock-far
 	#condition-1
 	#condition-2
 	#condition-3
@@ -296,6 +307,39 @@
 
 (test #near-out-of-range-of-distant)
       ~(#near-target is in sensor range of #distant-target)
+
+(test #detected-closest)
+      (#test-ship has detected #closest-target)
+
+(test #detected-near)
+      (#test-ship has detected #near-target)
+
+(test #detected-far)
+      (#test-ship has detected #far-target)
+
+(test #not-detected-distant)
+      ~(#test-ship has detected #distant-target)
+
+(test #sensor-lock-closest)
+      (#test-ship has sensor lock on #closest-target)
+
+(test #sensor-lock-near)
+      (#test-ship has sensor lock on #near-target)
+
+(test #sensor-lock-far)
+      (#test-ship has sensor lock on #far-target)
+
+(test #not-sensor-lock-distant)
+      ~(#test-ship has sensor lock on #distant-target)
+
+(test #weapons-lock-closest)
+      (#test-ship has weapons lock on #closest-target)
+
+(test #weapons-lock-near)
+      (#test-ship has weapons lock on #near-target)
+
+(test #not-weapons-lock-far)
+      ~(#test-ship has weapons lock on #far-target)
 
 (test #condition-1)
 	(set condition 1)

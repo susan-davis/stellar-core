@@ -27,6 +27,13 @@
 
 (interface ($<GridObject is in matter transmission range))
 
+%% detected == detected by sensor fusion, or visually
+%% sensor lock == direct lock-on from ship's own sensors
+%% weapons lock == direct lock-on from ship's fire control scanners
+%% (jamming, and damage to sensors or scanners, can affect these)
+
+(interface ($<Ship has detected $<GridObject))
+
 (interface ($<Ship has sensor lock on $<GridObject))
 
 (interface ($<Ship has weapons lock on $<GridObject))
@@ -146,6 +153,17 @@
 		($Obj sector y $SY)
 		([$X $Y] = [$SX $SY])
 	(into $List)
+
+%% who sees whom
+
+($Ship has detected $Object)
+       ($Object is in sensor range of $Ship)
+
+($Ship has sensor lock on $Object)
+       ($Object is in sensor range of $Ship)
+
+($Ship has weapons lock on $Object)
+       ($Object is in weapons range of $Ship)
 
 %% sector summary for long range scan
 
