@@ -1,5 +1,36 @@
 %% quellan.dg
 
+(scout ship name)
+	(italic)
+       	(select)
+		Ambush The Rival Tribe (or)
+		Ambush The Enemy (or)
+		Ambush The Heretics (or)
+		Ambush For The Glory Of Qvortalan (or)
+		Cunning Ambush (or)
+		Hidden Ambush (or)
+		Unexpected Ambush (or)
+		Finder Of Ambushes (or)
+		Setter Of Ambushes (or)
+		Defeat Of The Enemy's Ambush (or)
+		Ambush From Above (or)
+		Ambush From The Vegetation (or)
+		Ferocious Ambush
+	(at random)
+	(roman)
+
+(invasion ship name)
+	(italic)
+	(select)
+		Conquest By Force (or)
+		Conquest By Treachery (or)
+		Conquest Through Superior Numbers (or)
+		Inevitable Conquest (or)
+		Peaceful Conquest (or)
+		Spiritual Conquest
+	(at random)
+	(roman)
+
 (attack ship name)
 	(italic)
 	(select)
@@ -64,7 +95,7 @@
 	(at random)
 	(roman)
 
-(battlecruiser name)
+(cruiser name)
 	(italic)
 	(select)
 		Victory Through Superior Firepower (or)
@@ -79,7 +110,25 @@
 		Victory Over The Infidels (or)
 		Victory Over The Rival Tribe (or)
 		Victory Through Stronger Willpower (or)
-		Victory Through Meticulous Planning In Advance
+		Victory Through Meticulous Planning In Advance (or)
+		Glorious Victory (or)
+		Incredible Victory (or)
+		Decisive Victory (or)
+		Pyrrhic Victory Inflicted On Our Enemies
+	(at random)
+	(roman)
+
+(battlecruiser name)
+	(italic)
+	(select)
+		Vengeance (or)
+		Vengeance Of Qvortalan (or)
+		Vengeance Of The People (or)
+		Vengeance Of The Emperor (or)
+		Vengeance Of The Emperor Queldron, Founder Of Our Empire (or)
+		Vengeance Of The Hero Gronkadonk (or)
+		Vengeance Of The Tribe (or)
+		Vengeance Of The Legendary Lost Tribe
 	(at random)
 	(roman)
 
@@ -94,3 +143,4 @@
 		Glory Of The Emperor Queldron, Founder Of Our Empire
 	(at random)
 	(roman)
+
