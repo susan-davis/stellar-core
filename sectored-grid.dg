@@ -85,6 +85,8 @@
 
 (interface (bearing from $<Object to position $<Position into $>Bearing))
 
+(interface (octant for $<Bearing into $>Angle $>XDir $>YDir))
+
 %% "Angle" means bow angle, converting bearing into a value relative
 %% to the object's heading.
 
