@@ -132,7 +132,7 @@
 	(at random)
 	(roman)
 
-(battleship name)
+(pocket battleship name)
 	(italic)
 	(select)
 		Glory Of The Emperor (or)
@@ -144,3 +144,10 @@
 	(at random)
 	(roman)
 
+(battleship name)
+	(italic)
+	(select)
+		Emperor Queldron I, Founder Of Our Empire (or)
+		Emperor Queldron II
+	(at random)
+	(roman)
