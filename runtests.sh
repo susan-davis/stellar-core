@@ -46,7 +46,7 @@ TEST="maneuver"
 
 check_return
 
-# TEST="damage"
+#TEST="damage"
 #
 #(dgdebug -q damage-tests.dg damage.dg schema.dg sectored-grid.dg \
 #	    testrunner.dg stdlib.dg \
