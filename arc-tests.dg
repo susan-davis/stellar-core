@@ -1,0 +1,72 @@
+%% dgdebug -q arc-tests.dg arc.dg sectored-grid.dg testrunner.dg stdlib.dg
+
+(list of tests [
+	#firing-arc-closest-target
+	#firing-arc-near-target
+	#firing-arc-far-target
+	#firing-arc-distant-target
+	])
+
+%% ----------------------------------------------------------------------
+
+#test-ship
+(grid object *)
+(* state is [344 454 315])
+
+(initial state [344 454 315])
+
+(clean up $)  		(initial state $State)
+			(now) (* state is $State)
+
+#closest-target
+(grid object *)
+(* state is [354 444 0])
+
+#near-target
+(grid object *)
+(* state is [314 424 0])
+
+#far-target
+(grid object *)
+(* state is [424 314 0])
+
+#distant-target
+(grid object *)
+(* state is [154 984 0])
+
+#non-grid-object
+(* state is [374 474 0])
+
+#sun
+(grid object *)
+(* state is [577 577 0])
+
+#planet
+(grid object *)
+(* state is [575 575 0])
+
+#other-planet
+(grid object *)
+(* state is [573 573 0])
+
+%% ----------------------------------------------------------------------
+
+(test #firing-arc-closest-target)
+      (firing arc from #test-ship to #closest-target into $Arc)
+      $Arc
+      (assert $Arc = 3)
+
+(test #firing-arc-near-target)
+      (firing arc from #test-ship to #near-target into $Arc)
+      $Arc
+      (assert $Arc = 1)
+
+(test #firing-arc-far-target)
+      (firing arc from #test-ship to #far-target into $Arc)
+      $Arc
+      (assert $Arc = 2)
+
+(test #firing-arc-distant-target)
+      (firing arc from #test-ship to #distant-target into $Arc)
+      $Arc
+      (assert $Arc = 6)

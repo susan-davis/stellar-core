@@ -1,0 +1,46 @@
+%% arc.dg
+%% Include sectored-grid.dg when compiling or debugging
+
+%%-------------------------------- INTERFACES --------------------------------
+
+(interface (firing arc from $<Ship to $<Target into $>Arc))
+
+(interface (shield direction from $<Attacker to $<Ship into $>Direction))
+
+%%------------------------------ IMPLEMENTATION ------------------------------
+
+%% FIXME: make the edge cases match up with sectored-grid.dg
+
+(firing arc from $Ship to $Target into $Arc)
+	(angle from $Ship to $Target into $Angle)
+	(if) ($Angle < 45)  (then)
+		($Arc = 1)
+	(elseif) ($Angle > 44)  ($Angle < 90) (then)
+		($Arc = 2)
+	(elseif) ($Angle > 89)  ($Angle < 135) (then)
+		($Arc = 3)
+	(elseif) ($Angle > 134) ($Angle < 180) (then)
+		($Arc = 4)
+	(elseif) ($Angle > 179) ($Angle < 225) (then)
+		($Arc = 5)
+	(elseif) ($Angle > 224) ($Angle < 270) (then)
+		($Arc = 6)
+	(elseif) ($Angle > 269) ($Angle < 315) (then)
+		($Arc = 7)
+	(else)
+		($Arc = 8)
+	(endif)
+
+(shield direction from $<Attacker to $<Ship into $>Direction)
+	(angle from $Ship to $Attacker into $Angle)
+	(if)     ($Angle > 44)   ($Angle < 135) (then)
+		 ($Direction = #east)
+	(elseif) ($Angle > 134)  ($Angle < 225) (then)
+		 ($Direction = #south)
+	(elseif) ($Angle > 224)  ($Angle < 315) (then)
+		 ($Direction = #west)
+	(else)
+		 ($Direction = #north)
+	(endif)
+	
+
