@@ -400,13 +400,10 @@
 
 (reciprocal bearing for $Bearing into $Result)
 	(180 plus $Bearing into $Sum)
-	(if) ~($Sum < 360) (then)
-		($Sum minus 360 into $Result)
-	(else)
-		($Result = $Sum)
-	(endif)
+	($Sum modulo 360 into $Result)
 
-(direction for $Bearing into $Direction)
+(direction for $Bear into $Direction)
+	(number $Bear) ($Bear modulo 360 into $Bearing)
 	(if) ($Bearing > 22)  ($Bearing < 68)  (then)
 		($Direction = #northeast)
 	(elseif) ($Bearing > 67)  ($Bearing < 113) (then)
@@ -529,7 +526,8 @@
 
 %% Convert from the table into the final compass bearing.
 
-(bearing for $Angle in octant $Octant into $Bearing)
+(bearing for $Ang in octant $Octant into $Bearing)
+	(number $Ang) ($Ang modulo 360 into $Angle)
 	(if)     ($Octant = 1) (then)
 		($Bearing = $Angle)
 	(elseif) ($Octant = 2) (then)
@@ -575,7 +573,9 @@
 
 %% bow angle = angle clockwise from the current heading to the bearing
 
-(angle clockwise from $Heading to $Bearing into $Result)
+(angle clockwise from $Head to $Bear into $Result)
+	(number $Head) ($Head modulo 360 into $Heading)
+	(number $Bear) ($Bear modulo 360 into $Bearing)
 	(if) ($Heading > $Bearing) (then)
 		(360 plus $Bearing into $B)
 	(else)
@@ -620,7 +620,8 @@
 %% shield and firing arcs, so we'll bias the dividing points between
 %% octants toward the bow (north).
 
-($Bearing is in octant $Octant)
+($Bear is in octant $Octant)
+	(number $Bear) ($Bear modulo 360 into $Bearing)
 	(if) ($Bearing < 46)  (then)
 		($Octant = 1)
 	(elseif) ($Bearing > 45)  ($Bearing < 91) (then)
@@ -799,11 +800,7 @@
 (turn $Ship $Degrees to starboard)
 	($Ship heading $Heading)
 	($Heading plus $Degrees into $New)
-	(if) ($New > 359) (then)
-		($New minus 360 into $NewHeading)
-	(else)
-		($NewHeading = $New)
-	(endif)
+	($New modulo 360 into $NewHeading)
 	(turn $Ship to heading $NewHeading)
 
 (turn $Ship $Degrees to port)
