@@ -5,33 +5,33 @@
 
 (interface (firing arc from $<Ship to $<Target into $>Arc))
 
-(interface (shield direction from $<Attacker to $<Ship into $>Direction))
+(interface (shield direction for $<Attacker against $<Ship into $>Direction))
+
+(interface (bearing $<Bearing is in arc for $<Arc))
 
 %%------------------------------ IMPLEMENTATION ------------------------------
 
-%% FIXME: make the edge cases match up with sectored-grid.dg
-
 (firing arc from $Ship to $Target into $Arc)
 	(angle from $Ship to $Target into $Angle)
-	(if) ($Angle < 45)  (then)
+	(if) ($Angle < 46)  (then)
 		($Arc = 1)
-	(elseif) ($Angle > 44)  ($Angle < 90) (then)
+	(elseif) ($Angle > 45)  ($Angle < 91) (then)
 		($Arc = 2)
-	(elseif) ($Angle > 89)  ($Angle < 135) (then)
+	(elseif) ($Angle > 90)  ($Angle < 136) (then)
 		($Arc = 3)
-	(elseif) ($Angle > 134) ($Angle < 180) (then)
+	(elseif) ($Angle > 135) ($Angle < 181) (then)
 		($Arc = 4)
-	(elseif) ($Angle > 179) ($Angle < 225) (then)
+	(elseif) ($Angle > 180) ($Angle < 226) (then)
 		($Arc = 5)
-	(elseif) ($Angle > 224) ($Angle < 270) (then)
+	(elseif) ($Angle > 225) ($Angle < 271) (then)
 		($Arc = 6)
-	(elseif) ($Angle > 269) ($Angle < 315) (then)
+	(elseif) ($Angle > 270) ($Angle < 316) (then)
 		($Arc = 7)
 	(else)
 		($Arc = 8)
 	(endif)
 
-(shield direction from $Attacker to $Ship into $Direction)
+(shield direction for $Attacker against $Ship into $Direction)
 	(angle from $Ship to $Attacker into $Angle)
 	(if)     ($Angle > 44)   ($Angle < 135) (then)
 		 ($Direction = #east)
@@ -42,5 +42,9 @@
 	(else)
 		 ($Direction = #north)
 	(endif)
-	
+
+%%----------------------------------------------------------------------------
+
+%% Firing arcs: one bit per octant, so 1 means octant 1, 2 means octant 2,
+%% 4 means octant 3, and so forth. Forward arc would be 129.
 
