@@ -616,6 +616,10 @@
 		([$X $Y] = $Tuple)
 	(endif)
 
+%% Converting backwards from bearings to octants. We also use this for
+%% shield and firing arcs, so we'll bias the dividing points between
+%% octants toward the bow (north).
+
 ($Bearing is in octant $Octant)
 	(if) ($Bearing < 46)  (then)
 		($Octant = 1)
@@ -623,13 +627,13 @@
 		($Octant = 2)
 	(elseif) ($Bearing > 90)  ($Bearing < 136) (then)
 		($Octant = 3)
-	(elseif) ($Bearing > 135) ($Bearing < 181) (then)
+	(elseif) ($Bearing > 135) ($Bearing < 180) (then)
 		($Octant = 4)
-	(elseif) ($Bearing > 180) ($Bearing < 226) (then)
+	(elseif) ($Bearing > 179) ($Bearing < 225) (then)
 		($Octant = 5)
-	(elseif) ($Bearing > 225) ($Bearing < 271) (then)
+	(elseif) ($Bearing > 224) ($Bearing < 270) (then)
 		($Octant = 6)
-	(elseif) ($Bearing > 270) ($Bearing < 316) (then)
+	(elseif) ($Bearing > 269) ($Bearing < 315) (then)
 		($Octant = 7)
 	(else)
 		($Octant = 8)
@@ -637,7 +641,7 @@
 	
 (octant for $Bearing into $Angle $XDir $YDir)
 	($Bearing is in octant $Octant)
-	(if) ($Octant= 1) (then)
+	(if) ($Octant = 1) (then)
 		($Angle = $Bearing)
 		($XDir = #north)
 		($YDir = #east)

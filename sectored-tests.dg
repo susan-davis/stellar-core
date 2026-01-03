@@ -643,25 +643,25 @@
 	(150 is in octant 4)
 
 (test #octant-for-180)
-	(180 is in octant 4)
+	(180 is in octant 5)
 
 (test #octant-for-210)
 	(210 is in octant 5)
 
 (test #octant-for-225)
-	(225 is in octant 5)
+	(225 is in octant 6)
 
 (test #octant-for-240)
 	(240 is in octant 6)
 
 (test #octant-for-270)
-	(270 is in octant 6)
+	(270 is in octant 7)
 
 (test #octant-for-300)
 	(300 is in octant 7)
 
 (test #octant-for-315)
-	(315 is in octant 7)
+	(315 is in octant 8)
 
 (test #octant-for-330)
 	(330 is in octant 8)
