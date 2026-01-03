@@ -117,6 +117,7 @@
 	#direction-293
 	#direction-337
 	#direction-338
+	#direction-540
 	#octant-for-0
 	#octant-for-15
 	#octant-for-45
@@ -133,6 +134,7 @@
 	#octant-for-300
 	#octant-for-315
 	#octant-for-330
+	#octant-for-540
 	#look-up-1-9
 	#look-up-5-5
 	#look-up-10-20
@@ -618,6 +620,9 @@
 (test #direction-338)
 	(direction for 338 into #north)
 
+(test #direction-540)
+	(direction for 540 into #south)
+
 (test #octant-for-0)
 	(0 is in octant 1)
 
@@ -665,6 +670,9 @@
 
 (test #octant-for-330)
 	(330 is in octant 8)
+
+(test #octant-for-540)
+	(540 is in octant 5)
 
 (test #octant-1)
 	(initial state $Here)
