@@ -9,6 +9,8 @@
 
 (interface (bearing $<Bearing is in arc for $<Arc))
 
+(interface ($<Number is odd))
+
 %%------------------------------ IMPLEMENTATION ------------------------------
 
 (firing arc from $Ship to $Target is $Arc)
@@ -30,6 +32,14 @@
 
 %%----------------------------------------------------------------------------
 
+($Num is odd)
+	(number $Num)
+	($Num > 0)
+	($Num modulo 2 into $Mod)
+	($Mod = 1)
+
 %% Firing arcs: one bit per octant, so 1 means octant 1, 2 means octant 2,
 %% 4 means octant 3, and so forth. Forward arc would be 129.
 
+(bearing $Bearing is in arc for $Arc)
+	()
