@@ -1,5 +1,5 @@
 %% testrunner.dg
-(extension version)	Unit test runner v0.5 by Susan Davis (line)
+(extension version)	Unit test runner v0.5.1 by Susan Davis (line)
 
 %% (test #foo) expr will pass if expr is true and fail if expr is false.
 %% Include #foo in the global variable (list of tests [test1 test2 ...])
@@ -10,7 +10,9 @@
 
 (interface (clean up $<Testname)) %% restore to original state afterward
 
-(interface (assert $<Var = $Val))
+(interface (assert $<Var = $<Val))
+
+%%------------------------------ IMPLEMENTATION ------------------------------
 
 (assert $Thing1 = $Thing2) %% true if both are bound and ($Thing1 = $Thing2)
 	(fully bound $Thing1)
