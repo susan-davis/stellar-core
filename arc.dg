@@ -3,19 +3,19 @@
 
 %%-------------------------------- INTERFACES --------------------------------
 
-(interface (firing arc from $<Ship to $<Target into $>Arc))
+(interface (firing arc from $<Ship to $<Target is $>Arc))
 
-(interface (shield direction for $<Attacker against $<Ship into $>Direction))
+(interface (shield direction for $<Attacker against $<Ship is $>Direction))
 
 (interface (bearing $<Bearing is in arc for $<Arc))
 
 %%------------------------------ IMPLEMENTATION ------------------------------
 
-(firing arc from $Ship to $Target into $Arc)
+(firing arc from $Ship to $Target is $Arc)
 	(angle from $Ship to $Target into $Angle)
 	($Angle is in octant $Arc)
 
-(shield direction for $Attacker against $Ship into $Direction)
+(shield direction for $Attacker against $Ship is $Direction)
 	(angle from $Ship to $Attacker into $Angle)
 	($Angle is in octant $Octant)
 	(if)     ($Octant = 2) (or) ($Octant = 3) (then)

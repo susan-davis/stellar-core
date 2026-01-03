@@ -56,28 +56,28 @@
 %% ----------------------------------------------------------------------
 
 (test #firing-arc-closest-target)
-      (firing arc from #test-ship to #closest-target into 2)
+      (firing arc from #test-ship to #closest-target is 2)
 
 (test #firing-arc-near-target)
-      (firing arc from #test-ship to #near-target into 1)
+      (firing arc from #test-ship to #near-target is 1)
 
 (test #firing-arc-far-target)
-      (firing arc from #test-ship to #far-target into 2)
+      (firing arc from #test-ship to #far-target is 2)
 
 (test #firing-arc-distant-target)
-      (firing arc from #test-ship to #distant-target into 6)
+      (firing arc from #test-ship to #distant-target is 6)
 
 (test #shield-direction-closest-target)
-      (shield direction for #closest-target against #test-ship into #east)
+      (shield direction for #closest-target against #test-ship is #east)
 
 (test #shield-direction-near-target)
-      (shield direction for #near-target against #test-ship into #north)
+      (shield direction for #near-target against #test-ship is #north)
 
 (test #shield-direction-far-target)
-      (shield direction for #far-target against #test-ship into #east)
+      (shield direction for #far-target against #test-ship is #east)
 
 (test #shield-direction-distant-target)
-      (shield direction for #distant-target against #test-ship into #west)
+      (shield direction for #distant-target against #test-ship is #west)
 
 (move target to $DX $DY $X $Y)
       (drag #closest-target to 3 4 5 5)
