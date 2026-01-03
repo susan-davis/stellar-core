@@ -5,6 +5,18 @@
 	#firing-arc-near-target
 	#firing-arc-far-target
 	#firing-arc-distant-target
+	#shield-direction-closest-target
+	#shield-direction-near-target
+	#shield-direction-far-target
+	#shield-direction-distant-target
+%%	#0-equals-0
+%%	#45-equals-45
+%%	#90-equals-90
+%%	#135-equals-135
+%%	#180-equals-180
+%%	#225-equals-225
+%%	#270-equals-270
+%%	#315-equals-315
 	])
 
 %% ----------------------------------------------------------------------
@@ -70,3 +82,24 @@
       (firing arc from #test-ship to #distant-target into $Arc)
       $Arc
       (assert $Arc = 6)
+
+(test #shield-direction-closest-target)
+      (shield direction from #closest-target to #test-ship into $Dir)
+      $Dir
+      (assert $Dir = #east)
+
+(test #shield-direction-near-target)
+      (shield direction from #near-target to #test-ship into $Dir)
+      $Dir
+      (assert $Dir = #north)
+
+(test #shield-direction-far-target)
+      (shield direction from #far-target to #test-ship into $Dir)
+      $Dir
+      (assert $Dir = #east)
+
+(test #shield-direction-distant-target)
+      (shield direction from #distant-target to #test-ship into $Dir)
+      $Dir
+      (assert $Dir = #west)
+

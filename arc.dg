@@ -31,7 +31,7 @@
 		($Arc = 8)
 	(endif)
 
-(shield direction from $<Attacker to $<Ship into $>Direction)
+(shield direction from $Attacker to $Ship into $Direction)
 	(angle from $Ship to $Attacker into $Angle)
 	(if)     ($Angle > 44)   ($Angle < 135) (then)
 		 ($Direction = #east)
