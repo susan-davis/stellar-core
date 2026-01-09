@@ -1,5 +1,5 @@
 %% testrunner.dg
-(extension version)	Unit test runner v0.5.1 by Susan Davis (line)
+(extension version)	Unit test runner 0m/05 by Susan Davis (line)
 
 %% (test #foo) expr will pass if expr is true and fail if expr is false.
 %% Include #foo in the global variable (list of tests [test1 test2 ...])
@@ -23,10 +23,12 @@
 
 (all tests pass)
 
+(keep running on failure) %% negate to stop at first failed test
+
 (program entry point)
 	(list of tests $Tests)
 	(length of $Tests into $Number)
-	(bold) Attempting $Number unit tests (roman) (line)
+	(bold) Attempting $Number tests (roman) (line)
 	(stoppable) (exhaust) {
 		*($Test is one of $Tests)
 		Testing $Test: 
@@ -53,9 +55,9 @@
 	(then)
 		Passed! (line)
 	(else)
-		Failed. (space) :-\( (line)
+		(bold) Failed. (roman) (space) :-\( (line)
 		(now) ~(all tests pass)
-		(stop)
+		(if) ~(keep running on failure) (then) (stop) (endif)
 	(endif)
 
 %% patch for ($ contains sublist $) issues; delete when fixed
