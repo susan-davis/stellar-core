@@ -37,4 +37,7 @@ Energy that exceeds the remaining contents of the ship's main power bus will *wr
 ## Energy Projectors
 The basic offensive weapon mounted by most ships is the *energy projector*, similar to lasers and phasers from other science fiction settings. Energy 
 
+## Depolarizers
+Quellan ships, starting with the Q6, mount the A-drive depolarizer as their main weapon. 
+
 ## Missiles and Torpedoes

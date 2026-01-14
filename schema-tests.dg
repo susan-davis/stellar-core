@@ -54,6 +54,11 @@
 	#decrease-energy
 	#decrease-energy-below-zero
 	#regenerate
+	#regenerate-above-max
+	#decrease-shields
+	#decrease-shields-below-zero
+	#regenerate-shields
+	#regenerate-shields-above-max
 	#accelerate
 	#accelerate-too-fast
 	#decelerate
@@ -272,6 +277,30 @@
 (test #regenerate)
 	(regenerate energy for #test-ship)
 	(#test-ship energy 972)
+
+(test #regenerate-above-max)
+	(regenerate energy for #test-ship)
+	(regenerate energy for #test-ship)
+	(#test-ship energy 1000)
+
+(test #decrease-shields)
+	(decrease shields for #test-ship by 50)
+	(#test-ship shields 450)
+
+(test #decrease-shields-below-zero)
+	~(decrease shields for #test-ship by 501)
+
+(test #regenerate-shields)
+	(decrease shields for #test-ship by 50)
+	(#test-ship shields 450)
+	(regenerate shields for #test-ship by 50)
+	(#test-ship shields 500)
+
+(test #regenerate-shields-above-max)
+	(decrease shields for #test-ship by 50)
+	(#test-ship shields 450)
+	(regenerate shields for #test-ship by 100)
+	(#test-ship shields 500)
 
 (test #accelerate)
 	(accelerate #test-ship to speed 600)

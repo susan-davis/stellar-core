@@ -85,6 +85,10 @@
 
 (interface (regenerate energy for $<Ship))
 
+(interface (decrease shields for $<Ship by $<Num))
+
+(interface (regenerate shields for $<Ship by $<Num))
+
 %% setup and placement
 %% setting the heading is defined in sectored-grid.dg
 
@@ -334,9 +338,37 @@
 
 (regenerate energy for $Ship)
 	($Ship crystals $Crystals)
-	($Crystals times 10 into $Energy)
+	($Ship energy $CurrentEnergy)
+	($Crystals times 10 into $NewEnergy)
+	($CurrentEnergy plus $NewEnergy into $DesiredEnergy)
+	($Ship class $Class)
+	($Class energy $MaxEnergy)
+	(if) ($DesiredEnergy > $MaxEnergy) (then)
+		($Energy = $MaxEnergy)
+	(else)
+		($Energy = $DesiredEnergy)
+	(endif)
 	($Ship state is $State)
-	(increase element 8 in $State by $Energy into $NewState)
+	(replace element 8 in $State with $Energy into $NewState)
+	(now) ($Ship state is $NewState)
+
+(decrease shields for $Ship by $Num)
+	($Ship state is $State)
+	(decrease element 10 in $State by $Num into $NewState)
+	(now) ($Ship state is $NewState)
+
+(regenerate shields for $Ship by $Num)
+	($Ship state is $State)
+	($Ship shields $CurrentShields)
+	($CurrentShields plus $Num into $DesiredShields)
+	($Ship class $Class)
+	($Class shields $MaxShields)
+	(if) ($DesiredShields > $MaxShields) (then)
+		($Shields = $MaxShields)
+	(else)
+		($Shields = $DesiredShields)
+	(endif)
+	(replace element 10 in $State with $Shields into $NewState)
 	(now) ($Ship state is $NewState)
 
 (accelerate $Ship to speed $Speed)
