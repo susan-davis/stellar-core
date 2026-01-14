@@ -39,6 +39,8 @@
 	#replace-element-zero
 	#replace-element-beyond-end
 	#increase-element
+	#increase-element-with-max
+	#increase-element-beyond-max
 	#decrease-element
 	#decrease-element-below-zero
 	#set-destination
@@ -215,6 +217,12 @@
 
 (test #increase-element)
 	(increase element 3 in [1 2 3 4 5] by 3 into [1 2 6 4 5])
+
+(test #increase-element-with-max)
+	(increase element 3 in [1 2 3 4 5] by 3 into [1 2 6 4 5] with max 7)
+
+(test #increase-element-beyond-max)
+	(increase element 3 in [1 2 3 4 5] by 5 into [1 2 7 4 5] with max 7)
 
 (test #decrease-element)
 	(decrease element 3 in [1 2 3 4 5] by 2 into [1 2 1 4 5])

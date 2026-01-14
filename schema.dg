@@ -108,9 +108,11 @@
 
 (interface (replace element $<N in $<List with $<Element into $>NewList))
 
-(interface (decrease element $<N in $<List by $Num into $>NewList))
+(interface (decrease element $<N in $<List by $<Num into $>NewList))
 
-(interface (increase element $<N in $<List by $Num into $>NewList))
+(interface (increase element $<N in $<List by $<Num into $>NewList))
+
+(interface (increase element $<N in $<List by $<Num into $>NewList with max $<Max))
 
 %%------------------------------ IMPLEMENTATION ------------------------------
 
@@ -276,6 +278,16 @@
 (increase element $N in $List by $Num into $NewList)
 	(nth $List $N $Element)
 	($Element plus $Num into $NewElement)
+	(replace element $N in $List with $NewElement into $NewList)
+
+(increase element $N in $List by $Num into $NewList with max $Max)
+	(nth $List $N $Element)
+	($Element plus $Num into $Proposed)
+	(if) ($Proposed > $Max) (then)
+		($NewElement = $Max)
+	(else)
+		($NewElement = $Proposed)
+	(endif)
 	(replace element $N in $List with $NewElement into $NewList)
 
 (decrease element $N in $List by $Num into $NewList)
