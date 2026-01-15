@@ -1,5 +1,5 @@
 %% sensors.dg
-%% Also include sectored-grid.dg, ship-schema.dg, and time.dg
+%% Also include sectored-grid.dg, schema.dg, utils.dg, and time.dg
 
 %%-------------------------------- INTERFACES --------------------------------
 

@@ -1,5 +1,6 @@
 %% damage.dg
-%% Also include schema.dg and sectored-grid.dg when compiling or debugging.
+%% Also include schema.dg, sectored-grid.dg, and utils.dg when compiling
+%% or debugging.
 
 %%-------------------------------- INTERFACES --------------------------------
 
