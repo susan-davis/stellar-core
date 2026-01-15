@@ -16,6 +16,10 @@
 	#max-same
 	#min-different
 	#min-same
+	#0-isnt-odd
+	#1-is-odd
+	#2-isnt-odd
+	#3-is-odd
 	])
 
 (test #take-last-n)
@@ -64,3 +68,15 @@
 
 (test #min-same)
 	(min 2 and 2 into 2)
+
+(test #0-isnt-odd)
+      ~(0 is odd)
+
+(test #1-is-odd)
+      (1 is odd)
+
+(test #2-isnt-odd)
+      ~(2 is odd)
+
+(test #3-is-odd)
+      (3 is odd)

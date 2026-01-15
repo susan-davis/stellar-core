@@ -17,10 +17,6 @@
 	#due-southwest
 	#due-west
 	#due-northwest
-	#0-isnt-odd
-	#1-is-odd
-	#2-isnt-odd
-	#3-is-odd
 	])
 
 %% ----------------------------------------------------------------------
@@ -136,14 +132,3 @@
       (firing arc from #test-ship to #closest-target is 8)
       (shield direction for #closest-target against #test-ship is #north)
 
-(test #0-isnt-odd)
-      ~(0 is odd)
-
-(test #1-is-odd)
-      (1 is odd)
-
-(test #2-isnt-odd)
-      ~(2 is odd)
-
-(test #3-is-odd)
-      (3 is odd)

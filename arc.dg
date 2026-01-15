@@ -1,5 +1,5 @@
 %% arc.dg
-%% Include sectored-grid.dg when compiling or debugging
+%% Include sectored-grid.dg and utils.dg when compiling or debugging
 
 %%-------------------------------- INTERFACES --------------------------------
 
@@ -8,8 +8,6 @@
 (interface (shield direction for $<Attacker against $<Ship is $>Direction))
 
 (interface (bearing $<Bearing is in arc for $<Arc))
-
-(interface ($<Number is odd))
 
 %%------------------------------ IMPLEMENTATION ------------------------------
 
@@ -31,12 +29,6 @@
 	(endif)
 
 %%----------------------------------------------------------------------------
-
-($Num is odd)
-	(number $Num)
-	($Num > 0)
-	($Num modulo 2 into $Mod)
-	($Mod = 1)
 
 %% Firing arcs: one bit per octant, so 1 means octant 1, 2 means octant 2,
 %% 4 means octant 3, and so forth. Forward arc would be 129.

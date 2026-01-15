@@ -17,6 +17,8 @@
 
 (interface (min $<X and $<Y into $>Min))
 
+(interface ($<Number is odd))
+
 %%------------------------------ IMPLEMENTATION ------------------------------
 
 (take last $N from $List into $Suffix)
@@ -68,4 +70,10 @@
 	(else)
 		($Result = $Y)
 	(endif)
+
+($Num is odd)
+	(number $Num)
+	($Num > 0)
+	($Num modulo 2 into $Mod)
+	($Mod = 1)
 
