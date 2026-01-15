@@ -8,6 +8,13 @@ check_return()
     fi
 }
 
+TEST="utils"
+
+(dgdebug -q utils-tests.dg utils.dg testrunner.dg stdlib.dg \
+    | grep 'tests passed successfully')
+
+check_return
+
 TEST="sectored grid"
 
 (dgdebug -q sectored-tests.dg sectored-grid.dg testrunner.dg stdlib.dg \
@@ -24,15 +31,15 @@ check_return
 
 TEST="schema"
 
-(dgdebug -q schema-tests.dg schema.dg sectored-grid.dg testrunner.dg \
-	stdlib.dg \
+(dgdebug -q schema-tests.dg schema.dg sectored-grid.dg utils.dg \
+ 	testrunner.dg stdlib.dg \
      | grep 'tests passed successfully')
 
 check_return
 
 TEST="sensors"
 
-(dgdebug -q sensor-tests.dg sensors.dg schema.dg sectored-grid.dg \
+(dgdebug -q sensor-tests.dg sensors.dg schema.dg sectored-grid.dg utils.dg \
 	    testrunner.dg stdlib.dg \
 	| grep 'tests passed successfully')
 
@@ -41,7 +48,7 @@ check_return
 TEST="maneuver"
 
 (dgdebug -q maneuver-tests.dg maneuvering.dg schema.dg sectored-grid.dg \
-	    testrunner.dg stdlib.dg \
+	    utils.dg testrunner.dg stdlib.dg \
      | grep 'tests passed successfully')
 
 check_return
@@ -55,7 +62,7 @@ check_return
 
 TEST="damage"
 
-(dgdebug -q damage-tests.dg damage.dg schema.dg sectored-grid.dg \
+(dgdebug -q damage-tests.dg damage.dg schema.dg sectored-grid.dg utils.dg \
 	    testrunner.dg stdlib.dg \
      | grep 'tests passed successfully')
 

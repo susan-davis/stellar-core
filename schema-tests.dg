@@ -1,4 +1,4 @@
-%% dgdebug -q schema-tests.dg schema.dg sectored-grid.dg \
+%% dgdebug -q schema-tests.dg schema.dg sectored-grid.dg utils.dg \
 %%	testrunner.dg stdlib.dg
 
 (list of tests [
@@ -36,21 +36,6 @@
 	#place-at
 	#place-at-subsector
 	#place-in-sector
-	#take-last-n
-	#take-last-zero
-	#take-last-more-than-len
-	#replace-element
-	#replace-element-zero
-	#replace-element-beyond-end
-	#increase-element
-	#increase-element-with-max
-	#increase-element-beyond-max
-	#decrease-element
-	#decrease-element-below-zero
-	#max-different
-	#max-same
-	#min-different
-	#min-same
 	#set-destination
 	#set-destination-subsector
 	#set-destination-precisely
@@ -216,53 +201,6 @@
 	(place #test-ship in sector 7 7)
 	(#test-ship sector x 7)
 	(#test-ship sector y 7)
-
-(test #take-last-n)
-	(take last 3 from [1 2 3 4 5 6] into [4 5 6])
-
-(test #take-last-zero)
-	(take last 0 from [1 2 3 4 5 6] into [])
-
-(test #take-last-more-than-len)
-	~(take last 7 from [1 2 3 5 6 7] into $)
-
-(test #replace-element)
-	(replace element 3 in [1 2 3 4 5] with 6 into [1 2 6 4 5])
-
-(test #replace-element-zero)
-	~(replace element 0 in [1 2 3 4 5] with 6 into $)
-
-(test #replace-element-beyond-end)
-	~(replace element 6 in [1 2 3 4 5] with 6 into $)
-
-(test #increase-element)
-	(increase element 3 in [1 2 3 4 5] by 3 into [1 2 6 4 5])
-
-(test #increase-element-with-max)
-	(increase element 3 in [1 2 3 4 5] by 3 into [1 2 6 4 5] with max 7)
-
-(test #increase-element-beyond-max)
-	(increase element 3 in [1 2 3 4 5] by 5 into [1 2 7 4 5] with max 7)
-
-(test #decrease-element)
-	(decrease element 3 in [1 2 3 4 5] by 2 into [1 2 1 4 5])
-
-(test #decrease-element-below-zero)
-	~(decrease element 3 in [1 2 3 4 5] by 4 into $)
-
-(test #max-different)
-	(max 2 and 3 into 3)
-	(max 3 and 2 into 3)
-
-(test #max-same)
-	(max 2 and 2 into 2)
-
-(test #min-different)
-	(min 2 and 3 into 2)
-	(min 3 and 2 into 2)
-
-(test #min-same)
-	(min 2 and 2 into 2)
 
 (test #set-destination)
 	(position for 4 5 6 7 into $Position)
