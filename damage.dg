@@ -40,10 +40,12 @@
 %%   * with remainder, wreck ship, possibly destroying it
 
 (hit $Target from $Direction with $Units)
-	($Target shields $StartingShields)
-	(if) ($Units > $StartingShields) (then)
-		(decrease shields for $Target by $StartingShields)
-		($Units minus $StartingShields into $Damage)
+	($Target shields $TotalShieldPower)
+	($Target shield level $Direction into $DirectionShieldPower)
+	(min $TotalShieldPower and $DirectionShieldPower into $ShieldPower)
+	(if) ($Units > $ShieldPower) (then)
+		(decrease shields for $Target by $ShieldPower)
+		($Units minus $ShieldPower into $Damage)
 		(decrease energy for $Target by $Damage)
 	(else)
 		(decrease shields for $Target by $Units)

@@ -2,7 +2,8 @@
 %%            testrunner.dg stdlib.dg
 
 (list of tests [
-      #shields-hold-from-ahead
+      #shields-hold-from-ahead-50
+      #shields-penetrated-from-ahead-101
       ])
 
 %% ----------------------------------------------------------------------
@@ -47,6 +48,16 @@
 	($Ship shields $Shields)
 	($Ship energy $Energy)
 
-(test #shields-hold-from-ahead)
+(show $Ship state)
+	($Ship state is $State)
+	$State
+
+(test #shields-hold-from-ahead-50)
       (hit #closest-target from #north with 50)
       (assert #closest-target has 200 and 500)
+
+(test #shields-penetrated-from-ahead-101)
+      (hit #closest-target from #north with 101)
+      (show #closest-target state)
+      (assert #closest-target has 150 and 499)
+
