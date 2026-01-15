@@ -315,6 +315,20 @@
 	($Element minus $Num into $NewElement)
 	(replace element $N in $List with $NewElement into $NewList)
 
+(max $X and $Y into $Result)
+	(if) ($X > $Y) (then)
+		($Result = $X)
+	(else)
+		($Result = $Y)
+	(endif)
+
+(min $X and $Y into $Result)
+	(if) ($X < $Y) (then)
+		($Result = $X)
+	(else)
+		($Result = $Y)
+	(endif)
+
 %% mutators
 
 (set destination for $Ship to $Destination)
