@@ -1,0 +1,52 @@
+%% dgdebug -q damage-tests.dg damage.dg schema.dg sectored-grid.dg \
+%%            testrunner.dg stdlib.dg
+
+(list of tests [
+      #shields-hold-from-ahead
+      ])
+
+%% ----------------------------------------------------------------------
+
+#test-ship
+(ship *)
+(* initial state is
+ [344 454 315 400 304 414 #cygnus-class 932 4 500 [100 100 100 100] 10 90 700])
+
+#cygnus-class
+(name *)	Cygnus
+(type *)	scout ship
+(* state is
+ [0 0 180 300 500 963 #cygnus-class 1000 4 500 [100 100 100 100] 10])
+
+#attack-class
+(name *)	Attack
+(type *)	attack ship
+(* state is
+ [0 0 90 100 200 751 #attack-class 500 2 250 [100 50 50 50] 0])
+
+#closest-target
+(ship *)
+(* initial state is
+     [355 445 225 200 0 0 #attack-class 500 2 250 [100 50 50 50] 0 225 200])
+     
+#near-target
+(ship *)
+(* initial state is
+     [314 424 45 300 0 0 #attack-class 500 2 250 [100 50 50 50] 0 45 310])
+
+%% ----------------------------------------------------------------------
+
+(reset $Ship)	($Ship initial state is $State)
+		(now) ($Ship state is $State)
+
+(set up $)	(exhaust) { *(ship $Ship) (reset $Ship) }
+
+%% ----------------------------------------------------------------------
+
+(assert $Ship has $Shields and $Energy)
+	($Ship shields $Shields)
+	($Ship energy $Energy)
+
+(test #shields-hold-from-ahead)
+      (hit #closest-target from #north with 50)
+      (assert #closest-target has 200 and 500)

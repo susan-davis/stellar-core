@@ -1,0 +1,51 @@
+%% damage.dg
+%% Also include schema.dg and sectored-grid.dg when compiling or debugging.
+
+%%-------------------------------- INTERFACES --------------------------------
+
+(interface ($<Attacker hits $<Target with $<Units))
+
+(interface (hit $<Ship from angle $<Angle with $<Units))
+
+(interface (hit $<Ship from $<Direction with $<Units))
+
+(interface (hit $<Ship from everywhere with $<Units))
+
+(interface ($<Ship explodes))
+
+(interface (explosion of $<Units in $<SX $<SY $<X $<Y $<PX $<PY))
+
+(interface (explosion of $<Units at $<Position))
+
+%%---------------------------------- SCHEMA ----------------------------------
+%% State about a ship is stored as one list, to cut down on storage.
+%% The class of a ship is 
+%%
+%% state = [ PositionX PositionY Heading Speed DestX DestY Class Energy
+%%   	     Crystals Shields [S1 S2 S3 S4] Ammo Damage Helm Throttle ]
+
+%%------------------------------ IMPLEMENTATION ------------------------------
+
+($Attacker hits $Target with $Units)
+        (angle from $Target to $Attacker into $Angle)
+	(hit $Target from angle $Angle with $Units)
+
+(hit $Target from angle $Angle with $Units)
+        (direction for $Angle into $Direction)
+        (hit $Target from $Direction with $Units)
+
+%% Damage rubric:
+%%   * hit facing shield first
+%%   * with remainder, deduct from energy, possibly damaging one system
+%%   * with remainder, wreck ship, possibly destroying it
+
+(hit $Target from $Direction with $Units)
+	($Target shields $StartingShields)
+	(if) ($Units > $StartingShields) (then)
+		(decrease shields for $Target by $StartingShields)
+		($Units minus $StartingShields into $Damage)
+		(decrease energy for $Target by $Damage)
+	(else)
+		(decrease shields for $Target by $Units)
+	(endif)
+

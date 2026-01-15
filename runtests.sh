@@ -53,13 +53,13 @@ TEST="arc"
 
 check_return
 
-#TEST="damage"
-#
-#(dgdebug -q damage-tests.dg damage.dg schema.dg sectored-grid.dg \
-#	    testrunner.dg stdlib.dg \
-#     | grep 'tests passed successfully')
-#
-#check_return
+TEST="damage"
+
+(dgdebug -q damage-tests.dg damage.dg schema.dg sectored-grid.dg \
+	    testrunner.dg stdlib.dg \
+     | grep 'tests passed successfully')
+
+check_return
 
 echo '  *** All tests passed. ***' &&
 exit 0

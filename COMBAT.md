@@ -34,6 +34,9 @@ Energy that exceeds the amount absorbed by the facing shield hits the *structura
 
 Energy that exceeds the remaining contents of the ship's main power bus will *wreck* the ship. Wrecked ships have one system permanently destroyed per 25 points of damage that they take, and will show up on other units' sensors as venting atmosphere. If the ship that the PC is aboard is wrecked, various rooms in the ship's map will become inaccessible, or dangerous to traverse, and the PC will be killed if they're in a compartment destroyed in this way. Wreck damage that hits the ship's main reactor will cause the ship to *explode.*
 
+## Internal Damage
+Once a target's shields have been exceeded, 
+
 ## Energy Projectors
 The basic offensive weapon mounted by most ships is the *energy projector*, similar to lasers and phasers from other science fiction settings. Energy 
 
@@ -41,3 +44,4 @@ The basic offensive weapon mounted by most ships is the *energy projector*, simi
 Quellan ships, starting with the Q6, mount the A-drive depolarizer as their main weapon. 
 
 ## Missiles and Torpedoes
+Torpedoes are hypervelocity missiles that arrive at their target too quickly for point defense systems to shoot them down. Both 

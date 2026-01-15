@@ -69,6 +69,8 @@
 
 (interface (set destination for $<Ship to $<SX $<SY $<X $<Y))
 
+(interface (set destination for $<Ship to $<SX $<SY $<X $<Y $<PX $<PY))
+
 (interface (set helm for $<Ship to $<Setting))
 
 (interface (set throttle for $<Ship to speed $<Setting))

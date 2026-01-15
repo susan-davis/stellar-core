@@ -97,8 +97,15 @@ The Quellan rank system spans both military and civil society. Indeed, the conce
 
 The Quellans lack the distinction between "enlisted" and "officer" found in human military organizations. Rank 1 could be said to roughly correspond to the responsibilities of junior enlisted, rank 2 to NCOs, rank 3 to junior officers, and so forth, but there is no barrier to advancement from rank 2 to rank 3, and no separate recruiting pipeline that moves trainees from a cadet status to rank 3. 
 
-Quellan ranks are divided into sub-ranks, each with its own
-modifier prefix. Sub-rank 1 takes the prefix "Second", sub-rank 2 takes no prefix, sub-rank 3 takes the prefix "Senior", and sub-rank 4 takes the prefix "Grand." ("Second Supreme" and "Supreme" are sub-ranks 5 and 6 respectively, but are restricted in the number of Quellans who can hold that sub-rank.) There is also a training sub-rank 0, which takes the prefix "Third." Generally, the "Second" sub-rank is used for second-in-command figures at each command level, and is the entry level rank for individual contributors at each level.
+Quellan ranks are divided into sub-ranks, each with its own modifier prefix. 
+
+- Training sub-rank 0: Third
+- Sub-rank 1: Second
+- Sub-rank 2: no prefix; "First" when needed to distinguish the holder from Seconds and Thirds
+- Sub-rank 3: Senior
+- Sub-rank 4: Grand (highest sub-rank without selection to a limited number of slots)
+- Sub-rank 5: Second Supreme (very restricted numbers)
+- Sub-rank 6: Supreme (unique per level of organization)
 
 Sub-ranks have a second function: they qualify Quellans for membership in the Senior Council, Grand Council, and Supreme Council, respectively. These councils advise senior leadership at various levels of the empire, and confer additional social status. Promotion to "Second" of a higher rank requires a Quellan to forgo their council membership earned from their lower rank, and many Quellans decline promotion for this reason. That has the effect of creating a whole stratum of Grand Warriors and Grand Leaders in the Quellan military, equivalent to long-service career NCOs from other galactic powers.
 
@@ -116,12 +123,17 @@ Quellans are trained from birth into the Quellan rank system, and young Quellans
 - *Q6*-class cruiser ("Victory II")
 - *Q7*-class cruiser ("Victory III")
 - *Q8*-class battlecruiser ("Vengeance")
-- *Q10*-class pocket battleship ("Glory")
+- *Q9*-class heavy battlecruiser ("Glory I")
+- *Q10*-class pocket battleship ("Glory II")
 - *Q11*-class attack ship ("Attack III")
 - *Q12*-class scout ("Ambush II")
 - *Q13*-class battleship ("Emperor")
 
-The Union has detected only up to Q8 at the start of the series, with Player's encounter with Q8 #1 the Union's first encounter with that class. Later vessels are new construction with improved technology from Quellan espionage efforts, and will be introduced piecemeal as the series progresses. Early Q8s were designed "for but not with" Tiberian-style cloaking; when the whole class has them installed, it comes as a complete surprise to the Union. Current Union tatical doctrine was developed with knowledge only up to the Q6, and hasn't had significant update for the Q7. 
+The Union has detected only up to Q8 at the start of the series, with Player's encounter with Q8 #1 the Union's first encounter with that class. Later vessels (other than the Q9) are new construction with improved technology from Quellan espionage efforts, and will be introduced piecemeal as the series progresses. Early Q8s were designed "for but not with" Tiberian-style subspace entry generators (cloaking devices); when the whole class has them installed, it comes as a complete surprise to the Union. Current Union tatical doctrine was developed with knowledge only up to the Q6, and hasn't had significant update for the Q7.
+
+The Union mistakenly applies the Q5 label to two different classes of invasion transport, the original one with a heavy complement of landing shuttles, and an upgraded version with Q6-standard sensors, A-drive depolarizers, and matter tranmission devices. The Q6, with its ample barracks space on board, can land nearly as many troops as the original Q5; the later version carries a larger troop complement since hangar space could be converted to barracks.
+
+The Q9 is a largely unsuccessful attempt at a heavier ship than the Q7, with a unique three-emitter A-drive design. The third emitter gives the ship redundancy against battle damage, and allows the installation of a third depolarizer battery to increase the ship's firepower. At least one Q9 is being refitted to install the Q8's heavy torpedo launcher in the forward sensor pod; the thicker boom and greater space on the Q9 fixes the D8's ammunition feed limits.
 
 ### The Tiberian Public Sector
 The Tiberians occupy space fairly far from the Quellan and Regulan frontiers, and 
