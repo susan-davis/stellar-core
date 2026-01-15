@@ -47,6 +47,10 @@
 	#increase-element-beyond-max
 	#decrease-element
 	#decrease-element-below-zero
+	#max-different
+	#max-same
+	#min-different
+	#min-same
 	#set-destination
 	#set-destination-subsector
 	#set-destination-precisely
@@ -245,6 +249,20 @@
 
 (test #decrease-element-below-zero)
 	~(decrease element 3 in [1 2 3 4 5] by 4 into $)
+
+(test #max-different)
+	(max 2 and 3 into 3)
+	(max 3 and 2 into 3)
+
+(test #max-same)
+	(max 2 and 2 into 2)
+
+(test #min-different)
+	(min 2 and 3 into 2)
+	(min 3 and 2 into 2)
+
+(test #min-same)
+	(min 2 and 2 into 2)
 
 (test #set-destination)
 	(position for 4 5 6 7 into $Position)

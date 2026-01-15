@@ -116,7 +116,11 @@
 
 (interface (increase element $<N in $<List by $<Num into $>NewList))
 
-(interface (increase element $<N in $<List by $<Num into $>NewList with max $<Max))
+(interface (increase element $<N in $<List by $<Num into $>New with max $<Max))
+
+(interface (max $<X and $<Y into $>Max))
+
+(interface (min $<X and $<Y into $>Min))
 
 %%------------------------------ IMPLEMENTATION ------------------------------
 
