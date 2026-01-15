@@ -4,6 +4,8 @@
 (list of tests [
       #shields-hold-from-ahead-50
       #shields-penetrated-from-ahead-101
+      #shields-hold-from-port-50
+      #shields-penetrated-from-port-101
       ])
 
 %% ----------------------------------------------------------------------
@@ -58,6 +60,14 @@
 
 (test #shields-penetrated-from-ahead-101)
       (hit #closest-target from #north with 101)
-      (show #closest-target state)
       (assert #closest-target has 150 and 499)
+
+(test #shields-hold-from-port-50)
+      (hit #closest-target from #west with 50)
+      (assert #closest-target has 200 and 500)
+
+(test #shields-penetrated-from-port-101)
+      (hit #closest-target from #west with 101)
+      (show #closest-target state)
+      (assert #closest-target has 200 and 449)
 
