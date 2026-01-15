@@ -37,6 +37,8 @@
 
 (interface ($<Ship shield levels $>Levels))
 
+(interface ($<Ship shield level $<Direction into $>Level))
+
 (interface ($<Ship ammo $>Ammo))
 
 (interface ($<Ship damage $>Damage))
@@ -258,6 +260,18 @@
 (class $Ship)
 	($Ship class $Class)
 	(name $Class) (no space) -class (type $Class)
+
+($Ship shield level $Direction into $Level)
+	($Ship shield levels $Levels)
+	(if) ($Direction = #east) (then)
+		(nth $Levels 2 $Level)
+	(elseif) ($Direction = #south) (then)
+		(nth $Levels 3 $Level)
+	(elseif) ($Direction = #west) (then)
+		(nth $Levels 4 $Level)
+	(else)
+		(nth $Levels 1 $Level)
+	(endif)
 
 %% useful helper routines
 

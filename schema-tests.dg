@@ -10,6 +10,10 @@
 	#crystals
 	#shields
 	#shield-levels
+	#shield-level-north
+	#shield-level-east
+	#shield-level-south
+	#shield-level-west
 	#ammo
 	#damage
 	#helm
@@ -71,7 +75,7 @@
 #test-ship
 (grid object *)
 (initial state [344 454 315 400 300 400 #cygnus-class
-		932 4 500 [100 100 100 100] 10 315 400])
+		932 4 500 [100 99 98 97] 10 315 400])
 
 (set up $)  	(initial state $State)
 		(now) (* state is $State)
@@ -79,7 +83,7 @@
 #cygnus-class
 (name *)	Cygnus
 (type *)	scout ship
-(* state is [0 0 180 0 500 963 #cygnus-class 1000 4 500 [100 100 100 100] 10])
+(* state is [0 0 180 0 500 963 #cygnus-class 1000 4 500 [100 99 98 97] 10])
 
 %% ----------------------------------------------------------------------
 
@@ -105,7 +109,19 @@
 	(#test-ship shields 500)
 
 (test #shield-levels)
-	(#test-ship shield levels [100 100 100 100])
+	(#test-ship shield levels [100 99 98 97])
+
+(test #shield-level-north)
+	(#test-ship shield level #north into 100)
+
+(test #shield-level-east)
+	(#test-ship shield level #east into 99)
+
+(test #shield-level-south)
+	(#test-ship shield level #south into 98)
+
+(test #shield-level-west)
+	(#test-ship shield level #west into 97)
 
 (test #ammo)
 	(#test-ship ammo 10)
@@ -169,7 +185,7 @@
 	(#test-ship energy 1000)
 	(#test-ship crystals 4)
 	(#test-ship shields 500)
-	(#test-ship shield levels [100 100 100 100])
+	(#test-ship shield levels [100 99 98 97])
 	(#test-ship ammo 10)
 	(#test-ship damage [])
 	(#test-ship helm setting 0)
