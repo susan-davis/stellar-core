@@ -10,9 +10,7 @@
 
 (interface (hit $<Ship from $<Direction with $<Units))
 
-(interface (hit $<Ship from everywhere with $<Units))
-
-(interface ($<Ship explodes))
+(interface (destroy $<Ship))
 
 (interface (explosion of $<Units in $<SX $<SY $<X $<Y $<PX $<PY))
 

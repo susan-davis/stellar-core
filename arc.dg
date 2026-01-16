@@ -1,5 +1,5 @@
 %% arc.dg
-%% Include sectored-grid.dg and utils.dg when compiling or debugging
+%% Include utils.dg when compiling or debugging
 
 %%-------------------------------- INTERFACES --------------------------------
 

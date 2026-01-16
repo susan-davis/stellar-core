@@ -86,14 +86,14 @@ The Quellans are an expansionist empire of Proud Warrior Race Guys. The Quellan 
 The Quellans are strongly religious, and have an honour culture based on family and tribal loyalty bonds. The Empire, an authoritarian to totalitarian social structure that arose 
 
 #### Quellan Ranks
-The Quellan rank system spans both military and civil society. Indeed, the concept of a strict division between the two is foreign to Quellan culture.
+The Quellan rank system spans both military and civil society. Indeed, the concept of a strict division between the two is foreign to Quellan culture. They have a unique two-dimensional rank structure, which makes Quellan ranks seem confusing to non-Quellans.
 
 - Rank 1: Warrior, Herder, Healer, Smith, Hand Weapon
 - Rank 2: Leader, Herd Keeper, Ear
 - Rank 3: Raid Leader, Crew Leader, Eye
 - Rank 4: Battle Leader, Ship Leader, Tribe Leader, Fortress Keeper, Hand
 - Rank 5: War Leader, Horde Leader, Mouth
-- Rank 6: reserved for members of the Imperial Family
+- Rank 6: assorted titles, reserved for members of the Imperial Family
 
 The Quellans lack the distinction between "enlisted" and "officer" found in human military organizations. Rank 1 could be said to roughly correspond to the responsibilities of junior enlisted, rank 2 to NCOs, rank 3 to junior officers, and so forth, but there is no barrier to advancement from rank 2 to rank 3, and no separate recruiting pipeline that moves trainees from a cadet status to rank 3. 
 
@@ -103,11 +103,11 @@ Quellan ranks are divided into sub-ranks, each with its own modifier prefix.
 - Sub-rank 1: Second
 - Sub-rank 2: no prefix; "First" when needed to distinguish the holder from Seconds and Thirds
 - Sub-rank 3: Senior
-- Sub-rank 4: Grand (highest sub-rank without selection to a limited number of slots)
-- Sub-rank 5: Second Supreme (very restricted numbers)
-- Sub-rank 6: Supreme (unique per level of organization)
+- Sub-rank 4: Prime
+- Sub-rank 5: Grand (highest sub-rank without selection to a limited number of slots)
+- Sub-rank 6: Third Supreme, Second Supreme, and Supreme (only one each per unit of organization)
 
-Sub-ranks have a second function: they qualify Quellans for membership in the Senior Council, Grand Council, and Supreme Council, respectively. These councils advise senior leadership at various levels of the empire, and confer additional social status. Promotion to "Second" of a higher rank requires a Quellan to forgo their council membership earned from their lower rank, and many Quellans decline promotion for this reason. That has the effect of creating a whole stratum of Grand Warriors and Grand Leaders in the Quellan military, equivalent to long-service career NCOs from other galactic powers.
+Sub-ranks have a second function: they qualify Quellans for membership in the Senior Council, Prime Council, Grand Council, and Supreme Council, respectively. These councils advise senior leadership at various levels of the empire, and confer additional social status. Promotion to "Second" of a higher rank requires a Quellan to forgo their council membership earned from their lower rank, and many Quellans decline promotion for this reason. That has the effect of creating a whole stratum of Grand Warriors and Grand Leaders in the Quellan military, equivalent to long-service career NCOs from other galactic powers.
 
 "Hand Weapon," "Ear," "Eye," "Hand," and "Mouth" are special religious ranks, whose holders act in both religious and police functions. The ranks always refer to a specific Quellan deity, generally either Quelil or Qvortalan, but occasionally to a minor deity, or a mythological hero such as Gronkadonk. (TBD: is Eye R3 and Hand R4, or is it the other
 way around?)
