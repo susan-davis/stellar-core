@@ -10,22 +10,25 @@ Common functionality for *Stellar Union* games. This project contains all the in
 
 `sensors.dg` -- implements short and long range sensors, and the quadrant map, along the lines of the classic STARTREK game from the 1970s
 
-`time.dg` -- implements time, timekeeping, formatted output, and related functions
+`arc.dg` -- implements firing and shield arcs
+
+`damage.dg` -- implements the damage model for ships
 
 `cygnus.dg` -- the interior of a *Cygnus*-class scout ship, with controls hooked up to the other modules
 
-`yagni.dg` -- miscellaneous code that turned out not to be needed, squirreled away in case it's needed later
+`union-ship.dg` -- traits and scenery and sound effects common to all Stellar Union ships and bases
+
+`time.dg` -- implements time, timekeeping, formatted output, and related functions
+
+`utils.dg` -- miscellaneous utility routines not included in `stdlib.dg`
 
 `stdlib.dg` -- the Dialog standard library, not included in source control; get this from the Dialog distribution
+
+`testrunner.dg` -- runs unit tests
+
+`runtests.sh` -- shell script to run all the project's unit tests
 
 ## Building and Testing
 Testing is with `testrunner.dg`. Test files end in `-tests.dg`, and test the related file indicated by the beginning of the filename. The comments at the top give the command line needed to run the tests.
 
-A `runtests.sh` script is in development, and will eventually be useful for running all tests, and for plugging in to a CI/CD pipeline.
-
 Build instructions to follow when development is far enough to have integration tests that can be built into Z-machine and `.aastory` files.
-
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbMTAxNzczOTQwMSwtNjY4ODY5MzAzLC04OD
-gyODY0MF19
--->
