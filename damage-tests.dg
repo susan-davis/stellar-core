@@ -70,4 +70,3 @@
       (hit #closest-target from #west with 101)
       (show #closest-target state)
       (assert #closest-target has 200 and 449)
-

@@ -2,6 +2,8 @@
 %% Also include schema.dg, sectored-grid.dg, and utils.dg when compiling
 %% or debugging.
 
+(extension version)	Ship damage v0.1 by Susan Davis
+
 %%-------------------------------- INTERFACES --------------------------------
 
 (interface ($<Attacker hits $<Target with $<Units))
@@ -11,10 +13,6 @@
 (interface (hit $<Ship from $<Direction with $<Units))
 
 (interface (destroy $<Ship))
-
-(interface (explosion of $<Units in $<SX $<SY $<X $<Y $<PX $<PY))
-
-(interface (explosion of $<Units at $<Position))
 
 %%---------------------------------- SCHEMA ----------------------------------
 %% State about a ship is stored as one list, to cut down on storage.
@@ -49,4 +47,3 @@
 	(else)
 		(decrease shields for $Target by $Units)
 	(endif)
-
