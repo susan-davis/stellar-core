@@ -201,7 +201,7 @@ Stellar Command ranks  reflect a mixture of human, Galdorite, and Kwom tradition
 - E2: Able Crewmember (AC)
 - E3: Leading Crewmember (LC)
 - E4: Chief Crewmember of the Fleet (CCF) (one per fleet)
-- E5: Cheif Crewmember of the Union (CCU) (unique)
+- E5: Chief Crewmember of the Union (CCU) (unique)
 - W0: Cadet (CDT)
 - W1: Warrant Officer (WO)
 - W2: Chief Warrant Officer (CWO)
