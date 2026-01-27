@@ -6,3 +6,4 @@ stddebug.dg
 *.aastory
 nohup.out
 #*#
+error-log.txt
