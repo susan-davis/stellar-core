@@ -50,6 +50,8 @@ When a Regulan diplomat is found murdered aboard the *Eridanus*, Player and the 
 
 **Hidden Bad Ending:** Murder pinned on wrong party; diplomatic complications ensue that derail episode 203.
 
+**Hidden Bad Ending:** Player caves, and Kalbar is transferred, losing him for a number of critical moments later in the series.
+
 **Fair Ending:** Murderer caught, but Quellan connection hidden.
 
 **Good Ending:** Murderer caught, Quellan connection uncovered.
@@ -63,6 +65,11 @@ When a Regulan diplomat is found murdered aboard the *Eridanus*, Player and the 
 LCR Player is court-martialled for the loss of SUS *Argo*. (Faces a review board?) Flashbacks to Player attending SUS *Punisher*, and a post-solution mode for the player to just play Trek.  Gives a series of flashbacks from the courtroom to the battle, from a number of POVs. Introduces limited perspective switching. The battle is a hard tactical problem for the player to solve, and might need episode 100 to be available.
 
 NOTE: Move this later in the season? More technically demanding than 105, 106, and maybe 104. This needs to happen fairly early to be plausible; Flag Officer Kwomnu's vendetta gives a bit more wiggle room, though. Was originally 102.
+
+- *Who's the viewpoint character?* Original idea: Player. New idea: the JAG taking the case, switching to whoever's on the stand in flashbacks.
+- *Do we start with the court martial, with the JAG getting the case, or with the* Eridanus *docking with the starbase?*
+- *How does a crippled* Argo *class cruiser beat a shiny new Q8?*
+- *Is there a Fred MacMurray character to throw Player under the bus?*
 
 **Bad Ending:** Convicted.
 	
@@ -292,7 +299,6 @@ Another "sandbox" episode, but with the *Odysseus*. Not confined to a single qua
 
 ## Want To Fit In
 
-- Kwom parent objects to child choosing service; Player must side one way or the other. Supporting the crewmember worsens things with the Kwom; supporting the parent worsens morale and loses the best crew performance in that billet, with the replacement being the worst.
 - Kwom coup d'etat, linked to Harmony, simultaneous with outer colony unrest. Who's behind it?
 - Player and Kaur end up on opposite sides of the Union/Alliance split, to put a viewpoint inside the Alliance.
 - Things get worse with the Quellans (Chekov's hand weapon). They go to war with the Regulans, and the war gets worse.
