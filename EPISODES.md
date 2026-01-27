@@ -36,6 +36,14 @@ Episodes run in a fixed order, unlike *Nikolai Grozny*. Each episode has multipl
 
 When a Regulan diplomat is found murdered aboard the *Eridanus*, Player and the crew must solve the case before it becomes an interstellar incident. Straight-up murder mystery. Lots of NPCs to converse with. Bottle show. In a B-plot, Flag Officer Kwomben is unhappy with Kalbar's role on the *Eridanus*, and will take it out on the PC if they stick up for them.
 
+- *Whodunnit?*
+- *How'd they do it?*
+- *Why'd they do it?* 
+- *Who else looks guilty?* 
+- *How many red herrings can we plant?* 
+- *How does the Kwomben family plot get triggered?* 
+- *Where are the Regulans housed?* Original idea: use the simulator to make diplomatic quarters for them.
+
 **The End:** Murderer kills PC or destroys ship.
 
 **Bad Ending:** Murderer escapes.
@@ -52,7 +60,7 @@ When a Regulan diplomat is found murdered aboard the *Eridanus*, Player and the 
 
 ### 103:	*The Ringing Plains of Windy Troy*
 
-LCR Player is court-martialled for the loss of SUS *Argo Navis*. (Faces a review board?) Flashbacks to Player attending SUS *Punisher*, and a post-solution mode for the player to just play Trek.  Gives a series of flashbacks from the courtroom to the battle, from a number of POVs. Introduces perspective switching. The battle is a hard tactical problem for the player to solve. 
+LCR Player is court-martialled for the loss of SUS *Argo*. (Faces a review board?) Flashbacks to Player attending SUS *Punisher*, and a post-solution mode for the player to just play Trek.  Gives a series of flashbacks from the courtroom to the battle, from a number of POVs. Introduces limited perspective switching. The battle is a hard tactical problem for the player to solve, and might need episode 100 to be available.
 
 NOTE: Move this later in the season? More technically demanding than 105, 106, and maybe 104. This needs to happen fairly early to be plausible; Flag Officer Kwomnu's vendetta gives a bit more wiggle room, though. Was originally 102.
 
