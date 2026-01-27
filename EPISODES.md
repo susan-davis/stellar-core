@@ -10,13 +10,13 @@ Episodes run in a fixed order, unlike *Nikolai Grozny*. Each episode has multipl
 
 - *What is the nature of the Negative Space Wedgie?* It's an improperly formed hyperspace entry. The prototype entry generator on *Delphinus* is stuck in a loop, creating nested entries inside each other, with profoundly negative consequences for the structure of spacetime in the immediate area.
 - *What caused the Negative Space Wedgie?* DefCom is trying to reverse engineer the Tiberian Raptor, and pressed one of ExCom's shiny new fast scouts into service. But there are design flaws in the Union copy of the Tiberian entry device, and it isn't calibrated properly. And it's stuck on "full blast," and in an infinite loop.
-- *What's the danger to* Delphinus?
-- *What's the danger to* Eridanus?
-- *What's the danger to personnel in the transition zone?* 
-- *Where's the crew, and how do we get them back?* 
-- *How do we fix the ship?* 
-- *How do we fix the Negative Space Wedgie?*
-- *How do we keep this from happening again?* 
+- *What's the danger to* Delphinus? The circuit powering the hyperspace entry emitter is fused open, and it's draining the ship's power. When the power expires, the opening will close, leaving the *Delphinus* in hyperspace.
+- *What's the danger to* Eridanus? Depends on whether they maneuver into the entry zone or not.
+- *What's the danger to personnel in the transition zone?* Anyone not in an EVA suit is susceptible to the neurological effects of the broken hyper entry generator.
+- *Where's the crew, and how do we get them back?* Original idea: the crew beamed themselves into the MTD anchor and/or abandoned ship. New idea: they're unconscious due to the effects of the Negative Space Wedgie. Alert, responsive crew can make the engineering solution too easy, but there need to be crew to treat for any of the life sciences people to be useful boarding party members.
+- *How do we fix the ship?* Shut down the hyperspace entry generator.
+- *How do we fix the Negative Space Wedgie?* Get the ships out of the entry, and shut down the generator.
+- *How do we keep this from happening again?* Revive the crew and salvage the *Delphinus*.
 
 **The End:** PC dies, or ship PC is on vanishes for good.
 
@@ -32,27 +32,9 @@ Episodes run in a fixed order, unlike *Nikolai Grozny*. Each episode has multipl
 
 **Development Opportunities:** On good or best ending, increment the other members of the boarding party. Development is through the main plot, not a B-plot. On bad ending, decrement Kaur, Adamu, and boarding party members.
 
-### 102:	*The Ringing Plains of Windy Troy*
+### 102:	*That Eternal Silence*
 
-LCR Player is court-martialled for the loss of SUS *Argo Navis*. (Faces a review board?) Flashbacks to Player attending SUS *Punisher*, and a post-solution mode for the player to just play Trek.  Gives a series of flashbacks from the courtroom to the battle, from a number of POVs. Introduces perspective switching. The battle is a hard tactical problem for the player to solve. 
-
-NOTE: Move this later in the season? More technically demanding than 103, 105, and maybe 104. But this needs to happen as early as possible in Player's command.
-
-**Bad Ending:** Convicted.
-	
-**Bad Ending:** Relieved of command.
-
-**Fair Ending:** Letter of reprimand; wrong account is accepted, and lesson about Q8 not learned by the Fleet.
-
-**Good Ending:** Cleared.
-
-**Best Ending:** Cleared, and got top marks in The Punisher.
-
-**Development Opportunity:** Maybe Kaur helps get Player cleared, and levels up for succeeding?
-
-### 103:	*That Eternal Silence*
-
-When a Regulan diplomat is found murdered aboard the *Eridanus*, Player and the crew must solve the case before it becomes an interstellar incident. Straight-up murder mystery. Lots of NPCs to converse with. Bottle show. (Include the Kwom B-plot in this one?)
+When a Regulan diplomat is found murdered aboard the *Eridanus*, Player and the crew must solve the case before it becomes an interstellar incident. Straight-up murder mystery. Lots of NPCs to converse with. Bottle show. In a B-plot, Flag Officer Kwomben is unhappy with Kalbar's role on the *Eridanus*, and will take it out on the PC if they stick up for them.
 
 **The End:** Murderer kills PC or destroys ship.
 
@@ -67,6 +49,24 @@ When a Regulan diplomat is found murdered aboard the *Eridanus*, Player and the 
 **Best Ending:** Good ending, and won respect of Regulans.
 
 **Development Opportunities:** 
+
+### 103:	*The Ringing Plains of Windy Troy*
+
+LCR Player is court-martialled for the loss of SUS *Argo Navis*. (Faces a review board?) Flashbacks to Player attending SUS *Punisher*, and a post-solution mode for the player to just play Trek.  Gives a series of flashbacks from the courtroom to the battle, from a number of POVs. Introduces perspective switching. The battle is a hard tactical problem for the player to solve. 
+
+NOTE: Move this later in the season? More technically demanding than 105, 106, and maybe 104. This needs to happen fairly early to be plausible; Flag Officer Kwomnu's vendetta gives a bit more wiggle room, though. Was originally 102.
+
+**Bad Ending:** Convicted.
+	
+**Bad Ending:** Relieved of command.
+
+**Fair Ending:** Letter of reprimand; wrong account is accepted, and lesson about Q8 not learned by the Fleet.
+
+**Good Ending:** Cleared.
+
+**Best Ending:** Cleared, and got top marks in The Punisher.
+
+**Development Opportunity:** Maybe Kaur helps get Player cleared, and levels up for succeeding?
 
 ### 104:	*Free Hearts, Free Foreheads*
 
