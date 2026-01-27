@@ -1,5 +1,5 @@
 %% union-ship.dg
-%% common properties of Stellar Union ships
+%% common properties of Stellar Union ships and bases
 
 (dict #north)	forward fwd
 (dict #south)	aft
@@ -42,10 +42,14 @@
 #sliding-door
 (name *)	sliding door
 (descr *)	The sliding door to the next compartment is a slightly darker
-       		shade of regulation beige. 
+       		shade of regulation beige.
 ((compartment $) attracts *)
 
 (compartment *(passageway $))
+
+(compartment *(head $))
+(room header (head $))	Head
+(look (head $))	   		This is a one-person head with a sink and a toilet.
 
 (compartment *(airlock $))
 
@@ -53,6 +57,10 @@
 (lockable *(airlock-door $))
 
 (compartment *(stateroom $))
+
+(compartment *(rapidlift $))
+
+(door *(lift-door $))
 
 (onboard *(maintenance-access $))
 
@@ -62,7 +70,6 @@
        		     		the bulkhead here, labeled "(read $panel)".
 (perform [read (access-panel $panel)])	  (descr $panel) (notice $panel)
 
-
 (room *(on-hull $))
 
 #hull
@@ -71,4 +78,3 @@
        		Command grey. The hull is lightly pitted from micrometeoroid
 		impacts.
 ((on-hull $) attracts *)
-

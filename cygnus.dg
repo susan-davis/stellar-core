@@ -1,6 +1,6 @@
 %% cygnus.dg
 %% Cygnus-class fast scouts
-%% (require union-ship.dg)
+%% Also include union-ship.dg when compiling or debugging.
 
 %% -------------------- BRIDGE --------------------
 
@@ -84,7 +84,7 @@
 (singleton *)
 (descr *)	(if) (current ship #delphinus) (then)
 			SUS (italic) Delphinus (roman) \(SF-384\) (line)
-			Built by Phobos Orbital Constructors (line)
+			Built by Scientific Vessels of Galdor (line)
 			Laid down September 3, 2267 (line)
 			Launched July 25, 2268 (line)
 			Commissioned February 24, 2269 (par)
@@ -93,7 +93,7 @@
 			(line) (space 4) -- Jacques-Yves Cousteau
 		(elseif) (current ship #pyxis) (then)
 			SUS (italic) Pyxis (roman) \(SF-391\) (line)
-			Built by Scientific Vessels of Galdor (line)
+			Built by Phobos Orbital Constructors (line)
 			Laid down February 24, 2269 (line)
 			Launched September 30, 2269 (line)
 			Commissioned June 1, 2270 (par)
@@ -106,7 +106,7 @@
 			Launched March 24, 2268 (line)
 			Commissioned January 12, 2269 (par)
 			"Time is a river which carries me along, but I
-			am the river." 
+			am the river."
 			(line) (space 4) -- Jorge Luis Borges
 		(endif)
 (* is #in #bridge)
@@ -120,8 +120,8 @@
 (room header *)	Deck 1 Amidships
 (look *)	The Rapidlift landing on this deck is flanked on both sides by
       		vacc suit lockers, and there are airlocks to starboard and to
-		port. A set of double doors leads forward to the Bridge. Next
-		to the Rapidlift is a sliding door leading aft.
+		    port. A set of double doors leads forward to the Bridge. Next
+		    to the Rapidlift is a sliding door leading aft.
 (from * go #north to #bridge)
 (from * go #west through #port-airlock-inner-door to #port-airlock)
 (from * go #east through #starboard-airlock-inner-door to #starboard-airlock)
@@ -183,11 +183,10 @@
 %% up to dorsal docking hatch, implement later
 
 #upper-head
-(compartment *)
+(head *)
 (name *)	Upper Head
 (room header *)	Head
-(look *)	You're in a small one-person head with a toilet and a sink.
-      		The exit is to starboard.
+(look *)	The exit is to starboard.
 (from * go #west to #upper-passageway)
 (from * go #out to #west)
 
@@ -229,11 +228,10 @@
 (from * go #out to #day-cabin)
 
 #captains-head
-(compartment *)
+(head *)
 (name *)	Captain's Head
 (room header *)	Head
-(look *)     	You're in a one-person head with a sink and a toilet. The exit
-      		is aft.
+(look *)    The exit is aft.
 (from * go #south to #day-cabin)
 (from * go #southwest to #south)
 (from * go #out to #south)
@@ -258,11 +256,9 @@
 (from * go #southeast to #central-head)
 
 #central-head
-(compartment *)
+(head *)
 (name *)	Central Head
-(room header *)	Head
-(look *)     	You're in a one-person head with a sink and a toilet. The exit
-      		is to port.
+(look *)    The exit is to port.
 (from * go #west to #computer-core)
 (from * go #northwest to #west)
 (from * go #out to #west)
@@ -296,9 +292,8 @@
 (from * go #north to #northeast)
 
 #wardroom-storage-panel
-(door *)
-(name *)	maintenance panel
-(descr *)	There is a maintenance access panel in the forward bulkhead.
+(access-panel *)
+(label *)	Storage
 
 #wardroom-storage
 (compartment *)
@@ -355,9 +350,8 @@
 (from * go #east through #port-shield-panel to #port-passageway)
 
 #port-shield-panel
-(door *)
-(name *)	panel
-(descr *)	Write me!
+(access-panel *)
+(label *)	Shield Maintenance
 
 #port-forward
 (passageway *)
@@ -390,9 +384,8 @@
 (from * go #west through #starboard-shield-panel to #starboard-passageway)
 
 #starboard-shield-panel
-(door *)
-(name *)	panel
-(descr *)	Write me!
+(access-panel *)
+(label *)	  Shield Access
 
 #starboard-forward
 (passageway *)
@@ -446,9 +439,8 @@
 (from * go #out to #northwest)
 
 #starboard-head
-(compartment *)
+(head *)
 (name *)	Starboard Head
-(room header *)	Head
 (look *)	Write me!
 (from * go #northeast to #starboard-forward)
 (from * go #east to #starboard-forward)
@@ -552,9 +544,8 @@
 (from * go #south through #forward-shield-panel to #boarding-ramp)
 
 #forward-shield-panel
-(door *)
-(name *)	panel
-(descr *)	Write me!
+(access-panel *)
+(label *) 	  Shield Access
 
 #on-ramp
 (room *)
@@ -601,7 +592,7 @@
 (from * go #north through #matt-2-3-panel to #matt-2-3)
 
 #sick-bay-head
-(compartment *)
+(head *)
 (name *)	Sick Bay Head
 (look *)	Write me!
 (from * go #east to #sick-bay)
@@ -933,4 +924,3 @@
 (from * go #west to #matt-3-2)
 
 %% -------------------- Hull exterior --------------------
-

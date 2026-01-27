@@ -105,12 +105,15 @@
 (mon for 11)	Nov
 (mon for 12)	Dec
 
+(timezone letter)	Z	%% override for a different time zone
+
 (nato time)
 	($H hours $M minutes)
 	(current date [$D $Month $Y])
 	(leading zero $D) (no space)
 	(leading zero $H) (no space)
-	(leading zero $M) 
+	(leading zero $M) (no space)
+	(timezone letter)
 	(mon for $Month)
 	($Y modulo 100 into $YY)
 	(leading zero $YY)
@@ -138,7 +141,7 @@
 %% hook for handling elapsing past the end of a month, and having to care
 %% about calendars and leap years; by default, we don't bother with this,
 %% to save game size
-(normalize date) 
+(normalize date)
 
 (elapse $Num minutes)
 	(current time $Time)

@@ -1,5 +1,7 @@
 %% dgdebug -q time-tests.dg time.dg testrunner.dg stdlib.dg
 
+%% Here's a worked example of some unit tests for a Dialog extension.
+
 (list of tests [
 	#hours-minutes
 	#hours-minutes-zero
@@ -28,7 +30,7 @@
 	#elapse-8-minutes
 	#elapse-9-minutes
 	#elapse-60-minutes
-	#elapse-720-minutes
+	#elapse-360-minutes
 	#elapse-past-midnight
 	#elapse-multiple-days
 	#elapse-4-hours
@@ -39,15 +41,15 @@
 	#elapse-12-days
 	])
 
-(current time 531)
+(current time 891)
 
 (current date [12 1 1969])
 
-(clean up $)	(set time [531 12 1 1969])
+(clean up $)	(set time [891 12 1 1969])
 		(now) (using north american dates)
 
 (test #hours-minutes)
-	(8 hours 51 minutes)
+	(14 hours 51 minutes)
 
 (test #hours-minutes-zero)
 	(now) (current time 0)
@@ -75,7 +77,7 @@
 
 (test #clock-time)
 	(collect words) (clock time) (into $Words)
-	($Words = [8 : 51 am])
+	($Words = [2 : 51 pm])
 
 (test #clock-time-midnight)
 	(now) (current time 0)
@@ -99,7 +101,7 @@
 
 (test #military-time)
 	(collect words) (military time) (into $Words)
-	($Words = [0 8 : 51])
+	($Words = [14 : 51])
 
 (test #military-time-midnight)
 	(now) (current time 0)
@@ -123,12 +125,13 @@
 
 (test #nato-time)
 	(collect words) (nato time) (into $Words)
-	($Words = [12 0 8 51 jan 69])
+	(nato time)
+	($Words = [12 14 51 Z jan 69])
 
 (test #nato-time-union)
 	(set time [750 5 3 2273])
 	(collect words) (nato time) (into $Words)
-	($Words = [0 5 12 30 mar 73])
+	($Words = [0 5 12 30 Z mar 73])
 
 (test #short-date)
 	(collect words) (short date) (into $Words)
@@ -155,47 +158,47 @@
 
 (test #elapse-8-minutes)
 	(elapse 8 minutes)
-	(8 hours 59 minutes)
+	(14 hours 59 minutes)
 
 (test #elapse-9-minutes)
 	(elapse 9 minutes)
-	(9 hours 0 minutes)
+	(15 hours 0 minutes)
 
 (test #elapse-60-minutes)
 	(elapse 60 minutes)
-	(9 hours 51 minutes)
+	(15 hours 51 minutes)
 
-(test #elapse-720-minutes)
-	(elapse 720 minutes)
+(test #elapse-360-minutes)
+	(elapse 360 minutes)
 	(20 hours 51 minutes)
 
 (test #elapse-past-midnight)
 	(elapse 1339 minutes)
-	(7 hours 10 minutes)
+	(13 hours 10 minutes)
 	(current date [13 1 1969])
 
 (test #elapse-multiple-days)
 	(elapse 4320 minutes)
-	(8 hours 51 minutes)
+	(14 hours 51 minutes)
 	(current date [15 1 1969])
 
 (test #elapse-4-hours)
 	(elapse 4 hours)
-	(12 hours 51 minutes)
+	(18 hours 51 minutes)
 
 (test #elapse-23-hours)
 	(elapse 23 hours)
-	(7 hours 51 minutes)
+	(13 hours 51 minutes)
 	(current date [13 1 1969])
 
 (test #elapse-25-hours)
 	(elapse 25 hours)
-	(9 hours 51 minutes)
+	(15 hours 51 minutes)
 	(current date [13 1 1969])
 
 (test #elapse-3-days)
 	(elapse 3 days)
-	(8 hours 51 minutes)
+	(14 hours 51 minutes)
 	(current date [15 1 1969])
 
 (test #elapse-11-days)
@@ -205,4 +208,3 @@
 (test #elapse-12-days)
 	(elapse 12 days)
 	(current date [24 1 1969])
-
