@@ -1,5 +1,5 @@
 %% testrunner.dg
-(extension version)	Unit test runner 0m/05 by Susan Davis (line)
+(extension version)	Unit test runner 1a/01 by Susan Davis (line)
 
 %% (test #foo) expr will pass if expr is true and fail if expr is false.
 %% Include #foo in the global variable (list of tests [test1 test2 ...])
@@ -12,7 +12,9 @@
 
 (interface (assert $<Var = $<Val))
 
-%%------------------------------ IMPLEMENTATION ------------------------------
+(keep running on failure) %% negate to stop at first failed test
+
+%%----------------------------- IMPLEMENTATION -----------------------------
 
 (assert $Thing1 = $Thing2) %% true if both are bound and ($Thing1 = $Thing2)
 	(fully bound $Thing1)
@@ -23,15 +25,13 @@
 
 (all tests pass)
 
-(keep running on failure) %% negate to stop at first failed test
-
 (program entry point)
 	(list of tests $Tests)
 	(length of $Tests into $Number)
 	(bold) Attempting $Number tests (roman) (line)
 	(stoppable) (exhaust) {
 		*($Test is one of $Tests)
-		Testing $Test: 
+		Testing $Test:
 		(run-test $Test)
 	}
 	(if) (all tests pass) (then)
@@ -44,7 +44,7 @@
 
 (error $Code entry point)
 	(bold) FAILED TEST -- FATAL ERROR $Code. (roman) (par)
-	(now) ~(all tests pass)  
+	(now) ~(all tests pass)
 	(quit 1)                 %% or -1 if we ever get signed integers
 
 (run-test $Test)
@@ -63,7 +63,7 @@
 %% patch for ($ contains sublist $) issues; delete when fixed
 ($List contains sublist [$Head | $Tail])
 	*(split $List by [$Head] into $ and $Rest)
-	(append $Tail $ $Rest) 
+	(append $Tail $ $Rest)
 
 %% Delete this interface and predicate if lft adds a builtin for it in
 %% dgdebug, to specify the exit status from the debugger for CI/CD pipelines
