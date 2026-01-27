@@ -1,7 +1,7 @@
 # STELLAR UNION
 ### Seasons and Episodes
 
-Episodes run in a fixed order, unlike *Nikolai Grozny*. Each episode has multiple endings, including at least one “good” ending, and usually a “best” one, and the player will get a code to enter into the next episode, for metaplot state. A “bad” ending does not generate a code, and doesn’t allow the campaign to continue. A "hidden bad" ending *does* generate a code, and the campaign can continue, but will be harder, possibly unwinnable. A “The End” is a failure termination before the end of the episode. There will generally also be opportunities to develop one or more crew members. The difficulty of the climax of Season 3, when Player must steal the Eridanus to confront Harmony, depends on how many of the crew are leveled up to +2.
+Episodes run in a fixed order, unlike *Nikolai Grozny*. Each episode has multiple endings, including at least one “good” ending, and usually a “best” one, and the player will get a code to enter into the next episode, for metaplot state. A “bad” ending does not generate a code, and doesn’t allow the campaign to continue. A "hidden bad" ending *does* generate a code, and the campaign can continue, but will be harder, possibly unwinnable. A “The End” is a failure termination before the end of the episode. There will generally also be opportunities to develop one or more crew members. The difficulty of the climax of Season 3, when Player must steal the Eridanus to confront Harmony, depends on how many of the crew are leveled up to +2. (Crew can be at 0 to +2, with -1 signalling that the original incumbent is dead.)
 
 ## Season 1: Command of *Eridanus*
 ### 101:	*That Untravelled World, Whose Margin Fades*
@@ -105,13 +105,17 @@ Receive distress signal, and respond to it. Maybe the ship weirdly claims to be 
 
 ### 105: 	*Through Scudding Drifts, the Rainy Hyades*
 	
-An ion storm threatens the Eridanus, forcing her to seek new Energon crystals from a pre-industrial planet. Fly ship into sector; storm is unavoidable. Limp under reactionless to nearest E-class planet, and land. Proceed on foot to hunt for crystals; get caught up in medieval drama with locals. 
+An ion storm threatens the Eridanus, forcing her to seek new Energon crystals from a pre-industrial planet. Fly ship into sector; storm is unavoidable. Limp under reactionless to nearest E-class planet, and land. Proceed on foot to hunt for crystals; get caught up in medieval drama with locals. A *Friday’s Child/Private Little War/Errand of Mercy* scenario, in which the Quellans are behind the other end of the medieval drama, and Ship Leader Qavolneq is set up as the local overlord.
 
-Include the Quellans in this? A *Friday’s Child/Private Little War/Errand of Mercy* scenario, in which the Quellans are behind the other end of the medieval drama, and Ship Leader Qavolneq is set up as the local overlord, could add to this, and make the segue to 106 smoother.
+- *How does the ship encounter the storm?*
+- *How does the ship get from the storm to the planet?*
+- *Why is the Quellan presence a secret until the PC encounters them?*
+- *What do the locals want for their crystals?*
+- *What's the nature of the local drama?*
 
-**The End:** PC dies; Eridanus doesn't survive ion storm.
+**The End:** PC dies; *Eridanus* doesn't survive ion storm.
 
-**Bad Ending:** Eridanus is wrecked, but contacts Exploration Command.
+**Bad Ending:** *Eridanus* is wrecked too badly to take off again, but the crew can still make the main plot go, and contact Stellar Command for rescue.
 
 **Fair Ending:** 
 
@@ -121,7 +125,7 @@ Include the Quellans in this? A *Friday’s Child/Private Little War/Errand of M
 
 ### 106:	*And Not To Yield*
 	
-When *Eridanus* is captured by the Quellans, LCR Player and the crew must recapture her. *Eridanus* is ambushed by a Q7 cruiser. Futile pursuit, shields blown down, boarding of damaged *Eridanus*. Player thrown in brig; crew confined in shuttle bay. Break out of brig, sneak around undetected, free enough friendlies to overpower the prize crew.
+When *Eridanus* is captured by the Quellans, LCR Player and the crew must recapture her. *Eridanus* is ambushed by a Q6 cruiser. Futile pursuit, shields blown down, boarding of damaged *Eridanus*. Player thrown in brig; crew confined in shuttle bay. Break out of brig, sneak around undetected, free enough friendlies to overpower the prize crew.
 
 Introduces Ship Leader Qavolneq, a foil for Player over the coming seasons, unless the previous episode introduced him.
 
@@ -133,9 +137,9 @@ Introduces Ship Leader Qavolneq, a foil for Player over the coming seasons, unle
 
 **Fair Ending:** Recapture the ship and warp out before the Quellans can react.
 
-**Good Ending:** Recapture the ship, and cripple or destroy the Q7, in either order. Stealing Energon crystals from the Q7, to fuel the escape, is particularly artistic.
+**Good Ending:** Recapture the ship, and cripple or destroy the Q6, in either order. Stealing Energon crystals from the Q6, to fuel the escape, is particularly artistic.
 
-**Best Ending:** Incite mutiny on Q7 and capture it.
+**Best Ending:** Incite mutiny on Q6 and capture it.
 
 **Development opportunities:**
 
@@ -151,7 +155,7 @@ LCR Player and the *Eridanus* must work together with CPT Stewart and the *Odyss
 	
 ### 108:	*There Gloom the Broad, Dark Seas* (FULL LENGTH)
 
-The Eridanus surveys a previously uncharted quadrant, encountering a number of shorter adventures along the way. Maybe have them add up to something? Maybe not?
+The Eridanus surveys a previously uncharted quadrant, encountering a number of shorter adventures along the way. Maybe have them add up to something? Need to get procedural generation up to a good standard.
 
 ### 100:	*All Experience is an Arch* (FULL LENGTH, OPTIONAL)
 	
@@ -176,7 +180,7 @@ Promoted to XO of the Odysseus, CDR Player finds CPT Stewart less of a kindred s
 	
 ### 202:	TBD
 	
-TBD. This should be a Kaur/Eridanus episode, not a Player/Odysseus one. Or not?
+TBD. This should be a Kaur/Eridanus episode, not a Player/Odysseus one. Or not? We're already spending three episodes on the *Eridanus* during this supposedly *Odysseus* season. Making this a Kaur one would split it evenly in half.
 	
 ### 203:	*To Make Mild a Rugged People*
 
@@ -287,7 +291,7 @@ Another "sandbox" episode, but with the *Odysseus*. Not confined to a single qua
 - To Sail Beyond the Sunset
 - One Equal Temper of Heroic Hearts
 - Cities of Men
-- Drink Life to the Lees
+- I Shall Drink Life to the Lees
 - An Idle King
 - Alone, On Shore
 - The Sphere of Common Duties
@@ -296,6 +300,8 @@ Another "sandbox" episode, but with the *Odysseus*. Not confined to a single qua
 - The Great Achilles, Whom We Knew
 - To Shine in Use
 - To Make an End
+- Something Ere the End
+- Death Closes All
 
 ## Want To Fit In
 
@@ -316,11 +322,9 @@ Another "sandbox" episode, but with the *Odysseus*. Not confined to a single qua
 - Meditation about the nature of sentient life
 - Lower decks episode
 - Clip show
-- First contact with a very different form of intelligent life
 - Botched first contact from the contactee's perspective
 - Race for the ruins of an ascended hyperadvanced civilization
 - Charismatic rogue criminal steals something vital to the Union at a critical moment
-- 
 
 ## Admired source episodes:
 
