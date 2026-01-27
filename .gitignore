@@ -5,6 +5,6 @@
 *.zblorb
 *.aastory
 nohup.out
-error-log.txt
+log.txt
 stdlib.dg
 stddebug.dg
