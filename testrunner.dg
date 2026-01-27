@@ -14,14 +14,19 @@
 
 (keep running on failure) %% negate to stop at first failed test
 
+%% We can't just (exhaust *(test $)), because that actually runs each test
+%% without setup, cleanup, or failure checks, so we work around that with
+%% a global variable, populated with all the tests. You can quarantine tests
+%% by commenting out their entry in the global variable declaration.
+
+(global variable (list of tests $))
+
 %%----------------------------- IMPLEMENTATION -----------------------------
 
 (assert $Thing1 = $Thing2) %% true if both are bound and ($Thing1 = $Thing2)
 	(fully bound $Thing1)
 	(bound $Thing2)
 	($Thing1 = $Thing2)
-
-(global variable (list of tests $))
 
 (all tests pass)
 

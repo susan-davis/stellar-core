@@ -49,7 +49,7 @@
 (current date [12 1 1969])
 
 (clean up $)	(set time [891 12 1 1969])
-		(now) (using north american dates)
+		  		(now) (using north american dates)
 
 (test #hours-minutes)
 	(14 hours 51 minutes)
