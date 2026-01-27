@@ -1,7 +1,8 @@
 %% time.dg
 %% Basic handling of time. Day of week not supported for now.
+%% Provided here as an example of how to use testrunner.dg
 
-(extension version)	Time and date v0.1, by Susan Davis (line)
+(extension version)	Time and date 1a/01, by Susan Davis (line)
 
 (global variable (current time $)) %% time of day, in minutes from midnight
 
@@ -26,6 +27,12 @@
 (interface (elapse $<Num hours))
 
 (interface (elapse $<Num days))
+
+%% negate to get D-M-Y dates
+(using north american dates)
+
+%% override for a different time zone
+(timezone letter)	Z
 
 %%----------------------------------------------------------------------
 
@@ -59,9 +66,6 @@
 (military time)
 	($H hours $M minutes)
 	(leading zero $H) : (leading zero $M)
-
-%% negate to get D-M-Y dates
-(using north american dates)
 
 (short date)
 	(current date [$D $M $Y])
@@ -104,8 +108,6 @@
 (mon for 10)	Oct
 (mon for 11)	Nov
 (mon for 12)	Dec
-
-(timezone letter)	Z	%% override for a different time zone
 
 (nato time)
 	($H hours $M minutes)

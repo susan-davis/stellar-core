@@ -1,9 +1,12 @@
-%% dgdebug -q time-tests.dg time.dg testrunner.dg stdlib.dg
+%% dgdebug -q time-tests.dg time.dg testrunner.dg ../../stdlib.dg
 
 %% Here's a worked example of some unit tests for a Dialog extension.
+%% By convention, the top line of the test file specifies the command
+%% line to run it, including any dependencies.
 
 (list of tests [
 	#hours-minutes
+	#hours-minutes-assert
 	#hours-minutes-zero
 	#hours-minutes-after-midnight
 	#leading-zero-zero
@@ -50,6 +53,18 @@
 
 (test #hours-minutes)
 	(14 hours 51 minutes)
+
+%% It's more succinct to just use the values you're asserting on directly,
+%% and let binding fail if the test fails, but if you want to be more
+%% explicit, or want to check the output to find out what's going on, you
+%% can follow a pattern like this.
+%% You can use (log) or not as you prefer; since we're just running this
+%% in dgdebug and throwing away the output, regular printing is fine.
+(test #hours-minutes-assert)
+	($Hours hours $Minutes minutes)
+	$Hours $Minutes
+	(assert $Hours = 14)
+	(assert $Minutes = 51)
 
 (test #hours-minutes-zero)
 	(now) (current time 0)
@@ -125,7 +140,6 @@
 
 (test #nato-time)
 	(collect words) (nato time) (into $Words)
-	(nato time)
 	($Words = [12 14 51 Z jan 69])
 
 (test #nato-time-union)
