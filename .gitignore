@@ -1,9 +1,10 @@
 *~
-stdlib.dg
-stddebug.dg
+#*#
 *.z5
 *.z8
+*.zblorb
 *.aastory
 nohup.out
-#*#
 error-log.txt
+stdlib.dg
+stddebug.dg
