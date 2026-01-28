@@ -2,7 +2,7 @@ all: test
 
 COMPILE=dialogc
 DEBUG=dgdebug -q
-STDLIB=testrunner.dg stdlib.dg | tee log.txt | grep "tests passed successfully"
+STDLIB=unit.dg stdlib.dg | tee log.txt | grep "tests passed successfully"
 
 su-101.z8: test
 	$(COMPILE) -t z8 \
