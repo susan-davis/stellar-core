@@ -1,4 +1,4 @@
-%% dgdebug -q sectored-tests.dg sectored-grid.dg testrunner.dg stdlib.dg
+%% dgdebug -q sectored-tests.dg sectored-grid.dg unit.dg stdlib.dg
 
 (list of tests $Tests) ($Tests = [
 	#delta-4-2
@@ -886,38 +886,38 @@
 	(#test-ship heading $Heading)
 	$Heading
 	(assert $Heading = 45)
-	
+
 (test #turn-to-face-near)
 	(turn #test-ship to face #near-target)
 	(#test-ship heading 315)
-	
+
 (test #turn-to-face-far)
 	(turn #test-ship to face #far-target)
 	(#test-ship heading 30)
-	
+
 (test #turn-to-face-distant)
 	(turn #test-ship to face #distant-target)
 	(#test-ship heading 200)
-	
+
 (test #turn-hard-to-starboard)
 	(turn #test-ship hard to starboard)
 	(#test-ship heading 45)
-	
+
 (test #turn-hard-to-starboard-not-crossing-zero)
 	(turn #test-ship to heading 135)
 	(turn #test-ship hard to starboard)
 	(#test-ship heading 225)
-	
+
 (test #turn-hard-to-port)
 	(turn #test-ship to heading 315)
 	(turn #test-ship hard to port)
 	(#test-ship heading 225)
-	
+
 (test #turn-hard-to-port-crossing-zero)
 	(turn #test-ship to heading 315)
 	(turn #test-ship hard to port)
 	(#test-ship heading 225)
-	
+
 (test #turn-about)
 	(turn #test-ship about)
 	(#test-ship heading 135)
@@ -925,15 +925,15 @@
 (test #turn-away-from-near)
 	(turn #test-ship away from #near-target)
 	(#test-ship heading 135)
-	
+
 (test #turn-away-from-closest)
 	(turn #test-ship away from #closest-target)
 	(#test-ship heading 225)
-	
+
 (test #turn-away-from-far)
 	(turn #test-ship away from #far-target)
 	(#test-ship heading 210)
-	
+
 (test #turn-away-from-distant)
 	(turn #test-ship away from #distant-target)
 	(#test-ship heading 20)
@@ -947,7 +947,7 @@
 	(#test-ship heading $Heading)
 	$Heading
 	(assert $Heading = 326)
-	
+
 (test #next-coordinates-north)
 	(next coordinates #north from 5 5 into 5 4)
 
@@ -1470,7 +1470,7 @@
 (test #square-beyond-map-northwest)
 	(position for 1 1 1 1 1 1 into $Here)
 	~(square at 10000 on bearing 315 from $Here into $)
-	
+
 (assert that $Ship is at $Place)
 	($Ship sector x $SX)
 	($Ship sector y $SY)

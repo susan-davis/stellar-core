@@ -1,5 +1,5 @@
 %% dgdebug -q damage-tests.dg damage.dg schema.dg sectored-grid.dg \
-%%            testrunner.dg stdlib.dg
+%%            unit.dg stdlib.dg
 
 (list of tests [
       #shields-hold-from-ahead-50
@@ -31,7 +31,7 @@
 (ship *)
 (* initial state is
      [355 445 225 200 0 0 #attack-class 500 2 250 [100 50 50 50] 0 225 200])
-     
+
 #near-target
 (ship *)
 (* initial state is

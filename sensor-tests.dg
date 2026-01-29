@@ -1,5 +1,4 @@
-%% dgdebug -q sensor-tests.dg sensors.dg sectored-grid.dg \
-%%            testrunner.dg stdlib.dg
+%% dgdebug -q sensor-tests.dg sensors.dg sectored-grid.dg unit.dg stdlib.dg
 
 (list of tests [
 	#object-at-precise-ship-position
@@ -78,9 +77,9 @@
 (* initial state is
    [344 454 315 4 300 400 #cygnus-class 932 4 500 [100 100 100 100] 10 315 4])
 
-(clean up $)  	(set condition 3)
-		(now) (display zeros for empty categories)
-		(now) ~(display question marks for undetectable ships)
+(clean up $)	(set condition 3)
+	   	  		(now) (display zeros for empty categories)
+				(now) ~(display question marks for undetectable ships)
 
 #cygnus-class
 (name *)	Cygnus
@@ -275,7 +274,7 @@
 (test #asteroid-in-weapons-range)
 	(#asteroid is in weapons range)
 	(#asteroid is in weapons range of #test-ship)
-	
+
 (test #closest-target-in-matter-transmission-range)
 	(#closest-target is in matter transmission range)
 	(#closest-target is in matter transmission range of #test-ship)
@@ -465,4 +464,3 @@
 	(move #test-ship to 3 4 6 5)
 	(line) (short range scan)
 	(assert displays subsector)
-

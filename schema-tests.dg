@@ -1,5 +1,5 @@
 %% dgdebug -q schema-tests.dg schema.dg sectored-grid.dg utils.dg \
-%%	testrunner.dg stdlib.dg
+%% 		   unit.dg stdlib.dg
 
 (list of tests [
 	#coordinates
@@ -305,4 +305,3 @@
 (test #decelerate-gradient)
 	(accelerate #test-ship to gradient 0)
 	(#test-ship speed 0)
-

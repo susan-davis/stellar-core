@@ -1,4 +1,4 @@
-%% dgdebug -q arc-tests.dg arc.dg sectored-grid.dg testrunner.dg stdlib.dg
+%% dgdebug -q arc-tests.dg arc.dg sectored-grid.dg unit.dg stdlib.dg
 
 (list of tests [
 	#firing-arc-closest-target
@@ -27,8 +27,8 @@
 
 (initial state [344 454 315])
 
-(clean up $)  		(initial state $State)
-			(now) (* state is $State)
+(clean up $)   (initial state $State)
+			   (now) (* state is $State)
 
 #closest-target
 (grid object *)
@@ -131,4 +131,3 @@
       (move target to 3 4 4 5)
       (firing arc from #test-ship to #closest-target is 8)
       (shield direction for #closest-target against #test-ship is #north)
-

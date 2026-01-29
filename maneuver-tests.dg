@@ -1,5 +1,5 @@
 %% dgdebug -q maneuver-tests.dg maneuvering.dg sectored-grid.dg \
-%%            testrunner.dg stdlib.dg
+%%            unit.dg stdlib.dg
 
 (list of tests [
 	#turn-ship
@@ -62,7 +62,7 @@
 (ship *)
 (* initial state is
      [355 445 225 200 0 0 #attack-class 500 2 250 [100 50 50 50] 0 225 200])
-     
+
 #attack-class
 (name *)	Attack
 (type *)	attack ship
@@ -252,4 +252,3 @@
 
 (test #move-5-toward-corner)
 	(assert 5 minutes toward [899 899] goes to 4 4 8 4 4 8)
-

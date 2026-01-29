@@ -1,4 +1,4 @@
-%% dgdebug -q utils-tests.dg utils.dg testrunner.dg stdlib.dg
+%% dgdebug -q utils-tests.dg utils.dg unit.dg stdlib.dg
 
 (list of tests [
 	#take-last-n
