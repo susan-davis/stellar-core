@@ -1,9 +1,9 @@
-%% ship-schema.dg
+%% schema.dg
 %% Include sectored-grid.dg and utils.dg when compiling or debugging
 
 %%---------------------------------- SCHEMA ----------------------------------
 %% State about a ship is stored as one list, to cut down on storage.
-%% The class of a ship is 
+%% The class of a ship is
 %%
 %% state = [ PositionX PositionY Heading Speed DestX DestY Class Energy
 %%   	     Crystals Shields [S1 S2 S3 S4] Ammo Damage Helm Throttle ]
@@ -110,7 +110,7 @@
 
 (initialize $Ship as $Class)
 	($Class state is $Default)
-	($Default = 
+	($Default =
 	 [$ $ $ $ $ $ $ $Energy $Crystals $Shields $Levels $Ammo | $])
 	(now) ($Ship state is [0 0 0 0 0 0
 		 $Class $Energy $Crystals $Shields $Levels $Ammo 0 0])
