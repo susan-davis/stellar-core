@@ -2,8 +2,6 @@
 %% Also include schema.dg, sectored-grid.dg, and utils.dg when compiling
 %% or debugging.
 
-(extension version)	Ship damage v0.1 by Susan Davis
-
 %%-------------------------------- INTERFACES --------------------------------
 
 (interface ($<Attacker hits $<Target with $<Units))
@@ -16,7 +14,7 @@
 
 %%---------------------------------- SCHEMA ----------------------------------
 %% State about a ship is stored as one list, to cut down on storage.
-%% The class of a ship is 
+%% The class of a ship is
 %%
 %% state = [ PositionX PositionY Heading Speed DestX DestY Class Energy
 %%   	     Crystals Shields [S1 S2 S3 S4] Ammo Damage Helm Throttle ]

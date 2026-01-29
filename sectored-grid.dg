@@ -10,8 +10,6 @@
 %% interior of the subsector. But we'll hide that behind the curtains when
 %% not actually peeking into the subsector.
 
-(extension version)	Sectored square grid v0.1 by Susan Davis
-
 %%-------------------------------- INTERFACES --------------------------------
 
 %% (grid object $) => object is present on our grid and occupies a square
@@ -242,22 +240,22 @@
 	($Object y $BigY)
 	(split $BigY into $ $SY $ $)
 
-($Object subsector x $X) 
+($Object subsector x $X)
 	($Object x $BigX)
 	(split $BigX into $ $ $Result $)
 	($Result plus 1 into $X) %% subsectors are 1-based
 
-($Object subsector y $Y) 
+($Object subsector y $Y)
 	($Object y $BigY)
 	(split $BigY into $ $ $Result $)
 	($Result plus 1 into $Y) %% subsectors are 1-based
 
-($Object position x $PX) 
+($Object position x $PX)
 	($Object x $BigX)
 	(split $BigX into $ $ $ $Result)
 	($Result plus 1 into $PX) %% positions are 1-based
 
-($Object position y $PY) 
+($Object position y $PY)
 	($Object y $BigY)
 	(split $BigY into $ $ $ $Result)
 	($Result plus 1 into $PY) %% positions are 1-based
@@ -282,7 +280,7 @@
 		*(grid object $Obj)
 		       ($Obj sector x $SX)
 		       ($Obj sector y $SY)
-		       ($Obj subsector x $X) 
+		       ($Obj subsector x $X)
 		       ($Obj subsector y $Y)
 	(into $List)
 
@@ -296,7 +294,7 @@
 (object at $Position into $Obj)
 	([$X $Y | $] = $Position)
 	*(grid object $Obj)
-		($Obj x $X) 
+		($Obj x $X)
 		($Obj y $Y)
 
 %% ------------------------- SQUARES AND COLLISIONS -------------------------
@@ -639,7 +637,7 @@
 	(else)
 		($Octant = 8)
 	(endif)
-	
+
 (octant for $Bearing into $Angle $XDir $YDir)
 	($Bearing is in octant $Octant)
 	(if) ($Octant = 1) (then)
@@ -740,7 +738,7 @@
 %% Again, no square roots, so no Pythagorean Theorem, so we have to use
 %% another lookup table here.
 
-(range table 
+(range table
 	[[ 141]
 	 [ 224  283]
 	 [ 316  361  424]
@@ -831,7 +829,7 @@
 	(else)
 		(turn $Ship $Turn to starboard)
 	(endif)
-	
+
 (turn $Ship to face position $There)
 	($Ship state is $State)
 	(calculate bearing from $State to $There into $Bearing)
