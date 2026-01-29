@@ -7,6 +7,7 @@
       #shields-hold-from-port-50
       #shields-penetrated-from-port-101
 	  #energy-depleted-from-port-550
+	  #energy-depleted-from-ahead-600
       ])
 
 %% ----------------------------------------------------------------------
@@ -73,5 +74,8 @@
 
 (test #energy-depleted-from-port-550)
 	  (hit #closest-target from #west with 550)
-	  (show #closest-target state)
 	  (assert #closest-target has 200 and 0)
+
+(test #energy-depleted-from-ahead-600)
+	  (hit #closest-target from #north with 600)
+	  (assert #closest-target has 150 and 0)
