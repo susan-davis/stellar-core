@@ -79,3 +79,8 @@
 (test #energy-depleted-from-ahead-600)
 	  (hit #closest-target from #north with 600)
 	  (assert #closest-target has 150 and 0)
+
+(test #penetrating-shields-damages-system)
+	  (hit #closest-target from #north with 150)
+	  (assert #closest-target has 150 and 450)
+	  %% and now check for a damaged system
