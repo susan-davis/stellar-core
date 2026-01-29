@@ -6,6 +6,7 @@
       #shields-penetrated-from-ahead-101
       #shields-hold-from-port-50
       #shields-penetrated-from-port-101
+	  #energy-depleted-from-port-550
       ])
 
 %% ----------------------------------------------------------------------
@@ -40,9 +41,9 @@
 %% ----------------------------------------------------------------------
 
 (reset $Ship)	($Ship initial state is $State)
-		(now) ($Ship state is $State)
+	   			(now) ($Ship state is $State)
 
-(set up $)	(exhaust) { *(ship $Ship) (reset $Ship) }
+(set up $)		(exhaust) { *(ship $Ship) (reset $Ship) }
 
 %% ----------------------------------------------------------------------
 
@@ -68,5 +69,9 @@
 
 (test #shields-penetrated-from-port-101)
       (hit #closest-target from #west with 101)
-      (show #closest-target state)
       (assert #closest-target has 200 and 449)
+
+(test #energy-depleted-from-port-550)
+	  (hit #closest-target from #west with 550)
+	  (show #closest-target state)
+	  (assert #closest-target has 200 and 0)
