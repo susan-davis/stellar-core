@@ -77,5 +77,5 @@
 	(append $Tail $ $Rest)
 
 %% uncomment the following if using 1a/01 or earlier, including 0m/03
-%%(interface (quit $<ExitStatus))
-%%(quit $)   (quit)
+(interface (quit $<ExitStatus))
+(quit $)   (quit)
