@@ -6,5 +6,4 @@
 *.aastory
 nohup.out
 log.txt
-stdlib.dg
-stddebug.dg
+
