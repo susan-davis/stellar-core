@@ -1,7 +1,7 @@
 all: test 
 
 COMPILE=dialogc
-DEBUG=dgdebug -q --no-warn-not-topic
+DEBUG=dgdebug -q -w 80 --no-warn-not-topic
 STDLIB=unit.dg stdlib.dg
 
 su-101.z8: test

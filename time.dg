@@ -173,12 +173,3 @@
 		 (elapse 1 minutes)
 	(endif)
 	(now) ~(suspend this tick)
-
-(suspend next tick)
-	(now) (suspend this tick)
-
-(stop time)
-	(now) ~(time is running)
-
-(restart time)
-	(now) (time is running)
