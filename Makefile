@@ -1,8 +1,8 @@
 all: test 
 
 COMPILE=dialogc
-DEBUG=dgdebug -q
-STDLIB=unit.dg stdlib.dg | tee log.txt | grep "tests passed successfully"
+DEBUG=dgdebug -q --no-warn-not-topic
+STDLIB=unit.dg stdlib.dg
 
 su-101.z8: test
 	$(COMPILE) -t z8 \
@@ -51,4 +51,6 @@ damage:
 	$(DEBUG) damage-tests.dg damage.dg schema.dg sectored-grid.dg \
 	utils.dg $(STDLIB)
 
-.PHONY: test all utils time sectored-grid schema sensors maneuver arc damage
+clean:
+
+.PHONY: test all clean utils time sectored-grid schema sensors maneuver arc damage
