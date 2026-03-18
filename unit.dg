@@ -80,7 +80,7 @@
 
 (error $Code entry point)
 	(bold) FAILED TEST -- FATAL ERROR $Code. (roman) (par)
-	(quit 1)
+	(quit 2)
 
 %% patch for ($ contains sublist $) issues; delete when fixed
 ($List contains sublist [$Head | $Tail])
