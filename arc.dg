@@ -31,11 +31,16 @@
 	(endif)
 
 %% Compound firing arcs, made up of one or more octants, can be expressed
-%% as a list of octants, or as a single number for one octant.
+%% as a list of octants, or as a single number for one octant. There is also
+%% a ninth "octant", covering 23 degrees to either side of boresight.
 
 (arc $Arc contains angle $Angle)
 	 (if) (number $Arc) (then)
-	 	  ($Angle is in octant $Arc)
+	 	  (if) ($Arc = 9) (then)
+		  	   { ($Angle < 24) (or) ($Angle > 356) }
+		  (else)
+			   ($Angle is in octant $Arc)
+		  (endif)
 	 (elseif) (list $Arc) (then)
 	      ($Arc = [$Head | $Tail])
 		  { ($Angle is in octant $Head) (or) (arc $Tail contains angle $Angle) }

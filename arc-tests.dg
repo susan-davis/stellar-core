@@ -26,6 +26,11 @@
 	#fa-315
 	#fa-316
 	#fa-360
+	#arc9-0
+	#arc9-23
+	#arc9-24
+	#arc9-356
+	#arc9-357
 	#dont-hit-closest-target-fa
 	#hit-near-target-fa
 	#dont-hit-far-target-fa
@@ -173,6 +178,21 @@
 
 (test #fa-360)
 	  (arc [1 8] contains angle 360)
+
+(test #arc9-0)
+	  (arc 9 contains angle 0)
+
+(test #arc9-23)
+	  (arc 9 contains angle 23)
+
+(test #arc9-24)
+	  ~(arc 9 contains angle 24)
+
+(test #arc9-356)
+	  ~(arc 9 contains angle 356)
+
+(test #arc9-357)
+	  (arc 9 contains angle 357)
 
 (test #dont-hit-closest-target-fa)
       ~(fire from #test-ship to #closest-target is in arc [1 8])
