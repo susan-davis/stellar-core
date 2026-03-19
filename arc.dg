@@ -1,5 +1,5 @@
 %% arc.dg
-%% Include utils.dg when compiling or debugging
+%% Include sectored-grid.dg and utils.dg when compiling or debugging
 
 %%-------------------------------- INTERFACES --------------------------------
 
@@ -7,7 +7,7 @@
 
 (interface (shield direction for $<Attacker against $<Ship is $>Direction))
 
-(interface (bearing $<Bearing is in arc for $<Arc))
+(interface (arc $<Arc contains angle $<Angle))
 
 %%------------------------------ IMPLEMENTATION ------------------------------
 
@@ -18,7 +18,7 @@
 (shield direction for $Attacker against $Ship is $Direction)
 	(angle from $Ship to $Attacker into $Angle)
 	($Angle is in octant $Octant)
-	(if)     ($Octant = 2) (or) ($Octant = 3) (then)
+	(if) ($Octant = 2) (or) ($Octant = 3) (then)
 		 ($Direction = #east)
 	(elseif) ($Octant = 4) (or) ($Octant = 5) (then)
 		 ($Direction = #south)
@@ -28,10 +28,13 @@
 		 ($Direction = #north)
 	(endif)
 
-%%----------------------------------------------------------------------------
-
-%% Firing arcs: one bit per octant, so 1 means octant 1, 2 means octant 2,
-%% 4 means octant 3, and so forth. Forward arc would be 129.
-
-(bearing $Bearing is in arc for $Arc)
-	()
+(arc $Arc contains angle $Angle)
+	 (if) (number $Arc) (then)
+	 	  ($Angle is in octant $Arc)
+	 (elseif) (list $Arc) (then)
+	      ($Arc = [$Head | $Tail])
+		  { (arc $Head contains angle $Angle) (or)
+			(arc $Tail contains angle $Angle) }
+	 (else)
+		  (fail)
+	 (endif)

@@ -17,6 +17,15 @@
 	#due-southwest
 	#due-west
 	#due-northwest
+	#fa-0
+	#fa-44
+	#fa-45
+	#fa-46
+	#fa-135
+	#fa-314
+	#fa-315
+	#fa-316
+	#fa-360
 	])
 
 %% ----------------------------------------------------------------------
@@ -131,3 +140,30 @@
       (move target to 3 4 4 5)
       (firing arc from #test-ship to #closest-target is 8)
       (shield direction for #closest-target against #test-ship is #north)
+
+(test #fa-0)
+	  (arc [1 8] contains angle 0)
+
+(test #fa-44)
+	  (arc [1 8] contains angle 44)
+
+(test #fa-45)
+	  (arc [1 8] contains angle 45)
+
+(test #fa-46)
+	  ~(arc [1 8] contains angle 46)
+
+(test #fa-135)
+	  ~(arc [1 8] contains angle 135)
+
+(test #fa-314)
+	  ~(arc [1 8] contains angle 314)
+
+(test #fa-315)
+	  (arc [1 8] contains angle 315)
+
+(test #fa-316)
+	  (arc [1 8] contains angle 316)
+
+(test #fa-360)
+	  (arc [1 8] contains angle 360)
