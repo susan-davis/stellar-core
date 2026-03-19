@@ -38,8 +38,7 @@
 	 	  ($Angle is in octant $Arc)
 	 (elseif) (list $Arc) (then)
 	      ($Arc = [$Head | $Tail])
-		  { (arc $Head contains angle $Angle) (or)
-			(arc $Tail contains angle $Angle) }
+		  { ($Angle is in octant $Head) (or) (arc $Tail contains angle $Angle) }
 	 (else)
 		  (fail)
 	 (endif)
