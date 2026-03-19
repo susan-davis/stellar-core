@@ -232,4 +232,4 @@
       (fire from #test-ship to #far-target is in arc 0)
 
 (test #dont-hit-distant-target-0)
-      (fire from #test-ship to #distant-target is in arc 0)
+      (fire from #test-ship to #distant-target is in arc [0])
