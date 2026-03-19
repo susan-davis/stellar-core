@@ -26,10 +26,14 @@
 	#fa-315
 	#fa-316
 	#fa-360
-	#hit-closest-target
-	#hit-near-target
-	#dont-hit-far-target
-	#dont-hit-distant-target
+	#hit-closest-target-fa
+	#hit-near-target-fa
+	#dont-hit-far-target-fa
+	#dont-hit-distant-target-fa
+	#hit-closest-target-rs
+	#hit-near-target-rs
+	#hit-far-target-rs
+	#dont-hit-distant-target-rs
 	])
 
 %% ----------------------------------------------------------------------
@@ -172,14 +176,26 @@
 (test #fa-360)
 	  (arc [1 8] contains angle 360)
 
-(test #hit-closest-target)
+(test #hit-closest-target-fa)
       (fire from #test-ship to #closest-target is in arc [1 8])
 
-(test #hit-near-target)
+(test #hit-near-target-fa)
       (fire from #test-ship to #near-target is in arc [1 8])
 
-(test #dont-hit-far-target)
+(test #dont-hit-far-target-fa)
       ~(fire from #test-ship to #far-target is in arc [1 8])
 
-(test #dont-hit-distant-target)
+(test #dont-hit-distant-target-fa)
       ~(fire from #test-ship to #distant-target is in arc [1 8])
+
+(test #hit-closest-target-rs)
+      (fire from #test-ship to #closest-target is in arc [1 2 3 4])
+
+(test #hit-near-target-rs)
+      (fire from #test-ship to #near-target is in arc [1 2 3 4])
+
+(test #hit-far-target-rs)
+      (fire from #test-ship to #far-target is in arc [1 2 3 4])
+
+(test #dont-hit-distant-target-rs)
+      ~(fire from #test-ship to #distant-target is in arc [1 2 3 4x])
