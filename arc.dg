@@ -5,6 +5,8 @@
 
 (interface (firing arc from $<Ship to $<Target is $>Arc))
 
+(interface (fire from $<Ship to $<Target is in arc $<Arc))
+
 (interface (shield direction for $<Attacker against $<Ship is $>Direction))
 
 (interface (arc $<Arc contains angle $<Angle))
@@ -28,6 +30,9 @@
 		 ($Direction = #north)
 	(endif)
 
+%% Compound firing arcs, made up of one or more octants, can be expressed
+%% as a list of octants, or as a single number for one octant.
+
 (arc $Arc contains angle $Angle)
 	 (if) (number $Arc) (then)
 	 	  ($Angle is in octant $Arc)
@@ -38,3 +43,7 @@
 	 (else)
 		  (fail)
 	 (endif)
+
+(fire from $Ship to $Target is in arc $Arc)
+     (angle from $Ship to $Target into $Angle)
+	 (arc $Arc contains angle $Angle)
