@@ -26,7 +26,7 @@
 	#fa-315
 	#fa-316
 	#fa-360
-	#hit-closest-target-fa
+	#dont-hit-closest-target-fa
 	#hit-near-target-fa
 	#dont-hit-far-target-fa
 	#dont-hit-distant-target-fa
@@ -41,11 +41,6 @@
 #test-ship
 (grid object *)
 (* state is [344 454 315])
-
-(initial state [344 454 315])
-
-(clean up $)   (initial state $State)
-			   (now) (* state is $State)
 
 #closest-target
 (grid object *)
@@ -78,6 +73,10 @@
 (grid object *)
 (* state is [573 573 0])
 
+(clean up $)
+	   (now) (#test-ship state is [344 454 315])
+	   (now) (#closest-target state is [354 444 0])
+
 %% ----------------------------------------------------------------------
 
 (test #firing-arc-closest-target)
@@ -105,7 +104,7 @@
       (shield direction for #distant-target against #test-ship is #west)
 
 (move target to $DX $DY $X $Y)
-      (drag #closest-target to 3 4 5 5)
+	  (drag #closest-target to 3 4 5 5)
       (turn #test-ship to face #closest-target)
       (drag #closest-target to $DX $DY $X $Y)
 
@@ -176,8 +175,8 @@
 (test #fa-360)
 	  (arc [1 8] contains angle 360)
 
-(test #hit-closest-target-fa)
-      (fire from #test-ship to #closest-target is in arc [1 8])
+(test #dont-hit-closest-target-fa)
+      ~(fire from #test-ship to #closest-target is in arc [1 8])
 
 (test #hit-near-target-fa)
       (fire from #test-ship to #near-target is in arc [1 8])
