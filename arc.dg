@@ -39,8 +39,6 @@
 	 (elseif) (list $Arc) (then)
 	      ($Arc = [$Head | $Tail])
 		  { ($Angle is in octant $Head) (or) (arc $Tail contains angle $Angle) }
-	 (else)
-		  (fail)
 	 (endif)
 
 (fire from $Ship to $Target is in arc $Arc)
