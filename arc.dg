@@ -13,9 +13,22 @@
 
 %%------------------------------ IMPLEMENTATION ------------------------------
 
-(firing arc from $Ship to $Target into $Arc)
+%% The simplest firing arcs are numbered 1 through 8, and are 45 degree
+%% sectors, starting just starboard of the forward centreline. This matches
+%% how we set up the table of angles in sectored-grid.dg.
+
+(firing arc from $Ship to $Target into $Arc) %% won't return special arcs
 	(angle from $Ship to $Target into $Angle)
 	($Angle is in octant $Arc)
+
+%% Ships theoretically have six shields: the four cardinal directions, plus
+%% dorsal and ventral. Since we're following the TV space show convention
+%% (and the one from 1971 STARTREK) that we ignore the Z axis, the dorsal
+%% and ventral shields never get hit, or possibly only by fire from a planet
+%% that the ship is orbiting. The shields exactly match the firing arcs, so
+%% the forward shields are on arcs 1 and 8, starboard on 2 and 3, aft on
+%% 4 and 5, and port on 6 and 7. (We can also leave open the possibility for
+%% larger ships to have eight shield emitters rather than four.)
 
 (shield direction for $Attacker against $Ship into $Direction)
 	(angle from $Ship to $Attacker into $Angle)
@@ -30,18 +43,36 @@
 		 ($Direction = #north)
 	(endif)
 
-%% Compound firing arcs, made up of one or more octants, can be expressed
-%% as a list of octants, or as a single number for one octant. There is also
-%% a ninth "octant", covering 23 degrees to either side of boresight, and
-%% an "octant 0", covering 360 degrees.
+%% Special firing arcs: Arc 0 is boresight only (bow angle 0), for spinal
+%% mounts and the like. Arcs 9 to 360 describe an arc of that many degrees,
+%% centred on the bow. Integer division rounds down, so you'll want to specify
+%% Arc 46, not Arc 45, to get a 45 degree arc centred on the bow. Arc 360 will
+%% cover 360 degrees. There are no arcs greater than 360.
 
-(arc $Arc contains angle $Angle)
+($BowAngle is in special arc $Arc)
+	 ($BowAngle modulo 360 into $Angle)
+	 (if) ($Arc = 0) (then)
+	 	  ($Angle = 0)
+	 (elseif) ($Arc > 0) ($Arc < 9) (then)
+	 	  ($Angle is in octant $Arc)
+     (elseif) ($Arc > 8) ($Arc < 360) (then)
+	      ($Arc divided by 2 into $HA)
+		  ($HA plus 1 into $HalfArc)
+		  (360 minus $HalfArc into $LeftHalf)
+		  $Angle $LeftHalf
+		  { ($Angle < $HalfArc) (or) ($Angle > $LeftHalf) }
+     (else)
+		  ($Arc = 360)
+	 (endif)
+
+%% Compound firing arcs are made up of a list of other firing arcs; the
+%% target is in arc if it's in any of them. [1 8] equals a forward arc,
+%% [1 2 3 4] equals a right side arc, and so forth. Compound arcs can
+%% include any of the special firing arcs, as well.
+
+(arc $Arc contains angle $Angle) %% supports compound arcs
 	 (if) (number $Arc) (then)
-	 	  (if) ($Arc = 9) (then)
-		  	   { ($Angle < 24) (or) ($Angle > 356) }
-		  (else)
-			   { ($Arc = 0) (or) ($Angle is in octant $Arc) }
-		  (endif)
+	 	  ($Angle is in special arc $Arc)
 	 (elseif) (list $Arc) (then)
 	      ($Arc = [$Head | $Tail])
 		  { (arc $Head contains angle $Angle) (or)
