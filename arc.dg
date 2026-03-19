@@ -40,7 +40,7 @@
 	 	  (if) ($Arc = 9) (then)
 		  	   { ($Angle < 24) (or) ($Angle > 356) }
 		  (else)
-			   { ($Angle is in octant $Arc) (or) ($Arc = 0) }
+			   { ($Arc = 0) (or) ($Angle is in octant $Arc) }
 		  (endif)
 	 (elseif) (list $Arc) (then)
 	      ($Arc = [$Head | $Tail])
