@@ -39,6 +39,10 @@
 	#hit-near-target-rs
 	#hit-far-target-rs
 	#dont-hit-distant-target-rs
+	#hit-closest-target-0
+	#hit-near-target-0
+	#hit-far-target-0
+	#dont-hit-distant-target-0
 	])
 
 %% ----------------------------------------------------------------------
@@ -217,3 +221,15 @@
 
 (test #dont-hit-distant-target-rs)
       ~(fire from #test-ship to #distant-target is in arc [1 2 3 4])
+
+(test #hit-closest-target-0)
+      (fire from #test-ship to #closest-target is in arc 0)
+
+(test #hit-near-target-0)
+      (fire from #test-ship to #near-target is in arc 0)
+
+(test #hit-far-target-0)
+      (fire from #test-ship to #far-target is in arc 0)
+
+(test #dont-hit-distant-target-0)
+      (fire from #test-ship to #distant-target is in arc 0)
