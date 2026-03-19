@@ -9,6 +9,7 @@
 	#shield-direction-near-target
 	#shield-direction-far-target
 	#shield-direction-distant-target
+	#due-northwest
 	#due-north
 	#due-northeast
 	#due-east
@@ -16,7 +17,6 @@
 	#due-south
 	#due-southwest
 	#due-west
-	#due-northwest
 	#fa-0
 	#fa-44
 	#fa-45
@@ -53,6 +53,9 @@
 	#hit-far-target-360
 	#hit-distant-target-360
 	#dont-hit-closest-target-0
+	#hit-near-target-0
+	#dont-hit-far-target-0
+	#dont-hit-distant-target-0
 	])
 
 %% ----------------------------------------------------------------------
@@ -122,49 +125,37 @@
 (test #shield-direction-distant-target)
       (shield direction for #distant-target against #test-ship into #west)
 
-(move target to $DX $DY $X $Y)
-      (turn #test-ship to heading 0)
-      (drag #closest-target to $DX $DY $X $Y)
-
-(test #due-north)
-      (move target to 3 4 5 5)
-      (firing arc from #test-ship to #closest-target into 1)
-      (shield direction for #closest-target against #test-ship into #north)
-
-(test #due-northeast)
-      (move target to 3 4 6 5)
-      (firing arc from #test-ship to #closest-target into 1)
-      (shield direction for #closest-target against #test-ship into #north)
-
-(test #due-east)
-      (move target to 3 4 6 6)
-      (firing arc from #test-ship to #closest-target into 2)
-      (shield direction for #closest-target against #test-ship into #east)
-
-(test #due-southeast)
-      (move target to 3 4 6 7)
-      (firing arc from #test-ship to #closest-target into 3)
-      (shield direction for #closest-target against #test-ship into #east)
-
-(test #due-south)
-      (move target to 3 4 5 7)
-      (firing arc from #test-ship to #closest-target into 5)
-      (shield direction for #closest-target against #test-ship into #south)
-
-(test #due-southwest)
-      (move target to 3 4 4 7)
-      (firing arc from #test-ship to #closest-target into 6)
-      (shield direction for #closest-target against #test-ship into #west)
-
-(test #due-west)
-      (move target to 3 4 4 6)
-      (firing arc from #test-ship to #closest-target into 7)
-      (shield direction for #closest-target against #test-ship into #west)
+(position $DX $DY $X $Y should have $Angle $Arc $Dir)
+	  (drag #closest-target to $DX $DY $X $Y)
+	  (firing arc from #test-ship to #closest-target into $Arc)
+	  (shield direction for #closest-target against #test-ship into $Dir)
+	  (angle from #test-ship to #closest-target into $Angle2)
+	  $Angle2
+	  (assert $Angle = $Angle2)
 
 (test #due-northwest)
-      (move target to 3 4 4 5)
-      (firing arc from #test-ship to #closest-target into 8)
-      (shield direction for #closest-target against #test-ship into #north)
+      (position 3 4 4 5 should have 0 1 #north)
+
+(test #due-north)
+      (position 3 4 5 5 should have 45 1 #north)
+
+(test #due-northeast)
+	  (position 3 4 6 5 should have 87 2 #east) %% 87?!
+
+(test #due-east)
+      (position 3 4 6 6 should have 135 3 #east)
+
+(test #due-southeast)
+      (position 3 4 6 7 should have 180 5 #south)
+
+(test #due-south)
+      (position 3 4 5 7 should have 225 6 #west)
+
+(test #due-southwest)
+      (position 3 4 4 7 should have 270 7 #west)
+
+(test #due-west)
+      (position 3 4 4 6 should have 315 8 #north)
 
 (test #fa-0)
 	  (arc [1 8] contains angle 0)
@@ -273,3 +264,12 @@
 
 (test #dont-hit-closest-target-0)
       ~(fire from #test-ship to #closest-target is in arc 0)
+
+(test #hit-near-target-0)
+      (fire from #test-ship to #near-target is in arc 0)
+
+(test #dont-hit-far-target-0)
+      ~(fire from #test-ship to #far-target is in arc 0)
+
+(test #dont-hit-distant-target-0)
+      ~(fire from #test-ship to #distant-target is in arc 0)

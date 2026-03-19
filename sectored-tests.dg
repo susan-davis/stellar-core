@@ -168,10 +168,13 @@
 	#bfa-west
 	#bfa-northwest
 	#bearing-north
+	#bearing-northeast
 	#bearing-south
+	#bearing-southeast
 	#bearing-east
+	#bearing-southwest
 	#bearing-west
-	#bearing-diagonal
+	#bearing-northwest
 	#bearing-quadrant-1
 	#bearing-quadrant-2
 	#bearing-quadrant-3
@@ -340,22 +343,26 @@
 	#move-141-toward-near-target
 	#move-750-toward-far-target
 	#move-1500-toward-distant-target
+	#angle-to-northeast
 	])
 
 %% ----------------------------------------------------------------------
 
 #test-ship
 (grid object *)
-(* state is [344 454 315])
-
 (initial state [344 454 315])
 
-(clean up $)  		(initial state $State)
-			(now) (* state is $State)
+(set up $)
+	   (initial state $State)
+	   (now) (* state is $State)
 
 #closest-target
 (grid object *)
-(* state is [354 444 0])
+(target state [354 444 0])
+
+(set up $)
+	   (target state $State)
+	   (now) (* state is $State)
 
 #near-target
 (grid object *)
@@ -775,22 +782,37 @@
 	(position for 1 1 2 1 into $There)
 	(calculate bearing from $Here to $There into 0)
 
+(test #bearing-northeast)
+	(position for 1 1 2 2 into $Here)
+	(position for 1 1 3 1 into $There)
+	(calculate bearing from $Here to $There into 45)
+
 (test #bearing-east)
 	(position for 1 1 2 2 into $Here)
 	(position for 1 1 3 2 into $There)
 	(calculate bearing from $Here to $There into 90)
+
+(test #bearing-southeast)
+	(position for 1 1 2 2 into $Here)
+	(position for 1 1 3 3 into $There)
+	(calculate bearing from $Here to $There into 135)
 
 (test #bearing-south)
 	(position for 1 1 2 2 into $Here)
 	(position for 1 1 2 3 into $There)
 	(calculate bearing from $Here to $There into 180)
 
+(test #bearing-southwest)
+	(position for 1 1 2 2 into $Here)
+	(position for 1 1 1 3 into $There)
+	(calculate bearing from $Here to $There into 225)
+
 (test #bearing-west)
 	(position for 1 1 2 2 into $Here)
 	(position for 1 1 1 2 into $There)
 	(calculate bearing from $Here to $There into 270)
 
-(test #bearing-diagonal)
+(test #bearing-northwest)
 	(position for 1 1 2 2 into $Here)
 	(position for 1 1 1 1 into $There)
 	(calculate bearing from $Here to $There into 315)
@@ -808,34 +830,24 @@
 (test #bearing-quadrant-3)
 	(position for 1 1 2 2 into $Here)
 	(position for 1 1 1 6 into $There)
-	(calculate bearing from $Here to $There into $Bearing)
-	$Bearing
-	(assert $Bearing = 193)
+	(calculate bearing from $Here to $There into 193)
 
 (test #bearing-quadrant-4)
 	(position for 1 1 2 3 into $Here)
 	(position for 1 1 1 1 into $There)
-	(calculate bearing from $Here to $There into $Bearing)
-	$Bearing
-	(assert $Bearing = 333)
+	(calculate bearing from $Here to $There into 333)
 
 (test #bearing-to-closest)
-	(bearing from #test-ship to #closest-target into $Bearing)
-	$Bearing
-	(assert $Bearing = 45)
+	(bearing from #test-ship to #closest-target into 45)
 
 (test #bearing-to-near)
 	(bearing from #test-ship to #near-target into 315)
 
 (test #bearing-to-far)
-	(bearing from #test-ship to #far-target into $Bearing)
-	$Bearing
-	(assert $Bearing = 30)
+	(bearing from #test-ship to #far-target into 30)
 
 (test #bearing-to-distant)
-	(bearing from #test-ship to #distant-target into $Bearing)
-	$Bearing
-	(assert $Bearing = 200)
+	(bearing from #test-ship to #distant-target into 200)
 
 (test #angle-30-to-45)
 	(angle clockwise from 30 to 45 into 15)
@@ -858,6 +870,14 @@
 (test #angle-to-closest)
 	(angle from #test-ship to #closest-target into 90)
 
+(test #angle-to-northeast) %% Where the hell is 87 coming from?!
+	(drag #closest-target to 3 4 6 5)
+	(angle from #test-ship to #closest-target into $Angle)
+	$Angle
+	(position for 3 4 6 5 5 5 into $Pos)
+	(drag #closest-target to position $Pos)
+	(angle from #test-ship to #closest-target into 90)
+
 (test #angle-to-near)
 	(angle from #test-ship to #near-target into 0)
 
@@ -869,9 +889,7 @@
 
 (test #angle-counterclockwise)
 	(turn #test-ship to heading 359)
-	(angle from #test-ship to #near-target into $Angle)
-	$Angle
-	(assert $Angle = 316)
+	(angle from #test-ship to #near-target into 316)
 
 (test #angle-counterclockwise-crossing-zero)
 	(turn #test-ship to heading 45)
@@ -883,9 +901,7 @@
 
 (test #turn-to-face-closest)
 	(turn #test-ship to face #closest-target)
-	(#test-ship heading $Heading)
-	$Heading
-	(assert $Heading = 45)
+	(#test-ship heading 45)
 
 (test #turn-to-face-near)
 	(turn #test-ship to face #near-target)
@@ -944,9 +960,7 @@
 
 (test #turn-to-subsector)
 	(turn #test-ship to face 1 1 1 1)
-	(#test-ship heading $Heading)
-	$Heading
-	(assert $Heading = 326)
+	(#test-ship heading 326)
 
 (test #next-coordinates-north)
 	(next coordinates #north from 5 5 into 5 4)
@@ -1161,65 +1175,47 @@
 (test #range-to-very-distant) %% maximum distance we can represent!
 	(position for 1 1 1 1 into $Here)
 	(position for 12 12 7 7 into $There)
-	(calculate range from $Here to $There into $Range)
-	$Range
-	(assert $Range = 16359)
+	(calculate range from $Here to $There into 16359)
 
 (test #range-across-quadrant) %% maximum distance traversable in game
 	(position for 1 1 1 1 into $Here)
 	(position for 8 8 10 10 into $There)
-	(calculate range from $Here to $There into $Range)
-	$Range
-	(assert $Range = 11173)
+	(calculate range from $Here to $There into 11173)
 
 (test #range-along-quadrant)
 	(position for 1 1 1 1 into $Here)
 	(position for 8 1 10 1 into $There)
-	(calculate range from $Here to $There into $Range)
-	$Range
-	(assert $Range = 7900)
+	(calculate range from $Here to $There into 7900)
 
 (test #range-large-quadrant) %% maximum distance if we go to 10x10
 	(position for 1 1 1 1 into $Here)
 	(position for 10 10 10 10 into $There)
-	(calculate range from $Here to $There into $Range)
-	$Range
-	(assert $Range = 14003)
+	(calculate range from $Here to $There into 14003)
 
 (test #range-along-large-quadrant)
 	(position for 1 1 1 1 into $Here)
 	(position for 1 10 1 10 into $There)
-	(calculate range from $Here to $There into $Range)
-	$Range
-	(assert $Range = 9900)
+	(calculate range from $Here to $There into 9900)
 
 (test #range-due-north)
 	(position for 3 4 5 6 into $Here)
 	(position for 3 3 5 6 into $There)
-	(calculate range from $Here to $There into $Range)
-	$Range
-	(assert $Range = 1000)
+	(calculate range from $Here to $There into 1000)
 
 (test #range-due-south)
 	(position for 3 4 5 6 into $Here)
 	(position for 3 5 5 6 into $There)
-	(calculate range from $Here to $There into $Range)
-	$Range
-	(assert $Range = 1000)
+	(calculate range from $Here to $There into 1000)
 
 (test #range-due-east)
 	(position for 3 4 5 6 into $Here)
 	(position for 4 4 5 6 into $There)
-	(calculate range from $Here to $There into $Range)
-	$Range
-	(assert $Range = 1000)
+	(calculate range from $Here to $There into 1000)
 
 (test #range-due-west)
 	(position for 3 4 5 6 into $Here)
 	(position for 2 4 5 6 into $There)
-	(calculate range from $Here to $There into $Range)
-	$Range
-	(assert $Range = 1000)
+	(calculate range from $Here to $There into 1000)
 
 (assert $N squares $Direction is $SX $SY $X $Y $PX $PY)
 	(position for 3 4 5 6 5 5 into $Here)
@@ -1477,7 +1473,6 @@
 	($Ship subsector x $X)
 	($Ship subsector y $Y)
 	($Ship heading $H)
-	$SX $SY $X $Y $H
 	(assert [$SX $SY $X $Y $H] = $Place)
 
 (test #drag-to-same-sector)
@@ -1679,7 +1674,6 @@
 (assert bearing to $SX $SY $X $Y is $Result)
 	(position for $SX $SY $X $Y into $Destination)
 	(bearing from #test-ship to position $Destination into $Result)
-	$Result
 
 (test #bearing-to-3-4-1-2)
 	(assert bearing to 3 4 1 2 is 315)
@@ -1694,7 +1688,7 @@
 	(drag #test-ship $Distance toward position $Position)
 	(position for $SX $SY $X $Y $PX $PY into $Here)
 	(#test-ship state is $There)
-	$There
+	%% $There
 	([$DX $DY | $] = $There)
 	(assert $Here = [$DX $DY | $])
 
@@ -1714,7 +1708,7 @@
 	(move #test-ship $Distance toward position $Position)
 	(position for $SX $SY $X $Y $PX $PY into $Here)
 	(#test-ship state is $There)
-	$There
+	%% $There
 	([$DX $DY | $] = $There)
 	(assert $Here = [$DX $DY | $])
 
