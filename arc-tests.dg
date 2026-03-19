@@ -198,4 +198,4 @@
       (fire from #test-ship to #far-target is in arc [1 2 3 4])
 
 (test #dont-hit-distant-target-rs)
-      ~(fire from #test-ship to #distant-target is in arc [1 2 3 4x])
+      ~(fire from #test-ship to #distant-target is in arc [1 2 3 4])
