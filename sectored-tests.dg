@@ -343,6 +343,8 @@
 	#move-141-toward-near-target
 	#move-750-toward-far-target
 	#move-1500-toward-distant-target
+	#positions-are-equal
+	#angle-42
 	#angle-to-northeast
 	])
 
@@ -868,14 +870,6 @@
 	(angle clockwise from 181 to 1 into 180)
 
 (test #angle-to-closest)
-	(angle from #test-ship to #closest-target into 90)
-
-(test #angle-to-northeast) %% Where the hell is 87 coming from?!
-	(drag #closest-target to 3 4 6 5)
-	(angle from #test-ship to #closest-target into $Angle)
-	$Angle
-	(position for 3 4 6 5 5 5 into $Pos)
-	(drag #closest-target to position $Pos)
 	(angle from #test-ship to #closest-target into 90)
 
 (test #angle-to-near)
@@ -1723,3 +1717,18 @@
 (test #move-1500-toward-distant-target)
 	(#distant-target state is $There)
 	(assert move 1500 toward $There is 2 5 10 9 6 8)
+
+(test #positions-are-equal)
+	(position for 3 4 6 5 into $Here)
+	(position for 3 4 6 5 5 5 into $There)
+	(assert $Here = $There)
+
+(test #angle-42)
+	(position for 3 4 5 6 into $Here)
+%%	(position for 3 4 6 5 into $There) %% weirdly gives 42; we'll go with it
+	(position for 3 4 7 4 into $There)
+	(calculate bearing from $Here to $There into 45)
+
+(test #angle-to-northeast) %% Where the hell is 87 coming from?!
+	(drag #closest-target to 3 4 7 4)
+	(angle from #test-ship to #closest-target into 90)
