@@ -75,7 +75,7 @@
 (friendly *)
 (code *)		E
 (* initial state is
-   [344 454 315 4 300 400 #cygnus-class 932 4 500 [100 100 100 100] 10 315 4])
+   [344 454 315 4 300 400 315 4 #cygnus-class 932 4 10 500 [100 100 100 100]])
 
 (clean up $)	(set condition 3)
 	   	  		(now) (display zeros for empty categories)
@@ -84,8 +84,8 @@
 #cygnus-class
 (name *)	Cygnus
 (type *)	scout ship
-(* state is
-    [0 0 0 0 0 0 #cygnus-class 1000 4 500 [100 100 100 100] 10 180 3])
+(* state is [0 0 180 0 500 963 0 0
+   		 	 #cygnus-class 1000 4 10 500 [100 100 100 100]])
 
 #starbase
 (base *)

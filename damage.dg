@@ -15,9 +15,10 @@
 %%---------------------------------- SCHEMA ----------------------------------
 %% State about a ship is stored as one list, to cut down on storage.
 %%
-%% state = [ PositionX PositionY Heading Speed DestX DestY Class Energy
-%%   	     Crystals Shields [S1 S2 S3 S4] Ammo Damage Helm Throttle ]
-
+%% state = [ PositionX PositionY Heading Speed DestX DestY Helm Throttle
+%% 		   	 Class Energy Crystals Ammo Shields [ Systems ] ]
+%%
+%% Systems is a list of system states.
 
 %%------------------------------ IMPLEMENTATION ------------------------------
 

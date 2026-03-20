@@ -61,18 +61,23 @@
 
 %% ----------------------------------------------------------------------
 
+%% state = [ PositionX PositionY Heading Speed DestX DestY Helm Throttle
+%% 		   	 Class Energy Crystals Ammo Shields [ Systems ] ]
+
 #test-ship
 (grid object *)
-(initial state [344 454 315 400 300 400 #cygnus-class
-		932 4 10 500 [100 99 98 97] 315 400])
+(initial state [344 454 315 400 300 400 315 400
+		 	   #cygnus-class 932 4 10 500 [100 99 98 97]])
 
-(set up $)  	(initial state $State)
-		(now) (* state is $State)
+(set up $)
+	 (initialize * as #cygnus-class)
+	 (initial state $State)
+	 (now) (* state is $State)
 
 #cygnus-class
 (name *)	Cygnus
 (type *)	scout ship
-(* state is [0 0 180 0 500 963 #cygnus-class 1000 4 10 500 [100 99 98 97]])
+(* state is [0 0 180 0 500 963 0 0 #cygnus-class 1000 4 10 500 [100 99 98 97]])
 
 %% ----------------------------------------------------------------------
 

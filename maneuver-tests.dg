@@ -37,14 +37,14 @@
 
 #test-ship
 (ship *)
-(* initial state is
- [344 454 315 400 304 414 #cygnus-class 932 4 500 [100 100 100 100] 10 90 700])
+(* initial state is [344 454 315 400 304 414 90 700
+   		   		 	 #cygnus-class 932 4 10 500 [100 100 100 100]])
 
 #cygnus-class
 (name *)	Cygnus
 (type *)	scout ship
-(* state is
- [0 0 180 300 500 2963 #cygnus-class 1000 4 500 [100 100 100 100] 10])
+(* state is [0 0 180 0 500 963 0 0
+   		 	 #cygnus-class 1000 4 10 500 [100 100 100 100]])
 
 #sun
 (grid object *)
