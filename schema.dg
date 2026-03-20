@@ -6,7 +6,7 @@
 %% The class of a ship is
 %%
 %% state = [ PositionX PositionY Heading Speed DestX DestY Class Energy
-%%   	     Crystals Shields [S1 S2 S3 S4] Ammo Damage Helm Throttle ]
+%%   	     Crystals Ammo Shields [S1 S2 S3 S4] Damage Helm Throttle ]
 %%
 %%-------------------------------- INTERFACES --------------------------------
 
@@ -167,17 +167,17 @@
 	($Ship state is $State)
 	(nth $State 9 $Crystals)
 
+($Ship ammo $Ammo)
+	($Ship state is $State)
+	(nth $State 10 $Ammo)
+
 ($Ship shields $Shields)
 	($Ship state is $State)
-	(nth $State 10 $Shields)
+	(nth $State 11 $Shields)
 
 ($Ship shield levels $Levels)
 	($Ship state is $State)
-	(nth $State 11 $Levels)
-
-($Ship ammo $Ammo)
-	($Ship state is $State)
-	(nth $State 12 $Ammo)
+	(nth $State 12 $Levels)
 
 ($Ship helm setting $Helm)
 	($Ship state is $State)
@@ -306,7 +306,7 @@
 
 (decrease ammo for $Ship by $Num)
 	($Ship state is $State)
-	(decrease element 12 in $State by $Num into $NewState)
+	(decrease element 10 in $State by $Num into $NewState)
 	(now) ($Ship state is $NewState)
 
 (decrease energy for $Ship by $Num)
@@ -325,14 +325,14 @@
 
 (decrease shields for $Ship by $Num)
 	($Ship state is $State)
-	(decrease element 10 in $State by $Num into $NewState)
+	(decrease element 11 in $State by $Num into $NewState)
 	(now) ($Ship state is $NewState)
 
 (regenerate shields for $Ship by $Num)
 	($Ship class $Class)
 	($Class shields $Max)
 	($Ship state is $State)
-	(increase element 10 in $State by $Num into $NewState with max $Max)
+	(increase element 11 in $State by $Num into $NewState with max $Max)
 	(now) ($Ship state is $NewState)
 
 (accelerate $Ship to speed $Speed)

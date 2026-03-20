@@ -14,20 +14,20 @@
 
 %%---------------------------------- SCHEMA ----------------------------------
 %% State about a ship is stored as one list, to cut down on storage.
-%% The class of a ship is
 %%
 %% state = [ PositionX PositionY Heading Speed DestX DestY Class Energy
 %%   	     Crystals Shields [S1 S2 S3 S4] Ammo Damage Helm Throttle ]
 
+
 %%------------------------------ IMPLEMENTATION ------------------------------
 
 ($Attacker hits $Target with $Units)
-        (angle from $Target to $Attacker into $Angle)
+    (angle from $Target to $Attacker into $Angle)
 	(hit $Target from angle $Angle with $Units)
 
 (hit $Target from angle $Angle with $Units)
-        (direction for $Angle into $Direction)
-        (hit $Target from $Direction with $Units)
+    (direction for $Angle into $Direction)
+    (hit $Target from $Direction with $Units)
 
 %% Damage rubric:
 %%   * hit facing shield first
