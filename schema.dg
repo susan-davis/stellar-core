@@ -8,6 +8,10 @@
 %% state = [ PositionX PositionY Heading Speed DestX DestY Helm Throttle
 %% 		   	 Class Energy Crystals Ammo Shields [ Systems ] ]
 %%
+%% Systems are defined as lists:
+%%
+%% system = [ ID Value Arcs TimeOfRepair ]
+%%
 %%-------------------------------- INTERFACES --------------------------------
 
 %% schema definition

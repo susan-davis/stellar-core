@@ -28,6 +28,12 @@
 	#fa-360
 	#arc0-0
 	#arc0-1
+	#arc0-3
+	#arc0-4
+	#arc0-5
+	#arc0-355
+	#arc0-356
+	#arc0-357
 	#arc0-359
 	#arc0-360
 	#arc46-0
@@ -138,7 +144,7 @@
       (position 3 4 5 5 should have 45 1 #north)
 
 (test #due-northeast)
-%%	  (position 3 4 6 5 should have 90 2 #east) %% weirdly gives 42
+%%	  (position 3 4 6 5 should have 90 2 #east) %% weirdly gives 42, off by 1?
 	  (position 3 4 7 4 should have 90 2 #east)
 
 (test #due-east)
@@ -187,10 +193,28 @@
 	  (arc 0 contains angle 0)
 
 (test #arc0-1)
-	  ~(arc 0 contains angle 1)
+	  (arc 0 contains angle 1)
+
+(test #arc0-3)
+	  (arc 0 contains angle 3)
+
+(test #arc0-4)
+	  (arc 0 contains angle 4)
+
+(test #arc0-5)
+	  ~(arc 0 contains angle 5)
+
+(test #arc0-355)
+	  ~(arc 0 contains angle 355)
+
+(test #arc0-356)
+	  (arc 0 contains angle 356)
+
+(test #arc0-357)
+	  (arc 0 contains angle 357)
 
 (test #arc0-359)
-	  ~(arc 0 contains angle 359)
+	  (arc 0 contains angle 359)
 
 (test #arc0-360)
 	  (arc 0 contains angle 360)

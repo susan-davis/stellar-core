@@ -43,16 +43,19 @@
 		 ($Direction = #north)
 	(endif)
 
-%% Special firing arcs: Arc 0 is boresight only (bow angle 0), for spinal
-%% mounts and the like. Arcs 9 to 360 describe an arc of that many degrees,
+%% Special firing arcs: Arc 0 is ±4 degrees of boresight only, for spinal
+%% mounts and the like. Arcs 9 to 360 describe a cone of that many degrees,
 %% centred on the bow. Integer division rounds down, so you'll want to specify
 %% Arc 46, not Arc 45, to get a 45 degree arc centred on the bow. Arc 360 will
 %% cover 360 degrees. There are no arcs greater than 360.
+%% Reserved for future use: Arcs 361-368 describe vertical arcs, with 361
+%% from the bow up to 45 degrees dorsal, and 368 from the bow down to 45
+%% degrees ventral.
 
 ($BowAngle is in special arc $Arc)
 	 ($BowAngle modulo 360 into $Angle)
 	 (if) ($Arc = 0) (then)
-	 	  ($Angle = 0)
+	 	  { ($Angle < 5) (or) ($Angle > 355) }
 	 (elseif) ($Arc > 0) ($Arc < 9) (then)
 	 	  ($Angle is in octant $Arc)
      (elseif) ($Arc > 8) ($Arc < 360) (then)
