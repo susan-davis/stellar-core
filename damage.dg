@@ -19,6 +19,8 @@
 %% 		   	 Class Energy Crystals Ammo Shields [ Systems ] ]
 %%
 %% Systems is a list of system states.
+%%
+%% system = [ Type Arcs Value Time ]
 
 %%------------------------------ IMPLEMENTATION ------------------------------
 
