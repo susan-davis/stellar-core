@@ -435,7 +435,7 @@
       ~(fire from #test-ship to #closest-target is in arc 0)
 
 (test #hit-near-target-0)
-      (fire from #test-ship to #near-target is in arc 0)
+      (fire from #test-ship to #near-target is in arc [0])
 
 (test #dont-hit-far-target-0)
       ~(fire from #test-ship to #far-target is in arc 0)

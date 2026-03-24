@@ -10,7 +10,7 @@
 %%
 %% Systems are defined as lists:
 %%
-%% system = [ ID Value Arcs TimeOfRepair ]
+%% system = [ System Num Value Arcs TimeOfRepair ]
 %%
 %%-------------------------------- INTERFACES --------------------------------
 
@@ -125,8 +125,10 @@
 (initialize $Ship as $Class)
 	($Class state is $Default)
 	($Default =
-	    [$ $ $ $ $ $ $ $ $ $Energy $Crystals $Ammo $Shields $Levels | $])
-	(now) ($Ship state is [0 0 0 0 0 0 0 0
+	    [$ $ $ $ $ $ $ $ $
+		 $Energy $Crystals $Ammo $Shields $Levels $Systems | $])
+	($Ship state is [$PX $PY $H $S $DX $DY $C $T $Class | $])
+	(now) ($Ship state is [$PX $PY $H $S $DX $DY $C $T
 		   $Class $Energy $Crystals $Ammo $Shields $Levels])
 
 (place $Ship at $Position)

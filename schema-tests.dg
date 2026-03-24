@@ -65,31 +65,25 @@
 
 #test-ship
 (grid object *)
-(initial state [344 454 315 400 300 400 315 400
-		 	   #cygnus-class 932 4 10 500 [100 99 98 97]
-			   [[@projector 100 360 0]
-			   [@torpedo 500 [1 8] 0]
-			   [@torpedo 500 [1 8] 0]
-			   [@tractor 250 360 0]
-			   [@sensor 2 [1 8] 0]
-			   [@sensor 1 360 0]]])
+(initial state [344 454 315 400 300 400 315 400 #cygnus-class])
 
 (set up $)
-	 (initialize * as #cygnus-class)
 	 (initial state $State)
 	 (now) (* state is $State)
+	 (initialize * as #cygnus-class)
+	 (decrease energy for * by 68)
 
 #cygnus-class
 (name *)	Cygnus
 (type *)	scout ship
 (* state is [0 0 180 0 500 963 0 0
    		 	#cygnus-class 1000 4 10 500 [100 99 98 97]
-			[[@projector 100 360 0]
-			[@torpedo 500 [1 8] 0]
-			[@torpedo 500 [1 8] 0]
-			[@tractor 250 360 0]
-			[@sensor 2 [1 8] 0]
-			[@sensor 1 360 0]]])
+			[[#projector 1 100 360 0]
+			[#torpedo 1 500 [1 8] 0]
+			[#torpedo 1 500 [1 8] 0]
+			[#tractor 1 250 360 0]
+			[#sensor 1 2 [1 8] 0]
+			[#sensor 1 1 360 0]]])
 
 %% ----------------------------------------------------------------------
 
@@ -190,9 +184,6 @@
 	(#test-ship shields 500)
 	(#test-ship shield levels [100 99 98 97])
 	(#test-ship ammo 10)
-	(#test-ship damage [])
-	(#test-ship helm setting 0)
-	(#test-ship throttle setting 0)
 
 (test #place-at)
 	(initialize #test-ship as #cygnus-class)
