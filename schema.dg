@@ -368,7 +368,7 @@
 
 ($Ship systems into $Systems)
     ($Ship state is $State)
-	(nth $Ship 15 into $Systems)
+	(nth $State 15 $Systems)
 
 ($List first system $System into $Return)
     ($List = [$Head | $Tail])

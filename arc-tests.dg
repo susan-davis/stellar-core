@@ -46,6 +46,10 @@
 	#north-24
 	#north-336
 	#north-337
+	#northeast-22
+	#northeast-23
+	#northeast-68
+	#northeast-69
 	#dont-hit-closest-target-fa
 	#hit-near-target-fa
 	#dont-hit-far-target-fa
@@ -248,6 +252,18 @@
 
 (test #north-337)
 	  (arc #north contains angle 337)
+
+(test #northeast-22)
+	  ~(arc #northeast contains angle 22)
+
+(test #northeast-23)
+	  (arc #northeast contains angle 23)
+
+(test #northeast-68)
+	  (arc #northeast contains angle 68)
+
+(test #northeast-69)
+	  ~(arc #northeast contains angle 69)
 
 (test #dont-hit-closest-target-fa)
       ~(fire from #test-ship to #closest-target is in arc [1 8])

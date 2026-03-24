@@ -52,7 +52,6 @@
 	 (if) ($Arc = 0) (then)
 	 	  { ($Angle < 5) (or) ($Angle > 355) }
 	 (elseif) ($Arc = #north) (then)
-	 	  forward arc
 	 	  { ($Angle > 336) (or) ($Angle < 24) }
      (elseif) ($Arc = #northeast) (then)
 	      ($Angle > 22) ($Angle < 69)
@@ -75,7 +74,9 @@
 %% Compound firing arcs are made up of a list of other firing arcs; the
 %% target is in arc if it's in any of them. [1 8] equals a forward arc,
 %% [1 2 3 4] equals a right side arc, and so forth. Compound arcs can
-%% include any of the special firing arcs, as well.
+%% include any of the special firing arcs, as well. A Quellan Q7 wing
+%% projector might have arc [#northwest #north #northeast #east 5],
+%% for example.
 
 (arc $Arc contains angle $Angle) %% supports compound arcs
 	 (if) ~(list $Arc) (then)
