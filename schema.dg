@@ -6,7 +6,7 @@
 %% The class of a ship is
 %%
 %% state = [ PositionX PositionY Heading Speed DestX DestY Helm Throttle
-%% 		   	 Class Energy Crystals Ammo Shields [ Systems ] ]
+%% 		   	 Class Energy Crystals Ammo Shields [S1 S2 S3 S4] [ Systems ] ]
 %%
 %% Systems are defined as lists:
 %%
@@ -109,6 +109,16 @@
 (interface (place $<Ship at $<SX $<SY $<X $<Y $<PX $<PY))
 
 (interface (place $<Ship in sector $<SX $<SY))
+
+%% ship's systems
+
+(interface ($Ship has $System))
+
+(interface ($Ship $System is functioning))
+
+(interface ($Ship $System is destroyed))
+
+(interface ($Ship $System repair time into $Time))
 
 %%------------------------------ IMPLEMENTATION ------------------------------
 
@@ -353,3 +363,35 @@
 (accelerate $Ship to gradient $Gradient)
 	($Gradient times 100 into $Speed)
 	(accelerate $Ship to speed $Speed)
+
+%% ship systems
+
+($Ship systems into $Systems)
+    ($Ship state is $State)
+	(nth $Ship 15 into $Systems)
+
+($List first system $System into $Return)
+    ($List = [$Head | $Tail])
+	($Head = [$Sys | $])
+	(if) ($Sys = $System) (then)
+		 ($Return = $Head)
+	(else)
+	     ($Tail first system $System into $Return)
+	(endif)
+
+($Ship has $System)
+    ($Ship systems into $Systems)
+	($Systems first system $System into $Sys)
+	(list $Sys)
+
+($Ship $System repair time into $Time)
+    ($Ship first system $System into $Sys)
+	($Sys = [$ $ $ | $Time])
+
+($Ship $System is functioning)
+    ($Ship $System repair time into $Time)
+	($Time = 0)
+
+($Ship $System is destroyed)
+    ($Ship $System repair time into $Time)
+	($Time > 16380)

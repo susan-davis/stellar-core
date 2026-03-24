@@ -15,7 +15,6 @@
 	#shield-level-south
 	#shield-level-west
 	#ammo
-	#damage
 	#helm
 	#throttle
 	#throttle-gradient
@@ -67,7 +66,13 @@
 #test-ship
 (grid object *)
 (initial state [344 454 315 400 300 400 315 400
-		 	   #cygnus-class 932 4 10 500 [100 99 98 97]])
+		 	   #cygnus-class 932 4 10 500 [100 99 98 97]
+			   [[@projector 100 360 0]
+			   [@torpedo 500 [1 8] 0]
+			   [@torpedo 500 [1 8] 0]
+			   [@tractor 250 360 0]
+			   [@sensor 2 [1 8] 0]
+			   [@sensor 1 360 0]]])
 
 (set up $)
 	 (initialize * as #cygnus-class)
@@ -77,7 +82,14 @@
 #cygnus-class
 (name *)	Cygnus
 (type *)	scout ship
-(* state is [0 0 180 0 500 963 0 0 #cygnus-class 1000 4 10 500 [100 99 98 97]])
+(* state is [0 0 180 0 500 963 0 0
+   		 	#cygnus-class 1000 4 10 500 [100 99 98 97]
+			[[@projector 100 360 0]
+			[@torpedo 500 [1 8] 0]
+			[@torpedo 500 [1 8] 0]
+			[@tractor 250 360 0]
+			[@sensor 2 [1 8] 0]
+			[@sensor 1 360 0]]])
 
 %% ----------------------------------------------------------------------
 
@@ -119,9 +131,6 @@
 
 (test #ammo)
 	(#test-ship ammo 10)
-
-(test #damage)
-	(#test-ship damage [])
 
 (test #helm)
 	(#test-ship helm setting 315)

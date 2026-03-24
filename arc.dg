@@ -44,28 +44,31 @@
 	(endif)
 
 %% Special firing arcs: Arc 0 is ±4 degrees of boresight only, for spinal
-%% mounts and the like. Arcs 9 to 360 describe a cone of that many degrees,
-%% centred on the bow. Integer division rounds down, so you'll want to specify
-%% Arc 46, not Arc 45, to get a 45 degree arc centred on the bow. Arc 360 will
-%% cover 360 degrees. There are no arcs greater than 360.
-%% Reserved for future use: Arcs 361-368 describe vertical arcs, with 361
-%% from the bow up to 45 degrees dorsal, and 368 from the bow down to 45
-%% degrees ventral.
+%% mounts and the like. Direction arcs (#north, #northeast, and so on)
+%% describe 45 degree arcs centred on each direction. Arc 360 is everywhere.
 
 ($BowAngle is in special arc $Arc)
 	 ($BowAngle modulo 360 into $Angle)
 	 (if) ($Arc = 0) (then)
 	 	  { ($Angle < 5) (or) ($Angle > 355) }
-	 (elseif) ($Arc > 0) ($Arc < 9) (then)
-	 	  ($Angle is in octant $Arc)
-     (elseif) ($Arc > 8) ($Arc < 360) (then)
-	      ($Arc divided by 2 into $HA)
-		  ($HA plus 1 into $HalfArc)
-		  (360 minus $HalfArc into $LeftHalf)
-		  $Angle $LeftHalf
-		  { ($Angle < $HalfArc) (or) ($Angle > $LeftHalf) }
+	 (elseif) ($Arc = #north) (then)
+	 	  { ($Angle > 336) (or) ($Angle < 24) }
+     (elseif) ($Arc = #northeast) (then)
+	      ($Angle > 22) ($Angle < 69)
+     (elseif) ($Arc = #east) (then)
+	      ($Angle > 67) ($Angle < 114)
+     (elseif) ($Arc = #southeast) (then)
+	      ($Angle > 112) ($Angle < 159)
+     (elseif) ($Arc = #south) (then)
+	      ($Angle > 157) ($Angle < 203)
+     (elseif) ($Arc = #southwest) (then)
+	      ($Angle > 201) ($Angle < 248)
+     (elseif) ($Arc = #west) (then)
+	      ($Angle > 246) ($Angle < 293)
+     (elseif) ($Arc = #northwest) (then)
+	      ($Angle > 291) ($Angle < 338)
      (else)
-		  ($Arc = 360)
+		  { ($Arc = 360) (or) ($Angle is in octant $Arc) }
 	 (endif)
 
 %% Compound firing arcs are made up of a list of other firing arcs; the

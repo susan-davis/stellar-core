@@ -36,11 +36,6 @@
 	#arc0-357
 	#arc0-359
 	#arc0-360
-	#arc46-0
-	#arc46-23
-	#arc46-24
-	#arc46-336
-	#arc46-337
 	#arc360-0
 	#arc360-45
 	#arc360-90
@@ -218,21 +213,6 @@
 
 (test #arc0-360)
 	  (arc 0 contains angle 360)
-
-(test #arc46-0)
-	  (arc 46 contains angle 0)
-
-(test #arc46-23)
-	  (arc [46] contains angle 23)
-
-(test #arc46-24)
-	  ~(arc 46 contains angle 24)
-
-(test #arc46-336)
-	  ~(arc 46 contains angle 336)
-
-(test #arc46-337)
-	  (arc 46 contains angle 337)
 
 (test #arc360-0)
 	  (arc 360 contains angle 0)

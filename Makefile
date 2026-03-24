@@ -1,7 +1,7 @@
 all: test 
 
 COMPILE=dialogc
-DEBUG=dgdebug -q -w 80 -h 1 --no-warn-not-topic
+DEBUG=dgdebug -q -w 80 --no-warn-not-topic # -h 1
 STDLIB=utils.dg unit.dg stdlib.dg
 
 SRCS=su-101.dg union-ship.dg damage.dg arc.dg maneuvering.dg sensors.dg schema.dg sectored-grid.dg time.dg
