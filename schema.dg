@@ -391,9 +391,7 @@
 ($Ship $System repair time into $Time)
 	($Ship systems into $Systems)
     ($Systems first system $System into $Sys)
-	$Sys
 	($Sys = [$ $ $ $Time])
-	$Time
 
 ($Ship $System is functioning)
     ($Ship $System repair time into 0)
