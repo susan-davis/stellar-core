@@ -10,7 +10,7 @@
 %%
 %% Systems are defined as lists:
 %%
-%% system = [ System Num Value Arcs TimeOfRepair ]
+%% system = [ System Value Arcs TimeOfRepair ]
 %%
 %%-------------------------------- INTERFACES --------------------------------
 
@@ -120,7 +120,7 @@
 
 (interface ($Ship $System repair time into $Time))
 
-%%------------------------------ IMPLEMENTATION ------------------------------
+%%------------------------------ IMPLEMENTATION -------------------------------
 
 (initialize $Ship as $Class)
 	($Class state is $Default)
@@ -129,7 +129,7 @@
 		 $Energy $Crystals $Ammo $Shields $Levels $Systems | $])
 	($Ship state is [$PX $PY $H $S $DX $DY $C $T $Class | $])
 	(now) ($Ship state is [$PX $PY $H $S $DX $DY $C $T
-		   $Class $Energy $Crystals $Ammo $Shields $Levels])
+		   $Class $Energy $Crystals $Ammo $Shields $Levels $Systems])
 
 (place $Ship at $Position)
 	($Ship state is $State)
@@ -153,7 +153,7 @@
 	(random from 1 to 10 into $PY)
 	(place $Ship at $SX $SY $X $Y $PX $PY)
 
-%% schema definition
+%%---------------------------- SCHEMA DEFINITION ----------------------------
 
 ($Ship coordinates into $SX $SY $X $Y $PX $PY)
 	($Ship state is $State)
@@ -265,6 +265,8 @@
 	($Ship class $Class)
 	(name $Class) (no space) -class (type $Class)
 
+%% For now, all ships have
+
 ($Ship shield level $Direction into $Level)
 	($Ship shield levels $Levels)
 	(if) ($Direction = #east) (then)
@@ -277,7 +279,7 @@
 		(nth $Levels 1 $Level)
 	(endif)
 
-%% mutators
+%%--------------------------------- MUTATORS ----------------------------------
 
 (set destination for $Ship to $Destination)
 	($Ship state is $State)
@@ -366,7 +368,7 @@
 	($Gradient times 100 into $Speed)
 	(accelerate $Ship to speed $Speed)
 
-%% ship systems
+%%-------------------------------- SHIP SYSTEMS -------------------------------
 
 ($Ship systems into $Systems)
     ($Ship state is $State)
@@ -387,12 +389,14 @@
 	(list $Sys)
 
 ($Ship $System repair time into $Time)
-    ($Ship first system $System into $Sys)
-	($Sys = [$ $ $ | $Time])
+	($Ship systems into $Systems)
+    ($Systems first system $System into $Sys)
+	$Sys
+	($Sys = [$ $ $ $Time])
+	$Time
 
 ($Ship $System is functioning)
-    ($Ship $System repair time into $Time)
-	($Time = 0)
+    ($Ship $System repair time into 0)
 
 ($Ship $System is destroyed)
     ($Ship $System repair time into $Time)

@@ -27,8 +27,10 @@
 %% and ventral shields never get hit, or possibly only by fire from a planet
 %% that the ship is orbiting. The shields exactly match the firing arcs, so
 %% the forward shields are on arcs 1 and 8, starboard on 2 and 3, aft on
-%% 4 and 5, and port on 6 and 7. (We can also leave open the possibility for
-%% larger ships to have eight shield emitters rather than four.)
+%% 4 and 5, and port on 6 and 7. If we ever want to enable different ships
+%% to have 1, 2, 4, or 8 emitters, we can use the length of the shield
+%% levels list in the schema to determine that. For now, all ships have four
+%% shield emitters.
 
 (shield direction for $Attacker against $Ship into $Direction)
 	(angle from $Ship to $Attacker into $Angle)

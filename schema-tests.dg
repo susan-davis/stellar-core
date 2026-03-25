@@ -56,6 +56,15 @@
 	#accelerate
 	#accelerate-too-fast
 	#decelerate
+	#systems-list
+	#has-mtd
+	#has-torpedo
+	#doesnt-have-missile
+	#sensor-is-functioning
+	#tractor-is-broken
+	#mtd-is-destroyed
+	#fix-tractor-at-800
+	#dont-fix-projector
 	])
 
 %% ----------------------------------------------------------------------
@@ -78,235 +87,268 @@
 (type *)	scout ship
 (* state is [0 0 180 0 500 963 0 0
    		 	#cygnus-class 1000 4 10 500 [100 99 98 97]
-			[[#projector 1 100 360 0]
-			[#torpedo 1 500 [1 8] 0]
-			[#torpedo 1 500 [1 8] 0]
-			[#tractor 1 250 360 0]
-			[#sensor 1 2 [1 8] 0]
-			[#sensor 1 1 360 0]]])
+			[[#projector 100 [360 #up] 0]
+			[#torpedo 500 [1 8] 0]
+			[#torpedo 500 [1 8] 0]
+			[#tractor 250 360 800]
+			[#sensor 2 [1 8] 0]
+			[#sensor 1 [360 #up #down] 0]
+			[#sensor 0 [360 #up #down] 0]
+			[#mtd 4 #down 16383]
+			[#shuttle 10 #south 0]
+			]])
 
 %% ----------------------------------------------------------------------
 
 (test #coordinates)
-	(#test-ship coordinates into 3 4 5 6 5 5)
+	  (#test-ship coordinates into 3 4 5 6 5 5)
 
 (test #subsector)
-	(#test-ship subsector into 3 4 5 6)
+	  (#test-ship subsector into 3 4 5 6)
 
 (test #speed)
-	(#test-ship speed 400)
+	  (#test-ship speed 400)
 
 (test #warp-gradient)
-	(#test-ship warp gradient 4)
+	  (#test-ship warp gradient 4)
 
 (test #energy)
-	(#test-ship energy 932)
+	  (#test-ship energy 932)
 
 (test #crystals)
-	(#test-ship crystals 4)
+	  (#test-ship crystals 4)
 
 (test #shields)
-	(#test-ship shields 500)
+	  (#test-ship shields 500)
 
 (test #shield-levels)
-	(#test-ship shield levels [100 99 98 97])
+	  (#test-ship shield levels [100 99 98 97])
 
 (test #shield-level-north)
-	(#test-ship shield level #north into 100)
+	  (#test-ship shield level #north into 100)
 
 (test #shield-level-east)
-	(#test-ship shield level #east into 99)
+	  (#test-ship shield level #east into 99)
 
 (test #shield-level-south)
-	(#test-ship shield level #south into 98)
+	  (#test-ship shield level #south into 98)
 
 (test #shield-level-west)
-	(#test-ship shield level #west into 97)
+	  (#test-ship shield level #west into 97)
 
 (test #ammo)
-	(#test-ship ammo 10)
+	  (#test-ship ammo 10)
 
 (test #helm)
-	(#test-ship helm setting 315)
+	  (#test-ship helm setting 315)
 
 (test #throttle)
-	(#test-ship throttle setting 400)
+	  (#test-ship throttle setting 400)
 
 (test #throttle-gradient)
-	(#test-ship throttle gradient 4)
+	  (#test-ship throttle gradient 4)
 
 (test #destination)
-	(#test-ship destination [300 400])
+	  (#test-ship destination [300 400])
 
 (test #destination-subsector)
-	(#test-ship destination 3 4 1 1)
+	  (#test-ship destination 3 4 1 1)
 
 (test #destination-precisely)
-	(#test-ship destination 3 4 1 1 1 1)
+	  (#test-ship destination 3 4 1 1 1 1)
 
 (test #turn-mode)
-	(#test-ship turn mode 180)
+	  (#test-ship turn mode 180)
 
 (test #effective-turn-mode)
-	(#test-ship effective turn mode 45)
+	  (#test-ship effective turn mode 45)
 
 (test #effective-turn-mode-sublight)
-	(accelerate #test-ship to speed 0)
-	(#test-ship effective turn mode 360)
+	  (accelerate #test-ship to speed 0)
+	  (#test-ship effective turn mode 360)
 
 (test #drive-params)
-	(#test-ship drive parameters [500 963])
+	  (#test-ship drive parameters [500 963])
 
 (test #efficiency)
-	(#test-ship drive efficiency 500)
+	  (#test-ship drive efficiency 500)
 
 (test #cruising-speed)
-	(#test-ship cruising speed 6)
+	  (#test-ship cruising speed 6)
 
 (test #top-speed)
-	(#test-ship top speed 9)
+	  (#test-ship top speed 9)
 
 (test #acceleration)
-	(#test-ship acceleration 300)
+	  (#test-ship acceleration 300)
 
 (test #class)
-	(#test-ship class #cygnus-class)
+	  (#test-ship class #cygnus-class)
 
 (test #ship-class)
-	(collect words) (class #test-ship) (into $Words)
-	($Words = [cygnus -class scout ship])
+	  (collect words) (class #test-ship) (into $Words)
+	  ($Words = [cygnus -class scout ship])
 
 (test #initialize)
-	(initialize #test-ship as #cygnus-class)
-	(#test-ship class #cygnus-class)
-	(#test-ship energy 1000)
-	(#test-ship crystals 4)
-	(#test-ship shields 500)
-	(#test-ship shield levels [100 99 98 97])
-	(#test-ship ammo 10)
+	  (initialize #test-ship as #cygnus-class)
+	  (#test-ship class #cygnus-class)
+	  (#test-ship energy 1000)
+	  (#test-ship crystals 4)
+	  (#test-ship shields 500)
+	  (#test-ship shield levels [100 99 98 97])
+	  (#test-ship ammo 10)
 
 (test #place-at)
-	(initialize #test-ship as #cygnus-class)
-	(place #test-ship at 2 3 4 5)
-	(#test-ship sector x 2)
-	(#test-ship sector y 3)
-	(#test-ship subsector x 4)
-	(#test-ship subsector y 5)
+	  (initialize #test-ship as #cygnus-class)
+	  (place #test-ship at 2 3 4 5)
+	  (#test-ship sector x 2)
+	  (#test-ship sector y 3)
+	  (#test-ship subsector x 4)
+	  (#test-ship subsector y 5)
 
 (test #place-at-subsector)
-	(place #test-ship at 2 3 4 5 6 7)
-	(#test-ship sector x 2)
-	(#test-ship sector y 3)
-	(#test-ship subsector x 4)
-	(#test-ship subsector y 5)
-	(#test-ship position x 6)
-	(#test-ship position y 7)
+	  (place #test-ship at 2 3 4 5 6 7)
+	  (#test-ship sector x 2)
+	  (#test-ship sector y 3)
+	  (#test-ship subsector x 4)
+	  (#test-ship subsector y 5)
+	  (#test-ship position x 6)
+	  (#test-ship position y 7)
 
 (test #place-in-sector)
-	(place #test-ship in sector 7 7)
-	(#test-ship sector x 7)
-	(#test-ship sector y 7)
+	  (place #test-ship in sector 7 7)
+	  (#test-ship sector x 7)
+	  (#test-ship sector y 7)
 
 (test #set-destination)
-	(position for 4 5 6 7 into $Position)
-	(set destination for #test-ship to $Position)
-	(#test-ship destination 4 5 6 7)
-	(#test-ship heading 315)
-	(#test-ship helm setting 135)
+	  (position for 4 5 6 7 into $Position)
+	  (set destination for #test-ship to $Position)
+	  (#test-ship destination 4 5 6 7)
+	  (#test-ship heading 315)
+	  (#test-ship helm setting 135)
 
 (test #set-destination-subsector)
-	(set destination for #test-ship to 4 5 6 7)
-	(#test-ship destination $There)
-	([454 564 | $] = $There)
-	(#test-ship helm setting 135)
+	  (set destination for #test-ship to 4 5 6 7)
+	  (#test-ship destination $There)
+	  ([454 564 | $] = $There)
+	  (#test-ship helm setting 135)
 
 (test #set-destination-precisely)
-	(set destination for #test-ship to 4 5 6 7 8 9)
-	(#test-ship destination 4 5 6 7 8 9)
-	(#test-ship helm setting 137)
+	  (set destination for #test-ship to 4 5 6 7 8 9)
+	  (#test-ship destination 4 5 6 7 8 9)
+	  (#test-ship helm setting 137)
 
 (test #set-helm)
-	(set helm for #test-ship to 135)
-	(#test-ship helm setting 135)
+	  (set helm for #test-ship to 135)
+	  (#test-ship helm setting 135)
 
 (test #set-throttle-speed)
-	(set throttle for #test-ship to speed 610)
-	(#test-ship throttle setting 610)
+	  (set throttle for #test-ship to speed 610)
+	  (#test-ship throttle setting 610)
 
 (test #set-throttle-speed-too-fast)
-	(set throttle for #test-ship to speed 1099)
-	(#test-ship throttle setting 900)
+	  (set throttle for #test-ship to speed 1099)
+	  (#test-ship throttle setting 900)
 
 (test #set-throttle-gradient)
-	(set throttle for #test-ship to gradient 6)
-	(#test-ship throttle setting 600)
+	  (set throttle for #test-ship to gradient 6)
+	  (#test-ship throttle setting 600)
 
 (test #set-throttle-gradient-too-fast)
-	(set throttle for #test-ship to gradient 10)
-	(#test-ship throttle setting 900)
+	  (set throttle for #test-ship to gradient 10)
+	  (#test-ship throttle setting 900)
 
 (test #decrease-ammo)
-	(decrease ammo for #test-ship by 3)
-	(#test-ship ammo 7)
+	  (decrease ammo for #test-ship by 3)
+	  (#test-ship ammo 7)
 
 (test #decrease-ammo-below-zero)
-	~(decrease ammo for #test-ship by 11)
+	  ~(decrease ammo for #test-ship by 11)
 
 (test #decrease-energy)
-	(decrease energy for #test-ship by 32)
-	(#test-ship energy 900)
+	  (decrease energy for #test-ship by 32)
+	  (#test-ship energy 900)
 
 (test #decrease-energy-below-zero)
-	~(decrease energy for #test-ship by 1001)
+	  ~(decrease energy for #test-ship by 1001)
 
 (test #regenerate)
-	(regenerate energy for #test-ship)
-	(#test-ship energy 972)
+	  (regenerate energy for #test-ship)
+	  (#test-ship energy 972)
 
 (test #regenerate-above-max)
-	(regenerate energy for #test-ship)
-	(regenerate energy for #test-ship)
-	(#test-ship energy 1000)
+	  (regenerate energy for #test-ship)
+	  (regenerate energy for #test-ship)
+	  (#test-ship energy 1000)
 
 (test #decrease-shields)
-	(decrease shields for #test-ship by 50)
-	(#test-ship shields 450)
+	  (decrease shields for #test-ship by 50)
+	  (#test-ship shields 450)
 
 (test #decrease-shields-below-zero)
-	~(decrease shields for #test-ship by 501)
+	  ~(decrease shields for #test-ship by 501)
 
 (test #regenerate-shields)
-	(decrease shields for #test-ship by 50)
-	(#test-ship shields 450)
-	(regenerate shields for #test-ship by 50)
-	(#test-ship shields 500)
+	  (decrease shields for #test-ship by 50)
+	  (#test-ship shields 450)
+	  (regenerate shields for #test-ship by 50)
+	  (#test-ship shields 500)
 
 (test #regenerate-shields-above-max)
-	(decrease shields for #test-ship by 50)
-	(#test-ship shields 450)
-	(regenerate shields for #test-ship by 100)
-	(#test-ship shields 500)
+	  (decrease shields for #test-ship by 50)
+	  (#test-ship shields 450)
+	  (regenerate shields for #test-ship by 100)
+	  (#test-ship shields 500)
 
 (test #accelerate)
-	(accelerate #test-ship to speed 600)
-	(#test-ship speed 600)
+	  (accelerate #test-ship to speed 600)
+	  (#test-ship speed 600)
 
 (test #accelerate-too-fast)
-	(accelerate #test-ship to speed 1000)
-	(#test-ship speed 900)
+	  (accelerate #test-ship to speed 1000)
+	  (#test-ship speed 900)
 
 (test #decelerate)
-	(accelerate #test-ship to speed 0)
-	(#test-ship speed 0)
+	  (accelerate #test-ship to speed 0)
+	  (#test-ship speed 0)
 
 (test #accelerate-gradient)
-	(accelerate #test-ship to gradient 6)
-	(#test-ship warp gradient 6)
+	  (accelerate #test-ship to gradient 6)
+	  (#test-ship warp gradient 6)
 
 (test #accelerate-gradient-too-fast)
-	(accelerate #test-ship to gradient 10)
-	(#test-ship warp gradient 9)
+	  (accelerate #test-ship to gradient 10)
+	  (#test-ship warp gradient 9)
 
 (test #decelerate-gradient)
-	(accelerate #test-ship to gradient 0)
-	(#test-ship speed 0)
+	  (accelerate #test-ship to gradient 0)
+	  (#test-ship speed 0)
+
+(test #systems-list)
+	  (#test-ship systems into $List)
+	  (length of $List into 9)
+
+(test #has-mtd)
+	  (#test-ship has #mtd)
+
+(test #has-torpedo)
+	  (#test-ship has #torpedo)
+
+(test #doesnt-have-missile)
+	  ~(#test-ship has #missile)
+
+(test #sensor-is-functioning)
+	  (#test-ship #sensor is functioning)
+
+(test #tractor-is-broken)
+	  ~(#test-ship #tractor is functioning)
+
+(test #mtd-is-destroyed)
+	  ~(#test-ship #mtd is functioning)
+	  (#test-ship #mtd is destroyed)
+
+(test #fix-tractor-at-800)
+	  (#test-ship #tractor repair time into 800)
+
+(test #dont-fix-projector)
+	  (#test-ship #projector repair time into 0)
