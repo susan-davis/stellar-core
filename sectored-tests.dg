@@ -1,4 +1,4 @@
-%% dgdebug -q sectored-tests.dg sectored-grid.dg unit.dg stdlib.dg
+%% dgdebug -u sectored-tests.dg sectored-grid.dg unit.dg stdlib.dg
 
 (list of tests $Tests) ($Tests = [
 	#delta-4-2

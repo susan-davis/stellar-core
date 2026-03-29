@@ -1,4 +1,4 @@
-%% dgdebug -q arc-tests.dg arc.dg sectored-grid.dg unit.dg stdlib.dg
+%% dgdebug -u arc-tests.dg arc.dg sectored-grid.dg unit.dg stdlib.dg
 
 (list of tests [
 	#firing-arc-closest-target

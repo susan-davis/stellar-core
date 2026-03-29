@@ -1,4 +1,4 @@
-%% dgdebug -q sensor-tests.dg sensors.dg sectored-grid.dg unit.dg stdlib.dg
+%% dgdebug -u sensor-tests.dg sensors.dg sectored-grid.dg unit.dg stdlib.dg
 
 (list of tests [
 	#object-at-precise-ship-position

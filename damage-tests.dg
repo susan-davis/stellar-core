@@ -1,4 +1,4 @@
-%% dgdebug -q damage-tests.dg damage.dg schema.dg sectored-grid.dg \
+%% dgdebug -u damage-tests.dg damage.dg schema.dg sectored-grid.dg \
 %%            unit.dg stdlib.dg
 
 (list of tests [
