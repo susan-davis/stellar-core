@@ -15,7 +15,7 @@ su-101.zblorb: $(SRCS) test
 su-101.aastory: $(SRCS) test
 	$(COMPILE) -t aastory $(SRCS) $(STDLIB)
 
-test: utils time sectored-grid schema arc sensors maneuver damage
+test: utils time sectored-grid schema arc sensors-wide maneuver damage
 
 utils:
 	$(DEBUG) utils-tests.dg $(STDLIB)
@@ -29,8 +29,11 @@ sectored-grid:
 schema:
 	$(DEBUG) schema-tests.dg schema.dg sectored-grid.dg $(STDLIB)
 
-sensors:
-	$(DEBUG) sensor-tests.dg sensors.dg schema.dg sectored-grid.dg $(STDLIB)
+sensors-wide:
+	$(DEBUG) -w 80 sensor-tests.dg sensors.dg schema.dg sectored-grid.dg $(STDLIB)
+
+sensors-narrow:
+	$(DEBUG) -w 40 sensor-tests.dg sensors.dg schema.dg sectored-grid.dg $(STDLIB)
 
 maneuver:
 	$(DEBUG) maneuver-tests.dg maneuvering.dg schema.dg sectored-grid.dg $(STDLIB)
