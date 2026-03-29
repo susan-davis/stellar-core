@@ -12,6 +12,11 @@
 %%
 %% system = [ System Value Arcs TimeOfRepair ]
 %%
+%% Some information is encoded into the class definition. The class heading
+%% specifies the turn mode. The class destination specifies the A-drive
+%% parameters. The class energy, shields, crystals, ammo, and shield levels
+%% are the maximum starting values above which repairs can't go.
+%% TBD: move these out of the class specifier and into the systems list?
 %%-------------------------------- INTERFACES --------------------------------
 
 %% schema definition
@@ -244,10 +249,6 @@
 	([$ $Engine] = $Params)
 	(split $Engine into $ $ $Gradient $)
 
-($Ship damage $Damage)
-	($Ship state is $State)
-	([$ $ $ $ $ $ $ $ $ $ $ $ $ $ | $Damage] = $State)
-
 ($Ship destination $Destination)
 	($Ship state is $State)
 	([$ $ $ $ $DX $DY | $] = $State)
@@ -265,7 +266,8 @@
 	($Ship class $Class)
 	(name $Class) (no space) -class (type $Class)
 
-%% For now, all ships have
+%% For now, all ships have four shields. We can vary their number of shields
+%% (1, 2, 4, 8) later if desired, reflected in the length of this list.
 
 ($Ship shield level $Direction into $Level)
 	($Ship shield levels $Levels)
