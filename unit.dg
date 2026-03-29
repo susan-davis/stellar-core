@@ -98,7 +98,6 @@
     (number of failures $Failures)
 	($Failures plus 1 into $FailuresPlusOne)
 	(now) (number of failures $FailuresPlusOne)
-	(update body style)
 
 (run-test $Test)
 	(update body style)
@@ -113,6 +112,7 @@
 	 	Passed! (line)
 	(else)
 		(increment failures)
+		(update body style)
 		(bold) Failed. (roman) (space) :-\( (line)
 		(if) ~(keep running on failure) (then) (stop) (endif)
 	(endif)
