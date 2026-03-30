@@ -1,9 +1,6 @@
 %% dgdebug -u utils-tests.dg utils.dg unit.dg stdlib.dg
 
 (list of tests [
-	#take-last-n
-	#take-last-zero
-	#take-last-more-than-len
 	#replace-element
 	#replace-element-zero
 	#replace-element-beyond-end
@@ -16,20 +13,7 @@
 	#max-same
 	#min-different
 	#min-same
-	#0-isnt-odd
-	#1-is-odd
-	#2-isnt-odd
-	#3-is-odd
 	])
-
-(test #take-last-n)
-	(take last 3 from [1 2 3 4 5 6] into [4 5 6])
-
-(test #take-last-zero)
-	(take last 0 from [1 2 3 4 5 6] into [])
-
-(test #take-last-more-than-len)
-	~(take last 7 from [1 2 3 5 6 7] into $)
 
 (test #replace-element)
 	(replace element 3 in [1 2 3 4 5] with 6 into [1 2 6 4 5])
@@ -68,15 +52,3 @@
 
 (test #min-same)
 	(min 2 and 2 into 2)
-
-(test #0-isnt-odd)
-      ~(0 is odd)
-
-(test #1-is-odd)
-      (1 is odd)
-
-(test #2-isnt-odd)
-      ~(2 is odd)
-
-(test #3-is-odd)
-      (3 is odd)

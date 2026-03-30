@@ -21,11 +21,6 @@
 
 %%------------------------------ IMPLEMENTATION ------------------------------
 
-(take last $N from $List into $Suffix)
-	(reverse $List $Reverse)
-	(take $N from $Reverse into $After)
-	(reverse $After $Suffix)
-
 (replace element $N in $List with $Element into $NewList)
 	($N > 0)
 	(length of $List into $Len)
@@ -70,10 +65,3 @@
 	(else)
 		($Result = $Y)
 	(endif)
-
-($Num is odd)
-	(number $Num)
-	($Num > 0)
-	($Num modulo 2 into $Mod)
-	($Mod = 1)
-
