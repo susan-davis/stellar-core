@@ -8,10 +8,14 @@
 	#replace-element-zero
 	#replace-element-beyond-end
 	#increase-element
+	#increase-element-zero
+	#increase-element-beyond-end
 	#increase-element-with-max
 	#increase-element-beyond-max
 	#decrease-element
 	#decrease-element-below-zero
+	#decrease-element-zero
+	#decrease-element-beyond-end
 	#max-different
 	#max-same
 	#min-different
@@ -23,11 +27,11 @@
 	#match-one-of-the-key
 	#match-three-of-the-key
 	#match-zero-of-the-key
+	#dont-match-element-0
+	#dont-match-element-beyond-end
 	#find-the-first-key
 	#find-two-of-the-key
 	#dont-find-the-key
-	#dont-match-element-0
-	#dont-match-element-beyond-end
 	#dont-find-element-0
 	#dont-find-element-beyond-end
 	])
@@ -53,6 +57,12 @@
 (test #increase-element)
 	(increase element 3 in [1 2 3 4 5] by 3 into [1 2 6 4 5])
 
+(test #increase-element-zero)
+	~(increase element 0 in [1 2 3 4 5] by 3 into $)
+
+(test #increase-element-beyond-end)
+	~(increase element 6 in [1 2 3 4 5] by 3 into $)
+
 (test #increase-element-with-max)
 	(increase element 3 in [1 2 3 4 5] by 3 into [1 2 6 4 5] with max 7)
 
@@ -61,6 +71,12 @@
 
 (test #decrease-element)
 	(decrease element 3 in [1 2 3 4 5] by 2 into [1 2 1 4 5])
+
+(test #decrease-element-zero)
+	~(decrease element 0 in [1 2 3 4 5] by 2 into $)
+
+(test #decrease-element-beyond-end)
+	~(decrease element 6 in [1 2 3 4 5] by 2 into $)
 
 (test #decrease-element-below-zero)
 	~(decrease element 3 in [1 2 3 4 5] by 4 into $)
