@@ -118,16 +118,6 @@
 	(take $Length from $List into $Prefix)
 	($Sublist = $Prefix)
 
-(find in $List element $Num is $Key into $Match)
-	~($List = []) %% fail if we don't find it
-	($List = [$Head | $Tail])
-	(nth $Head $Num $Value)
-	(if) ($Value = $Key) (then)
-	    ($Match = $Head)
-	(else)
-	    (find in $Tail element $Num is $Key into $Match)
-	(endif)
-
 (find in $List beginning with sublist $Sublist into $Match)
   	~($List = []) %% fail if we don't find it
 	($List = [$Head | $Tail])

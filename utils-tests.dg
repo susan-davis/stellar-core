@@ -29,11 +29,6 @@
 	#match-zero-of-the-key
 	#dont-match-element-0
 	#dont-match-element-beyond-end
-	#find-the-first-key
-	#find-two-of-the-key
-	#dont-find-the-key
-	#dont-find-element-0
-	#dont-find-element-beyond-end
 	#12345-begins-with-12
 	#12345-begins-with-12345
 	#12345-doesnt-begin-with-22
@@ -155,26 +150,6 @@
 (test #dont-match-element-beyond-end)
 	(list of lists $List)
 	~(take from $List where element 6 is 8 into $)
-
-(test #find-the-first-key)
-	(list of lists $List)
-	(find in $List element 1 is 1 into [1 2 3 4 5])
-
-(test #find-two-of-the-key)
-	(list of lists $List)
-	(find in $List element 5 is 6 into [2 2 4 5 6])
-
-(test #dont-find-the-key)
-	(list of lists $List)
-	~(find in $List element 3 is 8 into $)
-
-(test #dont-find-element-0)
-	(list of lists $List)
-	~(find in $List element 0 is 8 into $)
-
-(test #dont-find-element-beyond-end)
-	(list of lists $List)
-	~(find in $List element 6 is 8 into $)
 
 (test #12345-begins-with-12)
 	([1 2 3 4 5] begins with sublist [1 2])
