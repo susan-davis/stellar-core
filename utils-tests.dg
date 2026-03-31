@@ -76,34 +76,51 @@
 	(min 2 and 2 into 2)
 
 (test #0-isnt-odd-or-even)
-      ~(0 is odd)
-	  ~(0 is even)
+    ~(0 is odd)
+	~(0 is even)
 
 (test #1-is-odd)
-      (1 is odd)
-	  ~(1 is even)
+    (1 is odd)
+	~(1 is even)
 
 (test #2-is-even)
-      ~(2 is odd)
-	  (2 is even)
+    ~(2 is odd)
+	(2 is even)
 
 (test #3-is-odd)
-      (3 is odd)
-	  ~(3 is even)
+    (3 is odd)
+	~(3 is even)
+
+(global variable (list of lists [
+	[1 2 3 4 5]
+	[2 2 4 5 6]
+	[3 2 4 5 6]
+	[3 2 4 6 7]
+	[4 1 7 8 9]]))
 
 (test #match-one-of-the-key)
-	  Not implemented
+	(list of lists $List)
+	(take from $List where element 1 is 1 into [[1 2 3 4 5]])
+
 (test #match-three-of-the-key)
-	  Not implemented
+	(list of lists $List)
+	(take from $List where element 3 is 4 into [
+	    [2 2 4 5 6]
+	    [3 2 4 5 6]
+	    [3 2 4 6 7]])
 
 (test #match-zero-of-the-key)
-	  Not implemented
+	(list of lists $List)
+	(take from $List where element 5 is 8 into [])
 
 (test #find-the-first-key)
-	  Not implemented
+	(list of lists $List)
+	(find in $List element 1 is 1 into [1 2 3 4 5])
 
 (test #find-two-of-the-key)
-	  Not implemented
+	(list of lists $List)
+	(find in $List element 5 is 6 into [2 2 4 5 6])
 
 (test #dont-find-the-key)
-	  Not implemented
+	(list of lists $List)
+	~(find in $List element 3 is 8)
