@@ -21,11 +21,9 @@
 
 %% helpers
 
-(interface (take from $<List matching $<Type into $>Sublist))
+(interface (find all $<Type in $<List into $>Sublist))
 
-(interface (take from $<List with id $<ID into $>Match))
-
-(interface (take best from $<List into $>Match))
+(interface (find id $<ID in $<List into $>Match))
 
 (interface (find $<Type $<ID from $<List into $>Match))
 
@@ -381,14 +379,14 @@
 %% (interface (take from $<List where element $<Num is $<Key into $>Sublist))
 %% (interface (find in $<List element $<Num is $<Key into $>Match))
 
-(take from $List matching $Type into $Sublist)
+(find all $Type in $List into $Sublist)
 	  (take from $List where element 1 is $Type into $Sublist)
 
 (find in $List id $ID into $Match) %% ID is unique within a type
 	  (find in $List element 2 is $ID into $Match)
 
 (find $Type $ID in $List into $Match)
-	  (take from $List matching $Type into $Matches)
+	  (find all $Type in $List into $Matches)
 	  (find in $Matches id $ID into $Match)
 
 %% system = [ System ID Arcs Val1 Val2 TimeOfRepair ]
@@ -399,9 +397,5 @@
 
 ($Ship has $System)
     ($Ship systems into $Systems)
-	(take from $Systems matching $System into $List)
+	(find all $System in $Systems into $List)
 	~($List = [])
-
-(best functioning $System for $Ship into $Match)
-	($Ship systems into $Systems)
-	(find best functioning $System in $Systems into $Match)

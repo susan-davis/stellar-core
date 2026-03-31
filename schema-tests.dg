@@ -341,27 +341,27 @@
 
 (test #take-1-from-list)
 	  (#test-ship systems into $Systems)
-	  (take from $Systems matching #projector into
+	  (find all #projector in $Systems into
 	  		[[#projector 1 [360 #up] 100 0 0]])
 
 (test #take-2-from-list)
 	  (#test-ship systems into $Systems)
-	  (take from $Systems matching #torpedo into
+	  (find all #torpedo in $Systems into
 	  		[[#torpedo 1 [1 8] 500 0 0]
 			 [#torpedo 2 [1 8] 500 0 0]])
 
 (test #take-0-from-list)
 	  (#test-ship systems into $Systems)
-	  (take from $Systems matching #missile into [])
+	  (find all #missile in $Systems into [])
 
 (test #take-id)
 	  (#test-ship systems into $Systems)
-	  (take from $Systems matching #torpedo into $List)
+	  (find all #torpedo in $Systems into $List)
 	  (find in $List id 2 into [#torpedo 2 [1 8] 500 0 0])
 
 (test #dont-take-id)
 	  (#test-ship systems into $Systems)
-	  (take from $Systems matching #torpedo into $List)
+	  (find all #torpedo in $Systems into $List)
 	  ~(find in $List id 3 into $)
 
 (test #find-type-and-id)

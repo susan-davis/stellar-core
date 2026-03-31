@@ -123,4 +123,4 @@
 
 (test #dont-find-the-key)
 	(list of lists $List)
-	~(find in $List element 3 is 8)
+	~(find in $List element 3 is 8 into $)
