@@ -45,6 +45,10 @@
 	#dont-find-99
 	#dont-find-123456
 	#dont-find-scalar
+	#dont-find-in-empty-list
+	#set-4-in-12345-to-6
+	#dont-set-6-in-12345
+	#dont-set-0-in-12345
 	])
 
 (test #take-last-n)
@@ -172,26 +176,6 @@
 	(list of lists $List)
 	~(find in $List element 6 is 8 into $)
 
-(test #find-12)
-    (list of lists $List)
-	(find in $List beginning with sublist [1 2] into [1 2 3 4 5])
-
-(test #find-22)
-    (list of lists $List)
-	(find in $List beginning with sublist [2 2] into [2 2 4 5 6])
-
-(test #dont-find-99)
-    (list of lists $List)
-	~(find in $List beginning with sublist [9 9] into $Sublist)
-
-(test #dont-find-123456)
-    (list of lists $List)
-	~(find in $List beginning with sublist [1 2 3 4 5 6] into $)
-
-(test #dont-find-scalar)
-    (list of lists $List)
-	~(find in $List beginning with sublist 1 into $)
-
 (test #12345-begins-with-12)
 	([1 2 3 4 5] begins with sublist [1 2])
 
@@ -209,3 +193,39 @@
 
 (test #12345-doesnt-begin-with-nested)
 	~([1 2 3 4 5] begins with sublist [[1] [2]])
+
+(test #find-12)
+    (list of lists $List)
+	(find in $List beginning with sublist [1 2] into [1 2 3 4 5])
+
+(test #find-22)
+    (list of lists $List)
+	(find in $List beginning with sublist [2 2] into [2 2 4 5 6])
+
+(test #dont-find-99)
+    (list of lists $List)
+	~(find in $List beginning with sublist [9 9] into $)
+
+(test #dont-find-123456)
+    (list of lists $List)
+	~(find in $List beginning with sublist [1 2 3 4 5 6] into $)
+
+(test #dont-find-scalar)
+    (list of lists $List)
+	~(find in $List beginning with sublist 1 into $)
+
+(test #dont-find-in-empty-list)
+	~(find in [] beginning with sublist [1 2] into $)
+
+(test #set-4-in-12345-to-6)
+	(list of lists $List)
+	(set element 4 in [1 2] in $List to 6 into $NewList)
+	(find in $NewList beginning with sublist [1 2] into [1 2 3 6 5])
+
+(test #dont-set-6-in-12345)
+	(list of lists $List)
+	~(set element 6 in [1 2] in $List to 6 into $)
+
+(test #dont-set-0-in-12345)
+	(list of lists $List)
+	~(set element 0 in [1 2] in $List to 6 into $)

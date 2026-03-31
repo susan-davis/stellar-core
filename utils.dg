@@ -35,6 +35,8 @@
 %% duplicates) sublist that begins with the specified sublist.
 (interface (find in $<List beginning with sublist $<Head into $>Match))
 
+(interface (set element $<Num in $<Head in $<List to $<Value into $>NewList))
+
 %%------------------------------ IMPLEMENTATION ------------------------------
 
 ($Num is odd)
@@ -101,11 +103,11 @@
 	(if) (empty $List) (then)
 	    ($Sublist = [])
 	(else)
-		($List = [$System | $Tail])
-	    (nth $System $Num $Value)
+		($List = [$Head | $Tail])
+	    (nth $Head $Num $Value)
 	    (if) ($Value = $Key) (then)
 	        (take from $Tail where element $Num is $Key into $Remainder)
- 		    (append [$System] $Remainder $Sublist)
+ 		    (append [$Head] $Remainder $Sublist)
 	    (else)
 	        (take from $Tail where element $Num is $Key into $Sublist)
 	    (endif)
@@ -118,19 +120,29 @@
 
 (find in $List element $Num is $Key into $Match)
 	~($List = []) %% fail if we don't find it
-	($List = [$System | $Tail])
-	(nth $System $Num $Value)
+	($List = [$Head | $Tail])
+	(nth $Head $Num $Value)
 	(if) ($Value = $Key) (then)
-	    ($Match = $System)
+	    ($Match = $Head)
 	(else)
 	    (find in $Tail element $Num is $Key into $Match)
 	(endif)
 
-(find in $List beginning with sublist $Head into $Match)
+(find in $List beginning with sublist $Sublist into $Match)
   	~($List = []) %% fail if we don't find it
-	($List = [$System | $Tail])
-	(if) ($System begins with sublist $Head) (then)
-		($Match = $System)
+	($List = [$Head | $Tail])
+	(if) ($Head begins with sublist $Sublist) (then)
+		($Match = $Head)
 	(else)
-	    (find in $Tail beginning with sublist $Head into $Match)
+	    (find in $Tail beginning with sublist $Sublist into $Match)
+	(endif)
+
+(set element $Num in $Sublist in $List to $Value into $NewList)
+	~($List = []) %% fail if it's not there
+	($List = [$Head | $Tail])
+	(if) ($Head begins with sublist $Sublist) (then)
+		(replace element $Num in $Head with $Value into $NewHead)
+		($NewList = [$NewHead | $Tail])
+	(else)
+	    (set element $Num in $Sublist in $Tail to $Value into $NewList)
 	(endif)
