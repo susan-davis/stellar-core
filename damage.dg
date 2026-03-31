@@ -10,19 +10,14 @@
 
 (interface (hit $<Ship from $<Direction with $<Units))
 
-(interface (destroy $<Ship))
-
-%%---------------------------------- SCHEMA ----------------------------------
-%% State about a ship is stored as one list, to cut down on storage.
-%%
-%% state = [ PositionX PositionY Heading Speed DestX DestY Helm Throttle
-%% 		   	 Class Energy Crystals Ammo Shields [ Systems ] ]
-%%
-%% Systems is a list of system states.
-%%
-%% system = [ Type Arcs Value Time ]
+(interface (damage $<Ship system from $<Direction with $<Units))
 
 %%------------------------------ IMPLEMENTATION ------------------------------
+
+%% state = [ PositionX PositionY Heading Speed DestX DestY Helm Throttle
+%% 		   	 Class Energy Crystals Ammo Shields [S1 S2 S3 S4] [ Systems ] ]
+%%
+%% system = [ System ID Arcs Value Details TimeOfRepair ]
 
 ($Attacker hits $Target with $Units)
     (angle from $Target to $Attacker into $Angle)

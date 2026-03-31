@@ -64,6 +64,14 @@
 	#dont-take-id
 	#find-type-and-id
 	#dont-find-type-and-id
+	#repair-time-projector
+	#repair-time-tractor
+	#repair-time-mtd
+	#repair-time-type-not-found
+	#repair-time-id-not-found
+%%	#set-repair-time-projector
+%%	#set-repair-time-type-not-found
+%%	#set-repair-time-id-not-found
 	])
 
 %% ----------------------------------------------------------------------
@@ -359,3 +367,28 @@
 (test #dont-find-type-and-id)
 	  (#test-ship systems $Systems)
 	  ~(find #torpedo 3 in $Systems into $)
+
+(test #repair-time-projector)
+      (repair time for #test-ship #projector 1 into 0)
+
+(test #repair-time-tractor)
+      (repair time for #test-ship #tractor 1 into 800)
+
+(test #repair-time-mtd)
+      (repair time for #test-ship #mtd 1 into 16383)
+
+(test #repair-time-type-not-found)
+	  ~(repair time for #test-ship #missile 1 into $)
+
+(test #repair-time-id-not-found)
+	  ~(repair time for #test-ship #projector 2 into $)
+
+(test #set-repair-time-projector)
+      (set repair time for #test-ship #projector 1 to 300)
+	  (repair time for #test-ship #projector 1 into 300)
+
+(test #set-repair-time-type-not-found)
+      ~(set repair time for #test-ship #missile 1 to 300)
+
+(test #set-repair-time-id-not-found)
+      ~(set repair time for #test-ship #projector 2 to 300)
