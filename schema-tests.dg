@@ -57,9 +57,6 @@
 	#accelerate-too-fast
 	#decelerate
 	#systems-list
-	#has-mtd
-	#has-torpedo
-	#doesnt-have-missile
 	#take-1-from-list
 	#take-2-from-list
 	#take-0-from-list
@@ -327,47 +324,38 @@
 	  (#test-ship speed 0)
 
 (test #systems-list)
-	  (#test-ship systems into $List)
+	  (#test-ship systems $List)
 	  (length of $List into 9)
 
-(test #has-mtd)
-	  (#test-ship has #mtd)
-
-(test #has-torpedo)
-	  (#test-ship has #torpedo)
-
-(test #doesnt-have-missile)
-	  ~(#test-ship has #missile)
-
 (test #take-1-from-list)
-	  (#test-ship systems into $Systems)
+	  (#test-ship systems $Systems)
 	  (find all #projector in $Systems into
 	  		[[#projector 1 [360 #up] 100 0 0]])
 
 (test #take-2-from-list)
-	  (#test-ship systems into $Systems)
+	  (#test-ship systems $Systems)
 	  (find all #torpedo in $Systems into
 	  		[[#torpedo 1 [1 8] 500 0 0]
 			 [#torpedo 2 [1 8] 500 0 0]])
 
 (test #take-0-from-list)
-	  (#test-ship systems into $Systems)
+	  (#test-ship systems $Systems)
 	  (find all #missile in $Systems into [])
 
 (test #take-id)
-	  (#test-ship systems into $Systems)
+	  (#test-ship systems $Systems)
 	  (find all #torpedo in $Systems into $List)
 	  (find in $List id 2 into [#torpedo 2 [1 8] 500 0 0])
 
 (test #dont-take-id)
-	  (#test-ship systems into $Systems)
+	  (#test-ship systems $Systems)
 	  (find all #torpedo in $Systems into $List)
 	  ~(find in $List id 3 into $)
 
 (test #find-type-and-id)
-	  (#test-ship systems into $Systems)
+	  (#test-ship systems $Systems)
 	  (find #torpedo 2 in $Systems into [#torpedo 2 [1 8] 500 0 0])
 
 (test #dont-find-type-and-id)
-	  (#test-ship systems into $Systems)
+	  (#test-ship systems $Systems)
 	  ~(find #torpedo 3 in $Systems into $)

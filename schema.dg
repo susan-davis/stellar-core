@@ -25,7 +25,7 @@
 
 (interface (find id $<ID in $<List into $>Match))
 
-(interface (find $<Type $<ID from $<List into $>Match))
+(interface (find $<Type $<ID in $<List into $>Match))
 
 %% schema definition
 %% PosX, PosY, and Heading are defined in sectored-grid.dg
@@ -80,6 +80,8 @@
 
 (interface ($<Ship top speed $>Gradient))
 
+(interface ($<Ship systems $Systems))
+
 (interface (class $<Ship)) %% prints the name of the ship class
 
 %% mutators
@@ -125,9 +127,7 @@
 
 %% ship's systems
 
-(interface ($Ship $System repair time into $Time))
 
-(interface (best functioning $<Type for $<Ship into $>Match))
 
 %%------------------------------ IMPLEMENTATION -------------------------------
 
@@ -391,11 +391,6 @@
 
 %% system = [ System ID Arcs Val1 Val2 TimeOfRepair ]
 
-($Ship systems into $Systems)
+($Ship systems $Systems)
     ($Ship state is $State)
 	(nth $State 15 $Systems)
-
-($Ship has $System)
-    ($Ship systems into $Systems)
-	(find all $System in $Systems into $List)
-	~($List = [])
