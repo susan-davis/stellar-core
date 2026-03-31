@@ -376,13 +376,19 @@
 	  (take from $Systems matching #missile into [])
 
 (test #take-id)
-	  Not implemented
+	  (#test-ship systems into $Systems)
+	  (take from $Systems matching #torpedo into $List)
+	  (take from $list with id 2 into [#torpedo 2 [1 8] 500 0 0])
 
 (test #dont-take-id)
-	  Not implemented
+	  (#test-ship systems into $Systems)
+	  (take from $Systems matching #torpedo into $List)
+	  ~(take from $List with id 3 into $)
 
 (test #find-type-and-id)
-	  Not implemented
+	  (#test-ship systems into $Systems)
+	  (find #torpedo 2 in $Systems into [#torpedo 2 [1 8] 500 0 0])
 
 (test #dont-find-type-and-id)
-	  Not implemented
+	  (#test-ship systems into $Systems)
+	  ~(find #torpedo 3 in $Systems into $)
