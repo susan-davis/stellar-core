@@ -20,6 +20,12 @@
 	#1-is-odd
 	#2-is-even
 	#3-is-odd
+	#match-one-of-the-key
+	#match-three-of-the-key
+	#match-zero-of-the-key
+	#find-the-first-key
+	#find-two-of-the-key
+	#dont-find-the-key
 	])
 
 (test #take-last-n)
@@ -84,3 +90,20 @@
 (test #3-is-odd)
       (3 is odd)
 	  ~(3 is even)
+
+(test #match-one-of-the-key)
+	  Not implemented
+(test #match-three-of-the-key)
+	  Not implemented
+
+(test #match-zero-of-the-key)
+	  Not implemented
+
+(test #find-the-first-key)
+	  Not implemented
+
+(test #find-two-of-the-key)
+	  Not implemented
+
+(test #dont-find-the-key)
+	  Not implemented
