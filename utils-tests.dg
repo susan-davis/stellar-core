@@ -26,6 +26,10 @@
 	#find-the-first-key
 	#find-two-of-the-key
 	#dont-find-the-key
+	#dont-match-element-0
+	#dont-match-element-beyond-end
+	#dont-find-element-0
+	#dont-find-element-beyond-end
 	])
 
 (test #take-last-n)
@@ -113,6 +117,14 @@
 	(list of lists $List)
 	(take from $List where element 5 is 8 into [])
 
+(test #dont-match-element-0)
+	(list of lists $List)
+	~(take from $List where element 0 is 8 into $)
+
+(test #dont-match-element-beyond-end)
+	(list of lists $List)
+	~(take from $List where element 6 is 8 into $)
+
 (test #find-the-first-key)
 	(list of lists $List)
 	(find in $List element 1 is 1 into [1 2 3 4 5])
@@ -124,3 +136,11 @@
 (test #dont-find-the-key)
 	(list of lists $List)
 	~(find in $List element 3 is 8 into $)
+
+(test #dont-find-element-0)
+	(list of lists $List)
+	~(find in $List element 0 is 8 into $)
+
+(test #dont-find-element-beyond-end)
+	(list of lists $List)
+	~(find in $List element 6 is 8 into $)

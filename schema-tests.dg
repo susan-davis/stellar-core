@@ -83,7 +83,7 @@
 
 #cygnus-class
 (name *)	Cygnus
-(type *)	scout ship
+(type *)	fast scout
 (* state is [0 0 180 0 500 963 0 0
    		 	#cygnus-class 1000 4 10 500 [100 99 98 97]
 			[[#projector 1 [360 #up] 100 0 0]
@@ -186,7 +186,7 @@
 
 (test #ship-class)
 	  (collect words) (class #test-ship) (into $Words)
-	  ($Words = [cygnus -class scout ship])
+	  ($Words = [cygnus -class fast scout])
 
 (test #initialize)
 	  (initialize #test-ship as #cygnus-class)

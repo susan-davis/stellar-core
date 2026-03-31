@@ -10,7 +10,11 @@
 %%
 %% Systems are defined as lists:
 %%
-%% system = [ System ID Arcs Val1 Val2 TimeOfRepair ]
+%% system = [ System ID Arcs Value Details TimeOfRepair ]
+%%
+%% Time of repair 0 means that the system is functioning normally. Time of
+%% repair 16383 (maxint) means that the system is irreparably destroyed, with
+%% 16380, 16381, and 16382 reserved for future shades of destroyed-ness.
 %%
 %% Some information is encoded into the class definition. The class heading
 %% specifies the turn mode. The class destination specifies the A-drive
@@ -80,8 +84,6 @@
 
 (interface ($<Ship top speed $>Gradient))
 
-(interface ($<Ship systems $Systems))
-
 (interface (class $<Ship)) %% prints the name of the ship class
 
 %% mutators
@@ -126,6 +128,8 @@
 (interface (place $<Ship in sector $<SX $<SY))
 
 %% ship's systems
+
+(interface ($<Ship systems $Systems))
 
 
 
@@ -376,6 +380,7 @@
 
 %%-------------------------------- SHIP SYSTEMS -------------------------------
 
+%% From utils.dg:
 %% (interface (take from $<List where element $<Num is $<Key into $>Sublist))
 %% (interface (find in $<List element $<Num is $<Key into $>Match))
 
@@ -389,7 +394,7 @@
 	  (find all $Type in $List into $Matches)
 	  (find in $Matches id $ID into $Match)
 
-%% system = [ System ID Arcs Val1 Val2 TimeOfRepair ]
+%% system = [ System ID Arcs Value Details TimeOfRepair ]
 
 ($Ship systems $Systems)
     ($Ship state is $State)
