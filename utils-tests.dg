@@ -16,9 +16,9 @@
 	#max-same
 	#min-different
 	#min-same
-	#0-isnt-odd
+	#0-isnt-odd-or-even
 	#1-is-odd
-	#2-isnt-odd
+	#2-is-even
 	#3-is-odd
 	])
 
@@ -69,14 +69,18 @@
 (test #min-same)
 	(min 2 and 2 into 2)
 
-(test #0-isnt-odd)
+(test #0-isnt-odd-or-even)
       ~(0 is odd)
+	  ~(0 is even)
 
 (test #1-is-odd)
       (1 is odd)
+	  ~(1 is even)
 
-(test #2-isnt-odd)
+(test #2-is-even)
       ~(2 is odd)
+	  (2 is even)
 
 (test #3-is-odd)
       (3 is odd)
+	  ~(3 is even)

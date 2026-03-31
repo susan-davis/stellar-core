@@ -10,7 +10,7 @@
 %%
 %% Systems are defined as lists:
 %%
-%% system = [ System Value Arcs TimeOfRepair ]
+%% system = [ System ID Arcs Val1 Val2 TimeOfRepair ]
 %%
 %% Some information is encoded into the class definition. The class heading
 %% specifies the turn mode. The class destination specifies the A-drive
@@ -18,6 +18,14 @@
 %% are the maximum starting values above which repairs can't go.
 %% TBD: move these out of the class specifier and into the systems list?
 %%-------------------------------- INTERFACES --------------------------------
+
+%% helpers
+
+(interface (take from $<List matching $<Type into $>Sublist))
+
+(interface (take from $<List with id $<ID into $>Match))
+
+(interface (find $<Type $<ID from $<List into $>Match))
 
 %% schema definition
 %% PosX, PosY, and Heading are defined in sectored-grid.dg
@@ -372,6 +380,35 @@
 
 %%-------------------------------- SHIP SYSTEMS -------------------------------
 
+(take from $List matching $Type into $Sublist)
+	  (if) (empty $List) (then)
+	      ($Sublist = [])
+	  (else)
+		  ($List = [$System | $Tail])
+	  	  ($System = [$SysType $ $ $ $ $])
+	      (if) ($SysType = $Type) (then)
+	  	      (take from $Tail matching $Type into $Remainder)
+		      (append [$System] $Remainder $Sublist)
+	      (else)
+	          (take from $Tail matching $Type into $Sublist)
+	      (endif)
+	  (endif)
+
+(take from $List with id $ID into $Match) %% ID is unique within a type
+	  ($List = [$System | $Tail])
+	  ($System = [$ $SysId $ $ $ $])
+	  (if) ($SysId = $ID) (then)
+	  	   ($Match = $System)
+	  (else)
+	       (take from $Tail with id $ID into $Match)
+	  (endif)
+
+(find $Type $ID in $List into $Match)
+	  (take from $List matching $Type into $Matches)
+	  (take from $Matches with id $ID into $Match)
+
+%% system = [ System ID Arcs Val1 Val2 TimeOfRepair ]
+
 ($Ship systems into $Systems)
     ($Ship state is $State)
 	(nth $State 15 $Systems)
@@ -393,11 +430,11 @@
 ($Ship $System repair time into $Time)
 	($Ship systems into $Systems)
     ($Systems first system $System into $Sys)
-	($Sys = [$ $ $ $Time])
+	($Sys = [$ $ $ $ $ $Time])
 
 ($Ship $System is functioning)
     ($Ship $System repair time into 0)
 
 ($Ship $System is destroyed)
     ($Ship $System repair time into $Time)
-	($Time > 16380)
+	($Time > 16379) %% 16383 = destroyed; 16380-16382 = reserved

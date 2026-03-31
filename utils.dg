@@ -3,6 +3,14 @@
 
 %%-------------------------------- INTERFACES --------------------------------
 
+(interface ($<Number is odd))  %% yagni?
+
+(interface ($<Number is even)) %% yagni?
+
+(interface (max $<X and $<Y into $>Max))
+
+(interface (min $<X and $<Y into $>Min))
+
 (interface (take last $<N from $<List into $>Suffix))
 
 (interface (replace element $<N in $<List with $<Element into $>NewList))
@@ -13,13 +21,31 @@
 
 (interface (increase element $<N in $<List by $<Num into $>New with max $<Max))
 
-(interface (max $<X and $<Y into $>Max))
-
-(interface (min $<X and $<Y into $>Min))
-
-(interface ($<Number is odd))
-
 %%------------------------------ IMPLEMENTATION ------------------------------
+
+($Num is odd)
+	(number $Num)
+	($Num > 0)
+	($Num modulo 2 into $Mod)
+	($Mod = 1)
+
+($Num is even)
+	($Num > 0)
+	~($Num is odd)
+
+(max $X and $Y into $Result)
+	(if) ($X > $Y) (then)
+		($Result = $X)
+	(else)
+		($Result = $Y)
+	(endif)
+
+(min $X and $Y into $Result)
+	(if) ($X < $Y) (then)
+		($Result = $X)
+	(else)
+		($Result = $Y)
+	(endif)
 
 (take last $N from $List into $Suffix)
 	(reverse $List $Reverse)
@@ -56,24 +82,3 @@
 	(nth $List $N $Element)
 	($Element minus $Num into $NewElement)
 	(replace element $N in $List with $NewElement into $NewList)
-
-(max $X and $Y into $Result)
-	(if) ($X > $Y) (then)
-		($Result = $X)
-	(else)
-		($Result = $Y)
-	(endif)
-
-(min $X and $Y into $Result)
-	(if) ($X < $Y) (then)
-		($Result = $X)
-	(else)
-		($Result = $Y)
-	(endif)
-
-($Num is odd)
-	(number $Num)
-	($Num > 0)
-	($Num modulo 2 into $Mod)
-	($Mod = 1)
-

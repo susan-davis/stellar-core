@@ -65,6 +65,13 @@
 	#mtd-is-destroyed
 	#fix-tractor-at-800
 	#dont-fix-projector
+	#take-1-from-list
+	#take-2-from-list
+	#take-0-from-list
+	#take-id
+	#dont-take-id
+	#find-type-and-id
+	#dont-find-type-and-id
 	])
 
 %% ----------------------------------------------------------------------
@@ -87,15 +94,15 @@
 (type *)	scout ship
 (* state is [0 0 180 0 500 963 0 0
    		 	#cygnus-class 1000 4 10 500 [100 99 98 97]
-			[[#projector 100 [360 #up] 0]
-			[#torpedo 500 [1 8] 0]
-			[#torpedo 500 [1 8] 0]
-			[#tractor 250 360 800]
-			[#sensor 2 [1 8] 0]
-			[#sensor 1 [360 #up #down] 0]
-			[#sensor 0 [360 #up #down] 0]
-			[#mtd 4 #down 16383]
-			[#shuttle 10 #south 0]
+			[[#projector 1 [360 #up] 100 0 0]
+			[#torpedo 1 [1 8] 500 0 0]
+			[#torpedo 2 [1 8] 500 0 0]
+			[#tractor 1 360 250 0 800]
+			[#sensor 2 [1 8] 2 0 0]
+			[#sensor 1 [360 #up #down] 1 0 0]
+			[#sensor 0 [360 #up #down] 1 0 0]
+			[#mtd 1 #down 4 0 16383]
+			[#shuttle 1 #south 10 0 0]
 			]])
 
 %% ----------------------------------------------------------------------
@@ -352,3 +359,30 @@
 
 (test #dont-fix-projector)
 	  (#test-ship #projector repair time into 0)
+
+(test #take-1-from-list)
+	  (#test-ship systems into $Systems)
+	  (take from $Systems matching #projector into
+	  		[[#projector 1 [360 #up] 100 0 0]])
+
+(test #take-2-from-list)
+	  (#test-ship systems into $Systems)
+	  (take from $Systems matching #torpedo into
+	  		[[#torpedo 1 [1 8] 500 0 0]
+			 [#torpedo 2 [1 8] 500 0 0]])
+
+(test #take-0-from-list)
+	  (#test-ship systems into $Systems)
+	  (take from $Systems matching #missile into [])
+
+(test #take-id)
+	  Not implemented
+
+(test #dont-take-id)
+	  Not implemented
+
+(test #find-type-and-id)
+	  Not implemented
+
+(test #dont-find-type-and-id)
+	  Not implemented
