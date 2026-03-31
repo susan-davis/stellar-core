@@ -34,6 +34,17 @@
 	#dont-find-the-key
 	#dont-find-element-0
 	#dont-find-element-beyond-end
+	#12345-begins-with-12
+	#12345-begins-with-12345
+	#12345-doesnt-begin-with-22
+	#12345-doesnt-begin-with-123456
+	#12345-doesnt-begin-with-scalar
+	#12345-doesnt-begin-with-nested
+	#find-12
+	#find-22
+	#dont-find-99
+	#dont-find-123456
+	#dont-find-scalar
 	])
 
 (test #take-last-n)
@@ -160,3 +171,41 @@
 (test #dont-find-element-beyond-end)
 	(list of lists $List)
 	~(find in $List element 6 is 8 into $)
+
+(test #find-12)
+    (list of lists $List)
+	(find in $List beginning with sublist [1 2] into [1 2 3 4 5])
+
+(test #find-22)
+    (list of lists $List)
+	(find in $List beginning with sublist [2 2] into [2 2 4 5 6])
+
+(test #dont-find-99)
+    (list of lists $List)
+	~(find in $List beginning with sublist [9 9] into $Sublist)
+
+(test #dont-find-123456)
+    (list of lists $List)
+	~(find in $List beginning with sublist [1 2 3 4 5 6] into $)
+
+(test #dont-find-scalar)
+    (list of lists $List)
+	~(find in $List beginning with sublist 1 into $)
+
+(test #12345-begins-with-12)
+	([1 2 3 4 5] begins with sublist [1 2])
+
+(test #12345-begins-with-12345)
+	([1 2 3 4 5] begins with sublist [1 2 3 4 5])
+
+(test #12345-doesnt-begin-with-22)
+	~([1 2 3 4 5] begins with sublist [2 2])
+
+(test #12345-doesnt-begin-with-123456)
+	~([1 2 3 4 5] begins with sublist [1 2 3 4 5 6])
+
+(test #12345-doesnt-begin-with-scalar)
+	~([1 2 3 4 5] begins with sublist 1)
+
+(test #12345-doesnt-begin-with-nested)
+	~([1 2 3 4 5] begins with sublist [[1] [2]])
