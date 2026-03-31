@@ -27,8 +27,6 @@
 
 (interface (find all $<Type in $<List into $>Sublist))
 
-(interface (find id $<ID in $<List into $>Match))
-
 (interface (find $<Type $<ID in $<List into $>Match))
 
 %% schema definition
@@ -389,9 +387,6 @@
 
 (find all $Type in $List into $Sublist)
 	  (take from $List where element 1 is $Type into $Sublist)
-
-(find in $List id $ID into $Match) %% ID is unique within a type
-	  (find in $List element 2 is $ID into $Match)
 
 (find $Type $ID in $List into $Match)
 	  (find in $List beginning with sublist [$Type $ID] into $Match)

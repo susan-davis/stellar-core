@@ -60,8 +60,6 @@
 	#take-1-from-list
 	#take-2-from-list
 	#take-0-from-list
-	#take-id
-	#dont-take-id
 	#find-type-and-id
 	#dont-find-type-and-id
 	#repair-time-projector
@@ -349,16 +347,6 @@
 (test #take-0-from-list)
 	  (#test-ship systems $Systems)
 	  (find all #missile in $Systems into [])
-
-(test #take-id)
-	  (#test-ship systems $Systems)
-	  (find all #torpedo in $Systems into $List)
-	  (find in $List id 2 into [#torpedo 2 [1 8] 500 0 0])
-
-(test #dont-take-id)
-	  (#test-ship systems $Systems)
-	  (find all #torpedo in $Systems into $List)
-	  ~(find in $List id 3 into $)
 
 (test #find-type-and-id)
 	  (#test-ship systems $Systems)
