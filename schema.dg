@@ -25,9 +25,9 @@
 
 (interface (take from $<List with id $<ID into $>Match))
 
-(interface (find $<Type $<ID from $<List into $>Match))
+(interface (take best from $<List into $>Match))
 
-(interface (find best functioning $Type in $List into $Match))
+(interface (find $<Type $<ID from $<List into $>Match))
 
 %% schema definition
 %% PosX, PosY, and Heading are defined in sectored-grid.dg
@@ -127,13 +127,9 @@
 
 %% ship's systems
 
-(interface ($Ship has $System))
-
-(interface ($Ship $System is functioning))
-
-(interface ($Ship $System is destroyed))
-
 (interface ($Ship $System repair time into $Time))
+
+(interface (best functioning $<Type for $<Ship into $>Match))
 
 %%------------------------------ IMPLEMENTATION -------------------------------
 
@@ -382,34 +378,18 @@
 
 %%-------------------------------- SHIP SYSTEMS -------------------------------
 
-(take from $List matching $Type into $Sublist)
-	  (if) (empty $List) (then)
-	      ($Sublist = [])
-	  (else)
-		  ($List = [$System | $Tail])
-	  	  ($System = [$SysType $ $ $ $ $])
-	      (if) ($SysType = $Type) (then)
-	  	      (take from $Tail matching $Type into $Remainder)
-		      (append [$System] $Remainder $Sublist)
-	      (else)
-	          (take from $Tail matching $Type into $Sublist)
-	      (endif)
-	  (endif)
+%% (interface (take from $<List where element $<Num is $<Key into $>Sublist))
+%% (interface (find in $<List element $<Num is $<Key into $>Match))
 
-(take from $List with id $ID into $Match) %% ID is unique within a type
-	  ($List = [$System | $Tail])
-	  ($System = [$ $SysId $ $ $ $])
-	  (if) ($SysId = $ID) (then)
-	  	   ($Match = $System)
-	  (else)
-	       (take from $Tail with id $ID into $Match)
-	  (endif)
+(take from $List matching $Type into $Sublist)
+	  (take from $List where element 1 is $Type into $Sublist)
+
+(find in $List id $ID into $Match) %% ID is unique within a type
+	  (find in $List element 2 is $ID into $Match)
 
 (find $Type $ID in $List into $Match)
 	  (take from $List matching $Type into $Matches)
-	  (take from $Matches with id $ID into $Match)
-
-(find best functioning $Type in $List into $Match)
+	  (find in $Matches id $ID into $Match)
 
 %% system = [ System ID Arcs Val1 Val2 TimeOfRepair ]
 
@@ -421,3 +401,7 @@
     ($Ship systems into $Systems)
 	(take from $Systems matching $System into $List)
 	~($List = [])
+
+(best functioning $System for $Ship into $Match)
+	($Ship systems into $Systems)
+	(find best functioning $System in $Systems into $Match)

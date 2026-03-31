@@ -67,10 +67,6 @@
 	#dont-take-id
 	#find-type-and-id
 	#dont-find-type-and-id
-	#functioning-sensor
-	#functioning-torpedo
-	#functioning-projector
-	#functioning-missile
 	])
 
 %% ----------------------------------------------------------------------
@@ -361,12 +357,12 @@
 (test #take-id)
 	  (#test-ship systems into $Systems)
 	  (take from $Systems matching #torpedo into $List)
-	  (take from $list with id 2 into [#torpedo 2 [1 8] 500 0 0])
+	  (find in $List id 2 into [#torpedo 2 [1 8] 500 0 0])
 
 (test #dont-take-id)
 	  (#test-ship systems into $Systems)
 	  (take from $Systems matching #torpedo into $List)
-	  ~(take from $List with id 3 into $)
+	  ~(find in $List id 3 into $)
 
 (test #find-type-and-id)
 	  (#test-ship systems into $Systems)
@@ -375,15 +371,3 @@
 (test #dont-find-type-and-id)
 	  (#test-ship systems into $Systems)
 	  ~(find #torpedo 3 in $Systems into $)
-
-(test #functioning-sensor)
-	  Not implemented
-
-(test #functioning-torpedo)
-	  Not implemented
-
-(test #functioning-projector)
-	  Not implemented
-
-(test #functioning-missile)
-	  Not implemented
