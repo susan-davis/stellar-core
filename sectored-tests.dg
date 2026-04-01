@@ -1,22 +1,19 @@
 %% dgdebug -u sectored-tests.dg sectored-grid.dg unit.dg stdlib.dg
 
 (list of tests $Tests) ($Tests = [
-	#delta-4-2
-	#delta-2-4
-	#delta-2-2
-	#delta-0-0
-	#split-number
-	#split-smaller
-	#split-smallest
-	#sort-4-2
-	#sort-2-4
-	#sort-0-0
+	#state-schema
+	#place-at
+	#place-at-subsector
+	#place-in-sector
+	#target-exists
+	#remove-target
+	#move-removed-target
+	#restore-removed-target
 	#position-for-subsector
 	#subsector-for-position
 	#subsector-for-edge-position
 	#same-subsector
 	#not-same-subsector
-	#state-schema
 	#current-ship-in-quadrant
 	#far-target-in-quadrant
 	#distant-target-not-in-quadrant
@@ -352,84 +349,88 @@
 
 #test-ship
 (grid object *)
-(initial state [344 454 315])
-
-(set up $)
-	   (initial state $State)
-	   (now) (* state is $State)
+(* initial state is [344 454 315])
 
 #closest-target
 (grid object *)
-(target state [354 444 0])
-
-(set up $)
-	   (target state $State)
-	   (now) (* state is $State)
+(* initial state is [354 444 0])
 
 #near-target
 (grid object *)
-(* state is [314 424 0])
+(* initial state is [314 424 0])
 
 #far-target
 (grid object *)
-(* state is [424 314 0])
+(* initial state is [424 314 0])
 
 #distant-target
 (grid object *)
-(* state is [154 984 0])
+(* initial state is [154 984 0])
 
 #non-grid-object
-(* state is [374 474 0])
+(* initial state is [374 474 0])
 
 #sun
 (grid object *)
-(* state is [577 577 0])
+(* initial state is [577 577 0])
 
 #planet
 (grid object *)
-(* state is [575 575 0])
+(* initial state is [575 575 0])
 
 #other-planet
 (grid object *)
-(* state is [573 573 0])
+(* initial state is [573 573 0])
+
+(set up $)
+	 (exhaust) {
+	     *(grid object $Object)
+		 ($Object initial state is $State)
+		 (now) ($Object state is $State)
+	 }
 
 %% ----------------------------------------------------------------------
 
 (test #state-schema)
 	(assert that #test-ship is at [3 4 5 6 315])
 
-(test #delta-4-2)
-	(4 delta 2 into 2)
+(test #place-at)
+	  (place #test-ship at 2 3 4 5)
+	  (#test-ship sector x 2)
+	  (#test-ship sector y 3)
+	  (#test-ship subsector x 4)
+	  (#test-ship subsector y 5)
 
-(test #delta-2-4)
-	(2 delta 4 into 2)
+(test #place-at-subsector)
+	  (place #test-ship at 2 3 4 5 6 7)
+	  (#test-ship sector x 2)
+	  (#test-ship sector y 3)
+	  (#test-ship subsector x 4)
+	  (#test-ship subsector y 5)
+	  (#test-ship position x 6)
+	  (#test-ship position y 7)
 
-(test #delta-2-2)
-	(2 delta 2 into 0)
-
-(test #delta-0-0)
-	(0 delta 0 into 0)
-
-(test #sort-4-2)
-	(sort 4 2 into 2 4)
-
-(test #sort-2-4)
-	(sort 2 4 into 2 4)
-
-(test #sort-0-0)
-	(sort 0 0 into 0 0)
-
-(test #split-number)
-	(split 1789 into 1 7 8 9)
-
-(test #split-smaller)
-	(split 789 into 0 7 8 9)
-
-(test #split-smallest)
-	(split 1 into 0 0 0 1)
+(test #place-in-sector)
+	  (place #test-ship in sector 7 7)
+	  (#test-ship sector x 7)
+	  (#test-ship sector y 7)
 
 (test #position-for-subsector)
 	(position for 3 4 5 6 into [344 454])
+
+(test #target-exists)
+    (#closest-target is on the map)
+
+(test #remove-target)
+	(remove #closest-target from the map)
+    ~(#closest-target is on the map)
+
+(test #move-removed-target)
+	(remove #closest-target from the map)
+	~(drag #closest-target to 3 4 5 6)
+
+(test #restore-removed-target)
+    Not implemented
 
 (test #subsector-for-position)
 	(subsector for [345 455] into 3 4 5 6)
@@ -502,7 +503,7 @@
 	(length of $List into 0)
 
 (test #object-at-ship-position)
-	(initial state $Here)
+	(#test-ship initial state is $Here)
 	(object at $Here into $Obj)
 	(assert $Obj = #test-ship)
 
@@ -684,42 +685,42 @@
 	(540 is in octant 5)
 
 (test #octant-1)
-	(initial state $Here)
+	(#test-ship initial state is $Here)
 	(position for 3 4 6 3 into $There)
 	(octant from $Here to $There into 1)
 
 (test #octant-2)
-	(initial state $Here)
+	(#test-ship initial state is $Here)
 	(position for 3 4 7 5 into $There)
 	(octant from $Here to $There into 2)
 
 (test #octant-3)
-	(initial state $Here)
+	(#test-ship initial state is $Here)
 	(position for 3 4 7 7 into $There)
 	(octant from $Here to $There into 3)
 
 (test #octant-4)
-	(initial state $Here)
+	(#test-ship initial state is $Here)
 	(position for 3 4 6 9 into $There)
 	(octant from $Here to $There into 4)
 
 (test #octant-5)
-	(initial state $Here)
+	(#test-ship initial state is $Here)
 	(position for 3 4 4 9 into $There)
 	(octant from $Here to $There into 5)
 
 (test #octant-6)
-	(initial state $Here)
+	(#test-ship initial state is $Here)
 	(position for 3 4 2 7 into $There)
 	(octant from $Here to $There into 6)
 
 (test #octant-7)
-	(initial state $Here)
+	(#test-ship initial state is $Here)
 	(position for 3 4 3 5 into $There)
 	(octant from $Here to $There into 7)
 
 (test #octant-8)
-	(initial state $Here)
+	(#test-ship initial state is $Here)
 	(position for 3 4 4 2 into $There)
 	(octant from $Here to $There into 8)
 
@@ -1732,3 +1733,6 @@
 (test #angle-to-northeast) %% Where the hell is 87 coming from?!
 	(drag #closest-target to 3 4 7 4)
 	(angle from #test-ship to #closest-target into 90)
+
+(test #not-implemented)
+    Not implemented

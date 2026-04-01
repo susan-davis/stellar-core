@@ -38,6 +38,18 @@
 
 %% Positions and coordinates
 
+(interface (place $<Object at $<Position))
+
+(interface (place $<Object at $<SX $<SY $<X $<Y))
+
+(interface (place $<Object at $<SX $<SY $<X $<Y $<PX $<PY))
+
+(interface (place $<Object in sector $<SX $<SY))
+
+(interface ($<GridObject is on the map))
+
+(interface (remove $<GridObject from the map))
+
 (interface (coordinates for $Position into $>SX $>SY $>X $>Y $>PX $>PY))
 
 (interface (position for $<SX $<SY $<X $<Y $<PX $<PY into $>Position))
@@ -147,34 +159,6 @@
 
 (interface (move $<Ship $<Distance toward position $<Position))
 
-%% ------------------------------ HELPERS ------------------------------
-
-($Num1 delta $Num2 into $Result)
-	(if) ($Num1 > $Num2) (then)
-		($Num1 minus $Num2 into $Result)
-	(else)
-		($Num2 minus $Num1 into $Result)
-	(endif)
-
-(split $Number into $Thousands $Hundreds $Tens $Ones)
-	($Number divided by 1000 into $Thousands)
-	($Number modulo 1000 into $Remaining1)
-	($Remaining1 divided by 100 into $Hundreds)
-	($Remaining1 modulo 100 into $Remaining2)
-	($Remaining2 divided by 10 into $Tens)
-	($Remaining2 modulo 10 into $Ones)
-
-%% ensure that the "Y" is bigger so we don't run off the end of a table row
-
-(sort $X $Y into $RX $RY)
-	(if) ($X > $Y) (then)
-		($RX = $Y)
-		($RY = $X)
-	(else)
-		($RX = $X)
-		($RY = $Y)
-	(endif)
-
 %% ------------------------------ POSITIONS ------------------------------
 
 %% As a cheap, sleazy hack, we set our origin point at 100, 100 and not
@@ -182,6 +166,39 @@
 %% don't have to keep checking for overflows. Since classic mainframe
 %% STARTREK is 1-based rather than 0-based in its coordinates, that means
 %% correcting subsectors and position squares, but not sectors.
+
+(place $Object at $Position)
+	($Object state is $State)
+	([$ $ | $Tail] = $State)
+	([$X $Y | $] = $Position)
+	([$X $Y | $Tail] = $NewState)
+	(now) ($Object state is $NewState)
+
+(place $Object at $SX $SY $X $Y $PX $PY)
+	(position for $SX $SY $X $Y $PX $PY into $Position)
+	(place $Object at $Position)
+
+(place $Object at $SX $SY $X $Y)
+	(position for $SX $SY $X $Y into $Position)
+	(place $Object at $Position)
+
+(place $Object in sector $SX $SY)
+	(random from 1 to 10 into $X)
+	(random from 1 to 10 into $Y)
+	(random from 1 to 10 into $PX)
+	(random from 1 to 10 into $PY)
+	(place $Object at $SX $SY $X $Y $PX $PY)
+
+($Object is on the map)
+    ($Object state is $State)
+	($State = [$X $Y | $])
+	($X < 16383) ($Y < 16383)
+
+(remove $Object from the map)
+    ($Object state is $State)
+	($State = [$ $ | $Rest])
+	($NewState = [16383 16383 | $Rest])
+	(now) ($Object state is $NewState)
 
 (coordinates for $Position into $SX $SY $X $Y $PX $PY)
 	([$BigX $BigY | $] = $Position)
@@ -867,6 +884,7 @@
 %% drag == move, but leave heading alone
 
 (drag $Ship to position $Desired)
+	($Ship is on the map)
 	($Ship state is $Origin)
 	([$ $ | $Tail]   = $Origin)
 	(closest unoccupied square to $Desired from $Origin into $Square)
@@ -875,57 +893,70 @@
 	(now) ($Ship state is $NewState)
 
 (drag $Ship to subsector $Desired)
+	($Ship is on the map)
 	(subsector for $Desired into $SX $SY $X $Y)
 	(position for $SX $SY $X $Y into $There)
 	(drag $Ship to position $There)
 
 (drag $Ship to $SX $SY $X $Y)
+	($Ship is on the map)
 	(position for $SX $SY $X $Y into $There)
 	(drag $Ship to position $There)
 
 (drag $Ship $Distance on heading $Heading)
+	($Ship is on the map)
 	($Ship state is $Origin)
 	(square at $Distance on bearing $Heading from $Origin into $Desired)
 	(drag $Ship to position $Desired)
 
 (drag $Ship $Distance toward $Target)
+	($Ship is on the map)
 	(bearing from $Ship to $Target into $Bearing)
 	(drag $Ship $Distance on heading $Bearing)
 
 (drag $Ship $Distance toward position $Destination)
+	($Ship is on the map)
 	(bearing from $Ship to position $Destination into $Bearing)
 	(drag $Ship $Distance on heading $Bearing)
 
 %% move == turn, then drag
 
 (move $Ship to position $Destination)
+	($Ship is on the map)
 	(turn $Ship to face position $Destination)
 	(drag $Ship to position $Destination)
 
 (move $Ship to subsector $Destination)
+	($Ship is on the map)
 	(turn $Ship to face subsector $Destination)
 	(drag $Ship to subsector $Destination)
 
 (move $Ship to $SX $SY $X $Y)
+	($Ship is on the map)
 	(turn $Ship to face $SX $SY $X $Y)
 	(drag $Ship to $SX $SY $X $Y)
 
 (move $Ship $Distance on heading $Heading)
+	($Ship is on the map)
 	(turn $Ship to heading $Heading)
 	(drag $Ship $Distance on heading $Heading)
 
 (move $Ship $Distance forward)
+	($Ship is on the map)
 	($Ship heading $Heading)
 	(move $Ship $Distance on heading $Heading)
 
 (move $Ship $Distance toward $Target)
+	($Ship is on the map)
 	(turn $Ship to face $Target)
 	(drag $Ship $Distance toward $Target)
 
 (move $Ship $Distance away from $Target)
+	($Ship is on the map)
 	(turn $Ship away from $Target)
 	(move $Ship $Distance forward)
 
 (move $Ship $Distance toward position $Destination)
+	($Ship is on the map)
 	(turn $Ship to face position $Destination)
 	(drag $Ship $Distance toward position $Destination)
