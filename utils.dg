@@ -43,6 +43,8 @@
 
 (interface (set element $<Num in $<Head in $<List to $<Value into $>NewList))
 
+(interface (random element from $<List into $>Choice))
+
 %%------------------------------ IMPLEMENTATION ------------------------------
 
 ($Num is odd)
@@ -166,3 +168,8 @@
 	(else)
 	    (set element $Num in $Sublist in $Tail to $Value into $NewList)
 	(endif)
+
+(random element from $List into $Element)
+    (length of $List into $Len)
+	(random from 1 to $Len into $Choice)
+	(nth $List $Choice $Element)

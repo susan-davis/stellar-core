@@ -6,11 +6,11 @@
 
 (interface ($<Attacker hits $<Target with $<Units))
 
-(interface (hit $<Ship from angle $<Angle with $<Units))
+(interface (hit $<Ship with $<Units from angle $<Angle))
 
-(interface (hit $<Ship from $<Direction with $<Units))
+(interface (hit $<Ship with $<Units from $<Direction))
 
-(interface (damage $<Ship system from $<Direction with $<Units))
+(interface (damage $<Ship system $<Type $<ID from $<Direction with $<Units))
 
 %%------------------------------ IMPLEMENTATION ------------------------------
 
@@ -21,25 +21,45 @@
 
 ($Attacker hits $Target with $Units)
     (angle from $Target to $Attacker into $Angle)
-	(hit $Target from angle $Angle with $Units)
+	(hit $Target with $Units from angle $Angle)
 
-(hit $Target from angle $Angle with $Units)
+(hit $Target with $Units from angle $Angle)
     (direction for $Angle into $Direction)
-    (hit $Target from $Direction with $Units)
+    (hit $Target with $Units from $Direction)
 
 %% Damage rubric:
 %%   * hit facing shield first
 %%   * with remainder, deduct from energy, possibly damaging one system
 %%   * with remainder, wreck ship, possibly destroying it
 
-(hit $Target from $Direction with $Units)
+(hit $Target with $Units from $Direction)
 	($Target shields $TotalShieldPower)
 	($Target shield level $Direction into $DirectionShieldPower)
 	(min $TotalShieldPower and $DirectionShieldPower into $ShieldPower)
 	(if) ($Units > $ShieldPower) (then)
-		(decrease shields for $Target by $ShieldPower)
+		(decrease shields for $Target by $ShieldPower) %% to 0
 		($Units minus $ShieldPower into $Damage)
-		(decrease energy for $Target by $Damage)
+		(damage $Target with $Damage from $Direction)
 	(else)
 		(decrease shields for $Target by $Units)
 	(endif)
+
+(damage $Target with $Units from $Direction)
+	($Target energy $Energy)
+	(if) ($Units > $Energy) (then)
+		($Energy minus $Units into $Damage)
+		(decrease energy for $Target by $Energy) %% to 0
+		(wreck $Target with $Damage from $Direction)
+	(else)
+		(decrease energy for $Target by $Units)
+		(damage random $Target system with $Units from $Direction)
+	(endif)
+
+(damage random $Target system with $Units from $Direction)
+    (log) not implemented
+
+(damage $Target system $Type $ID with $Units from $Direction)
+    (log) not implemented
+
+(wreck $Target with $Units from $Direction)
+    (log) not implemented

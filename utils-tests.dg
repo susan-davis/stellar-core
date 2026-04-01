@@ -54,6 +54,8 @@
 	#set-4-in-12345-to-6
 	#dont-set-6-in-12345
 	#dont-set-0-in-12345
+	#random-from-list
+	#random-from-empty-list
 	])
 
 (test #max-different)
@@ -244,3 +246,11 @@
 (test #dont-set-0-in-12345)
 	(list of lists $List)
 	~(set element 0 in [1 2] in $List to 6 into $)
+
+(test #random-from-list)
+    (random element from [867 5309 512 16163] into $Num)
+	$Num
+	{ ($Num = 867) (or) ($Num = 5309) (or) ($Num = 512) (or) ($Num = 16163) }
+
+(test #random-from-empty-list)
+    ~(random element from [] into $)
