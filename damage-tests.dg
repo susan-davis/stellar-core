@@ -8,6 +8,12 @@
       #shields-penetrated-from-port-101
 	  #energy-depleted-from-port-550
 	  #energy-depleted-from-ahead-600
+	  #damage-projector-with-300
+	  #damage-tractor-with-300
+	  #damage-mtd-with-300
+	  #damage-tractor-to-destruction
+	  #wreck-tractor-with-300
+	  #wreck-mtd-with-300
       ])
 
 %% ----------------------------------------------------------------------
@@ -72,30 +78,48 @@
 	($Ship energy $Energy)
 
 (test #shields-hold-from-ahead-50)
-      (hit #closest-target from #north with 50)
+      (hit #closest-target with 50 from #north)
       (assert #closest-target has 200 and 500)
 
 (test #shields-penetrated-from-ahead-101)
-      (hit #closest-target from #north with 101)
+      (hit #closest-target with 101 from #north)
       (assert #closest-target has 150 and 499)
 
 (test #shields-hold-from-port-50)
-      (hit #closest-target from #west with 50)
+      (hit #closest-target with 50 from #west)
       (assert #closest-target has 200 and 500)
 
 (test #shields-penetrated-from-port-101)
-      (hit #closest-target from #west with 101)
+      (hit #closest-target with 101 from #west)
       (assert #closest-target has 200 and 449)
 
 (test #energy-depleted-from-port-550)
-	  (hit #closest-target from #west with 550)
+      (hit #closest-target with 550 from #west)
 	  (assert #closest-target has 200 and 0)
 
 (test #energy-depleted-from-ahead-600)
-	  (hit #closest-target from #north with 600)
+      (hit #closest-target with 600 from #north)
 	  (assert #closest-target has 150 and 0)
 
 (test #penetrating-shields-damages-system)
-	  (hit #closest-target from #north with 150)
+      (hit #closest-target with 150 from #north)
 	  (assert #closest-target has 150 and 450)
 	  %% and now check for a damaged system
+
+(test #damage-projector-with-300)
+	  Not implemented
+
+(test #damage-tractor-with-300)
+	  Not implemented
+
+(test #damage-mtd-with-300)
+	  Not implemented
+
+(test #damage-tractor-to-destruction)
+	  Not implemented
+
+(test #wreck-tractor-with-300)
+	  Not implemented
+
+(test #wreck-mtd-with-300)
+	  Not implemented

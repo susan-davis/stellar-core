@@ -10,7 +10,7 @@
 
 (interface (hit $<Ship with $<Units from $<Direction))
 
-(interface (damage $<Ship system $<Type $<ID from $<Direction with $<Units))
+(interface (damage $<Ship system $<Type $<ID with $<Units from $<Direction))
 
 %%------------------------------ IMPLEMENTATION ------------------------------
 
@@ -56,10 +56,7 @@
 	(endif)
 
 (damage random $Target system with $Units from $Direction)
-    (log) not implemented
 
 (damage $Target system $Type $ID with $Units from $Direction)
-    (log) not implemented
 
 (wreck $Target with $Units from $Direction)
-    (log) not implemented
