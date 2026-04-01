@@ -1684,7 +1684,7 @@
 	(#test-ship state is $There)
 	%% $There
 	([$DX $DY | $] = $There)
-	(assert $Here = [$DX $DY | $])
+	($Here = [$DX $DY | $])
 
 (test #drag-141-toward-near-target)
 	(#near-target state is $There)
@@ -1704,7 +1704,7 @@
 	(#test-ship state is $There)
 	%% $There
 	([$DX $DY | $] = $There)
-	(assert $Here = [$DX $DY | $])
+	($Here = [$DX $DY | $])
 
 (test #move-141-toward-near-target)
 	(#near-target state is $There)
