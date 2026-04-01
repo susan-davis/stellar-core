@@ -5,10 +5,12 @@
 	#place-at
 	#place-at-subsector
 	#place-in-sector
-	#target-exists
+	#target-on-map
 	#remove-target
+	#drag-removed-target
 	#move-removed-target
 	#restore-removed-target
+	#position-for-removed-target
 	#position-for-subsector
 	#subsector-for-position
 	#subsector-for-edge-position
@@ -395,42 +397,66 @@
 	(assert that #test-ship is at [3 4 5 6 315])
 
 (test #place-at)
-	  (place #test-ship at 2 3 4 5)
-	  (#test-ship sector x 2)
-	  (#test-ship sector y 3)
-	  (#test-ship subsector x 4)
-	  (#test-ship subsector y 5)
+	(place #test-ship at 2 3 4 5)
+	(#test-ship sector x 2)
+	(#test-ship sector y 3)
+	(#test-ship subsector x 4)
+	(#test-ship subsector y 5)
 
 (test #place-at-subsector)
-	  (place #test-ship at 2 3 4 5 6 7)
-	  (#test-ship sector x 2)
-	  (#test-ship sector y 3)
-	  (#test-ship subsector x 4)
-	  (#test-ship subsector y 5)
-	  (#test-ship position x 6)
-	  (#test-ship position y 7)
+	(place #test-ship at 2 3 4 5 6 7)
+	(#test-ship sector x 2)
+	(#test-ship sector y 3)
+	(#test-ship subsector x 4)
+	(#test-ship subsector y 5)
+	(#test-ship position x 6)
+	(#test-ship position y 7)
 
 (test #place-in-sector)
-	  (place #test-ship in sector 7 7)
-	  (#test-ship sector x 7)
-	  (#test-ship sector y 7)
+	(place #test-ship in sector 7 7)
+	(#test-ship sector x 7)
+	(#test-ship sector y 7)
 
 (test #position-for-subsector)
 	(position for 3 4 5 6 into [344 454])
 
-(test #target-exists)
+(test #target-on-map)
     (#closest-target is on the map)
 
 (test #remove-target)
 	(remove #closest-target from the map)
     ~(#closest-target is on the map)
 
-(test #move-removed-target)
+(test #drag-removed-target)
 	(remove #closest-target from the map)
 	~(drag #closest-target to 3 4 5 6)
 
+(test #move-removed-target)
+	(remove #closest-target from the map)
+	~(move #closest-target to 3 4 5 6)
+	(#closest-target heading 0)
+
+(test #turn-removed-target)
+    (remove #closest-target from the map)
+	(turn #closest-target to 315)
+	(#closest-target heading is 315)
+
 (test #restore-removed-target)
-    Not implemented
+    (remove #closest-target from the map)
+	(place #closest-target at 3 4 4 6)
+	(#closest-target x $X)
+	$X
+	(#closest-target y $Y)
+	$Y
+
+(test #position-for-removed-target)
+	(remove #closest-target from the map)
+	~(#closest-target sector x $)
+	~(#closest-target sector y $)
+	~(#closest-target subsector x $)
+	~(#closest-target subsector y $)
+	~(#closest-target position x $)
+	~(#closest-target position y $)
 
 (test #subsector-for-position)
 	(subsector for [345 455] into 3 4 5 6)
