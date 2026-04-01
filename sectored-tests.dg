@@ -438,16 +438,14 @@
 
 (test #turn-removed-target)
     (remove #closest-target from the map)
-	(turn #closest-target to 315)
-	(#closest-target heading is 315)
+	(turn #closest-target to heading 315)
+	(#closest-target heading 315)
 
 (test #restore-removed-target)
     (remove #closest-target from the map)
 	(place #closest-target at 3 4 4 6)
-	(#closest-target x $X)
-	$X
-	(#closest-target y $Y)
-	$Y
+	(#closest-target x 334)
+	(#closest-target y 454)
 
 (test #position-for-removed-target)
 	(remove #closest-target from the map)
