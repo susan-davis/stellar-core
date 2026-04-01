@@ -379,7 +379,6 @@
 
 (test #short-range-scan)
 	(line) (short range scan)
-	(log) { 1234567890123456789012345678901234567890 }
 	(collect words) (short range scan) (into $Words)
 	($Words contains sublist [3 . q])
 	($Words contains sublist [5 . . . . . q])
@@ -391,13 +390,11 @@
 
 (test #long-range-scan)
 	(line) (long range scan)
-	(log) { 1234567890123456789012345678901234567890 }
 	(collect words) (long range scan) (into $Words)
 	($Words contains sublist [1 0 0 0 0 0 2 e 1])
 
 (test #quadrant-chart)
 	(line) (quadrant chart)
-	(log) { 1234567890123456789012345678901234567890 }
 	(collect words) (quadrant chart) (into $Words)
 	($Words contains sublist [\| 1 0 0 \|])
 	($Words contains sublist [\| 2 e 1 \|])
