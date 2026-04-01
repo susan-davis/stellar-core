@@ -70,6 +70,12 @@
 	#set-repair-time-projector
 	#set-repair-time-type-not-found
 	#set-repair-time-id-not-found
+	#increase-repair-time-tractor
+	#decrease-repair-time-tractor
+	#decrease-repair-time-beyond-zero
+	#decrease-repair-time-mtd
+	#destroy-tractor
+	#repair-tractor
 	])
 
 %% ----------------------------------------------------------------------
@@ -380,3 +386,26 @@
 
 (test #set-repair-time-id-not-found)
       ~(set repair time for #test-ship #projector 2 to 300)
+
+(test #increase-repair-time-tractor)
+	  (increase repair time for #test-ship #tractor 1 by 200)
+	  (repair time for #test-ship #tractor 1 into 1000)
+
+(test #decrease-repair-time-tractor)
+	  (decrease repair time for #test-ship #tractor 1 by 200)
+	  (repair time for #test-ship #tractor 1 into 600)
+
+(test #decrease-repair-time-beyond-zero)
+	  (decrease repair time for #test-ship #tractor 1 by 900)
+	  (repair time for #test-ship #tractor 1 into 0)
+
+(test #decrease-repair-time-mtd)
+	  ~(decrease repair time for #test-ship #mtd 1 by 900)
+
+(test #destroy-tractor)
+	  (destroy #test-ship #tractor 1)
+	  ~(decrease repair time for #test-ship #tractor 1 by 900)
+
+(test #repair-tractor)
+	  (repair #test-ship #tractor 1)
+	  (repair time for #test-ship #tractor 1 into 0)

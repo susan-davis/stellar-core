@@ -133,6 +133,14 @@
 
 (interface (set repair time for $<Ship $<Type $<ID to $>Time))
 
+(interface (increase repair time for $<Ship $<Type $<ID by $<Minutes))
+
+(interface (decrease repair time for $<Ship $<Type $<ID by $<Minutes))
+
+(interface (repair $<Ship $<Type $<ID))
+
+(interface (destroy $<Ship $<Type $<ID))
+
 %%------------------------------ IMPLEMENTATION -------------------------------
 
 (initialize $Ship as $Class)
@@ -409,3 +417,24 @@
 	($Ship state is $State)
 	(replace element 15 in $State with $NewList into $NewState)
 	(now) ($Ship state is $NewState)
+
+(increase repair time for $Ship $Type $ID by $Value)
+    (repair time for $Ship $Type $ID into $Time)
+	($Time plus $Value into $NewValue)
+	(set repair time for $Ship $Type $ID to $NewValue)
+
+(decrease repair time for $Ship $Type $ID by $Value)
+    (repair time for $Ship $Type $ID into $Time)
+	($Time < 16380) %% don't repair irreparable systems
+	(if) ($Value > $Time) (then)
+    	($NewValue = 0)
+	(else)
+		($Time minus $Value into $NewValue)
+	(endif)
+	(set repair time for $Ship $Type $ID to $NewValue)
+
+(repair $Ship $Type $ID)
+	(set repair time for $Ship $Type $ID to 0)
+
+(destroy $Ship $Type $ID)
+	(set repair time for $Ship $Type $ID to 16383)
