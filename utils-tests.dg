@@ -13,6 +13,14 @@
 	#delta-2-4
 	#delta-2-2
 	#delta-0-0
+	#15-plus-30-max-50
+	#15-plus-45-max-50
+	#16300-plus-82
+	#16300-plus-84
+	#30-minus-20
+	#30-minus-40
+	#8190-times-2
+	#8192-times-2
 	#split-number
 	#split-smaller
 	#split-smallest
@@ -108,6 +116,30 @@
 
 (test #sort-0-0)
 	(sort 0 0 into 0 0)
+
+(test #15-plus-30-max-50)
+	(add 15 to 30 into 45 max 50)
+
+(test #15-plus-45-max-50)
+	(add 15 to 45 into 50 max 50)
+
+(test #16300-plus-82)
+	(add 16300 to 82 into 16382)
+
+(test #16300-plus-84)
+	(add 16300 to 84 into 16383)
+
+(test #30-minus-20)
+    (subtract 20 from 30 into 10)
+
+(test #30-minus-40)
+    (subtract 40 from 30 into 0)
+
+(test #8190-times-2)
+    (multiply 8190 by 2 into 16380)
+
+(test #8192-times-2)
+    (multiply 8192 by 2 into 16383)
 
 (test #split-number)
 	(split 1789 into 1 7 8 9)

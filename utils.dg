@@ -13,6 +13,14 @@
 
 (interface ($<Num1 delta $<Num2 into $>Result))
 
+(interface (add $<X to $<Y into $>Z))           %% safe, capped at maxint
+
+(interface (add $<X to $<Y into $>Z max $<Max)) %% safe, capped at maxint
+
+(interface (subtract $<X from $<Y into $>Z))    %% safe, capped at 0
+
+(interface (multiply $<X by $<Y into $>Z))      %% safe, capped at maxint
+
 (interface (split $<Number into $>Thousands $>Hundreds $>Tens $>Ones))
 
 (interface (sort $<X $<Y into $>High $>Low))
@@ -47,13 +55,13 @@
 
 %%------------------------------ IMPLEMENTATION ------------------------------
 
-($Num is odd)
+($Num is odd) %% yagni?
 	(number $Num)
 	($Num > 0)
 	($Num modulo 2 into $Mod)
 	($Mod = 1)
 
-($Num is even)
+($Num is even) %% yagni?
 	($Num > 0)
 	~($Num is odd)
 
@@ -71,11 +79,36 @@
 		($Result = $Y)
 	(endif)
 
-($Num1 delta $Num2 into $Result)
-	(if) ($Num1 > $Num2) (then)
-		($Num1 minus $Num2 into $Result)
+($X delta $Y into $Result)
+	(if) ($X > $Y) (then)
+		($X minus $Y into $Result)
 	(else)
-		($Num2 minus $Num1 into $Result)
+		($Y minus $X into $Result)
+	(endif)
+
+(add $X to $Y into $Z max $Max)
+    (if) ~($X plus $Y into $Sum) (then)
+	    ($Z = $Max)
+	(else)
+		($X plus $Y into $Sum)
+	    (min $Sum and $Max into $Z)
+	(endif)
+
+(add $X to $Y into $Z)
+	(add $X to $Y into $Z max 16383)
+
+(subtract $Y from $X into $Z)
+    (if) ($Y > $X) (then)
+		($Z = 0)
+	(else)
+		($X minus $Y into $Z)
+	(endif)
+
+(multiply $X by $Y into $Z)
+    (if) ~($X times $Y into $Product) (then)
+		($Z = 16383)
+	(else)
+		($Z = $Product)
 	(endif)
 
 (split $Number into $Thousands $Hundreds $Tens $Ones)
