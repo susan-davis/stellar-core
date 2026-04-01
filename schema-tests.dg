@@ -32,9 +32,6 @@
 	#class
 	#ship-class
 	#initialize
-	#place-at
-	#place-at-subsector
-	#place-in-sector
 	#set-destination
 	#set-destination-subsector
 	#set-destination-precisely
@@ -208,28 +205,6 @@
 	  (#test-ship shields 500)
 	  (#test-ship shield levels [100 99 98 97])
 	  (#test-ship ammo 10)
-
-(test #place-at)
-	  (initialize #test-ship as #cygnus-class)
-	  (place #test-ship at 2 3 4 5)
-	  (#test-ship sector x 2)
-	  (#test-ship sector y 3)
-	  (#test-ship subsector x 4)
-	  (#test-ship subsector y 5)
-
-(test #place-at-subsector)
-	  (place #test-ship at 2 3 4 5 6 7)
-	  (#test-ship sector x 2)
-	  (#test-ship sector y 3)
-	  (#test-ship subsector x 4)
-	  (#test-ship subsector y 5)
-	  (#test-ship position x 6)
-	  (#test-ship position y 7)
-
-(test #place-in-sector)
-	  (place #test-ship in sector 7 7)
-	  (#test-ship sector x 7)
-	  (#test-ship sector y 7)
 
 (test #set-destination)
 	  (position for 4 5 6 7 into $Position)

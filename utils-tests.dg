@@ -1,6 +1,24 @@
 %% dgdebug -u utils-tests.dg utils.dg unit.dg stdlib.dg
 
 (list of tests [
+	#max-different
+	#max-same
+	#min-different
+	#min-same
+	#0-isnt-odd-or-even
+	#1-is-odd
+	#2-is-even
+	#3-is-odd
+	#delta-4-2
+	#delta-2-4
+	#delta-2-2
+	#delta-0-0
+	#split-number
+	#split-smaller
+	#split-smallest
+	#sort-4-2
+	#sort-2-4
+	#sort-0-0
 	#take-last-n
 	#take-last-zero
 	#take-last-more-than-len
@@ -16,14 +34,6 @@
 	#decrease-element-below-zero
 	#decrease-element-zero
 	#decrease-element-beyond-end
-	#max-different
-	#max-same
-	#min-different
-	#min-same
-	#0-isnt-odd-or-even
-	#1-is-odd
-	#2-is-even
-	#3-is-odd
 	#match-one-of-the-key
 	#match-three-of-the-key
 	#match-zero-of-the-key
@@ -45,6 +55,66 @@
 	#dont-set-6-in-12345
 	#dont-set-0-in-12345
 	])
+
+(test #max-different)
+	(max 2 and 3 into 3)
+	(max 3 and 2 into 3)
+
+(test #max-same)
+	(max 2 and 2 into 2)
+
+(test #min-different)
+	(min 2 and 3 into 2)
+	(min 3 and 2 into 2)
+
+(test #min-same)
+	(min 2 and 2 into 2)
+
+(test #0-isnt-odd-or-even)
+    ~(0 is odd)
+	~(0 is even)
+
+(test #1-is-odd)
+    (1 is odd)
+	~(1 is even)
+
+(test #2-is-even)
+    ~(2 is odd)
+	(2 is even)
+
+(test #3-is-odd)
+    (3 is odd)
+	~(3 is even)
+
+(test #delta-4-2)
+	(4 delta 2 into 2)
+
+(test #delta-2-4)
+	(2 delta 4 into 2)
+
+(test #delta-2-2)
+	(2 delta 2 into 0)
+
+(test #delta-0-0)
+	(0 delta 0 into 0)
+
+(test #sort-4-2)
+	(sort 4 2 into 2 4)
+
+(test #sort-2-4)
+	(sort 2 4 into 2 4)
+
+(test #sort-0-0)
+	(sort 0 0 into 0 0)
+
+(test #split-number)
+	(split 1789 into 1 7 8 9)
+
+(test #split-smaller)
+	(split 789 into 0 7 8 9)
+
+(test #split-smallest)
+	(split 1 into 0 0 0 1)
 
 (test #take-last-n)
 	(take last 3 from [1 2 3 4 5 6] into [4 5 6])
@@ -90,36 +160,6 @@
 
 (test #decrease-element-below-zero)
 	~(decrease element 3 in [1 2 3 4 5] by 4 into $)
-
-(test #max-different)
-	(max 2 and 3 into 3)
-	(max 3 and 2 into 3)
-
-(test #max-same)
-	(max 2 and 2 into 2)
-
-(test #min-different)
-	(min 2 and 3 into 2)
-	(min 3 and 2 into 2)
-
-(test #min-same)
-	(min 2 and 2 into 2)
-
-(test #0-isnt-odd-or-even)
-    ~(0 is odd)
-	~(0 is even)
-
-(test #1-is-odd)
-    (1 is odd)
-	~(1 is even)
-
-(test #2-is-even)
-    ~(2 is odd)
-	(2 is even)
-
-(test #3-is-odd)
-    (3 is odd)
-	~(3 is even)
 
 (global variable (list of lists [
 	[1 2 3 4 5]

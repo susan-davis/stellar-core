@@ -11,6 +11,12 @@
 
 (interface (min $<X and $<Y into $>Min))
 
+(interface ($<Num1 delta $<Num2 into $>Result))
+
+(interface (split $<Number into $>Thousands $>Hundreds $>Tens $>Ones))
+
+(interface (sort $<X $<Y into $>High $>Low))
+
 (interface (take last $<N from $<List into $>Suffix))
 
 (interface (replace element $<N in $<List with $<Element into $>NewList))
@@ -61,6 +67,30 @@
 		($Result = $X)
 	(else)
 		($Result = $Y)
+	(endif)
+
+($Num1 delta $Num2 into $Result)
+	(if) ($Num1 > $Num2) (then)
+		($Num1 minus $Num2 into $Result)
+	(else)
+		($Num2 minus $Num1 into $Result)
+	(endif)
+
+(split $Number into $Thousands $Hundreds $Tens $Ones)
+	($Number divided by 1000 into $Thousands)
+	($Number modulo 1000 into $Remaining1)
+	($Remaining1 divided by 100 into $Hundreds)
+	($Remaining1 modulo 100 into $Remaining2)
+	($Remaining2 divided by 10 into $Tens)
+	($Remaining2 modulo 10 into $Ones)
+
+(sort $X $Y into $RX $RY)
+	(if) ($X > $Y) (then)
+		($RX = $Y)
+		($RY = $X)
+	(else)
+		($RX = $X)
+		($RY = $Y)
 	(endif)
 
 (take last $N from $List into $Suffix)

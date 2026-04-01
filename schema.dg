@@ -117,14 +117,6 @@
 
 (interface (initialize $<Ship as $<Class))
 
-(interface (place $<Ship at $<Position))
-
-(interface (place $<Ship at $<SX $<SY $<X $<Y))
-
-(interface (place $<Ship at $<SX $<SY $<X $<Y $<PX $<PY))
-
-(interface (place $<Ship in sector $<SX $<SY))
-
 %% ship's systems
 
 (interface ($<Ship systems $>Systems))
@@ -151,28 +143,6 @@
 	($Ship state is [$PX $PY $H $S $DX $DY $C $T $Class | $])
 	(now) ($Ship state is [$PX $PY $H $S $DX $DY $C $T
 		   $Class $Energy $Crystals $Ammo $Shields $Levels $Systems])
-
-(place $Ship at $Position)
-	($Ship state is $State)
-	([$ $ | $Tail] = $State)
-	([$X $Y | $] = $Position)
-	([$X $Y | $Tail] = $NewState)
-	(now) ($Ship state is $NewState)
-
-(place $Ship at $SX $SY $X $Y $PX $PY)
-	(position for $SX $SY $X $Y $PX $PY into $Position)
-	(place $Ship at $Position)
-
-(place $Ship at $SX $SY $X $Y)
-	(position for $SX $SY $X $Y into $Position)
-	(place $Ship at $Position)
-
-(place $Ship in sector $SX $SY)
-	(random from 1 to 10 into $X)
-	(random from 1 to 10 into $Y)
-	(random from 1 to 10 into $PX)
-	(random from 1 to 10 into $PY)
-	(place $Ship at $SX $SY $X $Y $PX $PY)
 
 %%---------------------------- SCHEMA DEFINITION ----------------------------
 
