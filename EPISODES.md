@@ -181,6 +181,8 @@ Promoted to XO of the Odysseus, CDR Player finds CPT Stewart less of a kindred s
 ### 202:	TBD
 	
 TBD. This should be a Kaur/Eridanus episode, not a Player/Odysseus one. Or not? We're already spending three episodes on the *Eridanus* during this supposedly *Odysseus* season. Making this a Kaur one would split it evenly in half.
+
+We need to start setting up what will eventually become the Alliance subplot, and this episode would be a good place to do that. Relations with the Quellans should also be deteriorating.
 	
 ### 203:	*To Make Mild a Rugged People*
 
