@@ -127,7 +127,7 @@
 
 %% ship's systems
 
-(interface ($<Ship systems $Systems))
+(interface ($<Ship systems $>Systems))
 
 (interface (repair time for $<Ship $<Type $<ID into $>Time))
 
@@ -381,9 +381,10 @@
 %%-------------------------------- SHIP SYSTEMS -------------------------------
 
 %% From utils.dg:
+%% (interface ($<List begins with sublist $<Sublist))
 %% (interface (take from $<List where element $<Num is $<Key into $>Sublist))
-%% (interface (find in $<List element $<Num is $<Key into $>Match))
 %% (interface (find in $<List beginning with sublist $<Head into $>Match))
+%% (interface (set element $<Num in $<Head in $<List to $<Value into $>NewList))
 
 (find all $Type in $List into $Sublist)
 	  (take from $List where element 1 is $Type into $Sublist)
@@ -401,3 +402,10 @@
     ($Ship systems $Systems)
 	(find $Type $ID in $Systems into $Match)
 	(nth $Match 6 $Time)
+
+(set repair time for $Ship $Type $ID to $Value)
+	($Ship systems $Systems)
+	(set element 6 in [$Type $ID] in $Systems to $Value into $NewList)
+	($Ship state is $State)
+	(replace element 15 in $State with $NewList into $NewState)
+	(now) ($Ship state is $NewState)

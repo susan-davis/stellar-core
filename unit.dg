@@ -23,7 +23,7 @@
 
 (using color) %% negate to use default output instead of green and red
 
-(list failing tests) %% un-negate to summarize failing tests at the end
+~(list failing tests) %% un-negate to summarize failing tests at the end
 
 %% We can't just (exhaust *(test $)), because that actually runs each test
 %% without setup, cleanup, or failure checks, so we work around that with

@@ -67,9 +67,9 @@
 	#repair-time-mtd
 	#repair-time-type-not-found
 	#repair-time-id-not-found
-%%	#set-repair-time-projector
-%%	#set-repair-time-type-not-found
-%%	#set-repair-time-id-not-found
+	#set-repair-time-projector
+	#set-repair-time-type-not-found
+	#set-repair-time-id-not-found
 	])
 
 %% ----------------------------------------------------------------------
