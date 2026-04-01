@@ -206,7 +206,7 @@
 	(collect words)
 		(scan 3 4 5 6)
 	(into $Words)
-	(assert $Words = [ e | $ ])
+	($Words = [ e | $ ])
 
 (test #range-5-3)
 	(5 is within 2 of 3)
