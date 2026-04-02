@@ -106,7 +106,6 @@
 	  (assert #closest-target has 150 and 450)
 	  (#closest-target systems $Systems)
 	  (take from $Systems where element 6 is 50 into $Damaged)
-	  ~(empty $Damaged)
 	  (length of $Damaged into $Num)
 	  (assert $Num = 1)
 
