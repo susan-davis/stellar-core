@@ -54,11 +54,6 @@
 	#accelerate-too-fast
 	#decelerate
 	#systems-list
-	#take-1-from-list
-	#take-2-from-list
-	#take-0-from-list
-	#find-type-and-id
-	#dont-find-type-and-id
 	#repair-time-projector
 	#repair-time-tractor
 	#repair-time-mtd
@@ -314,29 +309,6 @@
 (test #systems-list)
 	  (#test-ship systems $List)
 	  (length of $List into 9)
-
-(test #take-1-from-list)
-	  (#test-ship systems $Systems)
-	  (find all #projector in $Systems into
-	  		[[#projector 1 [360 #up] 100 0 0]])
-
-(test #take-2-from-list)
-	  (#test-ship systems $Systems)
-	  (find all #torpedo in $Systems into
-	  		[[#torpedo 1 [1 8] 500 0 0]
-			 [#torpedo 2 [1 8] 500 0 0]])
-
-(test #take-0-from-list)
-	  (#test-ship systems $Systems)
-	  (find all #missile in $Systems into [])
-
-(test #find-type-and-id)
-	  (#test-ship systems $Systems)
-	  (find #torpedo 2 in $Systems into [#torpedo 2 [1 8] 500 0 0])
-
-(test #dont-find-type-and-id)
-	  (#test-ship systems $Systems)
-	  ~(find #torpedo 3 in $Systems into $)
 
 (test #repair-time-projector)
       (repair time for #test-ship #projector 1 into 0)

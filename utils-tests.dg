@@ -69,6 +69,8 @@
 	#dont-set-0-in-12345
 	#random-from-list
 	#random-from-empty-list
+	#find-type-and-id
+	#dont-find-type-and-id
 	])
 
 (global variable (list of lists [
@@ -312,3 +314,11 @@
 
 (test #random-from-empty-list)
     ~(random element from [] into $)
+
+(test #find-type-and-id)
+	  (list of lists $List)
+	  (find 2 2 in $List into [2 2 4 5 6])
+
+(test #dont-find-type-and-id)
+	  (list of lists $List)
+	  ~(find 9 9 in $List into $)
