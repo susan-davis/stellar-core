@@ -27,7 +27,7 @@
 
 (interface (find all $<Type for $<Ship into $>List))
 
-(interface (find $<Type $<ID for $<Ship into $>Match))
+(interface (find $<Ship $<Type $<ID into $>Match))
 
 %% schema definition
 %% PosX, PosY, and Heading are defined in sectored-grid.dg
@@ -360,9 +360,9 @@
 
 (find all $Type for $Ship into $List)
 	($Ship systems $Systems)
-	(find in $Systems beginning with sublist [$Type] into $List)
+	(take from $Systems where element 1 is $Type into $List)
 
-(find $Type $ID for $Ship into $Match)
+(find $Ship $Type $ID into $Match)
     ($Ship systems $Systems)
 	(find $Type $ID in $Systems into $Match)
 
@@ -373,7 +373,7 @@
 	(nth $State 15 $Systems)
 
 (repair time for $Ship $Type $ID into $Time)
-	(find $Type $ID for $Ship into $Match)
+	(find $Ship $Type $ID into $Match)
 	(nth $Match 6 $Time)
 
 (set repair time for $Ship $Type $ID to $Value)

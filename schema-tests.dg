@@ -54,6 +54,9 @@
 	#accelerate-too-fast
 	#decelerate
 	#systems-list
+	#find-torpedoes
+	#find-torpedo-1
+	#dont-find-torpedo-3
 	#repair-time-projector
 	#repair-time-tractor
 	#repair-time-mtd
@@ -309,6 +312,16 @@
 (test #systems-list)
 	  (#test-ship systems $List)
 	  (length of $List into 9)
+
+(test #find-torpedoes)
+	  (find all #torpedo for #test-ship into $Torps)
+	  (assert $Torps = [[#torpedo 1 [1 8] 500 0 0] [#torpedo 2 [1 8] 500 0 0]])
+
+(test #find-torpedo-1)
+	  (find #test-ship #torpedo 1 into [#torpedo 1 [1 8] 500 0 0])
+
+(test #dont-find-torpedo-3)
+	  ~(find #test-ship #torpedo 3 into $)
 
 (test #repair-time-projector)
       (repair time for #test-ship #projector 1 into 0)
