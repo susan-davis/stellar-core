@@ -237,24 +237,27 @@ Lorem ipsum, dolor sit facet, adipiscing consectetuer elit.
 
 ### Organization
 
-Stellar Command is the Stellar Union's 
+Stellar Command is the Stellar Union's defence and law enforcement force, with jurisdiction throughout Union space, and exploration vessels probing beyond the Union's borders. It is divided into four major commands:
 
 #### Exploration Command
 
-Exploration Command ("ExCom") is responsible for the exploration of space both within and beyond the boundaries of Union space.
+Exploration Command ("ExCom") is responsible for the exploration of space both within and beyond the boundaries of Union space, and for the Union's mandate to explore the galaxy and its planets. ExCom's insignia is an arrowhead.
 
-Exploration Command vessels are organized into Exploration Squadrons, which perform exploration missions at the edge of Union space, and type-specific squadrons to which ships are assigned during refits, when working up, and when on reserve duty. Ships rotate in and out of Exploration Squadrons 
+Exploration Command vessels are organized into Exploration Squadrons, which perform exploration missions at the edge of Union space, and type-specific squadrons to which ships are assigned during refits, when working up, and when on reserve duty. Ships rotate in and out of Exploration Squadrons as their maintenance and staffing cycles require. Each squadron generally has a Logistics Command tug and tender pod assigned to it for sustainment, and for moving the squadron's sublight research vessels from system to system.
 
 #### Patrol Command
-#### Planetary Command
 
-Planetary Command ("PlanCom") manages the Union's starbases, outposts, and planetary installations. 
+Patrol Command ("PatCom", or the "Patrol") is responsible for the Union's mandate to keep peace among the stars. Patrol vessels hunt down pirates, smugglers, enforce Union law, rescue spacecraft that are in distress, and are usually the first vessels available in the event of a crisis. Patrol Command also manages the Union's starbases, outposts, and planetary installations, and exercises oversight over planetary "national" forces and vessels. The Patrol's insignia is a ringed planet.
+
+#### Logistics Command
+
+Logistics Command ("LogCom") is responsible for supplying Union installations with everything that they need to operate, for ensuring that all Union systems have timely supply deliveries, and for organizing and supporting planetary colonization efforts. LogCom operates a fleet of conventional freighters in addition to its pod-hauling fleet tugs. LogCom's insignia is a stylized early rocket under thrust.
 
 #### Defence Command
 
-The Stellar Union prides itself on not keeping a standing fleet of warships mobilized in peacetime. In peacetime, Defence Command ("DefCom") consists of a Defence Staff and a Defence College, both located at Stellar Command Headquarters. In time of war, key officers from the three other commands would be mobilized to take command of Defence Command, which would then command the Union's entire fleet. This has occurred three times in Union history, during conflicts against the Quellans, the Tiberians, and the Kwom.
+The Stellar Union prides itself on not keeping a standing fleet of warships mobilized in peacetime. In peacetime, Defence Command ("DefCom") consists of a Defence Staff and a Defence College, both located at Stellar Command Headquarters. In time of war, key officers from the three other commands would be mobilized to take command of Defence Command, which would then command the Union's entire fleet. This has occurred three times in Union history, during conflicts against the Kwom, the Quellans, and the Tiberians. DefCom's insignia is a heater shield.
 
-In practice, Defence Command has greater influence over the culture and procurement of the Union fleet than Stellar Command lets on. The *Cygnus*-class fast scout (originally a torpedo boat design) becoming the new Exploration Command standard, the high procurement levels of the *Eratosthanes*-classfleet tug and its monitor pod, and the attempt to pass off the *Union*-class battleship as a "new technology destroyer" are all initiatives of the "Defence mafia," consisting mostly of officers from the outlying human colonies, and the Kwom. A critical mass of these officers occupy teaching positions at Stellar Academy, and influence the careers of new junior officers, ensuring a steady stream of new recruits.
+In practice, Defence Command has greater influence over the culture and procurement of the Union fleet than Stellar Command lets on. The *Cygnus*-class fast scout (originally a torpedo boat design) becoming the new standard small ship for both Exploration Command and Patrol Command, the destroyers assigned to Union starbases, the high procurement levels of the *Eratosthanes*-classfleet tug and its monitor pod, and the attempt to pass off the *Union*-class battleship as a "new technology destroyer" are all initiatives of the "Defence mafia," consisting mostly of officers from the outlying human colonies, and from Kwom space. A critical mass of these officers occupy teaching positions at Stellar Academy, and influence the careers of new junior officers, ensuring a steady stream of new recruits.
 
 ### Ship Classes
 #### *Gagarin*-class Scout (SC)
