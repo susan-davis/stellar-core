@@ -107,6 +107,8 @@
 	  (#closest-target systems $Systems)
 	  (take from $Systems where element 6 is 50 into $Damaged)
 	  ~(empty $Damaged)
+	  (length of $Damaged into $Num)
+	  (assert $Num = 1)
 
 (test #damage-projector-with-300)
 	  (damage #test-ship system #projector 1 with 300)
