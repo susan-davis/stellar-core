@@ -184,7 +184,7 @@
 	($Sublist = $Prefix)
 
 (find in $List beginning with sublist $Sublist into $Match)
-  	~($List = []) %% fail if we don't find it
+  	~(empty $List) %% fail if we don't find it
 	($List = [$Head | $Tail])
 	(if) ($Head begins with sublist $Sublist) (then)
 		($Match = $Head)

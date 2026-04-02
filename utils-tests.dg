@@ -59,13 +59,26 @@
 	#dont-find-123456
 	#dont-find-scalar
 	#dont-find-in-empty-list
+	#set-1-in-1-to-2
+	#set-1-in-2-to-2
+	#set-2-in-22-to-3
+	#set-2-in-22-to-4
 	#set-4-in-12345-to-6
-	#set-4-in-32346-to-7
+	#set-4-in-32456-to-7
 	#dont-set-6-in-12345
 	#dont-set-0-in-12345
 	#random-from-list
 	#random-from-empty-list
 	])
+
+(global variable (list of lists [
+	[1 2 3 4 5]
+	[2 2 4 5 6]
+	[3 2 4 5 6]
+	[3 2 4 6 7]
+	[4 1 7 8 9]]))
+
+%%-----------------------------------------------------------------------------
 
 (test #max-different)
 	(max 2 and 3 into 3)
@@ -196,13 +209,6 @@
 (test #decrease-element-below-zero)
 	~(decrease element 3 in [1 2 3 4 5] by 4 into $)
 
-(global variable (list of lists [
-	[1 2 3 4 5]
-	[2 2 4 5 6]
-	[3 2 4 5 6]
-	[3 2 4 6 7]
-	[4 1 7 8 9]]))
-
 (test #match-one-of-the-key)
 	(list of lists $List)
 	(take from $List where element 1 is 1 into [[1 2 3 4 5]])
@@ -267,18 +273,29 @@
 (test #dont-find-in-empty-list)
 	~(find in [] beginning with sublist [1 2] into $)
 
+(test #set-1-in-1-to-2)
+    (set element 1 in [1] in [[1]] to 2 into [[2]])
+
+(test #set-1-in-2-to-2)
+    (set element 1 in [2] in [[1]] to 2 into [[1]])
+
+(test #set-2-in-22-to-3)
+    (set element 2 in [2] in [[1 2] [2 2]] to 3 into [[1 2] [2 3]])
+
+(test #set-2-in-22-to-4)
+    (set element 2 in [2] in [[1 2] [2 2] [3 2]] to 4 into [[1 2] [2 4] [3 2]])
+
 (test #set-4-in-12345-to-6)
 	(list of lists $List)
 	(set element 4 in [1 2] in $List to 6 into $NewList)
-	(find in $NewList beginning with sublist [1 2] into [1 2 3 6 5])
 	(length of $NewList into 5)
+	(find in $NewList beginning with sublist [1 2] into [1 2 3 6 5])
 
 (test #set-4-in-32456-to-7)
 	(list of lists $List)
 	(set element 4 in [3 2] in $List to 7 into $NewList)
-	$NewList
-	(find in $NewList beginning with sublist [3 2] into [3 2 4 7 6])
 	(length of $NewList into 5)
+	(find in $NewList beginning with sublist [3 2] into [3 2 4 7 6])
 
 (test #dont-set-6-in-12345)
 	(list of lists $List)

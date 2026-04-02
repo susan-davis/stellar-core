@@ -123,5 +123,3 @@
 
 (test #wreck-with-300)
 	  (wreck #test-ship with 300 from #north)
-%%	  (#test-ship systems $Systems)
-%%	  $Systems
