@@ -193,13 +193,17 @@
 	(endif)
 
 (set element $Num in $Sublist in $List to $Value into $NewList)
-	~($List = []) %% fail if it's not there
-	($List = [$Head | $Tail])
-	(if) ($Head begins with sublist $Sublist) (then)
-		(replace element $Num in $Head with $Value into $NewHead)
-		($NewList = [$NewHead | $Tail])
+	(if) (empty $List) (then)
+		($NewList = [])
 	(else)
-	    (set element $Num in $Sublist in $Tail to $Value into $NewList)
+		($List = [$Head | $Tail])
+		(if) ($Head begins with sublist $Sublist) (then)
+			 (replace element $Num in $Head with $Value into $NewHead)
+			 ($NewList = [$NewHead | $Tail])
+		(else)
+		     (set element $Num in $Sublist in $Tail to $Value into $NewTail)
+			 ($NewList = [$Head | $NewTail])
+		(endif)
 	(endif)
 
 (random element from $List into $Element)

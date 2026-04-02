@@ -60,6 +60,7 @@
 	#dont-find-scalar
 	#dont-find-in-empty-list
 	#set-4-in-12345-to-6
+	#set-4-in-32346-to-7
 	#dont-set-6-in-12345
 	#dont-set-0-in-12345
 	#random-from-list
@@ -270,6 +271,14 @@
 	(list of lists $List)
 	(set element 4 in [1 2] in $List to 6 into $NewList)
 	(find in $NewList beginning with sublist [1 2] into [1 2 3 6 5])
+	(length of $NewList into 5)
+
+(test #set-4-in-32456-to-7)
+	(list of lists $List)
+	(set element 4 in [3 2] in $List to 7 into $NewList)
+	$NewList
+	(find in $NewList beginning with sublist [3 2] into [3 2 4 7 6])
+	(length of $NewList into 5)
 
 (test #dont-set-6-in-12345)
 	(list of lists $List)
