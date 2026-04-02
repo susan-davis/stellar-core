@@ -57,6 +57,15 @@
 	#find-torpedoes
 	#find-torpedo-1
 	#dont-find-torpedo-3
+	#arc-projector
+	#arc-tractor
+	#arc-mtd
+	#value-projector
+	#value-tractor
+	#value-mtd
+	#details-projector
+	#details-tractor
+	#details-mtd
 	#repair-time-projector
 	#repair-time-tractor
 	#repair-time-mtd
@@ -94,7 +103,7 @@
 (type *)	fast scout
 (* state is [0 0 180 0 500 963 0 0
    		 	#cygnus-class 1000 4 10 500 [100 99 98 97]
-			[[#projector 1 [360 #up] 100 0 0]
+			[[#projector 1 [360 #up] 100 141 0]
 			[#torpedo 1 [1 8] 500 0 0]
 			[#torpedo 2 [1 8] 500 0 0]
 			[#tractor 1 360 250 0 800]
@@ -323,26 +332,53 @@
 (test #dont-find-torpedo-3)
 	  ~(find #test-ship #torpedo 3 into $)
 
+(test #arc-projector)
+	  (#test-ship #projector 1 arc into [360 up])
+
+(test #arc-tractor)
+	  (#test-ship #tractor 1 arc into 360)
+
+(test #arc-mtd)
+	  (#test-ship #mtd 1 arc into #down)
+
+(test #value-projector)
+	  (#test-ship #projector 1 value into 100)
+
+(test #value-tractor)
+	  (#test-ship #tractor 1 value into 250)
+
+(test #value-mtd)
+	  (#test-ship #mtd 1 value into 4)
+
+(test #details-projector)
+	  (#test-ship #projector 1 details into 141)
+
+(test #details-tractor)
+	  (#test-ship #tractor 1 details into 0)
+
+(test #details-mtd)
+	  (#test-ship #mtd 1 details into 0)
+
 (test #repair-time-projector)
-      (repair time for #test-ship #projector 1 into 0)
+      (#test-ship #projector 1 repair time into 0)
 
 (test #repair-time-tractor)
-      (repair time for #test-ship #tractor 1 into 800)
+      (#test-ship #tractor 1 repair time into 800)
 
 (test #repair-time-mtd)
-      (repair time for #test-ship #mtd 1 into 16383)
+      (#test-ship #mtd 1 repair time into 16383)
 
 (test #repair-time-type-not-found)
-	  ~(repair time for #test-ship #missile 1 into $)
+	  ~(#test-ship #missile 1 repair time into $)
 
 (test #repair-time-id-not-found)
-	  ~(repair time for #test-ship #projector 2 into $)
+	  ~(#test-ship #projector 2 repair time into $)
 
 (test #set-repair-time-projector)
 	  (#test-ship systems $Before)
 	  (length of $Before into $LenBefore)
       (set repair time for #test-ship #projector 1 to 300)
-	  (repair time for #test-ship #projector 1 into 300)
+	  (#test-ship #projector 1 repair time into 300)
 	  (#test-ship systems $After)
 	  (length of $After into $LenAfter)
 	  (assert $LenBefore = $LenAfter)
@@ -357,27 +393,27 @@
 	  (#test-ship systems $Before)
 	  (length of $Before into $LenBefore)
 	  (increase repair time for #test-ship #tractor 1 by 200)
-	  (repair time for #test-ship #tractor 1 into 1000)
+	  (#test-ship #tractor 1 repair time into 1000)
 	  (#test-ship systems $After)
 	  (length of $After into $LenAfter)
 	  (assert $LenBefore = $LenAfter)
 
 (test #increase-repair-time-mtd)
 	  (increase repair time for #test-ship #mtd 1 by 200)
-	  (repair time for #test-ship #mtd 1 into 16383)
+	  (#test-ship #mtd 1 repair time into 16383)
 
 (test #decrease-repair-time-tractor)
 	  (#test-ship systems $Before)
 	  (length of $Before into $LenBefore)
 	  (decrease repair time for #test-ship #tractor 1 by 200)
-	  (repair time for #test-ship #tractor 1 into 600)
+	  (#test-ship #tractor 1 repair time into 600)
 	  (#test-ship systems $After)
 	  (length of $After into $LenAfter)
 	  (assert $LenBefore = $LenAfter)
 
 (test #decrease-repair-time-beyond-zero)
 	  (decrease repair time for #test-ship #tractor 1 by 900)
-	  (repair time for #test-ship #tractor 1 into 0)
+	  (#test-ship #tractor 1 repair time into 0)
 
 (test #decrease-repair-time-mtd)
 	  ~(decrease repair time for #test-ship #mtd 1 by 900)
@@ -395,7 +431,7 @@
 	  (#test-ship systems $Before)
 	  (length of $Before into $LenBefore)
 	  (repair #test-ship #tractor 1)
-	  (repair time for #test-ship #tractor 1 into 0)
+	  (#test-ship #tractor 1 repair time into 0)
 	  (#test-ship systems $After)
 	  (length of $After into $LenAfter)
 	  (assert $LenBefore = $LenAfter)
