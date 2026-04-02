@@ -68,6 +68,7 @@
 	#set-repair-time-type-not-found
 	#set-repair-time-id-not-found
 	#increase-repair-time-tractor
+	#increase-repair-time-mtd
 	#decrease-repair-time-tractor
 	#decrease-repair-time-beyond-zero
 	#decrease-repair-time-mtd
@@ -365,6 +366,10 @@
 (test #increase-repair-time-tractor)
 	  (increase repair time for #test-ship #tractor 1 by 200)
 	  (repair time for #test-ship #tractor 1 into 1000)
+
+(test #increase-repair-time-mtd)
+	  (increase repair time for #test-ship #mtd 1 by 200)
+	  (repair time for #test-ship #mtd 1 into 16383)
 
 (test #decrease-repair-time-tractor)
 	  (decrease repair time for #test-ship #tractor 1 by 200)

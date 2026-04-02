@@ -390,7 +390,7 @@
 
 (increase repair time for $Ship $Type $ID by $Value)
     (repair time for $Ship $Type $ID into $Time)
-	($Time plus $Value into $NewValue)
+	(add $Time to $Value into $NewValue)
 	(set repair time for $Ship $Type $ID to $NewValue)
 
 (decrease repair time for $Ship $Type $ID by $Value)
@@ -399,7 +399,7 @@
 	(if) ($Value > $Time) (then)
     	($NewValue = 0)
 	(else)
-		($Time minus $Value into $NewValue)
+		(subtract $Value from $Time into $NewValue)
 	(endif)
 	(set repair time for $Ship $Type $ID to $NewValue)
 
