@@ -24,11 +24,11 @@ Common functionality for *Stellar Union* games. This project contains all the in
 
 `stdlib.dg` -- the Dialog standard library, not included in source control; get this from the Dialog distribution
 
-`testrunner.dg` -- runs unit tests
+`unit.dg` -- runs unit tests
 
-`runtests.sh` -- shell script to run all the project's unit tests
+`Makefile` -- run all the project's tests and compile the validation executable
 
 ## Building and Testing
-Testing is with `testrunner.dg`. Test files end in `-tests.dg`, and test the related file indicated by the beginning of the filename. The comments at the top give the command line needed to run the tests.
+Testing is with `unit.dg`. Test files end in `-tests.dg`, and test the related file indicated by the beginning of the filename. The comments at the top give the command line needed to run the tests.
 
-Build instructions to follow when development is far enough to have integration tests that can be built into Z-machine and `.aastory` files.
+Run "make" to build story files and run the unit tests.
