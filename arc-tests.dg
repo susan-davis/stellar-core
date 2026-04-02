@@ -110,6 +110,10 @@
 	#torpedo-315
 	#torpedo-316
 	#torpedo-360
+	#torpedo-closest-target
+	#torpedo-near-target
+	#torpedo-far-target
+	#torpedo-distant-target
 	#bearing-on-closest-target-location
 	#bearing-on-near-target-location
 	#bearing-on-far-target-location
@@ -155,6 +159,14 @@
 (grid object *)
 (* initial state is [314 424 45 300 0 0 45 310 #attack-class])
 
+#far-target
+(grid object *)
+(* initial state is [424 314 0 300 0 0 45 310 #attack-class])
+
+#distant-target
+(grid object *)
+(* initial state is [154 984 0 300 0 0 45 310 #attack-class])
+
 #attack-class
 (name *)	Attack
 (type *)	attack ship
@@ -167,18 +179,6 @@
 			 [#mtd 1 #down 4 0 0]
 			 [#shuttle 1 #south 10 0 0]
 			 ]])
-
-#near-target
-(grid object *)
-(* initial state is [314 424 0])
-
-#far-target
-(grid object *)
-(* initial state is [424 314 0])
-
-#distant-target
-(grid object *)
-(* initial state is [154 984 0])
 
 #non-grid-object
 (* state is [374 474 0])
@@ -516,31 +516,44 @@
 	  (fire from #test-ship to #distant-target is in arc [#north 6])
 
 (test #torpedo-0)
-	  (arc [1 8] contains angle 0)
+	  (#test-ship #torpedo 1 bears on angle 0)
 
 (test #torpedo-44)
-	  (arc [1 8] contains angle 44)
+	  (#test-ship #torpedo 1 bears on angle 44)
 
 (test #torpedo-45)
-	  (arc [1 8] contains angle 45)
+	  (#test-ship #torpedo 1 bears on angle 45)
 
 (test #torpedo-46)
-	  ~(arc [1 8] contains angle 46)
+	  ~(#test-ship #torpedo 1 bears on angle 46)
 
 (test #torpedo-135)
-	  ~(arc [1 8] contains angle 135)
+	  ~(#test-ship #torpedo 1 bears on angle 135)
 
 (test #torpedo-314)
-	  ~(arc [1 8] contains angle 314)
+	  ~(#test-ship #torpedo 1 bears on angle 314)
 
 (test #torpedo-315)
-	  (arc [1 8] contains angle 315)
+	  (#test-ship #torpedo 1 bears on angle 315)
 
 (test #torpedo-316)
-	  (arc [1 8] contains angle 316)
+	  (#test-ship #torpedo 1 bears on angle 316)
 
 (test #torpedo-360)
-	  (arc [1 8] contains angle 360)
+	  (#test-ship #torpedo 1 bears on angle 360)
+
+(test #torpedo-closest-target)
+	  ~(#test-ship #torpedo 1 bears on target #closest-target)
+
+(test #torpedo-near-target)
+	  (#test-ship #torpedo 1 bears on target #near-target)
+
+(test #torpedo-far-target)
+	  (angle from #test-ship to #far-target into $Angle)
+	  ~(#test-ship #torpedo 1 bears on target #far-target)
+
+(test #torpedo-distant-target)
+	  ~(#test-ship #torpedo 1 bears on target #distant-target)
 
 (test #bearing-on-closest-target-location)
 	  (#test-ship #torpedo bearing on angle 90 into [])

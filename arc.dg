@@ -105,8 +105,8 @@
 %% these only check firing arcs and system damage, not whether it's in range
 
 ($Ship $System $ID bears on angle $Angle)
-	 (find $System $ID for $Ship into $Match)
-	 ($Ship $System $ID arc into $Arc)
+	 (find $Ship $System $ID into $Match)
+	 ($Ship $System $ID arc $Arc)
 	 (arc $Arc contains angle $Angle)
 
 ($Ship $System $ID bears on target $Target)
