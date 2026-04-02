@@ -111,19 +111,19 @@
 
 (test #damage-projector-with-300)
 	  (damage #test-ship system #projector 1 with 300)
-	  (#test-ship #projector 1 repair time into 300)
+	  (#test-ship #projector 1 repair time 300)
 
 (test #damage-tractor-with-300)
 	  (damage #test-ship system #tractor 1 with 300)
-	  (#test-ship #tractor 1 repair time into 1100)
+	  (#test-ship #tractor 1 repair time 1100)
 
 (test #damage-mtd-with-300)
 	  (damage #test-ship system #mtd 1 with 300)
-	  (#test-ship #mtd 1 repair time into 16383)
+	  (#test-ship #mtd 1 repair time 16383)
 
 (test #damage-tractor-to-destruction)
 	  (damage #test-ship system #tractor 1 with 16300)
-	  (#test-ship #tractor 1 repair time into 16383)
+	  (#test-ship #tractor 1 repair time 16383)
 
 (test #wreck-with-300)
 	  (wreck #test-ship with 300 from #north)
