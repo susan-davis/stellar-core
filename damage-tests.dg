@@ -8,6 +8,7 @@
       #shields-penetrated-from-port-101
 	  #energy-depleted-from-port-550
 	  #energy-depleted-from-ahead-600
+	  #penetrating-shields-damages-system
 	  #damage-projector-with-300
 	  #damage-tractor-with-300
 	  #damage-mtd-with-300
@@ -103,7 +104,9 @@
 (test #penetrating-shields-damages-system)
       (hit #closest-target with 150 from #north)
 	  (assert #closest-target has 150 and 450)
-	  %% and now check for a damaged system
+	  (#closest-target systems $Systems)
+	  (take from $Systems where element 6 is 50 into $Damaged)
+	  ~(empty $Damaged)
 
 (test #damage-projector-with-300)
 	  (damage #test-ship system #projector 1 with 300)
@@ -123,3 +126,8 @@
 
 (test #wreck-with-300)
 	  (wreck #test-ship with 300 from #north)
+	  (#test-ship systems $Systems)
+	  (#test-ship systems $Systems)
+	  (take from $Systems where element 6 is 16383 into $Destroyed)
+	  (length of $Destroyed into $Num)
+	  $Num destroyed systems
