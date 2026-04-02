@@ -11,6 +11,10 @@
 
 (interface (arc $<Arc contains angle $<Angle))
 
+(interface ($<Ship $<SystemType $<ID bears on angle $<Angle))
+
+(interface ($<Ship $<SystemType $<ID bears on target $<Target))
+
 (interface ($<Ship $<SystemType bearing on angle $<Angle into $>List))
 
 (interface ($<Ship $<SystemType bearing on target $<Target into $>List))
@@ -97,6 +101,15 @@
 (fire from $Ship to $Target is in arc $Arc)
      (angle from $Ship to $Target into $Angle)
 	 (arc $Arc contains angle $Angle)
+
+%% these only check firing arcs and system damage, not whether it's in range
+
+($Ship $System $ID bears on angle $Angle)
+
+
+($Ship $System $ID bears on target $Target)
+	 (angle from $Ship to $Target into $Angle)
+	 ($Ship $System $ID bears on angle $Angle)
 
 ($Ship $Type bearing on angle $Angle into $Bearing)
 	 ($Bearing = [])
