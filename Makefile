@@ -15,6 +15,12 @@ su-101.zblorb: $(SRCS) test
 su-101.aastory: $(SRCS) test
 	$(COMPILE) -t aastory $(SRCS) $(STDLIB)
 
+6502: su-101.d64
+
+su-101.d64: su-101.aastory
+
+su-101.d71: su-101.aastory
+
 test: utils time sectored-grid schema arc sensors-wide maneuver damage
 
 utils:
@@ -45,5 +51,7 @@ damage:
 	$(DEBUG) damage-tests.dg damage.dg schema.dg sectored-grid.dg $(STDLIB)
 
 clean:
+	rm -f *~ \#*\# *.z8 *.zblorb *.aastory *.d64 *.d71
 
-.PHONY: test all clean utils time sectored-grid schema sensors maneuver arc damage
+.PHONY: test all clean utils 6502
+.PHONY: time sectored-grid schema sensors maneuver arc damage
