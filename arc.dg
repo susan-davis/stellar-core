@@ -1,5 +1,5 @@
 %% arc.dg
-%% Include sectored-grid.dg and utils.dg when compiling or debugging
+%% Include sectored-grid.dg, schema.dg, and utils.dg
 
 %%-------------------------------- INTERFACES --------------------------------
 
@@ -10,6 +10,10 @@
 (interface (shield direction for $<Attacker against $<Ship into $>Direction))
 
 (interface (arc $<Arc contains angle $<Angle))
+
+(interface ($<Ship $<SystemType bearing on angle $<Angle into $>List))
+
+(interface ($<Ship $<SystemType bearing on target $<Target into $>List))
 
 %%------------------------------ IMPLEMENTATION ------------------------------
 
@@ -48,6 +52,7 @@
 %% Special firing arcs: Arc 0 is ±4 degrees of boresight only, for spinal
 %% mounts and the like. Direction arcs (#north, #northeast, and so on)
 %% describe 45 degree arcs centred on each direction. Arc 360 is everywhere.
+%% (Could get away with lowering arc 0 to ±3 degrees, if desired.)
 
 ($BowAngle is in special arc $Arc)
 	 ($BowAngle modulo 360 into $Angle)
@@ -92,3 +97,9 @@
 (fire from $Ship to $Target is in arc $Arc)
      (angle from $Ship to $Target into $Angle)
 	 (arc $Arc contains angle $Angle)
+
+($Ship $Type bearing on angle $Angle into $Bearing)
+	 ($Bearing = [])
+
+($Ship $Type bearing on target $Target into $Bearing)
+	 ($Bearing = [])

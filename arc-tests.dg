@@ -101,6 +101,15 @@
 	#hit-near-target-odd
 	#dont-hit-far-target-odd
 	#hit-distant-target-odd
+	#bearing-on-closest-target-location
+	#bearing-on-near-target-location
+	#bearing-on-far-target-location
+	#bearing-on-distant-target-location
+	#bearing-on-closest-target
+	#bearing-on-near-target
+	#bearing-on-far-target
+	#bearing-on-distant-target
+	#bearing-as-ship-turns
 	])
 
 %% ----------------------------------------------------------------------
@@ -496,3 +505,30 @@
 
 (test #hit-distant-target-odd)
 	  (fire from #test-ship to #distant-target is in arc [#north 6])
+
+(test #bearing-on-closest-target-location)
+	  (#test-ship #torpedo bearing on angle 90 into [])
+
+(test #bearing-on-near-target-location)
+	  (#test-ship #torpedo bearing on angle 0 into [])
+
+(test #bearing-on-far-target-location)
+	  (#test-ship #torpedo bearing on angle 75 into [])
+
+(test #bearing-on-distant-target-location)
+	  (#test-ship #torpedo bearing on angle 245 into [])
+
+(test #bearing-on-closest-target)
+	  Not implemented
+
+(test #bearing-on-near-target)
+	  Not implemented
+
+(test #bearing-on-far-target)
+	  Not implemented
+
+(test #bearing-on-distant-target)
+	  Not implemented
+
+(test #bearing-as-ship-turns)
+	  Not implemented

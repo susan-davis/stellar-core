@@ -2,6 +2,7 @@ all: test
 
 COMPILE=dialogc
 DEBUG=dgdebug -u
+BUNDLE=aambundle
 STDLIB=utils.dg unit.dg stdlib.dg
 
 SRCS=su-101.dg union-ship.dg damage.dg arc.dg maneuvering.dg sensors.dg schema.dg sectored-grid.dg time.dg
@@ -15,11 +16,13 @@ su-101.zblorb: $(SRCS) test
 su-101.aastory: $(SRCS) test
 	$(COMPILE) -t aastory $(SRCS) $(STDLIB)
 
-6502: su-101.d64
-
 su-101.d64: su-101.aastory
+	$(BUNDLE) -t 64 -o $@ $<
 
 su-101.d71: su-101.aastory
+	$(BUNDLE) -t 128 -o $@ $<
+
+6502: su-101.d64
 
 test: utils time sectored-grid schema arc sensors-wide maneuver damage
 
@@ -45,7 +48,7 @@ maneuver:
 	$(DEBUG) maneuver-tests.dg maneuvering.dg schema.dg sectored-grid.dg $(STDLIB)
 
 arc:
-	$(DEBUG) arc-tests.dg arc.dg sectored-grid.dg $(STDLIB)
+	$(DEBUG) arc-tests.dg arc.dg schema.dg sectored-grid.dg $(STDLIB)
 
 damage:
 	$(DEBUG) damage-tests.dg damage.dg schema.dg sectored-grid.dg $(STDLIB)
