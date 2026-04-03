@@ -3,4 +3,58 @@
 
 %%-------------------------------- INTERFACES --------------------------------
 
+
+
 %%------------------------------ IMPLEMENTATION ------------------------------
+
+#projector
+(name *)		projector
+(full name *)	energy projector
+
+#plasma
+(name *)		plasma
+(full name *)	plasma bolt
+
+#disruptor
+(name *)		disruptor
+(full name *)	warp field disruptor
+
+#vortex
+(name *)		vortex generator
+(full name *)	hyperspace vortex generator
+
+#torpedo
+(name *)		torpedo
+(full name *)	torpedo tube
+
+#missile
+(name *)		missile
+(full name *)	missile launcher
+
+#tractor
+(name *)		tractor
+(full name *)	tractor beam
+
+#mtd
+(name *)		MTD
+(full name *)	matter transmission device
+
+#shuttle
+(name *)		shuttle bay
+(full name *)	shuttle bay
+
+#reactor
+(name *)		reactor
+(full name *)	main energon reactor
+
+#reactionless
+(name *)		reactionless
+(full name *)	reactionless drive
+
+#a-drive
+(name *)		A-drive
+(full name *)	Alcubierre drive
+
+#hyperdrive
+(name *)		hyperdrive
+(full name *)	hyperspace initiator
