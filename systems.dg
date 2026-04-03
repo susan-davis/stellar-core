@@ -5,85 +5,39 @@
 
 (interface (weapon $<Obj))
 
+(interface (energy weapon $<Obj))
+
+(interface (ammo weapon $<Obj))
+
 (interface (long name $<Obj))
 
 (interface ($<Ship weapons bearing on angle $<Angle into $>List))
 
 (interface ($<Ship weapons bearing on target $<Target into $>List))
 
+(interface ($<Ship energy weapons bearing on angle $<Angle into $>List))
+
+(interface ($<Ship energy weapons bearing on target $<Target into $>List))
+
+(interface ($<Ship ammo weapons bearing on angle $<Angle into $>List))
+
+(interface ($<Ship ammo weapons bearing on target $<Target into $>List))
+
+(interface ($<Ship fires $<Type with $<Energy energy))
+
+(interface ($<Ship fires $<Type with $<Ammo ammo))
+
+(interface ($<Ship fires $<Type at angle $<Angle with $<Energy energy))
+
+(interface ($<Ship fires $<Type at angle $<Angle with $<Ammo ammo))
+
+(interface ($<Ship fires $<Type at target $<Target with $<Energy energy))
+
+(interface ($<Ship fires $<Type at target $<Target with $<Ammo ammo))
+
+(interface ($<Ship fires at $<Target with $<Energy energy and $<Ammo ammo))
+
 %%------------------------------ IMPLEMENTATION ------------------------------
-
-#projector
-(name *)		projector
-(long name *)	energy projector
-(weapon *)
-
-#plasma
-(name *)		plasma
-(long name *)	plasma bolt
-(weapon *)
-
-#disruptor
-(name *)		disruptor
-(long name *)	warp field disruptor
-(weapon *)
-
-#vortex
-(name *)		vortex generator
-(long name *)	hyperspace vortex generator
-(weapon *)
-
-#torpedo
-(name *)		torpedo
-(long name *)	torpedo tube
-(weapon *)
-
-#missile
-(name *)		missile
-(long name *)	warp missile launcher
-(weapon *)
-
-#sensor
-(name *)		sensor
-(long name *)	sensor suite
-
-#tractor
-(name *)		tractor
-(long name *)	tractor beam
-
-#mtd
-(name *)		MTD
-(long name *)	matter transmission device
-
-#shuttle
-(name *)		shuttle bay
-(long name *)	shuttle bay
-
-#reactor
-(name *)		reactor
-(long name *)	main energon reactor
-
-#reactionless
-(name *)		reactionless
-(long name *)	reactionless drive
-
-#a-drive
-(name *)		A-drive
-(long name *)	Alcubierre drive
-
-#portal
-(name *)		portal generator
-(long name *)	hyperspace portal generator
-
-#life-support
-(name *)		life support
-(long name *)	life support system
-
-#damage-control
-(name *)		damage control
-(long name *)	damage control team
-
-%%-----------------------------------------------------------------------------
 
 (weapons in $List into $Result)
     (if) (empty $List) (then)
@@ -107,3 +61,163 @@
 ($Ship weapons bearing on target $Target into $Result)
 	 (angle from $Ship to $Target into $Angle)
 	 ($Ship weapons bearing on angle $Angle into $Result)
+
+($Ship fires $Type with $Energy energy)
+
+($Ship fires $Type with $Ammo ammo)
+
+($Ship fires $Type at angle $Angle with $Energy energy)
+
+($Ship fires $Type at angle $Angle with $Ammo ammo)
+
+($Ship fires $Type at target $Target with $Energy energy)
+
+($Ship fires $Type at target $Target with $Ammo ammo)
+
+($Ship fires at $Target with $Energy energy and $Ammo ammo)
+
+%%----------------------------------------------------------------------------
+
+%% Energy weapons work by feeding energy into them from the ship's main energy
+%% bus, and produce immediate effects that can't be countered. For simplicity,
+%% no ship has more than one kind of energy weapon installed, with the possible
+%% exception of the Tiberians.
+(weapon *(energy weapon $))
+
+%% Energy projectors are the basic phaser-equivalent energy weapons that most
+%% fleets use.
+#projector
+(name *)		projector
+(long name *)	energy projector
+(weapon *)
+
+%% Plasma bolts work similarly to energy projectors, but have a more rapid
+%% range decay, unless we encode the decay in details. They mostly exist to
+%% give some colour to foreign (Regulan) ships, to make them different.
+#plasma
+(name *)		plasma
+(long name *)	plasma bolt
+(weapon *)
+
+%% Collapsers are the Quellan disruptor-equivalents. In addition to regular
+%% energy damage, they also reduce the target's speed, allowing Quellan ships
+%% to prevent enemies from escaping.
+#collapser
+(name *)		collapser
+(long name *)	warp field collapser
+(weapon *)
+
+%% Hyperspace vortex generators are the Tiberian plasma torpedo equivalent.
+%% They rip ships apart by creating small hyperspace portals in their area
+%% of effect. For now, they're direct fire, because we've equated "energy" with
+%% "direct fire," but we could revisit that. This is kind of a weird
+%% intermediate case between ammo and energy weapons, like plasma torpedoes.
+#vortex
+(name *)		vortex generator
+(long name *)	hyperspace vortex generator
+(weapon *)
+
+%% Ammo weapons work by expending ammo from the ship's magazine(s). Shots from
+%% an ammo weapon might (in a future release) appear on the map as targets for
+%% defensive fire. For simplicity, no ship has more than one kind of ammo
+%% weapon installed.
+(weapon *(ammo weapon $))
+
+%% Hypervelocity torpedoes fire from long railgun launchers, and hit rapidly
+%% enough that the target doesn't get a change to engage them with defensive
+%% fire. If they have a range that reaches into neighbouring sectors, ships in
+%% other sectors *do* get defensive fire, because the flight time has been long
+%% enough, albeit at a penalty.
+#torpedo
+(name *)		torpedo
+(long name *)	hypervelocity torpedo tube
+(weapon *)
+
+%% Alcubierre missiles are equipped with small A-drives, and can engage at
+%% superluminal speeds. They work like torpedoes, but at a slower speed and
+%% with less elaborate launch hardware. Targets get to engage incoming missiles
+%% with defensive fire from any
+#missile
+(name *)		missile
+(long name *)	Alcubierre missile launcher
+(weapon *)
+
+%% Bombardment rockets are missiles equipped with reactionless engines, or even
+%% reaction engines in more primitive fleets. They're mostly used for attacking
+%% fixed targets, and can't reliably hit vessels moving at superluminal speeds.
+#rocket
+(name *)		rocket
+(long name *)	bombardment rocket launcher
+(weapon *)
+
+%% Do we want to have the active scanner/passive sensor distinction? We'll add
+%% #scanner to the set of systems if so. That would add scanning as a distinct
+%% action, to get more information about a target.
+#sensor
+(name *)		sensor
+(long name *)	sensor suite
+
+%% Tractor beams work just like they do in every other space opera.
+#tractor
+(name *)		tractor
+(long name *)	tractor beam
+
+%% The matter transmission device is the transporter equivalent. To cut down on
+%% plot abuse, MTDs can only send, not receive, and are much less reliable
+%% unless paired with a functioning MTD at the other end. Ships carry "MTD
+%% anchors", which can be beamed to remote locations, and function as the
+%% paired station on the far end to allow personnel to beam back to their
+%% ship. A MTD is much less accurate and reliable when not paired with a
+%% receiving station, and safety protocols (except in the Quellan fleet)
+%% prevent beaming organic life without a receiving station. This lets us limit
+%% the MTD's function to being essentially a fancy exit with extra steps. Code
+%% for implementing the MTD is in mtd.dg, not here.
+#mtd
+(name *)		MTD
+(long name *)	matter transmission device
+
+%% Shuttle bays are rated by the area of their opening, and by the number of
+%% shuttles that the bay can hold.
+#shuttle
+(name *)		shuttle bay
+(long name *)	shuttle bay
+
+%% Every starship has an energon reactor that runs on energon crystals. Energon
+%% is our dilithium-equivalent. The reactor is the most central system on the
+%% ship, and its destruction causes the ship to explode.
+#reactor
+(name *)		reactor
+(long name *)	main energon reactor
+
+%% Reactionless drives are our impulse engine equivalents. They have their own
+%% internal power sources.
+#reactionless
+(name *)		reactionless
+(long name *)	reactionless drive
+
+%% The Alcubierre drive is our warp drive equivalent. "Warp drive" is generic
+%% enough that it's okay if the term slips in occasionally as a synonym, but
+%% we'll call it the "A-drive" most of the time to make it obvious that this is
+%% not Star Trek.
+#a-drive
+(name *)		A-drive
+(long name *)	Alcubierre drive
+
+%% The Tiberians use hyperspace as both their main engines and their cloaking
+%% device.
+#portal
+(name *)		portal generator
+(long name *)	hyperspace portal generator
+
+%% The volume of atmosphere present in a ship gives the crew hours of time to
+%% fix their life support system if it breaks down, but the ship will
+%% inevitably get colder and freeze.
+#life-support
+(name *)		life support
+(long name *)	life support system
+
+%% Damage control teams are not a system, but rather a number of crew members
+%% tasked with fixing damaged systems.
+#damage-control
+(name *)		damage control
+(long name *)	damage control team
