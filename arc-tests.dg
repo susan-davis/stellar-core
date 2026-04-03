@@ -590,7 +590,6 @@
 
 (test #bearing-as-ship-turns)
 	  (turn #test-ship to heading 0)
-	  (angle from #test-ship to #closest-target into $Angle)
 	  (#test-ship #torpedo bearing on target #closest-target into
 	  		[[#torpedo 1 [1 8] 500 0 0]
 			 [#torpedo 2 [1 8] 500 0 0]])
