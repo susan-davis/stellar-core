@@ -121,11 +121,19 @@
 
 (interface ($<Ship systems $>Systems))
 
+(interface (system $<System arc $>Arc))
+
 (interface ($<Ship $<Type $<ID arc $>Arc))
+
+(interface (system $<System value $>Value))
 
 (interface ($<Ship $<Type $<ID value $>Value))
 
+(interface (system $<System details $>Details))
+
 (interface ($<Ship $<Type $<ID details $>Details))
+
+(interface (system $<System repair time $>Time))
 
 (interface ($<Ship $<Type $<ID repair time $>Time))
 
@@ -376,21 +384,33 @@
     ($Ship state is $State)
 	(nth $State 15 $Systems)
 
+(system $Match arc $Arc)
+	(nth $Match 3 $Arc)
+
 ($Ship $Type $ID arc $Arc)
 	(find $Ship $Type $ID into $Match)
-	(nth $Match 3 $Arc)
+	(system $Match arc $Arc)
+
+(system $Match value $Value)
+	(nth $Match 4 $Value)
 
 ($Ship $Type $ID value $Value)
 	(find $Ship $Type $ID into $Match)
-	(nth $Match 4 $Value)
+	(system $Match value $Value)
+
+(system $Match details $Details)
+	(nth $Match 5 $Details)
 
 ($Ship $Type $ID details $Details)
 	(find $Ship $Type $ID into $Match)
-	(nth $Match 5 $Details)
+	(system $Match details $Details)
+
+(system $Match repair time $Time)
+	(nth $Match 6 $Time)
 
 ($Ship $Type $ID repair time $Time)
 	(find $Ship $Type $ID into $Match)
-	(nth $Match 6 $Time)
+	(system $Match repair time $Time)
 
 (set repair time for $Ship $Type $ID to $Value)
 	($Ship systems $Systems)
