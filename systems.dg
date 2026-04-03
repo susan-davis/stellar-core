@@ -3,70 +3,78 @@
 
 %%-------------------------------- INTERFACES --------------------------------
 
+(interface (weapon $<Obj))
 
+(interface (long name $<Obj))
 
 %%------------------------------ IMPLEMENTATION ------------------------------
 
 #projector
-(name *)	projector
-(descr *)	energy projector
+(name *)		projector
+(long name *)	energy projector
+(weapon *)
 
 #plasma
-(name *)	plasma
-(descr *)	plasma bolt
+(name *)		plasma
+(long name *)	plasma bolt
+(weapon *)
 
 #disruptor
-(name *)	disruptor
-(descr *)	warp field disruptor
+(name *)		disruptor
+(long name *)	warp field disruptor
+(weapon *)
 
 #vortex
-(name *)	vortex generator
-(descr *)	hyperspace vortex generator
+(name *)		vortex generator
+(long name *)	hyperspace vortex generator
+(weapon *)
 
 #torpedo
-(name *)	torpedo
-(descr *)	torpedo tube
+(name *)		torpedo
+(long name *)	torpedo tube
+(weapon *)
 
 #missile
-(name *)	missile
-(descr *)	warp missile launcher
+(name *)		missile
+(long name *)	warp missile launcher
+(weapon *)
 
 #sensor
-(name *)	sensor
-(descr *)	sensor suite
+(name *)		sensor
+(long name *)	sensor suite
 
 #tractor
-(name *)	tractor
-(descr *)	tractor beam
+(name *)		tractor
+(long name *)	tractor beam
 
 #mtd
-(name *)	MTD
-(descr *)	matter transmission device
+(name *)		MTD
+(long name *)	matter transmission device
 
 #shuttle
-(name *)	shuttle bay
-(descr *)	shuttle bay
+(name *)		shuttle bay
+(long name *)	shuttle bay
 
 #reactor
-(name *)	reactor
-(descr *)	main energon reactor
+(name *)		reactor
+(long name *)	main energon reactor
 
 #reactionless
-(name *)	reactionless
-(descr *)	reactionless drive
+(name *)		reactionless
+(long name *)	reactionless drive
 
 #a-drive
-(name *)	A-drive
-(descr *)	Alcubierre drive
+(name *)		A-drive
+(long name *)	Alcubierre drive
 
 #portal
-(name *)	portal generator
-(descr *)	hyperspace portal generator
+(name *)		portal generator
+(long name *)	hyperspace portal generator
 
 #life-support
-(name *)	life support
-(descr *)	life support system
+(name *)		life support
+(long name *)	life support system
 
 #damage-control
-(name *)	damage control
-(descr *)	damage control team
+(name *)		damage control
+(long name *)	damage control team
