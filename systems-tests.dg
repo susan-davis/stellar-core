@@ -1,7 +1,11 @@
-%% dgdebug -u systems-tests.dg systems.dg arc.dg schema.dg sectored-grid.dg \
-%% 		   	  unit.dg stdlib.dg
+%% dgdebug -u systems-tests.dg systems.dg damage.dg arc.dg schema.dg %%
+%% 		   	  sectored-grid.dg unit.dg stdlib.dg
 
 (list of tests [
+	  #weapons-bearing-on-closest-target-location
+	  #weapons-bearing-on-near-target-location
+	  #weapons-bearing-on-closest-target
+	  #weapons-bearing-on-near-target
 	  ])
 
 %% ----------------------------------------------------------------------
@@ -60,3 +64,15 @@
 	 }
 
 %% ----------------------------------------------------------------------
+
+(test #weapons-bearing-on-closest-target-location)
+    Not implemented
+
+(test #weapons-bearing-on-near-target-location)
+    Not implemented
+
+(test #weapons-bearing-on-closest-target)
+    Not implemented
+
+(test #weapons-bearing-on-near-target)
+    Not implemented

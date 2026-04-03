@@ -54,7 +54,7 @@ damage:
 	$(DEBUG) damage-tests.dg damage.dg schema.dg sectored-grid.dg $(STDLIB)
 
 systems:
-	$(DEBUG) systems-tests.dg systems.dg arc.dg schema.dg sectored-grid.dg $(STDLIB)
+	$(DEBUG) systems-tests.dg systems.dg damage.dg arc.dg schema.dg sectored-grid.dg $(STDLIB)
 
 clean:
 	rm -f *~ \#*\# *.z8 *.zblorb *.aastory *.d64 *.d71

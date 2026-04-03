@@ -1,11 +1,15 @@
 %% systems.dg
-%% Include arc.dg, schema.dg, and sectored-grid.dg when compiling or debugging
+%% Include damage.dg, arc.dg, schema.dg, and sectored-grid.dg
 
 %%-------------------------------- INTERFACES --------------------------------
 
 (interface (weapon $<Obj))
 
 (interface (long name $<Obj))
+
+(interface ($<Ship weapons bearing on angle $<Angle into $>List))
+
+(interface ($<Ship weapons bearing on target $<Target into $>List))
 
 %%------------------------------ IMPLEMENTATION ------------------------------
 
@@ -78,3 +82,28 @@
 #damage-control
 (name *)		damage control
 (long name *)	damage control team
+
+%%-----------------------------------------------------------------------------
+
+(weapons in $List into $Result)
+    (if) (empty $List) (then)
+		($Result = [])
+	(else)
+		($List = [$Head | $Tail])
+		(nth $Head 1 $Type)
+		(if) (weapon $Type) (then)
+			(weapons in $Tail into $Remainder)
+			(append [$Head] $Remainder $Result)
+		(else)
+			(weapons in $Tail into $Result)
+		(endif)
+	(endif)
+
+($Ship weapons bearing on $Angle into $Result)
+	 ($Ship systems $Systems)
+	 (weapons in $Systems into $Weapons)
+	 (find systems bearing on $Angle in $Weapons into $Result)
+
+($Ship weapons bearing on $Target into $Result)
+	 (angle from $Ship to $Target into $Angle)
+	 ($Ship weapons bearing on $Angle into $Result)
