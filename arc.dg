@@ -119,7 +119,7 @@
 		 ($List = [$Head | $Tail])
 		 (system $Head arc $Arc)
 		 (system $Head repair time $Time)
-		 (if) (arc $Arc contains angle $Angle) (then)
+		 (if) (arc $Arc contains angle $Angle) ($Time = 0) (then)
 		 	 (find systems bearing on $Angle in $Tail into $Remainder)
 			 (append [$Head] $Remainder $Results)
 		 (else)

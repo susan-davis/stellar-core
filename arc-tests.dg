@@ -120,6 +120,7 @@
 	#bearing-on-distant-target-location
 	#bearing-on-closest-target
 	#bearing-on-near-target
+	#damaged-systems-dont-bear
 	#bearing-on-far-target
 	#bearing-on-distant-target
 	#bearing-as-ship-turns
@@ -549,7 +550,6 @@
 	  (#test-ship #torpedo 1 bears on target #near-target)
 
 (test #torpedo-far-target)
-	  (angle from #test-ship to #far-target into $Angle)
 	  ~(#test-ship #torpedo 1 bears on target #far-target)
 
 (test #torpedo-distant-target)
@@ -577,6 +577,11 @@
 	  		[[#torpedo 1 [1 8] 500 0 0]
 			 [#torpedo 2 [1 8] 500 0 0]])
 
+(test #damaged-systems-dont-bear)
+	  (set repair time for #test-ship #torpedo 2 to 1)
+	  (#test-ship #torpedo bearing on target #near-target into
+	  		[[#torpedo 1 [1 8] 500 0 0]])
+
 (test #bearing-on-far-target)
 	  (#test-ship #torpedo bearing on target #far-target into [])
 
@@ -584,4 +589,15 @@
 	  (#test-ship #torpedo bearing on target #distant-target into [])
 
 (test #bearing-as-ship-turns)
-	  Not implemented
+	  (turn #test-ship to heading 0)
+	  (angle from #test-ship to #closest-target into $Angle)
+	  (#test-ship #torpedo bearing on target #closest-target into
+	  		[[#torpedo 1 [1 8] 500 0 0]
+			 [#torpedo 2 [1 8] 500 0 0]])
+	  (#test-ship #torpedo bearing on target #near-target into
+	  		[[#torpedo 1 [1 8] 500 0 0]
+			 [#torpedo 2 [1 8] 500 0 0]])
+	  (#test-ship #torpedo bearing on target #far-target into
+	  		[[#torpedo 1 [1 8] 500 0 0]
+			 [#torpedo 2 [1 8] 500 0 0]])
+	  (#test-ship #torpedo bearing on target #distant-target into [])
