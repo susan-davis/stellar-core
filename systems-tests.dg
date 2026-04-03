@@ -66,13 +66,21 @@
 %% ----------------------------------------------------------------------
 
 (test #weapons-bearing-on-closest-target-location)
-    Not implemented
+    (#test-ship weapons bearing on angle 90 into
+			[[#projector 1 [360 #up] 100 0 0]])
 
 (test #weapons-bearing-on-near-target-location)
-    Not implemented
+    (#test-ship weapons bearing on angle 0 into
+			[[#projector 1 [360 #up] 100 0 0]
+			[#torpedo 1 [1 8] 500 0 0]
+			[#torpedo 2 [1 8] 500 0 0]])
 
 (test #weapons-bearing-on-closest-target)
-    Not implemented
+    (#test-ship weapons bearing on target #closest-target into
+			[[#projector 1 [360 #up] 100 0 0]])
 
 (test #weapons-bearing-on-near-target)
-    Not implemented
+    (#test-ship weapons bearing on target #near-target into
+			[[#projector 1 [360 #up] 100 0 0]
+			[#torpedo 1 [1 8] 500 0 0]
+			[#torpedo 2 [1 8] 500 0 0]])

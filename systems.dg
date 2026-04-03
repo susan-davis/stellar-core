@@ -99,11 +99,11 @@
 		(endif)
 	(endif)
 
-($Ship weapons bearing on $Angle into $Result)
+($Ship weapons bearing on angle $Angle into $Result)
 	 ($Ship systems $Systems)
 	 (weapons in $Systems into $Weapons)
 	 (find systems bearing on $Angle in $Weapons into $Result)
 
-($Ship weapons bearing on $Target into $Result)
+($Ship weapons bearing on target $Target into $Result)
 	 (angle from $Ship to $Target into $Angle)
-	 ($Ship weapons bearing on $Angle into $Result)
+	 ($Ship weapons bearing on angle $Angle into $Result)
