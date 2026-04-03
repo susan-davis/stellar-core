@@ -31,6 +31,10 @@
 (name *)		missile
 (full name *)	missile launcher
 
+#sensor
+(name *)		sensor
+(full name *)	sensor suite
+
 #tractor
 (name *)		tractor
 (full name *)	tractor beam
@@ -55,6 +59,6 @@
 (name *)		A-drive
 (full name *)	Alcubierre drive
 
-#hyperdrive
-(name *)		hyperdrive
-(full name *)	hyperspace initiator
+#portal
+(name *)		portal generator
+(full name *)	hyperspace portal generator
