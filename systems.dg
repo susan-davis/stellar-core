@@ -8,57 +8,65 @@
 %%------------------------------ IMPLEMENTATION ------------------------------
 
 #projector
-(name *)		projector
-(full name *)	energy projector
+(name *)	projector
+(descr *)	energy projector
 
 #plasma
-(name *)		plasma
-(full name *)	plasma bolt
+(name *)	plasma
+(descr *)	plasma bolt
 
 #disruptor
-(name *)		disruptor
-(full name *)	warp field disruptor
+(name *)	disruptor
+(descr *)	warp field disruptor
 
 #vortex
-(name *)		vortex generator
-(full name *)	hyperspace vortex generator
+(name *)	vortex generator
+(descr *)	hyperspace vortex generator
 
 #torpedo
-(name *)		torpedo
-(full name *)	torpedo tube
+(name *)	torpedo
+(descr *)	torpedo tube
 
 #missile
-(name *)		missile
-(full name *)	missile launcher
+(name *)	missile
+(descr *)	warp missile launcher
 
 #sensor
-(name *)		sensor
-(full name *)	sensor suite
+(name *)	sensor
+(descr *)	sensor suite
 
 #tractor
-(name *)		tractor
-(full name *)	tractor beam
+(name *)	tractor
+(descr *)	tractor beam
 
 #mtd
-(name *)		MTD
-(full name *)	matter transmission device
+(name *)	MTD
+(descr *)	matter transmission device
 
 #shuttle
-(name *)		shuttle bay
-(full name *)	shuttle bay
+(name *)	shuttle bay
+(descr *)	shuttle bay
 
 #reactor
-(name *)		reactor
-(full name *)	main energon reactor
+(name *)	reactor
+(descr *)	main energon reactor
 
 #reactionless
-(name *)		reactionless
-(full name *)	reactionless drive
+(name *)	reactionless
+(descr *)	reactionless drive
 
 #a-drive
-(name *)		A-drive
-(full name *)	Alcubierre drive
+(name *)	A-drive
+(descr *)	Alcubierre drive
 
 #portal
-(name *)		portal generator
-(full name *)	hyperspace portal generator
+(name *)	portal generator
+(descr *)	hyperspace portal generator
+
+#life-support
+(name *)	life support
+(descr *)	life support system
+
+#damage-control
+(name *)	damage control
+(descr *)	damage control team
