@@ -559,7 +559,9 @@
 	  (#test-ship #torpedo bearing on angle 90 into [])
 
 (test #bearing-on-near-target-location)
-	  (#test-ship #torpedo bearing on angle 0 into [])
+	  (#test-ship #torpedo bearing on angle 0 into
+	  		[[#torpedo 1 [1 8] 500 0 0]
+			 [#torpedo 2 [1 8] 500 0 0]])
 
 (test #bearing-on-far-target-location)
 	  (#test-ship #torpedo bearing on angle 75 into [])
@@ -568,16 +570,18 @@
 	  (#test-ship #torpedo bearing on angle 245 into [])
 
 (test #bearing-on-closest-target)
-	  Not implemented
+	  (#test-ship #torpedo bearing on target #closest-target into [])
 
 (test #bearing-on-near-target)
-	  Not implemented
+	  (#test-ship #torpedo bearing on target #near-target into
+	  		[[#torpedo 1 [1 8] 500 0 0]
+			 [#torpedo 2 [1 8] 500 0 0]])
 
 (test #bearing-on-far-target)
-	  Not implemented
+	  (#test-ship #torpedo bearing on target #far-target into [])
 
 (test #bearing-on-distant-target)
-	  Not implemented
+	  (#test-ship #torpedo bearing on target #distant-target into [])
 
 (test #bearing-as-ship-turns)
 	  Not implemented

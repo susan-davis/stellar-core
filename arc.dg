@@ -105,7 +105,6 @@
 %% these only check firing arcs and system damage, not whether it's in range
 
 ($Ship $System $ID bears on angle $Angle)
-	 (find $Ship $System $ID into $Match)
 	 ($Ship $System $ID arc $Arc)
 	 (arc $Arc contains angle $Angle)
 
@@ -113,8 +112,25 @@
 	 (angle from $Ship to $Target into $Angle)
 	 ($Ship $System $ID bears on angle $Angle)
 
+(find systems bearing on $Angle in $List into $Results)
+	 (if) (empty $List) (then)
+	 	 ($Results = [])
+	 (else)
+		 ($List = [$Head | $Tail])
+		 (system $Head arc $Arc)
+		 (system $Head repair time $Time)
+		 (if) (arc $Arc contains angle $Angle) (then)
+		 	 (find systems bearing on $Angle in $Tail into $Remainder)
+			 (append [$Head] $Remainder $Results)
+		 (else)
+		 	 (find systems bearing on $Angle in $Tail into $Results)
+		 (endif)
+	 (endif)
+
 ($Ship $Type bearing on angle $Angle into $Bearing)
-	 ($Bearing = [])
+	 (find all $Type for $Ship into $Systems)
+	 (find systems bearing on $Angle in $Systems into $Bearing)
 
 ($Ship $Type bearing on target $Target into $Bearing)
-	 ($Bearing = [])
+	 (angle from $Ship to $Target into $Angle)
+	 ($Ship $Type bearing on angle $Angle into $Bearing)
