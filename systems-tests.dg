@@ -6,6 +6,7 @@
 	  #weapons-bearing-on-near-target-location
 	  #weapons-bearing-on-closest-target
 	  #weapons-bearing-on-near-target
+	  #damaged-weapons-dont-bear
 	  #fire-projector-with-0
 	  #fire-projector-with-100
 	  #fire-projector-with-200
@@ -105,6 +106,12 @@
     (#test-ship weapons bearing on target #near-target into
 			[[#projector 1 [360 #up] 100 0 0]
 			[#torpedo 1 [1 8] 1 500 0]
+			[#torpedo 2 [1 8] 1 500 0]])
+
+(test #damaged-weapons-dont-bear)
+	(damage #test-ship system #torpedo 1 with 50)
+    (#test-ship weapons bearing on target #near-target into
+			[[#projector 1 [360 #up] 100 0 0]
 			[#torpedo 2 [1 8] 1 500 0]])
 
 (test #fire-projector-with-0)
