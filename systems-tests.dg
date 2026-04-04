@@ -6,6 +6,28 @@
 	  #weapons-bearing-on-near-target-location
 	  #weapons-bearing-on-closest-target
 	  #weapons-bearing-on-near-target
+	  #fire-projector-with-0
+	  #fire-projector-with-100
+	  #fire-projector-with-200
+	  #fire-torpedo-with-0
+	  #fire-torpedo-with-1
+	  #fire-torpedo-with-2
+	  #fire-torpedo-with-4
+	  #fire-projector-at-90
+	  #fire-projector-at-0
+	  #fire-torpedo-at-90
+	  #fire-torpedo-at-0
+	  #fire-at-closest-with-100
+	  #fire-at-closest-with-200
+	  #fire-at-near-with-100
+	  #fire-at-near-with-200
+	  #fire-at-closest-with-2
+	  #fire-at-closest-with-4
+	  #fire-at-near-with-2
+	  #fire-at-near-with-4
+	  #fire-at-closest-with-100-and-2
+	  #fire-at-near-with-100-and-2
+	  #fire-at-near-with-200-and-4
 	  ])
 
 %% ----------------------------------------------------------------------
@@ -23,8 +45,8 @@
 (* state is [0 0 180 0 500 963 0 0
    		 	#cygnus-class 1000 4 10 500 [100 99 98 97]
 			[[#projector 1 [360 #up] 100 0 0]
-			[#torpedo 1 [1 8] 500 0 0]
-			[#torpedo 2 [1 8] 500 0 0]
+			[#torpedo 1 [1 8] 1 500 0]
+			[#torpedo 2 [1 8] 1 500 0]
 			[#tractor 1 360 250 0 800]
 			[#sensor 2 [1 8] 2 0 0]
 			[#sensor 1 [360 #up #down] 1 0 0]
@@ -72,8 +94,8 @@
 (test #weapons-bearing-on-near-target-location)
     (#test-ship weapons bearing on angle 0 into
 			[[#projector 1 [360 #up] 100 0 0]
-			[#torpedo 1 [1 8] 500 0 0]
-			[#torpedo 2 [1 8] 500 0 0]])
+			[#torpedo 1 [1 8] 1 500 0]
+			[#torpedo 2 [1 8] 1 500 0]])
 
 (test #weapons-bearing-on-closest-target)
     (#test-ship weapons bearing on target #closest-target into
@@ -82,5 +104,71 @@
 (test #weapons-bearing-on-near-target)
     (#test-ship weapons bearing on target #near-target into
 			[[#projector 1 [360 #up] 100 0 0]
-			[#torpedo 1 [1 8] 500 0 0]
-			[#torpedo 2 [1 8] 500 0 0]])
+			[#torpedo 1 [1 8] 1 500 0]
+			[#torpedo 2 [1 8] 1 500 0]])
+
+(test #fire-projector-with-0)
+	(#test-ship fires #projector at target #near-target using 0)
+
+(test #fire-projector-with-100)
+	(#test-ship fires #projector at target #near-target using 100)
+
+(test #fire-projector-with-200)
+	(#test-ship fires #projector at target #near-target using 100)
+
+(test #fire-torpedo-with-0)
+	(#test-ship fires #torpedo at target #near-target using 0)
+
+(test #fire-torpedo-with-1)
+	(#test-ship fires #torpedo at target #near-target using 1)
+
+(test #fire-torpedo-with-2)
+	(#test-ship fires #torpedo at target #near-target using 2)
+
+(test #fire-torpedo-with-4)
+	(#test-ship fires #torpedo at target #near-target using 4)
+
+(test #fire-at-closest-with-100)
+	Not implemented
+
+(test #fire-at-closest-with-200)
+	Not implemented
+
+(test #fire-at-near-with-100)
+	Not implemented
+
+(test #fire-at-near-with-200)
+	Not implemented
+
+(test #fire-at-closest-with-2)
+	Not implemented
+
+(test #fire-at-closest-with-4)
+	Not implemented
+
+(test #fire-at-near-with-2)
+	Not implemented
+
+(test #fire-at-near-with-4)
+	Not implemented
+
+(test #fire-at-closest-with-100-and-2)
+	Not implemented
+
+(test #fire-at-near-with-100-and-2)
+	Not implemented
+
+(test #fire-at-near-with-200-and-4)
+	Not implemented
+
+(test #fire-projector-at-90)
+	Not implemented
+
+(test #fire-projector-at-0)
+	Not implemented
+
+(test #fire-torpedo-at-90)
+	Not implemented
+
+(test #fire-torpedo-at-0)
+	Not implemented

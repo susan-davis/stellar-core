@@ -23,19 +23,17 @@
 
 (interface ($<Ship ammo weapons bearing on target $<Target into $>List))
 
-(interface ($<Ship fires $<Type with $<Energy energy))
+(interface ($<Ship fires $<System $<ID $<Details at $<Target using $<Amount))
 
-(interface ($<Ship fires $<Type with $<Ammo ammo))
+(interface ($<Ship fires $<Type at target $<Target using $<Amount))
 
-(interface ($<Ship fires $<Type at angle $<Angle with $<Energy energy))
+(interface ($<Ship fires $<Type at angle $<Angle using $<Amount))
 
-(interface ($<Ship fires $<Type at angle $<Angle with $<Ammo ammo))
+(interface ($<Ship fires $<Type using $<Amount))
 
-(interface ($<Ship fires $<Type at target $<Target with $<Energy energy))
+(interface ($<Ship fires at $<Target using $<Energy energy and $<Ammo ammo))
 
-(interface ($<Ship fires $<Type at target $<Target with $<Ammo ammo))
-
-(interface ($<Ship fires at $<Target with $<Energy energy and $<Ammo ammo))
+(interface ($<Ship autofires $<Type within $<Range using $<Amount per shot))
 
 %%------------------------------ IMPLEMENTATION ------------------------------
 
@@ -62,20 +60,6 @@
 	 (angle from $Ship to $Target into $Angle)
 	 ($Ship weapons bearing on angle $Angle into $Result)
 
-($Ship fires $Type with $Energy energy)
-
-($Ship fires $Type with $Ammo ammo)
-
-($Ship fires $Type at angle $Angle with $Energy energy)
-
-($Ship fires $Type at angle $Angle with $Ammo ammo)
-
-($Ship fires $Type at target $Target with $Energy energy)
-
-($Ship fires $Type at target $Target with $Ammo ammo)
-
-($Ship fires at $Target with $Energy energy and $Ammo ammo)
-
 %%----------------------------------------------------------------------------
 
 %% Energy weapons work by feeding energy into them from the ship's main energy
@@ -91,6 +75,9 @@
 (long name *)	energy projector
 (weapon *)
 
+($Ship fires * $ID $Details at $Target using $Amount)
+    (line) $Ship fires * $ID $Details at $Target using $Amount
+
 %% Plasma bolts work similarly to energy projectors, but have a more rapid
 %% range decay, unless we encode the decay in details. They mostly exist to
 %% give some colour to foreign (Regulan) ships, to make them different.
@@ -99,6 +86,9 @@
 (long name *)	plasma bolt
 (weapon *)
 
+($Ship fires * $ID $Details at $Target using $Amount)
+    (line) $Ship fires * $ID $Details at $Target using $Amount
+
 %% Collapsers are the Quellan disruptor-equivalents. In addition to regular
 %% energy damage, they also reduce the target's speed, allowing Quellan ships
 %% to prevent enemies from escaping.
@@ -106,6 +96,9 @@
 (name *)		collapser
 (long name *)	warp field collapser
 (weapon *)
+
+($Ship fires * $ID $Details at $Target using $Amount)
+    (line) $Ship fires * $ID $Details at $Target using $Amount
 
 %% Hyperspace vortex generators are the Tiberian plasma torpedo equivalent.
 %% They rip ships apart by creating small hyperspace portals in their area
@@ -116,6 +109,9 @@
 (name *)		vortex generator
 (long name *)	hyperspace vortex generator
 (weapon *)
+
+($Ship fires * $ID $Details at $Target using $Amount)
+    (line) $Ship fires * $ID $Details at $Target using $Amount
 
 %% Ammo weapons work by expending ammo from the ship's magazine(s). Shots from
 %% an ammo weapon might (in a future release) appear on the map as targets for
@@ -133,6 +129,9 @@
 (long name *)	hypervelocity torpedo tube
 (weapon *)
 
+($Ship fires * $ID $Details at $Target using $Amount)
+    (line) $Ship fires * $ID $Details at $Target using $Amount
+
 %% Alcubierre missiles are equipped with small A-drives, and can engage at
 %% superluminal speeds. They work like torpedoes, but at a slower speed and
 %% with less elaborate launch hardware. Targets get to engage incoming missiles
@@ -142,6 +141,9 @@
 (long name *)	Alcubierre missile launcher
 (weapon *)
 
+($Ship fires * $ID $Details at $Target using $Amount)
+    (line) $Ship fires * $ID $Details at $Target using $Amount
+
 %% Bombardment rockets are missiles equipped with reactionless engines, or even
 %% reaction engines in more primitive fleets. They're mostly used for attacking
 %% fixed targets, and can't reliably hit vessels moving at superluminal speeds.
@@ -149,6 +151,9 @@
 (name *)		rocket
 (long name *)	bombardment rocket launcher
 (weapon *)
+
+($Ship fires * $ID $Details at $Target using $Amount)
+    (line) $Ship fires * $ID $Details at $Target using $Amount
 
 %% Do we want to have the active scanner/passive sensor distinction? We'll add
 %% #scanner to the set of systems if so. That would add scanning as a distinct
@@ -221,3 +226,31 @@
 #damage-control
 (name *)		damage control
 (long name *)	damage control team
+
+%%----------------------------------------------------------------------------
+
+($Ship fires at $Target with $Weapons using $Amount)
+	(if) ~(empty $Weapons) ($Amount > 0) (then)
+	    ($Weapons = [$Head | $Tail])
+		($Head = [$Type $ID $ $Value $Details $])
+		(if) ($Value > $Amount) (then)
+	        ($Ship fires $Type $ID $Details at $Target using $Amount)
+		(else)
+			(subtract $Value from $Amount into $Remainder)
+	    	($Ship fires $Type $ID $Details at $Target using $Value)
+			($Ship fires at $Target with $Tail using $Remainder)
+		(endif)
+	(endif)
+
+($Ship fires $Type at target $Target using $Amount)
+    ($Ship $Type bearing on target $Target into $Weapons)
+	($Ship fires at $Target with $Weapons using $Amount)
+
+($Ship fires at $Target using $Energy energy and $Ammo ammo)
+	$Ship fires at $Target with $Energy energy and $Ammo ammo
+
+($Ship fires $Type at angle $Angle using $Amount)
+	$Ship fires $Type at angle $Angle using $Amount
+
+($Ship fires $Type using $Amount)
+	$Ship fires $Type using $Amount
