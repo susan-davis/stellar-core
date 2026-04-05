@@ -4,6 +4,7 @@
 	  #one-roll
 	  #two-roll-total
 	  #two-roll-individual
+	  #die-times-die
 	  #three-roll-total
 	  #three-roll-individual
 	  #randomize-position
@@ -41,6 +42,14 @@
 	(two dice 6 5)
 	(two dice 1 4)
 	(two dice 5 1)
+
+(test #die-times-die)
+    (die times die 20)
+	(die times die 12)
+	(die times die 15)
+	(die times die 30)
+	(die times die 4)
+	(die times die 5)
 
 (test #three-roll-total)
 	(three dice 15)

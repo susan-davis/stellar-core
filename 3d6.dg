@@ -10,6 +10,8 @@
 
 (interface (two dice $>First $>Second))
 
+(interface (die times die $>Total))
+
 (interface (three dice $>Total))
 
 (interface (three dice $>First $>Second $>Third)) %% 3d6
@@ -125,6 +127,10 @@
 (two dice $Total)
 	(two dice $First $Second)
 	($First plus $Second into $Total)
+
+(die times die $Total)
+	(two dice $First $Second)
+	($First times $Second into $Total)
 
 (three dice $First $Second $Third)
 	(normalize random list position)
