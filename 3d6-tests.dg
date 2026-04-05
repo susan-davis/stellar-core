@@ -7,60 +7,71 @@
 	  #three-roll-total
 	  #three-roll-individual
 	  #randomize-position
+	  #wrap-around-end
+	  #memoize-length
 	  ])
 
 %%-----------------------------------------------------------------------------
 
 (set up $)
 	 (now) (random list position 0)
-	 (now) (random die rolls [[1 2 3] [2 3 4] [3 4 5] [4 5 6] [5 6 1] [6 1 2]])
 
 %%-----------------------------------------------------------------------------
 
 (test #one-roll)
-	(one die 1)
-	(one die 2)
-	(one die 3)
+	(one die 4)
 	(one die 4)
 	(one die 5)
 	(one die 6)
 	(one die 1)
+	(one die 5)
 
 (test #two-roll-total)
-	(two dice 3)
-	(two dice 5)
-	(two dice 7)
 	(two dice 9)
-	(two dice 11)
 	(two dice 7)
+	(two dice 8)
+	(two dice 11)
+	(two dice 5)
+	(two dice 6)
 
 (test #two-roll-individual)
-    (two dice 1 2)
-	(two dice 2 3)
-	(two dice 3 4)
-	(two dice 4 5)
-	(two dice 5 6)
-	(two dice 6 1)
+    (two dice 4 5)
+	(two dice 4 3)
+	(two dice 5 3)
+	(two dice 6 5)
+	(two dice 1 4)
+	(two dice 5 1)
 
 (test #three-roll-total)
-	(three dice 6)
-	(three dice 9)
-	(three dice 12)
 	(three dice 15)
-	(three dice 12)
-	(three dice 9)
+	(three dice 8)
+	(three dice 14)
+	(three dice 17)
+	(three dice 11)
+	(three dice 11)
 
 (test #three-roll-individual)
-	(three dice 1 2 3)
-	(three dice 2 3 4)
-	(three dice 3 4 5)
 	(three dice 4 5 6)
-	(three dice 5 6 1)
-	(three dice 6 1 2)
+	(three dice 4 3 1)
+	(three dice 5 3 6)
+	(three dice 6 5 6)
+	(three dice 1 4 6)
+	(three dice 5 1 5)
 
 (test #randomize-position)
 	(randomize random list position)
 	(random list position $Pos)
 	$Pos
 	(assert $Pos > 0)
-	(assert $Pos < 7)
+	(assert $Pos < 217)
+
+(test #wrap-around-end)
+	(now) (random list position 214)
+	(three dice 1 6 5)
+	(three dice 2 2 3)
+	(three dice 6 1 2)
+	(three dice 4 5 6)
+
+(test #memoize-length)
+	(now) (random die rolls [])
+	(length of random list 216)
