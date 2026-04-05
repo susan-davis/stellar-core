@@ -1,0 +1,80 @@
+%% 3d6.dg
+
+(extension version)	Undo-safe die rolls v0.1 by Susan Davis (line)
+
+%%-------------------------------- INTERFACES ---------------------------------
+
+(interface (one die $>Roll)) %% 1d6
+
+(interface (two dice $>Total))
+
+(interface (two dice $>First $>Second))
+
+(interface (three dice $>Total))
+
+(interface (three dice $>First $>Second $>Third)) %% 3d6
+
+%% call this at program entry to give a different sequence of rolls every game,
+%% but stick to the same sequence if you undo
+(interface (randomize random list position))
+
+%%------------------------------ IMPLEMENTATION -------------------------------
+
+%% 216 rolls of 3d6, normalized so that every combination of three die rolls
+%% occurs exactly once. I generated these by physically shuffling a deck of 216
+%% such cards, and dealing them out one by one, after twelve fair shuffles.
+%% That should give better randomness than (random from $ to $ into $) does.
+
+(global variable (random die rolls [
+	%% TODO: data entry
+    ]))
+
+(global variable (random list length 0)) %% memoize so we only compute once
+
+(global variable (random list position 1))
+
+(length of random list $Length)
+	(random list length $Len)
+	(if) ($Len = 0) (then)
+		(random die rolls $Rolls)
+		(length of $Rolls into $Length)
+		(now) (random list length $Length)
+	(else)
+		(random list length $Length)
+	(endif)
+
+(randomize random list position)
+	(length of random list $Length)
+	(random from 1 to $Length into $Position)
+	(now) (random list position $Position)
+
+(normalize random list position)
+	(random list position $Position)
+	(length of random list $Length)
+	(if) { ($Position = 0) (or) ($Position > $Length) } (then)
+	    (now) (random list position 1)
+	(endif)
+
+(one die $Roll)
+	(three dice $Roll $ $)
+
+(two dice $First $Second)
+	(three dice $First $Second $)
+
+(two dice $Total)
+	(two dice $First $Second)
+	($First plus $Second into $Total)
+
+(three dice $First $Second $Third)
+	(normalize random list position)
+	(random die rolls $Rolls)
+	(random list position $Position)
+	(nth $Rolls $Position $Result)
+	($Result = [$First $Second $Third])
+	($Position plus 1 into $NewPosition)
+	(now) (random list position $NewPosition)
+
+(three dice $Total)
+	(three dice $First $Second $Third)
+	($First plus $Second into $Sum)
+	($Sum plus $Third into $Total)

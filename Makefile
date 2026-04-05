@@ -24,13 +24,16 @@ su-101.d71: su-101.aastory
 
 6502: su-101.d64
 
-test: utils time sectored-grid schema arc sensors-wide maneuver damage systems
+test: utils time 3d6 sectored-grid schema arc sensors-wide maneuver damage systems
 
 utils:
 	$(DEBUG) utils-tests.dg $(STDLIB)
 
 time:
 	$(DEBUG) time-tests.dg time.dg $(STDLIB)
+
+3d6:
+	$(DEBUG) 3d6-tests.dg 3d6.dg $(STDLIB)
 
 sectored-grid:
 	$(DEBUG) sectored-tests.dg sectored-grid.dg $(STDLIB)

@@ -9,8 +9,6 @@
 
 (interface (ammo weapon $<Obj))
 
-(interface (long name $<Obj))
-
 (interface ($<Ship weapons bearing on angle $<Angle into $>List))
 
 (interface ($<Ship weapons bearing on target $<Target into $>List))
@@ -70,9 +68,11 @@
 
 %% Energy projectors are the basic phaser-equivalent energy weapons that most
 %% fleets use.
+%% We reuse (descr $) for a system's long name in order to not introduce yet
+%% another per-object flag.
 #projector
-(name *)		projector
-(long name *)	energy projector
+(name *)	projector
+(descr *)	energy projector
 (weapon *)
 
 ($Ship fires * $ID $Details at $Target using $Amount)
@@ -82,8 +82,8 @@
 %% range decay, unless we encode the decay in details. They mostly exist to
 %% give some colour to foreign (Regulan) ships, to make them different.
 #plasma
-(name *)		plasma
-(long name *)	plasma bolt
+(name *)	plasma
+(descr *)	plasma bolt
 (weapon *)
 
 ($Ship fires * $ID $Details at $Target using $Amount)
@@ -93,8 +93,8 @@
 %% energy damage, they also reduce the target's speed, allowing Quellan ships
 %% to prevent enemies from escaping.
 #collapser
-(name *)		collapser
-(long name *)	warp field collapser
+(name *)	collapser
+(descr *)	warp field collapser
 (weapon *)
 
 ($Ship fires * $ID $Details at $Target using $Amount)
@@ -106,8 +106,8 @@
 %% "direct fire," but we could revisit that. This is kind of a weird
 %% intermediate case between ammo and energy weapons, like plasma torpedoes.
 #vortex
-(name *)		vortex generator
-(long name *)	hyperspace vortex generator
+(name *)	vortex generator
+(descr *)	hyperspace vortex generator
 (weapon *)
 
 ($Ship fires * $ID $Details at $Target using $Amount)
@@ -125,8 +125,8 @@
 %% other sectors *do* get defensive fire, because the flight time has been long
 %% enough, albeit at a penalty.
 #torpedo
-(name *)		torpedo
-(long name *)	hypervelocity torpedo tube
+(name *)	torpedo
+(descr *)	hypervelocity torpedo tube
 (weapon *)
 
 ($Ship fires * $ID $Details at $Target using $Amount)
@@ -137,8 +137,8 @@
 %% with less elaborate launch hardware. Targets get to engage incoming missiles
 %% with defensive fire from any
 #missile
-(name *)		missile
-(long name *)	Alcubierre missile launcher
+(name *)	missile
+(descr *)	Alcubierre missile launcher
 (weapon *)
 
 ($Ship fires * $ID $Details at $Target using $Amount)
@@ -148,8 +148,8 @@
 %% reaction engines in more primitive fleets. They're mostly used for attacking
 %% fixed targets, and can't reliably hit vessels moving at superluminal speeds.
 #rocket
-(name *)		rocket
-(long name *)	bombardment rocket launcher
+(name *)	rocket
+(descr *)	bombardment rocket launcher
 (weapon *)
 
 ($Ship fires * $ID $Details at $Target using $Amount)
@@ -159,13 +159,13 @@
 %% #scanner to the set of systems if so. That would add scanning as a distinct
 %% action, to get more information about a target.
 #sensor
-(name *)		sensor
-(long name *)	sensor suite
+(name *)	sensor
+(descr *)	sensor suite
 
 %% Tractor beams work just like they do in every other space opera.
 #tractor
-(name *)		tractor
-(long name *)	tractor beam
+(name *)	tractor
+(descr *)	tractor beam
 
 %% The matter transmission device is the transporter equivalent. To cut down on
 %% plot abuse, MTDs can only send, not receive, and are much less reliable
@@ -178,54 +178,76 @@
 %% the MTD's function to being essentially a fancy exit with extra steps. Code
 %% for implementing the MTD is in mtd.dg, not here.
 #mtd
-(name *)		MTD
-(long name *)	matter transmission device
+(name *)	MTD
+(descr *)	matter transmission device
 
 %% Shuttle bays are rated by the area of their opening, and by the number of
 %% shuttles that the bay can hold.
 #shuttle
-(name *)		shuttle bay
-(long name *)	shuttle bay
+(name *)	shuttle bay
+(descr *)	shuttle bay
 
 %% Every starship has an energon reactor that runs on energon crystals. Energon
 %% is our dilithium-equivalent. The reactor is the most central system on the
 %% ship, and its destruction causes the ship to explode.
 #reactor
-(name *)		reactor
-(long name *)	main energon reactor
+(name *)	reactor
+(descr *)	main energon reactor
+
+%% The main power bus stores the ship's available energy supply. Hits to it
+%% release some of that energy, damaging other systems. For PC ships, we have
+%% secondary power buses and account for whether systems are powered and have
+%% network connectivity. For standard ships, we just assume that everything is
+%% plugged in to the main power bus. (Which oversimplifies Quellan cruisers,
+%% but we can live with that.)
+#bus
+(name *)	power bus
+(deacr *)	main power bus
 
 %% Reactionless drives are our impulse engine equivalents. They have their own
 %% internal power sources.
 #reactionless
-(name *)		reactionless
-(long name *)	reactionless drive
+(name *)	reactionless
+(descr *)	reactionless drive
 
 %% The Alcubierre drive is our warp drive equivalent. "Warp drive" is generic
 %% enough that it's okay if the term slips in occasionally as a synonym, but
 %% we'll call it the "A-drive" most of the time to make it obvious that this is
 %% not Star Trek.
 #a-drive
-(name *)		A-drive
-(long name *)	Alcubierre drive
+(name *)	A-drive
+(descr *)	Alcubierre drive
 
 %% The Tiberians use hyperspace as both their main engines and their cloaking
 %% device.
 #portal
-(name *)		portal generator
-(long name *)	hyperspace portal generator
+(name *)	portal generator
+(descr *)	hyperspace portal generator
 
 %% The volume of atmosphere present in a ship gives the crew hours of time to
 %% fix their life support system if it breaks down, but the ship will
 %% inevitably get colder and freeze.
 #life-support
-(name *)		life support
-(long name *)	life support system
+(name *)	life support
+(descr *)	life support system
 
 %% Damage control teams are not a system, but rather a number of crew members
 %% tasked with fixing damaged systems.
 #damage-control
-(name *)		damage control
-(long name *)	damage control team
+(name *)	damage control
+(descr *)	damage control team
+
+#quarters
+(name *)	crew quarters
+(descr *)	crew quarters
+
+#barracks
+(name *)	barracks
+(descr *)	barracks
+
+#lab
+(name *)	lab
+(descr *)	science lab
 
 %%----------------------------------------------------------------------------
 

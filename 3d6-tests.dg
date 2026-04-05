@@ -1,0 +1,66 @@
+%% dgdebug -u 3d6-tests.dg 3d6.dg unit.dg stdlib.dg
+
+(list of tests [
+	  #one-roll
+	  #two-roll-total
+	  #two-roll-individual
+	  #three-roll-total
+	  #three-roll-individual
+	  #randomize-position
+	  ])
+
+%%-----------------------------------------------------------------------------
+
+(set up $)
+	 (now) (random list position 0)
+	 (now) (random die rolls [[1 2 3] [2 3 4] [3 4 5] [4 5 6] [5 6 1] [6 1 2]])
+
+%%-----------------------------------------------------------------------------
+
+(test #one-roll)
+	(one die 1)
+	(one die 2)
+	(one die 3)
+	(one die 4)
+	(one die 5)
+	(one die 6)
+	(one die 1)
+
+(test #two-roll-total)
+	(two dice 3)
+	(two dice 5)
+	(two dice 7)
+	(two dice 9)
+	(two dice 11)
+	(two dice 7)
+
+(test #two-roll-individual)
+    (two dice 1 2)
+	(two dice 2 3)
+	(two dice 3 4)
+	(two dice 4 5)
+	(two dice 5 6)
+	(two dice 6 1)
+
+(test #three-roll-total)
+	(three dice 6)
+	(three dice 9)
+	(three dice 12)
+	(three dice 15)
+	(three dice 12)
+	(three dice 9)
+
+(test #three-roll-individual)
+	(three dice 1 2 3)
+	(three dice 2 3 4)
+	(three dice 3 4 5)
+	(three dice 4 5 6)
+	(three dice 5 6 1)
+	(three dice 6 1 2)
+
+(test #randomize-position)
+	(randomize random list position)
+	(random list position $Pos)
+	$Pos
+	(assert $Pos > 0)
+	(assert $Pos < 7)
