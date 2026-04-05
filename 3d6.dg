@@ -10,7 +10,7 @@
 
 (interface (two dice $>First $>Second))
 
-(interface (die times die $>Total))
+(interface (d6 times d6 $>Total))
 
 (interface (three dice $>Total))
 
@@ -128,7 +128,7 @@
 	(two dice $First $Second)
 	($First plus $Second into $Total)
 
-(die times die $Total)
+(d6 times d6 $Total)
 	(two dice $First $Second)
 	($First times $Second into $Total)
 

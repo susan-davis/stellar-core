@@ -44,12 +44,12 @@
 	(two dice 5 1)
 
 (test #die-times-die)
-    (die times die 20)
-	(die times die 12)
-	(die times die 15)
-	(die times die 30)
-	(die times die 4)
-	(die times die 5)
+    (d6 times d6 20)
+	(d6 times d6 12)
+	(d6 times d6 15)
+	(d6 times d6 30)
+	(d6 times d6 4)
+	(d6 times d6 5)
 
 (test #three-roll-total)
 	(three dice 15)
