@@ -14,11 +14,11 @@
 
 (interface (three dice $>Total))
 
-(interface (three dice $>First $>Second $>Third)) %% 3d6
+(interface (three dice $>First $>Second $>Third))
 
 %% call this at program entry to give a different sequence of rolls every game,
 %% but stick to the same sequence if you undo
-(interface (randomize random list position))
+(interface (initialize randomness))
 
 %%------------------------------ IMPLEMENTATION -------------------------------
 
@@ -106,7 +106,7 @@
 		(random list length $Length)
 	(endif)
 
-(randomize random list position)
+(initialize randomness)
 	(length of random list $Length)
 	(random from 1 to $Length into $Position)
 	(now) (random list position $Position)

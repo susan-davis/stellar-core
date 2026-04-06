@@ -68,7 +68,7 @@
 	(three dice 5 1 5)
 
 (test #randomize-position)
-	(randomize random list position)
+	(initialize randomness)
 	(random list position $Pos)
 	$Pos
 	(assert $Pos > 0)

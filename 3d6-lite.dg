@@ -1,0 +1,51 @@
+%% 3d6-lite.dg
+%% Memory-light version of 3d6.dg that leans on (random from $ to $ into $)
+%% Do not include 3d6.dg if you include this file.
+
+(extension version)	Simple die rolls v0.1 by Susan Davis (line)
+
+%%-------------------------------- INTERFACES ---------------------------------
+
+(interface (one die $>Roll))
+
+(interface (two dice $>Total))
+
+(interface (two dice $>First $>Second))
+
+(interface (d6 times d6 $>Total))
+
+(interface (three dice $>Total))
+
+(interface (three dice $>First $>Second $>Third))
+
+%% does nothing; here for compatibility with 3d6.dg
+(interface (initialize randomness))
+
+%%------------------------------ IMPLEMENTATION -------------------------------
+
+(randomize list position) %% do nothing
+
+(interface (one die $Roll))
+	(random from 1 to 6 into $Roll)
+
+(interface (two dice $Total))
+	(one die $A) (one die $B)
+	($A plus $B into $Total)
+
+(interface (two dice $First $Second))
+	(one die $First)
+	(one die $Second)
+
+(interface (d6 times d6 $Total))
+	(one die $A) (one die $B)
+	($A times $B into $Total)
+
+(interface (three dice $Total))
+    (two dice $A)
+	(one die $B)
+	($A plus $B into $Total)
+
+(interface (three dice $First $Second $Third))
+	(one die $First)
+	(one die $Second)
+	(one die $Third)
