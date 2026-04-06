@@ -20,12 +20,12 @@
 %%-----------------------------------------------------------------------------
 
 (test #one-roll)
-	(one die 4)
-	(one die 4)
-	(one die 5)
-	(one die 6)
 	(one die 1)
-	(one die 5)
+	(one die 4)
+	(one die 2)
+	(one die 6)
+	(one die 4)
+	(one die 1)
 
 (test #two-roll-total)
 	(two dice 9)

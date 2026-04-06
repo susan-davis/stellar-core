@@ -29,9 +29,11 @@
 
 (global variable (random die rolls [])) %% see below
 
-(global variable (random list length 0)) %% memoize so we only compute once
-
 (global variable (random list position 1))
+
+(global variable (single die list position 0))
+
+(global variable (random list length 0)) %% memoize so we only compute once
 
 %% The compiler gags with "statement too complex" if we try to declare all 216
 %% 3d6 rolls in the global declaration statement, so we work around with this.
@@ -118,8 +120,40 @@
 	    (now) (random list position 1)
 	(endif)
 
+%% For single die rolls, we'll keep a separate position pointer, and start the
+%% single dice halfway through the list to get them out of sync with the 2d6
+%% and 3d6 rolls. That gives us a longer runway before it loops around, and
+%% lengthens the runway for the longer rolls, too.
+
+(single die position $Position)
+	(single die list position $Pos)
+	(if) ($Pos = 0) (then) %% initialize to halfway through list
+		(length of random list $Len)
+		($Len times 3 into $Length)
+		($Length divided by 2 into $Position)
+		(now) (single die list position $Position)
+	(else)
+		(single die list position $Position)
+	(endif)
+
 (one die $Roll)
-	(three dice $Roll $ $)
+	(single die position $Pos)
+	(length of random list $Len)
+	($Len times 3 into $Length)
+	(if) ($Pos > $Length) (then)
+	    ($Position = 1)
+	(else)
+	    ($Position = $Pos)
+	(endif)
+	($Position divided by 3 into $Div)
+	($Position modulo 3 into $Mod)
+	($Div plus 1 into $Bucket)
+	($Mod plus 1 into $Choice)
+	(random die rolls $Rolls)
+	(nth $Rolls $Bucket $List)
+	(nth $List $Choice $Roll)
+	($Position plus 1 into $NewPos)
+	(now) (single die list position $NewPos)
 
 (two dice $First $Second)
 	(three dice $First $Second $)
