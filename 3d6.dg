@@ -18,7 +18,7 @@
 
 %% call this at program entry to give a different sequence of rolls every game,
 %% but stick to the same sequence if you undo
-(interface (initialize randomness))
+(interface (shuffle randomness))
 
 %%------------------------------ IMPLEMENTATION -------------------------------
 
@@ -94,7 +94,7 @@
 	(append $S4 $R6 $Rolls)
 	(now) (random die rolls $Rolls)
 
-(length of random list $Length)
+(length of random list $Length) %% measure in case we add or substitute
 	(random list length $Len)
 	(if) ($Len = 0) (then)
 		(random die rolls $Rolls)
@@ -108,17 +108,10 @@
 		(random list length $Length)
 	(endif)
 
-(initialize randomness)
+(shuffle randomness)
 	(length of random list $Length)
 	(random from 1 to $Length into $Position)
 	(now) (random list position $Position)
-
-(normalize random list position)
-	(random list position $Position)
-	(length of random list $Length)
-	(if) { ($Position = 0) (or) ($Position > $Length) } (then)
-	    (now) (random list position 1)
-	(endif)
 
 %% For single die rolls, we'll keep a separate position pointer, and start the
 %% single dice halfway through the list to get them out of sync with the 2d6
@@ -127,10 +120,13 @@
 
 (single die position $Position)
 	(single die list position $Pos)
-	(if) ($Pos = 0) (then) %% initialize to halfway through list
-		(length of random list $Len)
-		($Len times 3 into $Length)
+	(length of random list $Len)
+	($Len times 3 into $Length)
+	(if) ($Pos = 0) (then)
 		($Length divided by 2 into $Position)
+		(now) (single die list position $Position)
+	(elseif) ($Pos > $Length) (then)
+	    ($Position = 1)
 		(now) (single die list position $Position)
 	(else)
 		(single die list position $Position)
@@ -141,19 +137,37 @@
 	(length of random list $Len)
 	($Len times 3 into $Length)
 	(if) ($Pos > $Length) (then)
-	    ($Position = 1)
+	    ($Position = 0)
 	(else)
-	    ($Position = $Pos)
+	    ($Pos minus 1 into $Position) %% 1-based lists to 0-based math
 	(endif)
 	($Position divided by 3 into $Div)
 	($Position modulo 3 into $Mod)
-	($Div plus 1 into $Bucket)
-	($Mod plus 1 into $Choice)
+	($Div plus 1 into $Bucket) %% 0-based math to 1-based lists
+	($Mod plus 1 into $Choice) %% 0-based math to 1-based lists
 	(random die rolls $Rolls)
 	(nth $Rolls $Bucket $List)
 	(nth $List $Choice $Roll)
-	($Position plus 1 into $NewPos)
-	(now) (single die list position $NewPos)
+	($Position plus 2 into $NewPosition)
+	(now) (single die list position $NewPosition)
+
+(three dice position $Position)
+	(random list position $Pos)
+	(length of random list $Length)
+	(if) { ($Pos = 0) (or) ($Pos > $Length) } (then)
+		($Position = 1)
+	    (now) (random list position $Position)
+	(else)
+		(random list position $Position)
+	(endif)
+
+(three dice $First $Second $Third)
+	(random die rolls $Rolls)
+	(three dice position $Position)
+	(nth $Rolls $Position $Result)
+	($Result = [$First $Second $Third])
+	($Position plus 1 into $NewPosition)
+	(now) (random list position $NewPosition)
 
 (two dice $First $Second)
 	(three dice $First $Second $)
@@ -165,15 +179,6 @@
 (d6 times d6 $Total)
 	(two dice $First $Second)
 	($First times $Second into $Total)
-
-(three dice $First $Second $Third)
-	(normalize random list position)
-	(random die rolls $Rolls)
-	(random list position $Position)
-	(nth $Rolls $Position $Result)
-	($Result = [$First $Second $Third])
-	($Position plus 1 into $NewPosition)
-	(now) (random list position $NewPosition)
 
 (three dice $Total)
 	(three dice $First $Second $Third)

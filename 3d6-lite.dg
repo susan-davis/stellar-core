@@ -19,7 +19,7 @@
 (interface (three dice $>First $>Second $>Third))
 
 %% does nothing; here for compatibility with 3d6.dg
-(interface (initialize randomness))
+(interface (shuffle randomness))
 
 %%------------------------------ IMPLEMENTATION -------------------------------
 
