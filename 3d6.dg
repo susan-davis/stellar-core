@@ -132,8 +132,8 @@
 (three dice position $Position)
 	(one die position $Pos)
 	(subtract 1 from $Pos into $Sub)
-	(round $Sub by 3 into $Round)
-	(add 1 to $Round into $Position)
+	(floor $Sub by 3 into $Floor)
+	(add 1 to $Floor into $Position)
 
 (three dice $First $Second $Third)
 	(random die rolls $Rolls)

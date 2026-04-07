@@ -11,6 +11,7 @@
 	  #die-times-die
 	  #three-roll-total
 	  #wrap-around-3d6
+	  #mix-one-and-three
 	  #memoize-length
 	  #randomize-position
 	  ])
@@ -91,8 +92,16 @@
 	(three dice 4 5 6)
 	(three dice 4 3 1)
 
+(test #mix-one-and-three)
+	(one die 4)
+	(three dice 4 5 6)
+	[4 5 6]
+	(one die 4)
+	(one die 3)
+	(three dice $A $B $C)
+
 (test #memoize-length)
-	(now) (list of random die rolls [])
+	(now) (list of random die rolls []) %% force recomputation
 	(length of random list 648)
 
 (test #randomize-position)
