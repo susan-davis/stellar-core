@@ -1,5 +1,6 @@
 %% 3d6-lite.dg
-%% Memory-light version of 3d6.dg that leans on (random from $ to $ into $)
+%% Memory-light version of 3d6.dg that leans on (random from $ to $ into $).
+%% Swap this in if you want to reduce output size and have been using 3d6.dg.
 %% Do not include 3d6.dg if you include this file.
 
 (extension version)	Simple die rolls v0.1 by Susan Davis (line)
