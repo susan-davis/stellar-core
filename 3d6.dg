@@ -112,6 +112,11 @@
 	(length of random list $Length)
 	(random from 1 to $Length into $Position)
 	(now) (random list position $Position)
+	($Length times 3 into $Triple)
+	($Triple divided by 2 into $Half)
+	($Position plus $Half into $Sum)
+	($Sum modulo $Length into $Mod)
+	(now) (single die list position $Mod)
 
 %% For single die rolls, we'll keep a separate position pointer, and start the
 %% single dice halfway through the list to get them out of sync with the 2d6
