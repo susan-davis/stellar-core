@@ -24,8 +24,6 @@
 
 %%------------------------------ IMPLEMENTATION -------------------------------
 
-(randomize list position) %% do nothing
-
 (interface (one die $Roll))
 	(random from 1 to 6 into $Roll)
 
@@ -50,3 +48,5 @@
 	(one die $First)
 	(one die $Second)
 	(one die $Third)
+
+(shuffle randomness) %% do nothing
