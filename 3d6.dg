@@ -1,6 +1,6 @@
 %% 3d6.dg
 
-(extension version)	Undo-safe die rolls v0.1 by Susan Davis (line)
+(extension version)	Undo-safe die rolls v0.2 by Susan Davis (line)
 
 %%-------------------------------- INTERFACES ---------------------------------
 
@@ -16,8 +16,7 @@
 
 (interface (three dice $>First $>Second $>Third))
 
-%% call this at program entry to give a different sequence of rolls every game,
-%% but stick to the same sequence if you undo
+%% Call this at program entry to give a different sequence of rolls every game.
 (interface (shuffle randomness))
 
 %%------------------------------ IMPLEMENTATION -------------------------------
@@ -25,7 +24,9 @@
 %% 216 rolls of 3d6, normalized so that every combination of three die rolls
 %% occurs exactly once. I generated these by physically shuffling a deck of 216
 %% such cards, and dealing them out one by one, after twelve fair shuffles.
-%% That should give better randomness than (random from $ to $ into $) does.
+%% That should give better randomness than (random from $ to $ into $) does,
+%% and more importantly, is completely fair for 1d6, 2d6, and 3d6. So long as
+%% the next choice isn't obvious, perfectly fair beats perfectly random.
 
 (global variable (random die rolls [])) %% see below
 
@@ -82,6 +83,25 @@
 	(append $R1 $R2 $Rolls)
 	(now) (random die rolls $Rolls)
 
+%% Starting at the beginning of the list gives the same output for every single
+%% game, which is good for unit tests, but can allow sketchy exploits in games.
+%% Call this at the beginning of (program entry point) to start from a random
+%% spot in the list instead.
+
+(shuffle randomness)
+	(length of random list $Length)
+	(random from 1 to $Length into $Position)
+	(now) (random list position $Position)
+	($Length times 3 into $Triple)
+	($Triple divided by 2 into $Half)
+	($Position plus $Half into $Sum)
+	($Sum modulo $Length into $Mod)
+	(now) (single die list position $Mod)
+
+%% We'll memoize the length of our roll list, which also lets us check at run
+%% time how long the list is, allowing games or tests to swap in their own
+%% lists, or append to the one that we have.
+
 (length of random list $Length) %% measure in case we add or substitute
 	(random list length $Len)
 	(if) ($Len = 0) (then)
@@ -95,16 +115,6 @@
 	(else)
 		(random list length $Length)
 	(endif)
-
-(shuffle randomness)
-	(length of random list $Length)
-	(random from 1 to $Length into $Position)
-	(now) (random list position $Position)
-	($Length times 3 into $Triple)
-	($Triple divided by 2 into $Half)
-	($Position plus $Half into $Sum)
-	($Sum modulo $Length into $Mod)
-	(now) (single die list position $Mod)
 
 %% For single die rolls, we'll keep a separate position pointer, and start the
 %% single dice halfway through the list to get them out of sync with the 2d6
