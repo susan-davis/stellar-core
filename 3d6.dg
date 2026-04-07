@@ -28,11 +28,9 @@
 %% and more importantly, is completely fair for 1d6, 2d6, and 3d6. So long as
 %% the next choice isn't obvious, perfectly fair beats perfectly random.
 
-(global variable (random die rolls [])) %% see below
+(global variable (list of random die rolls [])) %% see below
 
 (global variable (random list position 1))
-
-(global variable (single die list position 0))
 
 (global variable (random list length 0)) %% memoize so we only compute once
 
@@ -41,47 +39,47 @@
 
 (initialize random rolls)
     ($R1 = [
-		[4 5 6] [4 3 1] [5 3 6] [6 5 6] [1 4 6] [5 1 5] %% 6
-		[3 6 6] [6 3 4] [4 5 1] [1 1 1] [5 5 1] [4 2 5] %% 12
-		[4 1 1] [2 5 3] [2 3 3] [1 6 4] [1 1 4] [1 2 4] %% 18
-		[5 6 4] [3 6 4] [6 1 1] [5 3 5] [2 3 5] [4 3 5] %% 24
-		[3 1 2] [6 4 3] [2 3 6] [4 2 4] [1 3 1] [6 3 5] %% 30
-		[6 6 1] [1 3 5] [2 1 4] [3 1 4] [2 4 6] [1 4 1] %% 36
-		[2 5 5] [5 5 6] [3 4 5] [6 4 6] [3 2 3] [6 2 4] %% 42
-		[5 5 4] [1 1 6] [6 1 5] [3 6 1] [2 6 2] [5 4 6] %% 48
-		[6 4 4] [2 3 4] [1 4 4] [2 4 3] [3 5 3] [1 3 3] %% 54
-		[5 3 1] [6 2 5] [6 1 6] [5 6 2] [1 6 2] [4 4 4] %% 60
-		[1 5 4] [5 4 2] [6 3 2] [3 5 4] [3 3 3] [2 2 4] %% 66
-		[5 6 1] [5 4 3] [5 4 4] [3 1 6] [4 4 6] [1 2 1] %% 72
-		[3 5 6] [1 6 6] [3 1 1] [1 2 5] [4 3 3] [5 2 1] %% 78
-		[2 6 4] [5 4 5] [3 3 2] [4 2 6] [3 1 5] [5 3 2] %% 84
-		[4 4 1] [5 1 2] [5 3 4] [5 2 4] [4 2 2] [5 5 3] %% 90
-		[4 6 3] [6 6 2] [2 2 6] [1 3 4] [4 6 1] [6 3 1] %% 96
-		[1 4 5] [5 5 5] [1 4 3] [4 1 4] [3 1 3] [4 6 2] %% 102
-		[6 3 3] [1 5 6] [1 2 6] [3 3 4] [6 6 5] [2 5 1] %% 108
+		4 5 6 4 3 1 5 3 6 6 5 6 1 4 6 5 1 5 %% 6
+		3 6 6 6 3 4 4 5 1 1 1 1 5 5 1 4 2 5 %% 12
+		4 1 1 2 5 3 2 3 3 1 6 4 1 1 4 1 2 4 %% 18
+		5 6 4 3 6 4 6 1 1 5 3 5 2 3 5 4 3 5 %% 24
+		3 1 2 6 4 3 2 3 6 4 2 4 1 3 1 6 3 5 %% 30
+		6 6 1 1 3 5 2 1 4 3 1 4 2 4 6 1 4 1 %% 36
+		2 5 5 5 5 6 3 4 5 6 4 6 3 2 3 6 2 4 %% 42
+		5 5 4 1 1 6 6 1 5 3 6 1 2 6 2 5 4 6 %% 48
+		6 4 4 2 3 4 1 4 4 2 4 3 3 5 3 1 3 3 %% 54
+		5 3 1 6 2 5 6 1 6 5 6 2 1 6 2 4 4 4 %% 60
+		1 5 4 5 4 2 6 3 2 3 5 4 3 3 3 2 2 4 %% 66
+		5 6 1 5 4 3 5 4 4 3 1 6 4 4 6 1 2 1 %% 72
+		3 5 6 1 6 6 3 1 1 1 2 5 4 3 3 5 2 1 %% 78
+		2 6 4 5 4 5 3 3 2 4 2 6 3 1 5 5 3 2 %% 84
+		4 4 1 5 1 2 5 3 4 5 2 4 4 2 2 5 5 3 %% 90
+		4 6 3 6 6 2 2 2 6 1 3 4 4 6 1 6 3 1 %% 96
+		1 4 5 5 5 5 1 4 3 4 1 4 3 1 3 4 6 2 %% 102
+		6 3 3 1 5 6 1 2 6 3 3 4 6 6 5 2 5 1 %% 108
 	])
 	($R2 = [
-		[1 4 2] [6 4 1] [3 2 5] [2 6 3] [5 3 3] [3 3 1] %% 114
-		[4 3 4] [6 2 2] [4 5 2] [4 1 6] [3 2 4] [5 4 1] %% 120
-		[4 2 3] [2 4 4] [3 3 6] [6 5 1] [6 5 4] [3 6 3] %% 126
-		[4 4 2] [6 6 3] [3 4 2] [1 3 2] [5 2 6] [2 2 5] %% 132
-		[2 5 6] [2 3 1] [4 6 5] [1 4 1] [5 5 2] [2 3 2] %% 138
-		[3 4 3] [3 6 5] [2 4 1] [4 2 1] [1 3 6] [2 6 6] %% 144
-		[4 5 3] [4 1 3] [4 1 2] [2 1 6] [5 2 5] [5 1 1] %% 150
-		[4 6 6] [1 2 3] [1 5 3] [5 2 2] [2 4 2] [4 5 4] %% 156
-		[2 2 2] [6 4 2] [2 1 5] [5 1 3] [2 6 1] [3 4 1] %% 162
-		[4 4 3] [2 5 4] [6 1 4] [3 2 1] [2 6 5] [1 6 3] %% 168
-		[3 6 2] [6 2 1] [3 4 6] [3 4 4] [3 2 2] [3 5 5] %% 174
-		[4 3 2] [3 2 6] [5 6 5] [5 1 6] [6 6 6] [6 2 6] %% 180
-		[3 3 5] [6 3 6] [1 5 5] [6 1 3] [6 5 5] [2 1 2] %% 186
-		[1 1 2] [4 5 5] [4 4 5] [6 6 4] [6 2 3] [2 1 1] %% 192
-		[6 4 5] [6 5 2] [1 2 2] [2 4 4] [5 6 6] [2 1 3] %% 198
-		[1 5 2] [2 2 1] [1 5 1] [2 5 2] [4 3 6] [5 1 4] %% 204
-		[4 1 5] [5 6 3] [6 5 3] [1 1 5] [1 1 3] [3 5 2] %% 210
-		[3 5 1] [4 6 4] [5 2 3] [1 6 5] [2 2 3] [6 1 2] %% 216
+		1 4 2 6 4 1 3 2 5 2 6 3 5 3 3 3 3 1 %% 114
+		4 3 4 6 2 2 4 5 2 4 1 6 3 2 4 5 4 1 %% 120
+		4 2 3 2 4 4 3 3 6 6 5 1 6 5 4 3 6 3 %% 126
+		4 4 2 6 6 3 3 4 2 1 3 2 5 2 6 2 2 5 %% 132
+		2 5 6 2 3 1 4 6 5 1 4 1 5 5 2 2 3 2 %% 138
+		3 4 3 3 6 5 2 4 1 4 2 1 1 3 6 2 6 6 %% 144
+		4 5 3 4 1 3 4 1 2 2 1 6 5 2 5 5 1 1 %% 150
+		4 6 6 1 2 3 1 5 3 5 2 2 2 4 2 4 5 4 %% 156
+		2 2 2 6 4 2 2 1 5 5 1 3 2 6 1 3 4 1 %% 162
+		4 4 3 2 5 4 6 1 4 3 2 1 2 6 5 1 6 3 %% 168
+		3 6 2 6 2 1 3 4 6 3 4 4 3 2 2 3 5 5 %% 174
+		4 3 2 3 2 6 5 6 5 5 1 6 6 6 6 6 2 6 %% 180
+		3 3 5 6 3 6 1 5 5 6 1 3 6 5 5 2 1 2 %% 186
+		1 1 2 4 5 5 4 4 5 6 6 4 6 2 3 2 1 1 %% 192
+		6 4 5 6 5 2 1 2 2 2 4 4 5 6 6 2 1 3 %% 198
+		1 5 2 2 2 1 1 5 1 2 5 2 4 3 6 5 1 4 %% 204
+		4 1 5 5 6 3 6 5 3 1 1 5 1 1 3 3 5 2 %% 210
+		3 5 1 4 6 4 5 2 3 1 6 5 2 2 3 6 1 2 %% 216
 	])
 	(append $R1 $R2 $Rolls)
-	(now) (random die rolls $Rolls)
+	(now) (list of random die rolls $Rolls)
 
 %% Starting at the beginning of the list gives the same output for every single
 %% game, which is good for unit tests, but can allow sketchy exploits in games.
@@ -92,11 +90,13 @@
 	(length of random list $Length)
 	(random from 1 to $Length into $Position)
 	(now) (random list position $Position)
-	($Length times 3 into $Triple)
-	($Triple divided by 2 into $Half)
-	($Position plus $Half into $Sum)
-	($Sum modulo $Length into $Mod)
-	(now) (single die list position $Mod)
+
+(random die rolls $Result)
+	(list of random die rolls $Rolls)
+	(if) (empty $Rolls) (then)
+		(initialize random rolls)
+	(endif)
+	(list of random die rolls $Result)
 
 %% We'll memoize the length of our roll list, which also lets us check at run
 %% time how long the list is, allowing games or tests to swap in their own
@@ -106,55 +106,13 @@
 	(random list length $Len)
 	(if) ($Len = 0) (then)
 		(random die rolls $Rolls)
-		(if) (empty $Rolls) (then)
-			(initialize random rolls)
-		(endif)
-		(random die rolls $R2)
-		(length of $R2 into $Length)
+		(length of $Rolls into $Length)
 		(now) (random list length $Length)
 	(else)
 		(random list length $Length)
 	(endif)
 
-%% For single die rolls, we'll keep a separate position pointer, and start the
-%% single dice halfway through the list to get them out of sync with the 2d6
-%% and 3d6 rolls. That gives us a longer runway before it loops around, and
-%% lengthens the runway for the longer rolls, too.
-
-(single die position $Position)
-	(single die list position $Pos)
-	(length of random list $Len)
-	($Len times 3 into $Length)
-	(if) ($Pos = 0) (then)
-		($Length divided by 2 into $Position)
-		(now) (single die list position $Position)
-	(elseif) ($Pos > $Length) (then)
-	    ($Position = 1)
-		(now) (single die list position $Position)
-	(else)
-		(single die list position $Position)
-	(endif)
-
-(one die $Roll)
-	(single die position $Pos)
-	(length of random list $Len)
-	($Len times 3 into $Length)
-	(if) ($Pos > $Length) (then)
-	    ($Position = 0)
-	(else)
-	    ($Pos minus 1 into $Position) %% 1-based lists to 0-based math
-	(endif)
-	($Position divided by 3 into $Div)
-	($Position modulo 3 into $Mod)
-	($Div plus 1 into $Bucket) %% 0-based math to 1-based lists
-	($Mod plus 1 into $Choice) %% 0-based math to 1-based lists
-	(random die rolls $Rolls)
-	(nth $Rolls $Bucket $List)
-	(nth $List $Choice $Roll)
-	($Position plus 2 into $NewPosition)
-	(now) (single die list position $NewPosition)
-
-(three dice position $Position)
+(one die position $Position)
 	(random list position $Pos)
 	(length of random list $Length)
 	(if) { ($Pos = 0) (or) ($Pos > $Length) } (then)
@@ -164,14 +122,32 @@
 		(random list position $Position)
 	(endif)
 
-(three dice $First $Second $Third)
+(one die $Roll)
 	(random die rolls $Rolls)
-	(three dice position $Position)
-	(nth $Rolls $Position $Result)
-	($Result = [$First $Second $Third])
-	($Position plus 1 into $NewPosition)
+	(one die position $Position)
+	(nth $Rolls $Position $Roll)
+	(add 1 to $Position into $NewPosition)
 	(now) (random list position $NewPosition)
 
+(three dice position $Position)
+	(one die position $Pos)
+	(subtract 1 from $Pos into $Sub)
+	(round $Sub by 3 into $Round)
+	(add 1 to $Round into $Position)
+
+(three dice $First $Second $Third)
+	(random die rolls $Rolls)
+	(three dice position $P1)
+	(nth $Rolls $P1 $First)
+	(add 1 to $P1 into $P2)
+	(nth $Rolls $P2 $Second)
+	(add 1 to $P2 into $P3)
+	(nth $Rolls $P3 $Third)
+	($P1 plus 3 into $NewPosition)
+	(now) (random list position $NewPosition)
+
+%% 2d6 stays perfectly fair if you always get them from the same two elements
+%% of any group of 3, but you have to consistently pick the same two.
 (two dice $First $Second)
 	(three dice $First $Second $)
 

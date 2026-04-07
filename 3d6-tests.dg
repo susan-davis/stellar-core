@@ -1,14 +1,15 @@
 %% dgdebug -u 3d6-tests.dg 3d6.dg unit.dg stdlib.dg
 
 (list of tests [
+	  #one-die-is-fair
+	  #three-dice-are-fair
 	  #one-roll
-	  #one-roll-from-start
 	  #wrap-around-1d6
+	  #three-roll-individual
 	  #two-roll-total
 	  #two-roll-individual
 	  #die-times-die
 	  #three-roll-total
-	  #three-roll-individual
 	  #wrap-around-3d6
 	  #memoize-length
 	  #randomize-position
@@ -18,21 +19,16 @@
 
 (set up $)
 	 (now) (random list position 0)
-	 (now) (single die list position 0)
 
 %%-----------------------------------------------------------------------------
 
-(test #one-roll)
-	(one die 1)
-	(one die 1)
-	(one die 4)
-	(one die 2)
-	(one die 6)
-	(one die 4)
-	(one die 1)
+(test #one-die-is-fair)
+	Not implemented
 
-(test #one-roll-from-start)
-	(now) (single die list position 1)
+(test #three-dice-are-fair)
+	Not implemented
+
+(test #one-roll)
 	(one die 4)
 	(one die 5)
 	(one die 6)
@@ -42,11 +38,19 @@
 	(one die 5)
 
 (test #wrap-around-1d6)
- 	(now) (single die list position 648)
+ 	(now) (random list position 648)
 	(one die 2)
 	(one die 4)
 	(one die 5)
 	(one die 6)
+
+(test #three-roll-individual)
+	(three dice 4 5 6)
+	(three dice 4 3 1)
+	(three dice 5 3 6)
+	(three dice 6 5 6)
+	(three dice 1 4 6)
+	(three dice 5 1 5)
 
 (test #two-roll-total)
 	(two dice 9)
@@ -80,31 +84,22 @@
 	(three dice 11)
 	(three dice 11)
 
-(test #three-roll-individual)
-	(three dice 4 5 6)
-	(three dice 4 3 1)
-	(three dice 5 3 6)
-	(three dice 6 5 6)
-	(three dice 1 4 6)
-	(three dice 5 1 5)
-
 (test #wrap-around-3d6)
-	(now) (random list position 214)
-	(three dice 1 6 5)
+	(now) (random list position 643)
 	(three dice 2 2 3)
 	(three dice 6 1 2)
 	(three dice 4 5 6)
 	(three dice 4 3 1)
 
 (test #memoize-length)
-	(now) (random die rolls [])
-	(length of random list 216)
+	(now) (list of random die rolls [])
+	(length of random list 648)
 
 (test #randomize-position)
 	(shuffle randomness)
 	(random list length $Len)
-	(assert $Len = 216)
+	(assert $Len = 648)
 	(random list position $Pos)
 	(assert $Pos > 0)
-	(assert $Pos < 217)
+	(assert $Pos < 649)
 	$Pos
