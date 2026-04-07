@@ -75,8 +75,17 @@
 (long name *)	energy projector
 (weapon *)
 
+%% We've already filtered for damage and bearing, but not remaining energy.
 ($Ship fires * $ID $Details at $Target using $Amount)
-    (line) $Ship fires * $ID $Details at $Target using $Amount
+	$ID $Details
+	(range from $Ship to $Target into $Range)
+	($Ship energy $StartingEnergy)
+	(if) ($Amount > $StartingEnergy) (then)
+		($Energy = $StartingEnergy)
+	(else)
+		($Energy = $Amount)
+	(endif)
+
 
 %% Plasma bolts work similarly to energy projectors, but have a more rapid
 %% range decay, unless we encode the decay in details. They mostly exist to
@@ -86,8 +95,9 @@
 (long name *)	plasma bolt
 (weapon *)
 
+%% For now, just treat them like projectors.
 ($Ship fires * $ID $Details at $Target using $Amount)
-    (line) $Ship fires * $ID $Details at $Target using $Amount
+    (line) $Ship fires #projector $ID $Details at $Target using $Amount
 
 %% Collapsers are the Quellan disruptor-equivalents. In addition to regular
 %% energy damage, they also reduce the target's speed, allowing Quellan ships
@@ -131,6 +141,7 @@
 
 ($Ship fires * $ID $Details at $Target using $Amount)
     (line) $Ship fires * $ID $Details at $Target using $Amount
+	torpedoes (line)
 
 %% Alcubierre missiles are equipped with small A-drives, and can engage at
 %% superluminal speeds. They work like torpedoes, but at a slower speed and

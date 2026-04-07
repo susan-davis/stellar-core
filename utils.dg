@@ -1,6 +1,8 @@
 %% utils.dg
 %% Useful utility routines for Stellar Union games.
 
+(extension version)	Arithmetic and list handling v0.1 by Susan Davis (line)
+
 %%-------------------------------- INTERFACES --------------------------------
 
 (interface ($<Number is odd))  %% yagni?
