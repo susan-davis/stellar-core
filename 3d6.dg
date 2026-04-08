@@ -128,10 +128,13 @@
 		(random list position $Position)
 	(endif)
 
-(one die $Roll)
+(random roll $Position $Roll)
 	(random die rolls $Rolls)
-	(one die position $Position)
 	(nth $Rolls $Position $Roll)
+
+(one die $Roll)
+	(one die position $Position)
+	(random roll $Position $Roll)
 	(add 1 to $Position into $NewPosition)
 	(now) (random list position $NewPosition)
 
@@ -142,13 +145,12 @@
 	(add 1 to $Floor into $Position)
 
 (three dice $First $Second $Third)
-	(random die rolls $Rolls)
 	(three dice position $P1)
-	(nth $Rolls $P1 $First)
+	(random roll $P1 $First)
 	(add 1 to $P1 into $P2)
-	(nth $Rolls $P2 $Second)
+	(random roll $P2 $Second)
 	(add 1 to $P2 into $P3)
-	(nth $Rolls $P3 $Third)
+	(random roll $P3 $Third)
 	($P1 plus 3 into $NewPosition)
 	(now) (random list position $NewPosition)
 

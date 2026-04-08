@@ -13,8 +13,6 @@
 	  #memoize-length
 	  #randomize-position
 	  #reset-randomness
-	  #one-die-is-fair
-	  #three-dice-are-fair
 	  ])
 
 %%-----------------------------------------------------------------------------
@@ -118,10 +116,3 @@
 	(three dice 4 5 6)
 	(three dice 4 3 1)
 	(three dice 5 3 6)
-
-
-(test #one-die-is-fair)
-	Not implemented
-
-(test #three-dice-are-fair)
-	Not implemented
