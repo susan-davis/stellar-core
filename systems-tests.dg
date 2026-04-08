@@ -140,9 +140,13 @@
 
 (test #fire-torpedo-with-1)
 	(#test-ship fires #torpedo at target #near-target using 1)
+	(#near-target state is $State)
+	(#near-target shields 200)
 
 (test #fire-torpedo-with-2)
 	(#test-ship fires #torpedo at target #near-target using 2)
+	(#near-target state is $State)
+	(line) $State (line)
 
 (test #fire-torpedo-with-4)
 	(#test-ship fires #torpedo at target #near-target using 4)
