@@ -9,6 +9,8 @@
 
 (interface (shield direction for $<Attacker against $<Ship into $>Direction))
 
+(interface (target aspect from $<Ship to $<Target into $>Aspect))
+
 (interface (arc $<Arc contains angle $<Angle))
 
 (interface ($<Ship $<SystemType $<ID bears on angle $<Angle))
@@ -53,33 +55,48 @@
 		 ($Direction = #north)
 	(endif)
 
+%% Target aspect is more useful for judging missile hits. Direction arcs
+%% (#north, #northeast, and so on) describe 45 degree arcs centred on each
+%% direction. Arc 360 is everywhere.
+
+(target aspect from $Ship to $Target into $Aspect)
+	(angle from $Ship to $Target into $Angle)
+	($Angle is in aspect $Aspect)
+
+%% A consequence of refactoring this this way around is that the directional
+%% arcs no longer overlap, but the simple arcs don't, either, so no worries.
+
+($Angle is in aspect $Aspect)
+	(if) { ($Angle > 336) (or) ($Angle < 24) } (then)
+	    ($Aspect = #north)
+	(elseif) ($Angle > 22) ($Angle < 69) (then)
+	 	($Aspect = #northeast)
+    (elseif) ($Angle > 67) ($Angle < 114) (then)
+	    ($Aspect = #east)
+    (elseif) ($Angle > 112) ($Angle < 159) (then)
+	    ($Aspect = #southeast)
+    (elseif) ($Angle > 291) ($Angle < 338) (then)
+	    ($Aspect = #northwest)
+    (elseif) ($Angle > 246) ($Angle < 293) (then)
+	    ($Aspect = #west)
+    (elseif) ($Angle > 201) ($Angle < 248) (then)
+	    ($Aspect = #southwest)
+    (elseif) ($Angle > 157) ($Angle < 203) (then)
+		($Aspect = #south)
+    (endif)
+
 %% Special firing arcs: Arc 0 is ±4 degrees of boresight only, for spinal
-%% mounts and the like. Direction arcs (#north, #northeast, and so on)
-%% describe 45 degree arcs centred on each direction. Arc 360 is everywhere.
-%% (Could get away with lowering arc 0 to ±3 degrees, if desired.)
+%% mounts and the like. (Could get away with lowering arc 0 to ±3 degrees, if
+%% desired.) Directional angles are as above.
 
 ($BowAngle is in special arc $Arc)
 	 ($BowAngle modulo 360 into $Angle)
 	 (if) ($Arc = 0) (then)
 	 	  { ($Angle < 5) (or) ($Angle > 355) }
-	 (elseif) ($Arc = #north) (then)
-	 	  { ($Angle > 336) (or) ($Angle < 24) }
-     (elseif) ($Arc = #northeast) (then)
-	      ($Angle > 22) ($Angle < 69)
-     (elseif) ($Arc = #east) (then)
-	      ($Angle > 67) ($Angle < 114)
-     (elseif) ($Arc = #southeast) (then)
-	      ($Angle > 112) ($Angle < 159)
-     (elseif) ($Arc = #south) (then)
-	      ($Angle > 157) ($Angle < 203)
-     (elseif) ($Arc = #southwest) (then)
-	      ($Angle > 201) ($Angle < 248)
-     (elseif) ($Arc = #west) (then)
-	      ($Angle > 246) ($Angle < 293)
-     (elseif) ($Arc = #northwest) (then)
-	      ($Angle > 291) ($Angle < 338)
-     (else)
-		  { ($Arc = 360) (or) ($Angle is in octant $Arc) }
+	 (else)
+		  { ($Arc = 360) (or)
+		  	($Angle is in octant $Arc) (or)
+		  	($Angle is in aspect $Arc) }
 	 (endif)
 
 %% Compound firing arcs are made up of a list of other firing arcs; the

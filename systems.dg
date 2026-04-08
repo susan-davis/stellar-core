@@ -162,7 +162,7 @@
 %% Torpedoes move on one of the eight directions, and hit the first object that
 %% they encounter. Anything other than a star is destroyed instantly.
 
-%% Torpedo hit chance:
+%% Torpedo hit chance: dependent on target aspect and warp gradient
 %% Torepdo damage: first element of details
 ($Ship fires * $ID $Details at $Target using $Amount)
     (line) $Ship fires * $ID $Details at $Target using $Amount torpedoes (line)

@@ -46,41 +46,41 @@
 	#north-24
 	#north-336
 	#north-337
- 	#northeast-22
-	#northeast-23
+ 	#northeast-23
+	#northeast-24
 	#northeast-45
 	#northeast-68
 	#northeast-69
-	#east-67
 	#east-68
+	#east-69
 	#east-90
 	#east-113
 	#east-114
- 	#southeast-112
 	#southeast-113
+ 	#southeast-114
 	#southeast-135
 	#southeast-158
 	#southeast-159
-	#south-157
 	#south-158
+	#south-159
 	#south-180
+	#south-201
 	#south-202
-	#south-203
 	#southwest-201
 	#southwest-202
 	#southwest-225
+	#southwest-246
 	#southwest-247
-	#southwest-248
 	#west-246
 	#west-247
 	#west-270
+	#west-291
 	#west-292
-	#west-293
 	#northwest-291
 	#northwest-292
 	#northwest-315
+	#northwest-336
 	#northwest-337
-	#northwest-338
 	#dont-hit-closest-target-fa
 	#hit-near-target-fa
 	#dont-hit-far-target-fa
@@ -124,6 +124,14 @@
 	#bearing-on-far-target
 	#bearing-on-distant-target
 	#bearing-as-ship-turns
+	#target-aspect-closest
+	#target-aspect-near
+	#target-aspect-far
+	#target-aspect-distant
+	#target-aspect-from-closest
+	#target-aspect-from-near
+	#target-aspect-from-far
+	#target-aspect-from-distant
 	])
 
 %% ----------------------------------------------------------------------
@@ -351,11 +359,11 @@
 (test #north-337)
 	  (arc #north contains angle 337)
 
-(test #northeast-22)
-	  ~(arc #northeast contains angle 22)
-
 (test #northeast-23)
-	  (arc #northeast contains angle 23)
+	  ~(arc #northeast contains angle 23)
+
+(test #northeast-24)
+	  (arc #northeast contains angle 24)
 
 (test #northeast-45)
 	  (arc #northeast contains angle 45)
@@ -366,11 +374,11 @@
 (test #northeast-69)
 	  ~(arc #northeast contains angle 69)
 
-(test #east-67)
-	  ~(arc #east contains angle 67)
-
 (test #east-68)
-	  (arc #east contains angle 68)
+	  ~(arc #east contains angle 68)
+
+(test #east-69)
+	  (arc #east contains angle 69)
 
 (test #east-90)
 	  (arc #east contains angle 90)
@@ -381,11 +389,11 @@
 (test #east-114)
 	  ~(arc #east contains angle 114)
 
-(test #southeast-112)
-	  ~(arc #southeast contains angle 112)
-
 (test #southeast-113)
-	  (arc #southeast contains angle 113)
+	  ~(arc #southeast contains angle 113)
+
+(test #southeast-114)
+	  (arc #southeast contains angle 114)
 
 (test #southeast-135)
 	  (arc #southeast contains angle 135)
@@ -396,20 +404,20 @@
 (test #southeast-159)
 	  ~(arc #southeast contains angle 159)
 
-(test #south-157)
-	  ~(arc #south contains angle 157)
-
 (test #south-158)
-	  (arc #south contains angle 158)
+	  ~(arc #south contains angle 158)
+
+(test #south-159)
+	  (arc #south contains angle 159)
 
 (test #south-180)
 	  (arc #south contains angle 180)
 
-(test #south-202)
-	  (arc #south contains angle 202)
+(test #south-201)
+	  (arc #south contains angle 201)
 
-(test #south-203)
-	  ~(arc #south contains angle 203)
+(test #south-202)
+	  ~(arc #south contains angle 202)
 
 (test #southwest-201)
 	  ~(arc #southwest contains angle 201)
@@ -420,11 +428,11 @@
 (test #southwest-225)
 	  (arc #southwest contains angle 225)
 
-(test #southwest-247)
-	  (arc #southwest contains angle 247)
+(test #southwest-246)
+	  (arc #southwest contains angle 246)
 
-(test #southwest-248)
-	  ~(arc #southwest contains angle 248)
+(test #southwest-247)
+	  ~(arc #southwest contains angle 247)
 
 (test #west-246)
 	  ~(arc #west contains angle 246)
@@ -435,11 +443,11 @@
 (test #west-270)
 	  (arc [#west] contains angle 270)
 
-(test #west-292)
-	  (arc #west contains angle 292)
+(test #west-291)
+	  (arc #west contains angle 291)
 
-(test #west-293)
-	  ~(arc #west contains angle 293)
+(test #west-292)
+	  ~(arc #west contains angle 292)
 
 (test #northwest-291)
 	  ~(arc #northwest contains angle 291)
@@ -450,11 +458,11 @@
 (test #northwest-315)
 	  (arc #northwest contains angle 315)
 
-(test #northwest-337)
-	  (arc #northwest contains angle 337)
+(test #northwest-336)
+	  (arc #northwest contains angle 336)
 
-(test #northwest-338)
-	  ~(arc #northwest contains angle 338)
+(test #northwest-337)
+	  ~(arc #northwest contains angle 337)
 
 (test #dont-hit-closest-target-fa)
       ~(fire from #test-ship to #closest-target is in arc [1 8])
@@ -600,3 +608,27 @@
 	  		[[#torpedo 1 [1 8] 500 0 0]
 			 [#torpedo 2 [1 8] 500 0 0]])
 	  (#test-ship #torpedo bearing on target #distant-target into [])
+
+(test #target-aspect-closest)
+	  (target aspect from #test-ship to #closest-target into #east)
+
+(test #target-aspect-near)
+	  (target aspect from #test-ship to #near-target into #north)
+
+(test #target-aspect-far)
+	  (target aspect from #test-ship to #far-target into #east)
+
+(test #target-aspect-distant)
+	  (target aspect from #test-ship to #distant-target into #southwest)
+
+(test #target-aspect-from-closest)
+	  (target aspect from #closest-target to #test-ship into #north)
+
+(test #target-aspect-from-near)
+	  (target aspect from #near-target to #test-ship into #east)
+
+(test #target-aspect-from-far)
+	  (target aspect from #far-target to #test-ship into #southwest)
+
+(test #target-aspect-from-distant)
+	  (target aspect from #distant-target to #test-ship into #north)

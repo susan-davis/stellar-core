@@ -122,13 +122,16 @@
 (test #fire-projector-with-100)
 	(#test-ship fires #projector at target #near-target using 100)
 	(#near-target shields 200)
+	(#test-ship energy 900)
 
 (test #fire-projector-with-200)
-	(#test-ship fires #projector at target #near-target using 100)
+	(#test-ship fires #projector at target #near-target using 200)
 	(#near-target shields 200)
+	(#test-ship energy 900)
 
 (test #fire-torpedo-with-0)
 	(#test-ship fires #torpedo at target #near-target using 0)
+	(#near-target shields 250)
 
 (test #fire-torpedo-with-1)
 	(#test-ship fires #torpedo at target #near-target using 1)
