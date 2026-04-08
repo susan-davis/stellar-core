@@ -36,6 +36,8 @@
 
 (interface ($<Ship subsector into $>SX $>SY $>X $>Y))
 
+(interface ($<Ship is destroyed))
+
 (interface ($<Ship speed $>Speed))
 
 (interface ($<Ship warp gradient $>Gradient))
@@ -167,6 +169,10 @@
 ($Ship subsector into $SX $SY $X $Y)
 	($Ship state is $State)
 	(subsector for $State into $SX $SY $X $Y)
+
+($Ship is destroyed)
+	($Ship state is $State)
+	([16383 16383 | $] = $State)
 
 ($Ship speed $Speed)
 	($Ship state is $State)
@@ -439,3 +445,9 @@
 
 (destroy $Ship $Type $ID)
 	(set repair time for $Ship $Type $ID to 16383)
+
+(destroy $Ship)
+    ($Ship state is $State)
+	([$ $ | $Tail] = $State)
+	([16383 16383 | $Tail] = $NewState)
+	(now) ($Ship state is $NewState)

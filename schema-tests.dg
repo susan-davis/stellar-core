@@ -81,6 +81,8 @@
 	#decrease-repair-time-mtd
 	#destroy-tractor
 	#repair-tractor
+	#destroy-ship
+	#test-ship-is-not-destroyed
 	])
 
 %% ----------------------------------------------------------------------
@@ -435,3 +437,10 @@
 	  (#test-ship systems $After)
 	  (length of $After into $LenAfter)
 	  (assert $LenBefore = $LenAfter)
+
+(test #destroy-ship)
+	  (destroy #test-ship)
+	  (#test-ship is destroyed)
+
+(test #test-ship-is-not-destroyed)
+	  ~(#test-ship is destroyed)
