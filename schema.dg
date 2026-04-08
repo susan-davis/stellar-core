@@ -173,8 +173,7 @@
 	(subsector for $State into $SX $SY $X $Y)
 
 ($Ship is destroyed)
-	($Ship state is $State)
-	([16383 16383 | $] = $State)
+	~($Ship is on the map)
 
 ($Ship speed $Speed)
 	($Ship state is $State)
@@ -449,7 +448,4 @@
 	(set repair time for $Ship $Type $ID to 16383)
 
 (destroy $Ship)
-    ($Ship state is $State)
-	([$ $ | $Tail] = $State)
-	([16383 16383 | $Tail] = $NewState)
-	(now) ($Ship state is $NewState)
+	(remove $Ship from the map)
