@@ -165,7 +165,28 @@
 %% Torpedo hit chance: dependent on target aspect and warp gradient
 %% Torepdo damage: first element of details
 ($Ship fires * $ID $Details at $Target using $Amount)
-    (line) $Ship fires * $ID $Details at $Target using $Amount torpedoes (line)
+	(if) ($Amount > 0) ~($Target is destroyed) (then)
+        (target aspect from $Ship to $Target into $Aspect)
+		($Target warp gradient $Speed)
+		(if) ($Aspect = #north) (then)
+		    ($Speed divided by 2 into $ToHit)
+		(elseif) { ($Aspect = #northeast) (or) ($Aspect = #northwest) } (then)
+			($Speed times 3 into $ToHit)
+		(elseif) { ($Aspect = #southeast) (or) ($Aspect = #southwest) } (then)
+			($Speed = $ToHit)
+		(elseif) ($Aspect = #south) (then)
+			($Speed divided by 3 into $ToHit)
+		(else) %% #east #west #up #down
+			($Speed times 2 into $ToHit)
+		(endif)
+		(two dice $Roll)
+		(if) ($Roll > $ToHit) (then)
+		    ($Ship * $ID details $Damage)
+			($Ship hits $Target with $Damage)
+		(endif)
+		(subtract 1 from $Amount into $Remaining)
+		($Ship fires * $ID $Details at $Target using $Remaining)
+	(endif)
 
 %% Alcubierre missiles are equipped with small A-drives, and can engage at
 %% superluminal speeds. They work like torpedoes, but at a slower speed and
