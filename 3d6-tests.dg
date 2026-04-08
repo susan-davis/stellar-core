@@ -12,14 +12,14 @@
 	  #mix-one-and-three
 	  #memoize-length
 	  #randomize-position
+	  #reset-randomness
 	  #one-die-is-fair
 	  #three-dice-are-fair
 	  ])
 
 %%-----------------------------------------------------------------------------
 
-(set up $)
-	 (now) (random list position 0)
+(set up $) (reset randomness)
 
 %%-----------------------------------------------------------------------------
 
@@ -109,6 +109,16 @@
 	(assert $Pos > 0)
 	(assert $Pos < 649)
 	$Pos
+
+(test #reset-randomness)
+	(three dice 4 5 6)
+	(three dice 4 3 1)
+	(three dice 5 3 6)
+	(reset randomness)
+	(three dice 4 5 6)
+	(three dice 4 3 1)
+	(three dice 5 3 6)
+
 
 (test #one-die-is-fair)
 	Not implemented

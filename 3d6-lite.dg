@@ -19,8 +19,10 @@
 
 (interface (three dice $>First $>Second $>Third))
 
-%% does nothing; here for compatibility with 3d6.dg
+%% these do nothing, and are here for compatibility with 3d6.dg
 (interface (shuffle randomness))
+
+(interface (reset randomness))
 
 %%------------------------------ IMPLEMENTATION -------------------------------
 
@@ -50,3 +52,5 @@
 	(one die $Third)
 
 (shuffle randomness) %% do nothing
+
+(reset randomness) %% do nothing

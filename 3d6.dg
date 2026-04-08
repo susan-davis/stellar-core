@@ -19,6 +19,9 @@
 %% Call this at program entry to give a different sequence of rolls every game.
 (interface (shuffle randomness))
 
+%% Call this to get to a known, predictable spot for testing.
+(interface (reset randomness))
+
 %%------------------------------ IMPLEMENTATION -------------------------------
 
 %% 216 rolls of 3d6, normalized so that every combination of three die rolls
@@ -90,6 +93,9 @@
 	(length of random list $Length)
 	(random from 1 to $Length into $Position)
 	(now) (random list position $Position)
+
+(reset randomness)
+	(now) (random list position 0)
 
 (random die rolls $Result)
 	(list of random die rolls $Rolls)
