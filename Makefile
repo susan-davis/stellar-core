@@ -38,6 +38,9 @@ time:
 3d6-lite:
 	$(DEBUG) 3d6-lite-tests.dg 3d6-lite.dg $(STDLIB)
 
+3d6-extra:
+	$(DEBUG) 3d6-lite-tests.dg 3d6.dg $(STDLIB)
+
 sectored-grid:
 	$(DEBUG) sectored-tests.dg sectored-grid.dg $(STDLIB)
 
@@ -65,5 +68,5 @@ systems:
 clean:
 	rm -f *~ \#*\# *.z8 *.zblorb *.aastory *.d64 *.d71
 
-.PHONY: test all clean utils 6502
-.PHONY: time sectored-grid schema sensors maneuver arc damage
+.PHONY: test all clean utils 6502 time sectored-grid schema sensors maneuver
+.PHONY: arc damage 3d6 3d6-lite 3d6-extra
