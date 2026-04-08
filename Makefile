@@ -1,9 +1,12 @@
-all: test 
+# stellar-core consists of shared components between Stellar Union games
 
 COMPILE=dialogc
 DEBUG=dgdebug -u
 BUNDLE=aambundle
 STDLIB=utils.dg unit.dg stdlib.dg
+
+DGSRCDIR=../dialog
+LIBS=$(DGSRCDIR)/stdlib.dg $(DGSRCDIR)/stddebug.dg $(DGSRCDIR)/unit.dg
 
 SRCS=su-101.dg union-ship.dg damage.dg arc.dg maneuvering.dg sensors.dg schema.dg sectored-grid.dg time.dg
 
@@ -24,7 +27,15 @@ su-101.d71: su-101.aastory
 
 6502: su-101.d64
 
+all: test 
+
 test: utils time 3d6 3d6-lite sectored-grid schema arc sensors-wide maneuver damage systems
+
+clean:
+	rm -f *~ \#*\# *.z8 *.zblorb *.aastory *.d64 *.d71 log.txt
+
+libraries: $(LIBS)
+	cp -f $(LIBS) .
 
 utils:
 	$(DEBUG) utils-tests.dg $(STDLIB)
@@ -64,9 +75,6 @@ damage:
 
 systems:
 	$(DEBUG) systems-tests.dg systems.dg damage.dg arc.dg schema.dg sectored-grid.dg 3d6.dg $(STDLIB)
-
-clean:
-	rm -f *~ \#*\# *.z8 *.zblorb *.aastory *.d64 *.d71 log.txt
 
 .PHONY: test all clean utils 6502 time sectored-grid schema sensors maneuver
 .PHONY: arc damage 3d6 3d6-lite 3d6-extra
