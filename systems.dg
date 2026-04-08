@@ -101,7 +101,6 @@
 		($Energy plus $PlusEnergy into $EffectiveEnergy)
 		($EffectiveEnergy divided by $Squares into $Damage)
 		($Ship hits $Target with $Damage)
-		$Ship hits $Target with $Damage
 	(endif)
 
 %% Plasma bolts work similarly to energy projectors, but have a more rapid

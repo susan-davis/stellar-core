@@ -121,11 +121,11 @@
 
 (test #fire-projector-with-100)
 	(#test-ship fires #projector at target #near-target using 100)
-	(#near-target shields $Shields)
-	$Shields
+	(#near-target shields 200)
 
 (test #fire-projector-with-200)
 	(#test-ship fires #projector at target #near-target using 100)
+	(#near-target shields 200)
 
 (test #fire-torpedo-with-0)
 	(#test-ship fires #torpedo at target #near-target using 0)
