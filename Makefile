@@ -66,7 +66,7 @@ systems:
 	$(DEBUG) systems-tests.dg systems.dg damage.dg arc.dg schema.dg sectored-grid.dg 3d6.dg $(STDLIB)
 
 clean:
-	rm -f *~ \#*\# *.z8 *.zblorb *.aastory *.d64 *.d71
+	rm -f *~ \#*\# *.z8 *.zblorb *.aastory *.d64 *.d71 log.txt
 
 .PHONY: test all clean utils 6502 time sectored-grid schema sensors maneuver
 .PHONY: arc damage 3d6 3d6-lite 3d6-extra
