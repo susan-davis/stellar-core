@@ -10,6 +10,8 @@ LIBS=$(DGSRCDIR)/stdlib.dg $(DGSRCDIR)/stddebug.dg $(DGSRCDIR)/unit.dg
 
 SRCS=su-101.dg union-ship.dg damage.dg arc.dg maneuvering.dg sensors.dg schema.dg sectored-grid.dg time.dg
 
+all: test
+
 su-101.z8: $(SRCS) test
 	$(COMPILE) -t z8 $(SRCS) $(STDLIB)
 
@@ -26,8 +28,6 @@ su-101.d71: su-101.aastory
 	$(BUNDLE) -t 128 -o $@ $<
 
 6502: su-101.d64
-
-all: test 
 
 test: utils time 3d6 3d6-lite sectored-grid schema arc sensors-wide maneuver damage systems
 
