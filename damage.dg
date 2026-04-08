@@ -55,7 +55,7 @@
 		(damage random $Target system with $Units from $Direction)
 	(endif)
 
-(damage random $Target system with $Units from $Direction)
+(damage random $Target system with $Units from $) %% from $Direction
 	($Target systems $Systems)
 	(random element from $Systems into $System)
 	($System = [$Type $ID | $])
