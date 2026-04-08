@@ -26,27 +26,27 @@
 
 %%------------------------------ IMPLEMENTATION -------------------------------
 
-(interface (one die $Roll))
+(one die $Roll)
 	(random from 1 to 6 into $Roll)
 
-(interface (two dice $Total))
+(two dice $Total)
 	(one die $A) (one die $B)
 	($A plus $B into $Total)
 
-(interface (two dice $First $Second))
+(two dice $First $Second)
 	(one die $First)
 	(one die $Second)
 
-(interface (d6 times d6 $Total))
+(d6 times d6 $Total)
 	(one die $A) (one die $B)
 	($A times $B into $Total)
 
-(interface (three dice $Total))
+(three dice $Total)
     (two dice $A)
 	(one die $B)
 	($A plus $B into $Total)
 
-(interface (three dice $First $Second $Third))
+(three dice $First $Second $Third)
 	(one die $First)
 	(one die $Second)
 	(one die $Third)

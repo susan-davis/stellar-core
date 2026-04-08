@@ -1,0 +1,51 @@
+%% dgdebug -u 3d6-lite-tests.dg 3d6-lite.dg unit.dg stdlib.dg
+
+(list of tests [
+	#one-die
+	#two-dice
+	#three-dice
+    ])
+
+%%-----------------------------------------------------------------------------
+
+(one die $N times)
+	(if) ($N > 0) (then)
+		(one die $Roll)
+		($Roll > 0) ($Roll < 7)
+		($N minus 1 into $NMinusOne)
+		(one die $NMinusOne times)
+	(endif)
+
+(test #one-die)
+	(one die 1000 times)
+
+(two dice $N times)
+	(if) ($N > 0) (then)
+		(two dice $Roll)
+		($Roll > 1) ($Roll < 13)
+		(two dice $A $B)
+		($A > 0) ($A < 7)
+		($B > 0) ($B < 7)
+		(d6 times d6 $Multiple)
+		($Multiple > 0) ($Multiple < 37)
+		($N minus 1 into $NMinusOne)
+		(two dice $NMinusOne times)
+	(endif)
+
+(test #two-dice)
+	(two dice 1000 times)
+
+(three dice $N times)
+	(if) ($N > 0) (then)
+		(three dice $Roll)
+		($Roll > 2) ($Roll < 19)
+		(three dice $A $B $C)
+		($A > 0) ($A < 7)
+		($B > 0) ($B < 7)
+		($C > 0) ($C < 7)
+		($N minus 1 into $NMinusOne)
+		(three dice $NMinusOne times)
+	(endif)
+
+(test #three-dice)
+	(three dice 1000 times)
