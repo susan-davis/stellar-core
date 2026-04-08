@@ -10,10 +10,12 @@
 	  #fire-projector-with-0
 	  #fire-projector-with-100
 	  #fire-projector-with-200
+	  #projector-miss
 	  #fire-torpedo-with-0
 	  #fire-torpedo-with-1
 	  #fire-torpedo-with-2
 	  #fire-torpedo-with-4
+	  #torpedo-miss
 	  #fire-projector-at-90
 	  #fire-projector-at-0
 	  #fire-torpedo-at-90
@@ -129,6 +131,9 @@
 	(#near-target shields 200)
 	(#test-ship energy 900)
 
+(test #projector-miss)
+	Not implemented
+
 (test #fire-torpedo-with-0)
 	(#test-ship fires #torpedo at target #near-target using 0)
 	(#near-target shields 250)
@@ -141,6 +146,9 @@
 
 (test #fire-torpedo-with-4)
 	(#test-ship fires #torpedo at target #near-target using 4)
+
+(test #torpedo-miss)
+	Not implemented
 
 (test #fire-at-closest-with-100)
 	Not implemented
