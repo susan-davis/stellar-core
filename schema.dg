@@ -114,6 +114,8 @@
 
 (interface (regenerate shields for $<Ship by $<Num))
 
+(interface (destroy $<Ship))
+
 %% setup and placement
 %% setting the heading is defined in sectored-grid.dg
 
