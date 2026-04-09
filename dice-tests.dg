@@ -100,8 +100,6 @@
 
 (test #randomize-position)
 	(shuffle randomness)
-	(random list length $Len)
-	(assert $Len = 216)
 	(random list position $Pos)
 	(assert $Pos > 0)
 	(assert $Pos < 649)

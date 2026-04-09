@@ -55,40 +55,21 @@
 
 (global variable (random list position 1))
 
-(global variable (random list length 0)) %% memoize so we only compute once
-
 %% Starting at the beginning of the list gives the same output for every single
 %% game, which is good for unit tests, but can allow sketchy exploits in games.
 %% Call this at the beginning of (program entry point) to start from a random
 %% spot in the list instead.
 
 (shuffle randomness)
-	(length of random list $Length)
-	(random from 1 to $Length into $Position)
+	(random from 1 to 216 into $Position)
 	(now) (random list position $Position)
 
 (reset randomness)
 	(now) (random list position 1)
-	(now) (random list length 0)
-
-%% We'll memoize the length of our roll list, which also lets us check at run
-%% time how long the list is, allowing games or tests to swap in their own
-%% lists, or append to the one that we have.
-
-(length of random list $Length) %% measure in case we add or substitute
-	(random list length $Len)
-	(if) ($Len = 0) (then)
-		(list of random die rolls $Rolls)
-		(length of $Rolls into $Length)
-		(now) (random list length $Length)
-	(else)
-		(random list length $Length)
-	(endif)
 
 (random choice $Num)
 	(random list position $Pos)
-	(length of random list $Length)
-	(if) { ($Pos = 0) (or) ($Pos > $Length) } (then)
+	(if) { ($Pos = 0) (or) ($Pos > 216) } (then)
 		($Position = 1)
 	    (now) (random list position $Position)
 	(else)
