@@ -5,17 +5,17 @@
 
 %%-------------------------------- INTERFACES ---------------------------------
 
-(interface (one die $>Roll))
+(interface (1d6 $>Roll))
 
-(interface (two dice $>Total))
+(interface (2d6 $>Total))
 
-(interface (two dice $>First $>Second))
+(interface (2d6 $>First $>Second))
 
 (interface (d6 times d6 $>Total))
 
-(interface (three dice $>Total))
+(interface (3d6 $>Total))
 
-(interface (three dice $>First $>Second $>Third))
+(interface (3d6 $>First $>Second $>Third))
 
 %% Call this at program entry to give a different sequence of rolls every game.
 (interface (shuffle randomness))
@@ -80,27 +80,27 @@
 	($Position plus 1 into $NewPosition)
 	(now) (random list position $NewPosition)
 
-(one die $Roll)
+(1d6 $Roll)
 	(random choice $Num)
 	($Num modulo 10 into $Roll)
 
-(two dice $First $Second)
+(2d6 $First $Second)
 	(random choice $Num)
 	(split $Num into $ $First $Second $)
 
-(two dice $Total)
-	(two dice $First $Second)
+(2d6 $Total)
+	(2d6 $First $Second)
 	($First plus $Second into $Total)
 
 (d6 times d6 $Total)
-	(two dice $First $Second)
+	(2d6 $First $Second)
 	($First times $Second into $Total)
 
-(three dice $First $Second $Third)
+(3d6 $First $Second $Third)
 	(random choice $Num)
 	(split $Num into $ $First $Second $Third)
 
-(three dice $Total)
-	(three dice $First $Second $Third)
+(3d6 $Total)
+	(3d6 $First $Second $Third)
 	($First plus $Second into $Sum)
 	($Sum plus $Third into $Total)

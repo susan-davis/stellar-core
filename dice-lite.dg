@@ -7,17 +7,17 @@
 
 %%-------------------------------- INTERFACES ---------------------------------
 
-(interface (one die $>Roll))
+(interface (1d6 $>Roll))
 
-(interface (two dice $>Total))
+(interface (2d6 $>Total))
 
-(interface (two dice $>First $>Second))
+(interface (2d6 $>First $>Second))
 
 (interface (d6 times d6 $>Total))
 
-(interface (three dice $>Total))
+(interface (3d6 $>Total))
 
-(interface (three dice $>First $>Second $>Third))
+(interface (3d6 $>First $>Second $>Third))
 
 %% these do nothing, and are here for compatibility with 3d6.dg
 (interface (shuffle randomness))
@@ -26,30 +26,30 @@
 
 %%------------------------------ IMPLEMENTATION -------------------------------
 
-(one die $Roll)
+(1d6 $Roll)
 	(random from 1 to 6 into $Roll)
 
-(two dice $Total)
-	(one die $A) (one die $B)
+(2d6 $Total)
+	(1d6 $A) (1d6 $B)
 	($A plus $B into $Total)
 
-(two dice $First $Second)
-	(one die $First)
-	(one die $Second)
+(2d6 $First $Second)
+	(1d6 $First)
+	(1d6 $Second)
 
 (d6 times d6 $Total)
-	(one die $A) (one die $B)
+	(1d6 $A) (1d6 $B)
 	($A times $B into $Total)
 
-(three dice $Total)
-    (two dice $A)
-	(one die $B)
+(3d6 $Total)
+    (2d6 $A)
+	(1d6 $B)
 	($A plus $B into $Total)
 
-(three dice $First $Second $Third)
-	(one die $First)
-	(one die $Second)
-	(one die $Third)
+(3d6 $First $Second $Third)
+	(1d6 $First)
+	(1d6 $Second)
+	(1d6 $Third)
 
 (shuffle randomness) %% do nothing
 

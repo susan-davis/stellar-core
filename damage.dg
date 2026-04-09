@@ -59,10 +59,10 @@
 (random element near front of $List into $Element)
     (length of $List into $Length)
 	(if) ($Length < 7) (then)
-	    (two dice $Roll) %% choose from first 6, weighting front heavily
+	    (2d6 $Roll) %% choose from first 6, weighting front heavily
 		($Median = 7)
 	(else)
-		(three dice $Roll) %% choose from first 9, weighting front heavily
+		(3d6 $Roll) %% choose from first 9, weighting front heavily
 		($Median = 10)
 	(endif)
 	($Roll delta $Median into $Delta)
