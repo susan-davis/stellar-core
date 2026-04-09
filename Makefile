@@ -44,7 +44,7 @@ time:
 	$(DEBUG) time-tests.dg time.dg $(STDLIB)
 
 3d6:
-	$(DEBUG) 3d6-tests.dg 3d6.dg $(STDLIB)
+	$(DEBUG) 3d6-tests.dg 3d6.dg unit.dg stdlib.dg
 
 3d6-lite:
 	$(DEBUG) 3d6-lite-tests.dg 3d6-lite.dg unit.dg stdlib.dg
@@ -71,10 +71,10 @@ arc:
 	$(DEBUG) arc-tests.dg arc.dg schema.dg sectored-grid.dg $(STDLIB)
 
 damage:
-	$(DEBUG) damage-tests.dg damage.dg schema.dg sectored-grid.dg $(STDLIB)
+	$(DEBUG) damage-tests.dg damage.dg schema.dg sectored-grid.dg 3d6-lite.dg $(STDLIB)
 
 weapons:
-	$(DEBUG) weapons-tests.dg weapons.dg damage.dg arc.dg schema.dg sectored-grid.dg 3d6.dg $(STDLIB)
+	$(DEBUG) weapons-tests.dg weapons.dg damage.dg arc.dg schema.dg sectored-grid.dg 3d6-lite.dg $(STDLIB)
 
 .PHONY: test all clean utils 6502 time sectored-grid schema sensors maneuver
 .PHONY: arc damage 3d6 3d6-lite 3d6-extra

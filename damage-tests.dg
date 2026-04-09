@@ -2,6 +2,10 @@
 %%            unit.dg stdlib.dg
 
 (list of tests [
+	  #random-element-4
+	  #random-element-6
+	  #random-element-7
+	  #random-element-9
       #shields-hold-from-ahead-50
       #shields-penetrated-from-ahead-101
       #shields-hold-from-port-50
@@ -73,9 +77,41 @@
 
 %% ----------------------------------------------------------------------
 
+(test #random-element-4)
+	  ($List = [1 2 3 4])
+%%	  (random element near front of $List into 3)
+%%	  (random element near front of $List into 4)
+%%	  (random element near front of $List into 4)
+%%	  (random element near front of $List into 1)
+%%	  (random element near front of $List into 6)
+
+(test #random-element-6)
+	  ($List = [1 2 3 4 5 6])
+%%	  (random element near front of $List into 3)
+%%	  (random element near front of $List into 4)
+%%	  (random element near front of $List into 4)
+%%	  (random element near front of $List into 1)
+%%	  (random element near front of $List into 6)
+
+(test #random-element-7)
+	  ($List = [1 2 3 4 5 6 7])
+%%	  (random element near front of $List into 6)
+%%	  (random element near front of $List into 3)
+%%	  (random element near front of $List into 5)
+%%	  (random element near front of $List into 1)
+
+(test #random-element-9)
+	  ($List = [1 2 3 4 5 6 7 8 9])
+%%	  (random element near front of $List into 6)
+%%	  (random element near front of $List into 3)
+%%	  (random element near front of $List into 5)
+%%	  (random element near front of $List into 8)
+%%	  (random element near front of $List into 1)
+%%	  (random element near front of $List into 1)
+
 (assert $Ship has $Shields and $Energy)
-	($Ship shields $Shields)
-	($Ship energy $Energy)
+	  ($Ship shields $Shields)
+	  ($Ship energy $Energy)
 
 (test #shields-hold-from-ahead-50)
       (hit #closest-target with 50 from #north)

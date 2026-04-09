@@ -141,7 +141,8 @@
 (three dice position $Position)
 	(one die position $Pos)
 	($Pos minus 1 into $Sub)
-	(floor $Sub by 3 into $Floor)
+	($Sub divided by 3 into $Div)
+	($Div times 3 into $Floor)
 	($Floor plus 1 into $Position)
 
 (three dice $First $Second $Third)
