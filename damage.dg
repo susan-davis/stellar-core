@@ -68,7 +68,6 @@
 	($Roll delta $Median into $Delta)
 	($Delta plus 1 into $Sum)
 	(max $Sum and $Length into $Choice)
-	\( $Choice in $List \)
 	(nth $List $Choice $Element)
 
 (damage random $Target system with $Units from $) %% from $Direction
