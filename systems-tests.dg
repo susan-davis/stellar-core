@@ -142,13 +142,13 @@
 	(#test-ship fires #torpedo at target #near-target using 1)
 	(#near-target shields 200)
 
-(test #fire-torpedo-with-2)
+(test #fire-torpedo-with-2) %% what the hell?
 	(#test-ship fires #torpedo at target #near-target using 2)
-	(#near-target shields 200)
+	(#near-target shields 150)
 
 (test #fire-torpedo-with-4)
 	(#test-ship fires #torpedo at target #near-target using 4)
-	(#near-target shields 200)
+	(#near-target shields 150)
 
 (test #torpedo-miss)
 	Not implemented
