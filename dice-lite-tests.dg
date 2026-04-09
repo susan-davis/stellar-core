@@ -1,4 +1,4 @@
-%% dgdebug -u 3d6-lite-tests.dg 3d6-lite.dg unit.dg stdlib.dg
+%% dgdebug -u dice-lite-tests.dg dice-lite.dg unit.dg stdlib.dg
 
 (list of tests [
 	#one-die
@@ -6,8 +6,7 @@
 	#three-dice
     ])
 
-(set up $)
-	(reset randomness)
+(set up $)	(reset randomness)
 
 %%-----------------------------------------------------------------------------
 

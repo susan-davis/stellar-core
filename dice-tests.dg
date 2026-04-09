@@ -1,4 +1,4 @@
-%% dgdebug -u 3d6-tests.dg 3d6.dg unit.dg stdlib.dg
+%% dgdebug -u dice-tests.dg dice.dg unit.dg stdlib.dg
 
 (list of tests [
 	  #one-roll
