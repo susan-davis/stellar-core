@@ -74,7 +74,7 @@
 (ship *)
 (friendly *)
 (code *)		E
-(* initial state is
+(* initial state
    [344 454 315 4 300 400 315 4 #cygnus-class 932 4 10 500 [100 100 100 100]])
 
 (clean up $)	(set condition 3)
@@ -84,103 +84,103 @@
 #cygnus-class
 (name *)	Cygnus
 (type *)	scout ship
-(* state is [0 0 180 0 500 963 0 0
+(* state [0 0 180 0 500 963 0 0
    		 	 #cygnus-class 1000 4 10 500 [100 100 100 100]])
 
 #starbase
 (base *)
 (friendly *)
 (code *)		\#
-(* state is [766 766])
+(* state [766 766])
 
 #enemy-base
 (base *)
 (hostile *)
 (code *)		\#
-(* state is [211 211])
+(* state [211 211])
 
 #sun
 (stellar object *)
 (code *)		\*
 %%(scan code *)		O
-(* state is [578 578])
+(* state [578 578])
 
 #planet
 (stellar object *)
 (code *)		\@
-(* state is [575 576])
+(* state [575 576])
 
 #other-planet
 (stellar object *)
 (code *)		\@
-(* state is [577 572])
+(* state [577 572])
 
 #attack-class
 (name *)	Attack
 (type *)	attack ship
-(* state is
+(* state
      [0 0 0 0 0 0 #attack-class 500 2 250 [100 50 50 50] 0 90 1])
 
 #closest-target
 (ship *)
 (hostile *)
 (code *)		q
-(* initial state is
+(* initial state
      [355 445 225 2 0 0 #attack-class 500 2 250 [100 50 50 50] 0 90 1])
 
 #near-target
 (ship *)
 (hostile *)
 (code *)		q
-(* initial state is
+(* initial state
      [314 424 45 3 0 0 #attack-class 500 2 250 [100 50 50 50] 0 90 1])
 
 #far-target
 (ship *)
 (hostile *)
 (code *)		q
-(* initial state is
+(* initial state
      [424 314 225 5 0 0 #attack-class 500 2 250 [100 50 50 50] 0 90 1])
 
 #distant-target
 (ship *)
 (hostile *)
 (code *)		q
-(* initial state is
+(* initial state
      [154 984 135 6 0 0 #attack-class 500 2 250 [100 50 50 50] 0 90 1])
 
 #neutral-ship
 (ship *)
 (code *)		s
-(* initial state is
+(* initial state
      [544 544 180 1 0 0 #maru-class 500 2 50 [50 50 50 50] 0 60 1])
 
 #maru-class
 (name *)	Ko Maru
 (type *)	freighter
-(* state is
+(* state
      [0 0 0 0 0 0 #maru-class 500 2 50 [50 50 50 50] 0 60 1])
 
 #non-grid-object
 (code *)		\*
-(* state is [374 474 0])
+(* state [374 474 0])
 
 #asteroid
 (stellar object *)
 (code *)		\*
-(* state is [385 415 0])
+(* state [385 415 0])
 
 #asteroid-2
 (stellar object *)
 (code *)		\*
-(* state is [585 515 0])
+(* state [585 515 0])
 
 %% ----------------------------------------------------------------------
 
-(reset $Ship)	($Ship initial state is $State)
-		(now) ($Ship state is $State)
+(reset $Ship)	($Ship initial state $State)
+		(now)	($Ship state $State)
 
-(set up $)	(exhaust) { *(ship $Ship) (reset $Ship) }
+(set up $)		(exhaust) { *(ship $Ship) (reset $Ship) }
 
 %% ----------------------------------------------------------------------
 

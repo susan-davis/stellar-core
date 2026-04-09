@@ -96,14 +96,14 @@
 
 (set up $)
 	 (initial state $State)
-	 (now) (* state is $State)
+	 (now) (* state $State)
 	 (initialize * as #cygnus-class)
 	 (decrease energy for * by 68)
 
 #cygnus-class
 (name *)	Cygnus
 (type *)	fast scout
-(* state is [0 0 180 0 500 963 0 0
+(* state [0 0 180 0 500 963 0 0
    		 	#cygnus-class 1000 4 10 500 [100 99 98 97]
 			[[#projector 1 [360 #up] 100 141 0]
 			[#torpedo 1 [1 8] 500 0 0]

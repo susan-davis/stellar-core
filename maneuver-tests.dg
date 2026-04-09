@@ -37,57 +37,57 @@
 
 #test-ship
 (ship *)
-(* initial state is [344 454 315 400 304 414 90 700
+(* initial state [344 454 315 400 304 414 90 700
    		   		 	 #cygnus-class 932 4 10 500 [100 100 100 100]])
 
 #cygnus-class
 (name *)	Cygnus
 (type *)	scout ship
-(* state is [0 0 180 0 500 963 0 0
+(* state [0 0 180 0 500 963 0 0
    		 	 #cygnus-class 1000 4 10 500 [100 100 100 100]])
 
 #sun
 (grid object *)
-(* state is [578 578])
+(* state [578 578])
 
 #planet
 (grid object *)
-(* state is [575 576])
+(* state [575 576])
 
 #other-planet
 (grid object *)
-(* state is [577 572])
+(* state [577 572])
 
 #closest-target
 (ship *)
-(* initial state is
+(* initial state
      [355 445 225 200 0 0 #attack-class 500 2 250 [100 50 50 50] 0 225 200])
 
 #attack-class
 (name *)	Attack
 (type *)	attack ship
-(* state is
+(* state
  [0 0 90 100 200 751 #attack-class 500 2 250 [100 50 50 50] 0])
 
 #near-target
 (ship *)
-(* initial state is
+(* initial state
      [314 424 45 300 0 0 #attack-class 500 2 250 [100 50 50 50] 0 45 310])
 
 #far-target
 (ship *)
-(* initial state is
+(* initial state
      [424 314 225 500 0 0 #attack-class 500 2 250 [100 50 50 50] 0 225 410])
 
 #distant-target
 (ship *)
-(* initial state is
+(* initial state
      [154 984 135 600 0 0 #attack-class 500 2 250 [100 50 50 50] 0 135 525])
 
 %% ----------------------------------------------------------------------
 
-(reset $Ship)	($Ship initial state is $State)
-		(now) ($Ship state is $State)
+(reset $Ship)	($Ship initial state $State)
+		(now) ($Ship state $State)
 
 (set up $)	(exhaust) { *(ship $Ship) (reset $Ship) }
 
@@ -200,7 +200,7 @@
 	(assert energy 0 yields throttle 0)
 
 (assert $Target goes to $SX $SY $X $Y heading $H speed $S energy $E)
-	(if) ($Target state is $Destination) (then)
+	(if) ($Target state $Destination) (then)
 		(set destination for #test-ship to $Destination)
 	(endif)
 	(update #test-ship)

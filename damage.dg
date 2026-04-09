@@ -15,7 +15,8 @@
 %%------------------------------ IMPLEMENTATION ------------------------------
 
 %% state = [ PositionX PositionY Heading Speed DestX DestY Helm Throttle
-%% 		   	 Class Energy Crystals Ammo Shields [S1 S2 S3 S4] [ Systems ] ]
+%% 		   	 Class Energy Crystals Ammo Shields [S1 S2 S3 S4]
+%%			 [ Systems ] [ Fore-and-Aft ] [ Side-to-Side] ]
 %%
 %% system = [ System ID Arcs Value Details TimeOfRepair ]
 

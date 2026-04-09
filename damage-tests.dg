@@ -23,12 +23,12 @@
 
 #test-ship
 (grid object *)
-(* initial state is [344 454 315 400 300 400 315 400 #cygnus-class])
+(* initial state [344 454 315 400 300 400 315 400 #cygnus-class])
 
 #cygnus-class
 (name *)	Cygnus
 (type *)	fast scout
-(* state is [0 0 180 0 500 963 0 0
+(* state [0 0 180 0 500 963 0 0
    		 	#cygnus-class 1000 4 10 500 [100 99 98 97]
 			[[#projector 1 [360 #up] 100 0 0]
 			[#torpedo 1 [1 8] 500 0 0]
@@ -43,16 +43,16 @@
 
 #closest-target
 (grid object *)
-(* initial state is [355 445 225 200 0 0 225 200 #attack-class])
+(* initial state [355 445 225 200 0 0 225 200 #attack-class])
 
 #near-target
 (grid object *)
-(* initial state is [314 424 45 300 0 0 45 310 #attack-class])
+(* initial state [314 424 45 300 0 0 45 310 #attack-class])
 
 #attack-class
 (name *)	Attack
 (type *)	attack ship
-(* state is [0 0 90 100 200 751 0 0
+(* state [0 0 90 100 200 751 0 0
    		 	 #attack-class 500 2 0 250 [100 50 50 50]
 			 [[#projector 1 [360 #up] 250 0 0]
 			 [#tractor 1 360 250 0 0]
@@ -65,8 +65,8 @@
 (set up $)
 	 (exhaust) {
 	     *(grid object $Ship)
-	     ($Ship initial state is $State)
-	     (now) ($Ship state is $State) %% add this to (initialize $ as $)
+	     ($Ship initial state $State)
+	     (now) ($Ship state $State) %% add this to (initialize $ as $)
 		 ($Ship class $Class)
 	 	 (initialize $Ship as $Class)
 	 }

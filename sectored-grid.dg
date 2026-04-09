@@ -14,7 +14,7 @@
 
 %% (grid object $) => object is present on our grid and occupies a square
 
-%% Grid objects all bind a per-object variable ($ state is $), which returns a
+%% Grid objects all bind a per-object variable ($ state $), which returns a
 %% list of at least three elements. The first two specify the coordinates of
 %% the object, and the third specifies its facing ("heading"). Operations on
 %% grid objects' states are required to preserve the tail beyond those first
@@ -168,11 +168,11 @@
 %% correcting subsectors and position squares, but not sectors.
 
 (place $Object at $Position)
-	($Object state is $State)
+	($Object state $State)
 	([$ $ | $Tail] = $State)
 	([$X $Y | $] = $Position)
 	([$X $Y | $Tail] = $NewState)
-	(now) ($Object state is $NewState)
+	(now) ($Object state $NewState)
 
 (place $Object at $SX $SY $X $Y $PX $PY)
 	(position for $SX $SY $X $Y $PX $PY into $Position)
@@ -190,15 +190,15 @@
 	(place $Object at $SX $SY $X $Y $PX $PY)
 
 ($Object is on the map)
-    ($Object state is $State)
+    ($Object state $State)
 	($State = [$X $Y | $])
 	($X < 16383) ($Y < 16383)
 
 (remove $Object from the map)
-    ($Object state is $State)
+    ($Object state $State)
 	($State = [$ $ | $Rest])
 	($NewState = [16383 16383 | $Rest])
-	(now) ($Object state is $NewState)
+	(now) ($Object state $NewState)
 
 (coordinates for $Position into $SX $SY $X $Y $PX $PY)
 	([$BigX $BigY | $] = $Position)
@@ -239,16 +239,16 @@
 
 ($Object x $X)
     ($Object is on the map)
-	($Object state is $State)
+	($Object state $State)
 	(nth $State 1 $X)
 
 ($Object y $Y)
     ($Object is on the map)
-	($Object state is $State)
+	($Object state $State)
 	(nth $State 2 $Y)
 
 ($Object heading $Heading)
-	($Object state is $State)
+	($Object state $State)
 	(nth $State 3 $Heading)
 
 ($Object sector x $SX)
@@ -584,12 +584,12 @@
 	(bearing for $Angle in octant $Octant into $Result)
 
 (bearing from $Ship to position $There into $Result)
-	($Ship state is $Here)
+	($Ship state $Here)
 	(calculate bearing from $Here to $There into $Result)
 
 (bearing from $Ship to $Target into $Result)
-	($Ship state is $Here)
-	($Target state is $There)
+	($Ship state $Here)
+	($Target state $There)
 	(calculate bearing from $Here to $There into $Result)
 
 %% ------------------------------ BOW ANGLE ------------------------------
@@ -808,17 +808,17 @@
 	($Sum1 plus $Sum2 into $Range)
 
 (range from $Ship to $Target into $Range)
-	($Ship   state is $Here)
-	($Target state is $There)
+	($Ship   state $Here)
+	($Target state $There)
 	(calculate range from $Here to $There into $Range)
 
 %% ------------------------------ TURNING ------------------------------
 
 (turn $Ship to heading $Heading)
-	($Ship state is $State)
+	($Ship state $State)
 	([$X $Y $        | $Tail] = $State)
 	([$X $Y $Heading | $Tail] = $NewState)
-	(now) ($Ship state is $NewState)
+	(now) ($Ship state $NewState)
 
 (turn $Ship $Degrees to starboard)
 	($Ship heading $Heading)
@@ -856,7 +856,7 @@
 	(endif)
 
 (turn $Ship to face position $There)
-	($Ship state is $State)
+	($Ship state $State)
 	(calculate bearing from $State to $There into $Bearing)
 	(turn $Ship to heading $Bearing)
 
@@ -869,7 +869,7 @@
 	(turn $Ship to face $SX $SY $X $Y)
 
 (turn $Ship to face $Target)
-	($Target state is $There)
+	($Target state $There)
 	(turn $Ship to face position $There)
 
 (turn $Ship away from $Target)
@@ -893,12 +893,12 @@
 
 (drag $Ship to position $Desired)
 	($Ship is on the map)
-	($Ship state is $Origin)
+	($Ship state $Origin)
 	([$ $ | $Tail]   = $Origin)
 	(closest unoccupied square to $Desired from $Origin into $Square)
 	([$X $Y | $]     = $Square)
 	([$X $Y | $Tail] = $NewState)
-	(now) ($Ship state is $NewState)
+	(now) ($Ship state $NewState)
 
 (drag $Ship to subsector $Desired)
 	($Ship is on the map)
@@ -913,7 +913,7 @@
 
 (drag $Ship $Distance on heading $Heading)
 	($Ship is on the map)
-	($Ship state is $Origin)
+	($Ship state $Origin)
 	(square at $Distance on bearing $Heading from $Origin into $Desired)
 	(drag $Ship to position $Desired)
 

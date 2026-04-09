@@ -32,10 +32,10 @@
 	(else)
 		($NewSpeed = $Throttle)
 	(endif)
-	(accelerate $Ship to speed $NewSpeed) 
+	(accelerate $Ship to speed $NewSpeed)
 
 (move $Ship on course and speed)
-	($Ship state is $State)
+	($Ship state $State)
 	($Ship destination $Destination)
 	(calculate range from $State to $Destination into $Range)
 	($Ship speed $Distance)
@@ -113,5 +113,3 @@
 		($Ship subsector into $SX $SY $X $Y)
 		(drag $Ship 12 toward $Object)
 	}
-	
-	

@@ -351,44 +351,44 @@
 
 #test-ship
 (grid object *)
-(* initial state is [344 454 315])
+(* initial state [344 454 315])
 
 #closest-target
 (grid object *)
-(* initial state is [354 444 0])
+(* initial state [354 444 0])
 
 #near-target
 (grid object *)
-(* initial state is [314 424 0])
+(* initial state [314 424 0])
 
 #far-target
 (grid object *)
-(* initial state is [424 314 0])
+(* initial state [424 314 0])
 
 #distant-target
 (grid object *)
-(* initial state is [154 984 0])
+(* initial state [154 984 0])
 
 #non-grid-object
-(* initial state is [374 474 0])
+(* initial state [374 474 0])
 
 #sun
 (grid object *)
-(* initial state is [577 577 0])
+(* initial state [577 577 0])
 
 #planet
 (grid object *)
-(* initial state is [575 575 0])
+(* initial state [575 575 0])
 
 #other-planet
 (grid object *)
-(* initial state is [573 573 0])
+(* initial state [573 573 0])
 
 (set up $)
 	 (exhaust) {
 	     *(grid object $Object)
-		 ($Object initial state is $State)
-		 (now) ($Object state is $State)
+		 ($Object initial state $State)
+		 (now) ($Object state $State)
 	 }
 
 %% ----------------------------------------------------------------------
@@ -473,15 +473,15 @@
 	~($Here is in the same subsector as $There)
 
 (test #current-ship-in-quadrant)
-	(#test-ship state is $Here)
+	(#test-ship state $Here)
 	($Here is in the quadrant)
 
 (test #far-target-in-quadrant)
-	(#far-target state is $Here)
+	(#far-target state $Here)
 	($Here is in the quadrant)
 
 (test #distant-target-not-in-quadrant)
-	(#distant-target state is $Here)
+	(#distant-target state $Here)
 	$Here
 	~($Here is in the quadrant)
 
@@ -527,7 +527,7 @@
 	(length of $List into 0)
 
 (test #object-at-ship-position)
-	(#test-ship initial state is $Here)
+	(#test-ship initial state $Here)
 	(object at $Here into $Obj)
 	(assert $Obj = #test-ship)
 
@@ -540,18 +540,18 @@
 	(assert $List = [ #test-ship ])
 
 (test #objects-at-closest-target)
-	(#closest-target state is $There)
+	(#closest-target state $There)
 	(subsector for $There into $SX $SY $X $Y)
 	(objects in subsector $SX $SY $X $Y into $List)
 	(assert $List = [ #closest-target ])
 
 (test #object-at-near-target)
-	(#near-target state is $Here)
+	(#near-target state $Here)
 	(object at $Here into $Obj)
 	(assert $Obj = #near-target)
 
 (test #object-at-far-target)
-	(#far-target state is $Here)
+	(#far-target state $Here)
 	(object at $Here into $Obj)
 	(assert $Obj = #far-target)
 
@@ -709,42 +709,42 @@
 	(540 is in octant 5)
 
 (test #octant-1)
-	(#test-ship initial state is $Here)
+	(#test-ship initial state $Here)
 	(position for 3 4 6 3 into $There)
 	(octant from $Here to $There into 1)
 
 (test #octant-2)
-	(#test-ship initial state is $Here)
+	(#test-ship initial state $Here)
 	(position for 3 4 7 5 into $There)
 	(octant from $Here to $There into 2)
 
 (test #octant-3)
-	(#test-ship initial state is $Here)
+	(#test-ship initial state $Here)
 	(position for 3 4 7 7 into $There)
 	(octant from $Here to $There into 3)
 
 (test #octant-4)
-	(#test-ship initial state is $Here)
+	(#test-ship initial state $Here)
 	(position for 3 4 6 9 into $There)
 	(octant from $Here to $There into 4)
 
 (test #octant-5)
-	(#test-ship initial state is $Here)
+	(#test-ship initial state $Here)
 	(position for 3 4 4 9 into $There)
 	(octant from $Here to $There into 5)
 
 (test #octant-6)
-	(#test-ship initial state is $Here)
+	(#test-ship initial state $Here)
 	(position for 3 4 2 7 into $There)
 	(octant from $Here to $There into 6)
 
 (test #octant-7)
-	(#test-ship initial state is $Here)
+	(#test-ship initial state $Here)
 	(position for 3 4 3 5 into $There)
 	(octant from $Here to $There into 7)
 
 (test #octant-8)
-	(#test-ship initial state is $Here)
+	(#test-ship initial state $Here)
 	(position for 3 4 4 2 into $There)
 	(octant from $Here to $There into 8)
 
@@ -1099,15 +1099,15 @@
 	(assert closest from 3 4 1 1 5 5 is 3 4 5 6 4 4)
 
 (test #closest-unoccupied-square-near-target)
-	(#test-ship state is $Here)
-	(#near-target state is $There)
+	(#test-ship state $Here)
+	(#near-target state $There)
 	(position for 3 4 2 3 6 6 into $Square)
 	([$X $Y] = $Square)
 	(closest unoccupied square to $There from $Here into [$X $Y 0])
 
 (test #closest-unoccupied-square-far-target)
-	(#test-ship state is $Here)
-	(#far-target state is $There)
+	(#test-ship state $Here)
+	(#far-target state $There)
 	(position for 4 3 3 2 4 6 into $Square)
 	([$X $Y] = $Square)
 	(closest unoccupied square to $There from $Here into [$X $Y 0])
@@ -1149,16 +1149,16 @@
 	(assert closest from 3 4 1 1 is 3 4 4 5)
 
 (test #closest-unoccupied-subsector-near-target)
-	(#test-ship state is $Here)
-	(#near-target state is $There)
+	(#test-ship state $Here)
+	(#near-target state $There)
 	(position for 3 4 3 4 into $Expected)
 	(closest unoccupied subsector to $There from $Here into $Result)
 	([$X $Y | $] = $Result)
 	(assert [$X $Y] = $Expected)
 
 (test #closest-unoccupied-subsector-far-target)
-	(#test-ship state is $Here)
-	(#far-target state is $There)
+	(#test-ship state $Here)
+	(#far-target state $There)
 	(position for 4 3 2 3 into $Expected)
 	(closest unoccupied subsector to $There from $Here into $Result)
 	([$X $Y | $] = $Result)
@@ -1573,22 +1573,22 @@
 	(assert that #test-ship is at [8 8 10 10 135])
 
 (test #drag-to-occupied-square)
-	(#near-target state is $There)
+	(#near-target state $There)
 	(drag #test-ship to position $There)
 	(assert that #test-ship is at [3 4 2 3 315])
 
 (test #move-to-occupied-square)
-	(#near-target state is $There)
+	(#near-target state $There)
 	(move #test-ship to position $There)
 	(assert that #test-ship is at [3 4 2 3 315])
 
 (test #drag-to-occupied-subsector)
-	(#near-target state is $There)
+	(#near-target state $There)
 	(drag #test-ship to subsector $There)
 	(assert that #test-ship is at [3 4 2 3 315])
 
 (test #move-to-occupied-subsector)
-	(#near-target state is $There)
+	(#near-target state $There)
 	(move #test-ship to subsector $There)
 	(assert that #test-ship is at [3 4 2 3 315])
 
@@ -1706,41 +1706,41 @@
 (assert drag $Distance toward $Position is $SX $SY $X $Y $PX $PY)
 	(drag #test-ship $Distance toward position $Position)
 	(position for $SX $SY $X $Y $PX $PY into $Here)
-	(#test-ship state is $There)
+	(#test-ship state $There)
 	%% $There
 	([$DX $DY | $] = $There)
 	($Here = [$DX $DY | $])
 
 (test #drag-141-toward-near-target)
-	(#near-target state is $There)
+	(#near-target state $There)
 	(assert drag 141 toward $There is 3 4 4 5 5 5)
 
 (test #drag-750-toward-far-target)
-	(#far-target state is $There)
+	(#far-target state $There)
 	(assert drag 750 toward $There is 3 3 9 10 2 4)
 
 (test #drag-1500-toward-distant-target)
-	(#distant-target state is $There)
+	(#distant-target state $There)
 	(assert drag 1500 toward $There is 2 5 10 9 6 8)
 
 (assert move $Distance toward $Position is $SX $SY $X $Y $PX $PY)
 	(move #test-ship $Distance toward position $Position)
 	(position for $SX $SY $X $Y $PX $PY into $Here)
-	(#test-ship state is $There)
+	(#test-ship state $There)
 	%% $There
 	([$DX $DY | $] = $There)
 	($Here = [$DX $DY | $])
 
 (test #move-141-toward-near-target)
-	(#near-target state is $There)
+	(#near-target state $There)
 	(assert move 141 toward $There is 3 4 4 5 5 5)
 
 (test #move-750-toward-far-target)
-	(#far-target state is $There)
+	(#far-target state $There)
 	(assert move 750 toward $There is 3 3 9 10 2 4)
 
 (test #move-1500-toward-distant-target)
-	(#distant-target state is $There)
+	(#distant-target state $There)
 	(assert move 1500 toward $There is 2 5 10 9 6 8)
 
 (test #positions-are-equal)

@@ -6,7 +6,8 @@
 %% The class of a ship is
 %%
 %% state = [ PositionX PositionY Heading Speed DestX DestY Helm Throttle
-%% 		   	 Class Energy Crystals Ammo Shields [S1 S2 S3 S4] [ Systems ] ]
+%% 		   	 Class Energy Crystals Ammo Shields [S1 S2 S3 S4]
+%%			 [Systems] [Fore-and-Aft] [Port-to-Starboard] ]
 %%
 %% Systems are defined as lists:
 %%
@@ -125,6 +126,10 @@
 
 (interface ($<Ship systems $>Systems))
 
+(interface ($<Ship fore-and-aft $>ForeAndAft))
+
+(interface ($<Ship port-to-starboard $>PortToStarboard))
+
 (interface (system $<System arc $>Arc))
 
 (interface ($<Ship $<Type $<ID arc $>Arc))
@@ -154,29 +159,29 @@
 %%------------------------------ IMPLEMENTATION -------------------------------
 
 (initialize $Ship as $Class)
-	($Class state is $Default)
+	($Class state $Default)
 	($Default =
 	    [$ $ $ $ $ $ $ $ $
 		 $Energy $Crystals $Ammo $Shields $Levels $Systems | $])
-	($Ship state is [$PX $PY $H $S $DX $DY $C $T $Class | $])
-	(now) ($Ship state is [$PX $PY $H $S $DX $DY $C $T
+	($Ship state [$PX $PY $H $S $DX $DY $C $T $Class | $])
+	(now) ($Ship state [$PX $PY $H $S $DX $DY $C $T
 		   $Class $Energy $Crystals $Ammo $Shields $Levels $Systems])
 
 %%---------------------------- SCHEMA DEFINITION ----------------------------
 
 ($Ship coordinates into $SX $SY $X $Y $PX $PY)
-	($Ship state is $State)
+	($Ship state $State)
 	(coordinates for $State into $SX $SY $X $Y $PX $PY)
 
 ($Ship subsector into $SX $SY $X $Y)
-	($Ship state is $State)
+	($Ship state $State)
 	(subsector for $State into $SX $SY $X $Y)
 
 ($Ship is destroyed)
 	~($Ship is on the map)
 
 ($Ship speed $Speed)
-	($Ship state is $State)
+	($Ship state $State)
 	(nth $State 4 $Speed)
 
 ($Ship warp gradient $Gradient)
@@ -184,35 +189,35 @@
 	($Speed divided by 100 into $Gradient)
 
 ($Ship helm setting $Helm)
-	($Ship state is $State)
+	($Ship state $State)
 	(nth $State 7 $Helm)
 
 ($Ship throttle setting $Throttle)
-	($Ship state is $State)
+	($Ship state $State)
 	(nth $State 8 $Throttle)
 
 ($Ship class $Class)
-	($Ship state is $State)
+	($Ship state $State)
 	(nth $State 9 $Class)
 
 ($Ship energy $Energy)
-	($Ship state is $State)
+	($Ship state $State)
 	(nth $State 10 $Energy)
 
 ($Ship crystals $Crystals)
-	($Ship state is $State)
+	($Ship state $State)
 	(nth $State 11 $Crystals)
 
 ($Ship ammo $Ammo)
-	($Ship state is $State)
+	($Ship state $State)
 	(nth $State 12 $Ammo)
 
 ($Ship shields $Shields)
-	($Ship state is $State)
+	($Ship state $State)
 	(nth $State 13 $Shields)
 
 ($Ship shield levels $Levels)
-	($Ship state is $State)
+	($Ship state $State)
 	(nth $State 14 $Levels)
 
 ($Ship throttle gradient $Gradient)
@@ -257,7 +262,7 @@
 	(split $Engine into $ $ $Gradient $)
 
 ($Ship destination $Destination)
-	($Ship state is $State)
+	($Ship state $State)
 	([$ $ $ $ $DX $DY | $] = $State)
 	([$DX $DY] = $Destination)
 
@@ -291,11 +296,11 @@
 %%--------------------------------- MUTATORS ----------------------------------
 
 (set destination for $Ship to $Destination)
-	($Ship state is $State)
+	($Ship state $State)
 	([$DX $DY | $] = $Destination)
 	([$PX $PY $Heading $Speed $ $ | $Tail] = $State)
 	([$PX $PY $Heading $Speed $DX $DY | $Tail] = $NewState)
-	(now) ($Ship state is $NewState)
+	(now) ($Ship state $NewState)
 	(calculate bearing from $State to $Destination into $Course)
 	(set helm for $Ship to $Course)
 
@@ -308,16 +313,16 @@
 	(set destination for $Ship to $Position)
 
 (set helm for $Ship to $Setting)
-	($Ship state is $State)
+	($Ship state $State)
 	(replace element 7 in $State with $Setting into $NewState)
-	(now) ($Ship state is $NewState)
+	(now) ($Ship state $NewState)
 
 (max speed for $Ship into $MaxSpeed)
 	($Ship top speed $Gradient)
 	($Gradient times 100 into $MaxSpeed)
 
 (set throttle for $Ship to speed $Setting)
-	($Ship state is $State)
+	($Ship state $State)
 	(max speed for $Ship into $MaxSpeed)
 	(if) ($Setting > $MaxSpeed) (then)
 		($Throttle = $MaxSpeed)
@@ -325,45 +330,45 @@
 		($Throttle = $Setting)
 	(endif)
 	(replace element 8 in $State with $Throttle into $NewState)
-	(now) ($Ship state is $NewState)
+	(now) ($Ship state $NewState)
 
 (set throttle for $Ship to gradient $Gradient)
 	($Gradient times 100 into $Speed)
 	(set throttle for $Ship to speed $Speed)
 
 (decrease ammo for $Ship by $Num)
-	($Ship state is $State)
+	($Ship state $State)
 	(decrease element 12 in $State by $Num into $NewState)
-	(now) ($Ship state is $NewState)
+	(now) ($Ship state $NewState)
 
 (decrease energy for $Ship by $Num)
-	($Ship state is $State)
+	($Ship state $State)
 	(decrease element 10 in $State by $Num into $NewState)
-	(now) ($Ship state is $NewState)
+	(now) ($Ship state $NewState)
 
 (regenerate energy for $Ship)
 	($Ship crystals $Crystals)
 	($Crystals times 10 into $Energy)
 	($Ship class $Class)
 	($Class energy $Max)
-	($Ship state is $State)
+	($Ship state $State)
 	(increase element 10 in $State by $Energy into $NewState with max $Max)
-	(now) ($Ship state is $NewState)
+	(now) ($Ship state $NewState)
 
 (decrease shields for $Ship by $Num)
-	($Ship state is $State)
+	($Ship state $State)
 	(decrease element 13 in $State by $Num into $NewState)
-	(now) ($Ship state is $NewState)
+	(now) ($Ship state $NewState)
 
 (regenerate shields for $Ship by $Num)
 	($Ship class $Class)
 	($Class shields $Max)
-	($Ship state is $State)
+	($Ship state $State)
 	(increase element 13 in $State by $Num into $NewState with max $Max)
-	(now) ($Ship state is $NewState)
+	(now) ($Ship state $NewState)
 
 (accelerate $Ship to speed $Speed)
-	($Ship state is $State)
+	($Ship state $State)
 	(max speed for $Ship into $MaxSpeed)
 	(if) ($Speed > $MaxSpeed) (then)
 		($NewSpeed = $MaxSpeed)
@@ -371,7 +376,7 @@
 		($NewSpeed = $Speed)
 	(endif)
 	(replace element 4 in $State with $NewSpeed into $NewState)
-	(now) ($Ship state is $NewState)
+	(now) ($Ship state $NewState)
 
 (accelerate $Ship to gradient $Gradient)
 	($Gradient times 100 into $Speed)
@@ -392,8 +397,16 @@
 	(find $Type $ID in $Systems into $Match)
 
 ($Ship systems $Systems)
-    ($Ship state is $State)
+    ($Ship state $State)
 	(nth $State 15 $Systems)
+
+($Ship fore-and-aft $ForeAndAft)
+    ($Ship state $State)
+	(nth $State 16 $ForeAndAft)
+
+($Ship port-to-starboard $PortToStarboard)
+    ($Ship state $State)
+	(nth $State 17 $PortToStarboard)
 
 (system $Match arc $Arc)
 	(nth $Match 3 $Arc)
@@ -426,9 +439,9 @@
 (set repair time for $Ship $Type $ID to $Value)
 	($Ship systems $Systems)
 	(set element 6 in [$Type $ID] in $Systems to $Value into $NewList)
-	($Ship state is $State)
+	($Ship state $State)
 	(replace element 15 in $State with $NewList into $NewState)
-	(now) ($Ship state is $NewState)
+	(now) ($Ship state $NewState)
 
 (increase repair time for $Ship $Type $ID by $Value)
     ($Ship $Type $ID repair time $Time)
