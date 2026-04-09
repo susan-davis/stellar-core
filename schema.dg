@@ -377,6 +377,10 @@
 	($Gradient times 100 into $Speed)
 	(accelerate $Ship to speed $Speed)
 
+(destroy $Ship)
+	(remove $Ship from the map)
+	%% add explosion strength here
+
 %%-------------------------------- SHIP SYSTEMS -------------------------------
 
 (find all $Type for $Ship into $List)
@@ -428,21 +432,13 @@
 
 (increase repair time for $Ship $Type $ID by $Value)
     ($Ship $Type $ID repair time $Time)
-	(if) ($Time plus $Value into $New) (then)
-		 ($NewValue = $New)
-	(else)
-		 ($NewValue = 16383)
-	(endif)
+	(add $Time to $Value into $NewValue)
 	(set repair time for $Ship $Type $ID to $NewValue)
 
 (decrease repair time for $Ship $Type $ID by $Value)
     ($Ship $Type $ID repair time $Time)
-	($Time < 16380) %% don't repair irreparable systems
-	(if) ($Value > $Time) (then)
-    	($NewValue = 0)
-	(else)
-		(subtract $Value from $Time into $NewValue)
-	(endif)
+	($Time < 16383) %% don't repair irreparable systems
+	(subtract $Value from $Time into $NewValue)
 	(set repair time for $Ship $Type $ID to $NewValue)
 
 (repair $Ship $Type $ID)
@@ -450,7 +446,3 @@
 
 (destroy $Ship $Type $ID)
 	(set repair time for $Ship $Type $ID to 16383)
-
-(destroy $Ship)
-	(remove $Ship from the map)
-	%% add explosion strength here
