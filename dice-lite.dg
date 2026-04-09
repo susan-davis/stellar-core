@@ -9,19 +9,48 @@
 
 (interface (1d6 $>Roll))
 
+(interface (d12 $>Roll))
+
 (interface (2d6 $>Total))
 
 (interface (2d6 $>First $>Second))
 
 (interface (d6 times d6 $>Total))
 
+(interface (d36 $>Total))
+
+(interface (d4 $>Total))
+
+(interface (d8 $>Total))
+
 (interface (3d6 $>Total))
 
 (interface (3d6 $>First $>Second $>Third))
 
-%% these do nothing, and are here for compatibility with 3d6.dg
+(interface (d216 $>Total))
+
+(interface (1dF $>Direction $>Num))
+
+(interface (2dF $>Direction $>Num))
+
+(interface (4dF $>Direction $>Num))
+
+(interface (1d10 $>Roll))
+
+(interface (2d10 $>Roll))
+
+(interface (d20 $>Roll))
+
+(interface (d360 $>Roll)) %% great for random facing
+
+(interface (percentile dice $>Percent))
+
+(interface (percentage of $<Number into $>Result))
+
+%% Call this at program entry to give a different sequence of rolls every game.
 (interface (shuffle randomness))
 
+%% Call this to get to a known, predictable spot for testing.
 (interface (reset randomness))
 
 %%------------------------------ IMPLEMENTATION -------------------------------
@@ -41,6 +70,15 @@
 	(1d6 $A) (1d6 $B)
 	($A times $B into $Total)
 
+(d36 $Total)
+	(random from 1 to 36 into $Total)
+
+(d4 $Total)
+	(random from 1 to 4 into $Total)
+
+(d8 $Total)
+	(random from 1 to 8 into $Total)
+
 (3d6 $Total)
     (2d6 $A)
 	(1d6 $B)
@@ -50,6 +88,35 @@
 	(1d6 $First)
 	(1d6 $Second)
 	(1d6 $Third)
+
+(d216 $Total)
+	(random from 1 to 216 into $Total)
+
+(1dF $Direction)
+
+(2dF $Direction $Roll)
+
+(4dF $Direction $Roll)
+
+(1d10 $Roll)
+	(random from 1 to 10 into $Total)
+
+(2d10 $Roll)
+	(1d10 $First)
+	(1d10 $Second)
+	($First plus $Second into $Roll)
+
+(d20 $Roll)
+	(random from 1 to 20 into $Total)
+
+(d360 $Roll)
+	(random from 1 to 360 into $Total)
+
+(percentile dice $Percent)
+	(random from 1 to 100 into $Total)
+
+(percentage of $Number into $Result)
+	(random from 1 to $Number into $Result)
 
 (shuffle randomness) %% do nothing
 

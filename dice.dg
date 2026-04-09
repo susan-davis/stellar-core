@@ -1,11 +1,13 @@
 %% dice.dg
 %% include utils.dg when compiling or debugging
 
-(extension version)	Undo-safe die rolls v0.2 by Susan Davis (line)
+(extension version)	Undo-safe die rolls v0.4 by Susan Davis (line)
 
 %%-------------------------------- INTERFACES ---------------------------------
 
 (interface (1d6 $>Roll))
+
+(interface (d12 $>Roll))
 
 (interface (2d6 $>Total))
 
@@ -13,9 +15,35 @@
 
 (interface (d6 times d6 $>Total))
 
+(interface (d36 $>Total))
+
+(interface (d4 $>Total))
+
+(interface (d8 $>Total))
+
 (interface (3d6 $>Total))
 
 (interface (3d6 $>First $>Second $>Third))
+
+(interface (d216 $>Total))
+
+(interface (1dF $>Direction $>Num))
+
+(interface (2dF $>Direction $>Num))
+
+(interface (4dF $>Direction $>Num))
+
+(interface (1d10 $>Roll))
+
+(interface (2d10 $>Roll))
+
+(interface (d20 $>Roll))
+
+(interface (d360 $>Roll)) %% great for random facing
+
+(interface (percentile dice $>Percent))
+
+(interface (percentage of $<Number into $>Result))
 
 %% Call this at program entry to give a different sequence of rolls every game.
 (interface (shuffle randomness))
@@ -84,9 +112,11 @@
 	(random choice $Num)
 	($Num modulo 10 into $Roll)
 
+(d12 $Roll)
+
 (2d6 $First $Second)
 	(random choice $Num)
-	(split $Num into $ $First $Second $)
+	(split $Num into $ $ $First $Second)
 
 (2d6 $Total)
 	(2d6 $First $Second)
@@ -96,6 +126,10 @@
 	(2d6 $First $Second)
 	($First times $Second into $Total)
 
+(d36 $Total)
+
+(d4 $Roll)
+
 (3d6 $First $Second $Third)
 	(random choice $Num)
 	(split $Num into $ $First $Second $Third)
@@ -104,3 +138,83 @@
 	(3d6 $First $Second $Third)
 	($First plus $Second into $Sum)
 	($Sum plus $Third into $Total)
+
+(dF $Roll $Direction $Num)
+	(if)     { ($Roll = 1) (or) ($Roll = 2) (or) ($Roll = 7) } (then)
+		($Direction = #down)
+	(elseif) { ($Roll = 5) (or) ($Roll = 6) (or) ($Roll = 9) } (then)
+		($Direction = #up)
+	(else)
+		($Direction = 0)
+	(endif)
+	(if) ($Direction = 0) (then)
+		 ($Num = 0)
+	(else)
+		 ($Num = 1)
+	(endif)
+
+(1dF $Direction $Num)
+	(1d6 $Roll)
+	(dF $Roll $Direction $Num)
+
+(add dF $D1 $N1 to $D2 $N2 into $Direction $Num)
+
+(2dF $Direction $Num)
+	(random choice $Roll)
+	(split $Roll into $ $ $First $Second)
+	(dF $First $D1 $N1)
+	(dF $Second $D2 $N2)
+	(add dF $D1 $N1 to $D2 $N2 into $Direction $Num)
+
+(4dF $Direction $Num)
+	(split $Roll into $First $Second $Third $Fourth)
+	(dF $First $D1 $N1)
+	(dF $Second $D2 $N2)
+	(dF $Third $D3 $N3)
+	(dF $Fourth $D4 $N4)
+	(add dF $D1 $N1 to $D2 $N2 into $D5 $N5)
+	(add dF $D3 $N3 to $D5 $N5 into $D6 $N6)
+	(add dF $D4 $N4 to $D6 $N6 into $Direction $Num)
+
+(d8 $Roll)
+
+(d216 $Total)
+
+(1d10 $Roll)
+	(random choice $Num)
+	(split $Num into $Roll $ $ $)
+
+(2d10 $Roll)
+	(1d10 $First)
+	(1d10 $Second)
+	($First plus $Second into $Roll)
+
+(d20 $Roll)
+	(random choice $Num)
+	(split $Num into $First $Second $ $)
+	(if) ($Second > 3) (then)
+		($First plus 10 into $Roll)
+	(else)
+		($First = $Roll)
+	(endif)
+
+(d360 $Total)
+	(random choice $Num)
+	(split $Num into $Ones $Second $Third $Fourth)
+	($Second times 10 into $Tens)
+	($Ones plus $Tens into $Sum)
+	($Third times 60 into $Sixties)
+	(if) ($Fourth > 3) (then)
+		($Sixties times 2 into $Centuries)
+	(else)
+		($Sixties = $Centuries)
+	(endif)
+	($Sum plus $Centuries into $Total)
+
+(percentile dice $Percent)
+	(1d10 $First)
+	(1d10 $Ones)
+	(10 times $First into $Tens)
+	($Tens plus $Ones into $Percent)
+
+(percentage of $Number into $Result)
