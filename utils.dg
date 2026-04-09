@@ -97,29 +97,11 @@
 	($Num divided by $Multiple into $Div)
 	($Div times $Multiple into $Result)
 
-(add $X to $Y into $Z max $Max)
-    (if) ~($X plus $Y into $Sum) (then)
-	    ($Z = $Max)
-	(else)
-		($X plus $Y into $Sum)
-	    (min $Sum and $Max into $Z)
-	(endif)
-
-(add $X to $Y into $Z)
-	(add $X to $Y into $Z max 16383)
-
 (subtract $Y from $X into $Z)
     (if) ($Y > $X) (then)
 		($Z = 0)
 	(else)
 		($X minus $Y into $Z)
-	(endif)
-
-(multiply $X by $Y into $Z)
-    (if) ~($X times $Y into $Product) (then)
-		($Z = 16383)
-	(else)
-		($Z = $Product)
 	(endif)
 
 (split $Number into $Thousands $Hundreds $Tens $Ones)
