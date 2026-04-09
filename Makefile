@@ -29,7 +29,7 @@ su-101.d71: su-101.aastory
 
 6502: su-101.d64
 
-test: utils time 3d6 3d6-lite sectored-grid schema arc sensors-wide maneuver damage systems
+test: utils time 3d6 3d6-lite sectored-grid schema arc sensors-wide maneuver damage weapons
 
 clean:
 	rm -f *~ \#*\# *.z8 *.zblorb *.aastory *.d64 *.d71 log.txt
@@ -73,8 +73,8 @@ arc:
 damage:
 	$(DEBUG) damage-tests.dg damage.dg schema.dg sectored-grid.dg $(STDLIB)
 
-systems:
-	$(DEBUG) systems-tests.dg systems.dg damage.dg arc.dg schema.dg sectored-grid.dg 3d6.dg $(STDLIB)
+weapons:
+	$(DEBUG) weapons-tests.dg weapons.dg damage.dg arc.dg schema.dg sectored-grid.dg 3d6.dg $(STDLIB)
 
 .PHONY: test all clean utils 6502 time sectored-grid schema sensors maneuver
 .PHONY: arc damage 3d6 3d6-lite 3d6-extra

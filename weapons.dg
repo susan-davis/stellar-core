@@ -1,0 +1,335 @@
+%% weapons.dg
+%% Include damage.dg, arc.dg, schema.dg, sectored-grid.dg, 3d6.dg, and utils.dg
+
+%%-------------------------------- INTERFACES ---------------------------------
+
+(interface (weapon $<Obj))
+
+(interface (energy weapon $<Obj))
+
+(interface (ammo weapon $<Obj))
+
+(interface (long name $))
+
+(interface ($<Ship weapons bearing on angle $<Angle into $>List))
+
+(interface ($<Ship weapons bearing on target $<Target into $>List))
+
+(interface ($<Ship energy weapons bearing on angle $<Angle into $>List))
+
+(interface ($<Ship energy weapons bearing on target $<Target into $>List))
+
+(interface ($<Ship ammo weapons bearing on angle $<Angle into $>List))
+
+(interface ($<Ship ammo weapons bearing on target $<Target into $>List))
+
+(interface ($<Ship fires $<System $<ID $<Details at $<Target using $<Amount))
+
+(interface ($<Ship fires $<Type at target $<Target using $<Amount))
+
+(interface ($<Ship fires $<Type at angle $<Angle using $<Amount))
+
+(interface ($<Ship fires $<Type using $<Amount))
+
+(interface ($<Ship fires at $<Target using $<Energy energy and $<Ammo ammo))
+
+(interface ($<Ship autofires $<Type within $<Range using $<Amount per shot))
+
+%%------------------------------ IMPLEMENTATION ------------------------------
+
+(weapons in $List into $Result)
+    (if) (empty $List) (then)
+		($Result = [])
+	(else)
+		($List = [$Head | $Tail])
+		(nth $Head 1 $Type)
+		(if) (weapon $Type) (then)
+			(weapons in $Tail into $Remainder)
+			(append [$Head] $Remainder $Result)
+		(else)
+			(weapons in $Tail into $Result)
+		(endif)
+	(endif)
+
+($Ship weapons bearing on angle $Angle into $Result)
+	 ($Ship systems $Systems)
+	 (weapons in $Systems into $Weapons)
+	 (find systems bearing on $Angle in $Weapons into $Result)
+
+($Ship weapons bearing on target $Target into $Result)
+	 (angle from $Ship to $Target into $Angle)
+	 ($Ship weapons bearing on angle $Angle into $Result)
+
+%%----------------------------------------------------------------------------
+
+%% Energy weapons work by feeding energy into them from the ship's main energy
+%% bus, and produce immediate effects that can't be countered. For simplicity,
+%% no ship has more than one kind of energy weapon installed, with the possible
+%% exception of the Tiberian vortex generator being like both energy and ammo.
+(weapon *(energy weapon $))
+
+%% Energy projectors are the basic phaser-equivalent energy weapons that most
+%% fleets use.
+#projector
+(name *)		projector
+(long name *)	energy projector
+(weapon *)
+
+%% superstartrek.bas phasers (and Klingon return fire):
+%% damage = (2 to 3)*energy/range, but miss if less than 15% of target
+%% "range" = 1/100 of what our ranges are
+
+%% Projector hit chance = 2d6 > (Range * 100)
+%% Projector damage = Energy * (2d6-7)*10 + 20/Range
+($Ship fires * $ $ at $Target using $Amount)
+	($Ship energy $StartingEnergy)
+	(if) ($Amount > $StartingEnergy) (then)
+		($Energy = $StartingEnergy)
+	(else)
+		($Energy = $Amount)
+	(endif)
+	(decrease energy for $Ship by $Energy)
+	(range from $Ship to $Target into $Range)
+	($Range divided by 100 into $Squares)
+	(two dice $HitChance)
+	(if) ($HitChance > $Squares) (then)
+		(two dice $DieRoll)
+		($DieRoll minus 2 into $Random)
+		($Random times $Energy into $Potential)
+		($Potential divided by 10 into $AddedEnergy)
+		($Energy plus $AddedEnergy into $PlusEnergy)
+		($Energy plus $PlusEnergy into $EffectiveEnergy)
+		($EffectiveEnergy divided by $Squares into $Damage)
+		($Ship hits $Target with $Damage)
+	(endif)
+
+%% Plasma bolts work similarly to energy projectors, but have a more rapid
+%% range decay, unless we encode the decay in details. They mostly exist to
+%% give some colour to foreign (Regulan) ships, to make them different.
+#plasma
+(name *)		plasma
+(long name *)	plasma bolt
+(weapon *)
+
+%% For now, just treat them like projectors.
+($Ship fires * $ID $Details at $Target using $Amount)
+	($Ship fires #projector $ID $Details at $Target using $Amount)
+
+%% Collapsers are the Quellan disruptor-equivalents. In addition to regular
+%% energy damage, they also reduce the target's speed, allowing Quellan ships
+%% to prevent enemies from escaping.
+#collapser
+(name *)		collapser
+(long name *)	warp field collapser
+(weapon *)
+
+%% Collapser hit chance: as energy projector
+%% Collapser damage: as energy projector
+%% Collapser warp field reduction:
+($Ship fires * $ID $Details at $Target using $Amount)
+	($Ship fires #projector $ID $Details at $Target using $Amount)
+
+%% Hyperspace vortex generators are the Tiberian plasma torpedo equivalent.
+%% They rip ships apart by creating small hyperspace portals in their area
+%% of effect. For now, they're direct fire, because we've equated "energy" with
+%% "direct fire," but we could revisit that. This is kind of a weird
+%% intermediate case between ammo and energy weapons, like plasma torpedoes.
+#vortex
+(name *)		vortex generator
+(long name *)	hyperspace vortex generator
+(weapon *)
+
+($Ship fires * $ID $Details at $Target using $Amount)
+    (line) $Ship fires * $ID $Details at $Target using $Amount
+
+%% Ammo weapons work by expending ammo from the ship's magazine(s). Shots from
+%% an ammo weapon might (in a future release) appear on the map as targets for
+%% defensive fire. For simplicity, no ship has more than one kind of ammo
+%% weapon installed.
+(weapon *(ammo weapon $))
+
+%% Hypervelocity torpedoes fire from long railgun launchers, and hit rapidly
+%% enough that the target doesn't get a change to engage them with defensive
+%% fire. If they have a range that reaches into neighbouring sectors, ships in
+%% other sectors *do* get defensive fire, because the flight time has been long
+%% enough, albeit at a penalty.
+#torpedo
+(name *)		torpedo
+(long name *)	hypervelocity torpedo tube
+(weapon *)
+
+%% superstartrek.bas photon torpedoes:
+%% Torpedoes move on one of the eight directions, and hit the first object that
+%% they encounter. Anything other than a star is destroyed instantly.
+
+%% Torpedo hit chance: dependent on target aspect and warp gradient
+%% Torepdo damage: first element of details
+($Ship fires * $ID $Details at $Target using $Amount)
+	(if) ($Amount > 0) ~($Target is destroyed) (then)
+        (target aspect from $Ship to $Target into $Aspect)
+		($Target warp gradient $Speed)
+		(if) ($Aspect = #north) (then)
+		    ($Speed divided by 2 into $ToHit)
+		(elseif) { ($Aspect = #northeast) (or) ($Aspect = #northwest) } (then)
+			($Speed times 3 into $ToHit)
+		(elseif) { ($Aspect = #southeast) (or) ($Aspect = #southwest) } (then)
+			($Speed = $ToHit)
+		(elseif) ($Aspect = #south) (then)
+			($Speed divided by 3 into $ToHit)
+		(else) %% #east #west #up #down
+			($Speed times 2 into $ToHit)
+		(endif)
+		(two dice $Roll)
+		(if) ($Roll > $ToHit) (then)
+		    ($Ship * $ID details $Damage)
+			($Ship hits $Target with $Damage)
+		(endif)
+		(subtract 1 from $Amount into $Remaining)
+		($Ship fires * $ID $Details at $Target using $Remaining)
+	(endif)
+
+%% Alcubierre missiles are equipped with small A-drives, and can engage at
+%% superluminal speeds. They work like torpedoes, but at a slower speed and
+%% with less elaborate launch hardware. Targets get to engage incoming missiles
+%% with defensive fire from any weapons that are set to autofire; they don't
+%% get that opportunity against hypervelocity torpedoes that are in arc and
+%% within the same sector.
+#missile
+(name *)		missile
+(long name *)	Alcubierre missile launcher
+(weapon *)
+
+($Ship fires * $ID $Details at $Target using $Amount)
+    (line) $Ship fires * $ID $Details at $Target using $Amount
+
+%% Bombardment rockets are missiles equipped with reactionless engines, or even
+%% reaction engines in more primitive fleets. They're mostly used for attacking
+%% fixed targets, and can't reliably hit vessels moving at superluminal speeds.
+#rocket
+(name *)		rocket
+(long name *)	bombardment rocket launcher
+(weapon *)
+
+($Ship fires * $ID $Details at $Target using $Amount)
+    (line) $Ship fires * $ID $Details at $Target using $Amount
+
+%% Do we want to have the active scanner/passive sensor distinction? We'll add
+%% #scanner to the set of systems if so. That would add scanning as a distinct
+%% action, to get more information about a target.
+#sensor
+(name *)		sensor
+(long name *)	sensor suite
+
+%% Tractor beams work just like they do in every other space opera.
+#tractor
+(name *)		tractor
+(long name *)	tractor beam
+
+%% The matter transmission device is the transporter equivalent. To cut down on
+%% plot abuse, MTDs can only send, not receive, and are much less reliable
+%% unless paired with a functioning MTD at the other end. Ships carry "MTD
+%% anchors", which can be beamed to remote locations, and function as the
+%% paired station on the far end to allow personnel to beam back to their
+%% ship. A MTD is much less accurate and reliable when not paired with a
+%% receiving station, and safety protocols (except in the Quellan fleet)
+%% prevent beaming organic life without a receiving station. This lets us limit
+%% the MTD's function to being essentially a fancy exit with extra steps. Code
+%% for implementing the MTD is in mtd.dg, not here.
+#mtd
+(name *)		MTD
+(long name *)	matter transmission device
+
+%% Shuttle bays are rated by the area of their opening, and by the number of
+%% shuttles that the bay can hold.
+#shuttle
+(name *)		shuttle bay
+(long name *)	shuttle bay
+
+%% Every starship has an energon reactor that runs on energon crystals. Energon
+%% is our dilithium-equivalent. The reactor is the most central system on the
+%% ship, and its destruction causes the ship to explode.
+#reactor
+(name *)		reactor
+(long name *)	main energon reactor
+
+%% The main power bus stores the ship's available energy supply. Hits to it
+%% release some of that energy, damaging other systems. For PC ships, we have
+%% secondary power buses and account for whether systems are powered and have
+%% network connectivity. For standard ships, we just assume that everything is
+%% plugged in to the main power bus. (Which oversimplifies Quellan cruisers,
+%% but we can live with that.)
+#bus
+(name *)		power bus
+(long name *)	main power bus
+
+%% Reactionless drives are our impulse engine equivalents. They have their own
+%% internal power sources.
+#reactionless
+(name *)		reactionless
+(long name *)	reactionless drive
+
+%% The Alcubierre drive is our warp drive equivalent. "Warp drive" is generic
+%% enough that it's okay if the term slips in occasionally as a synonym, but
+%% we'll call it the "A-drive" most of the time to make it obvious that this is
+%% not Star Trek.
+#a-drive
+(name *)		A-drive
+(long name *)	Alcubierre drive
+
+%% The Tiberians use hyperspace as both their main engines and their cloaking
+%% device.
+#portal
+(name *)		portal generator
+(long name *)	hyperspace portal generator
+
+%% The volume of atmosphere present in a ship gives the crew hours of time to
+%% fix their life support system if it breaks down, but the ship will
+%% inevitably get colder and freeze.
+#life-support
+(name *)		life support
+(long name *)	life support system
+
+%% Damage control teams are not a system, but rather a number of crew members
+%% tasked with fixing damaged systems.
+#damage-control
+(name *)		damage control
+(long name *)	damage control team
+
+#quarters
+(name *)		crew quarters
+(long name *)	crew quarters
+
+#barracks
+(name *)		barracks
+(long name *)	barracks
+
+#lab
+(name *)		lab
+(long name *)	science lab
+
+%%----------------------------------------------------------------------------
+
+($Ship fires at $Target with $Weapons using $Amount)
+	(if) ~(empty $Weapons) ($Amount > 0) (then)
+	    ($Weapons = [$Head | $Tail])
+		($Head = [$Type $ID $ $Value $Details $])
+		(min $Value and $Amount into $Fired)
+        ($Ship fires $Type $ID $Details at $Target using $Fired)
+		(if) ($Value < $Amount) (then)
+			(subtract $Value from $Amount into $Remainder)
+			($Ship fires at $Target with $Tail using $Remainder)
+		(endif)
+	(endif)
+
+($Ship fires $Type at target $Target using $Amount)
+    ($Ship $Type bearing on target $Target into $Weapons)
+	($Ship fires at $Target with $Weapons using $Amount)
+
+($Ship fires at $Target using $Energy energy and $Ammo ammo)
+	$Ship fires at $Target with $Energy energy and $Ammo ammo
+
+($Ship fires $Type at angle $Angle using $Amount)
+	$Ship fires $Type at angle $Angle using $Amount
+
+($Ship fires $Type using $Amount)
+	$Ship fires $Type using $Amount
