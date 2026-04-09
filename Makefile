@@ -44,13 +44,13 @@ time:
 	$(DEBUG) time-tests.dg time.dg $(STDLIB)
 
 dice:
-	$(DEBUG) dice-tests.dg dice.dg unit.dg stdlib.dg
+	$(DEBUG) dice-tests.dg dice.dg $(STDLIB)
 
 dice-lite:
 	$(DEBUG) dice-lite-tests.dg dice-lite.dg unit.dg stdlib.dg
 
 dice-extra:
-	$(DEBUG) dice-lite-tests.dg dice.dg unit.dg stdlib.dg
+	$(DEBUG) dice-lite-tests.dg dice.dg $(STDLIB)
 
 sectored-grid:
 	$(DEBUG) sectored-tests.dg sectored-grid.dg $(STDLIB)
@@ -71,10 +71,10 @@ arc:
 	$(DEBUG) arc-tests.dg arc.dg schema.dg sectored-grid.dg $(STDLIB)
 
 damage:
-	$(DEBUG) damage-tests.dg damage.dg schema.dg sectored-grid.dg dice-lite.dg $(STDLIB)
+	$(DEBUG) damage-tests.dg damage.dg schema.dg sectored-grid.dg dice.dg $(STDLIB)
 
 weapons:
-	$(DEBUG) weapons-tests.dg weapons.dg damage.dg arc.dg schema.dg sectored-grid.dg dice-lite.dg $(STDLIB)
+	$(DEBUG) weapons-tests.dg weapons.dg damage.dg arc.dg schema.dg sectored-grid.dg dice.dg $(STDLIB)
 
 .PHONY: test all clean utils 6502 time sectored-grid schema sensors maneuver
 .PHONY: arc damage dice dice-lite dice-extra

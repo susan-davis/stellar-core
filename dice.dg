@@ -1,4 +1,5 @@
 %% dice.dg
+%% include utils.dg when compiling or debugging
 
 (extension version)	Undo-safe die rolls v0.2 by Susan Davis (line)
 
@@ -31,58 +32,30 @@
 %% and more importantly, is completely fair for 1d6, 2d6, and 3d6. So long as
 %% the next choice isn't obvious, perfectly fair beats perfectly random.
 
-(global variable (list of random die rolls [])) %% see below
+(global variable (list of random die rolls [
+	456 431 536 656 146 515 366 634 451 111 551 425 %% 12
+	411 253 233 164 114 124 564 364 611 535 235 435 %% 24
+	312 643 236 424 131 635 661 135 214 314 246 141 %% 36
+	255 556 345 646 323 624 554 116 615 361 262 546 %% 48
+	644 234 144 243 353 133 531 625 616 562 162 444 %% 60
+	154 542 632 354 333 224 561 543 544 316 446 121 %% 72
+	356 166 311 125 433 521 264 545 332 426 315 532 %% 84
+	441 512 534 524 422 553 463 662 226 134 461 631 %% 96
+	145 555 143 414 313 462 633 156 126 334 665 251 %% 108
+	142 641 325 263 533 331 434 622 452 416 324 541 %% 120
+	423 244 336 651 654 363 442 663 342 132 526 225 %% 132
+	256 231 465 141 552 232 343 365 241 421 136 266 %% 144
+	453 413 412 216 525 511 466 123 153 522 242 454 %% 156
+	222 642 215 513 261 341 443 254 614 321 265 163 %% 168
+	362 621 346 344 322 355 432 326 565 516 666 626 %% 180
+	335 636 155 613 655 212 112 455 445 664 623 211 %% 192
+	645 652 122 244 566 213 152 221 151 252 436 514 %% 204
+	415 563 653 115 113 352 351 464 523 165 223 612 %% 216
+	]))
 
 (global variable (random list position 1))
 
 (global variable (random list length 0)) %% memoize so we only compute once
-
-%% The compiler gags with "statement too complex" if we try to declare all 216
-%% 3d6 rolls in the global declaration statement, so we work around with this.
-
-(initialize random rolls)
-    ($R1 = [
-		4 5 6 4 3 1 5 3 6 6 5 6 1 4 6 5 1 5 %% 6
-		3 6 6 6 3 4 4 5 1 1 1 1 5 5 1 4 2 5 %% 12
-		4 1 1 2 5 3 2 3 3 1 6 4 1 1 4 1 2 4 %% 18
-		5 6 4 3 6 4 6 1 1 5 3 5 2 3 5 4 3 5 %% 24
-		3 1 2 6 4 3 2 3 6 4 2 4 1 3 1 6 3 5 %% 30
-		6 6 1 1 3 5 2 1 4 3 1 4 2 4 6 1 4 1 %% 36
-		2 5 5 5 5 6 3 4 5 6 4 6 3 2 3 6 2 4 %% 42
-		5 5 4 1 1 6 6 1 5 3 6 1 2 6 2 5 4 6 %% 48
-		6 4 4 2 3 4 1 4 4 2 4 3 3 5 3 1 3 3 %% 54
-		5 3 1 6 2 5 6 1 6 5 6 2 1 6 2 4 4 4 %% 60
-		1 5 4 5 4 2 6 3 2 3 5 4 3 3 3 2 2 4 %% 66
-		5 6 1 5 4 3 5 4 4 3 1 6 4 4 6 1 2 1 %% 72
-		3 5 6 1 6 6 3 1 1 1 2 5 4 3 3 5 2 1 %% 78
-		2 6 4 5 4 5 3 3 2 4 2 6 3 1 5 5 3 2 %% 84
-		4 4 1 5 1 2 5 3 4 5 2 4 4 2 2 5 5 3 %% 90
-		4 6 3 6 6 2 2 2 6 1 3 4 4 6 1 6 3 1 %% 96
-		1 4 5 5 5 5 1 4 3 4 1 4 3 1 3 4 6 2 %% 102
-		6 3 3 1 5 6 1 2 6 3 3 4 6 6 5 2 5 1 %% 108
-	])
-	($R2 = [
-		1 4 2 6 4 1 3 2 5 2 6 3 5 3 3 3 3 1 %% 114
-		4 3 4 6 2 2 4 5 2 4 1 6 3 2 4 5 4 1 %% 120
-		4 2 3 2 4 4 3 3 6 6 5 1 6 5 4 3 6 3 %% 126
-		4 4 2 6 6 3 3 4 2 1 3 2 5 2 6 2 2 5 %% 132
-		2 5 6 2 3 1 4 6 5 1 4 1 5 5 2 2 3 2 %% 138
-		3 4 3 3 6 5 2 4 1 4 2 1 1 3 6 2 6 6 %% 144
-		4 5 3 4 1 3 4 1 2 2 1 6 5 2 5 5 1 1 %% 150
-		4 6 6 1 2 3 1 5 3 5 2 2 2 4 2 4 5 4 %% 156
-		2 2 2 6 4 2 2 1 5 5 1 3 2 6 1 3 4 1 %% 162
-		4 4 3 2 5 4 6 1 4 3 2 1 2 6 5 1 6 3 %% 168
-		3 6 2 6 2 1 3 4 6 3 4 4 3 2 2 3 5 5 %% 174
-		4 3 2 3 2 6 5 6 5 5 1 6 6 6 6 6 2 6 %% 180
-		3 3 5 6 3 6 1 5 5 6 1 3 6 5 5 2 1 2 %% 186
-		1 1 2 4 5 5 4 4 5 6 6 4 6 2 3 2 1 1 %% 192
-		6 4 5 6 5 2 1 2 2 2 4 4 5 6 6 2 1 3 %% 198
-		1 5 2 2 2 1 1 5 1 2 5 2 4 3 6 5 1 4 %% 204
-		4 1 5 5 6 3 6 5 3 1 1 5 1 1 3 3 5 2 %% 210
-		3 5 1 4 6 4 5 2 3 1 6 5 2 2 3 6 1 2 %% 216
-	])
-	(append $R1 $R2 $Rolls)
-	(now) (list of random die rolls $Rolls)
 
 %% Starting at the beginning of the list gives the same output for every single
 %% game, which is good for unit tests, but can allow sketchy exploits in games.
@@ -95,14 +68,8 @@
 	(now) (random list position $Position)
 
 (reset randomness)
-	(now) (random list position 0)
-
-(random die rolls $Result)
-	(list of random die rolls $Rolls)
-	(if) (empty $Rolls) (then)
-		(initialize random rolls)
-	(endif)
-	(list of random die rolls $Result)
+	(now) (random list position 1)
+	(now) (random list length 0)
 
 %% We'll memoize the length of our roll list, which also lets us check at run
 %% time how long the list is, allowing games or tests to swap in their own
@@ -111,14 +78,14 @@
 (length of random list $Length) %% measure in case we add or substitute
 	(random list length $Len)
 	(if) ($Len = 0) (then)
-		(random die rolls $Rolls)
+		(list of random die rolls $Rolls)
 		(length of $Rolls into $Length)
 		(now) (random list length $Length)
 	(else)
 		(random list length $Length)
 	(endif)
 
-(one die position $Position)
+(random choice $Num)
 	(random list position $Pos)
 	(length of random list $Length)
 	(if) { ($Pos = 0) (or) ($Pos > $Length) } (then)
@@ -127,38 +94,18 @@
 	(else)
 		(random list position $Position)
 	(endif)
-
-(random roll $Position $Roll)
-	(random die rolls $Rolls)
-	(nth $Rolls $Position $Roll)
-
-(one die $Roll)
-	(one die position $Position)
-	(random roll $Position $Roll)
+	(list of random die rolls $Rolls)
+	(nth $Rolls $Position $Num)
 	($Position plus 1 into $NewPosition)
 	(now) (random list position $NewPosition)
 
-(three dice position $Position)
-	(one die position $Pos)
-	($Pos minus 1 into $Sub)
-	($Sub divided by 3 into $Div)
-	($Div times 3 into $Floor)
-	($Floor plus 1 into $Position)
+(one die $Roll)
+	(random choice $Num)
+	($Num modulo 10 into $Roll)
 
-(three dice $First $Second $Third)
-	(three dice position $P1)
-	(random roll $P1 $First)
-	($P1 plus 1 into $P2)
-	(random roll $P2 $Second)
-	($P2 plus 1 into $P3)
-	(random roll $P3 $Third)
-	($P1 plus 3 into $NewPosition)
-	(now) (random list position $NewPosition)
-
-%% 2d6 stays perfectly fair if you always get them from the same two elements
-%% of any group of 3, but you have to consistently pick the same two.
 (two dice $First $Second)
-	(three dice $First $Second $)
+	(random choice $Num)
+	(split $Num into $ $First $Second $)
 
 (two dice $Total)
 	(two dice $First $Second)
@@ -167,6 +114,10 @@
 (d6 times d6 $Total)
 	(two dice $First $Second)
 	($First times $Second into $Total)
+
+(three dice $First $Second $Third)
+	(random choice $Num)
+	(split $Num into $ $First $Second $Third)
 
 (three dice $Total)
 	(three dice $First $Second $Third)

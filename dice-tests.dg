@@ -10,7 +10,6 @@
 	  #three-roll-total
 	  #wrap-around-3d6
 	  #mix-one-and-three
-	  #memoize-length
 	  #randomize-position
 	  #reset-randomness
 	  ])
@@ -22,19 +21,19 @@
 %%-----------------------------------------------------------------------------
 
 (test #one-roll)
-	(one die 4)
-	(one die 5)
 	(one die 6)
-	(one die 4)
-	(one die 3)
 	(one die 1)
+	(one die 6)
+	(one die 6)
+	(one die 6)
 	(one die 5)
 
 (test #wrap-around-1d6)
- 	(now) (random list position 648)
+ 	(now) (random list position 215)
+	(one die 3)
 	(one die 2)
-	(one die 4)
-	(one die 5)
+	(one die 6)
+	(one die 1)
 	(one die 6)
 
 (test #three-roll-individual)
@@ -78,31 +77,31 @@
 	(three dice 11)
 
 (test #wrap-around-3d6)
-	(now) (random list position 643)
+	(now) (random list position 215)
 	(three dice 2 2 3)
 	(three dice 6 1 2)
 	(three dice 4 5 6)
 	(three dice 4 3 1)
+	(three dice 5 3 6)
+	(three dice 6 5 6)
+	(three dice 1 4 6)
+	(three dice 5 1 5)
 
 (test #mix-one-and-three)
-	(one die 4)
-	(three dice 4 5 6)
-	(one die 4)
-	(one die 3)
-	(three dice 4 3 1)
-	(one die 5)
-	(one die 3)
 	(one die 6)
-	(three dice 6 5 6)
-
-(test #memoize-length)
-	(now) (list of random die rolls []) %% force recomputation
-	(length of random list 648)
+	(three dice 4 3 1)
+	(one die 6)
+	(one die 6)
+	(three dice 1 4 6)
+	(one die 5)
+	(one die 6)
+	(one die 4)
+	(three dice 4 5 1)
 
 (test #randomize-position)
 	(shuffle randomness)
 	(random list length $Len)
-	(assert $Len = 648)
+	(assert $Len = 216)
 	(random list position $Pos)
 	(assert $Pos > 0)
 	(assert $Pos < 649)
