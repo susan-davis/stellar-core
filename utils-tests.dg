@@ -17,6 +17,12 @@
 	#floor-4-3-3
 	#floor-5-3-3
 	#floor-6-3-6
+	#10-plus-20
+	#10-plus-20-max-25
+	#8192-plus-8191-max-16380
+	#8192-plus-8192-max-16380
+	#16380-plus-3
+	#16380-plus-4
 	#30-minus-20
 	#30-minus-40
 	#split-number
@@ -142,6 +148,24 @@
 
 (test #sort-0-0)
 	(sort 0 0 into 0 0)
+
+(test #10-plus-20)
+	(add 10 to 20 into 30)
+
+(test #10-plus-20-max-25)
+    (add 10 to 20 into 25 max 25)
+
+(test #8192-plus-8191-max-16380)
+    (add 8192 to 8191 into 16380 max 16380)
+
+(test #8192-plus-8192-max-16380)
+    (add 8192 to 8192 into 16380 max 16380)
+
+(test #16380-plus-3)
+	(add 3 to 16380 into 16383)
+
+(test #16380-plus-4)
+	(add 4 to 16380 into 16383)
 
 (test #30-minus-20)
     (subtract 20 from 30 into 10)

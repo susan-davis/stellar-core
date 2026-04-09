@@ -23,8 +23,6 @@
 
 (interface (subtract $<X from $<Y into $>Z))    %% safe, capped at 0
 
-(interface (multiply $<X by $<Y into $>Z))      %% safe, capped at maxint
-
 (interface (split $<Number into $>Thousands $>Hundreds $>Tens $>Ones))
 
 (interface (sort $<X $<Y into $>High $>Low))
@@ -96,6 +94,21 @@
 (floor $Num by $Multiple into $Result)
 	($Num divided by $Multiple into $Div)
 	($Div times $Multiple into $Result)
+
+(add $X to $Y into $Z)
+    (add $X to $Y into $Z max 16383)
+
+(add $X to $Y into $Z max $Max)
+	(if) ($X plus $Y into $Sum) (then)
+		($Proposed = $Sum)
+	(else)
+		($Proposed = 16383)
+	(endif)
+	(if) ($Proposed > $Max) (then)
+		($Z = $Max)
+	(else)
+		($Z = $Proposed)
+	(endif)
 
 (subtract $Y from $X into $Z)
     (if) ($Y > $X) (then)

@@ -127,7 +127,6 @@
 (test #wreck-with-300)
 	  (wreck #test-ship with 300 from #north)
 	  (#test-ship systems $Systems)
-	  (#test-ship systems $Systems)
 	  (take from $Systems where element 6 is 16383 into $Destroyed)
 	  (length of $Destroyed into $Num)
 	  $Num destroyed systems
