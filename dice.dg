@@ -5,9 +5,11 @@
 
 %%-------------------------------- INTERFACES ---------------------------------
 
+(interface (d4 $>Total))
+
 (interface (1d6 $>Roll))
 
-(interface (d12 $>Roll))
+(interface (1dF $>Direction $>Num))
 
 (interface (2d6 $>Total))
 
@@ -15,29 +17,27 @@
 
 (interface (d6 times d6 $>Total))
 
-(interface (d36 $>Total))
-
-(interface (d4 $>Total))
-
-(interface (d8 $>Total))
+(interface (2dF $>Direction $>Num))
 
 (interface (3d6 $>Total))
 
 (interface (3d6 $>First $>Second $>Third))
 
-(interface (d216 $>Total))
-
-(interface (1dF $>Direction $>Num))
-
-(interface (2dF $>Direction $>Num))
-
 (interface (4dF $>Direction $>Num))
+
+(interface (d8 $>Total))
 
 (interface (1d10 $>Roll))
 
 (interface (2d10 $>Roll))
 
+(interface (d12 $>Total))
+
 (interface (d20 $>Roll))
+
+(interface (d36 $>Total))
+
+(interface (d216 $>Total))
 
 (interface (d360 $>Roll)) %% great for random facing
 
