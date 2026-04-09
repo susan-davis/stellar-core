@@ -47,7 +47,7 @@
 (damage $Target with $Units from $Direction)
 	($Target energy $Energy)
 	(if) ($Units > $Energy) (then)
-		($Energy minus $Units into $Damage)
+		($Units minus $Energy into $Damage)
 		(decrease energy for $Target by $Energy) %% to 0
 		(wreck $Target with $Damage from $Direction)
 	(else)
@@ -62,8 +62,7 @@
 	(damage $Target system $Type $ID with $Units)
 
 (damage $Target system $Type $ID with $Units)
-%%    (multiply $Units by 2 into $Time) %% why does this break everything?
-	($Time = $Units)
+    ($Units times 2 into $Time)
 	(increase repair time for $Target $Type $ID by $Time)
 
 (wreck $Target with $Units from $Direction)

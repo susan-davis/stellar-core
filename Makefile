@@ -47,10 +47,10 @@ time:
 	$(DEBUG) 3d6-tests.dg 3d6.dg $(STDLIB)
 
 3d6-lite:
-	$(DEBUG) 3d6-lite-tests.dg 3d6-lite.dg $(STDLIB)
+	$(DEBUG) 3d6-lite-tests.dg 3d6-lite.dg unit.dg stdlib.dg
 
 3d6-extra:
-	$(DEBUG) 3d6-lite-tests.dg 3d6.dg $(STDLIB)
+	$(DEBUG) 3d6-lite-tests.dg 3d6.dg unit.dg stdlib.dg
 
 sectored-grid:
 	$(DEBUG) sectored-tests.dg sectored-grid.dg $(STDLIB)

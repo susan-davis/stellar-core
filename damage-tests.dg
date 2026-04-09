@@ -105,17 +105,16 @@
       (hit #closest-target with 150 from #north)
 	  (assert #closest-target has 150 and 450)
 	  (#closest-target systems $Systems)
-	  (take from $Systems where element 6 is 50 into $Damaged)
-	  (length of $Damaged into $Num)
-	  (assert $Num = 1)
+	  (take from $Systems where element 6 is 100 into $Damaged)
+	  (length of $Damaged into 1)
 
 (test #damage-projector-with-300)
 	  (damage #test-ship system #projector 1 with 300)
-	  (#test-ship #projector 1 repair time 300)
+	  (#test-ship #projector 1 repair time 600)
 
 (test #damage-tractor-with-300)
 	  (damage #test-ship system #tractor 1 with 300)
-	  (#test-ship #tractor 1 repair time 1100)
+	  (#test-ship #tractor 1 repair time 1400)
 
 (test #damage-mtd-with-300)
 	  (damage #test-ship system #mtd 1 with 300)
