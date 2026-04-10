@@ -5,7 +5,9 @@
 
 %%-------------------------------- INTERFACES ---------------------------------
 
-(interface (d4 $>Total))
+(interface (d3 $>Roll))
+
+(interface (d4 $>Roll))
 
 (interface (1d6 $>Roll))
 
@@ -19,19 +21,19 @@
 
 (interface (3d6 $>First $>Second $>Third))
 
-(interface (d8 $>Total))
+(interface (d8 $>Roll))
 
 (interface (1d10 $>Roll))
 
-(interface (2d10 $>Roll))
+(interface (2d10 $>Total))
 
-(interface (d12 $>Total))
+(interface (d12 $>Roll))
 
 (interface (d20 $>Roll))
 
-(interface (d36 $>Total))
+(interface (d36 $>Roll))
 
-(interface (d216 $>Total))
+(interface (d216 $>Roll))
 
 (interface (d360 $>Roll)) %% great for random facing
 
@@ -180,6 +182,12 @@
 		($Sixties = $Centuries)
 	(endif)
 	($Sum plus $Centuries into $Total)
+
+(d3 $Roll)
+	(1d6 $Die)
+	($Die minus 1 into $Raw)
+	($Raw divided by 2 into $Div)
+	($Div plus 1 into $Roll)
 
 (d4 $Roll)
 	(d36 $Die)
