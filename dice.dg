@@ -1,7 +1,7 @@
 %% dice.dg
 %% include utils.dg when compiling or debugging
 
-(extension version)	Undo-safe die rolls v0.4 by Susan Davis (line)
+(extension version)	Undo-safe die rolls v0.5 by Susan Davis (line)
 
 %%-------------------------------- INTERFACES ---------------------------------
 
@@ -37,7 +37,8 @@
 
 (interface (percentage of $<Number into $>Result))
 
-%% Call this at program entry to give a different sequence of rolls every game.
+%% Call this at program entry to give a different sequence of rolls every game,
+%% but still prevent save scumming.
 (interface (shuffle randomness))
 
 %% Call this to get to a known, predictable spot for testing.
@@ -46,70 +47,92 @@
 %%------------------------------ IMPLEMENTATION -------------------------------
 
 %% 216 rolls of 3d6, normalized so that every combination of three die rolls
-%% occurs exactly once. I generated these by physically shuffling a deck of 216
-%% such cards, and dealing them out one by one, after twelve fair shuffles.
-%% That should give better randomness than (random from $ to $ into $) does,
-%% and more importantly, is completely fair for 1d6, 2d6, and 3d6. So long as
-%% the next choice isn't obvious, perfectly fair beats perfectly random.
+%% occurs exactly once. I generated these by physically shuffling and dealing
+%% out decks of cards (216 cards for the 3d6 rolls, 80 at a time for the d20
+%% rolls). The first 200 rolls contain equal numbers of 1 through 20, where the
+%% hundreds place distinguishes between 1-10 and 11-20.
 
-(global variable (list of random die rolls [
-	456 431 536 656 146 515 366 634 451 111 551 425 %% 12
-	411 253 233 164 114 124 564 364 611 535 235 435 %% 24
-	312 643 236 424 131 635 661 135 214 314 246 141 %% 36
-	255 556 345 646 323 624 554 116 615 361 262 546 %% 48
-	644 234 144 243 353 133 531 625 616 562 162 444 %% 60
-	154 542 632 354 333 224 561 543 544 316 446 121 %% 72
-	356 166 311 125 433 521 264 545 332 426 315 532 %% 84
-	441 512 534 524 422 553 463 662 226 134 461 631 %% 96
-	145 555 143 414 313 462 633 156 126 334 665 251 %% 108
-	142 641 325 263 533 331 434 622 452 416 324 541 %% 120
-	423 244 336 651 654 363 442 663 342 132 526 225 %% 132
-	256 231 465 141 552 232 343 365 241 421 136 266 %% 144
-	453 413 412 216 525 511 466 123 153 522 242 454 %% 156
-	222 642 215 513 261 341 443 254 614 321 265 163 %% 168
-	362 621 346 344 322 355 432 326 565 516 666 626 %% 180
-	335 636 155 613 655 212 112 455 445 664 623 211 %% 192
-	645 652 122 244 566 213 152 221 151 252 436 514 %% 204
-	415 563 653 115 113 352 351 464 523 165 223 612 %% 216
+(global variable (list of random die rolls [ %% 432 bytes of storage
+	 9456  3431  6536  5656  9146  2515  4366  3634  1451  2111  8551  4425
+	 7411 10253  7233 10164  1114  7124  8564  6364  9611  5535  5235  6435
+	 8312 10643  5236  2424  9131  1635  4661  4135  3214  3314  6246  1141
+	 2255  7556  3345  8646  5323 10624 10554  7116  1615  3361  9262  7546
+	 8644  6234  6144  4243  5353  6133  3531  5625  2616  1562  1162  1444
+	 7154  3542  4632 10354  8333  5224  9561  7543  1544  2316  8446  9121
+	 4356  4166  7311  7125  5433  8521  1264  2545  9332  4426  3315  6532
+	 2441  6512  2534  5524  9422  9553  4463  4662  2226  4134 10461  6631
+	10145  7555  8143  8414  3313  6462 10633  1156  2126  9334 10665  6251
+	 5142  9641  8325 10263  7533 10331  3434  3622  5452  3416  1324  9541
+	 2423  2244  8336  9651  3654  1363  7442  8663  2342 10132  6526  6225
+	 5256  4231  1465  6141  7552  8232  3343  8365  7241  7421  1136  6266
+	 9453  4413  7412  6216  2525  4511  8466  1123  8153  5522  2242  4454
+	 1222  5642  2215  3513  4261  4341  1443  9254 10614  7321  7265  7163
+	 3362  8621  5346  4344 10322  5355  6432  5326 10565 10516  1666  1626
+	 9335  9636  9155  6613  2655  9212 10112  4455  8445 10664  3623 10211
+	 5645  6652  3122  2566  3213  2436  8244  5514 10152  8221  1151  4252
+	 8415  4563  6653  6115  7113  2352  5351 10464  9523  3165  9223  3612
 	]))
 
-(global variable (random list position 1))
+(global variable (3d6 list position 1))
+
+%% Picks for tens and twenties are fair through the first 200 entries, but have
+%% four missing numbers in the last 16, so we'll keep a separate pointer and
+%% only use the first 200 elements for d10 and d20 rolls.
+
+(global variable (d20 list position 1))
 
 %% Starting at the beginning of the list gives the same output for every single
 %% game, which is good for unit tests, but can allow sketchy exploits in games.
-%% Call this at the beginning of (program entry point) to start from a random
-%% spot in the list instead.
+%% Call this once at the beginning of (program entry point) to start from a
+%% random  spot in the list instead. Calling this again after play has started
+%% breaks undo safety.
 
 (shuffle randomness)
 	(random from 1 to 216 into $Position)
-	(now) (random list position $Position)
+	(now) (3d6 list position $Position)
+	(random from 1 to 200 into $Position20)
+	(now) (d20 list position $Position20)
 
 (reset randomness)
-	(now) (random list position 1)
+	(now) (3d6 list position 1)
+	(now) (d20 list position 1)
 
-(random choice $Num)
-	(random list position $Pos)
+(3d6 choice $Num)
+	(3d6 list position $Pos)
 	(if) { ($Pos = 0) (or) ($Pos > 216) } (then)
 		($Position = 1)
-	    (now) (random list position $Position)
+	    (now) (3d6 list position $Position)
 	(else)
-		(random list position $Position)
+		(3d6 list position $Position)
 	(endif)
 	(list of random die rolls $Rolls)
 	(nth $Rolls $Position $Num)
 	($Position plus 1 into $NewPosition)
-	(now) (random list position $NewPosition)
+	(now) (3d6 list position $NewPosition)
+
+(d20 choice $Num)
+	(d20 list position $Pos)
+	(if) { ($Pos = 0) (or) ($Pos > 216) } (then)
+		($Position = 1)
+	    (now) (d20 list position $Position)
+	(else)
+		(d20 list position $Position)
+	(endif)
+	(list of random die rolls $Rolls)
+	(nth $Rolls $Position $Num)
+	($Position plus 1 into $NewPosition)
+	(now) (d20 list position $NewPosition)
 
 (d3 $Roll)
 	(1d6 $Die)
 	($Die divided by 2 into $Roll rounding up)
 
 (1d6 $Roll)
-	(random choice $Num)
+	(3d6 choice $Num)
 	($Num modulo 10 into $Roll)
 
 (2d6 $First $Second)
-	(random choice $Num)
+	(3d6 choice $Num)
 	(split $Num into $ $ $First $Second)
 
 (2d6 $Total)
@@ -121,7 +144,7 @@
 	($First times $Second into $Total)
 
 (3d6 $First $Second $Third)
-	(random choice $Num)
+	(3d6 choice $Num)
 	(split $Num into $ $First $Second $Third)
 
 (3d6 $Total)
@@ -130,7 +153,7 @@
 	($Sum plus $Third into $Total)
 
 (1d10 $Roll)
-	(random choice $Num)
+	(d20 choice $Num)
 	(split $Num into $Roll $ $ $)
 
 (2d10 $Total)
@@ -142,7 +165,7 @@
 	(1d10 $Second)
 
 (d20 $Roll)
-	(random choice $Num)
+	(d20 choice $Num)
 	(split $Num into $First $Second $ $)
 	(if) ($Second > 3) (then)
 		($First plus 10 into $Roll)
@@ -151,7 +174,7 @@
 	(endif)
 
 (d36 $Total)
-	(random choice $Num)
+	(3d6 choice $Num)
 	(split $Num into $ $ $Second $Ones)
 	($Second minus 1 into $Upper)
 	($Upper times 6 into $Sixes)
@@ -168,7 +191,7 @@
 	($Tens plus $Ones into $Percent)
 
 (d216 $Total)
-	(random choice $Num)
+	(3d6 choice $Num)
 	(split $Num into $ $Third $Second $Ones)
 	($Second minus 1 into $Middle)
 	($Middle times 6 into $Sixes)
@@ -177,16 +200,16 @@
 	($Upper times 36 into $ThirtySixes)
 	($ThirtySixes plus $Sum into $Total)
 
-(d360 $Total) %% build backwards
-	(random choice $Num)
+(d360 $Total)
+	(3d6 choice $Num)
 	(split $Num into $First $Second $Third $Fourth)
 	($First minus 1 into $Ones)
-	($Second minus 1 into $Lower)
+	($Third minus 1 into $Lower)
 	($Lower times 10 into $Tens)
 	($Ones plus $Tens into $Sum)
-	($Third minus 1 into $Middle)
+	($Fourth minus 1 into $Middle)
 	($Middle times 60 into $Sixties)
-	(if) ($Fourth > 3) (then)
+	(if) ($Second > 3) (then)
 		($Sixties times 2 into $Centuries)
 	(else)
 		($Sixties = $Centuries)

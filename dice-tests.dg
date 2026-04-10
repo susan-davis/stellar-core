@@ -40,7 +40,7 @@
 	(1d6 5)
 
 (test #wrap-around-1d6)
- 	(now) (random list position 215)
+ 	(now) (3d6 list position 215)
 	(1d6 3)
 	(1d6 2)
 	(1d6 6)
@@ -88,7 +88,7 @@
 	(3d6 11)
 
 (test #wrap-around-3d6)
-	(now) (random list position 215)
+	(now) (3d6 list position 215)
 	(3d6 2 2 3)
 	(3d6 6 1 2)
 	(3d6 4 5 6)
@@ -127,10 +127,16 @@
 
 (test #randomize-position)
 	(shuffle randomness)
-	(random list position $Pos)
+	(3d6 list position $Pos)
+	(assert $Pos > 0)
+	(assert $Pos < 217)
 	(assert $Pos > 0)
 	(assert $Pos < 217)
 	$Pos
+	(d20 list position $Pos20)
+	(assert $Pos20 > 0)
+	(assert $Pos20 < 217)
+	$Pos20
 
 (test #reset-randomness)
 	(3d6 4 5 6)
