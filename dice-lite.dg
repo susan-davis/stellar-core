@@ -3,7 +3,7 @@
 %% Swap this in if you want to reduce output size and have been using 3d6.dg.
 %% Do not include 3d6.dg if you include this file.
 
-(extension version)	Simple die rolls v0.1 by Susan Davis (line)
+(extension version)	Simple die rolls v0.2 by Susan Davis (line)
 
 %%-------------------------------- INTERFACES ---------------------------------
 
@@ -21,19 +21,13 @@
 
 (interface (3d6 $>First $>Second $>Third))
 
-(interface (1dF $>Direction $>Num))
-
-(interface (2dF $>Direction $>Num))
-
-(interface (4dF $>Direction $>Num))
-
 (interface (d8 $>Total))
 
 (interface (1d10 $>Roll))
 
 (interface (2d10 $>Roll))
 
-(interface (d12 $>Roll))
+(interface (d12 $>Total))
 
 (interface (d20 $>Roll))
 
@@ -47,6 +41,15 @@
 
 (interface (percentage of $<Number into $>Result))
 
+%% Fudge dice can have direction #up, #down, or 0. If direction 0, the number
+%% of pips is normailzed to 0 as well.
+
+(interface (1dF $>Direction $>Num))
+
+(interface (2dF $>Direction $>Num))
+
+(interface (4dF $>Direction $>Num))
+
 %% Call this at program entry to give a different sequence of rolls every game.
 (interface (shuffle randomness))
 
@@ -54,6 +57,13 @@
 (interface (reset randomness))
 
 %%------------------------------ IMPLEMENTATION -------------------------------
+
+(shuffle randomness) %% do nothing
+
+(reset randomness) %% do nothing
+
+(d4 $Total)
+	(random from 1 to 4 into $Total)
 
 (1d6 $Roll)
 	(random from 1 to 6 into $Roll)
@@ -70,18 +80,6 @@
 	(1d6 $A) (1d6 $B)
 	($A times $B into $Total)
 
-(d36 $Total)
-	(random from 1 to 36 into $Total)
-
-(d4 $Total)
-	(random from 1 to 4 into $Total)
-
-(d8 $Total)
-	(random from 1 to 8 into $Total)
-
-(d12 $Total)
-	(random from 1 to 12 into $Total)
-
 (3d6 $Total)
     (2d6 $A)
 	(1d6 $B)
@@ -92,14 +90,8 @@
 	(1d6 $Second)
 	(1d6 $Third)
 
-(d216 $Total)
-	(random from 1 to 216 into $Total)
-
-(1dF $Direction)
-
-(2dF $Direction $Roll)
-
-(4dF $Direction $Roll)
+(d8 $Total)
+	(random from 1 to 8 into $Total)
 
 (1d10 $Roll)
 	(random from 1 to 10 into $Total)
@@ -109,8 +101,17 @@
 	(1d10 $Second)
 	($First plus $Second into $Roll)
 
+(d12 $Total)
+	(random from 1 to 12 into $Total)
+
 (d20 $Roll)
 	(random from 1 to 20 into $Total)
+
+(d36 $Total)
+	(random from 1 to 36 into $Total)
+
+(d216 $Total)
+	(random from 1 to 216 into $Total)
 
 (d360 $Roll)
 	(random from 1 to 360 into $Total)
@@ -121,6 +122,75 @@
 (percentage of $Number into $Result)
 	(random from 1 to $Number into $Result)
 
-(shuffle randomness) %% do nothing
+%%-----------------------------------------------------------------------------
 
-(reset randomness) %% do nothing
+(dF $Roll $Direction $Num)
+	(if)     { ($Roll = 1) (or) ($Roll = 2) (or) ($Roll = 7) } (then)
+		($Direction = #down)
+	(elseif) { ($Roll = 5) (or) ($Roll = 6) (or) ($Roll = 9) } (then)
+		($Direction = #up)
+	(else)
+		($Direction = 0)
+	(endif)
+	(if) ($Direction = 0) (then)
+		 ($Num = 0)
+	(else)
+		 ($Num = 1)
+	(endif)
+
+(add dF $D1 $N1 to $D2 $N2 into $Direction $Num)
+	(if) ($D1 = 0) (then)
+	    ($First = 0)
+	(else)
+		($First = $N1)
+	(endif)
+	(if) ($D2 = 0) (then)
+	    ($Second = 0)
+	(else)
+		($Second = $N2)
+	(endif)
+	(if) ($D1 = #up) ($D2 = $#down) (then)
+		(if) ($N2 > $N1) (then)
+		    ($Direction = #down)
+			(subtract $N1 from $N2 into $Num)
+		(else)
+		    ($Direction = #up)
+			(subtract $N2 from $N1 into $Num)
+		(endif)
+	(elseif) ($D1 = #down) ($D2 = $#up) (then)
+		(if) ($N2 > $N1) (then)
+		    ($Direction = #up)
+			(subtract $N1 from $N2 into $Num)
+		(else)
+		    ($Direction = #down)
+			(subtract $N2 from $N1 into $Num)
+		(endif)
+	(else)
+	    (if) ($D2 = 0) (then)
+			($Direction = $D1)
+		(else)
+			($Direction = $D2)
+		(endif)
+		($First plus $Second into $Num)
+	(endif)
+
+(1dF $Direction $Num)
+	(1d6 $Roll)
+	(dF $Roll $Direction $Num)
+
+(2dF $Direction $Num)
+	(2d6 $First $Second)
+	(dF $First $D1 $N1)
+	(dF $Second $D2 $N2)
+	(add dF $D1 $N1 to $D2 $N2 into $Direction $Num)
+
+(4dF $Direction $Num)
+	(2d6 $First $Second)
+	(2d6 $Third $Fourth)
+	(dF $First $D1 $N1)
+	(dF $Second $D2 $N2)
+	(dF $Third $D3 $N3)
+	(dF $Fourth $D4 $N4)
+	(add dF $D1 $N1 to $D2 $N2 into $D5 $N5)
+	(add dF $D3 $N3 to $D5 $N5 into $D6 $N6)
+	(add dF $D4 $N4 to $D6 $N6 into $Direction $Num)
