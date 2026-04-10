@@ -25,38 +25,31 @@
 
 (interface (d8 $>Roll))
 
+(interface (d12 $>Roll))
+
 (interface (1d10 $>Roll))
 
 (interface (2d10 $>Total))
 
-(interface (d12 $>Roll))
+(interface (2d10 $>First $>Second))
 
 (interface (d20 $>Roll))
 
 (interface (d36 $>Roll))
 
+(interface (d100 $>Percent))
+
 (interface (d216 $>Roll))
 
 (interface (d360 $>Roll)) %% great for random facing
 
-(interface (percentile dice $>Percent))
-
 (interface (percentage of $<Number into $>Result))
 
-%% Fudge dice can have direction #up, #down, or 0. If direction 0, the number
-%% of pips is normailzed to 0 as well.
+%% These two rules do nothing, and are here for compatibility with dice.dg.
 
-(interface (1dF $>Direction $>Num))
+(interface (shuffle randomness)) %% do nothing
 
-(interface (2dF $>Direction $>Num))
-
-(interface (4dF $>Direction $>Num))
-
-%% Call this at program entry to give a different sequence of rolls every game.
-(interface (shuffle randomness))
-
-%% Call this to get to a known, predictable spot for testing.
-(interface (reset randomness))
+(interface (reset randomness)) %% do nothing
 
 %%------------------------------ IMPLEMENTATION -------------------------------
 
@@ -121,71 +114,8 @@
 (d360 $Roll)
 	(random from 1 to 360 into $Roll)
 
-(percentile dice $Percent)
+(d100 $Percent)
 	(random from 1 to 100 into $Percent)
 
 (percentage of $Number into $Result)
 	(random from 1 to $Number into $Result)
-
-%%-----------------------------------------------------------------------------
-
-(dF $Roll $Direction $Num)
-	(if)     { ($Roll = 1) (or) ($Roll = 2) } (then)
-		($Direction = #down)
-	(elseif) { ($Roll = 5) (or) ($Roll = 6) } (then)
-		($Direction = #up)
-	(else)
-		($Direction = 0)
-	(endif)
-	(if) ($Direction = 0) (then)
-		 ($Num = 0)
-	(else)
-		 ($Num = 1)
-	(endif)
-
-(add dF $D1 $N1 to $D2 $N2 into $Direction $Num)
-	(if) ($D1 = #up) ($D2 = $#down) (then)
-		(if) ($N2 > $N1) (then)
-		    ($Direction = #down)
-			(subtract $N1 from $N2 into $Num)
-		(else)
-		    ($Direction = #up)
-			(subtract $N2 from $N1 into $Num)
-		(endif)
-	(elseif) ($D1 = #down) ($D2 = $#up) (then)
-		(if) ($N2 > $N1) (then)
-		    ($Direction = #up)
-			(subtract $N1 from $N2 into $Num)
-		(else)
-		    ($Direction = #down)
-			(subtract $N2 from $N1 into $Num)
-		(endif)
-	(else) %% same direction, or one of them is zero
-	    (if) ($D1 = 0) (then)
-			($Direction = $D2)
-		(else)
-			($Direction = $D1)
-		(endif)
-		($First plus $Second into $Num)
-	(endif)
-
-(1dF $Direction $Num)
-	(1d6 $Roll)
-	(dF $Roll $Direction $Num)
-
-(2dF $Direction $Num)
-	(2d6 $First $Second)
-	(dF $First $D1 $N1)
-	(dF $Second $D2 $N2)
-	(add dF $D1 $N1 to $D2 $N2 into $Direction $Num)
-
-(4dF $Direction $Num)
-	(2d6 $First $Second)
-	(2d6 $Third $Fourth)
-	(dF $First $D1 $N1)
-	(dF $Second $D2 $N2)
-	(dF $Third $D3 $N3)
-	(dF $Fourth $D4 $N4)
-	(add dF $D1 $N1 to $D2 $N2 into $D5 $N5)
-	(add dF $D3 $N3 to $D5 $N5 into $D6 $N6)
-	(add dF $D4 $N4 to $D6 $N6 into $Direction $Num)
