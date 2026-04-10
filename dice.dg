@@ -5,15 +5,11 @@
 
 %%-------------------------------- INTERFACES ---------------------------------
 
-(interface (d3 $>Roll))
-
 (interface (1d6 $>Roll))
 
 (interface (2d6 $>Total))
 
 (interface (2d6 $>First $>Second))
-
-(interface (d6 times d6 $>Total))
 
 (interface (3d6 $>Total))
 
@@ -46,7 +42,9 @@
 
 %% 216 rolls of 3d6, normalized so that every combination of three die rolls
 %% occurs exactly once. I generated these by physically shuffling and dealing
-%% out a deck of 216 cards after eight fair shuffles.
+%% out a deck of 216 cards after eight fair shuffles, which should give much
+%% better randomness than a typical 8- or 16-bit rng within the typical number
+%% of random events for an IF game that includes randomness.
 
 %% I later added values 1-10 in the thousands (and ten thousands) digit
 %% before realizing that fair d10, d20, and d% rolls can be gotten from a d216
@@ -105,10 +103,6 @@
 	($Position plus 1 into $NewPosition)
 	(now) (random list position $NewPosition)
 
-(d3 $Roll)
-	(1d6 $Die)
-	($Die divided by 2 into $Roll rounding up)
-
 (1d6 $Roll)
 	(random choice $Num)
 	($Num modulo 10 into $Roll)
@@ -120,10 +114,6 @@
 (2d6 $Total)
 	(2d6 $First $Second)
 	($First plus $Second into $Total)
-
-(d6 times d6 $Total)
-	(2d6 $First $Second)
-	($First times $Second into $Total)
 
 (3d6 $First $Second $Third)
 	(random choice $Num)

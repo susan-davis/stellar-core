@@ -3,13 +3,17 @@
 
 %%-------------------------------- INTERFACES ---------------------------------
 
+(interface (d3 $>Roll))
+
 (interface (d4 $>Roll))
 
 (interface (2d6 $>Total DARO)) %% doubles add and roll over (T&T)
 
 (interface (3d6 $>Total TARO)) %% triples add and roll over (T&T)
 
-(interface (min mid max $Min $Mid $Max))
+(interface (d6 times d6 $>Total))
+
+(interface (min mid max $>Min $>Mid $>Max))
 
 (interface (d8 $>Roll))
 
@@ -39,6 +43,10 @@
 
 %%------------------------------ IMPLEMENTATION -------------------------------
 
+(d3 $Roll)
+	(1d6 $Die)
+	($Die divided by 2 into $Roll rounding up)
+
 (d4 $Roll)
 	(d36 $Die)
 	($Die divided by 9 into $Roll rounding up)
@@ -63,6 +71,10 @@
 	(else)
 		($FirstTwo plus $Third into $Total)
 	(endif)
+
+(d6 times d6 $Total)
+	(2d6 $First $Second)
+	($First times $Second into $Total)
 
 (min mid max $Min $Mid $Max)
 	(3d6 $First $Second $Third)

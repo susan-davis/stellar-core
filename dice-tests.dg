@@ -1,13 +1,11 @@
 %% dgdebug -u dice-tests.dg dice.dg unit.dg stdlib.dg
 
 (list of tests [
-	  #d3
 	  #one-roll
 	  #wrap-around-1d6
 	  #three-roll-individual
 	  #two-roll-total
 	  #two-roll-individual
-	  #die-times-die
 	  #three-roll-total
 	  #wrap-around-3d6
 	  #mix-one-and-three
@@ -27,14 +25,6 @@
 (set up $) (reset randomness)
 
 %%-----------------------------------------------------------------------------
-
-(test #d3)
-	(d3 3)
-	(d3 1)
-	(d3 3)
-	(d3 3)
-	(d3 3)
-	(d3 3)
 
 (test #one-roll)
 	(1d6 6)
@@ -75,14 +65,6 @@
 	(2d6 5 6)
 	(2d6 4 6)
 	(2d6 1 5)
-
-(test #die-times-die)
-    (d6 times d6 30)
-	(d6 times d6 3)
-	(d6 times d6 18)
-	(d6 times d6 30)
-	(d6 times d6 24)
-	(d6 times d6 5)
 
 (test #three-roll-total)
 	(3d6 15)

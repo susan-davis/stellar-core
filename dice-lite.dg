@@ -7,25 +7,15 @@
 
 %%-------------------------------- INTERFACES ---------------------------------
 
-(interface (d3 $>Roll))
-
-(interface (d4 $>Roll))
-
 (interface (1d6 $>Roll))
 
 (interface (2d6 $>Total))
 
 (interface (2d6 $>First $>Second))
 
-(interface (d6 times d6 $>Total))
-
 (interface (3d6 $>Total))
 
 (interface (3d6 $>First $>Second $>Third))
-
-(interface (d8 $>Roll))
-
-(interface (d12 $>Roll))
 
 (interface (1d10 $>Roll))
 
@@ -55,12 +45,6 @@
 
 (reset randomness) %% do nothing
 
-(d3 $Roll)
-	(random from 1 to 3 into $Roll)
-
-(d4 $Roll)
-	(random from 1 to 4 into $Roll)
-
 (1d6 $Roll)
 	(random from 1 to 6 into $Roll)
 
@@ -72,10 +56,6 @@
 	(1d6 $First)
 	(1d6 $Second)
 
-(d6 times d6 $Total)
-	(1d6 $A) (1d6 $B)
-	($A times $B into $Total)
-
 (3d6 $Total)
     (2d6 $A)
 	(1d6 $B)
@@ -86,19 +66,16 @@
 	(1d6 $Second)
 	(1d6 $Third)
 
-(d8 $Roll)
-	(random from 1 to 8 into $Roll)
-
 (1d10 $Roll)
 	(random from 1 to 10 into $Roll)
 
 (2d10 $Total)
-	(1d10 $First)
-	(1d10 $Second)
+	(2d10 $First $Second)
 	($First plus $Second into $Total)
 
-(d12 $Roll)
-	(random from 1 to 12 into $Roll)
+(2d10 $First $Second)
+	(1d10 $First)
+	(1d10 $Second)
 
 (d20 $Roll)
 	(random from 1 to 20 into $Roll)

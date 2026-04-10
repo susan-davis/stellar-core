@@ -4,6 +4,12 @@
 	#one-die
 	#two-dice
 	#three-dice
+	#1d10
+	#2d10
+	#d20
+	#d36
+	#d100
+	#d216
     ])
 
 (set up $)	(reset randomness)
@@ -28,8 +34,6 @@
 		(2d6 $A $B)
 		($A > 0) ($A < 7)
 		($B > 0) ($B < 7)
-		(d6 times d6 $Multiple)
-		($Multiple > 0) ($Multiple < 37)
 		($N minus 1 into $NMinusOne)
 		(2d6 $NMinusOne times)
 	(endif)
@@ -51,3 +55,72 @@
 
 (test #three-dice)
 	(3d6 1000 times)
+
+(1d10 $N times)
+	(if) ($N > 0) (then)
+		(1d10 $Roll)
+		($Roll > 0) ($Roll < 11)
+		($N minus 1 into $NMinusOne)
+		(1d10 $NMinusOne times)
+	(endif)
+
+(test #1d10)
+	(1d10 1000 times)
+
+(2d10 $N times)
+	(if) ($N > 0) (then)
+		(2d10 $Roll)
+		($Roll > 1) ($Roll < 21)
+		(2d10 $A $B)
+		($A > 0) ($A < 11)
+		($B > 0) ($B < 11)
+		($N minus 1 into $NMinusOne)
+		(2d10 $NMinusOne times)
+	(endif)
+
+(test #2d10)
+	(2d10 1000 times)
+
+(d20 $N times)
+	(if) ($N > 0) (then)
+		(d20 $Roll)
+		($Roll > 0) ($Roll < 21)
+		($N minus 1 into $NMinusOne)
+		(d20 $NMinusOne times)
+	(endif)
+
+(test #d20)
+	(d20 1000 times)
+
+(d36 $N times)
+	(if) ($N > 0) (then)
+		(d36 $Roll)
+		($Roll > 0) ($Roll < 37)
+		($N minus 1 into $NMinusOne)
+		(d36 $NMinusOne times)
+	(endif)
+
+(test #d36)
+	(d36 1000 times)
+
+(d100 $N times)
+	(if) ($N > 0) (then)
+		(d100 $Roll)
+		($Roll > 0) ($Roll < 101)
+		($N minus 1 into $NMinusOne)
+		(d100 $NMinusOne times)
+	(endif)
+
+(test #d100)
+	(d100 1000 times)
+
+(d216 $N times)
+	(if) ($N > 0) (then)
+		(d216 $Roll)
+		($Roll > 0) ($Roll < 217)
+		($N minus 1 into $NMinusOne)
+		(d216 $NMinusOne times)
+	(endif)
+
+(test #d216)
+	(d216 1000 times)
