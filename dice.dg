@@ -136,10 +136,6 @@
 	($First plus $Second into $Sum)
 	($Sum plus $Third into $Total)
 
-(d36 $Total)
-
-(d216 $Total)
-
 (1d10 $Roll)
 	(random choice $Num)
 	(split $Num into $Roll $ $ $)
@@ -158,11 +154,19 @@
 		($First = $Roll)
 	(endif)
 
-(d4 $Roll)
+(d36 $Total)
+	(random choice $Num)
+	(split $Num into $ $ $Second $Ones)
+	($Second times 6 into $Sixes)
+	($Ones plus $Sixes into $Total)
 
-(d8 $Roll)
-
-(d12 $Roll)
+(d216 $Total)
+	(random choice $Num)
+	(split $Num into $ $Third $Second $Ones)
+	($Second times 6 into $Sixes)
+	($Ones plus $Sixes into $Sum)
+	($Third times 36 into $ThirtySixes)
+	($ThirtySixes plus $Sum into $Total)
 
 (d360 $Total)
 	(random choice $Num)
@@ -177,6 +181,28 @@
 	(endif)
 	($Sum plus $Centuries into $Total)
 
+(d4 $Roll)
+	(d36 $Die)
+	($Die minus 1 into $Raw)
+	($Raw divided by 9 into $Div)
+	($Div plus 1 into $Roll)
+
+(d8 $Roll)
+	(d36 $Die)
+	(if) ($Die > 32) (then)
+		(d8 $Roll) %% roll again
+	(else)
+		($Die minus 1 into $Raw)
+		($Raw divided by 4 into $Div)
+		($Div plus 1 into $Roll)
+	(endif)
+
+(d12 $Roll)
+	(d36 $Die)
+	($Die minus 1 into $Raw)
+	($Raw divided by 3 into $Div)
+	($Div plus 1 into $Roll)
+
 (percentile dice $Percent)
 	(1d10 $First)
 	(1d10 $Ones)
@@ -184,6 +210,7 @@
 	($Tens plus $Ones into $Percent)
 
 (percentage of $Number into $Result)
+	Not implemented
 
 (dF $Roll $Direction $Num)
 	(if)     { ($Roll = 1) (or) ($Roll = 2) (or) ($Roll = 7) } (then)
