@@ -68,7 +68,7 @@
 
 (damage random $Target system with $Units from $) %% from $Direction
 	($Target systems $Systems)
-	(random element from $Systems into $System)
+	(random element near front of $Systems into $System)
 	($System = [$Type $ID | $])
 	(damage $Target system $Type $ID with $Units)
 
