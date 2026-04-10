@@ -13,6 +13,12 @@
 	  #mix-one-and-three
 	  #d36
 	  #d216
+	  #1d10
+	  #2d10-total
+	  #2d10-individual
+	  #d20
+	  #d100
+	  #d360
 	  #randomize-position
 	  #reset-randomness
 	  ])
@@ -124,6 +130,71 @@
 	(d216 210)
 	(d216 24)
 	(d216 149)
+
+(test #1d10)
+	(1d10 9)
+	(1d10 3)
+	(1d10 6)
+	(1d10 5)
+	(1d10 9)
+	(1d10 2)
+	(1d10 4)
+	(1d10 3)
+	(1d10 1)
+	(1d10 2)
+	(1d10 8)
+	(1d10 4)
+	(1d10 7)
+	(1d10 10)
+
+(test #2d10-total)
+	(2d10 12)
+	(2d10 11)
+	(2d10 11)
+	(2d10 7)
+	(2d10 3)
+	(2d10 12)
+	(2d10 17)
+
+(test #2d10-individual)
+	(2d10 9 3)
+	(2d10 6 5)
+	(2d10 9 2)
+	(2d10 4 3)
+	(2d10 1 2)
+	(2d10 8 4)
+	(2d10 7 10)
+
+(test #d20)
+	(d20 19)
+	(d20 13)
+	(d20 16)
+	(d20 15)
+	(d20 9)
+	(d20 12)
+	(d20 4)
+	(d20 13)
+	(d20 11)
+	(d20 2)
+	(d20 18)
+	(d20 14)
+	(d20 17)
+	(d20 10)
+
+(test #d100)
+	(d100 93)
+	(d100 65)
+	(d100 92)
+	(d100 43)
+	(d100 12)
+	(d100 84)
+	(d100 70)
+	(now) (d20 list position 16)
+	(d100 1)
+	(now) (d20 list position 42)
+	(d100 100)
+
+(test #d360)
 
 (test #randomize-position)
 	(shuffle randomness)
