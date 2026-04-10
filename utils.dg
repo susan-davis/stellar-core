@@ -15,13 +15,17 @@
 
 (interface ($<Num1 delta $<Num2 into $>Result))
 
-(interface (floor $<Num by $<Multiple into $>Result))
+(interface (floor   $<Num by $<Multiple into $>Result))
+
+(interface (ceiling $<Num by $<Multiple into $>Result))
 
 (interface (add $<X to $<Y into $>Z))           %% safe, capped at maxint
 
 (interface (add $<X to $<Y into $>Z max $<Max)) %% safe, capped at maxint
 
 (interface (subtract $<X from $<Y into $>Z))    %% safe, capped at 0
+
+(interface ($<Num1 divided by $<Num2 into $>Result rounding up))
 
 (interface (split $<Number into $>Thousands $>Hundreds $>Tens $>Ones))
 
@@ -95,6 +99,10 @@
 	($Num divided by $Multiple into $Div)
 	($Div times $Multiple into $Result)
 
+(ceiling $Num by $Multiple into $Result)
+	($Num divided by $Multiple into $Div rounding up)
+	($Div times $Multiple into $Result)
+
 (add $X to $Y into $Z)
     (add $X to $Y into $Z max 16383)
 
@@ -116,6 +124,11 @@
 	(else)
 		($X minus $Y into $Z)
 	(endif)
+
+($Num1 divided by $Num2 into $Result rounding up)
+	(subtract 1 from $Num1 into $Num)
+	($Num divided by $Num2 into $Div)
+	($Div plus 1 into $Result)
 
 (split $Number into $Thousands $Hundreds $Tens $Ones)
 	($Number divided by 1000 into $Thousands)
