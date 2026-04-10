@@ -185,31 +185,23 @@
 
 (d3 $Roll)
 	(1d6 $Die)
-	($Die minus 1 into $Raw)
-	($Raw divided by 2 into $Div)
-	($Div plus 1 into $Roll)
+	($Die divided by 2 into $Roll rounding up)
 
 (d4 $Roll)
 	(d36 $Die)
-	($Die minus 1 into $Raw)
-	($Raw divided by 9 into $Div)
-	($Div plus 1 into $Roll)
+	($Die divided by 9 into $Roll rounding up)
 
 (d8 $Roll)
 	(d36 $Die)
 	(if) ($Die > 32) (then)
 		(d8 $Roll) %% roll again
 	(else)
-		($Die minus 1 into $Raw)
-		($Raw divided by 4 into $Div)
-		($Div plus 1 into $Roll)
+		($Die divided by 4 into $Roll rounding up)
 	(endif)
 
 (d12 $Roll)
 	(d36 $Die)
-	($Die minus 1 into $Raw)
-	($Raw divided by 3 into $Div)
-	($Div plus 1 into $Roll)
+	($Die divided by 3 into $Roll rounding up)
 
 (percentile dice $Percent)
 	(1d10 $First)
@@ -219,6 +211,8 @@
 
 (percentage of $Number into $Result)
 	Not implemented
+
+%%-----------------------------------------------------------------------------
 
 (dF $Roll $Direction $Num)
 	(if)     { ($Roll = 1) (or) ($Roll = 2) (or) ($Roll = 7) } (then)
