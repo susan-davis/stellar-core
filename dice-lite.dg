@@ -41,8 +41,6 @@
 
 (interface (d216 $>Roll))
 
-(interface (d360 $>Roll)) %% great for random facing
-
 (interface (percentage of $<Number into $>Result))
 
 %% These two rules do nothing, and are here for compatibility with dice.dg.
@@ -108,14 +106,11 @@
 (d36 $Roll)
 	(random from 1 to 36 into $Roll)
 
-(d216 $Roll)
-	(random from 1 to 216 into $Roll)
-
-(d360 $Roll)
-	(random from 1 to 360 into $Roll)
-
 (d100 $Percent)
 	(random from 1 to 100 into $Percent)
+
+(d216 $Roll)
+	(random from 1 to 216 into $Roll)
 
 (percentage of $Number into $Result)
 	(random from 1 to $Number into $Result)

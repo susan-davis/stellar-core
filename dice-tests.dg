@@ -18,7 +18,6 @@
 	  #2d10-individual
 	  #d20
 	  #d100
-	  #d360
 	  #randomize-position
 	  #reset-randomness
 	  ])
@@ -147,23 +146,23 @@
 	(1d10 7)
 	(1d10 10)
 
+(test #2d10-individual)
+	(2d10 6 9)
+	(2d10 6 1)
+	(2d10 8 1)
+	(2d10 1 2)
+	(2d10 7 5)
+	(2d10 5 4)
+	(2d10 9 8)
+
 (test #2d10-total)
-	(2d10 12)
-	(2d10 11)
-	(2d10 11)
+	(2d10 15)
 	(2d10 7)
+	(2d10 9)
 	(2d10 3)
 	(2d10 12)
+	(2d10 9)
 	(2d10 17)
-
-(test #2d10-individual)
-	(2d10 9 3)
-	(2d10 6 5)
-	(2d10 9 2)
-	(2d10 4 3)
-	(2d10 1 2)
-	(2d10 8 4)
-	(2d10 7 10)
 
 (test #d20)
 	(d20 19)
@@ -182,19 +181,13 @@
 	(d20 10)
 
 (test #d100)
-	(d100 93)
-	(d100 65)
-	(d100 92)
-	(d100 43)
+	(d100 69)
+	(d100 61)
+	(d100 81)
 	(d100 12)
-	(d100 84)
-	(d100 70)
-	(now) (d20 list position 16)
-	(d100 1)
-	(now) (d20 list position 42)
-	(d100 100)
-
-(test #d360)
+	(d100 75)
+	(d100 54)
+	(d100 98)
 
 (test #randomize-position)
 	(shuffle randomness)

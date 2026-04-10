@@ -33,8 +33,6 @@
 
 (interface (d216 $>Roll))
 
-(interface (d360 $>Roll)) %% great for random facing
-
 (interface (percentage of $<Number into $>Result))
 
 %% Call this at program entry to give a different sequence of rolls every game,
@@ -49,8 +47,11 @@
 %% 216 rolls of 3d6, normalized so that every combination of three die rolls
 %% occurs exactly once. I generated these by physically shuffling and dealing
 %% out decks of cards (216 cards for the 3d6 rolls, 80 at a time for the d20
-%% rolls). The first 200 rolls contain equal numbers of 1 through 20, where the
-%% hundreds place distinguishes between 1-10 and 11-20.
+%% rolls) after eight fair shuffles. The first 200 rolls contain equal numbers
+%% of 1 through 20, where the hundreds distinguishes between 1-10 and 11-20.
+%% This will loop around after 216 (or 200) random choices, which is well above
+%% the typical number of random events in IF games that include randomness.
+%% The thousands contain values 1-10; the other digits contain values 1-6.
 
 (global variable (list of random die rolls [ %% 432 bytes of storage
 	 9456  3431  6536  5656  9146  2515  4366  3634  1451  2111  8551  4425
@@ -161,8 +162,8 @@
 	($First plus $Second into $Total)
 
 (2d10 $First $Second)
-	(1d10 $First)
-	(1d10 $Second)
+	(d100 $Percent)
+	(split $Percent into $ $ $First $Second)
 
 (d20 $Roll)
 	(d20 choice $Num)
@@ -181,23 +182,12 @@
 	($Ones plus $Sixes into $Total)
 
 (d100 $Percent)
-	(2d10 $First $Second)
-	(if) ($First > 9) (then)
-		(if) ($Second > 9) (then)
-			($Upper = 10)
-		(else)
-			($Upper = 0)
-		(endif)
+	(d216 $Roll)
+	(if) ($Roll > 200) (then)
+		(d100 $Percent) %% roll again
 	(else)
-		($Upper = $First)
+		($Roll divided by 2 into $Percent rounding up)
 	(endif)
-	(if) ($Second > 9) (then)
-		($Ones = 0)
-	(else)
-		($Ones = $Second)
-	(endif)
-	(10 times $Upper into $Tens)
-	($Tens plus $Ones into $Percent)
 
 (d216 $Total)
 	(3d6 choice $Num)
@@ -208,22 +198,6 @@
 	($Third minus 1 into $Upper)
 	($Upper times 36 into $ThirtySixes)
 	($ThirtySixes plus $Sum into $Total)
-
-(d360 $Total)
-	(3d6 choice $Num)
-	(split $Num into $First $Second $Third $Fourth)
-	($First minus 1 into $Ones)
-	($Third minus 1 into $Lower)
-	($Lower times 10 into $Tens)
-	($Ones plus $Tens into $Sum)
-	($Fourth minus 1 into $Middle)
-	($Middle times 60 into $Sixties)
-	(if) ($Second > 3) (then)
-		($Sixties times 2 into $Centuries)
-	(else)
-		($Sixties = $Centuries)
-	(endif)
-	($Sum plus $Centuries into $Total)
 
 (percentage of $ into $)
 	Not implemented
