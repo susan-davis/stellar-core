@@ -10,6 +10,7 @@
 	#d36
 	#d100
 	#d216
+	#percentage
     ])
 
 (set up $)	(reset randomness)
@@ -124,3 +125,15 @@
 
 (test #d216)
 	(d216 1000 times)
+
+(percentage $N times)
+	(if) ($N > 0) (then)
+		($N times 13 into $Num)
+		(percentage of $Num into $Percentage)
+		($Percentage > 0) ~($Percentage > $Num)
+		($N minus 1 into $NMinusOne)
+		(percentage $NMinusOne times)
+	(endif)
+
+(test #percentage)
+	(percentage 1000 times)
