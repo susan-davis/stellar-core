@@ -31,6 +31,8 @@
 
 (interface (sort $<X $<Y into $>High $>Low))
 
+(interface (sort $<X $<Y $<Z into $>High $>Mid $>Low))
+
 (interface (take last $<N from $<List into $>Suffix))
 
 (interface (replace element $<N in $<List with $<Element into $>NewList))
@@ -146,6 +148,11 @@
 		($RX = $X)
 		($RY = $Y)
 	(endif)
+
+(sort $X $Y $Z into $RX $RY $RZ)
+    (sort $X $Y into $L1 $H1)
+	(sort $H1 $Z into $L2 $RZ)
+	(sort $L1 $L2 into $RX $RY)
 
 (take last $N from $List into $Suffix)
 	(reverse $List $Reverse)
