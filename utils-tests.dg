@@ -13,14 +13,6 @@
 	#delta-2-4
 	#delta-2-2
 	#delta-0-0
-	#floor-3-3-3
-	#floor-4-3-3
-	#floor-5-3-3
-	#floor-6-3-6
-	#ceiling-3-3-3
-	#ceiling-4-3-6
-	#ceiling-5-3-6
-	#ceiling-6-3-6
 	#3-div-3-rounding-up
 	#4-div-3-rounding-up
 	#5-div-3-rounding-up
@@ -141,30 +133,6 @@
 
 (test #delta-0-0)
 	(0 delta 0 into 0)
-
-(test #floor-3-3-3)
-	(floor 3 by 3 into 3)
-
-(test #floor-4-3-3)
-	(floor 4 by 3 into 3)
-
-(test #floor-5-3-3)
-	(floor 5 by 3 into 3)
-
-(test #floor-6-3-6)
-	(floor 6 by 3 into 6)
-
-(test #ceiling-3-3-3)
-	(ceiling 3 by 3 into 3)
-
-(test #ceiling-4-3-6)
-	(ceiling 4 by 3 into 6)
-
-(test #ceiling-5-3-6)
-	(ceiling 5 by 3 into 6)
-
-(test #ceiling-6-3-6)
-	(ceiling 6 by 3 into 6)
 
 (test #3-div-3-rounding-up)
 	(3 divided by 3 into 1 rounding up)

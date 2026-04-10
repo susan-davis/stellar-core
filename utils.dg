@@ -15,10 +15,6 @@
 
 (interface ($<Num1 delta $<Num2 into $>Result))
 
-(interface (floor   $<Num by $<Multiple into $>Result))
-
-(interface (ceiling $<Num by $<Multiple into $>Result))
-
 (interface (add $<X to $<Y into $>Z))           %% safe, capped at maxint
 
 (interface (add $<X to $<Y into $>Z max $<Max)) %% safe, capped at maxint
@@ -96,14 +92,6 @@
 	(else)
 		($Y minus $X into $Result)
 	(endif)
-
-(floor $Num by $Multiple into $Result)
-	($Num divided by $Multiple into $Div)
-	($Div times $Multiple into $Result)
-
-(ceiling $Num by $Multiple into $Result)
-	($Num divided by $Multiple into $Div rounding up)
-	($Div times $Multiple into $Result)
 
 (add $X to $Y into $Z)
     (add $X to $Y into $Z max 16383)
