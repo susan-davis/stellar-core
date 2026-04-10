@@ -58,16 +58,12 @@
 
 (random element near front of $List into $Element)
     (length of $List into $Length)
-	(if) ($Length < 7) (then)
-	    (2d6 $Roll) %% choose from first 6, weighting front heavily
-		($Median = 7)
+	(1d6 $Roll)
+	(if) ($Roll > $Length) (then)
+		($Choice = 1)
 	(else)
-		(3d6 $Roll) %% choose from first 9, weighting front heavily
-		($Median = 10)
+		($Choice = $Roll)
 	(endif)
-	($Roll delta $Median into $Delta)
-	($Delta plus 1 into $Sum)
-	(max $Sum and $Length into $Choice)
 	(nth $List $Choice $Element)
 
 (damage random $Target system with $Units from $) %% from $Direction

@@ -86,6 +86,3 @@
 
 (d216 $Roll)
 	(random from 1 to 216 into $Roll)
-
-(percentage of $Number into $Result)
-	(random from 1 to $Number into $Result)
