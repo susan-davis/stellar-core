@@ -1,6 +1,8 @@
 %% dgdebug -u dice-tests.dg dice.dg unit.dg stdlib.dg
 
 (list of tests [
+	  #randomize-position
+	  #reset-randomness
 	  #one-roll
 	  #wrap-around-1d6
 	  #three-roll-individual
@@ -16,8 +18,6 @@
 	  #2d10-individual
 	  #d20
 	  #d100
-	  #randomize-position
-	  #reset-randomness
 	  ])
 
 %%-----------------------------------------------------------------------------

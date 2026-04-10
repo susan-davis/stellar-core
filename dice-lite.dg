@@ -3,7 +3,7 @@
 %% Swap this in if you want to reduce output size and have been using 3d6.dg.
 %% Do not include 3d6.dg if you include this file.
 
-(extension version)	Simple die rolls v0.2 by Susan Davis (line)
+(extension version)	Simple die rolls v0.3 by Susan Davis (line)
 
 %%-------------------------------- INTERFACES ---------------------------------
 
@@ -30,8 +30,6 @@
 (interface (d100 $>Percent))
 
 (interface (d216 $>Roll))
-
-(interface (percentage of $<Number into $>Result))
 
 %% These two rules do nothing, and are here for compatibility with dice.dg.
 
