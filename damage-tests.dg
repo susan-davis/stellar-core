@@ -2,9 +2,6 @@
 %%            unit.dg stdlib.dg
 
 (list of tests [
-	  #random-element-4
-	  #random-element-6
-	  #random-element-7
       #shields-hold-from-ahead-50
       #shields-penetrated-from-ahead-101
       #shields-hold-from-port-50
@@ -83,51 +80,6 @@
 	 }
 
 %% ----------------------------------------------------------------------
-
-(test #random-element-4)
-	  ($List = [1 2 3 4])
-	  (random element near front of $List into 1)
-	  (random element near front of $List into 1)
-	  (random element near front of $List into 1)
-	  (random element near front of $List into 1)
-	  (random element near front of $List into 1)
-	  (random element near front of $List into 1)
-	  (random element near front of $List into 1)
-	  (random element near front of $List into 4)
-	  (random element near front of $List into 1)
-	  (random element near front of $List into 1)
-	  (random element near front of $List into 1)
-	  (random element near front of $List into 1)
-
-(test #random-element-6)
-	  ($List = [1 2 3 4 5 6])
-	  (random element near front of $List into 6)
-	  (random element near front of $List into 1)
-	  (random element near front of $List into 6)
-	  (random element near front of $List into 6)
-	  (random element near front of $List into 6)
-	  (random element near front of $List into 5)
-	  (random element near front of $List into 6)
-	  (random element near front of $List into 4)
-	  (random element near front of $List into 1)
-	  (random element near front of $List into 1)
-	  (random element near front of $List into 1)
-	  (random element near front of $List into 5)
-
-(test #random-element-7)
-	  ($List = [1 2 3 4 5 6 7])
-	  (random element near front of $List into 6)
-	  (random element near front of $List into 1)
-	  (random element near front of $List into 6)
-	  (random element near front of $List into 6)
-	  (random element near front of $List into 6)
-	  (random element near front of $List into 5)
-	  (random element near front of $List into 6)
-	  (random element near front of $List into 4)
-	  (random element near front of $List into 1)
-	  (random element near front of $List into 1)
-	  (random element near front of $List into 1)
-	  (random element near front of $List into 5)
 
 (assert $Ship has $Shields and $Energy)
 	  ($Ship shields $Shields)

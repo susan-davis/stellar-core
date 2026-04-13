@@ -56,19 +56,9 @@
 		(damage random $Target system with $Units from $Direction)
 	(endif)
 
-(random element near front of $List into $Element)
-    (length of $List into $Length)
-	(1d6 $Roll)
-	(if) ($Roll > $Length) (then)
-		($Choice = 1)
-	(else)
-		($Choice = $Roll)
-	(endif)
-	(nth $List $Choice $Element)
-
 (damage random $Target system with $Units from $) %% from $Direction
 	($Target systems $Systems)
-	(random element near front of $Systems into $System)
+	(random element from $Systems into $System)
 	($System = [$Type $ID | $])
 	(damage $Target system $Type $ID with $Units)
 
