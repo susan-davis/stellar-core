@@ -3,6 +3,7 @@
 (list of tests [
 	  #randomize-position
 	  #reset-randomness
+	  #d3
 	  #one-roll
 	  #wrap-around-1d6
 	  #three-roll-individual
@@ -25,6 +26,12 @@
 (set up $) (reset randomness)
 
 %%-----------------------------------------------------------------------------
+
+(test #d3)
+	(d3 3)
+	(d3 1)
+	(d3 3)
+	(d3 3)
 
 (test #one-roll)
 	(1d6 6)

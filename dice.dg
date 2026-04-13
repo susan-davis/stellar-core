@@ -5,6 +5,8 @@
 
 %%-------------------------------- INTERFACES ---------------------------------
 
+(interface (d3 $>Roll))
+
 (interface (1d6 $>Roll))
 
 (interface (2d6 $>Total))
@@ -102,6 +104,10 @@
 	(nth $Rolls $Position $Num)
 	($Position plus 1 into $NewPosition)
 	(now) (random list position $NewPosition)
+
+(d3 $Roll)
+    (1d6 $Die)
+    ($Die divided by 2 into $Roll rounding up)
 
 (1d6 $Roll)
 	(random choice $Num)

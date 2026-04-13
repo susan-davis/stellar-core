@@ -7,6 +7,8 @@
 
 %%-------------------------------- INTERFACES ---------------------------------
 
+(interface (d3 $>Roll))
+
 (interface (1d6 $>Roll))
 
 (interface (2d6 $>Total))
@@ -42,6 +44,9 @@
 (shuffle randomness) %% do nothing
 
 (reset randomness) %% do nothing
+
+(d3 $Roll)
+	(random from 1 to 3 into $Roll)
 
 (1d6 $Roll)
 	(random from 1 to 6 into $Roll)
