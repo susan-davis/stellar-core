@@ -85,6 +85,10 @@
 
 (interface ($<Ship top speed $>Gradient))
 
+(interface ($<Ship systems $>Systems))
+
+(interface ($<Ship is simple))
+
 (interface (class $<Ship)) %% prints the name of the ship class
 
 %% mutators
@@ -123,12 +127,6 @@
 (interface (initialize $<Ship as $<Class))
 
 %% ship's systems
-
-(interface ($<Ship systems $>Systems))
-
-(interface ($<Ship default arc $>Arc))
-
-(interface ($<Ship default missiles $>Missiles))
 
 (interface (system $<System arc $>Arc))
 
@@ -274,6 +272,15 @@
 	($Ship destination $Position)
 	(subsector for $Position into $SX $SY $X $Y)
 
+($Ship systems $Systems)
+    ($Ship state $State)
+	(nth $State 15 $Systems)
+
+($Ship is simple)
+	($Ship systems $Systems)
+	(length of $Systems into $Length)
+	($Length < 4)
+
 (class $Ship)
 	($Ship class $Class)
 	(name $Class) (no space) -class (type $Class)
@@ -395,18 +402,6 @@
 (find $Ship $Type $ID into $Match)
     ($Ship systems $Systems)
 	(find $Type $ID in $Systems into $Match)
-
-($Ship systems $Systems)
-    ($Ship state $State)
-	(nth $State 15 $Systems)
-
-($Ship default arc $Arc)
-    ($Ship state $State)
-	(nth $State 16 $Arc)
-
-($Ship default missiles $Missiles)
-    ($Ship state $State)
-	(nth $State 17 $Missiles)
 
 (system $Match arc $Arc)
 	(nth $Match 3 $Arc)

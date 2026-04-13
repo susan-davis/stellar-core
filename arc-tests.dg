@@ -191,15 +191,7 @@
 #attack-class
 (name *)	Attack
 (type *)	attack ship
-(* state [0 0 90 100 200 751 0 0
-   		 	 #attack-class 500 2 0 250 [100 50 50 50]
-			 [[#projector 1 [360 #up] 250 0 0]
-			 [#tractor 1 360 250 0 0]
-			 [#sensor 1 [#north] 1 0 0]
-			 [#sensor 2 [360 #up #down] 0 0 0]
-			 [#mtd 1 #down 4 0 0]
-			 [#shuttle 1 #south 10 0 0]
-			 ]])
+(* state [0 0 90 100 200 751 0 0 [] 360 0])
 
 #non-grid-object
 (* state [374 474 0])

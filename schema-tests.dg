@@ -29,6 +29,10 @@
 	#efficiency
 	#cruising-speed
 	#top-speed
+	#systems-list
+	#test-ship-isnt-simple
+	#closest-target-is-simple
+	#near-target-is-simple
 	#class
 	#ship-class
 	#initialize
@@ -53,7 +57,6 @@
 	#accelerate
 	#accelerate-too-fast
 	#decelerate
-	#systems-list
 	#find-torpedoes
 	#find-torpedo-1
 	#dont-find-torpedo-3
@@ -88,8 +91,7 @@
 %% ----------------------------------------------------------------------
 
 %% state = [ PositionX PositionY Heading Speed DestX DestY Helm Throttle
-%% 		   	 Class Energy Crystals Ammo Shields [S1 S2 S3 S4] [Systems]
-%%			 DefaultArc DefaultMissiles ]
+%% 		   	 Class Energy Crystals Ammo Shields [S1 S2 S3 S4] [Systems] ]
 
 #test-ship
 (grid object *)
@@ -100,6 +102,8 @@
 	 (now) (* state $State)
 	 (initialize * as #cygnus-class)
 	 (decrease energy for * by 68)
+	 (initialize #closest-target as #attack-class)
+	 (initialize #near-target as #attack-class)
 
 #cygnus-class
 (name *)	Cygnus
@@ -126,8 +130,24 @@
 		 [#damage-control 1 360 3 0 0]
 		 [#quarters 1 360 16 0 0]
 		 [#lab 1 360 4 0 0]]
-		 360
-		 8])
+		 ])
+
+#closest-target
+(grid object *)
+(* state [355 445 225 200 0 0 225 200 #attack-class])
+
+#near-target
+(grid object *)
+(* state [314 424 45 300 0 0 45 310 #attack-class])
+
+#attack-class
+(name *)	Attack
+(type *)	attack ship
+(* state [0 0 90 100 200 751 0 0
+   		  #attack-class 500 2 0 250 [100 50 50 50]
+		  [[#projector 1 360 250 141 0]
+		  [#reactor 1 360 4 4 0]
+		  ]])
 
 %% ----------------------------------------------------------------------
 
@@ -337,11 +357,14 @@
 	  (#test-ship systems $List)
 	  (length of $List into 20)
 
-(test #default-arc)
-	  (#test-ship default arc 360)
+(test #test-ship-isnt-simple)
+	  ~(#test-ship is simple)
 
-(test #default-missiles)
-	  (#test-ship default missiles 8)
+(test #closest-target-is-simple)
+	  (#closest-target is simple)
+
+(test #near-target-is-simple)
+	  (#near-target is simple)
 
 (test #find-torpedoes)
 	  (find all #torpedo for #test-ship into $Torps)
