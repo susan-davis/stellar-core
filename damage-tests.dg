@@ -22,7 +22,8 @@
 %% ----------------------------------------------------------------------
 
 %% state = [ PositionX PositionY Heading Speed DestX DestY Helm Throttle
-%% 		   	 Class Energy Crystals Ammo Shields [S1 S2 S3 S4] [ Systems ] ]
+%% 		   	 Class Energy Crystals Ammo Shields [S1 S2 S3 S4] [Systems]
+%%			 DefaultArc DefaultMissiles ]
 
 #test-ship
 (grid object *)
@@ -32,27 +33,29 @@
 (name *)	Cygnus
 (type *)	fast scout
 (* state [0 0 180 0 500 963 0 0
-   		 	#cygnus-class 1000 4 10 500 [100 99 98 97]
-			[[#projector 1 [360 #up] 100 0 0]
-			[#torpedo 1 [1 8] 1 500 0]
-			[#torpedo 2 [1 8] 1 500 0]
-			[#tractor 1 360 250 0 800]
-			[#sensor 2 [1 8] 2 0 0]
-			[#sensor 1 [360 #up #down] 1 0 0]
-			[#sensor 0 [360 #up #down] 1 0 0]
-			[#mtd 1 #down 4 0 16383]
-			[#shuttle 1 #south 10 0 0]
-			[#life-support 1 360 20 1100 0]
-			[#life-support 2 360 20 10 0]
-			[#reactor 1 360 4 4 0]
-			[#bus 1 360 1000 0 0]
-			[#reactionless #east #south 0 0 0]
-			[#reactionless #west #south 0 0 0]
-			[#a-drive #east [1 2 3 4] 0 0 0]
-			[#a-drive #west [5 6 7 8] 0 0 0]
-			[#damage-control 1 360 3 0 0]
-			[#quarters 1 360 16 0 0]
-			]])
+		 #cygnus-class 1000 4 10 500 [100 99 98 97]
+		 [[#projector 1 [360 #up] 100 141 0]
+		 [#torpedo 1 [1 8] 1 500 0]
+		 [#torpedo 2 [1 8] 1 500 0]
+		 [#tractor 1 360 250 0 800]
+		 [#sensor 2 [1 8] 2 0 0]
+		 [#sensor 1 [360 #up #down] 1 0 0]
+		 [#sensor 0 [360 #up #down] 1 0 0]
+		 [#mtd 1 #down 4 0 16383]
+		 [#shuttle 1 #south 10 0 0]
+		 [#life-support 1 360 20 1100 0]
+		 [#life-support 2 360 20 10 0]
+		 [#reactor 1 360 4 4 0]
+		 [#bus 1 360 1000 0 0]
+		 [#reactionless #east #south 0 0 0]
+		 [#reactionless #west #south 0 0 0]
+		 [#a-drive #east [1 2 3 4] 0 0 0]
+		 [#a-drive #west [5 6 7 8] 0 0 0]
+		 [#damage-control 1 360 3 0 0]
+		 [#quarters 1 360 16 0 0]
+		 [#lab 1 360 4 0 0]]
+		 360
+		 8])
 
 #closest-target
 (grid object *)
@@ -73,7 +76,8 @@
 			 [#sensor 2 [360 #up #down] 0 0 0]
 			 [#mtd 1 #down 4 0 0]
 			 [#shuttle 1 #south 10 0 0]
-			 ]])
+			 ]
+			 360 0])
 
 (set up $)
 	 (reset randomness)
@@ -134,7 +138,9 @@
 
 (assert $Ship has $Shields and $Energy)
 	  ($Ship shields $Shields)
+	  $Shields
 	  ($Ship energy $Energy)
+	  $Energy
 
 (test #shields-hold-from-ahead-50)
       (hit #closest-target with 50 from #north)

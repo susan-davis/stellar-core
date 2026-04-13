@@ -1,6 +1,10 @@
 %% systems.dg
 %% Include damage.dg, arc.dg, schema.dg, sectored-grid.dg, 3d6.dg, and utils.dg
 
+%% state = [ PositionX PositionY Heading Speed DestX DestY Helm Throttle
+%% 		   	 Class Energy Crystals Ammo Shields [S1 S2 S3 S4] [Systems]
+%%			 DefaultArc DefaultMissiles ]
+
 %%-------------------------------- INTERFACES ---------------------------------
 
 

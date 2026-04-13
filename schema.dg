@@ -6,8 +6,8 @@
 %% The class of a ship is
 %%
 %% state = [ PositionX PositionY Heading Speed DestX DestY Helm Throttle
-%% 		   	 Class Energy Crystals Ammo Shields [S1 S2 S3 S4]
-%%			 [Systems] [Fore-and-Aft] [Port-to-Starboard] ]
+%% 		   	 Class Energy Crystals Ammo Shields [S1 S2 S3 S4] [Systems]
+%%			 DefaultArc DefaultMissiles ]
 %%
 %% Systems are defined as lists:
 %%
@@ -126,6 +126,10 @@
 
 (interface ($<Ship systems $>Systems))
 
+(interface ($<Ship default arc $>Arc))
+
+(interface ($<Ship default missiles $>Missiles))
+
 (interface (system $<System arc $>Arc))
 
 (interface ($<Ship $<Type $<ID arc $>Arc))
@@ -159,9 +163,9 @@
 	($Default =
 	    [$ $ $ $ $ $ $ $ $
 		 $Energy $Crystals $Ammo $Shields $Levels $Systems | $])
-	($Ship state [$PX $PY $H $S $DX $DY $C $T $Class | $])
+	($Ship state [$PX $PY $H $S $DX $DY $C $T $Class | $Tail])
 	(now) ($Ship state [$PX $PY $H $S $DX $DY $C $T
-		   $Class $Energy $Crystals $Ammo $Shields $Levels $Systems])
+		   $Class $Energy $Crystals $Ammo $Shields $Levels $Systems | $Tail])
 
 %%---------------------------- SCHEMA DEFINITION ----------------------------
 
@@ -395,6 +399,14 @@
 ($Ship systems $Systems)
     ($Ship state $State)
 	(nth $State 15 $Systems)
+
+($Ship default arc $Arc)
+    ($Ship state $State)
+	(nth $State 16 $Arc)
+
+($Ship default missiles $Missiles)
+    ($Ship state $State)
+	(nth $State 17 $Missiles)
 
 (system $Match arc $Arc)
 	(nth $Match 3 $Arc)
