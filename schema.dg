@@ -126,10 +126,6 @@
 
 (interface ($<Ship systems $>Systems))
 
-(interface ($<Ship fore-and-aft $>ForeAndAft))
-
-(interface ($<Ship port-to-starboard $>PortToStarboard))
-
 (interface (system $<System arc $>Arc))
 
 (interface ($<Ship $<Type $<ID arc $>Arc))
@@ -399,14 +395,6 @@
 ($Ship systems $Systems)
     ($Ship state $State)
 	(nth $State 15 $Systems)
-
-($Ship fore-and-aft $ForeAndAft)
-    ($Ship state $State)
-	(nth $State 16 $ForeAndAft)
-
-($Ship port-to-starboard $PortToStarboard)
-    ($Ship state $State)
-	(nth $State 17 $PortToStarboard)
 
 (system $Match arc $Arc)
 	(nth $Match 3 $Arc)
