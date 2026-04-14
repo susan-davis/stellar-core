@@ -56,7 +56,7 @@ sectored-grid:
 	$(DEBUG) sectored-tests.dg sectored-grid.dg $(STDLIB)
 
 schema:
-	$(DEBUG) schema-tests.dg test-targets.dg schema.dg sectored-grid.dg $(STDLIB)
+	$(DEBUG) schema-tests.dg test-ships.dg schema.dg sectored-grid.dg $(STDLIB)
 
 sensors-wide:
 	$(DEBUG) -w 80 sensor-tests.dg sensors.dg schema.dg sectored-grid.dg $(STDLIB)
@@ -68,13 +68,13 @@ maneuver:
 	$(DEBUG) maneuver-tests.dg maneuvering.dg schema.dg sectored-grid.dg $(STDLIB)
 
 arc:
-	$(DEBUG) arc-tests.dg test-targets.dg arc.dg schema.dg sectored-grid.dg $(STDLIB)
+	$(DEBUG) arc-tests.dg test-ships.dg arc.dg schema.dg sectored-grid.dg $(STDLIB)
 
 damage:
-	$(DEBUG) damage-tests.dg test-targets.dg damage.dg schema.dg sectored-grid.dg dice.dg $(STDLIB)
+	$(DEBUG) damage-tests.dg test-ships.dg damage.dg schema.dg sectored-grid.dg dice.dg $(STDLIB)
 
 weapons:
-	$(DEBUG) weapons-tests.dg test-targets.dg weapons.dg damage.dg arc.dg schema.dg sectored-grid.dg dice.dg $(STDLIB)
+	$(DEBUG) weapons-tests.dg test-ships.dg weapons.dg damage.dg arc.dg schema.dg sectored-grid.dg dice.dg $(STDLIB)
 
 .PHONY: test all clean utils 6502 time sectored-grid schema sensors maneuver
 .PHONY: arc damage dice dice-lite dice-extra

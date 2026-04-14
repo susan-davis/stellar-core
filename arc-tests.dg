@@ -1,4 +1,4 @@
-%% dgdebug -u arc-tests.dg test-targets.dg arc.dg sectored-grid.dg \\
+%% dgdebug -u arc-tests.dg test-ships.dg arc.dg sectored-grid.dg \\
 %%            unit.dg stdlib.dg
 
 (list of tests [

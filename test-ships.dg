@@ -1,4 +1,4 @@
-%% test-targets.dg
+%% test-ships.dg
 %% standard test ships for unit tests
 
 %% state = [ PositionX PositionY Heading Speed DestX DestY Helm Throttle

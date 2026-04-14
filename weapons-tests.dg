@@ -1,4 +1,4 @@
-%% dgdebug -u weapons-tests.dg test-targets.dg weapons.dg damage.dg arc.dg \
+%% dgdebug -u weapons-tests.dg test-ships.dg weapons.dg damage.dg arc.dg \
 %% 		   	  schema.dg sectored-grid.dg unit.dg stdlib.dg
 
 (list of tests [

@@ -1,4 +1,4 @@
-%% dgdebug -u damage-tests.dg test-targets.dg damage.dg schema.dg \
+%% dgdebug -u damage-tests.dg test-ships.dg damage.dg schema.dg \
 %% 		   	  sectored-grid.dg unit.dg stdlib.dg
 
 (list of tests [
