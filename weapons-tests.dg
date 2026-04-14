@@ -21,6 +21,8 @@
 	  #fire-at-near-with-200-and-4
 	  #autofire-at-282-with-20
 	  #autofire-at-450-with-20
+	  #closest-target-autofires
+	  #near-target-doesnt-autofire
 	  ])
 
 %% ----------------------------------------------------------------------------
@@ -119,9 +121,17 @@
 	(#near-target shields 100)
 
 (test #autofire-at-282-with-20)
-	(#test-ship autofires #projector within 282 using 20 per shot)
+	(#test-ship autofires #projector 1 within 282 using 20 per shot)
 	(#test-ship energy 912)
 
 (test #autofire-at-450-with-20)
-	(#test-ship autofires #projector within 450 using 20 per shot)
+	(#test-ship autofires #projector 1 within 450 using 20 per shot)
 	(#test-ship energy 892)
+
+(test #closest-target-autofires)
+	(#closest-target autofires #projector 1 within 282 using 20 per shot)
+	(#closest-target energy 480)
+
+(test #near-target-doesnt-autofire)
+	(#near-target autofires #projector 1 within 450 using 20 per shot)
+	%%(#near-target energy 500) %% out of arc, doesn't hit his friend
