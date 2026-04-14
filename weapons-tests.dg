@@ -51,64 +51,77 @@
 			[[#projector 1 [360 #up] 100 141 3 0]
 			[#torpedo 2 [1 8] 1 500 2 0]])
 
+(assert $Ship has $Energy energy and $Ammo ammo)
+	($Ship energy $Energy)
+	($Ship ammo $Ammo)
+
 (test #fire-projector-with-0)
 	(#test-ship fires #projector at target #near-target using 0)
+	(assert #test-ship has 932 energy and 10 ammo)
 	(#near-target shields 250)
-	(#test-ship energy 932)
 
 (test #fire-projector-with-100)
 	(#test-ship fires #projector at target #near-target using 100)
+	(assert #test-ship has 832 energy and 10 ammo)
 	(#near-target shields 200)
-	(#test-ship energy 832)
 
 (test #fire-projector-with-200)
 	(#test-ship fires #projector at target #near-target using 200)
+	(assert #test-ship has 832 energy and 10 ammo)
 	(#near-target shields 200)
-	(#test-ship energy 832)
 
 (test #projector-miss)
 	(now) (random list position 10)
 	(#test-ship fires #projector at target #near-target using 100)
+	(assert #test-ship has 832 energy and 10 ammo)
 	(#near-target shields 250)
-	(#test-ship energy 832)
 
 (test #fire-torpedo-with-0)
 	(#test-ship fires #torpedo at target #near-target using 0)
+	(assert #test-ship has 932 energy and 10 ammo)
 	(#near-target shields 250)
 
 (test #fire-torpedo-with-1)
 	(#test-ship fires #torpedo at target #near-target using 1)
+	(assert #test-ship has 932 energy and 9 ammo)
 	(#near-target shields 200)
-	(#test-ship ammo 9)
 
 (test #fire-torpedo-with-2)
 	(#test-ship fires #torpedo at target #near-target using 2)
+	(assert #test-ship has 932 energy and 8 ammo)
 	(#near-target shields 150)
-	(#test-ship ammo 8)
 
 (test #fire-torpedo-with-4)
 	(#test-ship fires #torpedo at target #near-target using 4)
+	(assert #test-ship has 932 energy and 8 ammo)
 	(#near-target shields 150)
-	(#test-ship ammo 8)
 
 (test #torpedo-miss)
 	(accelerate #near-target to gradient 6)
 	(now) (random list position 10)
 	(#test-ship fires #torpedo at target #near-target using 2)
+	(assert #test-ship has 932 energy and 8 ammo)
 	(#near-target shields 200) %% one miss, one hit
-	(#test-ship ammo 8)
 
 (test #fire-at-closest-with-100-and-2)
 	(#test-ship fires at #closest-target using 100 energy and 2 ammo)
+	(#closest-target shields 150) %% hit the front shield, harder
+	(assert #test-ship has 832 energy and 10 ammo) %% torpedoes out of arc
 
 (test #fire-at-near-with-100-and-2)
 	(#test-ship fires at #near-target using 100 energy and 2 ammo)
+	(assert #test-ship has 832 energy and 8 ammo)
+	(#near-target shields 100)
 
 (test #fire-at-near-with-200-and-4)
 	(#test-ship fires at #near-target using 200 energy and 4 ammo)
+	(assert #test-ship has 832 energy and 8 ammo)
+	(#near-target shields 100)
 
 (test #autofire-at-282-with-20)
 	(#test-ship autofires #projector within 282 using 20 per shot)
+	%%(#test-ship energy 912)
 
 (test #autofire-at-450-with-20)
 	(#test-ship autofires #projector within 450 using 20 per shot)
+	%%(#test-ship energy 892)

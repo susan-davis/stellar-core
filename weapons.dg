@@ -115,7 +115,7 @@
 #projector
 (name *)		projector
 (long name *)	energy projector
-(weapon *)
+(energy weapon *)
 
 %% superstartrek.bas phasers (and Klingon return fire):
 %% damage = (2 to 3)*energy/range, but miss if less than 15% of target
@@ -151,7 +151,7 @@
 #plasma
 (name *)		plasma
 (long name *)	plasma bolt
-(weapon *)
+(energy weapon *)
 
 %% For now, just treat them like projectors.
 ($Ship fires * $ID $Details at $Target using $Amount)
@@ -163,7 +163,7 @@
 #collapser
 (name *)		collapser
 (long name *)	warp field collapser
-(weapon *)
+(energy weapon *)
 
 %% Collapser hit chance: as energy projector
 %% Collapser damage: as energy projector
@@ -198,7 +198,7 @@
 #torpedo
 (name *)		torpedo
 (long name *)	hypervelocity torpedo tube
-(weapon *)
+(ammo weapon *)
 
 %% superstartrek.bas photon torpedoes:
 %% Torpedoes move on one of the eight directions, and hit the first object that
@@ -240,7 +240,7 @@
 #missile
 (name *)		missile
 (long name *)	Alcubierre missile launcher
-(weapon *)
+(ammo weapon *)
 
 ($Ship fires * $ID $Details at $Target using $Amount)
     (line) $Ship fires * $ID $Details at $Target using $Amount
@@ -251,7 +251,7 @@
 #rocket
 (name *)		rocket
 (long name *)	bombardment rocket launcher
-(weapon *)
+(ammo weapon *)
 
 ($Ship fires * $ID $Details at $Target using $Amount)
     (line) $Ship fires * $ID $Details at $Target using $Amount
@@ -281,4 +281,4 @@
     ($Ship fires at $Target with $Weapons using $Amount)
 
 ($Ship autofires $Type within $Range using $Amount per shot)
-	$Ship autofires $Type within $Range using $Amount per shot
+	(log) { $Ship autofires $Type within $Range using $Amount per shot }
