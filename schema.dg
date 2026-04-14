@@ -34,6 +34,10 @@
 %% schema definition
 %% PosX, PosY, and Heading are defined in sectored-grid.dg
 
+(interface (class $<Ship)) %% prints the name of the ship class
+
+(interface (type $))
+
 (interface ($<Ship coordinates into $>SX $>SY $>X $>Y $>PX $>PY))
 
 (interface ($<Ship subsector into $>SX $>SY $>X $>Y))
@@ -89,8 +93,6 @@
 (interface ($<Ship systems $>Systems))
 
 (interface ($<Ship is simple))
-
-(interface (class $<Ship)) %% prints the name of the ship class
 
 %% mutators
 

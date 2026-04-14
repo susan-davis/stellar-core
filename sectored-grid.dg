@@ -14,6 +14,8 @@
 
 %% (grid object $) => object is present on our grid and occupies a square
 
+(interface (grid object $))
+
 %% Grid objects all bind a per-object variable ($ state $), which returns a
 %% list of at least three elements. The first two specify the coordinates of
 %% the object, and the third specifies its facing ("heading"). Operations on

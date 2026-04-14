@@ -1,5 +1,5 @@
-%% dgdebug -u weapons-tests.dg weapons.dg damage.dg arc.dg schema.dg %%
-%% 		   	  sectored-grid.dg unit.dg stdlib.dg
+%% dgdebug -u weapons-tests.dg test-targets.dg weapons.dg damage.dg arc.dg \
+%% 		   	  schema.dg sectored-grid.dg unit.dg stdlib.dg
 
 (list of tests [
 	  #weapons-bearing-on-closest-target-location
@@ -35,93 +35,30 @@
 
 %% ----------------------------------------------------------------------
 
-%% state = [ PositionX PositionY Heading Speed DestX DestY Helm Throttle
-%% 		   	 Class Energy Crystals Ammo Shields [S1 S2 S3 S4] [Systems]
-%%			 DefaultArc DefaultMissiles ]
-
-#test-ship
-(grid object *)
-(* initial state [344 454 315 400 300 400 315 400 #cygnus-class])
-
-#cygnus-class
-(name *)	Cygnus
-(type *)	fast scout
-(* state [0 0 180 0 500 963 0 0
-		 #cygnus-class 1000 4 10 500 [100 99 98 97]
-		 [[#projector 1 [360 #up] 100 141 2 0]
-		 [#torpedo 1 [1 8] 1 500 2 0]
-		 [#torpedo 2 [1 8] 1 500 2 0]
-		 [#tractor 1 360 250 0 2 800]
-		 [#sensor 2 [1 8] 2 0 2 0]
-		 [#sensor 1 [360 #up #down] 1 0 2 0]
-		 [#sensor 0 [360 #up #down] 1 0 2 0]
-		 [#mtd 1 #down 4 0 2 16383]
-		 [#shuttle 1 #south 10 0 2 0]
-		 [#life-support 1 360 20 1100 2 0]
-		 [#life-support 2 360 20 10 2 0]
-		 [#reactor 1 360 4 4 1 0]
-		 [#bus 1 360 1000 0 1 0]
-		 [#reactionless #east #south 0 0 2 0]
-		 [#reactionless #west #south 0 0 2 0]
-		 [#a-drive #east [1 2 3 4] 0 0 2 0]
-		 [#a-drive #west [5 6 7 8] 0 0 2 0]
-		 [#damage-control 1 360 3 0 2 0]
-		 [#quarters 1 360 16 0 2 0]
-		 [#lab 1 360 4 0 2 0]
-		 ]])
-
-#closest-target
-(grid object *)
-(* initial state [355 445 225 200 0 0 225 200 #attack-class])
-
-#near-target
-(grid object *)
-(* initial state [314 424 45 300 0 0 45 310 #attack-class])
-
-#attack-class
-(name *)	Attack
-(type *)	attack ship
-(* state [0 0 90 100 200 751 0 0
-   		  #attack-class 500 2 0 250 [100 50 50 50]
-		  [[#projector 1 360 250 141 1 0]
-		  [#reactor 1 360 4 4 1 0]]])
-
-(set up $)
-	 (exhaust) {
-	     *(grid object $Ship)
-	     ($Ship initial state $State)
-	     (now) ($Ship state $State) %% add this to (initialize $ as $)
-		 ($Ship class $Class)
-	 	 (initialize $Ship as $Class)
-	 }
-	 (reset randomness)
-
-%% ----------------------------------------------------------------------
-
 (test #weapons-bearing-on-closest-target-location)
     (#test-ship weapons bearing on angle 90 into
-			[[#projector 1 [360 #up] 100 141 2 0]])
+			[[#projector 1 [360 #up] 100 141 3 0]])
 
 (test #weapons-bearing-on-near-target-location)
     (#test-ship weapons bearing on angle 0 into
-			[[#projector 1 [360 #up] 100 141 2 0]
+			[[#projector 1 [360 #up] 100 141 3 0]
 			[#torpedo 1 [1 8] 1 500 2 0]
 			[#torpedo 2 [1 8] 1 500 2 0]])
 
 (test #weapons-bearing-on-closest-target)
     (#test-ship weapons bearing on target #closest-target into
-			[[#projector 1 [360 #up] 100 141 2 0]])
+			[[#projector 1 [360 #up] 100 141 3 0]])
 
 (test #weapons-bearing-on-near-target)
     (#test-ship weapons bearing on target #near-target into
-			[[#projector 1 [360 #up] 100 141 2 0]
+			[[#projector 1 [360 #up] 100 141 3 0]
 			[#torpedo 1 [1 8] 1 500 2 0]
 			[#torpedo 2 [1 8] 1 500 2 0]])
 
 (test #damaged-weapons-dont-bear)
 	(damage #test-ship system #torpedo 1 with 50)
     (#test-ship weapons bearing on target #near-target into
-			[[#projector 1 [360 #up] 100 141 2 0]
+			[[#projector 1 [360 #up] 100 141 3 0]
 			[#torpedo 2 [1 8] 1 500 2 0]])
 
 (test #fire-projector-with-0)
@@ -130,15 +67,13 @@
 
 (test #fire-projector-with-100)
 	(#test-ship fires #projector at target #near-target using 100)
-	(#near-target shields $Shields)
-	$Shields
-	(assert $Shields = 200)
-	(#test-ship energy 900)
+	(#near-target shields 200)
+	(#test-ship energy 832)
 
 (test #fire-projector-with-200)
 	(#test-ship fires #projector at target #near-target using 200)
 	(#near-target shields 200)
-	(#test-ship energy 900)
+	(#test-ship energy 832)
 
 (test #projector-miss)
 	Not implemented
