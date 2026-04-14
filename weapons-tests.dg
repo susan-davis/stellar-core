@@ -120,8 +120,8 @@
 
 (test #autofire-at-282-with-20)
 	(#test-ship autofires #projector within 282 using 20 per shot)
-	%%(#test-ship energy 912)
+	(#test-ship energy 912)
 
 (test #autofire-at-450-with-20)
 	(#test-ship autofires #projector within 450 using 20 per shot)
-	%%(#test-ship energy 892)
+	(#test-ship energy 892)
