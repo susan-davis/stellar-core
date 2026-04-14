@@ -7,6 +7,7 @@
 	  #weapons-bearing-on-closest-target
 	  #weapons-bearing-on-near-target
 	  #damaged-weapons-dont-bear
+	  #dont-projector-self
 	  #fire-projector-with-0
 	  #fire-projector-with-100
 	  #fire-projector-with-200
@@ -15,6 +16,7 @@
 	  #fire-torpedo-with-1
 	  #fire-torpedo-with-2
 	  #fire-torpedo-with-4
+	  #dont-torpedo-self
 	  #torpedo-miss
 	  #fire-at-closest-with-100-and-2
 	  #fire-at-near-with-100-and-2
@@ -57,6 +59,11 @@
 	($Ship energy $Energy)
 	($Ship ammo $Ammo)
 
+(test #dont-projector-self)
+	(#test-ship fires #projector at target #test-ship using 100)
+	(assert #test-ship has 932 energy and 10 ammo)
+	(#test-ship shields 500)
+
 (test #fire-projector-with-0)
 	(#test-ship fires #projector at target #near-target using 0)
 	(assert #test-ship has 932 energy and 10 ammo)
@@ -77,6 +84,11 @@
 	(#test-ship fires #projector at target #near-target using 100)
 	(assert #test-ship has 832 energy and 10 ammo)
 	(#near-target shields 250)
+
+(test #dont-torpedo-self)
+	(#test-ship fires #torpedo at target #test-ship using 2)
+	(assert #test-ship has 932 energy and 10 ammo)
+	(#test-ship shields 500)
 
 (test #fire-torpedo-with-0)
 	(#test-ship fires #torpedo at target #near-target using 0)
