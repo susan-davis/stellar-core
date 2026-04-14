@@ -2,12 +2,10 @@
 %% Include sectored-grid.dg and utils.dg when compiling or debugging
 
 %%---------------------------------- SCHEMA ----------------------------------
-%% State about a ship is stored as one list, to cut down on storage.
-%% The class of a ship is
+%% State about a ship is stored as one list, to cut down on storage:
 %%
 %% state = [ PositionX PositionY Heading Speed DestX DestY Helm Throttle
-%% 		   	 Class Energy Crystals Ammo Shields [S1 S2 S3 S4] [Systems]
-%%			 DefaultArc DefaultMissiles ]
+%% 		   	 Class Energy Crystals Ammo Shields [S1 S2 S3 S4] [Systems] ]
 %%
 %% Systems are defined as lists:
 %%
@@ -17,6 +15,12 @@
 %% repair 16383 (maxint) means that the system is irreparably destroyed, with
 %% 16380, 16381, and 16382 reserved for future shades of destroyed-ness. Or
 %% delete the system from the list?
+%%
+%% Ship classes are defined by a class record:
+%%
+%% class = [ $ $ TurnMode $ Efficiency Acceleration $ Fleet Class
+%%           MaxEnergy MaxCrystals MaxAmmo MaxShields [ Max Shield Levels ]
+%%			 [ Systems List ]
 %%
 %% Some information is encoded into the class definition. The class heading
 %% specifies the turn mode. The class destination specifies the A-drive
@@ -32,11 +36,12 @@
 (interface (find $<Ship $<Type $<ID into $>Match))
 
 %% schema definition
-%% PosX, PosY, and Heading are defined in sectored-grid.dg
 
 (interface (class $<Ship)) %% prints the name of the ship class
 
-(interface (type $))
+(interface (type $<Ship))  %% prints what kind of ship it is
+
+%% PosX, PosY, and Heading are defined in sectored-grid.dg
 
 (interface ($<Ship coordinates into $>SX $>SY $>X $>Y $>PX $>PY))
 
@@ -53,6 +58,8 @@
 (interface ($<Ship destination $>SX $>SY $>X $>Y $>PX $>PY))
 
 (interface ($<Ship destination $>SX $>SY $>X $>Y))
+
+(interface ($<Ship fleet $>Fleet))
 
 (interface ($<Ship class $>Class))
 
@@ -229,6 +236,10 @@
 	($Ship throttle setting $Throttle)
 	($Throttle divided by 100 into $Gradient)
 
+($Ship fleet $Fleet)
+	($Ship class $Class)
+	($Class throttle setting $Fleet)
+
 ($Ship turn mode $Mode)
 	($Ship class $Class)
 	($Class heading $Mode)
@@ -289,8 +300,9 @@
 	($Length < 4)
 
 (class $Ship)
+	($Ship fleet $Fleet)
 	($Ship class $Class)
-	(name $Class) (no space) -class (type $Class)
+	(name $Fleet) (name $Class) (no space) -class (type $Class)
 
 %% For now, all ships have four shields. We can vary their number of shields
 %% (1, 2, 4, 8) later if desired, reflected in the length of this list.

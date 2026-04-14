@@ -4,6 +4,9 @@
 %% state = [ PositionX PositionY Heading Speed DestX DestY Helm Throttle
 %% 		   	 Class Energy Crystals Ammo Shields [S1 S2 S3 S4] [ Systems ] ]
 
+#union
+(name *)	Stellar Union
+
 #test-ship
 (grid object *)
 (* initial state [344 454 315 400 300 400 315 400 #cygnus-class])
@@ -11,8 +14,7 @@
 #cygnus-class
 (name *)	Cygnus
 (type *)	fast scout
-(* state [0 0 180 0 500 963 0 0
-		 #cygnus-class 1000 4 10 500 [100 99 98 97]
+(* state [0 0 180 0 500 963 0 #union #cygnus-class 1000 4 10 500 [100 99 98 97]
 		 [[#projector 1 [360 #up] 100 141 3 0]
 		 [#torpedo 1 [1 8] 1 500 2 0]
 		 [#torpedo 2 [1 8] 1 500 2 0]
@@ -35,6 +37,9 @@
 		 [#lab 1 360 4 0 2 0]
 		 ]])
 
+#quellan
+(name *)	Quellan
+
 #closest-target
 (grid object *)
 (* initial state [354 444 225 200 0 0 225 200 #attack-class])
@@ -54,8 +59,7 @@
 #attack-class
 (name *)	Attack
 (type *)	attack ship
-(* state [0 0 90 100 200 751 0 0
-   		  #attack-class 500 2 0 250 [100 50 50 50]
+(* state [0 0 90 100 200 751 0 #quellan #attack-class 500 2 0 250 [100 50 50 50]
 		  [[#projector 1 360 250 100 1 0]
 		  [#reactor 1 360 4 4 1 0]]])
 

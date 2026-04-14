@@ -89,6 +89,11 @@
 	#repair-tractor
 	#destroy-ship
 	#test-ship-is-not-destroyed
+	#test-ship-is-union
+	#closest-target-is-quellan
+	#near-target-is-quellan
+	#far-target-is-quellan
+	#distant-target-is-quellan
 	])
 
 (reset randomness)
@@ -182,7 +187,7 @@
 
 (test #ship-class)
 	  (collect words) (class #test-ship) (into $Words)
-	  ($Words = [cygnus -class fast scout])
+	  ($Words = [stellar union cygnus -class fast scout])
 
 (test #initialize)
 	  (initialize #test-ship as #cygnus-class)
@@ -440,3 +445,18 @@
 
 (test #test-ship-is-not-destroyed)
 	  ~(#test-ship is destroyed)
+
+(test #test-ship-is-union)
+	  (#test-ship fleet #union)
+
+(test #closest-target-is-quellan)
+	  (#closest-target fleet #quellan)
+
+(test #near-target-is-quellan)
+	  (#near-target fleet #quellan)
+
+(test #far-target-is-quellan)
+	  (#far-target fleet #quellan)
+
+(test #distant-target-is-quellan)
+	  (#distant-target fleet #quellan)
