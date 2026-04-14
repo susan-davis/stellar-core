@@ -14,6 +14,10 @@ Common functionality for *Stellar Union* games. This project contains all the in
 
 `damage.dg` -- implements the damage model for ships
 
+`weapons.dg` -- effects of ship-to-ship weapons
+
+`systems.dg` -- non-weapon ship systems
+
 `cygnus.dg` -- the interior of a *Cygnus*-class scout ship, with controls hooked up to the other modules
 
 `union-ship.dg` -- traits and scenery and sound effects common to all Stellar Union ships and bases
