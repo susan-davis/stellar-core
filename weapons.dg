@@ -27,10 +27,6 @@
 
 (interface ($<Ship fires $<Type at target $<Target using $<Amount))
 
-(interface ($<Ship fires $<Type at angle $<Angle using $<Amount))
-
-(interface ($<Ship fires $<Type using $<Amount))
-
 (interface ($<Ship fires at $<Target using $<Energy energy and $<Ammo ammo))
 
 (interface ($<Ship autofires $<Type within $<Range using $<Amount per shot))
@@ -51,6 +47,34 @@
 		(endif)
 	(endif)
 
+(energy weapons in $List into $Result)
+    (if) (empty $List) (then)
+		($Result = [])
+	(else)
+		($List = [$Head | $Tail])
+		(nth $Head 1 $Type)
+		(if) (energy weapon $Type) (then)
+			(energy weapons in $Tail into $Remainder)
+			(append [$Head] $Remainder $Result)
+		(else)
+			(energy weapons in $Tail into $Result)
+		(endif)
+	(endif)
+
+(ammo weapons in $List into $Result)
+    (if) (empty $List) (then)
+		($Result = [])
+	(else)
+		($List = [$Head | $Tail])
+		(nth $Head 1 $Type)
+		(if) (ammo weapon $Type) (then)
+			(ammo weapons in $Tail into $Remainder)
+			(append [$Head] $Remainder $Result)
+		(else)
+			(ammo weapons in $Tail into $Result)
+		(endif)
+	(endif)
+
 ($Ship weapons bearing on angle $Angle into $Result)
 	 ($Ship systems $Systems)
 	 (weapons in $Systems into $Weapons)
@@ -59,6 +83,24 @@
 ($Ship weapons bearing on target $Target into $Result)
 	 (angle from $Ship to $Target into $Angle)
 	 ($Ship weapons bearing on angle $Angle into $Result)
+
+($Ship energy weapons bearing on angle $Angle into $Result)
+	 ($Ship systems $Systems)
+	 (energy weapons in $Systems into $Weapons)
+	 (find systems bearing on $Angle in $Weapons into $Result)
+
+($Ship energy weapons bearing on target $Target into $Result)
+	 (angle from $Ship to $Target into $Angle)
+	 ($Ship energy weapons bearing on angle $Angle into $Result)
+
+($Ship ammo weapons bearing on angle $Angle into $Result)
+	 ($Ship systems $Systems)
+	 (ammo weapons in $Systems into $Weapons)
+	 (find systems bearing on $Angle in $Weapons into $Result)
+
+($Ship ammo weapons bearing on target $Target into $Result)
+	 (angle from $Ship to $Target into $Angle)
+	 ($Ship ammo weapons bearing on angle $Angle into $Result)
 
 %%----------------------------------------------------------------------------
 
@@ -227,15 +269,12 @@
 		(endif)
 	(endif)
 
-($Ship fires $Type at target $Target using $Amount)
-    ($Ship $Type bearing on target $Target into $Weapons)
-	($Ship fires at $Target with $Weapons using $Amount)
-
 ($Ship fires at $Target using $Energy energy and $Ammo ammo)
-	$Ship fires at $Target with $Energy energy and $Ammo ammo
+	($Ship energy weapons bearing on target $Target into $EnergyWeapons)
+	($Ship fires at $Target with $EnergyWeapons using $Energy)
+	($Ship ammo weapons bearing on target $Target into $AmmoWeapons)
+	($Ship fires at $Target with $AmmoWeapons using $Ammo)
 
-($Ship fires $Type at angle $Angle using $Amount)
-	$Ship fires $Type at angle $Angle using $Amount
-
-($Ship fires $Type using $Amount)
-	$Ship fires $Type using $Amount
+($Ship fires $Type at target $Target using $Amount)
+	($Ship $Type bearing on target $Target into $Weapons)
+    ($Ship fires at $Target with $Weapons using $Amount)

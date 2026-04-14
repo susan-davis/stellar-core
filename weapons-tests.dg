@@ -16,21 +16,10 @@
 	  #fire-torpedo-with-2
 	  #fire-torpedo-with-4
 	  #torpedo-miss
-	  #fire-projector-at-90
-	  #fire-projector-at-0
-	  #fire-torpedo-at-90
-	  #fire-torpedo-at-0
-	  #fire-at-closest-with-100
-	  #fire-at-closest-with-200
-	  #fire-at-near-with-100
-	  #fire-at-near-with-200
-	  #fire-at-closest-with-2
-	  #fire-at-closest-with-4
-	  #fire-at-near-with-2
-	  #fire-at-near-with-4
 	  #fire-at-closest-with-100-and-2
 	  #fire-at-near-with-100-and-2
 	  #fire-at-near-with-200-and-4
+	  #autofire-at-282-with-20
 	  ])
 
 %% ----------------------------------------------------------------------
@@ -97,30 +86,6 @@
 (test #torpedo-miss)
 	Not implemented
 
-(test #fire-at-closest-with-100)
-	Not implemented
-
-(test #fire-at-closest-with-200)
-	Not implemented
-
-(test #fire-at-near-with-100)
-	Not implemented
-
-(test #fire-at-near-with-200)
-	Not implemented
-
-(test #fire-at-closest-with-2)
-	Not implemented
-
-(test #fire-at-closest-with-4)
-	Not implemented
-
-(test #fire-at-near-with-2)
-	Not implemented
-
-(test #fire-at-near-with-4)
-	Not implemented
-
 (test #fire-at-closest-with-100-and-2)
 	Not implemented
 
@@ -130,14 +95,5 @@
 (test #fire-at-near-with-200-and-4)
 	Not implemented
 
-(test #fire-projector-at-90)
-	Not implemented
-
-(test #fire-projector-at-0)
-	Not implemented
-
-(test #fire-torpedo-at-90)
-	Not implemented
-
-(test #fire-torpedo-at-0)
+(test #autofire-at-282-with-20)
 	Not implemented
