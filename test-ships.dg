@@ -60,7 +60,7 @@
 (name *)	Attack
 (type *)	attack ship
 (* state [0 0 90 100 200 751 0 #quellan #attack-class 500 2 0 250 [100 50 50 50]
-		  [[#projector 1 360 250 100 1 0]
+		  [[#projector 1 [8 1] 250 100 1 0]
 		  [#reactor 1 360 4 4 1 0]]])
 
 #non-grid-object

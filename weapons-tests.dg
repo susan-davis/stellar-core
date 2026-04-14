@@ -132,7 +132,6 @@
 	(#closest-target autofires #projector 1 within 282 using 20 per shot)
 	(#closest-target energy 480) %% test ship is dead ahead
 
-%% TODO: implement IFF
 (test #near-target-doesnt-autofire)
 	(#near-target autofires #projector 1 within 450 using 20 per shot)
-	%%(#near-target energy 500) %% out of arc, doesn't hit his friend
+	(#near-target energy 500) %% out of arc, doesn't hit his friend

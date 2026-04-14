@@ -34,6 +34,7 @@
 %%   * with remainder, wreck ship, possibly destroying it
 
 (hit $Target with $Units from $Direction)
+%%	(log) { $Target hit with $Units from $Direction }
 	($Target shields $TotalShieldPower)
 	($Target shield level $Direction into $DirectionShieldPower)
 	(min $TotalShieldPower and $DirectionShieldPower into $ShieldPower)
@@ -63,6 +64,7 @@
 	(damage $Target system $Type $ID with $Units)
 
 (damage $Target system $Type $ID with $Units)
+%%	(log) { damage $Target system $Type $ID with $Units }
 	($Target $Type $ID durability $Durability)
 	(if) ($Target is simple) (then)
 		($Units divided by $Durability into $Time)
@@ -72,6 +74,7 @@
 	(increase repair time for $Target $Type $ID by $Time)
 
 (wreck $Target with $Units from $Direction)
+%%	(log) { wreck $Target system $Type $ID with $Units }
 	(damage random $Target system with 16383 from $Direction)
 	($Units divided by 10 into $Minimum)
 	(random from $Minimum to $Units into $Damage)
