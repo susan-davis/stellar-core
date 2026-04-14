@@ -18,7 +18,7 @@
 %% 		   	 Class Energy Crystals Ammo Shields [S1 S2 S3 S4]
 %%			 [ Systems ] [ Fore-and-Aft ] [ Side-to-Side] ]
 %%
-%% system = [ System ID Arcs Value Details TimeOfRepair ]
+%% system = [ System ID Arcs Value Details Durability TimeOfRepair ]
 
 ($Attacker hits $Target with $Units)
     (angle from $Target to $Attacker into $Angle)
@@ -63,7 +63,8 @@
 	(damage $Target system $Type $ID with $Units)
 
 (damage $Target system $Type $ID with $Units)
-    ($Units times 2 into $Time)
+	($Target $Type $ID durability $Durability)
+    ($Units times $Durability into $Time)
 	(increase repair time for $Target $Type $ID by $Time)
 
 (wreck $Target with $Units from $Direction)

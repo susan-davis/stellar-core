@@ -69,6 +69,9 @@
 	#details-projector
 	#details-tractor
 	#details-mtd
+	#durability-projector
+	#durability-tractor
+	#durability-mtd
 	#repair-time-projector
 	#repair-time-tractor
 	#repair-time-mtd
@@ -110,27 +113,27 @@
 (type *)	fast scout
 (* state [0 0 180 0 500 963 0 0
 		 #cygnus-class 1000 4 10 500 [100 99 98 97]
-		 [[#projector 1 [360 #up] 100 141 0]
-		 [#torpedo 1 [1 8] 1 500 0]
-		 [#torpedo 2 [1 8] 1 500 0]
-		 [#tractor 1 360 250 0 800]
-		 [#sensor 2 [1 8] 2 0 0]
-		 [#sensor 1 [360 #up #down] 1 0 0]
-		 [#sensor 0 [360 #up #down] 1 0 0]
-		 [#mtd 1 #down 4 0 16383]
-		 [#shuttle 1 #south 10 0 0]
-		 [#life-support 1 360 20 1100 0]
-		 [#life-support 2 360 20 10 0]
-		 [#reactor 1 360 4 4 0]
-		 [#bus 1 360 1000 0 0]
-		 [#reactionless #east #south 0 0 0]
-		 [#reactionless #west #south 0 0 0]
-		 [#a-drive #east [1 2 3 4] 0 0 0]
-		 [#a-drive #west [5 6 7 8] 0 0 0]
-		 [#damage-control 1 360 3 0 0]
-		 [#quarters 1 360 16 0 0]
-		 [#lab 1 360 4 0 0]]
-		 ])
+		 [[#projector 1 [360 #up] 100 141 3 0]
+		 [#torpedo 1 [1 8] 1 500 2 0]
+		 [#torpedo 2 [1 8] 1 500 2 0]
+		 [#tractor 1 360 250 0 4 800]
+		 [#sensor 2 [1 8] 2 0 2 0]
+		 [#sensor 1 [360 #up #down] 1 0 2 0]
+		 [#sensor 0 [360 #up #down] 1 0 2 0]
+		 [#mtd 1 #down 4 0 5 16383]
+		 [#shuttle 1 #south 10 0 2 0]
+		 [#life-support 1 360 20 1100 2 0]
+		 [#life-support 2 360 20 10 2 0]
+		 [#reactor 1 360 4 4 1 0]
+		 [#bus 1 360 1000 0 1 0]
+		 [#reactionless #east #south 0 0 2 0]
+		 [#reactionless #west #south 0 0 2 0]
+		 [#a-drive #east [1 2 3 4] 0 0 2 0]
+		 [#a-drive #west [5 6 7 8] 0 0 2 0]
+		 [#damage-control 1 360 3 0 2 0]
+		 [#quarters 1 360 16 0 2 0]
+		 [#lab 1 360 4 0 2 0]
+		 ]])
 
 #closest-target
 (grid object *)
@@ -145,8 +148,8 @@
 (type *)	attack ship
 (* state [0 0 90 100 200 751 0 0
    		  #attack-class 500 2 0 250 [100 50 50 50]
-		  [[#projector 1 360 250 141 0]
-		  [#reactor 1 360 4 4 0]
+		  [[#projector 1 360 250 141 1 0]
+		  [#reactor 1 360 4 4 1 0]
 		  ]])
 
 %% ----------------------------------------------------------------------
@@ -368,10 +371,11 @@
 
 (test #find-torpedoes)
 	  (find all #torpedo for #test-ship into $Torps)
-	  (assert $Torps = [[#torpedo 1 [1 8] 1 500 0] [#torpedo 2 [1 8] 1 500 0]])
+	  (assert $Torps = [[#torpedo 1 [1 8] 1 500 2 0]
+	  		  		    [#torpedo 2 [1 8] 1 500 2 0]])
 
 (test #find-torpedo-1)
-	  (find #test-ship #torpedo 1 into [#torpedo 1 [1 8] 1 500 0])
+	  (find #test-ship #torpedo 1 into [#torpedo 1 [1 8] 1 500 2 0])
 
 (test #dont-find-torpedo-3)
 	  ~(find #test-ship #torpedo 3 into $)
@@ -402,6 +406,15 @@
 
 (test #details-mtd)
 	  (#test-ship #mtd 1 details 0)
+
+(test #durability-projector)
+	  (#test-ship #projector 1 durability 3)
+
+(test #durability-tractor)
+	  (#test-ship #tractor 1 durability 4)
+
+(test #durability-mtd)
+	  (#test-ship #mtd 1 durability 5)
 
 (test #repair-time-projector)
       (#test-ship #projector 1 repair time 0)

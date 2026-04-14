@@ -11,11 +11,12 @@
 %%
 %% Systems are defined as lists:
 %%
-%% system = [ System ID Arcs Value Details TimeOfRepair ]
+%% system = [ System ID Arcs Value Details Durability TimeOfRepair ]
 %%
 %% Time of repair 0 means that the system is functioning normally. Time of
 %% repair 16383 (maxint) means that the system is irreparably destroyed, with
-%% 16380, 16381, and 16382 reserved for future shades of destroyed-ness.
+%% 16380, 16381, and 16382 reserved for future shades of destroyed-ness. Or
+%% delete the system from the list?
 %%
 %% Some information is encoded into the class definition. The class heading
 %% specifies the turn mode. The class destination specifies the A-drive
@@ -139,6 +140,10 @@
 (interface (system $<System details $>Details))
 
 (interface ($<Ship $<Type $<ID details $>Details))
+
+(interface (system $<System durability $>Durability))
+
+(interface ($<Ship $<Type $<ID durability $>Durability))
 
 (interface (system $<System repair time $>Time))
 
@@ -424,8 +429,15 @@
 	(find $Ship $Type $ID into $Match)
 	(system $Match details $Details)
 
+(system $Match durability $Durability)
+	(nth $Match 6 $Durability)
+
+($Ship $Type $ID durability $Durability)
+	(find $Ship $Type $ID into $Match)
+	(system $Match durability $Durability)
+
 (system $Match repair time $Time)
-	(nth $Match 6 $Time)
+	(nth $Match 7 $Time)
 
 ($Ship $Type $ID repair time $Time)
 	(find $Ship $Type $ID into $Match)
@@ -433,7 +445,7 @@
 
 (set repair time for $Ship $Type $ID to $Value)
 	($Ship systems $Systems)
-	(set element 6 in [$Type $ID] in $Systems to $Value into $NewList)
+	(set element 7 in [$Type $ID] in $Systems to $Value into $NewList)
 	($Ship state $State)
 	(replace element 15 in $State with $NewList into $NewState)
 	(now) ($Ship state $NewState)
