@@ -64,7 +64,11 @@
 
 (damage $Target system $Type $ID with $Units)
 	($Target $Type $ID durability $Durability)
-    ($Units times $Durability into $Time)
+	(if) ($Target is simple) (then)
+		($Units divided by $Durability into $Time)
+	(else)
+		($Units times $Durability into $Time)
+	(endif)
 	(increase repair time for $Target $Type $ID by $Time)
 
 (wreck $Target with $Units from $Direction)

@@ -14,6 +14,7 @@
 	  #damage-mtd-with-300
 	  #damage-tractor-to-destruction
 	  #wreck-with-300
+	  #damage-simple-ship
       ])
 
 %% ----------------------------------------------------------------------
@@ -77,3 +78,6 @@
 	  (take from $Systems where element 6 is 16383 into $Destroyed)
 	  (length of $Destroyed into $Num)
 	  $Num destroyed systems
+
+(test #damage-simple-ship)
+	  Not implemented
