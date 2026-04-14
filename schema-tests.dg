@@ -94,6 +94,14 @@
 	#near-target-is-quellan
 	#far-target-is-quellan
 	#distant-target-is-quellan
+	#closest-target-is-hostile
+	#near-target-is-hostile
+	#far-target-is-hostile
+	#distant-target-is-hostile
+	#closest-target-finds-test-ship-hostile
+	#closest-target-finds-near-target-friendly
+	#closest-target-finds-far-target-friendly
+	#closest-target-finds-distant-target-friendly
 	])
 
 (reset randomness)
@@ -460,3 +468,27 @@
 
 (test #distant-target-is-quellan)
 	  (#distant-target fleet #quellan)
+
+(test #closest-target-is-hostile)
+	  (#test-ship considers #closest-target hostile)
+
+(test #near-target-is-hostile)
+	  (#test-ship considers #near-target hostile)
+
+(test #far-target-is-hostile)
+	  (#test-ship considers #far-target hostile)
+
+(test #distant-target-is-hostile)
+	  (#test-ship considers #distant-target hostile)
+
+(test #closest-target-finds-test-ship-hostile)
+	  (#closest-target considers #test-ship hostile)
+
+(test #closest-target-finds-near-target-friendly)
+	  (#closest-target considers #near-target friendly)
+
+(test #closest-target-finds-far-target-friendly)
+	  (#closest-target considers #far-target friendly)
+
+(test #closest-target-finds-distant-target-friendly)
+	  (#closest-target considers #distant-target friendly)
