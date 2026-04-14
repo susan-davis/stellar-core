@@ -20,9 +20,10 @@
 	  #fire-at-near-with-100-and-2
 	  #fire-at-near-with-200-and-4
 	  #autofire-at-282-with-20
+	  #autofire-at-450-with-20
 	  ])
 
-%% ----------------------------------------------------------------------
+%% ----------------------------------------------------------------------------
 
 (test #weapons-bearing-on-closest-target-location)
     (#test-ship weapons bearing on angle 90 into
@@ -53,6 +54,7 @@
 (test #fire-projector-with-0)
 	(#test-ship fires #projector at target #near-target using 0)
 	(#near-target shields 250)
+	(#test-ship energy 932)
 
 (test #fire-projector-with-100)
 	(#test-ship fires #projector at target #near-target using 100)
@@ -65,7 +67,10 @@
 	(#test-ship energy 832)
 
 (test #projector-miss)
-	Not implemented
+	(now) (random list position 10)
+	(#test-ship fires #projector at target #near-target using 100)
+	(#near-target shields 250)
+	(#test-ship energy 832)
 
 (test #fire-torpedo-with-0)
 	(#test-ship fires #torpedo at target #near-target using 0)
@@ -74,26 +79,36 @@
 (test #fire-torpedo-with-1)
 	(#test-ship fires #torpedo at target #near-target using 1)
 	(#near-target shields 200)
+	(#test-ship ammo 9)
 
 (test #fire-torpedo-with-2)
 	(#test-ship fires #torpedo at target #near-target using 2)
 	(#near-target shields 150)
+	(#test-ship ammo 8)
 
 (test #fire-torpedo-with-4)
 	(#test-ship fires #torpedo at target #near-target using 4)
 	(#near-target shields 150)
+	(#test-ship ammo 8)
 
 (test #torpedo-miss)
-	Not implemented
+	(accelerate #near-target to gradient 6)
+	(now) (random list position 10)
+	(#test-ship fires #torpedo at target #near-target using 2)
+	(#near-target shields 200) %% one miss, one hit
+	(#test-ship ammo 8)
 
 (test #fire-at-closest-with-100-and-2)
-	Not implemented
+	(#test-ship fires at #closest-target using 100 energy and 2 ammo)
 
 (test #fire-at-near-with-100-and-2)
-	Not implemented
+	(#test-ship fires at #near-target using 100 energy and 2 ammo)
 
 (test #fire-at-near-with-200-and-4)
-	Not implemented
+	(#test-ship fires at #near-target using 200 energy and 4 ammo)
 
 (test #autofire-at-282-with-20)
-	Not implemented
+	(#test-ship autofires #projector within 282 using 20 per shot)
+
+(test #autofire-at-450-with-20)
+	(#test-ship autofires #projector within 450 using 20 per shot)

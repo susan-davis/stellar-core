@@ -121,7 +121,7 @@
 %% damage = (2 to 3)*energy/range, but miss if less than 15% of target
 %% "range" = 1/100 of what our ranges are
 
-%% Projector hit chance = 2d6 > (Range * 100)
+%% Projector hit chance = 2d6 > (Range * Details)
 %% Projector damage = Energy * (2d6-7)*10 + 20/Range
 ($Ship fires * $ $Details at $Target using $Amount)
 	($Ship energy $StartingEnergy)
@@ -207,6 +207,7 @@
 %% Torpedo hit chance: dependent on target aspect and warp gradient
 %% Torepdo damage: first element of details
 ($Ship fires * $ID $Details at $Target using $Amount)
+	(decrease ammo for $Ship by $Amount)
 	(if) ($Amount > 0) ~($Target is destroyed) (then)
         (target aspect from $Ship to $Target into $Aspect)
 		($Target warp gradient $Speed)
@@ -278,3 +279,6 @@
 ($Ship fires $Type at target $Target using $Amount)
 	($Ship $Type bearing on target $Target into $Weapons)
     ($Ship fires at $Target with $Weapons using $Amount)
+
+($Ship autofires $Type within $Range using $Amount per shot)
+	$Ship autofires $Type within $Range using $Amount per shot
