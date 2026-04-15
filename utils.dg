@@ -54,9 +54,13 @@
 (interface (find in $<List beginning with sublist $<Head into $>Match))
 
 %% Same, but construct a sublist to search for two elements
-(interface (find $X $Y in $List into $Match))
+(interface (find $<X $<Y in $<List into $>Match))
 
 (interface (set element $<Num in $<Head in $<List to $<Value into $>NewList))
+
+(interface (remove from $<List beginning with sublist $<Head into $>NewList))
+
+(interface (remove $<X $<Y from $<List into $>NewList))
 
 (interface (random element from $<List into $>Choice))
 
@@ -201,6 +205,22 @@
 
 (find $X $Y in $List into $Match)
 	(find in $List beginning with sublist [$X $Y] into $Match)
+
+(remove from $List beginning with sublist $Sublist into $NewList)
+  	(if) ~(empty $List) (then)
+		($List = [$Head | $Tail])
+		(if) ($Head begins with sublist $Sublist) (then)
+			($NewList = $Tail)
+		(else)
+			(remove from $Tail beginning with sublist $Sublist into $Remainder)
+			(append [$Head] $Remainder $NewList)
+		(endif)
+	(else)
+		($NewList = [])
+	(endif)
+
+(remove $X $Y from $List into $NewList)
+	(remove from $List beginning with sublist [$X $Y] into $NewList)
 
 (set element $Num in $Sublist in $List to $Value into $NewList)
 	(if) (empty $List) (then)

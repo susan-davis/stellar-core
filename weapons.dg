@@ -146,8 +146,8 @@
 	(endif)
 
 %% Plasma bolts work similarly to energy projectors, but have a more rapid
-%% range decay, unless we encode the decay in details. They mostly exist to
-%% give some colour to foreign (Regulan) ships, to make them different.
+%% range decay. They mostly exist to give some colour to foreign (Regulan)
+%% ships, to make them different. Assign smaller numbers in their details.
 #plasma
 (name *)		plasma
 (long name *)	plasma bolt
