@@ -155,6 +155,7 @@
 	(1d10 9)
 	(1d10 2)
 	(1d10 4)
+	(1d10 3)
 
 (test #d20)
 	(d20 19)
@@ -164,6 +165,7 @@
 	(d20 9)
 	(d20 12)
 	(d20 4)
+	(d20 13)
 
 (test #randomize-position)
 	(shuffle randomness)
