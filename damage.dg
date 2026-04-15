@@ -58,7 +58,9 @@
 		(damage random $Target system with $Units from $Direction)
 	(endif)
 
-%% this used to live in utils.dg, but we don't want to couple dice.dg to it
+%% This used to live in utils.dg, but we don't want to couple dice.dg to it.
+%% Only supports lists up to 216 elements fairly, but our use here will always
+%% fall within that. No ship should have more than 36 systems in practice.
 (random element from $List into $Choice)
 	(length of $List into $Length)
 	(if) ($Length = 0) (then)

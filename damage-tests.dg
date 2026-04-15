@@ -37,9 +37,7 @@
 
 (assert $Ship has $Shields and $Energy)
 	  ($Ship shields $Shields)
-	  $Shields
 	  ($Ship energy $Energy)
-	  $Energy
 
 (test #shields-hold-from-ahead-50)
       (hit #closest-target with 50 from #north)
