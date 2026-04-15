@@ -119,7 +119,7 @@
 
 (2d6 $First $Second)
 	(3d6 choice $Num)
-	(split $Num into $ $ $First $Second)
+	(split $Num into $ $First $Second $)
 
 (2d6 $Total)
 	(2d6 $First $Second)

@@ -6,19 +6,19 @@
 	  #d3
 	  #one-roll
 	  #wrap-around-1d6
-	  #three-roll-individual
-	  #two-roll-total
 	  #two-roll-individual
+	  #two-roll-total
+	  #three-roll-individual
 	  #three-roll-total
 	  #wrap-around-3d6
 	  #mix-one-and-three
-	  #d36
-	  #d216
-	  #1d10
 	  #2d10-total
 	  #2d10-individual
-	  #d20
+	  #d36
 	  #d100
+	  #d216
+	  #1d10
+	  #d20
 	  ])
 
 %%-----------------------------------------------------------------------------
@@ -30,6 +30,7 @@
 (test #d3)
 	(d3 3)
 	(d3 1)
+	(d3 3)
 	(d3 3)
 	(d3 3)
 
@@ -49,6 +50,22 @@
 	(1d6 1)
 	(1d6 6)
 
+(test #two-roll-individual)
+	(2d6 9)
+	(2d6 7)
+	(2d6 8)
+	(2d6 11)
+	(2d6 5)
+	(2d6 6)
+
+(test #two-roll-total)
+	(2d6 4 5)
+	(2d6 4 3)
+	(2d6 5 3)
+	(2d6 6 5)
+	(2d6 1 4)
+	(2d6 5 1)
+
 (test #three-roll-individual)
 	(3d6 4 5 6)
 	(3d6 4 3 1)
@@ -56,22 +73,6 @@
 	(3d6 6 5 6)
 	(3d6 1 4 6)
 	(3d6 5 1 5)
-
-(test #two-roll-total)
-	(2d6 11)
-	(2d6 4)
-	(2d6 9)
-	(2d6 11)
-	(2d6 10)
-	(2d6 6)
-
-(test #two-roll-individual)
-    (2d6 5 6)
-	(2d6 3 1)
-	(2d6 3 6)
-	(2d6 5 6)
-	(2d6 4 6)
-	(2d6 1 5)
 
 (test #three-roll-total)
 	(3d6 15)
