@@ -7,7 +7,7 @@
 
 %%-------------------------------- INTERFACES ---------------------------------
 
-(interface (d3 $>Roll))
+(interface (1d3 $>Roll))
 
 (interface (1d6 $>Roll))
 
@@ -45,7 +45,7 @@
 
 (reset randomness) %% do nothing
 
-(d3 $Roll)
+(1d3 $Roll)
 	(random from 1 to 3 into $Roll)
 
 (1d6 $Roll)

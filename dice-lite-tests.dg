@@ -1,7 +1,7 @@
 %% dgdebug -u dice-lite-tests.dg dice-lite.dg unit.dg stdlib.dg
 
 (list of tests [
-	#d3
+	#1d3
 	#one-die
 	#two-dice
 	#three-dice
@@ -17,16 +17,16 @@
 
 %%-----------------------------------------------------------------------------
 
-(d3 $N times)
+(1d3 $N times)
 	(if) ($N > 0) (then)
-		(d3 $Roll)
+		(1d3 $Roll)
 		($Roll > 0) ($Roll < 7)
 		($N minus 1 into $NMinusOne)
-		(d3 $NMinusOne times)
+		(1d3 $NMinusOne times)
 	(endif)
 
-(test #d3)
-	(d3 1000 times)
+(test #1d3)
+	(1d3 1000 times)
 
 (1d6 $N times)
 	(if) ($N > 0) (then)
