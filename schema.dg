@@ -5,7 +5,8 @@
 %% State about a ship is stored as one list, to cut down on storage:
 %%
 %% state = [ PositionX PositionY Heading Speed DestX DestY Helm Throttle
-%% 		   	 Class Energy Crystals Ammo Shields [S1 S2 S3 S4] [Systems] ]
+%% 		   	 Class Energy Crystals Ammo Shields [ShieldLevels] [Inbound]
+%%			 [Systems] ]
 %%
 %% Systems are defined as lists:
 %%
@@ -19,7 +20,7 @@
 %% Ship classes are defined by a class record:
 %%
 %% class = [ $ $ TurnMode $ Efficiency Acceleration $ Fleet Class
-%%           MaxEnergy MaxCrystals MaxAmmo MaxShields [ Max Shield Levels ]
+%%           MaxEnergy MaxCrystals MaxAmmo MaxShields [ Max Shield Levels ] $
 %%			 [ Systems List ]
 %%
 %% Some information is encoded into the class definition. The class heading
@@ -72,6 +73,8 @@
 (interface ($<Ship shield levels $>Levels))
 
 (interface ($<Ship shield level $<Direction into $>Level))
+
+(interface ($<Ship inbound missiles $>Inbound))
 
 (interface ($<Ship ammo $>Ammo))
 
@@ -175,11 +178,11 @@
 (initialize $Ship as $Class)
 	($Class state $Default)
 	($Default =
-	    [$ $ $ $ $ $ $ $ $
-		 $Energy $Crystals $Ammo $Shields $Levels $Systems | $])
+	    [$ $ $ $ $ $ $ $ $ $Energy $Crystals
+		$Ammo $Shields $Levels $Incoming $Systems | $])
 	($Ship state [$PX $PY $H $S $DX $DY $C $T $Class | $Tail])
-	(now) ($Ship state [$PX $PY $H $S $DX $DY $C $T
-		   $Class $Energy $Crystals $Ammo $Shields $Levels $Systems | $Tail])
+	(now) ($Ship state [$PX $PY $H $S $DX $DY $C $T $Class $Energy $Crystals
+		   $Ammo $Shields $Levels $Incoming $Systems | $Tail])
 
 %%---------------------------- SCHEMA DEFINITION ----------------------------
 
@@ -233,6 +236,10 @@
 ($Ship shield levels $Levels)
 	($Ship state $State)
 	(nth $State 14 $Levels)
+
+($Ship inbound missiles $Inbound)
+	($Ship state $State)
+	(nth $State 15 $Inbound)
 
 ($Ship throttle gradient $Gradient)
 	($Ship throttle setting $Throttle)
@@ -294,7 +301,7 @@
 
 ($Ship systems $Systems)
     ($Ship state $State)
-	(nth $State 15 $Systems)
+	(nth $State 16 $Systems)
 
 ($Ship is simple)
 	($Ship systems $Systems)
@@ -473,7 +480,7 @@
 	($Ship systems $Systems)
 	(set element 7 in [$Type $ID] in $Systems to $Value into $NewList)
 	($Ship state $State)
-	(replace element 15 in $State with $NewList into $NewState)
+	(replace element 16 in $State with $NewList into $NewState)
 	(now) ($Ship state $NewState)
 
 (increase repair time for $Ship $Type $ID by $Value)

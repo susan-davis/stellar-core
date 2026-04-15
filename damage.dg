@@ -128,5 +128,5 @@
 		(destroy $Ship)
 	(endif)
 	($Ship state $State)
-	(replace element 15 in $State with $NewSystems into $NewState)
+	(replace element 16 in $State with $NewSystems into $NewState)
 	(now) ($Ship state $NewState)

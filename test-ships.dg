@@ -2,7 +2,8 @@
 %% standard test ships for unit tests
 
 %% state = [ PositionX PositionY Heading Speed DestX DestY Helm Throttle
-%% 		   	 Class Energy Crystals Ammo Shields [S1 S2 S3 S4] [ Systems ] ]
+%% 		   	 Class Energy Crystals Ammo Shields [ShieldLevels] [Inbound]
+%%			 [Systems] ]
 
 #union
 (name *)	Stellar Union
@@ -14,7 +15,8 @@
 #cygnus-class
 (name *)	Cygnus
 (type *)	fast scout
-(* state [0 0 180 0 500 963 0 #union #cygnus-class 1000 4 10 500 [100 99 98 97]
+(* state [0 0 180 0 500 963 0 #union #cygnus-class 1000 4 10 500
+   		 [100 99 98 97] []
 		 [[#projector 1 [360 #up] 100 141 3 0]
 		 [#torpedo 1 [1 8] 1 500 2 0]
 		 [#torpedo 2 [1 8] 1 500 2 0]
@@ -59,9 +61,10 @@
 #attack-class
 (name *)	Attack
 (type *)	attack ship
-(* state [0 0 90 100 200 751 0 #quellan #attack-class 500 2 0 250 [100 50 50 50]
-		  [[#projector 1 [8 1] 250 100 1 0]
-		  [#reactor 1 360 4 4 1 0]]])
+(* state [0 0 90 100 200 751 0 #quellan #attack-class 500 2 0 250
+   		 [100 50 50 50] []
+		 [[#projector 1 [8 1] 250 100 1 0]
+		 [#reactor 1 360 4 4 1 0]]])
 
 #non-grid-object
 (* state [374 474 0])

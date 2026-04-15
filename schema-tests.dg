@@ -10,6 +10,7 @@
 	#crystals
 	#shields
 	#shield-levels
+	#inbound-missiles
 	#shield-level-north
 	#shield-level-east
 	#shield-level-south
@@ -142,6 +143,9 @@
 
 (test #shield-level-west)
 	  (#test-ship shield level #west into 97)
+
+(test #inbound-missiles)
+	  (#test-ship inbound missiles [])
 
 (test #ammo)
 	  (#test-ship ammo 10)
