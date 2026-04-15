@@ -53,8 +53,8 @@
 %% d20 rolls, and be perfectly fair if you stick to the first 200 list
 %% positions. They are *not* normalized so that combining the tens and the
 %% sixes stays fair. (For a d20, use the hundreds digit for 1-10 vs. 11-20.)
-%% I realized later that I could have gotten fair d10/d20/d100 rolls from
-%% the d216 that I already had, but it's the same storage either way.
+%% I realized later that I could have gotten fair d20 rolls from the d216
+%% that I already had, but it's the same storage either way.
 
 (global variable (list of random die rolls [ %% 432 bytes of storage
 	 9456  3431  6536  5656  9146  2515  4366  3634  1451  2111  8551  4425
@@ -90,7 +90,8 @@
 (shuffle randomness)
 	(random from 1 to 216 into $Position)
 	(now) (3d6 list position $Position)
-	(now) (d20 list position $Position)
+	(random from 1 to 200 into $Pos)
+	(now) (d20 list position $Pos)
 
 (reset randomness)
 	(now) (3d6 list position 1)
