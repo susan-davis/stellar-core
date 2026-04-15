@@ -15,6 +15,8 @@
 
 (interface ($<Num1 delta $<Num2 into $>Result))
 
+(interface ($<Num1 is within $<Range of $<Num2))
+
 (interface (add $<X to $<Y into $>Z))           %% safe, capped at maxint
 
 (interface (add $<X to $<Y into $>Z max $<Max)) %% safe, capped at maxint
@@ -94,6 +96,10 @@
 	(else)
 		($Y minus $X into $Result)
 	(endif)
+
+($Num1 is within $Range of $Num2)
+	($Num1 delta $Num2 into $Delta)
+	~($Delta > $Range)
 
 (add $X to $Y into $Z)
     (add $X to $Y into $Z max 16383)

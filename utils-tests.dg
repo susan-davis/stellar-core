@@ -13,6 +13,11 @@
 	#delta-2-4
 	#delta-2-2
 	#delta-0-0
+	#range-5-3
+	#range-3-5
+	#range-3-3
+	#range-0-3
+	#range-0-0
 	#3-div-3-rounding-up
 	#4-div-3-rounding-up
 	#5-div-3-rounding-up
@@ -138,6 +143,21 @@
 
 (test #delta-0-0)
 	(0 delta 0 into 0)
+
+(test #range-5-3)
+	(5 is within 2 of 3)
+
+(test #range-3-5)
+	(3 is within 2 of 5)
+
+(test #range-3-3)
+	(3 is within 0 of 3)
+
+(test #range-0-3)
+	(0 is within 3 of 3)
+
+(test #range-0-0)
+	(0 is within 0 of 0)
 
 (test #3-div-3-rounding-up)
 	(3 divided by 3 into 1 rounding up)
