@@ -406,6 +406,4 @@
 
 (test #remove-7-7)
 	  (list of lists $List)
-	  (remove 7 7 from $List into $NewList)
-	  $NewList
-	  (assert $NewList = $List)
+	  (remove 7 7 from $List into $List)

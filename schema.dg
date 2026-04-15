@@ -170,8 +170,6 @@
 
 (interface (repair $<Ship $<Type $<ID))
 
-(interface (destroy $<Ship $<Type $<ID))
-
 %%------------------------------ IMPLEMENTATION -------------------------------
 
 (initialize $Ship as $Class)
@@ -491,6 +489,3 @@
 
 (repair $Ship $Type $ID)
 	(set repair time for $Ship $Type $ID to 0)
-
-(destroy $Ship $Type $ID)
-	(set repair time for $Ship $Type $ID to 16383)
