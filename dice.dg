@@ -48,13 +48,13 @@
 %% better randomness than a typical 8- or 16-bit rng within the typical number
 %% of random events for an IF game that includes randomness.
 
-%% I later added values 1-10 in the thousands (and ten thousands) digit
-%% before realizing that fair d10, d20, and d% rolls can be gotten from a d216
-%% result. They're normalized so that the hundreds digit can be used to make
+%% I later added values 1-10 in the thousands (and ten thousands) digit.
+%% They're normalized so that the hundreds digit can be used to make fair
 %% d20 rolls, and be perfectly fair if you stick to the first 200 list
-%% positions. They are *not* normalized so that combining the d10 in the
-%% thousands digit with the d6 rolls in the others stays fair. I'm not going
-%% to go back and remove them, as it's the same amount of stoage either way.
+%% positions. They are *not* normalized so that combining the tens and the
+%% sixes stays fair. (For a d20, use the hundreds digit for 1-10 vs. 11-20.)
+%% I realized later that I could have gotten fair d10/d20/d100 rolls from
+%% the d216 that I already had, but it's the same storage either way.
 
 (global variable (list of random die rolls [ %% 432 bytes of storage
 	 9456  3431  6536  5656  9146  2515  4366  3634  1451  2111  8551  4425
@@ -77,7 +77,9 @@
 	 8415  4563  6653  6115  7113  2352  5351 10464  9523  3165  9223  3612
 	]))
 
-(global variable (random list position 1))
+(global variable (3d6 list position 1))
+
+(global variable (d20 list position 1))
 
 %% Starting at the beginning of the list gives the same output for every single
 %% game, which is good for unit tests, but can allow sketchy exploits in games.
@@ -87,34 +89,36 @@
 
 (shuffle randomness)
 	(random from 1 to 216 into $Position)
-	(now) (random list position $Position)
+	(now) (3d6 list position $Position)
+	(now) (d20 list position $Position)
 
 (reset randomness)
-	(now) (random list position 1)
+	(now) (3d6 list position 1)
+	(now) (d20 list position 1)
 
-(random choice $Num)
-	(random list position $Pos)
+(3d6 choice $Num)
+	(3d6 list position $Pos)
 	(if) { ($Pos = 0) (or) ($Pos > 216) } (then)
 		($Position = 1)
-	    (now) (random list position $Position)
+	    (now) (3d6 list position $Position)
 	(else)
-		(random list position $Position)
+		(3d6 list position $Position)
 	(endif)
 	(list of random die rolls $Rolls)
 	(nth $Rolls $Position $Num)
 	($Position plus 1 into $NewPosition)
-	(now) (random list position $NewPosition)
+	(now) (3d6 list position $NewPosition)
 
 (d3 $Roll)
     (1d6 $Die)
     ($Die divided by 2 into $Roll rounding up)
 
 (1d6 $Roll)
-	(random choice $Num)
+	(3d6 choice $Num)
 	($Num modulo 10 into $Roll)
 
 (2d6 $First $Second)
-	(random choice $Num)
+	(3d6 choice $Num)
 	(split $Num into $ $ $First $Second)
 
 (2d6 $Total)
@@ -122,7 +126,7 @@
 	($First plus $Second into $Total)
 
 (3d6 $First $Second $Third)
-	(random choice $Num)
+	(3d6 choice $Num)
 	(split $Num into $ $First $Second $Third)
 
 (3d6 $Total)
@@ -130,27 +134,20 @@
 	($First plus $Second into $Sum)
 	($Sum plus $Third into $Total)
 
-(1d10 $Roll)
-	(2d10 $ $Roll)
+(d36 $Total)
+	(3d6 choice $Num)
+	(split $Num into $ $ $Second $Ones)
+	($Second minus 1 into $Upper)
+	($Upper times 6 into $Sixes)
+	($Ones plus $Sixes into $Total)
 
 (2d10 $Total)
 	(2d10 $First $Second)
 	($First plus $Second into $Total)
 
 (2d10 $First $Second)
-	(d100 $Percent)
-	(split $Percent into $ $ $First $Second)
-
-(d20 $Roll)
-	(d100 $Raw)
-	($Raw divided by 5 into $Roll rounding up)
-
-(d36 $Total)
-	(random choice $Num)
-	(split $Num into $ $ $Second $Ones)
-	($Second minus 1 into $Upper)
-	($Upper times 6 into $Sixes)
-	($Ones plus $Sixes into $Total)
+	(d100 $Roll)
+	(split $Roll into $ $ $First $Second)
 
 (d100 $Percent)
 	(d216 $Roll)
@@ -161,7 +158,7 @@
 	(endif)
 
 (d216 $Total)
-	(random choice $Num)
+	(3d6 choice $Num)
 	(split $Num into $ $Third $Second $Ones)
 	($Second minus 1 into $Middle)
 	($Middle times 6 into $Sixes)
@@ -169,3 +166,29 @@
 	($Third minus 1 into $Upper)
 	($Upper times 36 into $ThirtySixes)
 	($ThirtySixes plus $Sum into $Total)
+
+(d20 choice $Num)
+	(d20 list position $Pos)
+	(if) { ($Pos = 0) (or) ($Pos > 200) } (then)
+		($Position = 1)
+	    (now) (d20 list position $Position)
+	(else)
+		(d20 list position $Position)
+	(endif)
+	(list of random die rolls $Rolls)
+	(nth $Rolls $Position $Num)
+	($Position plus 1 into $NewPosition)
+	(now) (d20 list position $NewPosition)
+
+(1d10 $Roll)
+	(d20 choice $Num)
+	(split $Num into $Roll $ $ $)
+
+(d20 $Roll)
+	(d20 choice $Num)
+	(split $Num into $Tens $Sixes $ $)
+	(if) ($Sixes > 3) (then)
+		($Tens plus 10 into $Roll)
+	(else)
+		($Tens = $Roll)
+	(endif)

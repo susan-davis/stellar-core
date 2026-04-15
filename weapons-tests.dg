@@ -80,7 +80,7 @@
 	(#near-target shields 200)
 
 (test #projector-miss)
-	(now) (random list position 10)
+	(now) (3d6 list position 10)
 	(#test-ship fires #projector at target #near-target using 100)
 	(assert #test-ship has 832 energy and 10 ammo)
 	(#near-target shields 250)
@@ -112,7 +112,7 @@
 
 (test #torpedo-miss)
 	(accelerate #near-target to gradient 6)
-	(now) (random list position 10)
+	(now) (3d6 list position 10)
 	(#test-ship fires #torpedo at target #near-target using 2)
 	(assert #test-ship has 932 energy and 8 ammo)
 	(#near-target shields 200) %% one miss, one hit

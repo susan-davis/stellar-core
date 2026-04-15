@@ -280,6 +280,7 @@
 	($Ship $Type bearing on target $Target into $Weapons)
     ($Ship fires at $Target with $Weapons using $Amount)
 
+%% TODO: limit the shots that any one weapon can take
 ($Ship autofires $Type $ID within $Range using $Amount per shot)
 	(exhaust) {
 		*(grid object $Object)
