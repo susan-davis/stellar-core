@@ -62,8 +62,6 @@
 
 (interface (remove $<X $<Y from $<List into $>NewList))
 
-(interface (random element from $<List into $>Choice))
-
 %%------------------------------ IMPLEMENTATION ------------------------------
 
 ($Num is odd) %% yagni?
@@ -235,8 +233,3 @@
 			 ($NewList = [$Head | $NewTail])
 		(endif)
 	(endif)
-
-(random element from $List into $Element)
-    (length of $List into $Len)
-	(random from 1 to $Len into $Choice)
-	(nth $List $Choice $Element)
