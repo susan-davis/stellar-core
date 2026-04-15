@@ -2,6 +2,9 @@
 %% 		   	  sectored-grid.dg unit.dg stdlib.dg
 
 (list of tests [
+	  #random-0
+	  #random-3
+	  #random-6
       #shields-hold-from-ahead-50
       #shields-penetrated-from-ahead-101
       #shields-hold-from-port-50
@@ -18,6 +21,19 @@
       ])
 
 %% ----------------------------------------------------------------------
+
+(test #random-0)
+	~(random element from [] into $)
+
+(test #random-3)
+	(random element from [1 2 3] into 3)
+	(random element from [1 2 3] into 1)
+	(random element from [1 2 3] into 3)
+
+(test #random-6)
+	(random element from [1 2 3 4 5 6] into 6)
+	(random element from [1 2 3 4 5 6] into 1)
+	(random element from [1 2 3 4 5 6] into 6)
 
 (assert $Ship has $Shields and $Energy)
 	  ($Ship shields $Shields)

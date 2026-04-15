@@ -58,6 +58,7 @@
 		(damage random $Target system with $Units from $Direction)
 	(endif)
 
+%% this used to live in utils.dg, but we don't want to couple dice.dg to it
 (random element from $List into $Choice)
 	(length of $List into $Length)
 	(if) ($Length = 0) (then)
