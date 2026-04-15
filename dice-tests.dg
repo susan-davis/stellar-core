@@ -3,7 +3,7 @@
 (list of tests [
 	  #randomize-position
 	  #reset-randomness
-	  #d3
+	  #1d3
 	  #one-roll
 	  #wrap-around-1d6
 	  #two-roll-individual
@@ -27,12 +27,12 @@
 
 %%-----------------------------------------------------------------------------
 
-(test #d3)
-	(d3 3)
-	(d3 1)
-	(d3 3)
-	(d3 3)
-	(d3 3)
+(test #1d3)
+	(1d3 3)
+	(1d3 1)
+	(1d3 3)
+	(1d3 3)
+	(1d3 3)
 
 (test #one-roll)
 	(1d6 6)

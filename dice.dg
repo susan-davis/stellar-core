@@ -5,7 +5,7 @@
 
 %%-------------------------------- INTERFACES ---------------------------------
 
-(interface (d3 $>Roll))
+(interface (1d3 $>Roll))
 
 (interface (1d6 $>Roll))
 
@@ -84,8 +84,7 @@
 %% Starting at the beginning of the list gives the same output for every single
 %% game, which is good for unit tests, but can allow sketchy exploits in games.
 %% Call this once at the beginning of (program entry point) to start from a
-%% random  spot in the list instead. Calling this again after play has started
-%% breaks undo safety.
+%% random spot in the list instead.
 
 (shuffle randomness)
 	(random from 1 to 216 into $Position)
@@ -110,7 +109,7 @@
 	($Position plus 1 into $NewPosition)
 	(now) (3d6 list position $NewPosition)
 
-(d3 $Roll)
+(1d3 $Roll)
     (1d6 $Die)
     ($Die divided by 2 into $Roll rounding up)
 
