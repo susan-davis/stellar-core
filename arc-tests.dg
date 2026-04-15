@@ -135,6 +135,8 @@
 	#target-aspect-from-distant
 	])
 
+(reset randomness)
+
 %% ----------------------------------------------------------------------
 
 (test #firing-arc-closest-target)

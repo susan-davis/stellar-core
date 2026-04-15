@@ -103,12 +103,12 @@
 (test #fire-torpedo-with-2)
 	(#test-ship fires #torpedo at target #near-target using 2)
 	(assert #test-ship has 932 energy and 8 ammo)
-	(#near-target shields 150)
+	(#near-target is destroyed)
 
 (test #fire-torpedo-with-4)
 	(#test-ship fires #torpedo at target #near-target using 4)
 	(assert #test-ship has 932 energy and 8 ammo)
-	(#near-target shields 150)
+	(#near-target is destroyed)
 
 (test #torpedo-miss)
 	(accelerate #near-target to gradient 6)
@@ -125,12 +125,12 @@
 (test #fire-at-near-with-100-and-2)
 	(#test-ship fires at #near-target using 100 energy and 2 ammo)
 	(assert #test-ship has 832 energy and 8 ammo)
-	(#near-target shields 100)
+	(#near-target is destroyed)
 
 (test #fire-at-near-with-200-and-4)
 	(#test-ship fires at #near-target using 200 energy and 4 ammo)
 	(assert #test-ship has 832 energy and 8 ammo)
-	(#near-target shields 100)
+	(#near-target is destroyed)
 
 (test #autofire-at-282-with-20)
 	(#test-ship autofires #projector 1 within 282 using 20 per shot)

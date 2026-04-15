@@ -422,7 +422,7 @@
 
 (destroy $Ship)
 	(remove $Ship from the map)
-	%% add explosion strength here
+%%	(log) { $Ship explodes }
 
 %%-------------------------------- SHIP SYSTEMS -------------------------------
 

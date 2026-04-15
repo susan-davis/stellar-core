@@ -207,7 +207,7 @@
 %% Torpedo hit chance: dependent on target aspect and warp gradient
 %% Torepdo damage: first element of details
 ($Ship fires * $ID $Details at $Target using $Amount)
-	(if) ($Amount > 0) ~($Target is destroyed) ~($Ship = $Target) (then)
+	(if) ($Amount > 0) ~($Ship = $Target) (then)
 		(decrease ammo for $Ship by $Amount)
         (target aspect from $Ship to $Target into $Aspect)
 		($Target warp gradient $Speed)
@@ -259,12 +259,11 @@
 %%----------------------------------------------------------------------------
 
 ($Ship fires at $Target with $Weapons using $Amount)
-	(if) ~(empty $Weapons) ($Amount > 0) ~($Ship = $Target) (then)
+	(if) ~(empty $Weapons) ~($Ship = $Target) ~($Target is destroyed) (then)
 	    ($Weapons = [$Head | $Tail])
 		($Head = [$Type $ID $ $Value $Details $ $])
 		(min $Value and $Amount into $Fired)
         ($Ship fires $Type $ID $Details at $Target using $Fired)
-%%        (log) {$Ship fires $Type $ID $Details at $Target using $Fired}
 		(if) ($Value < $Amount) (then)
 			(subtract $Value from $Amount into $Remainder)
 			($Ship fires at $Target with $Tail using $Remainder)
@@ -284,9 +283,10 @@
 ($Ship autofires $Type $ID within $Range using $Amount per shot)
 	(exhaust) {
 		*(grid object $Object)
-		($Ship considers $Object hostile) %% IFF
-		(range from $Ship to $Object into $Distance)
+		~($Object is destroyed)
 		~($Object = $Ship)
+		($Ship considers $Object hostile)
+		(range from $Ship to $Object into $Distance)
 		~($Distance > $Range)
 		($Ship $Type $ID bears on target $Object)
 		($Ship fires $Type at target $Object using $Amount)

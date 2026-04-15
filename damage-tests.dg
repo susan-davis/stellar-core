@@ -14,7 +14,7 @@
 	  #damage-mtd-with-300
 	  #damage-tractor-to-destruction
 	  #wreck-with-300
-	  #damage-simple-ship
+	  #wreck-closest-target-with-500
       ])
 
 %% ----------------------------------------------------------------------
@@ -66,18 +66,20 @@
 
 (test #damage-mtd-with-300)
 	  (damage #test-ship system #mtd 1 with 300)
-	  (#test-ship #mtd 1 repair time 16383)
+	  ~(find #test-ship #mtd 1 into $)
 
 (test #damage-tractor-to-destruction)
 	  (damage #test-ship system #tractor 1 with 16300)
-	  (#test-ship #tractor 1 repair time 16383)
+	  ~(find #test-ship #tractor 1 into $)
 
 (test #wreck-with-300)
+	  (#test-ship systems $Before)
+	  (length of $Before into $Length)
 	  (wreck #test-ship with 300 from #north)
-	  (#test-ship systems $Systems)
-	  (take from $Systems where element 6 is 16383 into $Destroyed)
-	  (length of $Destroyed into $Num)
-	  $Num destroyed systems
+	  (#test-ship systems $After)
+	  ~(length of $After into $Length)
+	  ~($Before = $After)
 
-(test #damage-simple-ship)
-	  Not implemented
+(test #wreck-closest-target-with-500)
+	  (wreck #closest-target with 500 from #north)
+	  (#closest-target is destroyed)

@@ -12,6 +12,8 @@
 
 (interface (damage $<Ship system $<Type $<ID with $<Units))
 
+(interface (destroy $<Ship system $<Type $<ID))
+
 %%------------------------------ IMPLEMENTATION ------------------------------
 
 %% state = [ PositionX PositionY Heading Speed DestX DestY Helm Throttle
@@ -34,7 +36,6 @@
 %%   * with remainder, wreck ship, possibly destroying it
 
 (hit $Target with $Units from $Direction)
-%%	(log) { $Target hit with $Units from $Direction }
 	($Target shields $TotalShieldPower)
 	($Target shield level $Direction into $DirectionShieldPower)
 	(min $TotalShieldPower and $DirectionShieldPower into $ShieldPower)
@@ -64,7 +65,6 @@
 	(damage $Target system $Type $ID with $Units)
 
 (damage $Target system $Type $ID with $Units)
-%%	(log) { damage $Target system $Type $ID with $Units }
 	($Target $Type $ID durability $Durability)
 	(if) ($Target is simple) (then)
 		($Units divided by $Durability into $Time)
@@ -72,13 +72,33 @@
 		($Units times $Durability into $Time)
 	(endif)
 	(increase repair time for $Target $Type $ID by $Time)
+	($Target $Type $ID repair time $NewTime)
+	(if) ($NewTime = 16383) (then)
+		(destroy $Target system $Type $ID)
+	(endif)
+
+(destroy random $Target system)
+	($Target systems $Systems)
+	(random element from $Systems into $System)
+	($System = [$Type $ID | $])
+	(destroy $Target system $Type $ID)
 
 (wreck $Target with $Units from $Direction)
-%%	(log) { wreck $Target system $Type $ID with $Units }
-	(damage random $Target system with 16383 from $Direction)
-	($Units divided by 10 into $Minimum)
-	(random from $Minimum to $Units into $Damage)
+	(destroy random $Target system)
+	(3d6 $Roll)
+	($Roll times 5 into $Damage)
 	(subtract $Damage from $Units into $Remaining)
-	(if) ($Remaining > 0) (then)
+	(if) ($Remaining > 0) ~($Target is destroyed) (then)
 		(wreck $Target with $Remaining from $Direction)
 	(endif)
+
+(destroy $Ship system $Type $ID)
+	($Ship systems $Systems)
+	(remove $Type $ID from $Systems into $NewSystems)
+	(length of $NewSystems into $Length)
+	(if) { ($Type = #reactor) (or) ($Length = 0) } (then) %% or ship is simple
+		(destroy $Ship)
+	(endif)
+	($Ship state $State)
+	(replace element 15 in $State with $NewSystems into $NewState)
+	(now) ($Ship state $NewState)

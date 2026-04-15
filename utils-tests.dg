@@ -86,6 +86,8 @@
 	#remove-3-2
 	#remove-4-1
 	#remove-7-7
+	#remove-1-2-twice
+	#remove-3-2-twice
 	])
 
 (global variable (list of lists [
@@ -377,6 +379,16 @@
 		[3 2 4 6 7]
 		[4 1 7 8 9]])
 
+(test #remove-1-2-twice)
+	  (list of lists $List)
+	  (remove 1 2 from $List into $NewList)
+	  (remove 1 2 from $NewList into $NewerList)
+	  (assert $NewerList = [
+		[2 2 4 5 6]
+		[3 2 4 5 6]
+		[3 2 4 6 7]
+		[4 1 7 8 9]])
+
 (test #remove-2-2)
 	  (list of lists $List)
 	  (remove 2 2 from $List into $NewList)
@@ -393,6 +405,15 @@
 	  	[1 2 3 4 5]
 		[2 2 4 5 6]
 		[3 2 4 6 7]
+		[4 1 7 8 9]])
+
+(test #remove-3-2-twice)
+	  (list of lists $List)
+	  (remove 3 2 from $List into $NewList)
+	  (remove 3 2 from $NewList into $NewerList)
+	  (assert $NewerList = [
+	  	[1 2 3 4 5]
+		[2 2 4 5 6]
 		[4 1 7 8 9]])
 
 (test #remove-4-1)
