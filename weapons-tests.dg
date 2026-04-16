@@ -8,6 +8,8 @@
 	  #weapons-bearing-on-near-target
 	  #damaged-weapons-dont-bear
 	  #dont-projector-self
+	  #dont-fire-projector-at-far-target
+	  #dont-fire-projector-at-distant-target
 	  #fire-projector-with-0
 	  #fire-projector-with-100
 	  #fire-projector-with-200
@@ -63,6 +65,16 @@
 	(#test-ship fires #projector at target #test-ship using 100)
 	(assert #test-ship has 932 energy and 10 ammo)
 	(#test-ship shields 500)
+
+(test #dont-fire-projector-at-far-target)
+	(#test-ship fires #projector at target #far-target using 100)
+	(assert #test-ship has 932 energy and 10 ammo)
+	(#far-target shields 250)
+
+(test #dont-fire-projector-at-distant-target)
+	(#test-ship fires #projector at target #distant-target using 100)
+	(assert #test-ship has 932 energy and 10 ammo)
+	(#distant-target shields 250)
 
 (test #fire-projector-with-0)
 	(#test-ship fires #projector at target #near-target using 0)
