@@ -49,7 +49,7 @@ dice:
 	$(DEBUG) dice-tests.dg dice.dg $(STDLIB)
 
 dice-lite:
-	$(DEBUG) dice-lite-tests.dg dice-lite.dg unit.dg stdlib.dg
+	$(DEBUG) dice-lite-tests.dg dice-lite.dg $(STDLIB)
 
 dice-extra:
 	$(DEBUG) dice-lite-tests.dg dice.dg $(LIBS)
