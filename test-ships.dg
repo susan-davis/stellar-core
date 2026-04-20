@@ -14,6 +14,7 @@
 
 #cygnus-class
 (ship *)
+(current ship *)
 (name *)	Cygnus
 (type *)	fast scout
 (code *)	E
@@ -22,10 +23,10 @@
 		 [[#projector 1 [360 #up] 100 141 3 0]
 		 [#torpedo 1 [1 8] 1 500 2 0]
 		 [#torpedo 2 [1 8] 1 500 2 0]
-		 [#tractor 1 360 250 0 4 800]
-		 [#sensor 2 [1 8] 2 0 2 0]
-		 [#sensor 1 [360 #up #down] 1 0 2 0]
-		 [#sensor 0 [360 #up #down] 1 0 2 0]
+		 [#tractor 1 [4 5] 250 0 4 800]
+		 [#sensor 2  [1 8] 2 0 2 0]
+		 [#sensor 1  [360 #up #down] 1 0 2 0]
+		 [#sensor 0  [360 #up #down] 1 0 2 0]
 		 [#mtd 1 #down 4 0 5 16383]
 		 [#shuttle 1 #south 10 0 2 0]
 		 [#life-support 1 360 20 1100 2 0]
@@ -39,6 +40,10 @@
 		 [#damage-control 1 360 3 0 2 0]
 		 [#quarters 1 360 16 0 2 0]
 		 [#lab 1 360 4 0 2 0]
+		 [#shield #north [8 1] 100 0 2 0]
+		 [#shield #east  [2 3] 100 0 2 0]
+		 [#shield #south [4 5] 100 0 2 0]
+		 [#shield #west  [6 7] 100 0 2 0]
 		 ]])
 
 #quellan

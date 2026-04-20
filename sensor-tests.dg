@@ -1,4 +1,4 @@
-%% dgdebug -u sensor-tests.dg sensors.dg sectored-grid.dg unit.dg stdlib.dg
+%% dgdebug -u sensor-tests.dg sensors.dg sector.dg grid.dg unit.dg stdlib.dg
 
 (list of tests [
 	#object-at-precise-ship-position
@@ -6,11 +6,6 @@
 	#top-object-at-ship-location
 	#glyph-at-ship-location
 	#scan-ship-location
-	#range-5-3
-	#range-3-5
-	#range-3-3
-	#range-0-3
-	#range-0-0
 	#closest-target-in-sensor-range
 	#near-target-in-sensor-range
 	#far-target-in-sensor-range
@@ -65,122 +60,11 @@
 
 %% ----------------------------------------------------------------------
 
-(nato time)		051235 Mar 73
+(nato time)		051235Z Mar 73
 
 (current quadrant)	(space) -103 (space) -37
 
-#test-ship
-(current ship *)
-(ship *)
-(friendly *)
-(code *)		E
-(* initial state
-   [344 454 315 4 300 400 315 4 #cygnus-class 932 4 10 500 [100 100 100 100]])
-
-(clean up $)	(set condition 3)
-	   	  		(now) (display zeros for empty categories)
-				(now) ~(display question marks for undetectable ships)
-
-#cygnus-class
-(name *)	Cygnus
-(type *)	scout ship
-(* state [0 0 180 0 500 963 0 0
-   		 	 #cygnus-class 1000 4 10 500 [100 100 100 100]])
-
-#starbase
-(base *)
-(friendly *)
-(code *)		\#
-(* state [766 766])
-
-#enemy-base
-(base *)
-(hostile *)
-(code *)		\#
-(* state [211 211])
-
-#sun
-(stellar object *)
-(code *)		\*
-%%(scan code *)		O
-(* state [578 578])
-
-#planet
-(stellar object *)
-(code *)		\@
-(* state [575 576])
-
-#other-planet
-(stellar object *)
-(code *)		\@
-(* state [577 572])
-
-#attack-class
-(name *)	Attack
-(type *)	attack ship
-(* state
-     [0 0 0 0 0 0 #attack-class 500 2 250 [100 50 50 50] 0 90 1])
-
-#closest-target
-(ship *)
-(hostile *)
-(code *)		q
-(* initial state
-     [355 445 225 2 0 0 #attack-class 500 2 250 [100 50 50 50] 0 90 1])
-
-#near-target
-(ship *)
-(hostile *)
-(code *)		q
-(* initial state
-     [314 424 45 3 0 0 #attack-class 500 2 250 [100 50 50 50] 0 90 1])
-
-#far-target
-(ship *)
-(hostile *)
-(code *)		q
-(* initial state
-     [424 314 225 5 0 0 #attack-class 500 2 250 [100 50 50 50] 0 90 1])
-
-#distant-target
-(ship *)
-(hostile *)
-(code *)		q
-(* initial state
-     [154 984 135 6 0 0 #attack-class 500 2 250 [100 50 50 50] 0 90 1])
-
-#neutral-ship
-(ship *)
-(code *)		s
-(* initial state
-     [544 544 180 1 0 0 #maru-class 500 2 50 [50 50 50 50] 0 60 1])
-
-#maru-class
-(name *)	Ko Maru
-(type *)	freighter
-(* state
-     [0 0 0 0 0 0 #maru-class 500 2 50 [50 50 50 50] 0 60 1])
-
-#non-grid-object
-(code *)		\*
-(* state [374 474 0])
-
-#asteroid
-(stellar object *)
-(code *)		\*
-(* state [385 415 0])
-
-#asteroid-2
-(stellar object *)
-(code *)		\*
-(* state [585 515 0])
-
-%% ----------------------------------------------------------------------
-
-(reset $Ship)	($Ship initial state $State)
-		(now)	($Ship state $State)
-
-(set up $)		(exhaust) { *(ship $Ship) (reset $Ship) }
+(reset randomness)
 
 %% ----------------------------------------------------------------------
 
@@ -200,6 +84,7 @@
 	(collect words)
 		(glyph at 3 4 5 6)
 	(into $Words)
+	$Words
 	(assert $Words = [ e ])
 
 (test #scan-ship-location)
@@ -207,21 +92,6 @@
 		(scan 3 4 5 6)
 	(into $Words)
 	($Words = [ e | $ ])
-
-(test #range-5-3)
-	(5 is within 2 of 3)
-
-(test #range-3-5)
-	(3 is within 2 of 5)
-
-(test #range-3-3)
-	(3 is within 0 of 3)
-
-(test #range-0-3)
-	(0 is within 3 of 3)
-
-(test #range-0-0)
-	(0 is within 0 of 0)
 
 (test #closest-target-in-sensor-range)
 	(#closest-target sector x 3)

@@ -49,6 +49,8 @@
 
 (interface (stellar object $))
 
+(interface (current ship $))
+
 (interface (class $<Ship)) %% prints the name of the ship class
 
 (interface (type $<Ship))  %% prints what kind of ship it is

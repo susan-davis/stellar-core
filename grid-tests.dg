@@ -232,18 +232,6 @@
 	#turn-away-from-near
 	#turn-away-from-far
 	#turn-away-from-distant
-	#drag-100-north
-	#drag-141-southeast
-	#drag-to-occupied-square
-	#move-100-north
-	#move-141-southeast
-	#move-51-east
-	#move-71-southwest
-	#move-10000-0
-	#move-10000-314
-	#move-to-occupied-square
-	#move-toward-near-target
-	#move-away-from-near-target
 	#turn-30-starboard
 	#turn-60-starboard-across-north
 	#turn-30-port
@@ -266,16 +254,28 @@
 	#bearing-to-3-4-1-2
 	#bearing-to-3-4-9-10
 	#bearing-to-1-8-1-10
-	#drag-141-toward-near-target
-	#drag-1500-toward-distant-target
-	#move-141-toward-near-target
-	#move-1500-toward-distant-target
+	#drag-100-north
+	#drag-141-southeast
+	#drag-to-occupied-square
+	#move-100-north
+	#move-141-southeast
+	#move-51-east
+	#move-71-southwest
 	#move-900-27
 	#move-1400-316
 	#long-move
+	#move-10000-0
+	#move-10000-314
+	#move-to-occupied-square
+	#move-toward-near-target
+	#move-away-from-near-target
 	#move-toward-far-target
+	#drag-141-toward-near-target
 	#drag-750-toward-far-target
+	#drag-1500-toward-distant-target
+	#move-141-toward-near-target
 	#move-750-toward-far-target
+	#move-1500-toward-distant-target
 	])
 
 %% ----------------------------------------------------------------------
@@ -1085,6 +1085,19 @@
 	(move #test-ship 71 on heading 225)
 	(#test-ship state [339 459 225])
 
+(test #move-900-27)
+	(move #test-ship 900 on heading 27)
+	(#test-ship state [385 372 27])
+
+(test #move-1400-316)
+	(move #test-ship 1400 on heading 316)
+	(#test-ship state [258 364 316])
+
+(test #long-move)
+	(move #test-ship to position [100 100])
+	(move #test-ship 11100 on heading 135)
+	(#test-ship state [893 893 135])
+
 (test #move-10000-0)
 	~(move #test-ship 10000 on heading 0)
 
@@ -1108,6 +1121,10 @@
 (test #move-away-from-near-target)
 	(move #test-ship 300 away from #near-target)
 	(#test-ship state [365 475 135])
+
+(test #move-toward-far-target)
+	(move #test-ship 1701 toward #far-target)
+	(#test-ship state [427 315 30])
 
 (test #turn-30-starboard)
 	(turn #test-ship 30 to starboard)
@@ -1205,6 +1222,11 @@
 	(drag #test-ship 141 toward position $There)
 	(#test-ship state [334 444 315])
 
+(test #drag-750-toward-far-target)
+	(#far-target state $There)
+	(drag #test-ship 750 toward position $There)
+	(#test-ship state [381 393 315])
+
 (test #drag-1500-toward-distant-target)
 	(#distant-target state $There)
 	(drag #test-ship 1500 toward position $There)
@@ -1215,49 +1237,15 @@
 	(move #test-ship 141 toward position $There)
 	(#test-ship state [334 444 315])
 
+(test #move-750-toward-far-target)
+	(#far-target state $There)
+	(move #test-ship 750 toward position $There)
+	(#test-ship state [381 393 30])
+
 (test #move-1500-toward-distant-target)
 	(#distant-target state $There)
 	(move #test-ship 1500 toward position $There)
 	(#test-ship state [295 587 200])
-
-(test #move-900-27)
-	(move #test-ship 900 on heading 27)
-	(#test-ship state $A) $A
-	(assert $A = [385 372 27])
-%%	(assert that #test-ship is at [3 3 9 8 27])
-
-(test #move-1400-316)
-	(move #test-ship 1400 on heading 316)
-	(#test-ship state $A) $A
-	(assert $A = [258 364 316])
-%%	(assert that #test-ship is at [2 3 6 7 316])
-
-(test #long-move)
-	(move #test-ship to position [100 100])
-	(move #test-ship 11100 on heading 135)
-	(#test-ship state $A) $A
-	(assert $A = [893 893 135])
-%%	(assert that #test-ship is at [8 8 10 10 135])
-
-(test #move-toward-far-target)
-	(move #test-ship 1701 toward #far-target)
-	(#test-ship state $A) $A
-	(assert $A = [427 315 30])
-%%	(assert that #test-ship is at [4 3 3 2 30])
-
-(test #drag-750-toward-far-target)
-	(#far-target state $There)
-	(drag #test-ship 750 toward position $There)
-	(#test-ship state $A) $A
-	(assert $A = [381 393 315])
-%%	(assert drag 750 toward $There is 3 3 9 10 2 4)
-
-(test #move-750-toward-far-target)
-	(#far-target state $There)
-	(move #test-ship 750 toward position $There)
-	(#test-ship state $A) $A
-	(assert $A = [381 393 30])
-%%	(assert move 750 toward $There is 3 3 9 10 2 4)
 
 (test #not-implemented)
     Not implemented

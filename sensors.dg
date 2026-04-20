@@ -10,7 +10,7 @@
 %% takes place within a single quadrant. The Y axis increases as it
 %% goes downward, and the numbers start from 1, in mainframe STARTREK
 %% fashion. (Make the quadrants 10x10, too?)
-%%
+
 %% Sensor range: adjacent sector
 %% Weapons range: same sector
 %% Matter transmission range: adjacent subsector
@@ -66,25 +66,7 @@
 
 (interface (alert status))
 
-%% helpers
-
-(interface ($<Num1 is within $<Range of $<Num2))
-
-(interface (object at $<SX $<SY $<X $<Y $<PX $<PY into $>Obj))
-
 %%------------------------------ IMPLEMENTATION ------------------------------
-
-%% useful helper routines
-
-($Num1 is within $Range of $Num2)
-	($Num1 delta $Num2 into $Delta)
-	~($Delta > $Range)
-
-(object at $SX $SY $X $Y $PX $PY into $Obj)
-	(position for $SX $SY $X $Y $PX $PY into $Position)
-	(object at $Position into $Obj)
-
-%% basics of who's nearby
 
 (sector $X $Y is in sensor range of $Ship)
 	($Ship sector x $SX)

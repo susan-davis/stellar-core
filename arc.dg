@@ -1,5 +1,5 @@
 %% arc.dg
-%% Include sectored-grid.dg, schema.dg, and utils.dg
+%% Include sector.dg, grid.dg, schema.dg, and utils.dg
 
 %%-------------------------------- INTERFACES --------------------------------
 

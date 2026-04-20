@@ -43,6 +43,8 @@
 
 (interface ($<Position is in the quadrant))
 
+(interface (object at $<SX $<SY $<X $<Y $<PX $<PY into $>Obj))
+
 (interface (objects in sector $<X $<Y into $>List)) %% YAGNI?
 
 (interface (objects in subsector $<SX $<SY $<X $<Y into $>List))
@@ -162,6 +164,10 @@
 	([$X $Y | $] = $Place)
 	($X > 99) ($X < 900) %% or 1100 if we go to 10x10 quadrants
 	($Y > 99) ($Y < 900) %% or 1100 if we go to 10x10 quadrants
+
+(object at $SX $SY $X $Y $PX $PY into $Obj)
+	(position for $SX $SY $X $Y $PX $PY into $Position)
+	(object at $Position into $Obj)
 
 (objects in sector $X $Y into $List)
 	(collect $Obj)
