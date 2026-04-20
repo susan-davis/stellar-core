@@ -213,7 +213,6 @@
 	(endif)
 
 (next square $Relation from $Place into $Result)
-	(bound $Place)
 	([$X $Y | $Tail] = $Place)
 	(next coordinates $Relation from $X $Y into $NX $NY)
 	([$NX $NY | $Tail] = $Result)

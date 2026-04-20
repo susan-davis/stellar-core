@@ -2,11 +2,14 @@
 
 (list of tests [
 	#1d3
+	#d4
 	#one-die
 	#two-dice
 	#three-dice
+	#d8
 	#1d10
 	#2d10
+	#d12
 	#d20
 	#d36
 	#d100
@@ -27,6 +30,17 @@
 
 (test #1d3)
 	(1d3 1000 times)
+
+(d4 $N times)
+	(if) ($N > 0) (then)
+		(d4 $Roll)
+		($Roll > 0) ($Roll < 5)
+		($N minus 1 into $NMinusOne)
+		(d4 $NMinusOne times)
+	(endif)
+
+(test #d4)
+	(d4 1000 times)
 
 (1d6 $N times)
 	(if) ($N > 0) (then)
@@ -68,6 +82,17 @@
 (test #three-dice)
 	(3d6 1000 times)
 
+(d8 $N times)
+	(if) ($N > 0) (then)
+		(d8 $Roll)
+		($Roll > 0) ($Roll < 9)
+		($N minus 1 into $NMinusOne)
+		(d8 $NMinusOne times)
+	(endif)
+
+(test #d8)
+	(d8 1000 times)
+
 (1d10 $N times)
 	(if) ($N > 0) (then)
 		(1d10 $Roll)
@@ -92,6 +117,17 @@
 
 (test #2d10)
 	(2d10 1000 times)
+
+(d12 $N times)
+	(if) ($N > 0) (then)
+		(d12 $Roll)
+		($Roll > 0) ($Roll < 13)
+		($N minus 1 into $NMinusOne)
+		(d12 $NMinusOne times)
+	(endif)
+
+(test #d12)
+	(d12 1000 times)
 
 (d20 $N times)
 	(if) ($N > 0) (then)
