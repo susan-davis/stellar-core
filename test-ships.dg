@@ -9,12 +9,14 @@
 (name *)	Stellar Union
 
 #test-ship
-(grid object *)
+(ship *)
 (* initial state [344 454 315 400 300 400 315 400 #cygnus-class])
 
 #cygnus-class
+(ship *)
 (name *)	Cygnus
 (type *)	fast scout
+(code *)	E
 (* state [0 0 180 0 500 963 0 #union #cygnus-class 1000 4 10 500
    		 [100 99 98 97] []
 		 [[#projector 1 [360 #up] 100 141 3 0]
@@ -43,43 +45,83 @@
 (name *)	Quellan
 
 #closest-target
-(grid object *)
+(ship *)
 (* initial state [354 444 225 200 0 0 225 200 #attack-class])
 
 #near-target
-(grid object *)
+(ship *)
 (* initial state [314 424 45 300 0 0 45 310 #attack-class])
 
 #far-target
-(grid object *)
+(ship *)
 (* initial state [424 314 0 300 0 0 45 310 #attack-class])
 
 #distant-target
-(grid object *)
+(ship *)
 (* initial state [154 984 0 300 0 0 45 310 #attack-class])
 
 #attack-class
 (name *)	Attack
 (type *)	attack ship
+(code *)	q
 (* state [0 0 90 100 200 751 0 #quellan #attack-class 500 2 0 250
    		 [100 50 50 50] []
 		 [[#projector 1 [8 1] 250 100 1 0]
 		 [#reactor 1 360 4 4 1 0]]])
 
+#civilian
+(name *)	civilian
+
+#neutral-ship
+(ship *)
+(* initial state [544 544 180 1 0 0 0 0 #maru-class])
+
+#maru-class
+(name *)	Ko Maru
+(type *)	freighter
+(code *)	s
+(* state
+     [0 0 0 0 0 0 #civilian #maru-class 500 2 50 0 60
+	 [50 50 50 50] [#reactor 1 360 4 4 1 0]])
+
 #non-grid-object
 (* state [374 474 0])
 
 #sun
-(grid object *)
+(stellar object *)
 (* initial state [577 577 0])
 
 #planet
-(grid object *)
+(stellar object *)
 (* initial state [575 575 0])
 
 #other-planet
-(grid object *)
+(stellar object *)
 (* initial state [573 573 0])
+
+#non-grid-object
+(code *)	\*
+(* state [374 474 0])
+
+#asteroid
+(stellar object *)
+(code *)	\*
+(* state [385 415 0])
+
+#asteroid-2
+(stellar object *)
+(code *)	\*
+(* state [585 515 0])
+
+#starbase
+(base *)
+(code *)	\#
+(* state [766 766])
+
+#enemy-base
+(base *)
+(code *)	\#
+(* state [211 211])
 
 (set up $)
 	 (exhaust) {

@@ -1,0 +1,1263 @@
+%% dgdebug -u grid-tests.dg grid-movement.dg utils.dg unit.dg stdlib.dg
+
+(list of tests $Tests) ($Tests = [
+	#state-schema
+	#place-at
+	#target-on-map
+	#remove-target
+	#drag-removed-target
+	#move-removed-target
+	#restore-removed-target
+	#position-for-removed-target
+	#object-at-ship-position
+	#object-next-to-ship-position
+	#object-at-near-target
+	#object-at-far-target
+	#objects-at-closest-target
+	#object-at-empty-position
+	#next-coordinates-north
+	#next-coordinates-northeast
+	#next-coordinates-east
+	#next-coordinates-southeast
+	#next-coordinates-south
+	#next-coordinates-southwest
+	#next-coordinates-west
+	#next-coordinates-northwest
+	#next-square-north
+	#next-square-northeast
+	#next-square-east
+	#next-square-southeast
+	#next-square-south
+	#next-square-southwest
+	#next-square-west
+	#next-square-northwest
+	#closest-unoccupied-square-empty
+	#closest-unoccupied-square-north
+	#closest-unoccupied-square-south
+	#closest-unoccupied-square-east
+	#closest-unoccupied-square-west
+	#closest-unoccupied-square-near-target
+	#closest-unoccupied-square-far-target
+	#7-squares-north
+	#6-squares-northeast
+	#2-squares-east
+	#5-squares-southeast
+	#20-squares-south
+	#24-squares-southwest
+	#50-squares-west
+	#4-squares-northwest
+	#11-squares-east
+	#11-squares-north
+	#reciprocal-0
+	#reciprocal-90
+	#reciprocal-180
+	#reciprocal-270
+	#direction-0
+	#direction-22
+	#direction-23
+	#direction-67
+	#direction-68
+	#direction-112
+	#direction-113
+	#direction-157
+	#direction-158
+	#direction-202
+	#direction-203
+	#direction-247
+	#direction-248
+	#direction-292
+	#direction-293
+	#direction-337
+	#direction-338
+	#direction-540
+	#octant-for-0
+	#octant-for-15
+	#octant-for-45
+	#octant-for-60
+	#octant-for-90
+	#octant-for-120
+	#octant-for-135
+	#octant-for-150
+	#octant-for-180
+	#octant-for-210
+	#octant-for-225
+	#octant-for-240
+	#octant-for-270
+	#octant-for-300
+	#octant-for-315
+	#octant-for-330
+	#octant-for-540
+	#look-up-1-9
+	#look-up-5-5
+	#look-up-10-20
+	#look-up-15-30
+	#scale-under-10
+	#scale-more-x
+	#scale-more-y
+	#scale-diagonal
+	#octant-1
+	#octant-2
+	#octant-3
+	#octant-4
+	#octant-5
+	#octant-6
+	#octant-7
+	#octant-8
+	#bfa-octant-1
+	#bfa-octant-2
+	#bfa-octant-3
+	#bfa-octant-4
+	#bfa-octant-5
+	#bfa-octant-6
+	#bfa-octant-7
+	#bfa-octant-8
+	#bfa-north
+	#bfa-northeast
+	#bfa-east
+	#bfa-southeast
+	#bfa-south
+	#bfa-southwest
+	#bfa-west
+	#bfa-northwest
+	#bearing-north
+	#bearing-northeast
+	#bearing-south
+	#bearing-southeast
+	#bearing-east
+	#bearing-southwest
+	#bearing-west
+	#bearing-northwest
+	#bearing-to-closest
+	#bearing-to-near
+	#bearing-to-far
+	#bearing-to-distant
+	#angle-30-to-45
+	#angle-45-to-30
+	#angle-315-to-45
+	#angle-45-to-315
+	#angle-0-to-180
+	#angle-179-to-359
+	#angle-to-closest
+	#angle-to-near
+	#angle-to-far
+	#angle-to-distant
+	#angle-counterclockwise
+	#angle-counterclockwise-crossing-zero
+	#angle-clockwise-crossing-zero
+	#slope-0
+	#slope-1
+	#slope-15
+	#slope-27
+	#slope-28
+	#slope-44
+	#slope-45
+	#angle-octant-1
+	#angle-octant-2
+	#angle-octant-3
+	#angle-octant-4
+	#angle-octant-5
+	#angle-octant-6
+	#angle-octant-7
+	#angle-octant-8
+	#offset-north
+	#offset-northeast
+	#offset-east
+	#offset-southeast
+	#offset-south
+	#offset-southwest
+	#offset-west
+	#offset-northwest
+	#offset-30
+	#offset-61
+	#offset-121
+	#offset-145
+	#offset-210
+	#offset-240
+	#offset-300
+	#offset-358
+	#offset-359
+	#offset-2-north
+	#offset-3-northeast
+	#offset-4-east
+	#offset-5-southeast
+	#offset-6-south
+	#offset-7-southwest
+	#offset-8-west
+	#offset-15-northwest
+	#offset-2-30
+	#offset-3-61
+	#offset-4-121
+	#offset-2-145
+	#offset-3-210
+	#offset-4-240
+	#offset-2-300
+	#offset-3-358
+	#offset-4-359
+	#square-at-100-along-orthogonal
+	#square-at-50-along-orthogonal
+	#square-at-141-along-diagonal
+	#square-at-70-along-diagonal
+	#square-at-100-north
+	#square-at-50-north
+	#square-at-141-northeast
+	#square-at-70-northeast
+	#square-at-224-27
+	#square-in-next-sector-north
+	#square-in-next-sector-northwest
+	#square-beyond-map-north
+	#square-beyond-map-northwest
+	#look-up-range-0-1
+	#look-up-range-1-1
+	#look-up-range-6-4
+	#look-up-range-9-8
+	#range-to-closest
+	#range-to-near
+	#range-to-far
+	#range-to-distant
+	#range-to-very-distant
+	#range-due-north
+	#range-due-south
+	#range-due-east
+	#range-due-west
+	#turn-to-face-closest
+	#turn-to-face-near
+	#turn-to-face-far
+	#turn-to-face-distant
+	#turn-about
+	#turn-hard-to-starboard
+	#turn-hard-to-starboard-not-crossing-zero
+	#turn-hard-to-port
+	#turn-hard-to-port-crossing-zero
+	#turn-away-from-closest
+	#turn-away-from-near
+	#turn-away-from-far
+	#turn-away-from-distant
+	#drag-100-north
+	#drag-141-southeast
+	#drag-to-occupied-square
+	#move-100-north
+	#move-141-southeast
+	#move-51-east
+	#move-71-southwest
+	#move-10000-0
+	#move-10000-314
+	#move-to-occupied-square
+	#move-toward-near-target
+	#move-away-from-near-target
+	#turn-30-starboard
+	#turn-60-starboard-across-north
+	#turn-30-port
+	#turn-60-port-across-north
+	#turn-30-toward-45
+	#turn-60-toward-45
+	#turn-90-toward-45
+	#turn-91-toward-45
+	#turn-30-toward-315
+	#turn-60-toward-315
+	#turn-90-toward-315
+	#turn-91-toward-315
+	#turn-90-toward-135
+	#turn-180-toward-135
+	#turn-181-toward-135
+	#turn-90-toward-136
+	#turn-180-toward-136
+	#turn-45-starboard
+	#turn-315-port
+	#bearing-to-3-4-1-2
+	#bearing-to-3-4-9-10
+	#bearing-to-1-8-1-10
+	#drag-141-toward-near-target
+	#drag-1500-toward-distant-target
+	#move-141-toward-near-target
+	#move-1500-toward-distant-target
+	#move-900-27
+	#move-1400-316
+	#long-move
+	#move-toward-far-target
+	#drag-750-toward-far-target
+	#move-750-toward-far-target
+	])
+
+%% ----------------------------------------------------------------------
+
+#test-ship
+(grid object *)
+(* initial state [344 454 315])
+
+#closest-target
+(grid object *)
+(* initial state [354 444 0])
+
+#near-target
+(grid object *)
+(* initial state [314 424 0])
+
+#far-target
+(grid object *)
+(* initial state [424 314 0])
+
+#distant-target
+(grid object *)
+(* initial state [154 984 0])
+
+#non-grid-object
+(* initial state [374 474 0])
+
+(set up $)
+        (exhaust) {
+            *(grid object $Object)
+            ($Object initial state $State)
+            (now) ($Object state $State)
+		}
+%% ----------------------------------------------------------------------
+
+(test #state-schema)
+	(#test-ship x 344)
+	(#test-ship y 454)
+	(#test-ship heading 315)
+
+(test #place-at)
+
+(test #target-on-map)
+    (#closest-target is on the map)
+
+(test #remove-target)
+	(remove #closest-target from the map)
+    ~(#closest-target is on the map)
+
+(test #drag-removed-target)
+	(remove #closest-target from the map)
+	~(drag #closest-target to position [334 454])
+
+(test #move-removed-target)
+	(remove #closest-target from the map)
+	~(move #closest-target to position [334 454])
+	(#closest-target heading 0)
+
+(test #turn-removed-target)
+    (remove #closest-target from the map)
+	(turn #closest-target to heading 315)
+	(#closest-target heading 315)
+
+(test #restore-removed-target)
+    (remove #closest-target from the map)
+	(place #closest-target at [334 454])
+	(#closest-target x 334)
+	(#closest-target y 454)
+
+(test #position-for-removed-target)
+	(remove #closest-target from the map)
+	(#closest-target state [16383 16383 0])
+
+(test #object-at-ship-position)
+	(#test-ship initial state $Here)
+	(object at $Here into $Obj)
+	(assert $Obj = #test-ship)
+
+(test #object-next-to-ship-position)
+	~(object at [334 555] into $)
+
+(test #objects-at-closest-target)
+	(#closest-target state $There)
+	(object at $There into #closest-target)
+
+(test #object-at-near-target)
+	(#near-target state $Here)
+	(object at $Here into #near-target)
+
+(test #object-at-far-target)
+	(#far-target state $Here)
+	(object at $Here into #far-target)
+
+(test #object-at-empty-position)
+	~(object at [895 895] into $Obj)
+	~(bound $Obj)
+
+(test #scale-under-10)
+	(scale 9 9 into 9 9)
+
+(test #scale-more-x)
+	(scale 31 28 into 15 14)
+
+(test #scale-more-y)
+	(scale 19 41 into 6 13)
+
+(test #scale-diagonal)
+	(scale 30 30 into 15 15)
+
+(test #look-up-1-9)
+	(look up bearing for 1 9 into 6)
+
+(test #look-up-5-5)
+	(look up bearing for 5 5 into 45)
+
+(test #look-up-10-20)
+	(look up bearing for 10 20 into 27)
+
+(test #look-up-15-30)
+	(look up bearing for 15 30 into 25)
+
+(test #reciprocal-0)
+	(reciprocal bearing for 0 into 180)
+
+(test #reciprocal-90)
+	(reciprocal bearing for 90 into 270)
+
+(test #reciprocal-180)
+	(reciprocal bearing for 180 into 0)
+
+(test #reciprocal-270)
+	(reciprocal bearing for 270 into 90)
+
+(test #direction-0)
+	(direction for 0 into #north)
+
+(test #direction-22)
+	(direction for 22 into #north)
+
+(test #direction-23)
+	(direction for 23 into #northeast)
+
+(test #direction-67)
+	(direction for 67 into #northeast)
+
+(test #direction-68)
+	(direction for 68 into #east)
+
+(test #direction-112)
+	(direction for 112 into #east)
+
+(test #direction-113)
+	(direction for 113 into #southeast)
+
+(test #direction-157)
+	(direction for 157 into #southeast)
+
+(test #direction-158)
+	(direction for 158 into #south)
+
+(test #direction-202)
+	(direction for 202 into #south)
+
+(test #direction-203)
+	(direction for 203 into #southwest)
+
+(test #direction-247)
+	(direction for 247 into #southwest)
+
+(test #direction-248)
+	(direction for 248 into #west)
+
+(test #direction-292)
+	(direction for 292 into #west)
+
+(test #direction-293)
+	(direction for 293 into #northwest)
+
+(test #direction-337)
+	(direction for 337 into #northwest)
+
+(test #direction-338)
+	(direction for 338 into #north)
+
+(test #direction-540)
+	(direction for 540 into #south)
+
+(test #octant-for-0)
+	(0 is in octant 1)
+
+(test #octant-for-15)
+	(15 is in octant 1)
+
+(test #octant-for-45)
+	(45 is in octant 1)
+
+(test #octant-for-60)
+	(60 is in octant 2)
+
+(test #octant-for-90)
+	(90 is in octant 2)
+
+(test #octant-for-120)
+	(120 is in octant 3)
+
+(test #octant-for-135)
+	(135 is in octant 3)
+
+(test #octant-for-150)
+	(150 is in octant 4)
+
+(test #octant-for-180)
+	(180 is in octant 5)
+
+(test #octant-for-210)
+	(210 is in octant 5)
+
+(test #octant-for-225)
+	(225 is in octant 6)
+
+(test #octant-for-240)
+	(240 is in octant 6)
+
+(test #octant-for-270)
+	(270 is in octant 7)
+
+(test #octant-for-300)
+	(300 is in octant 7)
+
+(test #octant-for-315)
+	(315 is in octant 8)
+
+(test #octant-for-330)
+	(330 is in octant 8)
+
+(test #octant-for-540)
+	(540 is in octant 5)
+
+(test #octant-1)
+	(octant from [344 454] to [345 452] into 1)
+
+(test #octant-2)
+	(octant from [344 454] to [346 453] into 2)
+
+(test #octant-3)
+	(octant from [344 454] to [346 455] into 3)
+
+(test #octant-4)
+	(octant from [344 454] to [345 456] into 4)
+
+(test #octant-5)
+	(octant from [344 454] to [343 456] into 5)
+
+(test #octant-6)
+	(octant from [344 454] to [342 455] into 6)
+
+(test #octant-7)
+	(octant from [344 454] to [342 453] into 7)
+
+(test #octant-8)
+	(octant from [344 454] to [343 452] into 8)
+
+(test #bfa-octant-1)
+	(bearing for 30 in octant 1 into 30)
+
+(test #bfa-octant-2)
+	(bearing for 30 in octant 2 into 60)
+
+(test #bfa-octant-3)
+	(bearing for 30 in octant 3 into 120)
+
+(test #bfa-octant-4)
+	(bearing for 30 in octant 4 into 150)
+
+(test #bfa-octant-5)
+	(bearing for 30 in octant 5 into 210)
+
+(test #bfa-octant-6)
+	(bearing for 30 in octant 6 into 240)
+
+(test #bfa-octant-7)
+	(bearing for 30 in octant 7 into 300)
+
+(test #bfa-octant-8)
+	(bearing for 30 in octant 8 into 330)
+
+(test #bfa-north)
+	(bearing for 0 in octant 1 into 0)
+	(bearing for 0 in octant 8 into 0)
+
+(test #bfa-northeast)
+	(bearing for 45 in octant 1 into 45)
+	(bearing for 45 in octant 2 into 45)
+
+(test #bfa-east)
+	(bearing for 0 in octant 2 into 90)
+	(bearing for 0 in octant 3 into 90)
+
+(test #bfa-southeast)
+	(bearing for 45 in octant 3 into 135)
+	(bearing for 45 in octant 4 into 135)
+
+(test #bfa-south)
+	(bearing for 0 in octant 4 into 180)
+	(bearing for 0 in octant 5 into 180)
+
+(test #bfa-southwest)
+	(bearing for 45 in octant 5 into 225)
+	(bearing for 45 in octant 6 into 225)
+
+(test #bfa-west)
+	(bearing for 0 in octant 6 into 270)
+	(bearing for 0 in octant 7 into 270)
+
+(test #bfa-northwest)
+	(bearing for 45 in octant 7 into 315)
+	(bearing for 45 in octant 8 into 315)
+
+(test #bearing-north)
+	(calculate bearing from [344 454] to [344 200] into 0)
+
+(test #bearing-northeast)
+	(calculate bearing from [344 454] to [394 404] into 45)
+
+(test #bearing-east)
+	(calculate bearing from [344 454] to [400 454] into 90)
+
+(test #bearing-southeast)
+	(calculate bearing from [344 454] to [394 504] into 135)
+
+(test #bearing-south)
+	(calculate bearing from [344 454] to [344 554] into 180)
+
+(test #bearing-southwest)
+	(calculate bearing from [344 454] to [294 504] into 225)
+
+(test #bearing-west)
+	(calculate bearing from [344 454] to [300 454] into 270)
+
+(test #bearing-northwest)
+	(calculate bearing from [344 454] to [294 404] into 315)
+
+(test #bearing-to-closest)
+	(bearing from #test-ship to #closest-target into 45)
+
+(test #bearing-to-near)
+	(bearing from #test-ship to #near-target into 315)
+
+(test #bearing-to-far)
+	(bearing from #test-ship to #far-target into 30)
+
+(test #bearing-to-distant)
+	(bearing from #test-ship to #distant-target into 200)
+
+(test #angle-30-to-45)
+	(angle clockwise from 30 to 45 into 15)
+
+(test #angle-45-to-30)
+	(angle clockwise from 45 to 30 into 345)
+
+(test #angle-315-to-45)
+	(angle clockwise from 315 to 45 into 90)
+
+(test #angle-45-to-315)
+	(angle clockwise from 45 to 315 into 270)
+
+(test #angle-0-to-180)
+	(angle clockwise from 0 to 180 into 180)
+
+(test #angle-179-to-359)
+	(angle clockwise from 181 to 1 into 180)
+
+(test #angle-to-closest)
+	(angle from #test-ship to #closest-target into 90)
+
+(test #angle-to-near)
+	(angle from #test-ship to #near-target into 0)
+
+(test #angle-to-far)
+	(angle from #test-ship to #far-target into 75)
+
+(test #angle-to-distant)
+	(angle from #test-ship to #distant-target into 245)
+
+(test #angle-counterclockwise)
+	(turn #test-ship to heading 359)
+	(angle from #test-ship to #near-target into 316)
+
+(test #angle-counterclockwise-crossing-zero)
+	(turn #test-ship to heading 45)
+	(angle from #test-ship to #near-target into 270)
+
+(test #angle-clockwise-crossing-zero)
+	(turn #test-ship to heading 180)
+	(angle from #test-ship to #distant-target into 20)
+
+(test #turn-to-face-closest)
+	(turn #test-ship to face #closest-target)
+	(#test-ship heading 45)
+
+(test #turn-to-face-near)
+	(turn #test-ship to face #near-target)
+	(#test-ship heading 315)
+
+(test #turn-to-face-far)
+	(turn #test-ship to face #far-target)
+	(#test-ship heading 30)
+
+(test #turn-to-face-distant)
+	(turn #test-ship to face #distant-target)
+	(#test-ship heading 200)
+
+(test #turn-hard-to-starboard)
+	(turn #test-ship hard to starboard)
+	(#test-ship heading 45)
+
+(test #turn-hard-to-starboard-not-crossing-zero)
+	(turn #test-ship to heading 135)
+	(turn #test-ship hard to starboard)
+	(#test-ship heading 225)
+
+(test #turn-hard-to-port)
+	(turn #test-ship to heading 315)
+	(turn #test-ship hard to port)
+	(#test-ship heading 225)
+
+(test #turn-hard-to-port-crossing-zero)
+	(turn #test-ship to heading 315)
+	(turn #test-ship hard to port)
+	(#test-ship heading 225)
+
+(test #turn-about)
+	(turn #test-ship about)
+	(#test-ship heading 135)
+
+(test #turn-away-from-near)
+	(turn #test-ship away from #near-target)
+	(#test-ship heading 135)
+
+(test #turn-away-from-closest)
+	(turn #test-ship away from #closest-target)
+	(#test-ship heading 225)
+
+(test #turn-away-from-far)
+	(turn #test-ship away from #far-target)
+	(#test-ship heading 210)
+
+(test #turn-away-from-distant)
+	(turn #test-ship away from #distant-target)
+	(#test-ship heading 20)
+
+(test #turn-to-bearing)
+	(turn #test-ship to bearing 45)
+	(#test-ship heading 45)
+
+(test #next-coordinates-north)
+	(next coordinates #north from 5 5 into 5 4)
+
+(test #next-coordinates-northeast)
+	(next coordinates #northeast from 5 5 into 6 4)
+
+(test #next-coordinates-east)
+	(next coordinates #east from 5 5 into 6 5)
+
+(test #next-coordinates-southeast)
+	(next coordinates #southeast from 5 5 into 6 6)
+
+(test #next-coordinates-south)
+	(next coordinates #south from 5 5 into 5 6)
+
+(test #next-coordinates-southwest)
+	(next coordinates #southwest from 5 5 into 4 6)
+
+(test #next-coordinates-west)
+	(next coordinates #west from 5 5 into 4 5)
+
+(test #next-coordinates-northwest)
+	(next coordinates #northwest from 5 5 into 4 4)
+
+(test #next-square-north)
+	(next square #north from [344 454] into [344 453])
+
+(test #next-square-northeast)
+	(next square #northeast from [344 454] into [345 453])
+
+(test #next-square-east)
+	(next square #east from [344 454] into [345 454])
+
+(test #next-square-southeast)
+	(next square #southeast from [344 454] into [345 455])
+
+(test #next-square-south)
+	(next square #south from [344 454] into [344 455])
+
+(test #next-square-southwest)
+	(next square #southwest from [344 454] into [343 455])
+
+(test #next-square-west)
+	(next square #west from [344 454] into [343 454])
+
+(test #next-square-northwest)
+	(next square #northwest from [344 454] into [343 453])
+
+(test #closest-unoccupied-square-empty)
+	(closest unoccupied square to [879 1044] from [344 454] into [879 1044])
+
+(test #closest-unoccupied-square-north)
+	(closest unoccupied square to [344 454] from [344 444] into [344 453])
+
+(test #closest-unoccupied-square-south)
+	(closest unoccupied square to [344 454] from [344 466] into [344 455])
+
+(test #closest-unoccupied-square-east)
+	(closest unoccupied square to [344 454] from [355 454] into [345 454])
+
+(test #closest-unoccupied-square-west)
+	(closest unoccupied square to [344 454] from [333 454] into [343 454])
+
+(test #closest-unoccupied-square-near-target)
+	(#test-ship state $Here)
+	(#near-target state $There)
+	(closest unoccupied square to $There from $Here into $Unoccupied)
+	(assert $Unoccupied = [315 425 0])
+
+(test #closest-unoccupied-square-far-target)
+	(#test-ship state $Here)
+	(#far-target state $There)
+	(closest unoccupied square to $There from $Here into $Unoccupied)
+	(assert $Unoccupied = [423 315 0])
+
+(test #look-up-range-0-1)
+	(look up range for 0 1 into 100)
+
+(test #look-up-range-1-1)
+	(look up range for 1 1 into 141)
+
+(test #look-up-range-6-4)
+	(look up range for 6 4 into 721)
+
+(test #look-up-range-9-8)
+	(look up range for 9 8 into 1204)
+
+(test #range-to-closest)
+	(range from #test-ship to #closest-target into 141)
+
+(test #range-to-near)
+	(range from #test-ship to #near-target into 424)
+
+(test #range-to-far)
+	(range from #test-ship to #far-target into 1894)
+
+(test #range-to-distant)
+	(range from #test-ship to #distant-target into 6049)
+
+(test #range-to-very-distant) %% maximum distance we can represent!
+	(calculate range from [100 100] to [1260 1260] into 16359)
+
+(test #range-due-north)
+	(calculate range from [344 454] to [344 444] into 100)
+
+(test #range-due-south)
+	(calculate range from [344 454] to [344 464] into 100)
+
+(test #range-due-east)
+	(calculate range from [344 454] to [354 454] into 100)
+
+(test #range-due-west)
+	(calculate range from [344 454] to [334 454] into 100)
+
+(test #7-squares-north)
+	(7 squares #north from [344 454] into [344 447])
+
+(test #6-squares-northeast)
+	(6 squares #northeast from [344 454] into [350 448])
+
+(test #2-squares-east)
+	(2 squares #east from [344 454] into [346 454])
+
+(test #5-squares-southeast)
+	(5 squares #southeast from [344 454] into [349 459])
+
+(test #20-squares-south)
+	(20 squares #south from [344 454] into [344 474])
+
+(test #24-squares-southwest)
+	(24 squares #southwest from [344 454] into [320 478])
+
+(test #50-squares-west)
+	(50 squares #west from [344 454] into [294 454])
+
+(test #4-squares-northwest)
+	(4 squares #northwest from [344 454] into [340 450])
+
+(test #11-squares-east)
+	(11 squares #east from [344 454] into [355 454])
+
+(test #11-squares-north)
+	(11 squares #north from [344 454] into [344 443])
+
+(test #angle-octant-1)
+	(octant for 30 into 30 #north #east)
+
+(test #angle-octant-2)
+	(octant for 60 into 30 #east #north)
+
+(test #angle-octant-3)
+	(octant for 121 into 31 #east #south)
+
+(test #angle-octant-4)
+	(octant for 151 into 29 #south #east)
+
+(test #angle-octant-5)
+	(octant for 215 into 35 #south #west)
+
+(test #angle-octant-6)
+	(octant for 230 into 40 #west #south)
+
+(test #angle-octant-7)
+	(octant for 301 into 31 #west #north)
+
+(test #angle-octant-8)
+	(octant for 359 into 1 #north #west)
+
+(test #slope-0)
+	(slope for 0 into 1 0)
+
+(test #slope-1)
+	(slope for 1 into 1 0)
+
+(test #slope-15)
+	(slope for 15 into 19 5)
+
+(test #slope-27)
+	(slope for 27 into 2 1)
+
+(test #slope-28)
+	(slope for 28 into 19 10)
+
+(test #slope-44)
+	(slope for 44 into 20 19)
+
+(test #slope-45)
+	(slope for 45 into 1 1)
+
+(test #offset-north)
+	(offset 1 on bearing 0 from [344 454] into [344 453])
+
+(test #offset-northeast)
+	(offset 1 on bearing 45 from [344 454] into [345 453])
+
+(test #offset-east)
+	(offset 1 on bearing 90 from [344 454] into [345 454])
+
+(test #offset-southeast)
+	(offset 1 on bearing 135 from [344 454] into [345 455])
+
+(test #offset-south)
+	(offset 1 on bearing 180 from [344 454] into [344 455])
+
+(test #offset-southwest)
+	(offset 1 on bearing 225 from [344 454] into [343 455])
+
+(test #offset-west)
+	(offset 1 on bearing 270 from [344 454] into [343 454])
+
+(test #offset-northwest)
+	(offset 1 on bearing 315 from [344 454] into [343 453])
+
+(test #offset-30)
+	(offset 1 on bearing 30 from [344 454] into [355 435])
+
+(test #offset-61)
+	(offset 1 on bearing 61 from [344 454] into [364 443])
+
+(test #offset-121)
+	(offset 1 on bearing 121 from [344 454] into [349 457])
+
+(test #offset-145)
+	(offset 1 on bearing 145 from [344 454] into [351 464])
+
+(test #offset-210)
+	(offset 1 on bearing 210 from [344 454] into [333 473])
+
+(test #offset-240)
+	(offset 1 on bearing 240 from [344 454] into [325 465])
+
+(test #offset-300)
+	(offset 1 on bearing 300 from [344 454] into [325 443])
+
+(test #offset-358)
+	(offset 1 on bearing 358 from [344 454] into [343 434])
+
+(test #offset-359)
+	(offset 1 on bearing 359 from [344 454] into [344 453])
+
+(test #offset-2-north)
+	(offset 2 on bearing 0 from [344 454] into [344 452])
+
+(test #offset-3-northeast)
+	(offset 3 on bearing 45 from [344 454] into [347 451])
+
+(test #offset-4-east)
+	(offset 4 on bearing 90 from [344 454] into [348 454])
+
+(test #offset-5-southeast)
+	(offset 5 on bearing 135 from [344 454] into [349 459])
+
+(test #offset-6-south)
+	(offset 6 on bearing 180 from [344 454] into [344 460])
+
+(test #offset-7-southwest)
+	(offset 7 on bearing 225 from [344 454] into [337 461])
+
+(test #offset-8-west)
+	(offset 8 on bearing 270 from [344 454] into [336 454])
+
+(test #offset-15-northwest)
+	(offset 15 on bearing 315 from [344 454] into [329 439])
+
+(test #offset-2-30)
+	(offset 2 on bearing 30 from [344 454] into [366 416])
+
+(test #offset-3-61)
+	(offset 3 on bearing 61 from [344 454] into [404 421])
+
+(test #offset-4-121)
+	(offset 4 on bearing 121 from [344 454] into [364 466])
+
+(test #offset-2-145)
+	(offset 2 on bearing 145 from [344 454] into [358 474])
+
+(test #offset-3-210)
+	(offset 3 on bearing 210 from [344 454] into [311 511])
+
+(test #offset-4-240)
+	(offset 4 on bearing 240 from [344 454] into [268 498])
+
+(test #offset-2-300)
+	(offset 2 on bearing 300 from [344 454] into [306 432])
+
+(test #offset-3-358)
+	(offset 3 on bearing 358 from [344 454] into [341 394])
+
+(test #offset-4-359)
+	(offset 4 on bearing 359 from [344 454] into [344 450])
+
+(test #square-at-100-along-orthogonal)
+	(square at 100 from [344 454] to [364 454] into [354 454])
+
+(test #square-at-50-along-orthogonal)
+	(square at 50 from [344 454] to [364 454] into [349 454])
+
+(test #square-at-141-along-diagonal)
+	(square at 141 from [344 454] to [364 474] into [354 464])
+
+(test #square-at-70-along-diagonal)
+	(square at 70 from [344 454] to [364 474] into [349 459])
+
+(test #square-at-100-north)
+	(square at 100 on bearing 0 from [344 454] into [344 444])
+
+(test #square-at-50-north)
+	(square at 50 on bearing 0 from [344 454] into [344 449])
+
+(test #square-at-141-northeast)
+	(square at 141 on bearing 45 from [344 454] into [354 444])
+
+(test #square-at-70-northeast)
+	(square at 70 on bearing 45 from [344 454] into [349 449])
+
+(test #square-at-224-27)
+	(square at 224 on bearing 27 from [344 454] into [354 434])
+
+(test #square-in-next-sector-north)
+	(square at 900 on bearing 27 from [344 454] into $A) $A
+
+(test #square-in-next-sector-northwest)
+	(square at 1400 on bearing 315 from [344 454] into [244 354])
+
+(test #square-beyond-map-north)
+	~(square at 10000 on bearing 0 from [0 0] into $)
+
+(test #square-beyond-map-northwest)
+	~(square at 10000 on bearing 315 from [0 0] into $)
+
+(test #drag-100-north)
+	(drag #test-ship 100 on heading 0)
+	(#test-ship state [344 444 315])
+
+(test #move-100-north)
+	(move #test-ship 100 on heading 0)
+	(#test-ship state [344 444 0])
+
+(test #drag-141-southeast)
+	(drag #test-ship 141 on heading 135)
+	(#test-ship state [354 464 315])
+
+(test #move-141-southeast)
+	(move #test-ship 141 on heading 135)
+	(#test-ship state [354 464 135])
+
+(test #move-51-east)
+	(move #test-ship 51 on heading 90)
+	(#test-ship state [349 454 90])
+
+(test #move-71-southwest)
+	(move #test-ship 71 on heading 225)
+	(#test-ship state [339 459 225])
+
+(test #move-10000-0)
+	~(move #test-ship 10000 on heading 0)
+
+(test #move-10000-314)
+	~(move #test-ship 10000 on heading 314)
+
+(test #drag-to-occupied-square)
+	(#near-target state $There)
+	(drag #test-ship to position $There)
+	(#test-ship state [315 425 315])
+
+(test #move-to-occupied-square)
+	(#near-target state $There)
+	(move #test-ship to position $There)
+	(#test-ship state [315 425 315])
+
+(test #move-toward-near-target)
+	(move #test-ship 300 toward #near-target)
+	(#test-ship state [323 433 315])
+
+(test #move-away-from-near-target)
+	(move #test-ship 300 away from #near-target)
+	(#test-ship state [365 475 135])
+
+(test #turn-30-starboard)
+	(turn #test-ship 30 to starboard)
+	(#test-ship heading 345)
+
+(test #turn-60-starboard-across-north)
+	(turn #test-ship 60 to starboard)
+	(#test-ship heading 15)
+
+(test #turn-30-port)
+	(turn #test-ship to heading 45)
+	(turn #test-ship 30 to port)
+	(#test-ship heading 15)
+
+(test #turn-60-port-across-north)
+	(turn #test-ship to heading 45)
+	(turn #test-ship 60 to port)
+	(#test-ship heading 345)
+
+(test #turn-30-toward-45)
+	(turn #test-ship 30 toward heading 45)
+	(#test-ship heading 345)
+
+(test #turn-60-toward-45)
+	(turn #test-ship 60 toward heading 45)
+	(#test-ship heading 15)
+
+(test #turn-90-toward-45)
+	(turn #test-ship 90 toward heading 45)
+	(#test-ship heading 45)
+
+(test #turn-91-toward-45)
+	(turn #test-ship 91 toward heading 45)
+	(#test-ship heading 45)
+
+(test #turn-30-toward-315)
+	(turn #test-ship to heading 45)
+	(turn #test-ship 30 toward heading 315)
+	(#test-ship heading 15)
+
+(test #turn-60-toward-315)
+	(turn #test-ship to heading 45)
+	(turn #test-ship 60 toward heading 315)
+	(#test-ship heading 345)
+
+(test #turn-90-toward-315)
+	(turn #test-ship to heading 45)
+	(turn #test-ship 90 toward heading 315)
+	(#test-ship heading 315)
+
+(test #turn-91-toward-315)
+	(turn #test-ship to heading 45)
+	(turn #test-ship 91 toward heading 315)
+	(#test-ship heading 315)
+
+(test #turn-90-toward-135)
+	(turn #test-ship 90 toward heading 135)
+	(#test-ship heading 45)
+
+(test #turn-180-toward-135)
+	(turn #test-ship 180 toward heading 135)
+	(#test-ship heading 135)
+
+(test #turn-181-toward-135)
+	(turn #test-ship 181 toward heading 135)
+	(#test-ship heading 135)
+
+(test #turn-90-toward-136)
+	(turn #test-ship 90 toward heading 136)
+	(#test-ship heading 225)
+
+(test #turn-180-toward-136)
+	(turn #test-ship 180 toward heading 136)
+	(#test-ship heading 136)
+
+(test #turn-45-starboard)
+	(turn #test-ship 45 to starboard)
+	(#test-ship heading 0)
+
+(test #turn-315-port)
+	(turn #test-ship 315 to port)
+	(#test-ship heading 0)
+
+(test #bearing-to-3-4-1-2)
+	(bearing from #test-ship to position [304 414] into 315)
+
+(test #bearing-to-3-4-9-10)
+	(bearing from #test-ship to position [384 494] into 135)
+
+(test #bearing-to-1-8-1-10)
+	(bearing from #test-ship to position [174 194] into 326)
+
+(test #drag-141-toward-near-target)
+	(#near-target state $There)
+	(drag #test-ship 141 toward position $There)
+	(#test-ship state [334 444 315])
+
+(test #drag-1500-toward-distant-target)
+	(#distant-target state $There)
+	(drag #test-ship 1500 toward position $There)
+	(#test-ship state [295 587 315])
+
+(test #move-141-toward-near-target)
+	(#near-target state $There)
+	(move #test-ship 141 toward position $There)
+	(#test-ship state [334 444 315])
+
+(test #move-1500-toward-distant-target)
+	(#distant-target state $There)
+	(move #test-ship 1500 toward position $There)
+	(#test-ship state [295 587 200])
+
+(test #move-900-27)
+	(move #test-ship 900 on heading 27)
+	(#test-ship state $A) $A
+	(assert $A = [385 372 27])
+%%	(assert that #test-ship is at [3 3 9 8 27])
+
+(test #move-1400-316)
+	(move #test-ship 1400 on heading 316)
+	(#test-ship state $A) $A
+	(assert $A = [258 364 316])
+%%	(assert that #test-ship is at [2 3 6 7 316])
+
+(test #long-move)
+	(move #test-ship to position [100 100])
+	(move #test-ship 11100 on heading 135)
+	(#test-ship state $A) $A
+	(assert $A = [893 893 135])
+%%	(assert that #test-ship is at [8 8 10 10 135])
+
+(test #move-toward-far-target)
+	(move #test-ship 1701 toward #far-target)
+	(#test-ship state $A) $A
+	(assert $A = [427 315 30])
+%%	(assert that #test-ship is at [4 3 3 2 30])
+
+(test #drag-750-toward-far-target)
+	(#far-target state $There)
+	(drag #test-ship 750 toward position $There)
+	(#test-ship state $A) $A
+	(assert $A = [381 393 315])
+%%	(assert drag 750 toward $There is 3 3 9 10 2 4)
+
+(test #move-750-toward-far-target)
+	(#far-target state $There)
+	(move #test-ship 750 toward position $There)
+	(#test-ship state $A) $A
+	(assert $A = [381 393 30])
+%%	(assert move 750 toward $There is 3 3 9 10 2 4)
+
+(test #not-implemented)
+    Not implemented

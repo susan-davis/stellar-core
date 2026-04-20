@@ -4,9 +4,11 @@ COMPILE=dialogc
 DEBUG=dgdebug -u
 BUNDLE=aambundle
 STDLIB=utils.dg unit.dg stdlib.dg
+LIBS=test-ships.dg schema.dg sectored-grid.dg $(STDLIB)
+DLIBS=arc.dg dice.dg $(LIBS)
 
 DGSRCDIR=../dialog
-LIBS=$(DGSRCDIR)/stdlib.dg $(DGSRCDIR)/stddebug.dg $(DGSRCDIR)/unit.dg
+DISTROLIBS=$(DGSRCDIR)/stdlib.dg $(DGSRCDIR)/stddebug.dg $(DGSRCDIR)/unit.dg
 
 SRCS=su-101.dg union-ship.dg damage.dg arc.dg maneuvering.dg sensors.dg schema.dg sectored-grid.dg time.dg
 
@@ -29,13 +31,13 @@ su-101.d71: su-101.aastory
 
 6502: su-101.d64
 
-test: utils time dice dice-lite sectored-grid schema arc sensors-wide maneuver damage weapons
+test: utils time dice dice-lite grid-movement sectored-grid schema arc sensors-wide maneuver damage weapons
 
 clean:
 	rm -f *~ \#*\# *.z8 *.zblorb *.aastory *.d64 *.d71 log.txt
 
-libraries: $(LIBS)
-	cp -f $(LIBS) .
+libraries: $(DISTROLIBS)
+	cp -f $(DISTROLIBS) .
 
 utils:
 	$(DEBUG) utils-tests.dg $(STDLIB)
@@ -50,31 +52,34 @@ dice-lite:
 	$(DEBUG) dice-lite-tests.dg dice-lite.dg unit.dg stdlib.dg
 
 dice-extra:
-	$(DEBUG) dice-lite-tests.dg dice.dg $(STDLIB)
+	$(DEBUG) dice-lite-tests.dg dice.dg $(LIBS)
+
+grid-movement:
+	$(DEBUG) grid-tests.dg grid-movement.dg $(STDLIB)
 
 sectored-grid:
-	$(DEBUG) sectored-tests.dg sectored-grid.dg $(STDLIB)
+	$(DEBUG) sectored-tests.dg $(LIBS)
 
 schema:
 	$(DEBUG) schema-tests.dg test-ships.dg schema.dg sectored-grid.dg $(STDLIB)
 
 sensors-wide:
-	$(DEBUG) -w 80 sensor-tests.dg sensors.dg schema.dg sectored-grid.dg $(STDLIB)
+	$(DEBUG) -w 80 sensor-tests.dg sensors.dg $(LIBS)
 
 sensors-narrow:
-	$(DEBUG) -w 40 sensor-tests.dg sensors.dg schema.dg sectored-grid.dg $(STDLIB)
+	$(DEBUG) -w 40 sensor-tests.dg sensors.dg $(LIBS)
 
 maneuver:
-	$(DEBUG) maneuver-tests.dg maneuvering.dg schema.dg sectored-grid.dg $(STDLIB)
+	$(DEBUG) maneuver-tests.dg maneuvering.dg $(LIBS)
 
 arc:
-	$(DEBUG) arc-tests.dg test-ships.dg arc.dg schema.dg sectored-grid.dg $(STDLIB)
+	$(DEBUG) arc-tests.dg test-ships.dg $(DLIBS)
 
 damage:
-	$(DEBUG) damage-tests.dg test-ships.dg damage.dg schema.dg sectored-grid.dg dice.dg $(STDLIB)
+	$(DEBUG) damage-tests.dg test-ships.dg damage.dg $(DLIBS)
 
 weapons:
-	$(DEBUG) weapons-tests.dg test-ships.dg weapons.dg damage.dg arc.dg schema.dg sectored-grid.dg dice.dg $(STDLIB)
+	$(DEBUG) weapons-tests.dg test-ships.dg weapons.dg damage.dg $(DLIBS)
 
 .PHONY: test all clean utils 6502 time sectored-grid schema sensors maneuver
 .PHONY: arc damage dice dice-lite dice-extra
