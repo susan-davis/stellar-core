@@ -1,4 +1,4 @@
-%% dgdebug -u sectored-tests.dg sectored-grid.dg unit.dg stdlib.dg
+%% dgdebug -u sector-tests.dg sector.dg grid.dg unit.dg stdlib.dg
 
 (list of tests $Tests) ($Tests = [
 	#place-at-subsector

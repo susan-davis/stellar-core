@@ -1,4 +1,4 @@
-%% dgdebug -u grid-tests.dg grid-movement.dg utils.dg unit.dg stdlib.dg
+%% dgdebug -u grid-tests.dg grid.dg utils.dg unit.dg stdlib.dg
 
 (list of tests $Tests) ($Tests = [
 	#state-schema

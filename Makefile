@@ -58,7 +58,7 @@ grid:
 	$(DEBUG) grid-tests.dg grid.dg $(STDLIB)
 
 sector:
-	$(DEBUG) sector-tests.dg $(LIBS)
+	$(DEBUG) sector-tests.dg sector.dg grid.dg $(STDLIB)
 
 schema:
 	$(DEBUG) schema-tests.dg $(LIBS)
@@ -81,5 +81,5 @@ damage:
 weapons:
 	$(DEBUG) weapons-tests.dg test-ships.dg weapons.dg damage.dg $(DLIBS)
 
-.PHONY: test all clean utils 6502 time sector grid schema sensors maneuver
+.PHONY: test all clean utils 6502 time sector ggrid schema sensors maneuver
 .PHONY: arc damage dice dice-lite dice-extra

@@ -1,4 +1,4 @@
-%% grid-movement.dg
+%% grid.dg
 %% Include utils.dg when compiling or debugging.
 
 (extension version)		 Grid movement v0.1, by Susan Davis (line)
