@@ -1,16 +1,9 @@
 %% dgdebug -u sectored-tests.dg sectored-grid.dg unit.dg stdlib.dg
 
 (list of tests $Tests) ($Tests = [
-	#state-schema
-	#place-at
 	#place-at-subsector
 	#place-in-sector
 	#target-on-map
-	#remove-target
-	#drag-removed-target
-	#move-removed-target
-	#restore-removed-target
-	#position-for-removed-target
 	#position-for-subsector
 	#subsector-for-position
 	#subsector-for-edge-position
@@ -38,22 +31,6 @@
 	#object-at-empty-position
 	#objects-in-star-system
 	#top-object-is-star
-	#next-coordinates-north
-	#next-coordinates-northeast
-	#next-coordinates-east
-	#next-coordinates-southeast
-	#next-coordinates-south
-	#next-coordinates-southwest
-	#next-coordinates-west
-	#next-coordinates-northwest
-	#next-square-north
-	#next-square-northeast
-	#next-square-east
-	#next-square-southeast
-	#next-square-south
-	#next-square-southwest
-	#next-square-west
-	#next-square-northwest
 	#next-subsector-north
 	#next-subsector-northeast
 	#next-subsector-east
@@ -62,17 +39,6 @@
 	#next-subsector-southwest
 	#next-subsector-west
 	#next-subsector-northwest
-	#closest-unoccupied-square-empty
-	#closest-unoccupied-square-north
-	#closest-unoccupied-square-south
-	#closest-unoccupied-square-east
-	#closest-unoccupied-square-west
-	#closest-unoccupied-square-quadrant-1
-	#closest-unoccupied-square-quadrant-2
-	#closest-unoccupied-square-quadrant-3
-	#closest-unoccupied-square-quadrant-4
-	#closest-unoccupied-square-near-target
-	#closest-unoccupied-square-far-target
 	#closest-unoccupied-subsector-empty
 	#closest-unoccupied-subsector-north
 	#closest-unoccupied-subsector-south
@@ -85,263 +51,19 @@
 	#closest-unoccupied-subsector-near-target
 	#closest-unoccupied-subsector-far-target
 	#closest-unoccupied-subsector-two-squares
-	#7-squares-north
-	#6-squares-northeast
-	#2-squares-east
-	#5-squares-southeast
-	#20-squares-south
-	#24-squares-southwest
-	#50-squares-west
-	#4-squares-northwest
-	#11-squares-east
-	#11-squares-north
-	#reciprocal-0
-	#reciprocal-90
-	#reciprocal-180
-	#reciprocal-270
-	#direction-0
-	#direction-22
-	#direction-23
-	#direction-67
-	#direction-68
-	#direction-112
-	#direction-113
-	#direction-157
-	#direction-158
-	#direction-202
-	#direction-203
-	#direction-247
-	#direction-248
-	#direction-292
-	#direction-293
-	#direction-337
-	#direction-338
-	#direction-540
-	#octant-for-0
-	#octant-for-15
-	#octant-for-45
-	#octant-for-60
-	#octant-for-90
-	#octant-for-120
-	#octant-for-135
-	#octant-for-150
-	#octant-for-180
-	#octant-for-210
-	#octant-for-225
-	#octant-for-240
-	#octant-for-270
-	#octant-for-300
-	#octant-for-315
-	#octant-for-330
-	#octant-for-540
-	#look-up-1-9
-	#look-up-5-5
-	#look-up-10-20
-	#look-up-15-30
-	#scale-under-10
-	#scale-more-x
-	#scale-more-y
-	#scale-diagonal
-	#octant-1
-	#octant-2
-	#octant-3
-	#octant-4
-	#octant-5
-	#octant-6
-	#octant-7
-	#octant-8
-	#bfa-octant-1
-	#bfa-octant-2
-	#bfa-octant-3
-	#bfa-octant-4
-	#bfa-octant-5
-	#bfa-octant-6
-	#bfa-octant-7
-	#bfa-octant-8
-	#bfa-north
-	#bfa-northeast
-	#bfa-east
-	#bfa-southeast
-	#bfa-south
-	#bfa-southwest
-	#bfa-west
-	#bfa-northwest
-	#bearing-north
-	#bearing-northeast
-	#bearing-south
-	#bearing-southeast
-	#bearing-east
-	#bearing-southwest
-	#bearing-west
-	#bearing-northwest
-	#bearing-quadrant-1
-	#bearing-quadrant-2
-	#bearing-quadrant-3
-	#bearing-quadrant-4
-	#bearing-to-closest
-	#bearing-to-near
-	#bearing-to-far
-	#bearing-to-distant
-	#angle-30-to-45
-	#angle-45-to-30
-	#angle-315-to-45
-	#angle-45-to-315
-	#angle-0-to-180
-	#angle-179-to-359
-	#angle-to-closest
-	#angle-to-near
-	#angle-to-far
-	#angle-to-distant
-	#angle-counterclockwise
-	#angle-counterclockwise-crossing-zero
-	#angle-clockwise-crossing-zero
-	#slope-0
-	#slope-1
-	#slope-15
-	#slope-27
-	#slope-28
-	#slope-44
-	#slope-45
-	#angle-octant-1
-	#angle-octant-2
-	#angle-octant-3
-	#angle-octant-4
-	#angle-octant-5
-	#angle-octant-6
-	#angle-octant-7
-	#angle-octant-8
-	#offset-north
-	#offset-northeast
-	#offset-east
-	#offset-southeast
-	#offset-south
-	#offset-southwest
-	#offset-west
-	#offset-northwest
-	#offset-30
-	#offset-61
-	#offset-121
-	#offset-145
-	#offset-210
-	#offset-240
-	#offset-300
-	#offset-358
-	#offset-359
-	#offset-2-north
-	#offset-3-northeast
-	#offset-4-east
-	#offset-5-southeast
-	#offset-6-south
-	#offset-7-southwest
-	#offset-8-west
-	#offset-15-northwest
-	#offset-2-30
-	#offset-3-61
-	#offset-4-121
-	#offset-2-145
-	#offset-3-210
-	#offset-4-240
-	#offset-2-300
-	#offset-3-358
-	#offset-4-359
-	#square-at-100-along-orthogonal
-	#square-at-50-along-orthogonal
-	#square-at-141-along-diagonal
-	#square-at-70-along-diagonal
-	#square-at-100-north
-	#square-at-50-north
-	#square-at-141-northeast
-	#square-at-70-northeast
-	#square-at-224-27
-	#square-in-next-sector-north
-	#square-in-next-sector-northwest
 	#square-beyond-map-north
 	#square-beyond-map-northwest
-	#look-up-range-0-1
-	#look-up-range-1-1
-	#look-up-range-6-4
-	#look-up-range-9-8
-	#range-to-closest
-	#range-to-near
-	#range-to-far
-	#range-to-distant
-	#range-to-very-distant
-	#range-across-quadrant
-	#range-along-quadrant
-	#range-large-quadrant
-	#range-due-north
-	#range-due-south
-	#range-due-east
-	#range-due-west
-	#turn-to-face-closest
-	#turn-to-face-near
-	#turn-to-face-far
-	#turn-to-face-distant
-	#turn-about
-	#turn-hard-to-starboard
-	#turn-hard-to-starboard-not-crossing-zero
-	#turn-hard-to-port
-	#turn-hard-to-port-crossing-zero
-	#turn-away-from-closest
-	#turn-away-from-near
-	#turn-away-from-far
-	#turn-away-from-distant
 	#turn-to-subsector
 	#drag-to-same-sector
 	#drag-to-different-sector
-	#drag-100-north
-	#drag-141-southeast
-	#drag-to-occupied-square
 	#drag-to-occupied-subsector
  	#move-to-same-sector
 	#move-to-different-sector
 	#move-to-specified-subsector
 	#move-to-other-subsector
 	#move-to-third-subsector
-	#move-100-north
-	#move-141-southeast
-	#move-51-east
-	#move-71-southwest
-	#move-900-27
-	#move-1400-316
-	#move-northwest-from-corner
-	#move-10000-0
-	#move-10000-314
-	#long-move
-	#move-to-occupied-square
 	#move-to-occupied-subsector
-	#move-toward-near-target
-	#move-away-from-near-target
-	#move-toward-far-target
 	#move-to-star-system
-	#turn-30-starboard
-	#turn-60-starboard-across-north
-	#turn-30-port
-	#turn-60-port-across-north
-	#turn-30-toward-45
-	#turn-60-toward-45
-	#turn-90-toward-45
-	#turn-91-toward-45
-	#turn-30-toward-315
-	#turn-60-toward-315
-	#turn-90-toward-315
-	#turn-91-toward-315
-	#turn-90-toward-135
-	#turn-180-toward-135
-	#turn-181-toward-135
-	#turn-90-toward-136
-	#turn-180-toward-136
-	#turn-45-starboard
-	#turn-315-port
-	#bearing-to-3-4-1-2
-	#bearing-to-3-4-9-10
-	#bearing-to-1-8-1-10
-	#drag-141-toward-near-target
-	#drag-750-toward-far-target
-	#drag-1500-toward-distant-target
-	#move-141-toward-near-target
-	#move-750-toward-far-target
-	#move-1500-toward-distant-target
 	#positions-are-equal
 	#angle-42
 	#angle-to-northeast

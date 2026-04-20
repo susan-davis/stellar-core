@@ -4,13 +4,13 @@ COMPILE=dialogc
 DEBUG=dgdebug -u
 BUNDLE=aambundle
 STDLIB=utils.dg unit.dg stdlib.dg
-LIBS=test-ships.dg schema.dg sectored-grid.dg $(STDLIB)
+LIBS=test-ships.dg schema.dg sector.dg grid.dg $(STDLIB)
 DLIBS=arc.dg dice.dg $(LIBS)
 
 DGSRCDIR=../dialog
 DISTROLIBS=$(DGSRCDIR)/stdlib.dg $(DGSRCDIR)/stddebug.dg $(DGSRCDIR)/unit.dg
 
-SRCS=su-101.dg union-ship.dg damage.dg arc.dg maneuvering.dg sensors.dg schema.dg sectored-grid.dg time.dg
+SRCS=su-101.dg union-ship.dg damage.dg arc.dg maneuvering.dg sensors.dg schema.dg sector.dg grid.dg time.dg
 
 all: test
 
@@ -31,7 +31,7 @@ su-101.d71: su-101.aastory
 
 6502: su-101.d64
 
-test: utils time dice dice-lite grid-movement sectored-grid schema arc sensors-wide maneuver damage weapons
+test: utils time dice dice-lite grid sector schema arc sensors-wide maneuver damage weapons
 
 clean:
 	rm -f *~ \#*\# *.z8 *.zblorb *.aastory *.d64 *.d71 log.txt
@@ -54,14 +54,14 @@ dice-lite:
 dice-extra:
 	$(DEBUG) dice-lite-tests.dg dice.dg $(LIBS)
 
-grid-movement:
-	$(DEBUG) grid-tests.dg grid-movement.dg $(STDLIB)
+grid:
+	$(DEBUG) grid-tests.dg grid.dg $(STDLIB)
 
-sectored-grid:
-	$(DEBUG) sectored-tests.dg $(LIBS)
+sector:
+	$(DEBUG) sector-tests.dg $(LIBS)
 
 schema:
-	$(DEBUG) schema-tests.dg test-ships.dg schema.dg sectored-grid.dg $(STDLIB)
+	$(DEBUG) schema-tests.dg $(LIBS)
 
 sensors-wide:
 	$(DEBUG) -w 80 sensor-tests.dg sensors.dg $(LIBS)
@@ -81,5 +81,5 @@ damage:
 weapons:
 	$(DEBUG) weapons-tests.dg test-ships.dg weapons.dg damage.dg $(DLIBS)
 
-.PHONY: test all clean utils 6502 time sectored-grid schema sensors maneuver
+.PHONY: test all clean utils 6502 time sector grid schema sensors maneuver
 .PHONY: arc damage dice dice-lite dice-extra

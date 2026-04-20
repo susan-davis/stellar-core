@@ -1,0 +1,247 @@
+%% sector.dg
+
+%% Divides a grid-movement.dg grid into 8x8 quadrants made of 10x10 sectors,
+%% made in turn of 10x10 subsectors. We'll represent the 10x10 grid per sector
+%% as 100x100, to support zooming in to each subsector as a 10x10 grid in cases
+%% where we care about the interior of the subsector. But we'll hide that
+%% behind the curtains when not actually peeking into the subsector.
+
+%%-------------------------------- INTERFACES --------------------------------
+
+(interface ($<GridObject sector x $>SX))
+
+(interface ($<GridObject sector y $>SY))
+
+(interface ($<GridObject subsector x $>ZX))
+
+(interface ($<GridObject subsector y $>ZY))
+
+(interface ($<GridObject position x $>PX))
+
+(interface ($<GridObject position y $>PY))
+
+%% Positions and coordinates
+
+(interface (place $<Object at $<SX $<SY $<X $<Y))
+
+(interface (place $<Object at $<SX $<SY $<X $<Y $<PX $<PY))
+
+(interface (place $<Object in sector $<SX $<SY))
+
+(interface (coordinates for $Position into $>SX $>SY $>X $>Y $>PX $>PY))
+
+(interface (position for $<SX $<SY $<X $<Y $<PX $<PY into $>Position))
+
+(interface (subsector for $Position into $>SX $>SY $>X $>Y))
+
+(interface (position for $<SX $<SY $<X $<Y into $>Position))
+
+%% Quadrant = 8x8 (expand to 10x10?) sectors. Sector = 10x10 subsectors.
+%% Subsector = 10x10 squares, each with at most one object.
+
+(interface ($<Here is in the same subsector as $<There))
+
+(interface ($<Position is in the quadrant))
+
+(interface (objects in sector $<X $<Y into $>List)) %% YAGNI?
+
+(interface (objects in subsector $<SX $<SY $<X $<Y into $>List))
+
+(interface (top object in subsector $<SX $<SY $<X $<Y into $>Obj))
+
+%% Drag: keep the object in the same orientation and translate the ship to
+%% its new position.
+
+(interface (drag $<Ship to subsector $<Position))
+
+(interface (drag $Ship to $SX $SY $X $Y))
+
+%% Move: turn the object toward the destination, and then drag there.
+
+(interface (move $<Ship to subsector $<Position))
+
+(interface (move $<Ship to $<SX $<SY $<X $<Y))
+
+%% ------------------------------ POSITIONS ------------------------------
+
+%% As a cheap, sleazy hack, we set our origin point at 100, 100 and not
+%% 0, 0, so that subtraction doesn't cross zero and fail, and so that we
+%% don't have to keep checking for overflows. Since classic mainframe
+%% STARTREK is 1-based rather than 0-based in its coordinates, that means
+%% correcting subsectors and position squares, but not sectors.
+
+(place $Object at $SX $SY $X $Y $PX $PY)
+	(position for $SX $SY $X $Y $PX $PY into $Position)
+	(place $Object at $Position)
+
+(place $Object at $SX $SY $X $Y)
+	(position for $SX $SY $X $Y into $Position)
+	(place $Object at $Position)
+
+(place $Object in sector $SX $SY)
+	(random from 1 to 10 into $X)
+	(random from 1 to 10 into $Y)
+	(random from 1 to 10 into $PX)
+	(random from 1 to 10 into $PY)
+	(place $Object at $SX $SY $X $Y $PX $PY)
+
+(coordinates for $Position into $SX $SY $X $Y $PX $PY)
+	([$BigX $BigY | $] = $Position)
+	(split $BigX into $ $SX $RX $RPX)
+	(split $BigY into $ $SY $RY $RPY)
+	($RX  plus 1 into $X)
+	($RY  plus 1 into $Y)
+	($RPX plus 1 into $PX)
+	($RPY plus 1 into $PY)
+
+(position for $SX $SY $X $Y $PX $PY into $Position)
+	($SX times 100 into $HX)
+	($SY times 100 into $HY)
+	($X  minus 1   into $MX)
+	($Y  minus 1   into $MY)
+	($MX times 10  into $TX)
+	($MY times 10  into $TY)
+	($HX plus  $TX into $QX)
+	($HY plus  $TY into $QY)
+	($QX plus  $PX into $ZX)
+	($QY plus  $PY into $ZY)
+	($ZX minus 1   into $RX)
+	($ZY minus 1   into $RY)
+	([$RX $RY] = $Position)
+
+(subsector for $Position into $SX $SY $X $Y)
+	(coordinates for $Position into $SX $SY $X $Y $ $)
+
+(position for $SX $SY $X $Y into $Position)
+	(position for $SX $SY $X $Y 5 5 into $Position)
+
+($Here is in the same subsector as $There)
+	(subsector for $Here  into $HSX $HSY $HX $HY)
+	(subsector for $There into $TSX $TSY $TX $TY)
+	([$HSX $HSY $HX $HY] = [$TSX $TSY $TX $TY])
+
+%% ------------------------------ STATE ------------------------------
+
+($Object sector x $SX)
+    ($Object is on the map)
+	($Object x $BigX)
+	(split $BigX into $ $SX $ $)
+
+($Object sector y $SY)
+    ($Object is on the map)
+	($Object y $BigY)
+	(split $BigY into $ $SY $ $)
+
+($Object subsector x $X)
+    ($Object is on the map)
+	($Object x $BigX)
+	(split $BigX into $ $ $Result $)
+	($Result plus 1 into $X) %% subsectors are 1-based
+
+($Object subsector y $Y)
+    ($Object is on the map)
+	($Object y $BigY)
+	(split $BigY into $ $ $Result $)
+	($Result plus 1 into $Y) %% subsectors are 1-based
+
+($Object position x $PX)
+    ($Object is on the map)
+	($Object x $BigX)
+	(split $BigX into $ $ $ $Result)
+	($Result plus 1 into $PX) %% positions are 1-based
+
+($Object position y $PY)
+    ($Object is on the map)
+	($Object y $BigY)
+	(split $BigY into $ $ $ $Result)
+	($Result plus 1 into $PY) %% positions are 1-based
+
+%% ------------------------------ NEARBY ------------------------------
+
+($Place is in the quadrant)
+	([$X $Y | $] = $Place)
+	($X > 99) ($X < 900) %% or 1100 if we go to 10x10 quadrants
+	($Y > 99) ($Y < 900) %% or 1100 if we go to 10x10 quadrants
+
+(objects in sector $X $Y into $List)
+	(collect $Obj)
+		*(grid object $Obj)
+		       ($Obj sector x $SX)
+		       ($Obj sector y $SY)
+		       ([$SX $SY] = [$X $Y])
+	(into $List)
+
+(objects in subsector $SX $SY $X $Y into $List)
+	(collect $Obj)
+		*(grid object $Obj)
+		       ($Obj sector x $SX)
+		       ($Obj sector y $SY)
+		       ($Obj subsector x $X)
+		       ($Obj subsector y $Y)
+	(into $List)
+
+%% Declare all grid objects in ascending order of importance in scans,
+%% and the most important object in the subsector will come first.
+
+(top object in subsector $SX $SY $X $Y into $Obj)
+	(objects in subsector $SX $SY $X $Y into $List)
+	([$Obj | $] = $List)
+
+(next subsector $Relation from $Place into $Result)
+	([$ $ | $Tail] = $Place)
+	(subsector for $Place into $SX $SY $X $Y)
+	(next coordinates $Relation from $X $Y into $NX $NY)
+	(position for $SX $SY $NX $NY into $Position)
+	([$RX $RY] = $Position)
+	([$RX $RY | $Tail] = $Result)
+
+(closest unoccupied subsector to $Place from $Origin into $Result)
+	(subsector for $Place into $SX $SY $X $Y)
+	(objects in subsector $SX $SY $X $Y into $List)
+	(if) ($Origin is in the same subsector as $Place)
+		(or) (empty $List)
+	(then)
+		($Result = $Place)
+	(else)
+		(calculate bearing from $Place to $Origin into $Bearing)
+		(direction for $Bearing into $Direction)
+		(next subsector $Direction from $Place into $New)
+		(closest unoccupied subsector to $New from $Origin into $Result)
+	(endif)
+
+%% ------------------------------ TURNING ------------------------------
+
+(turn $Ship to face $SX $SY $X $Y)
+	(position for $SX $SY $X $Y into $There)
+	(turn $Ship to face position $There)
+
+(turn $Ship to face subsector $Position)
+	(subsector for $Position into $SX $SY $X $Y)
+	(turn $Ship to face $SX $SY $X $Y)
+
+%% ------------------------------ MOVEMENT ------------------------------
+
+%% drag == move, but leave heading alone
+
+(drag $Ship to subsector $Desired)
+	($Ship is on the map)
+    (subsector for $Desired into $SX $SY $X $Y)
+    (position for $SX $SY $X $Y into $There)
+    (drag $Ship to position $There)
+
+(drag $Ship to $SX $SY $X $Y)
+	($Ship is on the map)
+	(position for $SX $SY $X $Y into $There)
+	(drag $Ship to position $There)
+
+%% move == turn, then drag
+
+(move $Ship to subsector $Destination)
+	($Ship is on the map)
+	(turn $Ship to face subsector $Destination)
+	(drag $Ship to subsector $Destination)
+
+(move $Ship to $SX $SY $X $Y)
+	($Ship is on the map)
+	(turn $Ship to face $SX $SY $X $Y)
+	(drag $Ship to $SX $SY $X $Y)

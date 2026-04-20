@@ -1,20 +1,25 @@
-%% sectored-grid.dg
+%% grid-movement.dg
+%% Include utils.dg when compiling or debugging.
 
-%% Divides a square grid into 10x10 sectors, and supports objects on the grid
-%% with a position and facing. Only one object may occupy a square at a time.
-%% Supports turning objects to new facings and moving them on the grid in
-%% either cartesian or polar coordinates.
-%%
-%% We'll represent the 10x10 grid per sector as 100x100, to support zooming
-%% in to each subsector as a 10x10 grid in cases where we care about the
-%% interior of the subsector. But we'll hide that behind the curtains when
-%% not actually peeking into the subsector.
+(extension version)		 Grid movement v0.1, by Susan Davis (line)
+
+%% Implements free movement on a cartesian grid for vehicles, horses, ships,
+%% aircraft, spaceships, and the like. The grid is divided into 10-unit
+%% squares, with diagonal squares 14 units from each other, and only one
+%% object occupying a given square. For historical reasons (the 1971 STARTREK
+%% game), Y increases as you go south, not north.
+%% TODO: add a mechanism to flip both the X and Y axes, to support any
+%% hemisphere.
+
+%% The maximum grid size is 1160 x 1160, unless you're willing to have ranges
+%% not be able to be calcuated between two distant objects, in which case you
+%% can use 16382 x 16382. (Location [16383 16383] specifies that the object has
+%% been removed from the map.) Range is measured in abstract units; you can
+%% convert these to real-world ones by whatever scaling factor you wish.
+%% For safety, starting the origin at [100 100] rather than [0 0] can prevent
+%% subtraction overflows.
 
 %%-------------------------------- INTERFACES --------------------------------
-
-%% (grid object $) => object is present on our grid and occupies a square
-
-(interface (grid object $))
 
 %% Grid objects all bind a per-object variable ($ state $), which returns a
 %% list of at least three elements. The first two specify the coordinates of
@@ -24,17 +29,15 @@
 %% per-object variables. (The number of grid objects is expected to be a tiny
 %% fraction of the total objects in the game.)
 
-(interface ($<GridObject sector x $>SX))
+%% (grid object $) => object is present on our grid and occupies a square
 
-(interface ($<GridObject sector y $>SY))
+(interface (grid object $))
 
-(interface ($<GridObject subsector x $>ZX))
+(interface ($<GridObject position $>Position))
 
-(interface ($<GridObject subsector y $>ZY))
+(interface ($<GridObject x $>PX))
 
-(interface ($<GridObject position x $>PX))
-
-(interface ($<GridObject position y $>PY))
+(interface ($<GridObject y $>PY))
 
 (interface ($<GridObject heading $>Heading))
 
@@ -42,43 +45,20 @@
 
 (interface (place $<Object at $<Position))
 
-(interface (place $<Object at $<SX $<SY $<X $<Y))
-
-(interface (place $<Object at $<SX $<SY $<X $<Y $<PX $<PY))
-
-(interface (place $<Object in sector $<SX $<SY))
-
 (interface ($<GridObject is on the map))
 
+(interface (position $<Position is on the map))
+
+(interface (position $<Position is off the map))
+
 (interface (remove $<GridObject from the map))
-
-(interface (coordinates for $Position into $>SX $>SY $>X $>Y $>PX $>PY))
-
-(interface (position for $<SX $<SY $<X $<Y $<PX $<PY into $>Position))
-
-(interface (subsector for $Position into $>SX $>SY $>X $>Y))
-
-(interface (position for $<SX $<SY $<X $<Y into $>Position))
-
-%% Quadrant = 8x8 (expand to 10x10?) sectors. Sector = 10x10 subsectors.
-%% Subsector = 10x10 squares, each with at most one object.
-
-(interface ($<Here is in the same subsector as $<There))
-
-(interface ($<Position is in the quadrant))
-
-(interface (objects in sector $<X $<Y into $>List)) %% YAGNI?
-
-(interface (objects in subsector $<SX $<SY $<X $<Y into $>List))
-
-(interface (top object in subsector $<SX $<SY $<X $<Y into $>Obj))
 
 (interface (object at $<Position into $>Obj))
 
 %% Most other games use floating point numbers, floating point math,
 %% trignometry, square roots, and so forth, to get ranges and bearings
 %% actually right. We're restricted to unsigned integers, so we simplify
-%% down to integers (100/square, or 141 diagonally), and use a lookup table.
+%% down to integers (10/square, or 14 diagonally), and use a lookup table.
 
 (interface (calculate range from $<Here to $<There into $>Range))
 
@@ -133,10 +113,6 @@
 
 (interface (drag $<Ship to position $<Position))
 
-(interface (drag $<Ship to subsector $<Position))
-
-(interface (drag $Ship to $SX $SY $X $Y))
-
 (interface (drag $<Ship $<Distance on heading $<Heading))
 
 (interface (drag $<Ship $<Distance toward $<GridObject))
@@ -147,10 +123,6 @@
 
 (interface (move $<Ship to position $<Position))
 
-(interface (move $<Ship to subsector $<Position))
-
-(interface (move $<Ship to $<SX $<SY $<X $<Y))
-
 (interface (move $<Ship $<Distance on heading $<Heading))
 
 (interface (move $<Ship $<Distance forward))
@@ -160,82 +132,6 @@
 (interface (move $<Ship $<Distance away from $<GridObject))
 
 (interface (move $<Ship $<Distance toward position $<Position))
-
-%% ------------------------------ POSITIONS ------------------------------
-
-%% As a cheap, sleazy hack, we set our origin point at 100, 100 and not
-%% 0, 0, so that subtraction doesn't cross zero and fail, and so that we
-%% don't have to keep checking for overflows. Since classic mainframe
-%% STARTREK is 1-based rather than 0-based in its coordinates, that means
-%% correcting subsectors and position squares, but not sectors.
-
-(place $Object at $Position)
-	($Object state $State)
-	([$ $ | $Tail] = $State)
-	([$X $Y | $] = $Position)
-	([$X $Y | $Tail] = $NewState)
-	(now) ($Object state $NewState)
-
-(place $Object at $SX $SY $X $Y $PX $PY)
-	(position for $SX $SY $X $Y $PX $PY into $Position)
-	(place $Object at $Position)
-
-(place $Object at $SX $SY $X $Y)
-	(position for $SX $SY $X $Y into $Position)
-	(place $Object at $Position)
-
-(place $Object in sector $SX $SY)
-	(random from 1 to 10 into $X)
-	(random from 1 to 10 into $Y)
-	(random from 1 to 10 into $PX)
-	(random from 1 to 10 into $PY)
-	(place $Object at $SX $SY $X $Y $PX $PY)
-
-($Object is on the map)
-    ($Object state $State)
-	($State = [$X $Y | $])
-	($X < 16383) ($Y < 16383)
-
-(remove $Object from the map)
-    ($Object state $State)
-	($State = [$ $ | $Rest])
-	($NewState = [16383 16383 | $Rest])
-	(now) ($Object state $NewState)
-
-(coordinates for $Position into $SX $SY $X $Y $PX $PY)
-	([$BigX $BigY | $] = $Position)
-	(split $BigX into $ $SX $RX $RPX)
-	(split $BigY into $ $SY $RY $RPY)
-	($RX  plus 1 into $X)
-	($RY  plus 1 into $Y)
-	($RPX plus 1 into $PX)
-	($RPY plus 1 into $PY)
-
-(position for $SX $SY $X $Y $PX $PY into $Position)
-	($SX times 100 into $HX)
-	($SY times 100 into $HY)
-	($X  minus 1   into $MX)
-	($Y  minus 1   into $MY)
-	($MX times 10  into $TX)
-	($MY times 10  into $TY)
-	($HX plus  $TX into $QX)
-	($HY plus  $TY into $QY)
-	($QX plus  $PX into $ZX)
-	($QY plus  $PY into $ZY)
-	($ZX minus 1   into $RX)
-	($ZY minus 1   into $RY)
-	([$RX $RY] = $Position)
-
-(subsector for $Position into $SX $SY $X $Y)
-	(coordinates for $Position into $SX $SY $X $Y $ $)
-
-(position for $SX $SY $X $Y into $Position)
-	(position for $SX $SY $X $Y 5 5 into $Position)
-
-($Here is in the same subsector as $There)
-	(subsector for $Here  into $HSX $HSY $HX $HY)
-	(subsector for $There into $TSX $TSY $TX $TY)
-	([$HSX $HSY $HX $HY] = [$TSX $TSY $TX $TY])
 
 %% ------------------------------ STATE ------------------------------
 
@@ -253,76 +149,39 @@
 	($Object state $State)
 	(nth $State 3 $Heading)
 
-($Object sector x $SX)
-    ($Object is on the map)
-	($Object x $BigX)
-	(split $BigX into $ $SX $ $)
+%% ------------------------------ POSITIONS ------------------------------
 
-($Object sector y $SY)
-    ($Object is on the map)
-	($Object y $BigY)
-	(split $BigY into $ $SY $ $)
+(place $Object at $Position)
+	($Object state $State)
+	([$ $ | $Tail] = $State)
+	([$X $Y | $] = $Position)
+	([$X $Y | $Tail] = $NewState)
+	(now) ($Object state $NewState)
 
-($Object subsector x $X)
-    ($Object is on the map)
-	($Object x $BigX)
-	(split $BigX into $ $ $Result $)
-	($Result plus 1 into $X) %% subsectors are 1-based
+($Object is on the map)
+    ($Object state $State)
+	($State = [$X $Y | $])
+	($X < 16383) ($Y < 16383)
 
-($Object subsector y $Y)
-    ($Object is on the map)
-	($Object y $BigY)
-	(split $BigY into $ $ $Result $)
-	($Result plus 1 into $Y) %% subsectors are 1-based
-
-($Object position x $PX)
-    ($Object is on the map)
-	($Object x $BigX)
-	(split $BigX into $ $ $ $Result)
-	($Result plus 1 into $PX) %% positions are 1-based
-
-($Object position y $PY)
-    ($Object is on the map)
-	($Object y $BigY)
-	(split $BigY into $ $ $ $Result)
-	($Result plus 1 into $PY) %% positions are 1-based
-
-%% ------------------------------ NEARBY ------------------------------
-
-($Place is in the quadrant)
-	([$X $Y | $] = $Place)
-	($X > 99) ($X < 900) %% or 1100 if we go to 10x10 quadrants
-	($Y > 99) ($Y < 900) %% or 1100 if we go to 10x10 quadrants
-
-(objects in sector $X $Y into $List)
-	(collect $Obj)
-		*(grid object $Obj)
-		       ($Obj sector x $SX)
-		       ($Obj sector y $SY)
-		       ([$SX $SY] = [$X $Y])
-	(into $List)
-
-(objects in subsector $SX $SY $X $Y into $List)
-	(collect $Obj)
-		*(grid object $Obj)
-		       ($Obj sector x $SX)
-		       ($Obj sector y $SY)
-		       ($Obj subsector x $X)
-		       ($Obj subsector y $Y)
-	(into $List)
-
-%% Declare all grid objects in ascending order of importance in scans,
-%% and the most important object in the subsector will come first.
-
-(top object in subsector $SX $SY $X $Y into $Obj)
-	(objects in subsector $SX $SY $X $Y into $List)
-	([$Obj | $] = $List)
+(remove $Object from the map)
+    ($Object state $State)
+	($State = [$ $ | $Rest])
+	($NewState = [16383 16383 | $Rest])
+	(now) ($Object state $NewState)
 
 (object at $Position into $Obj)
 	([$X $Y | $] = $Position)
 	*(grid object $Obj)
-		($Obj x $X)
-		($Obj y $Y)
+	($Obj state $State)
+	([$X $Y | $] = $State)
+
+(position $Place is on the map)
+	([$X $Y | $] = $Place)
+	($X > 99) ($X < 16383)
+	($Y > 99) ($Y < 16383)
+
+(position $Place is off the map)
+	~(position $Place is on the map)
 
 %% ------------------------- SQUARES AND COLLISIONS -------------------------
 
@@ -351,11 +210,10 @@
 	(elseif) ($Relation = #northwest) (then)
 		($X minus 1 into $NX)
 		($Y minus 1 into $NY)
-	(else)
-		(fail)
 	(endif)
 
 (next square $Relation from $Place into $Result)
+	(bound $Place)
 	([$X $Y | $Tail] = $Place)
 	(next coordinates $Relation from $X $Y into $NX $NY)
 	([$NX $NY | $Tail] = $Result)
@@ -370,50 +228,32 @@
 		(closest unoccupied square to $New from $Origin into $Result)
 	(endif)
 
-(next subsector $Relation from $Place into $Result)
-	([$ $ | $Tail] = $Place)
-	(subsector for $Place into $SX $SY $X $Y)
-	(next coordinates $Relation from $X $Y into $NX $NY)
-	(position for $SX $SY $NX $NY into $Position)
-	([$RX $RY] = $Position)
-	([$RX $RY | $Tail] = $Result)
-
-(closest unoccupied subsector to $Place from $Origin into $Result)
-	(subsector for $Place into $SX $SY $X $Y)
-	(objects in subsector $SX $SY $X $Y into $List)
-	(if) ($Origin is in the same subsector as $Place)
-		(or) (empty $List)
-	(then)
-		($Result = $Place)
-	(else)
-		(calculate bearing from $Place to $Origin into $Bearing)
-		(direction for $Bearing into $Direction)
-		(next subsector $Direction from $Place into $New)
-		(closest unoccupied subsector to $New from $Origin into $Result)
-	(endif)
-
 %% Fails if we walk off the map to the north or west. Should we hit the
 %% boundary and stick at the point where we go out, instead?
 
 ($Num squares $Direction from $Place into $Result)
 	($Place = [$BigX $BigY | $Tail])
-	(if) ($Direction = #east) (or) ($Direction = #northeast)
-		(or) ($Direction = #southeast)
+	(if) ($Direction = #east) (or)
+		 ($Direction = #northeast) (or)
+		 ($Direction = #southeast)
 	(then)
 		($BigX plus  $Num into $NewX)
-	(elseif) ($Direction = #west) (or) ($Direction = #northwest)
-	     	(or) ($Direction = #southwest)
+	(elseif) ($Direction = #west) (or)
+			 ($Direction = #northwest) (or)
+	     	 ($Direction = #southwest)
 	(then)
 		($BigX minus $Num into $NewX)
 	(else)
 		($NewX = $BigX)
 	(endif)
-	(if) ($Direction = #north) (or) ($Direction = #northeast)
-		(or) ($Direction = #northwest)
+	(if) ($Direction = #north) (or)
+		 ($Direction = #northeast) (or)
+		 ($Direction = #northwest)
 	(then)
 		($BigY minus $Num into $NewY)
-	(elseif) ($Direction = #south) (or) ($Direction = #southeast)
-	     	(or) ($Direction = #southwest)
+	(elseif) ($Direction = #south) (or)
+			 ($Direction = #southeast) (or)
+	     	 ($Direction = #southwest)
 	(then)
 		($BigY plus $Num into $NewY)
 	(else)
@@ -720,19 +560,19 @@
 	(else)
 		($Step = 10) ($Half = 5)
 	(endif)
-        (next square $Direction from $Origin into $Next)
+    (next square $Direction from $Origin into $Next) %% why unbound?
 	(if) ($Origin = $Destination) (or) ($Distance < $Half)
-	     (or) ~($Next is in the quadrant)
+		 (or) (position $Next is off the map)
 	(then)
-	     ($R = $Origin)
+	    ($R = $Origin)
 	(else)
-	     (if) ($Distance < $Step) (then)
-		  ($R = $Next)
-	     (else)
-		  (calculate range from $Origin to $Next into $Travelled)
-		  ($Distance minus $Travelled into $Remaining)
-		  (square at $Remaining from $Next to $Destination into $R)
-	     (endif)
+	    (if) ($Distance < $Step) (then)
+			($R = $Next)
+	    (else)
+			(calculate range from $Origin to $Next into $Travelled)
+			($Distance minus $Travelled into $Remaining)
+			(square at $Remaining from $Next to $Destination into $R)
+	    (endif)
 	(endif)
 	($Result = $R)
 
@@ -862,14 +702,6 @@
 	(calculate bearing from $State to $There into $Bearing)
 	(turn $Ship to heading $Bearing)
 
-(turn $Ship to face $SX $SY $X $Y)
-	(position for $SX $SY $X $Y into $There)
-	(turn $Ship to face position $There)
-
-(turn $Ship to face subsector $Position)
-	(subsector for $Position into $SX $SY $X $Y)
-	(turn $Ship to face $SX $SY $X $Y)
-
 (turn $Ship to face $Target)
 	($Target state $There)
 	(turn $Ship to face position $There)
@@ -902,17 +734,6 @@
 	([$X $Y | $Tail] = $NewState)
 	(now) ($Ship state $NewState)
 
-(drag $Ship to subsector $Desired)
-	($Ship is on the map)
-	(subsector for $Desired into $SX $SY $X $Y)
-	(position for $SX $SY $X $Y into $There)
-	(drag $Ship to position $There)
-
-(drag $Ship to $SX $SY $X $Y)
-	($Ship is on the map)
-	(position for $SX $SY $X $Y into $There)
-	(drag $Ship to position $There)
-
 (drag $Ship $Distance on heading $Heading)
 	($Ship is on the map)
 	($Ship state $Origin)
@@ -935,16 +756,6 @@
 	($Ship is on the map)
 	(turn $Ship to face position $Destination)
 	(drag $Ship to position $Destination)
-
-(move $Ship to subsector $Destination)
-	($Ship is on the map)
-	(turn $Ship to face subsector $Destination)
-	(drag $Ship to subsector $Destination)
-
-(move $Ship to $SX $SY $X $Y)
-	($Ship is on the map)
-	(turn $Ship to face $SX $SY $X $Y)
-	(drag $Ship to $SX $SY $X $Y)
 
 (move $Ship $Distance on heading $Heading)
 	($Ship is on the map)
