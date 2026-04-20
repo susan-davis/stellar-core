@@ -38,19 +38,6 @@
 
 (interface ($<Ship has weapons lock on $<GridObject))
 
-%% (grid object $) => object exists in space and is sensor-detectable
-%% (stellar object $) => object is a star/planet/asteroid: right column
-%% (ship $) => object can maneuver
-%% (base $) => object can be docked with
-%% (friendly $) => object shows up in middle column of long-range scan
-%% (hostile $) => object shows up in leftmost column of long-range scan
-
-(grid object *(ship $))
-
-(grid object *(base $))
-
-(grid object *(stellar object $))
-
 (interface (friendly ships in sector $<X $<Y into $>List))
 
 (interface (friendly base in sector $<X $<Y into $>Base))

@@ -38,6 +38,17 @@
 
 %% schema definition
 
+%% (grid object $) => object exists in space and is sensor-detectable
+%% (stellar object $) => object is a star/planet/asteroid: right column
+%% (ship $) => object can maneuver
+%% (base $) => object can be docked with
+
+(interface (ship $))
+
+(interface (base $))
+
+(interface (stellar object $))
+
 (interface (class $<Ship)) %% prints the name of the ship class
 
 (interface (type $<Ship))  %% prints what kind of ship it is
@@ -174,6 +185,12 @@
 (interface (repair $<Ship $<Type $<ID))
 
 %%------------------------------ IMPLEMENTATION -------------------------------
+
+(grid object *(ship $))
+
+(grid object *(base $))
+
+(grid object *(stellar object $))
 
 (initialize $Ship as $Class)
 	($Class state $Default)
