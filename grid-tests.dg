@@ -1,8 +1,14 @@
 %% dgdebug -u grid-tests.dg grid.dg utils.dg unit.dg stdlib.dg
 
 (list of tests $Tests) ($Tests = [
+	#max-coords
+	#max-coords-on-map
+	#max-coords-plus-one-not-on-map
+	#maxint-not-on-map
+	#offset-on-map
+	#offset-minus-one-not-on-map
 	#state-schema
-	#place-at
+	#place-ship
 	#target-on-map
 	#remove-target
 	#drag-removed-target
@@ -311,12 +317,33 @@
 		}
 %% ----------------------------------------------------------------------
 
+(test #max-coords)
+	(maximum coordinate value 1260)
+
+(test #max-coords-on-map)
+	(position [1260 1260] is on the map)
+
+(test #max-coords-plus-one-not-on-map)
+	(position [1261 1261] is off the map)
+
+(test #maxint-not-on-map)
+	(position [16383 16383] is off the map)
+
+(test #offset-on-map)
+	(position [100 100] is on the map)
+
+(test #offset-minus-one-not-on-map)
+	(position [99 99] is off the map)
+
 (test #state-schema)
 	(#test-ship x 344)
 	(#test-ship y 454)
 	(#test-ship heading 315)
 
-(test #place-at)
+(test #place-ship)
+	(place #test-ship at [500 500])
+	(#test-ship x 500)
+	(#test-ship y 500)
 
 (test #target-on-map)
     (#closest-target is on the map)

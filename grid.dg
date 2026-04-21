@@ -19,6 +19,10 @@
 %% you wish. For safety, starting the origin at [100 100] rather than [0 0] can
 %% prevent subtraction overflows.
 
+(global variable (map offset 100)) %% recommended safety margin
+
+(global variable (map size  1160)) %% largest map that we can range across
+
 %%-------------------------------- INTERFACES --------------------------------
 
 %% Grid objects all bind a per-object variable ($ state $), which returns a
@@ -28,8 +32,6 @@
 %% three elements, to support additional state without introducing new
 %% per-object variables. (The number of grid objects is expected to be a tiny
 %% fraction of the total objects in the game.)
-
-%% (grid object $) => object is present on our grid and occupies a square
 
 (interface (grid object $))
 
@@ -151,17 +153,32 @@
 
 %% ------------------------------ POSITIONS ------------------------------
 
+(maximum coordinate value $Max)
+	(map offset $Offset)
+	(map size $Size)
+	($Size plus $Offset into $Max)
+
+($Object is on the map)
+    ($Object state $State)
+	(position $State is on the map)
+
+(position $Place is on the map)
+	(fully bound $Place)
+	([$X $Y | $] = $Place)
+	(map offset $Offset)
+	~($X < $Offset) ~($Y < $Offset)
+	(maximum coordinate value $Max)
+	~($X > $Max) ~($Y > $Max)
+
+(position $Place is off the map)
+	~(position $Place is on the map)
+
 (place $Object at $Position)
 	($Object state $State)
 	([$ $ | $Tail] = $State)
 	([$X $Y | $] = $Position)
 	([$X $Y | $Tail] = $NewState)
 	(now) ($Object state $NewState)
-
-($Object is on the map)
-    ($Object state $State)
-	($State = [$X $Y | $])
-	($X < 16383) ($Y < 16383)
 
 (remove $Object from the map)
     ($Object state $State)
@@ -174,15 +191,6 @@
 	*(grid object $Obj)
 	($Obj state $State)
 	([$X $Y | $] = $State)
-
-(position $Place is on the map)
-	(fully bound $Place)
-	([$X $Y | $] = $Place)
-	($X > 99) ($X < 16383)
-	($Y > 99) ($Y < 16383)
-
-(position $Place is off the map)
-	~(position $Place is on the map)
 
 %% ------------------------- SQUARES AND COLLISIONS -------------------------
 
