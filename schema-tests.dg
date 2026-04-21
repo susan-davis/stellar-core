@@ -173,10 +173,10 @@
 	  (#test-ship helm setting 315)
 
 (test #throttle)
-	  (#test-ship throttle setting 400)
+	  (#test-ship throttle setting 700)
 
 (test #throttle-gradient)
-	  (#test-ship throttle gradient 4)
+	  (#test-ship throttle gradient 7)
 
 (test #destination)
 	  (#test-ship destination [300 400])

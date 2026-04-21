@@ -35,7 +35,7 @@
 
 (reset randomness)
 
-%% ----------------------------------------------------------------------
+%% ---------------------------------------------------------------------------
 
 (test #turn-ship)
 	(turn #test-ship to helm setting)
@@ -77,8 +77,8 @@
 
 (test #accelerate)
 	(accelerate #test-ship to throttle setting)
-	(#test-ship speed 400)
-	(#test-ship warp gradient 4)
+	(#test-ship speed 700)
+	(#test-ship warp gradient 7)
 
 (test #accelerate-too-fast)
 	(set throttle for #test-ship to gradient 9)
@@ -122,7 +122,6 @@
 (assert energy $Energy yields throttle $Throttle)
 	(932 minus $Energy into $Deficit)
 	(decrease energy for #test-ship by $Deficit)
-	(log) $Deficit
 	(adjust #test-ship throttle for remaining energy)
 	(#test-ship throttle setting $Throttle)
 

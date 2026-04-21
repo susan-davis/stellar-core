@@ -10,14 +10,16 @@
 
 #test-ship
 (ship *)
-(* initial state [344 454 315 400 300 400 315 400 #cygnus-class])
+(name *)	Eridanus
+(code *)	E
+(* initial state [344 454 315 400 300 400 315 700 #cygnus-class])
 
 #cygnus-class
 (ship *)
 (current ship *)
 (name *)	Cygnus
 (type *)	fast scout
-(code *)	E
+(code *)	u
 (* state [0 0 180 0 500 963 0 #union #cygnus-class 1000 4 10 500
    		 [100 99 98 97] []
 		 [[#projector 1 [360 #up] 100 141 3 0]
