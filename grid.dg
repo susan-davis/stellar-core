@@ -187,6 +187,7 @@
 %% ------------------------- SQUARES AND COLLISIONS -------------------------
 
 (next coordinates $Relation from $X $Y into $NX $NY)
+	(fully bound $X) (fully bound $Y)
 	(if) ($Relation = #north) (then)
 		($X = $NX)
 		($Y minus 1 into $NY)

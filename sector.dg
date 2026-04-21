@@ -194,9 +194,11 @@
 	([$Obj | $] = $List)
 
 (next subsector $Relation from $Place into $Result)
+	(fully bound $Place)
 	([$ $ | $Tail] = $Place)
 	(subsector for $Place into $SX $SY $X $Y)
 	(next coordinates $Relation from $X $Y into $NX $NY)
+	(fully bound $NX) (fully bound $NY)
 	(position for $SX $SY $NX $NY into $Position)
 	([$RX $RY] = $Position)
 	([$RX $RY | $Tail] = $Result)
