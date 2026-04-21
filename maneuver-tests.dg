@@ -1,4 +1,4 @@
-%% dgdebug -u maneuver-tests.dg maneuvering.dg sectored-grid.dg \
+%% dgdebug -u maneuver-tests.dg test-ships.dg maneuvering.dg sector.dg grid.dg \
 %%            unit.dg stdlib.dg
 
 (list of tests [
