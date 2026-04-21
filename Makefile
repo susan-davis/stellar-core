@@ -31,7 +31,7 @@ su-101.d71: su-101.aastory
 
 6502: su-101.d64
 
-test: utils time dice dice-lite grid sector schema arc maneuver damage weapons
+test: utils time dice dice-lite grid sector schema arc damage weapons maneuver 
 
 clean:
 	rm -f *~ \#*\# *.z8 *.zblorb *.aastory *.d64 *.d71 log.txt
@@ -63,9 +63,6 @@ sector:
 schema:
 	$(DEBUG) schema-tests.dg $(LIBS)
 
-maneuver:
-	$(DEBUG) maneuver-tests.dg maneuvering.dg $(LIBS)
-
 arc:
 	$(DEBUG) arc-tests.dg $(DLIBS)
 
@@ -74,6 +71,9 @@ damage:
 
 weapons:
 	$(DEBUG) weapons-tests.dg weapons.dg damage.dg $(DLIBS)
+
+maneuver:
+	$(DEBUG) maneuver-tests.dg maneuvering.dg $(DLIBS)
 
 sensors-wide:
 	$(DEBUG) -w 80 sensor-tests.dg sensors.dg $(LIBS)

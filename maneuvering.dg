@@ -97,13 +97,11 @@
 
 (move $Ship randomly)
 	($Ship subsector into $SX $SY $ $)
-	(random from 1 to 10 into $X)
-	(random from 1 to 10 into $Y)
-	(random from 1 to 10 into $PX)
-	(random from 1 to 10 into $PY)
+	(2d10 $X  $Y)
+	(2d10 $PX $PY)
 	(set destination for $Ship to $SX $SY $X $Y $PX $PY)
 	($Ship cruising speed $Max)
-	(random from 1 to $Max into $Throttle)
+	(percentage of $Max into $Throttle)
 	(set throttle for $Ship to gradient $Throttle)
 
 (attract nearby ships to $Object)
