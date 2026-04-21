@@ -1246,6 +1246,3 @@
 	(#distant-target state $There)
 	(move #test-ship 1500 toward position $There)
 	(#test-ship state [295 587 200])
-
-(test #not-implemented)
-    Not implemented
