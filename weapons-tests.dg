@@ -1,5 +1,5 @@
 %% dgdebug -u weapons-tests.dg test-ships.dg weapons.dg damage.dg arc.dg \
-%% 		   	  schema.dg sectored-grid.dg unit.dg stdlib.dg
+%% 		   	  schema.dg sector.dg grid.dg unit.dg stdlib.dg
 
 (list of tests [
 	  #weapons-bearing-on-closest-target-location

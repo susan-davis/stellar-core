@@ -63,23 +63,23 @@ sector:
 schema:
 	$(DEBUG) schema-tests.dg $(LIBS)
 
+maneuver:
+	$(DEBUG) maneuver-tests.dg maneuvering.dg $(LIBS)
+
+arc:
+	$(DEBUG) arc-tests.dg $(DLIBS)
+
+damage:
+	$(DEBUG) damage-tests.dg damage.dg $(DLIBS)
+
+weapons:
+	$(DEBUG) weapons-tests.dg weapons.dg damage.dg $(DLIBS)
+
 sensors-wide:
 	$(DEBUG) -w 80 sensor-tests.dg sensors.dg $(LIBS)
 
 sensors-narrow:
 	$(DEBUG) -w 40 sensor-tests.dg sensors.dg $(LIBS)
-
-maneuver:
-	$(DEBUG) maneuver-tests.dg maneuvering.dg $(LIBS)
-
-arc:
-	$(DEBUG) arc-tests.dg test-ships.dg $(DLIBS)
-
-damage:
-	$(DEBUG) damage-tests.dg test-ships.dg damage.dg $(DLIBS)
-
-weapons:
-	$(DEBUG) weapons-tests.dg test-ships.dg weapons.dg damage.dg $(DLIBS)
 
 .PHONY: test all clean utils 6502 time sector ggrid schema sensors maneuver
 .PHONY: arc damage dice dice-lite dice-extra

@@ -158,6 +158,16 @@
 
 (interface (initialize $<Ship as $<Class))
 
+%% Sensor range: adjacent sector
+%% Weapons range: same sector
+%% Matter transmission range: adjacent subsector
+
+(interface ($<GridObject is in sensor range of $<Ship))
+
+(interface ($<GridObject is in weapons range of $<Ship))
+
+(interface ($<GridObject is in matter transmission range of $<Ship))
+
 %% ship's systems
 
 (interface (system $<System arc $>Arc))
@@ -204,6 +214,36 @@
 	($Ship state [$PX $PY $H $S $DX $DY $C $T $Class | $Tail])
 	(now) ($Ship state [$PX $PY $H $S $DX $DY $C $T $Class $Energy $Crystals
 		   $Ammo $Shields $Levels $Incoming $Systems | $Tail])
+
+(sector $X $Y is in sensor range of $Ship)
+	($Ship sector x $SX)
+	($Ship sector y $SY)
+	($X is within 1 of $SX)
+	($Y is within 1 of $SY)
+
+($Object is in sensor range of $Ship)
+	(grid object $Object)
+	($Object sector x $X)
+	($Object sector y $Y)
+	(sector $X $Y is in sensor range of $Ship)
+
+($Object is in weapons range of $Ship)
+	(grid object $Object)
+	($Object sector x $X)
+	($Object sector y $Y)
+	($Ship sector x $SX)
+	($Ship sector y $SY)
+	([$X $Y] = [$SX $SY])
+
+($Object is in matter transmission range of $Ship)
+	(grid object $Object)
+	($Object is in weapons range of $Ship)
+	($Object subsector x $X)
+	($Object subsector y $Y)
+	($Ship subsector x $PX)
+	($Ship subsector y $PY)
+	($X is within 1 of $PX)
+	($Y is within 1 of $PY)
 
 %%---------------------------- SCHEMA DEFINITION ----------------------------
 

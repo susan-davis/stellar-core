@@ -1,5 +1,5 @@
 %% weapons.dg
-%% Include damage.dg, arc.dg, schema.dg, sectored-grid.dg, 3d6.dg, and utils.dg
+%% Include damage.dg, arc.dg, schema.dg, sector.dg, grid.dg, dice.dg, utils.dg
 
 %%-------------------------------- INTERFACES ---------------------------------
 
