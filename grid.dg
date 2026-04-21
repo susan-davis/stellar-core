@@ -6,10 +6,11 @@
 %% Implements free movement on a cartesian grid for vehicles, horses, ships,
 %% aircraft, spaceships, and the like. The grid is divided into 10-unit
 %% squares, with diagonal squares 14 units from each other, and only one
-%% object occupying a given square. For historical reasons (the 1971 STARTREK
-%% game), Y increases as you go south, not north.
-%% TODO: add a mechanism to flip both the X and Y axes, to support any
-%% hemisphere.
+%% object occupying a given square.
+
+~(x increases west) %% un-negate to make X increase as you go west, not east
+
+(y increases south) %% un-negate to make Y increase as you go south, not north
 
 %% The maximum grid size is 1160 x 1160, unless you're willing to have ranges
 %% not be able to be calcuated between two distant objects, in which case you
@@ -194,32 +195,60 @@
 
 %% ------------------------- SQUARES AND COLLISIONS -------------------------
 
+($Num north from $Y into $NY)
+	(if) (y increases south) (then)
+		($Y minus $Num into $NY)
+	(else)
+		($Y plus  $Num into $NY)
+	(endif)
+
+($Num south from $Y into $NY)
+	(if) (y increases south) (then)
+		($Y plus  $Num into $NY)
+	(else)
+		($Y minus $Num into $NY)
+	(endif)
+
+($Num east from $X into $NX)
+	(if) (x increases west) (then)
+		($X minus $Num into $NX)
+	(else)
+		($X plus  $Num into $NX)
+	(endif)
+
+($Num west from $X into $NX)
+	(if) (x increases west) (then)
+		($X plus  $Num into $NX)
+	(else)
+		($X minus $Num into $NX)
+	(endif)
+
 (next coordinates $Relation from $X $Y into $NX $NY)
 	(fully bound $X) (fully bound $Y)
 	(if) ($Relation = #north) (then)
 		($X = $NX)
-		($Y minus 1 into $NY)
+		(1 north from $Y into $NY)
 	(elseif) ($Relation = #northeast) (then)
-		($X plus  1 into $NX)
-		($Y minus 1 into $NY)
+		(1 east  from $X into $NX)
+		(1 north from $Y into $NY)
 	(elseif) ($Relation = #east)      (then)
-		($X plus  1 into $NX)
+		(1 east  from $X into $NX)
 		($Y = $NY)
 	(elseif) ($Relation = #southeast) (then)
-		($X plus  1 into $NX)
-		($Y plus  1 into $NY)
+		(1 east  from $X into $NX)
+		(1 south from $Y into $NY)
 	(elseif) ($Relation = #south)     (then)
 		($X = $NX)
-		($Y plus 1 into $NY)
+		(1 south from $Y into $NY)
 	(elseif) ($Relation = #southwest) (then)
-		($X minus 1 into $NX)
-		($Y plus  1 into $NY)
+		(1 west  from $X into $NX)
+		(1 south from $Y into $NY)
 	(elseif) ($Relation = #west)      (then)
-		($X minus 1 into $NX)
+		(1 west  from $X into $NX)
 		($Y = $NY)
 	(elseif) ($Relation = #northwest) (then)
-		($X minus 1 into $NX)
-		($Y minus 1 into $NY)
+		(1 west  from $X into $NX)
+		(1 north from $Y into $NY)
 	(endif)
 
 (next square $Relation from $Place into $Result)
@@ -247,12 +276,12 @@
 		 ($Direction = #northeast) (or)
 		 ($Direction = #southeast)
 	(then)
-		($BigX plus  $Num into $NewX)
+		($Num east from $BigX into $NewX)
 	(elseif) ($Direction = #west) (or)
 			 ($Direction = #northwest) (or)
 	     	 ($Direction = #southwest)
 	(then)
-		($BigX minus $Num into $NewX)
+		($Num west from $BigX into $NewX)
 	(else)
 		($NewX = $BigX)
 	(endif)
@@ -260,12 +289,12 @@
 		 ($Direction = #northeast) (or)
 		 ($Direction = #northwest)
 	(then)
-		($BigY minus $Num into $NewY)
+		($Num north from $BigY into $NewY)
 	(elseif) ($Direction = #south) (or)
 			 ($Direction = #southeast) (or)
 	     	 ($Direction = #southwest)
 	(then)
-		($BigY plus $Num into $NewY)
+		($Num south from $BigY into $NewY)
 	(else)
 		($NewY = $BigY)
 	(endif)

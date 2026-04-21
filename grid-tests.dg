@@ -37,11 +37,31 @@
 	#next-square-southwest
 	#next-square-west
 	#next-square-northwest
+	#next-coordinates-north-inverted
+	#next-coordinates-northeast-inverted
+	#next-coordinates-east-inverted
+	#next-coordinates-southeast-inverted
+	#next-coordinates-south-inverted
+	#next-coordinates-southwest-inverted
+	#next-coordinates-west-inverted
+	#next-coordinates-northwest-inverted
+	#next-square-north-inverted
+	#next-square-northeast-inverted
+	#next-square-east-inverted
+	#next-square-southeast-inverted
+	#next-square-south-inverted
+	#next-square-southwest-inverted
+	#next-square-west-inverted
+	#next-square-northwest-inverted
 	#closest-unoccupied-square-empty
 	#closest-unoccupied-square-north
 	#closest-unoccupied-square-south
 	#closest-unoccupied-square-east
 	#closest-unoccupied-square-west
+	#closest-unoccupied-square-north-inverted
+	#closest-unoccupied-square-south-inverted
+	#closest-unoccupied-square-east-inverted
+	#closest-unoccupied-square-west-inverted
 	#closest-unoccupied-square-near-target
 	#closest-unoccupied-square-far-target
 	#7-squares-north
@@ -54,6 +74,16 @@
 	#4-squares-northwest
 	#11-squares-east
 	#11-squares-north
+	#7-squares-north-inverted
+	#6-squares-northeast-inverted
+	#2-squares-east-inverted
+	#5-squares-southeast-inverted
+	#20-squares-south-inverted
+	#24-squares-southwest-inverted
+	#50-squares-west-inverted
+	#4-squares-northwest-inverted
+	#11-squares-east-inverted
+	#11-squares-north-inverted
 	#reciprocal-0
 	#reciprocal-90
 	#reciprocal-180
@@ -310,11 +340,14 @@
 (* initial state [374 474 0])
 
 (set up $)
-        (exhaust) {
-            *(grid object $Object)
-            ($Object initial state $State)
-            (now) ($Object state $State)
-		}
+	(now) ~(x increases west)
+	(now) (y increases south)
+    (exhaust) {
+        *(grid object $Object)
+        ($Object initial state $State)
+        (now) ($Object state $State)
+	}
+
 %% ----------------------------------------------------------------------
 
 (test #max-coords)
@@ -806,6 +839,86 @@
 (test #next-square-northwest)
 	(next square #northwest from [344 454] into [343 453])
 
+(test #next-coordinates-north-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(next coordinates #north from 5 5 into 5 6)
+
+(test #next-coordinates-northeast-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(next coordinates #northeast from 5 5 into 4 6)
+
+(test #next-coordinates-east-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(next coordinates #east from 5 5 into 4 5)
+
+(test #next-coordinates-southeast-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(next coordinates #southeast from 5 5 into 4 4)
+
+(test #next-coordinates-south-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(next coordinates #south from 5 5 into 5 4)
+
+(test #next-coordinates-southwest-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(next coordinates #southwest from 5 5 into 6 4)
+
+(test #next-coordinates-west-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(next coordinates #west from 5 5 into 6 5)
+
+(test #next-coordinates-northwest-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(next coordinates #northwest from 5 5 into 6 6)
+
+(test #next-square-north-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(next square #north from [344 454] into [344 455])
+
+(test #next-square-northeast-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(next square #northeast from [344 454] into [343 455])
+
+(test #next-square-east-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(next square #east from [344 454] into [343 454])
+
+(test #next-square-southeast-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(next square #southeast from [344 454] into [343 453])
+
+(test #next-square-south-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(next square #south from [344 454] into [344 453])
+
+(test #next-square-southwest-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(next square #southwest from [344 454] into [345 453])
+
+(test #next-square-west-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(next square #west from [344 454] into [345 454])
+
+(test #next-square-northwest-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(next square #northwest from [344 454] into [345 455])
+
 (test #closest-unoccupied-square-empty)
 	(closest unoccupied square to [879 1044] from [344 454] into [879 1044])
 
@@ -820,6 +933,26 @@
 
 (test #closest-unoccupied-square-west)
 	(closest unoccupied square to [344 454] from [333 454] into [343 454])
+
+(test #closest-unoccupied-square-north-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(closest unoccupied square to [344 454] from [344 466] into [344 453])
+
+(test #closest-unoccupied-square-south-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(closest unoccupied square to [344 454] from [344 444] into [344 455])
+
+(test #closest-unoccupied-square-east-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(closest unoccupied square to [344 454] from [333 454] into [345 454])
+
+(test #closest-unoccupied-square-west-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(closest unoccupied square to [344 454] from [355 454] into [343 454])
 
 (test #closest-unoccupied-square-near-target)
 	(#test-ship state $Here)
@@ -901,6 +1034,56 @@
 
 (test #11-squares-north)
 	(11 squares #north from [344 454] into [344 443])
+
+(test #7-squares-north-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(7 squares #north from [344 454] into [344 461])
+
+(test #6-squares-northeast-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(6 squares #northeast from [344 454] into [338 460])
+
+(test #2-squares-east-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(2 squares #east from [344 454] into [342 454])
+
+(test #5-squares-southeast-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(5 squares #southeast from [344 454] into [339 449])
+
+(test #20-squares-south-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(20 squares #south from [344 454] into [344 434])
+
+(test #24-squares-southwest-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(24 squares #southwest from [344 454] into [368 430])
+
+(test #50-squares-west-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(50 squares #west from [344 454] into [394 454])
+
+(test #4-squares-northwest-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(4 squares #northwest from [344 454] into [348 458])
+
+(test #11-squares-east-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(11 squares #east from [344 454] into [333 454])
+
+(test #11-squares-north-inverted)
+	(now) (x increases west)
+	(now) ~(y increases south)
+	(11 squares #north from [344 454] into [344 465])
 
 (test #angle-octant-1)
 	(octant for 30 into 30 #north #east)
