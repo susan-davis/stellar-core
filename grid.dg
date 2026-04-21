@@ -138,6 +138,11 @@
 
 %% ------------------------------ STATE ------------------------------
 
+($Object position $Position)
+	($Object state $State)
+	([$X $Y | $] = $State)
+	([$X $Y] = $Position)
+
 ($Object x $X)
     ($Object is on the map)
 	($Object state $State)
