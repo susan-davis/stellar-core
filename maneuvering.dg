@@ -97,8 +97,8 @@
 
 (move $Ship randomly)
 	($Ship subsector into $SX $SY $ $)
-	(2d10 $X  $Y)
-	(2d10 $PX $PY)
+	(roll two #d10 $X  $Y)
+	(roll two #d10 $PX $PY)
 	(set destination for $Ship to $SX $SY $X $Y $PX $PY)
 	($Ship cruising speed $Max)
 	(percentage of $Max into $Throttle)
