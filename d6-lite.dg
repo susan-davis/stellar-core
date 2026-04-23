@@ -1,0 +1,159 @@
+%% d6-lite.dg
+%% Memory-light version of d6.dg that leans on (random from $ to $ into $).
+%% Swap this in if you want to reduce output size and have been using d6.dg.
+%% Do not include d6.dg if you include this file. Do include utils.dg.
+
+(extension version)	Simple six-sided die rolls v0.4 by Susan Davis (line)
+
+%%-------------------------------- INTERFACES ---------------------------------
+
+(interface (roll $<Die $>Roll))
+
+(interface (roll $<Die max $<Max $>Roll)) %% roll again if over max
+
+(interface (roll $<Num $<Dice $>Total))
+
+(interface (roll two $<Dice $>First $>Second))
+
+(interface (roll three $<Dice $>First $>Second $>Third))
+
+(interface (roll four $<Dice $>First $>Second $>Third $>Fourth))
+
+(interface (percentage of $<Number into $>Result))
+
+%% Dice pool style roll, with one success for every die equal to or exceeding
+%% the target number.
+
+(interface (roll $<Num $<Dice with target $<Target $>Successes))
+
+%% FUDGE dice can be positive or negative
+
+(interface (roll 1dF $>Direction $>Total))
+
+(interface (roll 2dF $>Direction $>Total))
+
+(interface ($<Num plus 2dF $>Total))
+
+(interface (roll 4dF $>Direction $>Total))
+
+(interface ($<Num plus 4dF $>Total))
+
+%% These two rules do nothing, and are here for compatibility with dice.dg.
+
+(interface (shuffle randomness)) %% do nothing
+
+(interface (reset randomness)) %% do nothing
+
+%%------------------------------ IMPLEMENTATION -------------------------------
+
+(shuffle randomness) %% do nothing
+
+(reset randomness) %% do nothing
+
+#d3
+(roll * $Roll)
+	(random from 1 to 3 into $Roll)
+
+#d6
+(roll * $Roll)
+	(random from 1 to 6 into $Roll)
+
+#d36
+(roll * $Roll)
+	(random from 1 to 36 into $Roll)
+
+#d216
+(roll * $Roll)
+	(random from 1 to 216 into $Roll)
+
+#d1296
+(roll * $Roll)
+	(random from 1 to 1296 into $Roll)
+
+%%-----------------------------------------------------------------------------
+
+(dF $Roll $Delta $Direction $Total)
+	($Roll delta $Delta into $Total)
+	(if) ($Roll > $Delta) (then)
+		($Direction = #up)
+	(elseif) ($Roll < $Delta) (then)
+		($Direction = #down)
+	(else)
+		($Direction = 0)
+	(endif)
+
+(roll 1dF $Direction $Num)
+	(roll #d3 $Roll)
+	(dF $Roll 2 $Direction $Num)
+
+(roll 2dF $Direction $Total)
+	(roll 2 #d3 $Roll)
+	(dF $Roll 4 $Direction $Total)
+
+($Num plus 2dF $Total)
+	(roll 2dF $Direction $Roll)
+	(if) ($Direction = #down) (then)
+		(if) ($Roll > $Num) (then)
+			($Total = 0)
+		(else)
+			($Num minus $Roll into $Total)
+		(endif)
+	(else)
+		($Num plus $Roll into $Total)
+	(endif)
+
+(roll 4dF $Direction $Total)
+	(roll 4 #d3 $Roll)
+	(dF $Roll 8 $Direction $Total)
+
+($Num plus 4dF $Total)
+	(roll 4dF $Direction $Roll)
+	(if) ($Direction = #down) (then)
+		(if) ($Roll > $Num) (then)
+			($Total = 0)
+		(else)
+			($Num minus $Roll into $Total)
+		(endif)
+	(else)
+		($Num plus $Roll into $Total)
+	(endif)
+
+%%-----------------------------------------------------------------------------
+
+(roll two $Dice $First $Second)
+	(roll $Dice $First)
+	(roll $Dice $Second)
+
+(roll three $Dice $First $Second $Third)
+	(roll two $Dice $First $Second)
+	(roll $Dice $Third)
+
+(roll four $Dice $First $Second $Third $Fourth)
+	(roll two $Dice $First $Second)
+	(roll two $Dice $Third $Fourth)
+
+(roll 0 $ $Total)
+	($Total = 0)
+
+(roll $Num $Dice $Total)
+	(roll $Dice $Roll)
+	($Num minus 1 into $Remaining)
+	(roll $Remaining $Dice $More)
+	($Roll plus $More into $Total)
+
+(roll 0 $ with target $ into $Successes)
+	($Successes = 0)
+
+(roll $Num $Dice with target $Target into $Successes)
+	(roll $Dice $Roll)
+	(if) ($Roll < $Target) (then)
+		($Result = 0)
+	(else)
+		($Result = 1)
+	(endif)
+	($Num minus 1 into $Remaining)
+	(roll $Remaining $Dice with target $Target into $More)
+	($Result plus $More into $Successes)
+
+(percentage of $Number into $Result)
+	(random from 1 to $Number into $Result)

@@ -31,7 +31,7 @@ su-101.d71: su-101.aastory
 
 6502: su-101.d64
 
-test: utils time d6 grid sector schema arc damage weapons maneuver 
+test: utils time d6 d6-lite grid sector schema arc damage weapons maneuver 
 
 clean:
 	rm -f *~ \#*\# *.z8 *.zblorb *.aastory *.d64 *.d71 log.txt
