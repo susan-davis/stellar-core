@@ -31,7 +31,7 @@ su-101.d71: su-101.aastory
 
 6502: su-101.d64
 
-test: utils time dice grid sector schema arc damage weapons maneuver 
+test: utils time dice dice-lite grid sector schema arc damage weapons maneuver 
 
 clean:
 	rm -f *~ \#*\# *.z8 *.zblorb *.aastory *.d64 *.d71 log.txt

@@ -1,0 +1,336 @@
+%% dice-lite.dg
+%% Memory-light version of 3d6.dg that leans on (random from $ to $ into $).
+%% Swap this in if you want to reduce output size and have been using 3d6.dg.
+%% Do not include 3d6.dg if you include this file. Do include utils.dg.
+
+(extension version)	Simple die rolls v0.4 by Susan Davis (line)
+
+%%-------------------------------- INTERFACES ---------------------------------
+
+(interface (roll $<Die $>Roll))
+
+(interface (roll $<Die max $<Max $>Roll)) %% roll again if over max
+
+(interface (roll $<Die plus $<Adds $>Roll))
+
+(interface (roll $<Die minus $<Penalty $>Roll))
+
+(interface (roll $<Die $>Roll with advantage))
+
+(interface (roll $<Die $>Roll with disadvantage))
+
+(interface (roll $<Num $<Dice $>Total))
+
+(interface (roll $<Num $<Dice plus $<Adds $>Total))
+
+(interface (roll $<Num $<Dice minus $<Penalty $>Total))
+
+(interface (roll two $<Dice $>First $>Second))
+
+(interface (roll two $<Dice $>Total DARO))   %% doubles add and roll over (T&T)
+
+(interface (roll two $<Dice plus $<Adds $>Total DARO))
+
+(interface (roll three $<Dice $>First $>Second $>Third))
+
+(interface (roll three $<Dice $>Total TARO)) %% triples add and roll over (T&T)
+
+(interface (roll three $<Dice plus $<Adds $>Total TARO))
+
+(interface (roll $<Dice min mid max $>Min $>Mid $>Max))
+
+(interface (roll $<First $<Second $<Third min mid max $>Min $>Mid $>Max))
+
+(interface (percentage of $<Number into $>Result))
+
+%% d6xd6-style rolls, including bonuses and penalties
+
+(interface (roll $<Die1 times $<Die2 $>Total))
+
+(interface (roll $<Die1 times $<Die2 with bonus $<Bonus $>Total))
+
+(interface (roll $<Die1 times $<Die2 with penalty $<Penalty $>Total))
+
+%% Tunnels & Trolls style combat roll, with spite damage on every 1.
+%% We use 1 rather than 6 because it's on every die.
+
+(interface (roll $<Num $<Dice $>Total with $>Ones spite))
+
+(interface (roll $<Num $<Dice plus $<Adds $>Total with $>Ones spite))
+
+%% Dice pool style roll, with one success for every die equal to or exceeding
+%% the target number.
+
+(interface (roll $<Num $<Dice with target $<Target $>Successes))
+
+%% FUDGE dice can be positive or negative
+
+(interface (roll 1dF $>Direction $>Total))
+
+(interface (roll 2dF $>Direction $>Total))
+
+(interface ($<Num plus 2dF $>Total))
+
+(interface (roll 4dF $>Direction $>Total))
+
+(interface ($<Num plus 4dF $>Total))
+
+%% These two rules do nothing, and are here for compatibility with dice.dg.
+
+(interface (shuffle randomness)) %% do nothing
+
+(interface (reset randomness)) %% do nothing
+
+%%------------------------------ IMPLEMENTATION -------------------------------
+
+(shuffle randomness) %% do nothing
+
+(reset randomness) %% do nothing
+
+#d3
+(roll * $Roll)
+	(random from 1 to 3 into $Roll)
+
+#d4
+(roll * $Roll)
+	(random from 1 to 4 into $Roll)
+
+#d6
+(roll * $Roll)
+	(random from 1 to 6 into $Roll)
+
+#d8
+(roll * $Roll)
+	(random from 1 to 8 into $Roll)
+
+#d10
+(roll * $Roll)
+	(random from 1 to 10 into $Roll)
+
+#d12
+(roll * $Roll)
+	(random from 1 to 12 into $Roll)
+
+#d20
+(roll * $Roll)
+	(random from 1 to 20 into $Roll)
+
+#d36
+(roll * $Roll)
+	(random from 1 to 36 into $Roll)
+
+#d72
+(roll * $Roll)
+	(random from 1 to 72 into $Roll)
+
+#d100
+(roll * $Percent)
+	(random from 1 to 100 into $Percent)
+
+#d216
+(roll * $Roll)
+	(random from 1 to 216 into $Roll)
+
+%%-----------------------------------------------------------------------------
+
+(dF $Roll $Delta $Direction $Total)
+	($Roll delta $Delta into $Total)
+	(if) ($Roll > $Delta) (then)
+		($Direction = #up)
+	(elseif) ($Roll < $Delta) (then)
+		($Direction = #down)
+	(else)
+		($Direction = 0)
+	(endif)
+
+(roll 1dF $Direction $Num)
+	(roll #d3 $Roll)
+	(dF $Roll 2 $Direction $Num)
+
+(roll 2dF $Direction $Total)
+	(roll 2 #d3 $Roll)
+	(dF $Roll 4 $Direction $Total)
+
+($Num plus 2dF $Total)
+	(roll 2dF $Direction $Roll)
+	(if) ($Direction = #down) (then)
+		(if) ($Roll > $Num) (then)
+			($Total = 0)
+		(else)
+			($Num minus $Roll into $Total)
+		(endif)
+	(else)
+		($Num plus $Roll into $Total)
+	(endif)
+
+(roll 4dF $Direction $Total)
+	(roll 4 #d3 $Roll)
+	(dF $Roll 8 $Direction $Total)
+
+($Num plus 4dF $Total)
+	(roll 4dF $Direction $Roll)
+	(if) ($Direction = #down) (then)
+		(if) ($Roll > $Num) (then)
+			($Total = 0)
+		(else)
+			($Num minus $Roll into $Total)
+		(endif)
+	(else)
+		($Num plus $Roll into $Total)
+	(endif)
+
+%%-----------------------------------------------------------------------------
+
+(roll two $Dice $First $Second)
+	(roll $Dice $First)
+	(roll $Dice $Second)
+
+(roll three $Dice $First $Second $Third)
+	(roll two $Dice $First $Second)
+	(roll $Dice $Third)
+
+(roll $Die max $Max $Total)
+	(roll $Die $Roll)
+	(if) ($Roll > $Max) (then)
+		(roll $Die max $Max $Total) %% roll again
+	(else)
+		($Roll = $Total)
+	(endif)
+
+(roll $Die plus $Adds $Total)
+	(roll $Die $Roll)
+	($Roll plus $Adds into $Total)
+
+(roll $Die minus $Penalty $Total)
+	(roll $Die $Roll)
+	(if) ($Penalty > $Roll) (then)
+		($Total = 0)
+	(else)
+		($Roll minus $Penalty into $Total)
+	(endif)
+
+(roll $Die $Roll with advantage)
+	(roll two $Die $First $Second)
+	(max $First and $Second into $Roll)
+
+(roll $Die $Roll with disadvantage)
+	(roll two $Die $First $Second)
+	(min $First and $Second into $Roll)
+
+(roll $Die min mid max $Min $Mid $Max)
+	(roll three $Die $First $Second $Third)
+	(sort $First $Second $Third into $Min $Mid $Max)
+
+(roll $Die1 $Die2 $Die3 min mid max $Min $Mid $Max)
+	(roll $Die1 $First)
+	(roll $Die2 $Second)
+	(roll $Die3 $Third)
+	(sort $First $Second $Third into $Min $Mid $Max)
+
+(roll $Die1 times $Die2 $Total)
+	(if) ($Die1 = $Die2) (then)
+		(roll two $Die1 $First $Second)
+	(else)
+		(roll $Die1 $First)
+		(roll $Die2 $Second)
+	(endif)
+	($First times $Second into $Total)
+
+(roll $Die1 times $Die2 with bonus $Bonus $Total)
+	(roll $Die1 $One)
+	(roll $Die2 $Two)
+	(sort $One $Two into $Low $Second)
+	($Low plus $Bonus into $First)
+	($First times $Second into $Total)
+
+(roll $Die1 times $Die2 with penalty $Penalty $Total)
+	(roll $Die1 $One)
+	(roll $Die2 $Two)
+	(sort $One $Two into $Low $Second)
+	(if) ($Low > $Penalty) (then)
+		($Low minus $Penalty into $First)
+	(else)
+		($First = 1)
+	(endif)
+	($First times $Second into $Total)
+
+(roll two $Dice $Total DARO)
+	(roll two $Dice $First $Second)
+	(if) ($First = $Second) (then)
+		($First plus $Second into $Sum)
+		(roll two $Dice $Bonus DARO)
+		($Sum plus $Bonus into $Total)
+	(else)
+		($First plus $Second into $Total)
+	(endif)
+
+(roll two $Dice plus $Adds $Total DARO)
+	(roll two $Dice $Subtotal DARO)
+	($Subtotal plus $Adds into $Total)
+
+(roll three $Dice $Total TARO)
+	(roll three $Dice $First $Second $Third)
+	($First plus $Second into $FirstTwo)
+	(if) ($First = $Second) ($Second = $Third) (then)
+		($FirstTwo plus $Third into $Sum)
+		(roll three $Dice $Bonus TARO)
+		($Sum plus $Bonus into $Total)
+	(else)
+		($FirstTwo plus $Third into $Total)
+	(endif)
+
+(roll three $Dice plus $Adds $Total TARO)
+	(roll three $Dice $Subtotal TARO)
+	($Subtotal plus $Adds into $Total)
+
+(roll 0 $ $Total with $Ones spite)
+	($Total = 0)
+	($Ones = 0)
+
+(roll $Num $Dice $Total with $Spite spite)
+	(roll $Dice $Roll)
+	(if) ($Dice = 1) (then)
+	    ($Ones = 1)
+	(else)
+		($Ones = 0)
+	(endif)
+	($Num minus 1 into $Remaining)
+	(roll $Remaining $Dice $More with $MoreOnes spite)
+	($Roll plus $More into $Total)
+	($Ones plus $MoreOnes into $Spite)
+
+(roll $Num $Dice plus $Adds $Total with $Ones spite)
+	(roll $Num $Dice $Subtotal with $Ones spite)
+	($Subtotal plus $Adds into $Total)
+
+(roll $Num $Dice $Total)
+	(roll $Num $Dice $Total with $ spite)
+
+(roll $Num $Dice plus $Adds $Total)
+	(roll $Num $Dice $Subtotal)
+	($Subtotal plus $Adds into $Total)
+
+(roll $Num $Dice minus $Penalty $Total)
+	(roll $Num $Dice $Subtotal)
+	(if) ($Penalty > $Subtotal) (then)
+		($Total = 0)
+	(else)
+		($Subtotal minus $Penalty into $Total)
+	(endif)
+
+(roll 0 $ with target $ into $Successes)
+	($Successes = 0)
+
+(roll $Num $Dice with target $Target into $Successes)
+	(roll $Dice $Roll)
+	(if) ($Roll < $Target) (then)
+		($Result = 0)
+	(else)
+		($Result = 1)
+	(endif)
+	($Num minus 1 into $Remaining)
+	(roll $Remaining $Dice with target $Target into $More)
+	($Result plus $More into $Successes)
+
+(percentage of $Number into $Result)
+	(random from 1 to $Number into $Result)
