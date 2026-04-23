@@ -5,12 +5,12 @@ DEBUG=dgdebug -u
 BUNDLE=aambundle
 STDLIB=utils.dg unit.dg stdlib.dg
 LIBS=test-ships.dg schema.dg sector.dg grid.dg $(STDLIB)
-DLIBS=arc.dg dice.dg $(LIBS)
+DLIBS=arc.dg d6.dg $(LIBS)
 
 DGSRCDIR=../dialog
 DISTROLIBS=$(DGSRCDIR)/stdlib.dg $(DGSRCDIR)/stddebug.dg $(DGSRCDIR)/unit.dg
 
-SRCS=su-101.dg union-ship.dg damage.dg arc.dg maneuvering.dg sensors.dg schema.dg sector.dg grid.dg time.dg
+SRCS=su-101.dg union-ship.dg damage.dg arc.dg maneuvering.dg sensors.dg schema.dg sector.dg grid.dg d6.dg time.dg utils.dg
 
 all: test
 
@@ -31,7 +31,7 @@ su-101.d71: su-101.aastory
 
 6502: su-101.d64
 
-test: utils time dice dice-lite grid sector schema arc damage weapons maneuver 
+test: utils time d6 grid sector schema arc damage weapons maneuver 
 
 clean:
 	rm -f *~ \#*\# *.z8 *.zblorb *.aastory *.d64 *.d71 log.txt
@@ -45,14 +45,11 @@ utils:
 time:
 	$(DEBUG) time-tests.dg time.dg $(STDLIB)
 
-dice:
-	$(DEBUG) dice-tests.dg dice.dg $(STDLIB)
+d6:
+	$(DEBUG) d6-tests.dg d6.dg $(STDLIB)
 
-dice-lite:
-	$(DEBUG) dice-lite-tests.dg dice-lite.dg $(STDLIB)
-
-dice-extra:
-	$(DEBUG) dice-lite-tests.dg dice.dg $(LIBS)
+d6-lite:
+	$(DEBUG) d6-lite-tests.dg d6-lite.dg $(STDLIB)
 
 grid:
 	$(DEBUG) grid-tests.dg grid.dg $(STDLIB)
@@ -82,4 +79,4 @@ sensors-narrow:
 	$(DEBUG) -w 40 sensor-tests.dg sensors.dg $(LIBS)
 
 .PHONY: test all clean utils 6502 time sector ggrid schema sensors maneuver
-.PHONY: arc damage dice dice-lite dice-extra
+.PHONY: arc damage d6 d6-lite

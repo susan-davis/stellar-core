@@ -1,0 +1,374 @@
+%% d6.dg
+%% a stripped-down version of dice.dg supporting only six-sided dice
+%% include utils.dg when compiling or debugging
+
+(extension version)	Undo-safe six-sided die rolls v0.6 by Susan Davis (line)
+
+%%-------------------------------- INTERFACES ---------------------------------
+
+(interface (roll $<Die $>Roll))
+
+(interface (roll $<Die max $<Max $>Roll)) %% roll again if over max
+
+(interface (roll two $<Dice $>First $>Second))
+
+(interface (roll three $<Dice $>First $>Second $>Third))
+
+(interface (roll four $<Dice $>First $>Second $>Third $>Fourth))
+
+(interface (roll $<Num $<Dice $>Total))
+
+(interface (percentage of $<Number into $>Result))
+
+%% Dice pool style roll, with one success for every die equal to or exceeding
+%% the target number.
+
+(interface (roll $<Num $<Dice with target $<Target $>Successes))
+
+%% FUDGE dice can be positive or negative
+
+(interface (roll 1dF $>Direction $>Total))
+
+(interface (roll 2dF $>Direction $>Total))
+
+(interface ($<Num plus 2dF $>Total))
+
+(interface (roll 4dF $>Direction $>Total))
+
+(interface ($<Num plus 4dF $>Total))
+
+%% Call this at program entry to give a different sequence of rolls every game,
+%% but still prevent save scumming.
+(interface (shuffle randomness))
+
+%% Call this to get to a known, predictable spot for testing.
+(interface (reset randomness))
+
+%%------------------------------ IMPLEMENTATION -------------------------------
+
+%% 216 rolls of 3d6, normalized so that every combination of three die rolls
+%% in the bottom three digits occurs exactly once. I generated these by
+%% physically shuffling and dealing  out a deck of 216 cards after eight fair
+%% shuffles, which should give much better randomness than a typical 8- or
+%% 16-bit rng within the typical number of random events for an IF game that
+%% includes randomness. (The top digit came later, and has equal numbers of
+%% all values.)
+
+(global variable (list of random die rolls [ %% 432 bytes of storage
+	6456 3431 6536 5656 4146 2515 4366 3634 1451 2111 5551 4425
+	6411 2253 1233 5164 1114 5124 2564 6364 1611 5535 5235 6435
+	4312 3643 5236 2424 2131 1635 4661 4135 3214 3314 6246 1141
+	2255 5556 3345 4646 5323 4624 4554 1116 1615 3361 3262 4546
+	6644 6234 6144 4243 5353 6133 3531 5625 2616 1562 1162 1444
+	6154 3542 4632 4354 6333 5224 6561 3543 1544 2316 3446 5121
+	4356 4166 2311 6125 5433 2521 1264 2545 3332 4426 3315 6532
+	2441 6512 2534 5524 4422 6553 4463 6662 2226 4134 3461 6631
+	2145 6555 4143 2414 3313 6462 2633 1156 2126 5334 6665 6251
+	5142 1641 6325 5263 2533 3331 3434 3622 5452 3416 1324 1541
+	2423 2244 1336 1651 3654 1363 5442 5663 2342 1132 6526 6225
+	5256 4231 1465 6141 5552 3232 3343 5365 5241 2421 1136 6266
+	4453 4413 1412 6216 2525 4511 8466 1123 2153 5522 2242 4454
+	1222 5642 2215 3513 4261 4341 1443 3254 5614 1321 3265 1163
+	3362 7621 5346 4344 6322 5355 6432 5326 4565 6516 1666 1626
+	1335 1636 6155 6613 2655 3212 3112 4455 5445 1664 3623 2211
+	5645 6652 3122 2566 3213 2436 5244 5514 3152 3221 1151 4252
+	2415 6563 4653 4115 1113 4352 2351 3464 2523 5165 4223 4612
+	]))
+
+%% It's 4d6 here, but we still call this "3d6" for compatibility with dice.dg.
+(global variable (3d6 list position 1))
+
+~(3d6 has rolled over) %% ignore if you shuffle randomess
+
+%% Starting at the beginning of the list gives the same output for every single
+%% game, which is good for unit tests, but can allow sketchy exploits in games.
+%% Call this once at the beginning of (program entry point) to start from a
+%% random spot in the list instead.
+
+(shuffle randomness)
+	(random from 1 to 216 into $Position)
+	(now) (3d6 list position $Position)
+
+(reset randomness)
+	(now) (3d6 list position 1)
+	(now) ~(3d6 has rolled over)
+
+(3d6 choice $Num)
+	(3d6 list position $Pos)
+	(if) { ($Pos = 0) (or) ($Pos > 216) } (then)
+		($Position = 1)
+	    (now) (3d6 list position $Position)
+		(now) (3d6 has rolled over)
+	(else)
+		(3d6 list position $Position)
+	(endif)
+	(list of random die rolls $Rolls)
+	(nth $Rolls $Position $Num)
+	($Position plus 1 into $NewPosition)
+	(now) (3d6 list position $NewPosition)
+
+%%-----------------------------------------------------------------------------
+
+#d3
+
+(roll * $Roll)
+    (roll #d6 $Die)
+    ($Die divided by 2 into $Roll rounding up)
+
+(roll two * $First $Second)
+	(roll two #d6 $One $Two)
+	($One divided by 2 into $First rounding up)
+	($Two divided by 2 into $Second rounding up)
+
+(roll three * $First $Second $Third)
+	(roll three #d6 $One $Two $Three)
+	($One divided by 2 into $First rounding up)
+	($Two divided by 2 into $Second rounding up)
+	($Three divided by 2 into $Third rounding up)
+
+(roll four * $First $Second $Third $Fourth)
+	(roll four #d6 $One $Two $Three $Four)
+	($One divided by 2 into $First rounding up)
+	($Two divided by 2 into $Second rounding up)
+	($Three divided by 2 into $Third rounding up)
+	($Four divided by 2 into $Fourth rounding up)
+
+#d6
+
+(roll * $Roll)
+	(3d6 choice $Num)
+	($Num modulo 10 into $Roll)
+
+(roll two * $First $Second)
+	(3d6 choice $Num)
+	(split $Num into $ $First $Second $)
+
+(roll three * $First $Second $Third)
+	(3d6 choice $Num)
+	(split $Num into $ $First $Second $Third)
+
+(roll four * $First $Second $Third $Fourth)
+	(3d6 choice $Num)
+	(split $Num into $First $Second $Third $Fourth)
+
+#d36
+
+(roll * $Total)
+	(3d6 choice $Num)
+	(split $Num into $ $ $Two $Ones)
+	($Two minus 1 into $Second)
+	($Second times 6 into $Sixes)
+	($Sixes plus $Ones into $Total)
+
+#d216
+
+(roll * $Total)
+	(3d6 choice $Num)
+	(split $Num into $ $Third $Second $Ones)
+	($Second minus 1 into $Middle)
+	($Middle times 6 into $Sixes)
+	($Ones plus $Sixes into $Sum)
+	($Third minus 1 into $Upper)
+	($Upper times 36 into $ThirtySixes)
+	($ThirtySixes plus $Sum into $Total)
+
+#d1296
+
+(roll * $Total)
+	(3d6 choice $Num)
+	(split $Num into $Fourth $Third $Second $Ones)
+	($Second minus 1 into $Middle)
+	($Middle times 6 into $Sixes)
+	($Ones plus $Sixes into $Sum)
+	($Third minus 1 into $Upper)
+	($Upper times 36 into $ThirtySixes)
+	($ThirtySixes plus $Sum into $Subtotal)
+	($Fourth minus 1 into $Top)
+	($Top times 216 into $TwoSixteens)
+	($TwoSixteens plus $Subtotal into $Total)
+
+%%-----------------------------------------------------------------------------
+
+(dF $Roll $Delta $Direction $Total)
+	($Roll delta $Delta into $Total)
+	(if) ($Roll > $Delta) (then)
+		($Direction = #up)
+	(elseif) ($Roll < $Delta) (then)
+		($Direction = #down)
+	(else)
+		($Direction = 0)
+	(endif)
+
+(roll 1dF $Direction $Num)
+	(roll #d3 $Roll)
+	(dF $Roll 2 $Direction $Num)
+
+(roll 2dF $Direction $Total)
+	(roll 2 #d3 $Roll)
+	(dF $Roll 4 $Direction $Total)
+
+($Num plus 2dF $Total)
+	(roll 2dF $Direction $Roll)
+	(if) ($Direction = #down) (then)
+		(if) ($Roll > $Num) (then)
+			($Total = 0)
+		(else)
+			($Num minus $Roll into $Total)
+		(endif)
+	(else)
+		($Num plus $Roll into $Total)
+	(endif)
+
+(roll 4dF $Direction $Total)
+	(roll 4 #d3 $Roll)
+	(dF $Roll 8 $Direction $Total)
+
+($Num plus 4dF $Total)
+	(roll 4dF $Direction $Roll)
+	(if) ($Direction = #down) (then)
+		(if) ($Roll > $Num) (then)
+			($Total = 0)
+		(else)
+			($Num minus $Roll into $Total)
+		(endif)
+	(else)
+		($Num plus $Roll into $Total)
+	(endif)
+
+%%-----------------------------------------------------------------------------
+
+(roll $Die max $Max $Total)
+	(roll $Die $Roll)
+	(if) ($Roll > $Max) (then)
+		(roll $Die max $Max $Total) %% roll again
+	(else)
+		($Roll = $Total)
+	(endif)
+
+(roll two $Dice $First $Second)
+	(roll $Dice $First)
+	(roll $Dice $Second)
+
+(roll three $Dice $First $Second $Third)
+	(roll two $Dice $First $Second)
+	(roll $Dice $Third)
+
+(roll four $Dice $First $Second $Third $Fourth)
+	(roll two $Dice $First $Second)
+	(roll two $Dice $Third $Fourth)
+
+(roll 0 $ $Total)
+	($Total = 0)
+
+(roll 1 $Die $Total)
+	(roll $Die $Total)
+
+(roll 2 $Dice $Total)
+	(roll two $Dice $First $Second)
+	($First plus $Second into $Total)
+
+(roll 3 $Dice $Total)
+	(roll three $Dice $First $Second $Third)
+	($First plus $Second into $S1)
+	($S1 plus $Third into $Total)
+
+(roll $Num $Dice $Total)
+	(roll four $Dice $First $Second $Third $Fourth)
+	($First plus $Second into $S1)
+	($S1 plus $Third into $S2)
+	($S2 plus $Fourth into $Subtotal)
+	($Num minus 4 into $Remaining)
+	(roll $Remaining $Dice $More)
+	($Subtotal plus $More into $Total)
+
+(target die $Die $Target $OldCount $NewCount)
+	(if) ($Die < $Target) (then)
+		($OldCount = $NewCount)
+	(else)
+	    (add 1 to $OldCount into $NewCount)
+	(endif)
+
+(roll 0 $ with target $ into $Successes)
+	($Successes = 0)
+
+(roll 1 $Die with target $Target into $Successes)
+	(roll $Die $Roll)
+	(target die $Roll $Target 0 $Successes)
+
+(roll 2 $Dice with target $Target into $Successes)
+    (roll two $Dice $First $Second)
+	(target die $First $Target 0 $S1)
+	(target die $Second $Target $S1 $Successes)
+
+(roll 3 $Dice with target $Target into $Successes)
+    (roll three $Dice $First $Second $Third)
+	(target die $First $Target 0 $S1)
+	(target die $Second $Target $S1 $S2)
+	(target die $Third $Target $S2 $Successes)
+
+(roll $Num $Dice with target $Target into $Successes)
+	(roll four $Dice $First $Second $Third $Fourth)
+	(target die $First $Target 0 $S1)
+	(target die $Second $Target $S1 $S2)
+	(target die $Third $Target $S2 $S3)
+	(target die $Fourth $Target $S3 $S4)
+	($Num minus 4 into $Remaining)
+	(roll $Remaining $Dice with target $Target into $More)
+	($S4 plus $More into $Successes)
+
+(roll $Die times $Multiplier max $Max $Total)
+	(roll $Die $Roll)
+	($Roll times $Multiplier into $Proposed)
+	(if) ($Proposed > $Max) (then)
+		(roll $Die times $Multiplier max $Max $Total) %% roll again
+	(else)
+		($Total = $Proposed)
+	(endif)
+
+(percentage of 0 into $Percentage)
+	($Percentage = 0)
+
+(percentage of 1 into $Percentage)
+	($Percentage = 1)
+
+(percentage of 2 into $Percentage)
+	(roll #d6 $Roll)
+	($Roll divided by 3 into $Percentage rounding up)
+
+(percentage of 3 into $Percentage)
+	(roll #d3 $Percentage)
+
+%% TODO: make it not fall over for 16383
+(percentage of $Num into $Percentage)
+	(if) ($Num < 7) (then)
+		(roll #d6 max $Num $Percentage)
+	(elseif) ($Num < 37) (then)
+		(roll #d36 max $Num $Percentage)
+	(elseif) ($Num < 73) (then)
+		($Num times 3 into $Max)
+		(roll #d216 max $Num $Roll)
+		($Roll divided by 3 into $Percentage rounding up)
+	(elseif) ($Num < 109) (then)
+		($Num times 2 into $Max)
+		(roll #d216 max $Max $Roll)
+		($Roll divided by 2 into $Percentage rounding up)
+	(elseif) ($Num < 217) (then)
+		(roll #d216 max $Num $Percentage)
+	(elseif) ($Num < 433) (then)
+		($Num times 3 into $Max)
+		(roll #d1296 max $Max $Roll)
+		($Roll divided by 3 into $Percentage rounding up)
+	(elseif) ($Num < 649) (then)
+		($Num times 2 into $Max)
+		(roll #d1296 max $Max $Roll)
+		($Roll divided by 2 into $Percentage rounding up)
+	(elseif) ($Num < 1297) (then)
+		(roll #d1296 max $Num $Percentage)
+	(else)
+		($Num divided by 1296 into $Div)
+		($Num modulo 1296 into $Mod)
+		(roll #d1296 $Roll)
+		($Roll times $Div into $Product)
+		(percentage of $Mod into $Remainder)
+		($Product plus $Remainder into $Percentage)
+	(endif)
