@@ -73,6 +73,7 @@
 	1335 1636 6155 6613 2655 3212 3112 4455 5445 1664 3623 2211
 	5645 6652 3122 2566 3213 2436 5244 5514 3152 3221 1151 4252
 	2415 6563 4653 4115 1113 4352 2351 3464 2523 5165 4223 4612
+	5565 2644 1524 6421 3323 3631 4125 %% 223 is a prime number
 	]))
 
 %% It's 4d6 here, but we still call this "3d6" for compatibility with dice.dg.
@@ -83,10 +84,11 @@
 %% Starting at the beginning of the list gives the same output for every single
 %% game, which is good for unit tests, but can allow sketchy exploits in games.
 %% Call this once at the beginning of (program entry point) to start from a
-%% random spot in the list instead.
+%% random spot in the list instead. Change the rollover point from 216 to 223
+%% if you call for the same number of random rolls every cycle.
 
 (shuffle randomness)
-	(random from 1 to 216 into $Position)
+	(random from 1 to 216 into $Position) %% or 223
 	(now) (3d6 list position $Position)
 
 (reset randomness)
@@ -95,7 +97,7 @@
 
 (3d6 choice $Num)
 	(3d6 list position $Pos)
-	(if) { ($Pos = 0) (or) ($Pos > 216) } (then)
+	(if) { ($Pos = 0) (or) ($Pos > 216) } (then) %% or 223
 		($Position = 1)
 	    (now) (3d6 list position $Position)
 		(now) (3d6 has rolled over)
