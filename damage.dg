@@ -63,28 +63,9 @@
 %% fall within that. No ship should have more than 36 systems in practice.
 (random element from $List into $Choice)
 	(length of $List into $Length)
-	(if) ($Length = 0) (then)
-		($Roll = 0)
-	(elseif) ($Length < 4) (then)
-		(1d3 $Roll)
-	(elseif) ($Length < 7) (then)
-		(1d6 $Roll)
-	(elseif) ($Length < 11) (then)
-		(1d10 $Roll)
-	(elseif) ($Length < 21) (then)
-		(d20 $Roll)
-	(elseif) ($Length < 37) (then)
-		(d36 $Roll)
-	(elseif) ($Length < 101) (then)
-		(d100 $Roll)
-	(else)
-		(d216 $Roll)
-	(endif)
-	(if) ($Roll > $Length) (then)
-		(random element from $List into $Choice) %% roll again
-	(else)
-		(nth $List $Roll $Choice)
-	(endif)
+	(percentage of $Length into $Percent)
+	(nth $List $Percent $Choice)
+
 
 (damage random $Target system with $Units from $) %% from $Direction
 	($Target systems $Systems)
@@ -113,7 +94,7 @@
 
 (wreck $Target with $Units from $Direction)
 	(destroy random $Target system)
-	(3d6 $Roll)
+	(roll 3 #d6 $Roll)
 	($Roll times 5 into $Damage)
 	(subtract $Damage from $Units into $Remaining)
 	(if) ($Remaining > 0) ~($Target is destroyed) (then)
