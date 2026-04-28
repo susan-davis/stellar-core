@@ -2,15 +2,12 @@
 %% 		   	  utils.dg unit.dg stdlib.dg
 
 (list of tests [
-	#coordinates
-	#subsector
 	#speed
 	#warp-gradient
 	#energy
 	#crystals
 	#shields
 	#shield-levels
-	#inbound-missiles
 	#shield-level-north
 	#shield-level-east
 	#shield-level-south
@@ -31,11 +28,13 @@
 	#cruising-speed
 	#top-speed
 	#systems-list
+	#class-systems-list
 	#test-ship-isnt-simple
 	#closest-target-is-simple
 	#near-target-is-simple
 	#class
 	#ship-class
+	#long-class
 	#initialize
 	#set-destination
 	#set-destination-subsector
@@ -125,13 +124,15 @@
 
 (reset randomness)
 
+%% position = [X Y Heading Speed]
+%% state = [Helm Throttle DestX DestY Class Energy Crystals Ammo Shields [Lvls]]
+%% system = [Type ID RepairTime]
+
+%% class  = [Efficiency Subspace TurnMode Accel Fleet MaxEnergy MaxCrystals
+%% 		  	 MaxAmmo MaxShields [MaxLevels]]
+%% system = [System ID Arcs Value Details]
+
 %% ----------------------------------------------------------------------
-
-(test #coordinates)
-	  (#test-ship coordinates into 3 4 5 6 5 5)
-
-(test #subsector)
-	  (#test-ship subsector into 3 4 5 6)
 
 (test #speed)
 	  (#test-ship speed 400)
@@ -162,9 +163,6 @@
 
 (test #shield-level-west)
 	  (#test-ship shield level #west into 97)
-
-(test #inbound-missiles)
-	  (#test-ship inbound missiles [])
 
 (test #ammo)
 	  (#test-ship ammo 10)
@@ -217,6 +215,10 @@
 
 (test #ship-class)
 	  (collect words) (class #test-ship) (into $Words)
+	  ($Words = [cygnus -class fast scout])
+
+(test #long-class)
+	  (collect words) (long class #test-ship) (into $Words)
 	  ($Words = [stellar union cygnus -class fast scout])
 
 (test #initialize)
@@ -334,8 +336,12 @@
 
 (test #systems-list)
 	  (#test-ship systems $List)
-	  (length of $List into $Num) $Num
-	  (assert $Num = 24)
+	  (length of $List into 2)
+
+(test #class-systems-list)
+	  (#test-ship class $Class)
+	  ($Class systems $List)
+	  (length of $List into 24)
 
 (test #test-ship-isnt-simple)
 	  ~(#test-ship is simple)

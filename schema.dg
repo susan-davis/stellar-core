@@ -1,16 +1,12 @@
 %% schema.dg
-%% Include sectored-grid.dg and utils.dg when compiling or debugging
+%% Include sector.dg, grid.dg, and utils.dg when compiling or debugging
 
 %%---------------------------------- SCHEMA ----------------------------------
-%% State about a ship is stored as one list, to cut down on storage:
+%% State about a ship is stored in lists, to cut down on storage:
 %%
-%% state = [ PositionX PositionY Heading Speed DestX DestY Helm Throttle
-%% 		   	 Class Energy Crystals Ammo Shields [ShieldLevels] [Inbound]
-%%			 [Systems] ]
-%%
-%% Systems are defined as lists:
-%%
-%% system = [ System ID Arcs Value Details Durability TimeOfRepair ]
+%% position = [X Y Heading Speed]
+%% state = [DstX DstY Helm Throttle Class Energy Crystals Ammo Shields [Lvls]]
+%% system = [Type ID RepairTime]
 %%
 %% Time of repair 0 means that the system is functioning normally. Time of
 %% repair 16383 (maxint) means that the system is irreparably destroyed, with
@@ -19,15 +15,17 @@
 %%
 %% Ship classes are defined by a class record:
 %%
-%% class = [ $ $ TurnMode $ Efficiency Acceleration $ Fleet Class
-%%           MaxEnergy MaxCrystals MaxAmmo MaxShields [ Max Shield Levels ] $
-%%			 [ Systems List ]
+%% class  = [Efficiency Subspace TurnMode Accel Fleet MaxEnergy MaxCrystals
+%% 		  	 MaxAmmo MaxShields [MaxLevels]]
+%% system = [System ID Arcs Value Details]
 %%
-%% Some information is encoded into the class definition. The class heading
-%% specifies the turn mode. The class destination specifies the A-drive
-%% parameters. The class energy, shields, crystals, ammo, and shield levels
-%% are the maximum starting values above which repairs can't go.
-%% TBD: move these out of the class specifier and into the systems list?
+%% Ships are either simple, detailed, or player. A simple ship doesn't have
+%% its own list of damaged systems, and the class only records a few systems,
+%% such as weapons, for simple ship behaviours. It explodes after running out
+%% of energy from damage. A detailed ship has a full set of systems in its
+%% class record, and keeps a list of damaged systems in its own systems list.
+%% A player ship has its own map, and uses player-ship.dg for recording damage.
+
 %%-------------------------------- INTERFACES --------------------------------
 
 %% helpers
@@ -58,10 +56,6 @@
 (interface (code $<Ship))  %% one-letter code on sensor display
 
 %% PosX, PosY, and Heading are defined in sectored-grid.dg
-
-(interface ($<Ship coordinates into $>SX $>SY $>X $>Y $>PX $>PY))
-
-(interface ($<Ship subsector into $>SX $>SY $>X $>Y))
 
 (interface ($<Ship is destroyed))
 
@@ -208,12 +202,10 @@
 
 (initialize $Ship as $Class)
 	($Class state $Default)
-	($Default =
-	    [$ $ $ $ $ $ $ $ $ $Energy $Crystals
-		$Ammo $Shields $Levels $Incoming $Systems | $])
-	($Ship state [$PX $PY $H $S $DX $DY $C $T $Class | $Tail])
-	(now) ($Ship state [$PX $PY $H $S $DX $DY $C $T $Class $Energy $Crystals
-		   $Ammo $Shields $Levels $Incoming $Systems | $Tail])
+	($Default = [$ $ $ $ $ $Energy $Crystals $Ammo $Shields $Levels])
+	($Ship state [$DX $DY $H $T $Class | $])
+	(now) ($Ship state [$DX $DY $H $T $Class
+		  		 	    $Energy $Crystals $Ammo $Shields $Levels])
 
 (sector $X $Y is in sensor range of $Ship)
 	($Ship sector x $SX)
@@ -247,20 +239,12 @@
 
 %%---------------------------- SCHEMA DEFINITION ----------------------------
 
-($Ship coordinates into $SX $SY $X $Y $PX $PY)
-	($Ship state $State)
-	(coordinates for $State into $SX $SY $X $Y $PX $PY)
-
-($Ship subsector into $SX $SY $X $Y)
-	($Ship state $State)
-	(subsector for $State into $SX $SY $X $Y)
-
 ($Ship is destroyed)
 	~($Ship is on the map)
 
 ($Ship speed $Speed)
-	($Ship state $State)
-	(nth $State 4 $Speed)
+	($Ship position $Pos)
+	(nth $Pos 4 $Speed)
 
 ($Ship warp gradient $Gradient)
 	($Ship speed $Speed)
@@ -268,39 +252,35 @@
 
 ($Ship helm setting $Helm)
 	($Ship state $State)
-	(nth $State 7 $Helm)
+	(nth $State 3 $Helm)
 
 ($Ship throttle setting $Throttle)
 	($Ship state $State)
-	(nth $State 8 $Throttle)
+	(nth $State 4 $Throttle)
 
 ($Ship class $Class)
 	($Ship state $State)
-	(nth $State 9 $Class)
+	(nth $State 5 $Class)
 
 ($Ship energy $Energy)
 	($Ship state $State)
-	(nth $State 10 $Energy)
+	(nth $State 6 $Energy)
 
 ($Ship crystals $Crystals)
 	($Ship state $State)
-	(nth $State 11 $Crystals)
+	(nth $State 7 $Crystals)
 
 ($Ship ammo $Ammo)
 	($Ship state $State)
-	(nth $State 12 $Ammo)
+	(nth $State 8 $Ammo)
 
 ($Ship shields $Shields)
 	($Ship state $State)
-	(nth $State 13 $Shields)
+	(nth $State 9 $Shields)
 
 ($Ship shield levels $Levels)
 	($Ship state $State)
-	(nth $State 14 $Levels)
-
-($Ship inbound missiles $Inbound)
-	($Ship state $State)
-	(nth $State 15 $Inbound)
+	(nth $State 10 $Levels)
 
 ($Ship throttle gradient $Gradient)
 	($Ship throttle setting $Throttle)
@@ -308,11 +288,12 @@
 
 ($Ship fleet $Fleet)
 	($Ship class $Class)
-	($Class throttle setting $Fleet)
+	($Class class $Fleet)
 
 ($Ship turn mode $Mode)
 	($Ship class $Class)
-	($Class heading $Mode)
+	($Class state $State)
+	(nth $State 3 $Mode)
 
 ($Ship effective turn mode $Mode)
 	($Ship turn mode $TurnMode)
@@ -349,7 +330,7 @@
 
 ($Ship destination $Destination)
 	($Ship state $State)
-	([$ $ $ $ $DX $DY | $] = $State)
+	([$DX $DY | $] = $State)
 	([$DX $DY] = $Destination)
 
 ($Ship destination $SX $SY $X $Y $PX $PY)
@@ -360,12 +341,9 @@
 	($Ship destination $Position)
 	(subsector for $Position into $SX $SY $X $Y)
 
-($Ship systems $Systems)
-    ($Ship state $State)
-	(nth $State 16 $Systems)
-
 ($Ship is simple)
-	($Ship systems $Systems)
+	($Ship class $Class)
+	($Class systems $Systems)
 	(length of $Systems into $Length)
 	($Length < 4)
 
@@ -380,9 +358,12 @@
 	~($Target fleet $Fleet)
 
 (class $Ship)
-	($Ship fleet $Fleet)
 	($Ship class $Class)
-	(name $Fleet) (name $Class) (no space) -class (type $Class)
+	(italic) (name $Class) (roman) (no space) -class (type $Class)
+
+(long class $Ship)
+	($Ship fleet $Fleet)
+	(name $Fleet) (class $Ship)
 
 %% For now, all ships have four shields. We can vary their number of shields
 %% (1, 2, 4, 8) later if desired, reflected in the length of this list.
@@ -404,10 +385,11 @@
 (set destination for $Ship to $Destination)
 	($Ship state $State)
 	([$DX $DY | $] = $Destination)
-	([$PX $PY $Heading $Speed $ $ | $Tail] = $State)
-	([$PX $PY $Heading $Speed $DX $DY | $Tail] = $NewState)
+	([$ $ | $Tail] = $State)
+	([$DX $DY | $Tail] = $NewState)
 	(now) ($Ship state $NewState)
-	(calculate bearing from $State to $Destination into $Course)
+	($Ship position $Position)
+	(calculate bearing from $Position to $Destination into $Course)
 	(set helm for $Ship to $Course)
 
 (set destination for $Ship to $SX $SY $X $Y $PX $PY)
@@ -420,7 +402,7 @@
 
 (set helm for $Ship to $Setting)
 	($Ship state $State)
-	(replace element 7 in $State with $Setting into $NewState)
+	(replace element 3 in $State with $Setting into $NewState)
 	(now) ($Ship state $NewState)
 
 (max speed for $Ship into $MaxSpeed)
@@ -429,13 +411,8 @@
 
 (set throttle for $Ship to speed $Setting)
 	($Ship state $State)
-	(max speed for $Ship into $MaxSpeed)
-	(if) ($Setting > $MaxSpeed) (then)
-		($Throttle = $MaxSpeed)
-	(else)
-		($Throttle = $Setting)
-	(endif)
-	(replace element 8 in $State with $Throttle into $NewState)
+	(max speed for $Ship into $Max)
+	(replace element 4 in $State with $Setting into $NewState with max $Max)
 	(now) ($Ship state $NewState)
 
 (set throttle for $Ship to gradient $Gradient)
@@ -444,12 +421,12 @@
 
 (decrease ammo for $Ship by $Num)
 	($Ship state $State)
-	(decrease element 12 in $State by $Num into $NewState)
+	(decrease element 8 in $State by $Num into $NewState)
 	(now) ($Ship state $NewState)
 
 (decrease energy for $Ship by $Num)
 	($Ship state $State)
-	(decrease element 10 in $State by $Num into $NewState)
+	(decrease element 6 in $State by $Num into $NewState)
 	(now) ($Ship state $NewState)
 
 (regenerate energy for $Ship)
@@ -458,31 +435,26 @@
 	($Ship class $Class)
 	($Class energy $Max)
 	($Ship state $State)
-	(increase element 10 in $State by $Energy into $NewState with max $Max)
+	(increase element 6 in $State by $Energy into $NewState with max $Max)
 	(now) ($Ship state $NewState)
 
 (decrease shields for $Ship by $Num)
 	($Ship state $State)
-	(decrease element 13 in $State by $Num into $NewState)
+	(decrease element 9 in $State by $Num into $NewState)
 	(now) ($Ship state $NewState)
 
 (regenerate shields for $Ship by $Num)
 	($Ship class $Class)
 	($Class shields $Max)
 	($Ship state $State)
-	(increase element 13 in $State by $Num into $NewState with max $Max)
+	(increase element 9 in $State by $Num into $NewState with max $Max)
 	(now) ($Ship state $NewState)
 
 (accelerate $Ship to speed $Speed)
-	($Ship state $State)
+	($Ship position $Pos)
 	(max speed for $Ship into $MaxSpeed)
-	(if) ($Speed > $MaxSpeed) (then)
-		($NewSpeed = $MaxSpeed)
-	(else)
-		($NewSpeed = $Speed)
-	(endif)
-	(replace element 4 in $State with $NewSpeed into $NewState)
-	(now) ($Ship state $NewState)
+	(replace element 4 in $Pos with $Speed into $NewPos with max $MaxSpeed)
+	(now) ($Ship position $NewPos)
 
 (accelerate $Ship to gradient $Gradient)
 	($Gradient times 100 into $Speed)
@@ -490,7 +462,7 @@
 
 (destroy $Ship)
 	(remove $Ship from the map)
-%%	(log) { $Ship explodes }
+	(log) { $Ship explodes }
 
 %%-------------------------------- SHIP SYSTEMS -------------------------------
 
