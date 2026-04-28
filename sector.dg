@@ -32,9 +32,13 @@
 
 (interface (position for $<SX $<SY $<X $<Y $<PX $<PY into $>Position))
 
+(interface ($<Object coordinates into $>SX $>SY $>X $>Y $>PX $>PY))
+
 (interface (subsector for $Position into $>SX $>SY $>X $>Y))
 
 (interface (position for $<SX $<SY $<X $<Y into $>Position))
+
+(interface ($<Object subsector into $>SX $>SY $>X $>Y))
 
 %% Quadrant = 8x8 (expand to 10x10?) sectors. Sector = 10x10 subsectors.
 %% Subsector = 10x10 squares, each with at most one object.
@@ -111,11 +115,19 @@
 	($ZY minus 1   into $RY)
 	([$RX $RY] = $Position)
 
+($Ship coordinates into $SX $SY $X $Y $PX $PY)
+       ($Ship position $Position)
+       (coordinates for $Position into $SX $SY $X $Y $PX $PY)
+
 (subsector for $Position into $SX $SY $X $Y)
 	(coordinates for $Position into $SX $SY $X $Y $ $)
 
 (position for $SX $SY $X $Y into $Position)
 	(position for $SX $SY $X $Y 5 5 into $Position)
+
+($Ship subsector into $SX $SY $X $Y)
+       ($Ship position $Position)
+       (subsector for $Position into $SX $SY $X $Y)
 
 ($Here is in the same subsector as $There)
 	(subsector for $Here  into $HSX $HSY $HX $HY)
