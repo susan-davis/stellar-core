@@ -1,7 +1,7 @@
 %% grid.dg
 %% Include utils.dg when compiling or debugging.
 
-(extension version)		 Grid movement v0.2, by Susan Davis (line)
+(extension version)		 Grid movement v0.3, by Susan Davis (line)
 
 %% Implements free movement on a cartesian grid for vehicles, horses, ships,
 %% aircraft, spaceships, and the like. The grid is divided into 10-unit
@@ -55,6 +55,10 @@
 (interface (position $<Position is off the map))
 
 (interface (remove $<GridObject from the map))
+
+(interface (position $<Here equals position $<There))
+
+(interface ($<Object is at the same position as $<Target))
 
 (interface (object at $<Position into $>Obj))
 
@@ -138,24 +142,19 @@
 
 %% ------------------------------ STATE ------------------------------
 
-($Object position $Position)
-	($Object state $State)
-	([$X $Y | $] = $State)
-	([$X $Y] = $Position)
-
 ($Object x $X)
     ($Object is on the map)
-	($Object state $State)
-	(nth $State 1 $X)
+	($Object position $Position)
+	(nth $Position 1 $X)
 
 ($Object y $Y)
     ($Object is on the map)
-	($Object state $State)
-	(nth $State 2 $Y)
+	($Object position $Position)
+	(nth $Position 2 $Y)
 
 ($Object heading $Heading)
-	($Object state $State)
-	(nth $State 3 $Heading)
+	($Object position $Position)
+	(nth $Position 3 $Heading)
 
 %% ------------------------------ POSITIONS ------------------------------
 
@@ -165,8 +164,8 @@
 	($Size plus $Offset into $Max)
 
 ($Object is on the map)
-    ($Object state $State)
-	(position $State is on the map)
+    ($Object position $Position)
+	(position $Position is on the map)
 
 (position $Place is on the map)
 	(fully bound $Place)
@@ -179,24 +178,33 @@
 (position $Place is off the map)
 	~(position $Place is on the map)
 
-(place $Object at $Position)
-	($Object state $State)
-	([$ $ | $Tail] = $State)
-	([$X $Y | $] = $Position)
-	([$X $Y | $Tail] = $NewState)
-	(now) ($Object state $NewState)
+(place $Object at $Place)
+	(if) ($Object position $Position) (then)
+		([$ $ | $Tail] = $Position)
+	(else)
+		([$ $ | $Tail] = $Place)
+	(endif)
+	([$X $Y | $] = $Place)
+	([$X $Y | $Tail] = $NewPosition)
+	(now) ($Object position $NewPosition)
 
 (remove $Object from the map)
-    ($Object state $State)
-	($State = [$ $ | $Rest])
-	($NewState = [16383 16383 | $Rest])
-	(now) ($Object state $NewState)
+	(place $Object at [16383 16383])
 
-(object at $Position into $Obj)
-	([$X $Y | $] = $Position)
+(position $Here equals position $There)
+	([$X1 $Y1 | $] = $Here)
+	([$X2 $Y2 | $] = $There)
+	($X1 = $X2) ($Y1 = $Y2)
+
+($Object is at the same position as $Target)
+	($Object position $Here)
+	($Target position $There)
+	(position $Here equals position $There)
+
+(object at $Here into $Obj)
 	*(grid object $Obj)
-	($Obj state $State)
-	([$X $Y | $] = $State)
+	($Obj position $There)
+	(position $Here equals position $There)
 
 %% ------------------------- SQUARES AND COLLISIONS -------------------------
 
@@ -470,12 +478,12 @@
 	(bearing for $Angle in octant $Octant into $Result)
 
 (bearing from $Ship to position $There into $Result)
-	($Ship state $Here)
+	($Ship position $Here)
 	(calculate bearing from $Here to $There into $Result)
 
 (bearing from $Ship to $Target into $Result)
-	($Ship state $Here)
-	($Target state $There)
+	($Ship position $Here)
+	($Target position $There)
 	(calculate bearing from $Here to $There into $Result)
 
 %% ------------------------------ BOW ANGLE ------------------------------
@@ -695,17 +703,17 @@
 	($Sum1 plus $Sum2 into $Range)
 
 (range from $Ship to $Target into $Range)
-	($Ship   state $Here)
-	($Target state $There)
+	($Ship   position $Here)
+	($Target position $There)
 	(calculate range from $Here to $There into $Range)
 
 %% ------------------------------ TURNING ------------------------------
 
 (turn $Ship to heading $Heading)
-	($Ship state $State)
-	([$X $Y $        | $Tail] = $State)
-	([$X $Y $Heading | $Tail] = $NewState)
-	(now) ($Ship state $NewState)
+	($Ship position $Position)
+	([$X $Y $        | $Tail] = $Position)
+	([$X $Y $Heading | $Tail] = $NewPosition)
+	(now) ($Ship position $NewPosition)
 
 (turn $Ship $Degrees to starboard)
 	($Ship heading $Heading)
@@ -743,12 +751,12 @@
 	(endif)
 
 (turn $Ship to face position $There)
-	($Ship state $State)
-	(calculate bearing from $State to $There into $Bearing)
+	($Ship position $Position)
+	(calculate bearing from $Position to $There into $Bearing)
 	(turn $Ship to heading $Bearing)
 
 (turn $Ship to face $Target)
-	($Target state $There)
+	($Target position $There)
 	(turn $Ship to face position $There)
 
 (turn $Ship away from $Target)
@@ -772,16 +780,16 @@
 
 (drag $Ship to position $Desired)
 	($Ship is on the map)
-	($Ship state $Origin)
+	($Ship position $Origin)
 	([$ $ | $Tail]   = $Origin)
 	(closest unoccupied square to $Desired from $Origin into $Square)
 	([$X $Y | $]     = $Square)
-	([$X $Y | $Tail] = $NewState)
-	(now) ($Ship state $NewState)
+	([$X $Y | $Tail] = $NewPosition)
+	(place $Ship at $NewPosition)
 
 (drag $Ship $Distance on heading $Heading)
 	($Ship is on the map)
-	($Ship state $Origin)
+	($Ship position $Origin)
 	(square at $Distance on bearing $Heading from $Origin into $Desired)
 	(drag $Ship to position $Desired)
 

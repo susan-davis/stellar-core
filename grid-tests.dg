@@ -7,7 +7,7 @@
 	#maxint-not-on-map
 	#offset-on-map
 	#offset-minus-one-not-on-map
-	#state-schema
+	#position-schema
 	#place-ship
 	#target-on-map
 	#remove-target
@@ -318,34 +318,34 @@
 
 #test-ship
 (grid object *)
-(* initial state [344 454 315])
+(* initial position [344 454 315])
 
 #closest-target
 (grid object *)
-(* initial state [354 444 0])
+(* initial position [354 444 0])
 
 #near-target
 (grid object *)
-(* initial state [314 424 0])
+(* initial position [314 424 0])
 
 #far-target
 (grid object *)
-(* initial state [424 314 0])
+(* initial position [424 314 0])
 
 #distant-target
 (grid object *)
-(* initial state [154 984 0])
+(* initial position [154 984 0])
 
 #non-grid-object
-(* initial state [374 474 0])
+(* initial position [374 474 0])
 
 (set up $)
 	(now) ~(x increases west)
 	(now) (y increases south)
     (exhaust) {
         *(grid object $Object)
-        ($Object initial state $State)
-        (now) ($Object state $State)
+        ($Object initial position $Position)
+		(now) ($Object position $Position)
 	}
 
 %% ----------------------------------------------------------------------
@@ -368,7 +368,7 @@
 (test #offset-minus-one-not-on-map)
 	(position [99 99] is off the map)
 
-(test #state-schema)
+(test #position-schema)
 	(#test-ship x 344)
 	(#test-ship y 454)
 	(#test-ship heading 315)
@@ -407,10 +407,10 @@
 
 (test #position-for-removed-target)
 	(remove #closest-target from the map)
-	(#closest-target state [16383 16383 0])
+	(#closest-target position [16383 16383 0])
 
 (test #object-at-ship-position)
-	(#test-ship initial state $Here)
+	(#test-ship initial position $Here)
 	(object at $Here into $Obj)
 	(assert $Obj = #test-ship)
 
@@ -418,15 +418,15 @@
 	~(object at [334 555] into $)
 
 (test #objects-at-closest-target)
-	(#closest-target state $There)
+	(#closest-target position $There)
 	(object at $There into #closest-target)
 
 (test #object-at-near-target)
-	(#near-target state $Here)
+	(#near-target position $Here)
 	(object at $Here into #near-target)
 
 (test #object-at-far-target)
-	(#far-target state $Here)
+	(#far-target position $Here)
 	(object at $Here into #far-target)
 
 (test #object-at-empty-position)
@@ -923,7 +923,8 @@
 	(closest unoccupied square to [879 1044] from [344 454] into [879 1044])
 
 (test #closest-unoccupied-square-north)
-	(closest unoccupied square to [344 454] from [344 444] into [344 453])
+	(closest unoccupied square to [344 454] from [344 444] into $A)
+	(assert $A = [344 453])
 
 (test #closest-unoccupied-square-south)
 	(closest unoccupied square to [344 454] from [344 466] into [344 455])
@@ -955,14 +956,14 @@
 	(closest unoccupied square to [344 454] from [355 454] into [343 454])
 
 (test #closest-unoccupied-square-near-target)
-	(#test-ship state $Here)
-	(#near-target state $There)
+	(#test-ship position $Here)
+	(#near-target position $There)
 	(closest unoccupied square to $There from $Here into $Unoccupied)
 	(assert $Unoccupied = [315 425 0])
 
 (test #closest-unoccupied-square-far-target)
-	(#test-ship state $Here)
-	(#far-target state $There)
+	(#test-ship position $Here)
+	(#far-target position $There)
 	(closest unoccupied square to $There from $Here into $Unoccupied)
 	(assert $Unoccupied = [423 315 0])
 
@@ -1273,40 +1274,40 @@
 
 (test #drag-100-north)
 	(drag #test-ship 100 on heading 0)
-	(#test-ship state [344 444 315])
+	(#test-ship position [344 444 315])
 
 (test #move-100-north)
 	(move #test-ship 100 on heading 0)
-	(#test-ship state [344 444 0])
+	(#test-ship position [344 444 0])
 
 (test #drag-141-southeast)
 	(drag #test-ship 141 on heading 135)
-	(#test-ship state [354 464 315])
+	(#test-ship position [354 464 315])
 
 (test #move-141-southeast)
 	(move #test-ship 141 on heading 135)
-	(#test-ship state [354 464 135])
+	(#test-ship position [354 464 135])
 
 (test #move-51-east)
 	(move #test-ship 51 on heading 90)
-	(#test-ship state [349 454 90])
+	(#test-ship position [349 454 90])
 
 (test #move-71-southwest)
 	(move #test-ship 71 on heading 225)
-	(#test-ship state [339 459 225])
+	(#test-ship position [339 459 225])
 
 (test #move-900-27)
 	(move #test-ship 900 on heading 27)
-	(#test-ship state [385 372 27])
+	(#test-ship position [385 372 27])
 
 (test #move-1400-316)
 	(move #test-ship 1400 on heading 316)
-	(#test-ship state [258 364 316])
+	(#test-ship position [258 364 316])
 
 (test #long-move)
 	(move #test-ship to position [100 100])
 	(move #test-ship 11100 on heading 135)
-	(#test-ship state [893 893 135])
+	(#test-ship position [893 893 135])
 
 (test #move-10000-0)
 	~(move #test-ship 10000 on heading 0)
@@ -1315,26 +1316,26 @@
 	~(move #test-ship 10000 on heading 314)
 
 (test #drag-to-occupied-square)
-	(#near-target state $There)
+	(#near-target position $There)
 	(drag #test-ship to position $There)
-	(#test-ship state [315 425 315])
+	(#test-ship position [315 425 315])
 
 (test #move-to-occupied-square)
-	(#near-target state $There)
+	(#near-target position $There)
 	(move #test-ship to position $There)
-	(#test-ship state [315 425 315])
+	(#test-ship position [315 425 315])
 
 (test #move-toward-near-target)
 	(move #test-ship 300 toward #near-target)
-	(#test-ship state [323 433 315])
+	(#test-ship position [323 433 315])
 
 (test #move-away-from-near-target)
 	(move #test-ship 300 away from #near-target)
-	(#test-ship state [365 475 135])
+	(#test-ship position [365 475 135])
 
 (test #move-toward-far-target)
 	(move #test-ship 1701 toward #far-target)
-	(#test-ship state [427 315 30])
+	(#test-ship position [427 315 30])
 
 (test #turn-30-starboard)
 	(turn #test-ship 30 to starboard)
@@ -1428,31 +1429,31 @@
 	(bearing from #test-ship to position [174 194] into 326)
 
 (test #drag-141-toward-near-target)
-	(#near-target state $There)
+	(#near-target position $There)
 	(drag #test-ship 141 toward position $There)
-	(#test-ship state [334 444 315])
+	(#test-ship position [334 444 315])
 
 (test #drag-750-toward-far-target)
-	(#far-target state $There)
+	(#far-target position $There)
 	(drag #test-ship 750 toward position $There)
-	(#test-ship state [381 393 315])
+	(#test-ship position [381 393 315])
 
 (test #drag-1500-toward-distant-target)
-	(#distant-target state $There)
+	(#distant-target position $There)
 	(drag #test-ship 1500 toward position $There)
-	(#test-ship state [295 587 315])
+	(#test-ship position [295 587 315])
 
 (test #move-141-toward-near-target)
-	(#near-target state $There)
+	(#near-target position $There)
 	(move #test-ship 141 toward position $There)
-	(#test-ship state [334 444 315])
+	(#test-ship position [334 444 315])
 
 (test #move-750-toward-far-target)
-	(#far-target state $There)
+	(#far-target position $There)
 	(move #test-ship 750 toward position $There)
-	(#test-ship state [381 393 30])
+	(#test-ship position [381 393 30])
 
 (test #move-1500-toward-distant-target)
-	(#distant-target state $There)
+	(#distant-target position $There)
 	(move #test-ship 1500 toward position $There)
-	(#test-ship state [295 587 200])
+	(#test-ship position [295 587 200])
