@@ -35,6 +35,8 @@
 
 (interface (replace element $<N in $<List with $<Element into $>NewList))
 
+(interface (replace element $<N in $<List by $<Num into $>New with max $<Max))
+
 (interface (decrease element $<N in $<List by $<Num into $>NewList))
 
 (interface (increase element $<N in $<List by $<Num into $>NewList))
@@ -165,6 +167,10 @@
 	(take last $SuffixLen from $List into $Suffix)
 	(append $Prefix [$Element] $Front)
 	(append $Front $Suffix $NewList)
+
+(replace element $N in $List with $New into $NewList with max $Max)
+	(min $New and $Max into $Value)
+	(replace element $N in $List with $Value into $NewList)
 
 (increase element $N in $List by $Num into $NewList)
 	(increase element $N in $List by $Num into $NewList with max 16383)

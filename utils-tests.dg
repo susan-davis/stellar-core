@@ -48,6 +48,8 @@
 	#replace-element
 	#replace-element-zero
 	#replace-element-beyond-end
+	#replace-element-with-max
+	#replace-element-beyond-max
 	#increase-element
 	#increase-element-zero
 	#increase-element-beyond-end
@@ -248,6 +250,12 @@
 
 (test #replace-element-beyond-end)
 	~(replace element 6 in [1 2 3 4 5] with 6 into $)
+
+(test #replace-element-with-max)
+	(replace element 3 in [1 2 3 4 5] with 6 into [1 2 6 4 5] with max 7)
+
+(test #replace-element-beyond-max)
+	(replace element 3 in [1 2 3 4 5] with 8 into [1 2 7 4 5] with max 7)
 
 (test #increase-element)
 	(increase element 3 in [1 2 3 4 5] by 3 into [1 2 6 4 5])
