@@ -96,6 +96,11 @@
 	#remove-7-7
 	#remove-1-2-twice
 	#remove-3-2-twice
+	#remove-in-filter
+	#remove-multiple-match
+	#remove-in-empty-filter
+	#remove-empty-list-in-filter
+	#remove-in-disjoint-filter
 	])
 
 (global variable (list of lists [
@@ -318,12 +323,7 @@
 
 (test #match-not-zero-of-the-key)
 	(list of lists $List)
-	(take from $List where element 5 is not 8 into [
-		[1 2 3 4 5]
-		[2 2 4 5 6]
-		[3 2 4 5 6]
-		[3 2 4 6 7]
-		[4 1 7 8 9]])
+	(take from $List where element 5 is not 8 into $List)
 
 (test #dont-match-element-0)
 	(list of lists $List)
@@ -472,3 +472,27 @@
 (test #remove-7-7)
 	  (list of lists $List)
 	  (remove 7 7 from $List into $List)
+
+(test #remove-in-filter)
+	  (list of lists $List)
+	  (remove from $List found in [[1 2] [4 1]] into [
+		[2 2 4 5 6]
+		[3 2 4 5 6]
+		[3 2 4 6 7]])
+
+(test #remove-multiple-match)
+	  (list of lists $List)
+	  (remove from $List found in [[3 2] [4 1]] into [
+		[1 2 3 4 5]
+		[2 2 4 5 6]])
+
+(test #remove-in-empty-filter)
+	  (list of lists $List)
+	  (remove from $List found in [] into $List)
+
+(test #remove-empty-list-in-filter)
+	  (remove from [] found in [[1 2] [4 1]] into [])
+
+(test #remove-in-disjoint-filter)
+	  (list of lists $List)
+	  (remove from $List found in [[7 8] [9 9]] into $List)
