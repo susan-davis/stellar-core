@@ -336,8 +336,7 @@
 	  (length of $List into 2)
 
 (test #class-systems-list)
-	  (#test-ship class $Class)
-	  ($Class systems $List)
+	  (#test-ship class systems $List)
 	  (length of $List into 24)
 
 (test #test-ship-isnt-simple)
