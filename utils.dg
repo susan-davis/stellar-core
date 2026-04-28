@@ -49,6 +49,10 @@
 %% the key, and return a list of them.
 (interface (take from $<List where element $<Num is $<Key into $>Sublist))
 
+%% From a list of lists, select the sublists where a specific element does
+%% NOT matche the key, and return a list of them.
+(interface (take from $<List where element $<Num is not $<Key into $>Sublist))
+
 %% From a list of lists, find the first (and only, if we know there are no
 %% duplicates) sublist where the key matches a specific element.
 (interface (find in $<List element $<Num is $<Key into $>Match))
@@ -196,6 +200,20 @@
  		    (append [$Head] $Remainder $Sublist)
 	    (else)
 	        (take from $Tail where element $Num is $Key into $Sublist)
+	    (endif)
+	(endif)
+
+(take from $List where element $Num is not $Key into $Sublist)
+	(if) (empty $List) (then)
+	    ($Sublist = [])
+	(else)
+		($List = [$Head | $Tail])
+	    (nth $Head $Num $Value)
+	    (if) ~($Value = $Key) (then)
+	        (take from $Tail where element $Num is not $Key into $Remainder)
+ 		    (append [$Head] $Remainder $Sublist)
+	    (else)
+	        (take from $Tail where element $Num is not $Key into $Sublist)
 	    (endif)
 	(endif)
 

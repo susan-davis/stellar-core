@@ -64,6 +64,9 @@
 	#match-zero-of-the-key
 	#dont-match-element-0
 	#dont-match-element-beyond-end
+	#match-not-one-of-the-key
+	#match-not-three-of-the-key
+	#match-not-zero-of-the-key
 	#12345-begins-with-12
 	#12345-begins-with-12345
 	#12345-doesnt-begin-with-22
@@ -298,6 +301,29 @@
 (test #match-zero-of-the-key)
 	(list of lists $List)
 	(take from $List where element 5 is 8 into [])
+
+(test #match-not-one-of-the-key)
+	(list of lists $List)
+	(take from $List where element 1 is not 1 into [
+		[2 2 4 5 6]
+		[3 2 4 5 6]
+		[3 2 4 6 7]
+		[4 1 7 8 9]])
+
+(test #match-not-three-of-the-key)
+	(list of lists $List)
+	(take from $List where element 3 is not 4 into [
+	    [1 2 3 4 5]
+	    [4 1 7 8 9]])
+
+(test #match-not-zero-of-the-key)
+	(list of lists $List)
+	(take from $List where element 5 is not 8 into [
+		[1 2 3 4 5]
+		[2 2 4 5 6]
+		[3 2 4 5 6]
+		[3 2 4 6 7]
+		[4 1 7 8 9]])
 
 (test #dont-match-element-0)
 	(list of lists $List)
