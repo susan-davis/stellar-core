@@ -84,7 +84,7 @@
 (name *)	Attack
 (type *)	attack ship
 (code *)	q
-(* state [751 0 90 100 #quellan 500 2 0 250 [100 50 50 50]])
+(* state [300 751 90 100 #quellan 500 2 0 250 [100 50 50 50]])
 (* systems [[#projector 1 [8 1] 250 100]])
 
 #civilian
@@ -101,7 +101,7 @@
 (name *)	Maru
 (type *)	freighter
 (code *)	c
-(* state [321 0 45 100 #civilian 500 2 0 50 [50 50 50 50]])
+(* state [100 321 45 100 #civilian 500 2 0 50 [50 50 50 50]])
 
 #non-grid-object
 (code *)	\*
