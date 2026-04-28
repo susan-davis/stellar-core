@@ -38,6 +38,8 @@
 	  #percent-of-924
 	  #percent-of-1500
 	  #percent-of-16234
+	  #random-0
+	  #random-element
 	  ])
 
 %%-----------------------------------------------------------------------------
@@ -308,3 +310,12 @@
 	(percentage of 16234 into 15576)
 	(percentage of 16234 into 5008)
 	(percentage of 16234 into 1813)
+
+(test #random-0)
+	~(random element from [] into $)
+
+(test #random-element)
+	(random element from [1 2 3 4 5] into 1)
+	(random element from [1 2 3 4 5] into 5)
+	(random element from [1 2 3 4 5] into 4)
+	(random element from [1 2 3 4 5] into 1)
