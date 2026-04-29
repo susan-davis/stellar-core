@@ -270,7 +270,7 @@ A human design that predates the formation of the Stellar Union, the *Gagarin* c
 
 #### *Kwompar*-class Scout (SC)
 
-The *Kwompar* class, built by Kwom shipyards, continues to be produced in limited numbers, despite being outclassed by the later *Genbu* and *Cygnus* classes. The design features the elongated "horseshoe crab" hull common in Kwom designs, with a distinctive single A-drive pod mounted above. The *Kwompar* focuses on sensors and probes, at the expense of onboard lab space. The class is frequently used for odd jobs, and serves with Exploration Command, Patrol Command, and Planetary Command.
+The *Kwompar* class, built by Kwom shipyards, continues to be produced in limited numbers, despite being outclassed by the later *Genbu* and *Cygnus* classes. The design features the elongated "horseshoe crab" hull common in Kwom designs, with a distinctive single A-drive pod mounted above. The *Kwompar* focuses on sensors and probes, at the expense of onboard lab space. The class is frequently used for odd jobs, and serves with Exploration Command, with Patrol Command as a patrol vessel, and with Transport Command as a courier and VIP transport.
 
 #### *Genbu*-class Scout (SC)
 
