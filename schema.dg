@@ -115,6 +115,14 @@
 
 (interface ($<Ship class systems $>Systems))
 
+(interface ($<Ship undamaged systems $>Systems)) %% fully operable
+
+(interface ($<Ship damaged systems $>Systems)) %% repairable systems only
+
+(interface ($<Ship destroyed systems $>Systems)) %% destroyed systems only
+
+(interface ($<Ship undestroyed systems $>Systems)) %% for picking random damage
+
 (interface ($<Ship is simple))
 
 (interface ($<Ship considers $<Target friendly))
@@ -269,6 +277,34 @@
 ($Ship class systems $Systems)
 	($Ship class $Class)
 	($Class systems $Systems)
+
+($Ship damaged systems $Damaged)
+	~($Ship is simple)
+	($Ship systems $Systems)
+	(take from $Systems where element 3 is not 16383 into $Damaged)
+
+($Ship damaged systems $Damaged)
+	($Ship is simple)
+	($Damaged = [])
+
+($Ship destroyed systems $Destroyed)
+	~($Ship is simple)
+	($Ship systems $Systems)
+	(take from $Systems where element 3 is 16383 into $Destroyed)
+
+($Ship destroyed systems $Damaged)
+	($Ship is simple)
+	($Damaged = [])
+
+($Ship undamaged systems $Systems)
+	($Ship class systems $List)
+	($Ship systems $Filter) %% both damaged and destroyed
+	(remove from $List found in $Filter into $Systems)
+
+($Ship undestroyed systems $Systems) %% for picking random damage
+	($Ship class systems $List)
+	($Ship destroyed systems $Filter)
+	(remove from $List found in $Filter into $Systems)
 
 ($Ship energy $Energy)
 	($Ship state $State)

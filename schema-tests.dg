@@ -29,6 +29,12 @@
 	#top-speed
 	#systems-list
 	#class-systems-list
+	#damaged-systems
+	#destroyed-systems
+	#undamaged-systems
+	#undestroyed-systems
+	#damaged-systems-simple
+	#destroyed-systems-simple
 	#test-ship-isnt-simple
 	#closest-target-is-simple
 	#near-target-is-simple
@@ -338,6 +344,26 @@
 (test #class-systems-list)
 	  (#test-ship class systems $List)
 	  (length of $List into 24)
+
+(test #damaged-systems)
+	  (#test-ship damaged systems [[#tractor 1 800]])
+
+(test #destroyed-systems)
+	  (#test-ship destroyed systems [[#mtd 1 16383]])
+
+(test #undamaged-systems)
+	  (#test-ship undamaged systems $List)
+	  (length of $List into 22)
+
+(test #undestroyed-systems)
+	  (#test-ship undestroyed systems $List)
+	  (length of $List into 23)
+
+(test #damaged-systems-simple)
+	  (#closest-target damaged systems [])
+
+(test #destroyed-systems-simple)
+	  (#closest-target destroyed systems [])
 
 (test #test-ship-isnt-simple)
 	  ~(#test-ship is simple)
