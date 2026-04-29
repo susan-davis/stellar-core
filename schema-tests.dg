@@ -64,6 +64,7 @@
 	#accelerate-too-fast
 	#decelerate
 	#find-torpedoes
+	#dont-find-damaged-torpedo
 	#find-torpedo-1
 	#dont-find-torpedo-3
 	#arc-projector
@@ -378,6 +379,10 @@
 	  (find all #torpedo for #test-ship into $Torps)
 	  (assert $Torps = [[#torpedo 1 [1 8] 1 500]
 	  		  		    [#torpedo 2 [1 8] 1 500]])
+
+(test #dont-find-damaged-torpedo)
+	  (increase repair time for #test-ship #torpedo 1 by 30)
+	  (find all #torpedo for #test-ship into [[#torpedo 2 [1 8] 1 500]])
 
 (test #find-torpedo-1)
 	  (find #test-ship #torpedo 1 into [#torpedo 1 [1 8] 1 500])

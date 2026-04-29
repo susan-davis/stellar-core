@@ -510,7 +510,7 @@
 %%-------------------------------- SHIP SYSTEMS -------------------------------
 
 (find all $Type for $Ship into $List)
-	($Ship class systems $Systems)
+	($Ship undamaged systems $Systems)
 	(take from $Systems where element 1 is $Type into $List)
 
 (find $Ship $Type $ID into $Match)
