@@ -76,7 +76,7 @@
 	(endif)
 
 ($Ship weapons bearing on angle $Angle into $Result)
-	 ($Ship systems $Systems)
+	 ($Ship undamaged systems $Systems)
 	 (weapons in $Systems into $Weapons)
 	 (find systems bearing on $Angle in $Weapons into $Result)
 
@@ -262,16 +262,19 @@
 
 %%----------------------------------------------------------------------------
 
+($ fires at $ with [] using $) %% firing no weapons does nothing
+
+($Ship fires at $Target with $ using $)
+	($Ship = $Target) (or) ($Target is destroyed) %% don't shoot at yourself
+
 ($Ship fires at $Target with $Weapons using $Amount)
-	(if) ~(empty $Weapons) ~($Ship = $Target) ~($Target is destroyed) (then)
-	    ($Weapons = [$Head | $Tail])
-		($Head = [$Type $ID $ $Value $Details $ $])
-		(min $Value and $Amount into $Fired)
-        ($Ship fires $Type $ID $Details at $Target using $Fired)
-		(if) ($Value < $Amount) (then)
-			(subtract $Value from $Amount into $Remainder)
-			($Ship fires at $Target with $Tail using $Remainder)
-		(endif)
+    ($Weapons = [$Head | $Tail])
+	($Head = [$Type $ID $ $Value $Details $ $])
+	(min $Value and $Amount into $Fired)
+    ($Ship fires $Type $ID $Details at $Target using $Fired)
+	(if) ($Value < $Amount) (then)
+		(subtract $Value from $Amount into $Remainder)
+		($Ship fires at $Target with $Tail using $Remainder)
 	(endif)
 
 ($Ship fires at $Target using $Energy energy and $Ammo ammo)

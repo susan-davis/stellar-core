@@ -8,6 +8,7 @@
 	  #weapons-bearing-on-near-target
 	  #damaged-weapons-dont-bear
 	  #dont-projector-self
+	  #dont-projector-destroyed-target
 	  #dont-fire-projector-at-far-target
 	  #dont-fire-projector-at-distant-target
 	  #fire-projector-with-0
@@ -19,6 +20,7 @@
 	  #fire-torpedo-with-2
 	  #fire-torpedo-with-4
 	  #dont-torpedo-self
+	  #dont-torpedo-destroyed-target
 	  #torpedo-miss
 	  #fire-at-closest-with-100-and-2
 	  #fire-at-near-with-100-and-2
@@ -33,29 +35,29 @@
 
 (test #weapons-bearing-on-closest-target-location)
     (#test-ship weapons bearing on angle 90 into
-			[[#projector 1 [360 #up] 100 141 3 0]])
+			[[#projector 1 [360 #up] 100 141]])
 
 (test #weapons-bearing-on-near-target-location)
     (#test-ship weapons bearing on angle 0 into
-			[[#projector 1 [360 #up] 100 141 3 0]
-			[#torpedo 1 [1 8] 1 500 2 0]
-			[#torpedo 2 [1 8] 1 500 2 0]])
+			[[#projector 1 [360 #up] 100 141]
+			[#torpedo 1 [1 8] 1 500]
+			[#torpedo 2 [1 8] 1 500]])
 
 (test #weapons-bearing-on-closest-target)
     (#test-ship weapons bearing on target #closest-target into
-			[[#projector 1 [360 #up] 100 141 3 0]])
+			[[#projector 1 [360 #up] 100 141]])
 
 (test #weapons-bearing-on-near-target)
     (#test-ship weapons bearing on target #near-target into
-			[[#projector 1 [360 #up] 100 141 3 0]
-			[#torpedo 1 [1 8] 1 500 2 0]
-			[#torpedo 2 [1 8] 1 500 2 0]])
+			[[#projector 1 [360 #up] 100 141]
+			[#torpedo 1 [1 8] 1 500]
+			[#torpedo 2 [1 8] 1 500]])
 
 (test #damaged-weapons-dont-bear)
 	(damage #test-ship system #torpedo 1 with 50)
     (#test-ship weapons bearing on target #near-target into
-			[[#projector 1 [360 #up] 100 141 3 0]
-			[#torpedo 2 [1 8] 1 500 2 0]])
+			[[#projector 1 [360 #up] 100 141]
+			[#torpedo 2 [1 8] 1 500]])
 
 (assert $Ship has $Energy energy and $Ammo ammo)
 	($Ship energy $Energy)
@@ -65,6 +67,11 @@
 	(#test-ship fires #projector at target #test-ship using 100)
 	(assert #test-ship has 932 energy and 10 ammo)
 	(#test-ship shields 500)
+
+(test #dont-projector-destroyed-target)
+	(destroy #closest-target)
+	(#test-ship fires #projector at target #closest-target using 100)
+	(assert #test-ship has 932 energy and 10 ammo)
 
 (test #dont-fire-projector-at-far-target)
 	(#test-ship fires #projector at target #far-target using 100)
@@ -101,6 +108,11 @@
 	(#test-ship fires #torpedo at target #test-ship using 2)
 	(assert #test-ship has 932 energy and 10 ammo)
 	(#test-ship shields 500)
+
+(test #dont-torpedo-destroyed-target)
+	(destroy #near-target)
+	(#test-ship fires #torpedo at target #near-target using 2)
+	(assert #test-ship has 932 energy and 10 ammo)
 
 (test #fire-torpedo-with-0)
 	(#test-ship fires #torpedo at target #near-target using 0)
