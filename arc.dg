@@ -130,21 +130,21 @@
 	 (angle from $Ship to $Target into $Angle)
 	 ($Ship $System $ID bears on angle $Angle)
 
-(find $ systems bearing on $ in [] into [])
+(find systems bearing on $ in [] into [])
 
-(find $Ship systems bearing on $Angle in $List into $Results)
+(find systems bearing on $Angle in $List into $Results)
 	 ($List = [$Head | $Tail])
 	 (system $Head arc $Arc)
 	 (if) (arc $Arc contains angle $Angle) (then)
-	 	 (find $Ship systems bearing on $Angle in $Tail into $Remainder)
+	 	 (find systems bearing on $Angle in $Tail into $Remainder)
 		 (append [$Head] $Remainder $Results)
 	 (else)
-	 	 (find $Ship systems bearing on $Angle in $Tail into $Results)
+	 	 (find systems bearing on $Angle in $Tail into $Results)
 	 (endif)
 
 ($Ship $Type bearing on angle $Angle into $Bearing)
 	 (find undamaged $Type for $Ship into $Systems)
-	 (find $Ship systems bearing on $Angle in $Systems into $Bearing)
+	 (find systems bearing on $Angle in $Systems into $Bearing)
 
 ($Ship $Type bearing on target $Target into $Bearing)
 	 (angle from $Ship to $Target into $Angle)
