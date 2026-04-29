@@ -25,10 +25,6 @@
 	  #fire-at-closest-with-100-and-2
 	  #fire-at-near-with-100-and-2
 	  #fire-at-near-with-200-and-4
-	  #autofire-at-282-with-20
-	  #autofire-at-450-with-20
-	  #closest-target-autofires
-	  #near-target-doesnt-autofire
 	  ])
 
 %% ----------------------------------------------------------------------------
@@ -155,19 +151,3 @@
 	(#test-ship fires at #near-target using 200 energy and 4 ammo)
 	(assert #test-ship has 832 energy and 8 ammo)
 	(#near-target is destroyed)
-
-(test #autofire-at-282-with-20)
-	(#test-ship autofires #projector 1 within 282 using 20 per shot)
-	(#test-ship energy 912) %% fires at closest target
-
-(test #autofire-at-450-with-20)
-	(#test-ship autofires #projector 1 within 450 using 20 per shot)
-	(#test-ship energy 892) %% fires at closest target and near target
-
-(test #closest-target-autofires)
-	(#closest-target autofires #projector 1 within 282 using 20 per shot)
-	(#closest-target energy 480) %% test ship is dead ahead
-
-(test #near-target-doesnt-autofire)
-	(#near-target autofires #projector 1 within 450 using 20 per shot)
-	(#near-target energy 500) %% out of arc, doesn't hit his friend

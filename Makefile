@@ -31,7 +31,7 @@ su-101.d71: su-101.aastory
 
 6502: su-101.d64
 
-test: utils time d6 d6-lite grid sector schema arc damage weapons maneuver 
+test: utils time d6 d6-lite grid sector schema maneuver arc damage weapons
 
 clean:
 	rm -f *~ \#*\# *.z8 *.zblorb *.aastory *.d64 *.d71 log.txt
@@ -57,6 +57,9 @@ grid:
 sector:
 	$(DEBUG) sector-tests.dg sector.dg grid.dg $(STDLIB)
 
+maneuver:
+	$(DEBUG) maneuver-tests.dg maneuver.dg $(DLIBS)
+
 schema:
 	$(DEBUG) schema-tests.dg $(LIBS)
 
@@ -68,9 +71,6 @@ damage:
 
 weapons:
 	$(DEBUG) weapons-tests.dg weapons.dg damage.dg $(DLIBS)
-
-maneuver:
-	$(DEBUG) maneuver-tests.dg maneuvering.dg $(DLIBS)
 
 sensors-wide:
 	$(DEBUG) -w 80 sensor-tests.dg sensors.dg $(LIBS)

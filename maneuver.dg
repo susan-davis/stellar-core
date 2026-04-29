@@ -1,5 +1,5 @@
-%% maneuvering.dg
-%% Also include sectored-grid.dg when compiling or debugging.
+%% maneuver.dg
+%% Also include utils.dg, sector.dg and grid.dg when compiling or debugging.
 
 %%-------------------------------- INTERFACES --------------------------------
 
@@ -88,7 +88,7 @@
 	(regenerate energy for $Ship)
 	(adjust $Ship throttle for remaining energy)
 
-(move $Ship for $Ticks minutes)
+(move $Ship for $Ticks minutes) %% here's where we're failing
 	(if) ($Ticks > 0) (then)
 		(update $Ship)
 		($Ticks minus 1 into $Remaining)

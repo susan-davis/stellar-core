@@ -29,8 +29,6 @@
 
 (interface ($<Ship fires at $<Target using $<Energy energy and $<Ammo ammo))
 
-(interface ($<Ship autofires $<Type within $<Range using $<Amount per shot))
-
 %%------------------------------ IMPLEMENTATION ------------------------------
 
 (weapons in $List into $Result)
@@ -106,8 +104,7 @@
 
 %% Energy weapons work by feeding energy into them from the ship's main energy
 %% bus, and produce immediate effects that can't be countered. For simplicity,
-%% no ship has more than one kind of energy weapon installed, with the possible
-%% exception of the Tiberian vortex generator being like both energy and ammo.
+%% no ship has more than one kind of energy weapon installed.
 (weapon *(energy weapon $))
 
 %% Energy projectors are the basic phaser-equivalent energy weapons that most
@@ -204,8 +201,9 @@
 (ammo weapon *)
 
 %% superstartrek.bas photon torpedoes:
-%% Torpedoes move on one of the eight directions, and hit the first object that
-%% they encounter. Anything other than a star is destroyed instantly.
+%% Torpedoes move on one of the eight directions, and automatically hit the
+%% first object that they encounter. Anything other than a star is destroyed
+%% instantly. Star Fleet I has them, too, and they have a chance of missing.
 
 %% Torpedo hit chance: dependent on target aspect and warp gradient
 %% Torepdo damage: first element of details
@@ -286,16 +284,3 @@
 ($Ship fires $Type at target $Target using $Amount)
 	($Ship $Type bearing on target $Target into $Weapons)
     ($Ship fires at $Target with $Weapons using $Amount)
-
-%% TODO: limit the shots that any one weapon can take
-($Ship autofires $Type $ID within $Range using $Amount per shot)
-	(exhaust) {
-		*(grid object $Object)
-		~($Object is destroyed)
-		~($Object = $Ship)
-		($Ship considers $Object hostile)
-		(range from $Ship to $Object into $Distance)
-		~($Distance > $Range)
-		($Ship $Type $ID bears on target $Object)
-		($Ship fires $Type at target $Object using $Amount)
-	}
