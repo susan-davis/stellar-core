@@ -87,13 +87,14 @@
 	(move $Ship on course and speed)
 	(regenerate energy for $Ship)
 	(adjust $Ship throttle for remaining energy)
+	($Ship position $Pos)
 
-(move $Ship for $Ticks minutes) %% here's where we're failing
-	(if) ($Ticks > 0) (then)
-		(update $Ship)
-		($Ticks minus 1 into $Remaining)
-		(move $Ship for $Remaining minutes)
-	(endif)
+(move $ for 0 minutes) %% do nothing
+
+(move $Ship for $Ticks minutes)
+	(update $Ship)
+	($Ticks minus 1 into $Remaining)
+	(move $Ship for $Remaining minutes)
 
 (move $Ship randomly)
 	($Ship subsector into $SX $SY $ $)
