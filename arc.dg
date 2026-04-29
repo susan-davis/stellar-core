@@ -106,14 +106,15 @@
 %% projector might have arc [#northwest #north #northeast #east 5],
 %% for example.
 
+(arc $Arc contains angle $Angle)
+	 ~(list $Arc)
+	 ($Angle is in special arc $Arc)
+
 (arc $Arc contains angle $Angle) %% supports compound arcs
-	 (if) ~(list $Arc) (then)
-	 	  ($Angle is in special arc $Arc)
-	 (else)
-	      ($Arc = [$Head | $Tail])
-		  { (arc $Head contains angle $Angle) (or)
-		  	(arc $Tail contains angle $Angle) }
-	 (endif)
+	 (list $Arc)
+     ($Arc = [$Head | $Tail])
+	 { (arc $Head contains angle $Angle) (or)
+	   (arc $Tail contains angle $Angle) }
 
 (fire from $Ship to $Target is in arc $Arc)
      (angle from $Ship to $Target into $Angle)
@@ -129,20 +130,16 @@
 	 (angle from $Ship to $Target into $Angle)
 	 ($Ship $System $ID bears on angle $Angle)
 
+(find $ systems bearing on $ in [] into [])
+
 (find $Ship systems bearing on $Angle in $List into $Results)
-	 (if) (empty $List) (then)
-	 	 ($Results = [])
+	 ($List = [$Head | $Tail])
+	 (system $Head arc $Arc)
+	 (if) (arc $Arc contains angle $Angle) (then)
+	 	 (find $Ship systems bearing on $Angle in $Tail into $Remainder)
+		 (append [$Head] $Remainder $Results)
 	 (else)
-		 ($List = [$Head | $Tail])
-		 ([$Type $ID | $] = $Head)
-		 ($Ship $Type $ID repair time $Time)
-		 (system $Head arc $Arc)
-		 (if) (arc $Arc contains angle $Angle) ($Time = 0) (then)
-		 	 (find $Ship systems bearing on $Angle in $Tail into $Remainder)
-			 (append [$Head] $Remainder $Results)
-		 (else)
-		 	 (find $Ship systems bearing on $Angle in $Tail into $Results)
-		 (endif)
+	 	 (find $Ship systems bearing on $Angle in $Tail into $Results)
 	 (endif)
 
 ($Ship $Type bearing on angle $Angle into $Bearing)
