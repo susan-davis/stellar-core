@@ -302,7 +302,7 @@ Informally known as the *Adjective* class, the *Glidwarg*-class Destroyer is cur
 Only a single example of the *Excalibur*-class light cruiser has been constructed as of season 1 (as far as most of the Union knows), as a proof of concept of the design. The ship is a lightly modified version of the *Eratosthanes*-class fleet tug, with a permanently installed "Atlatl" torpedo pod installed in place of the tug's pod grapple. 
 
 #### *Argo Navis*-class Cruiser (CA)
-#### *Qillaq*-class Exploration Cruiser (CN)
+#### *Qitdlarssuaq*-class Exploration Cruiser (CN)
 #### *Eratosthanes*-class Fleet Tug (AT)
 #### *North America*-class Monitor (TB)
 #### *Admiral Vordrek*-class Tender (TO)
