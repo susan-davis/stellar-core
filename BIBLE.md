@@ -129,7 +129,7 @@ Quellans are trained from birth into the Quellan rank system, and young Quellans
 - *Q12*-class scout ("Ambush II")
 - *Q13*-class battleship ("Emperor")
 
-The Union has detected only up to Q8 at the start of the series, with Player's encounter with Q8 #1 the Union's first encounter with that class. Later vessels (other than the Q9) are new construction with improved technology from Quellan espionage efforts, and will be introduced piecemeal as the series progresses. Early Q8s were designed "for but not with" Tiberian-style subspace entry generators (cloaking devices); when the whole class has them installed, it comes as a complete surprise to the Union. Current Union tatical doctrine was developed with knowledge only up to the Q6, and hasn't had significant update for the Q7.
+The Union has detected only up to Q8 at the start of the series, with Player's encounter with Q8 #1 the Union's first encounter with that class. Later vessels (other than the Q9) are new construction with improved technology from Quellan espionage efforts, and will be introduced piecemeal as the series progresses. Early Q8s were designed "for but not with" Tiberian-style hyperspace entry generators (cloaking devices); when the whole class has them installed, it comes as a complete surprise to the Union. Current Union tatical doctrine was developed with knowledge only up to the Q6, and hasn't had significant update for the Q7.
 
 The Union mistakenly applies the Q5 label to two different classes of invasion transport, the original one with a heavy complement of landing shuttles, and an upgraded version with Q6-standard sensors, A-drive depolarizers, and matter tranmission devices. The Q6, with its ample barracks space on board, can land nearly as many troops as the original Q5; the later version carries a larger troop complement since hangar space could be converted to barracks.
 
@@ -249,9 +249,9 @@ Exploration Command vessels are organized into Exploration Squadrons, which perf
 
 Patrol Command ("PatCom", or the "Patrol") is responsible for the Union's mandate to keep peace among the stars. Patrol vessels hunt down pirates, smugglers, enforce Union law, rescue spacecraft that are in distress, and are usually the first vessels available in the event of a crisis. Patrol Command also manages the Union's starbases, outposts, and planetary installations, and exercises oversight over planetary "national" forces and vessels. The Patrol's insignia is a ringed planet.
 
-#### Logistics Command
+#### Transport Command
 
-Logistics Command ("LogCom") is responsible for supplying Union installations with everything that they need to operate, for ensuring that all Union systems have timely supply deliveries, and for organizing and supporting planetary colonization efforts. LogCom operates a fleet of conventional freighters in addition to its pod-hauling fleet tugs. LogCom's insignia is a stylized early rocket under thrust.
+Transport Command ("TransCom") is responsible for supplying Union installations with everything that they need to operate, for ensuring that all Union systems have timely supply deliveries, and for organizing and supporting planetary colonization efforts. TransCom operates a fleet of conventional freighters in addition to its pod-hauling fleet tugs, and it promotes interstellar trade both within and beyond the borders of the Stellar Union. TransCom's insignia is a stylized early rocket under thrust.
 
 #### Defence Command
 
