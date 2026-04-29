@@ -143,7 +143,7 @@
 	 (endif)
 
 ($Ship $Type bearing on angle $Angle into $Bearing)
-	 (find all $Type for $Ship into $Systems)
+	 (find undamaged $Type for $Ship into $Systems)
 	 (find $Ship systems bearing on $Angle in $Systems into $Bearing)
 
 ($Ship $Type bearing on target $Target into $Bearing)

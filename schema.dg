@@ -2,16 +2,17 @@
 %% Include sector.dg, grid.dg, and utils.dg when compiling or debugging
 
 %%---------------------------------- SCHEMA ----------------------------------
+
 %% State about a ship is stored in lists, to cut down on storage:
 %%
 %% position = [X Y Heading Speed]
 %% state = [DstX DstY Helm Throttle Class Energy Crystals Ammo Shields [Lvls]]
 %% system = [Type ID RepairTime]
 %%
-%% Time of repair 0 means that the system is functioning normally. Time of
-%% repair 16383 (maxint) means that the system is irreparably destroyed, with
-%% 16380, 16381, and 16382 reserved for future shades of destroyed-ness. Or
-%% delete the system from the list?
+%% The system list for a ship identifies which systems are damaged; healthy
+%% systems, and information about their capabilities, lives in the class
+%% record. Time of repair 0 means that the system is functioning normally. Time
+%% of repair 16383 (maxint) means that the system is irreparably destroyed.
 %%
 %% Ship classes are defined by a class record:
 %%
@@ -30,7 +31,7 @@
 
 %% helpers
 
-(interface (find all $<Type for $<Ship into $>List))
+(interface (find undamaged $<Type for $<Ship into $>List))
 
 (interface (find $<Ship $<Type $<ID into $>Match))
 
@@ -187,10 +188,6 @@
 (interface (system $<System details $>Details))
 
 (interface ($<Ship $<Type $<ID details $>Details))
-
-(interface (system $<System durability $>Durability))
-
-(interface ($<Ship $<Type $<ID durability $>Durability))
 
 (interface (system $<System repair time $>Time))
 
@@ -509,7 +506,7 @@
 
 %%-------------------------------- SHIP SYSTEMS -------------------------------
 
-(find all $Type for $Ship into $List)
+(find undamaged $Type for $Ship into $List)
 	($Ship undamaged systems $Systems)
 	(take from $Systems where element 1 is $Type into $List)
 
