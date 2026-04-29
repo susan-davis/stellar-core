@@ -26,6 +26,10 @@
 %% of energy from damage. A detailed ship has a full set of systems in its
 %% class record, and keeps a list of damaged systems in its own systems list.
 %% A player ship has its own map, and uses player-ship.dg for recording damage.
+%%
+%% TODO: Break this file up? A game might need turn mode/accel/drive params
+%% to fly the ship around, but not any of the systems, weapons, shields, or
+%% damage stuff.
 
 %%-------------------------------- INTERFACES --------------------------------
 
@@ -565,7 +569,7 @@
 
 (increase repair time for $Ship $Type $ID by $Value)
     ($Ship $Type $ID repair time $Time)
-	(add $Time to $Value into $NewValue)
+	(add $Time to $Value into $NewValue max 16383)
 	(set repair time for $Ship $Type $ID to $NewValue)
 
 (decrease repair time for $Ship $Type $ID by $Value)

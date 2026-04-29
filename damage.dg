@@ -1,5 +1,5 @@
 %% damage.dg
-%% Also include schema.dg, sectored-grid.dg, and utils.dg when compiling
+%% Also include schema.dg, sector.dg, grid.dg, and utils.dg when compiling
 %% or debugging.
 
 %%-------------------------------- INTERFACES --------------------------------
@@ -10,17 +10,15 @@
 
 (interface (hit $<Ship with $<Units from $<Direction))
 
+(interface (damage $<Ship with $<Units from $<Direction))
+
+(interface (wreck $<Ship with $<Units from $<Direction))
+
 (interface (damage $<Ship system $<Type $<ID with $<Units))
 
 (interface (destroy $<Ship system $<Type $<ID))
 
 %%------------------------------ IMPLEMENTATION ------------------------------
-
-%% state = [ PositionX PositionY Heading Speed DestX DestY Helm Throttle
-%% 		   	 Class Energy Crystals Ammo Shields [S1 S2 S3 S4]
-%%			 [ Systems ] [ Fore-and-Aft ] [ Side-to-Side] ]
-%%
-%% system = [ System ID Arcs Value Details Durability TimeOfRepair ]
 
 ($Attacker hits $Target with $Units)
     (angle from $Target to $Attacker into $Angle)
@@ -34,6 +32,7 @@
 %%   * hit facing shield first
 %%   * with remainder, deduct from energy, possibly damaging one system
 %%   * with remainder, wreck ship, possibly destroying it
+%% Direction parameters are for more detailed damage in player-ship.dg
 
 (hit $Target with $Units from $Direction)
 	($Target shields $TotalShieldPower)
@@ -55,50 +54,52 @@
 		(wreck $Target with $Damage from $Direction)
 	(else)
 		(decrease energy for $Target by $Units)
-		(damage random $Target system with $Units from $Direction)
+		(damage random $Target system with $Units)
 	(endif)
 
-(damage random $Target system with $Units from $) %% from $Direction
-	($Target systems $Systems)
+(damage random $Target system with $)
+	($Target is simple) %% then do nothing
+
+(damage random $Target system with $Units)
+	~($Target is simple)
+	($Target undestroyed systems $Systems)
 	(random element from $Systems into $System)
 	($System = [$Type $ID | $])
 	(damage $Target system $Type $ID with $Units)
 
 (damage $Target system $Type $ID with $Units)
-	($Target $Type $ID durability $Durability)
-	(if) ($Target is simple) (then)
-		($Units divided by $Durability into $Time)
-	(else)
-		($Units times $Durability into $Time)
-	(endif)
-	(increase repair time for $Target $Type $ID by $Time)
+	(increase repair time for $Target $Type $ID by $Units)
 	($Target $Type $ID repair time $NewTime)
 	(if) ($NewTime = 16383) (then)
 		(destroy $Target system $Type $ID)
 	(endif)
 
 (destroy random $Target system)
-	($Target systems $Systems)
+	($Target undestroyed systems $Systems)
 	(random element from $Systems into $System)
 	($System = [$Type $ID | $])
 	(destroy $Target system $Type $ID)
 
+(wreck $Target with $ from $)
+	($Target is simple)
+	(destroy $Target)
+
 (wreck $Target with $Units from $Direction)
+	~($Target is simple)
 	(destroy random $Target system)
 	(roll 3 #d6 $Roll)
 	($Roll times 5 into $Damage)
 	(subtract $Damage from $Units into $Remaining)
 	(if) ($Remaining > 0) ~($Target is destroyed) (then)
-		(wreck $Target with $Remaining from $Direction)
+		 (wreck $Target with $Remaining from $Direction)
 	(endif)
 
 (destroy $Ship system $Type $ID)
-	($Ship systems $Systems)
-	(remove $Type $ID from $Systems into $NewSystems)
-	(length of $NewSystems into $Length)
-	(if) { ($Type = #reactor) (or) ($Length = 0) } (then) %% or ship is simple
+	(set repair time for $Ship $Type $ID to 16383)
+	($Ship class systems $AllSystems)
+	($Ship systems $DamagedSystems)
+	(length of $AllSystems into $Total)
+	(length of $DamagedSystems into $Length)
+	(if) { ($Type = #reactor) (or) ($Length = $Total) } (then)
 		(destroy $Ship)
 	(endif)
-	($Ship state $State)
-	(replace element 16 in $State with $NewSystems into $NewState)
-	(now) ($Ship state $NewState)
