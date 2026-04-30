@@ -5,8 +5,7 @@ DEBUG=dgdebug -u
 BUNDLE=aambundle
 STDLIB=utils.dg unit.dg stdlib.dg
 LIBS=test-ships.dg sector.dg grid.dg $(STDLIB)
-SLIBS=no-damage.dg no-maneuver.dg $(LIBS)
-DLIBS=arc.dg damage.dg d6.dg no-maneuver.dg $(LIBS)
+DLIBS=arc.dg damage.dg d6.dg maneuver.dg $(LIBS)
 
 all: test
 
@@ -34,19 +33,19 @@ sector:
 	$(DEBUG) sector-tests.dg sector.dg grid.dg $(STDLIB)
 
 maneuver:
-	$(DEBUG) maneuver-tests.dg maneuver.dg $(LIBS)
+	$(DEBUG) maneuver-tests.dg maneuver.dg no-sensor.dg $(LIBS)
 
 damage:
-	$(DEBUG) damage-tests.dg damage.dg no-maneuver.dg d6.dg $(LIBS)
+	$(DEBUG) damage-tests.dg damage.dg no-sensor.dg no-maneuver.dg d6.dg $(LIBS)
 
 arc:
-	$(DEBUG) arc-tests.dg $(DLIBS)
+	$(DEBUG) arc-tests.dg no-sensor.dg $(DLIBS)
 
 sensor-wide:
-	$(DEBUG) -w 80 sensor-tests.dg sensor.dg $(SLIBS)
+	$(DEBUG) -w 80 sensor-tests.dg sensor.dg $(DLIBS)
 
 sensor-narrow:
-	$(DEBUG) -w 40 sensor-tests.dg sensor.dg $(SLIBS)
+	$(DEBUG) -w 40 sensor-tests.dg sensor.dg $(DLIBS)
 
 weapons:
 	$(DEBUG) weapons-tests.dg weapons.dg $(DLIBS)
