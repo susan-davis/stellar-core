@@ -33,14 +33,6 @@
 
 %%-------------------------------- INTERFACES --------------------------------
 
-%% helpers
-
-(interface (find undamaged $<Type for $<Ship into $>List))
-
-(interface (find $<Ship $<Type $<ID into $>Match))
-
-%% schema definition
-
 %% (grid object $) => object exists in space and is sensor-detectable
 %% (stellar object $) => object is a star/planet/asteroid: right column
 %% (ship $) => object can maneuver
@@ -62,47 +54,11 @@
 
 %% PosX, PosY, and Heading are defined in sectored-grid.dg
 
-(interface ($<Ship is destroyed))
-
 (interface ($<Ship fleet $>Fleet))
-
-(interface ($<Ship shields $>Shields))
-
-(interface ($<Ship shield levels $>Levels))
-
-(interface ($<Ship shield level $<Direction into $>Level))
-
-(interface ($<Ship ammo $>Ammo))
-
-(interface ($<Ship damage $>Damage))
-
-(interface ($<Ship systems $>Systems))
-
-(interface ($<Ship class systems $>Systems))
-
-(interface ($<Ship undamaged systems $>Systems)) %% fully operable
-
-(interface ($<Ship damaged systems $>Systems)) %% repairable systems only
-
-(interface ($<Ship destroyed systems $>Systems)) %% destroyed systems only
-
-(interface ($<Ship undestroyed systems $>Systems)) %% for picking random damage
-
-(interface ($<Ship is simple))
 
 (interface ($<Ship considers $<Target friendly))
 
 (interface ($<Ship considers $<Target hostile))
-
-%% mutators
-
-(interface (decrease ammo for $<Ship by $<Num))
-
-(interface (decrease shields for $<Ship by $<Num))
-
-(interface (regenerate shields for $<Ship by $<Num))
-
-(interface (destroy $<Ship))
 
 %% Sensor range: adjacent sector
 %% Weapons range: same sector
@@ -114,37 +70,15 @@
 
 (interface ($<GridObject is in matter transmission range of $<Ship))
 
-%% ship's systems
-
-(interface (system $<System arc $>Arc))
-
-(interface ($<Ship $<Type $<ID arc $>Arc))
-
-(interface (system $<System value $>Value))
-
-(interface ($<Ship $<Type $<ID value $>Value))
-
-(interface (system $<System details $>Details))
-
-(interface ($<Ship $<Type $<ID details $>Details))
-
-(interface (system $<System repair time $>Time))
-
-(interface ($<Ship $<Type $<ID repair time $>Time))
-
-(interface (set repair time for $<Ship $<Type $<ID to $>Time))
-
-(interface (increase repair time for $<Ship $<Type $<ID by $<Minutes))
-
-(interface (decrease repair time for $<Ship $<Type $<ID by $<Minutes))
-
-(interface (repair $<Ship $<Type $<ID))
-
 %%------------------------------ IMPLEMENTATION -------------------------------
 
 (grid object *(base $))
 
 (grid object *(stellar object $))
+
+($Ship fleet $Fleet)
+	($Ship class $Class)
+	($Class class $Fleet)
 
 (sector $X $Y is in sensor range of $Ship)
 	($Ship sector x $SX)
@@ -178,62 +112,6 @@
 
 %%---------------------------- SCHEMA DEFINITION ----------------------------
 
-($Ship is destroyed)
-	~($Ship is on the map)
-
-($Ship class systems $Systems)
-	($Ship class $Class)
-	($Class systems $Systems)
-
-($Ship damaged systems $Damaged)
-	~($Ship is simple)
-	($Ship systems $Systems)
-	(take from $Systems where element 3 is not 16383 into $Damaged)
-
-($Ship damaged systems $Damaged)
-	($Ship is simple)
-	($Damaged = [])
-
-($Ship destroyed systems $Destroyed)
-	~($Ship is simple)
-	($Ship systems $Systems)
-	(take from $Systems where element 3 is 16383 into $Destroyed)
-
-($Ship destroyed systems $Damaged)
-	($Ship is simple)
-	($Damaged = [])
-
-($Ship undamaged systems $Systems)
-	($Ship class systems $List)
-	($Ship systems $Filter) %% both damaged and destroyed
-	(remove from $List found in $Filter into $Systems)
-
-($Ship undestroyed systems $Systems) %% for picking random damage
-	($Ship class systems $List)
-	($Ship destroyed systems $Filter)
-	(remove from $List found in $Filter into $Systems)
-
-($Ship ammo $Ammo)
-	($Ship state $State)
-	(nth $State 8 $Ammo)
-
-($Ship shields $Shields)
-	($Ship state $State)
-	(nth $State 9 $Shields)
-
-($Ship shield levels $Levels)
-	($Ship state $State)
-	(nth $State 10 $Levels)
-
-($Ship fleet $Fleet)
-	($Ship class $Class)
-	($Class class $Fleet)
-
-($Ship is simple)
-	($Ship class systems $Systems)
-	(length of $Systems into $Length)
-	($Length < 4)
-
 %% override for more nuanced situations
 ($Ship considers $Target friendly)
 	($Ship fleet $Fleet)
@@ -251,120 +129,3 @@
 (long class $Ship)
 	($Ship fleet $Fleet)
 	(name $Fleet) (class $Ship)
-
-%% For now, all ships have four shields. We can vary their number of shields
-%% (1, 2, 4, 8) later if desired, reflected in the length of this list.
-
-($Ship shield level $Direction into $Level)
-	($Ship shield levels $Levels)
-	(if) ($Direction = #east) (then)
-		(nth $Levels 2 $Level)
-	(elseif) ($Direction = #south) (then)
-		(nth $Levels 3 $Level)
-	(elseif) ($Direction = #west) (then)
-		(nth $Levels 4 $Level)
-	(else)
-		(nth $Levels 1 $Level)
-	(endif)
-
-%%--------------------------------- MUTATORS ----------------------------------
-
-(decrease ammo for $Ship by $Num)
-	($Ship state $State)
-	(decrease element 8 in $State by $Num into $NewState)
-	(now) ($Ship state $NewState)
-
-(decrease shields for $Ship by $Num)
-	($Ship state $State)
-	(decrease element 9 in $State by $Num into $NewState)
-	(now) ($Ship state $NewState)
-
-(regenerate shields for $Ship by $Num)
-	($Ship class $Class)
-	($Class shields $Max)
-	($Ship state $State)
-	(increase element 9 in $State by $Num into $NewState with max $Max)
-	(now) ($Ship state $NewState)
-
-(destroy $Ship)
-	(remove $Ship from the map)
-	(log) { $Ship explodes }
-
-%%-------------------------------- SHIP SYSTEMS -------------------------------
-
-(find undamaged $Type for $Ship into $List)
-	($Ship undamaged systems $Systems)
-	(take from $Systems where element 1 is $Type into $List)
-
-(find $Ship $Type $ID into $Match)
-    ($Ship class systems $Systems)
-	(find $Type $ID in $Systems into $Match)
-
-(system $Match arc $Arc)
-	(nth $Match 3 $Arc)
-
-($Ship $Type $ID arc $Arc)
-	(find $Ship $Type $ID into $Match)
-	(system $Match arc $Arc)
-
-(system $Match value $Value)
-	(nth $Match 4 $Value)
-
-($Ship $Type $ID value $Value)
-	(find $Ship $Type $ID into $Match)
-	(system $Match value $Value)
-
-(system $Match details $Details)
-	(nth $Match 5 $Details)
-
-($Ship $Type $ID details $Details)
-	(find $Ship $Type $ID into $Match)
-	(system $Match details $Details)
-
-(system $Match repair time $Time)
-	(nth $Match 3 $Time)
-
-($Ship $Type $ID repair time $Time)
-	($Ship systems $Systems)
-	(if) (find $Type $ID in $Systems into $Match) (then)
-		(system $Match repair time $Time)
-	(else)
-		(if) (find $Ship $Type $ID into $) (then)
-			($Time = 0)
-		(else)
-			(fail) %% if we inquire about a nonexistent system
-		(endif)
-	(endif)
-
-(set repair time for $Ship $Type $ID to $Value)
-	($Ship systems $Systems)
-	(if) (find $Type $ID in $Systems into $) (then)
-		(set element 3 in [$Type $ID] in $Systems to $Value into $NewSystems)
-	(else)
-		(if) (find $Ship $Type $ID into $) (then)
-			(append $Systems [[$Type $ID $Value]] $NewSystems)
-		(else)
-			(fail) %% if we try to fix or break a nonexistent system
-		(endif)
-	(endif)
-	(now) ($Ship systems $NewSystems)
-
-(increase repair time for $Ship $Type $ID by $Value)
-    ($Ship $Type $ID repair time $Time)
-	(add $Time to $Value into $NewValue max 16383)
-	(set repair time for $Ship $Type $ID to $NewValue)
-
-(decrease repair time for $Ship $Type $ID by $Value)
-    ($Ship $Type $ID repair time $Time)
-	($Time < 16383) %% don't repair irreparable systems
-	(subtract $Value from $Time into $NewValue)
-	(if) ($NewValue = 0) (then)
-		(repair $Ship $Type $ID)
-	(else)
-		(set repair time for $Ship $Type $ID to $NewValue)
-	(endif)
-
-(repair $Ship $Type $ID)
-	($Ship systems $Systems)
-	(remove $Type $ID from $Systems into $NewSystems)
-	(now) ($Ship systems $NewSystems)

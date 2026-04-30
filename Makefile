@@ -4,8 +4,8 @@ COMPILE=dialogc
 DEBUG=dgdebug -u
 BUNDLE=aambundle
 STDLIB=utils.dg unit.dg stdlib.dg
-LIBS=test-ships.dg no-maneuver.dg sector.dg grid.dg $(STDLIB)
-DLIBS=arc.dg schema.dg d6.dg $(LIBS)
+LIBS=test-ships.dg sector.dg grid.dg $(STDLIB)
+DLIBS=arc.dg d6.dg schema.dg no-maneuver.dg $(LIBS)
 
 DGSRCDIR=../dialog
 DISTROLIBS=$(DGSRCDIR)/stdlib.dg $(DGSRCDIR)/stddebug.dg $(DGSRCDIR)/unit.dg
@@ -31,7 +31,7 @@ su-101.d71: su-101.aastory
 
 6502: su-101.d64
 
-test: utils time d6 d6-lite grid sector schema maneuver arc damage weapons
+test: utils time d6 d6-lite grid sector maneuver schema arc damage weapons
 
 clean:
 	rm -f *~ \#*\# *.z8 *.zblorb *.aastory *.d64 *.d71 log.txt
@@ -58,25 +58,25 @@ sector:
 	$(DEBUG) sector-tests.dg sector.dg grid.dg $(STDLIB)
 
 maneuver:
-	$(DEBUG) maneuver-tests.dg test-ships.dg maneuver.dg sector.dg grid.dg $(STDLIB)
+	$(DEBUG) maneuver-tests.dg maneuver.dg $(LIBS)
 
 schema:
-	$(DEBUG) schema-tests.dg schema.dg $(LIBS)
+	$(DEBUG) schema-tests.dg schema.dg no-maneuver.dg $(LIBS)
 
 arc:
 	$(DEBUG) arc-tests.dg $(DLIBS)
-
-damage:
-	$(DEBUG) damage-tests.dg damage.dg $(DLIBS)
-
-weapons:
-	$(DEBUG) weapons-tests.dg weapons.dg damage.dg $(DLIBS)
 
 sensors-wide:
 	$(DEBUG) -w 80 sensor-tests.dg sensors.dg $(LIBS)
 
 sensors-narrow:
 	$(DEBUG) -w 40 sensor-tests.dg sensors.dg $(LIBS)
+
+damage:
+	$(DEBUG) damage-tests.dg damage.dg $(DLIBS)
+
+weapons:
+	$(DEBUG) weapons-tests.dg weapons.dg damage.dg $(DLIBS)
 
 .PHONY: test all clean utils 6502 time sector ggrid schema sensors maneuver
 .PHONY: arc damage d6 d6-lite
