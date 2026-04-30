@@ -10,7 +10,7 @@ DLIBS=arc.dg damage.dg d6.dg no-maneuver.dg $(LIBS)
 
 all: test
 
-test: utils time d6 d6-lite grid sector maneuver damage arc sensors-wide sensors-narrow weapons
+test: utils time d6 d6-lite grid sector maneuver damage arc sensor-wide sensor-narrow weapons
 
 clean:
 	rm -f *~ \#*\# *.z8 *.zblorb *.aastory *.d64 *.d71 log.txt
@@ -42,14 +42,14 @@ damage:
 arc:
 	$(DEBUG) arc-tests.dg $(DLIBS)
 
-sensors-wide:
-	$(DEBUG) -w 80 sensor-tests.dg sensors.dg $(SLIBS)
+sensor-wide:
+	$(DEBUG) -w 80 sensor-tests.dg sensor.dg $(SLIBS)
 
-sensors-narrow:
-	$(DEBUG) -w 40 sensor-tests.dg sensors.dg $(SLIBS)
+sensor-narrow:
+	$(DEBUG) -w 40 sensor-tests.dg sensor.dg $(SLIBS)
 
 weapons:
 	$(DEBUG) weapons-tests.dg weapons.dg $(DLIBS)
 
-.PHONY: test all clean utils time sector grid maneuver damage sensors
-.PHONY: arc d6 d6-lite
+.PHONY: test all clean utils time sector grid maneuver damage d6 d6-lite
+.PHONY: sensor-wide sensor-narrow arc
