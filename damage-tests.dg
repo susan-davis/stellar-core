@@ -310,7 +310,7 @@
 (test #penetrating-shields-damages-system)
       (hit #test-ship with 150 from #north)
 	  (assert #test-ship has 400 and 882)
-	  (#test-ship damaged systems $Systems)
+	  (#test-ship damaged systems $Systems) $Systems
 	  (length of $Systems into $Length) $Length
 	  (assert $Length = 2)
 

@@ -5,39 +5,15 @@ DEBUG=dgdebug -u
 BUNDLE=aambundle
 STDLIB=utils.dg unit.dg stdlib.dg
 LIBS=test-ships.dg sector.dg grid.dg $(STDLIB)
-DLIBS=arc.dg d6.dg schema.dg no-maneuver.dg $(LIBS)
-
-DGSRCDIR=../dialog
-DISTROLIBS=$(DGSRCDIR)/stdlib.dg $(DGSRCDIR)/stddebug.dg $(DGSRCDIR)/unit.dg
-
-SRCS=su-101.dg union-ship.dg damage.dg arc.dg maneuvering.dg sensors.dg schema.dg sector.dg grid.dg d6.dg time.dg utils.dg
+SLIBS=no-damage.dg no-maneuver.dg $(LIBS)
+DLIBS=arc.dg damage.dg d6.dg no-maneuver.dg $(LIBS)
 
 all: test
 
-su-101.z8: $(SRCS) test
-	$(COMPILE) -t z8 $(SRCS) $(STDLIB)
-
-su-101.zblorb: $(SRCS) test
-	$(COMPILE) -t zblorb $(SRCS) $(STDLIB)
-
-su-101.aastory: $(SRCS) test
-	$(COMPILE) -t aastory $(SRCS) $(STDLIB)
-
-su-101.d64: su-101.aastory
-	$(BUNDLE) -t 64 -o $@ $<
-
-su-101.d71: su-101.aastory
-	$(BUNDLE) -t 128 -o $@ $<
-
-6502: su-101.d64
-
-test: utils time d6 d6-lite grid sector maneuver schema arc damage weapons
+test: utils time d6 d6-lite grid sector maneuver damage arc sensors-wide sensors-narrow weapons
 
 clean:
 	rm -f *~ \#*\# *.z8 *.zblorb *.aastory *.d64 *.d71 log.txt
-
-libraries: $(DISTROLIBS)
-	cp -f $(DISTROLIBS) .
 
 utils:
 	$(DEBUG) utils-tests.dg $(STDLIB)
@@ -60,23 +36,20 @@ sector:
 maneuver:
 	$(DEBUG) maneuver-tests.dg maneuver.dg $(LIBS)
 
-schema:
-	$(DEBUG) schema-tests.dg schema.dg no-maneuver.dg $(LIBS)
+damage:
+	$(DEBUG) damage-tests.dg damage.dg no-maneuver.dg d6.dg $(LIBS)
 
 arc:
 	$(DEBUG) arc-tests.dg $(DLIBS)
 
 sensors-wide:
-	$(DEBUG) -w 80 sensor-tests.dg sensors.dg $(LIBS)
+	$(DEBUG) -w 80 sensor-tests.dg sensors.dg $(SLIBS)
 
 sensors-narrow:
-	$(DEBUG) -w 40 sensor-tests.dg sensors.dg $(LIBS)
-
-damage:
-	$(DEBUG) damage-tests.dg damage.dg $(DLIBS)
+	$(DEBUG) -w 40 sensor-tests.dg sensors.dg $(SLIBS)
 
 weapons:
-	$(DEBUG) weapons-tests.dg weapons.dg damage.dg $(DLIBS)
+	$(DEBUG) weapons-tests.dg weapons.dg $(DLIBS)
 
-.PHONY: test all clean utils 6502 time sector ggrid schema sensors maneuver
-.PHONY: arc damage d6 d6-lite
+.PHONY: test all clean utils time sector grid maneuver damage sensors
+.PHONY: arc d6 d6-lite

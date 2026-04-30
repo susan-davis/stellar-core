@@ -42,8 +42,6 @@
 
 (interface ($<Ship ammo $>Ammo))
 
-(interface ($<Ship damage $>Damage))
-
 (interface ($<Ship systems $>Systems))
 
 (interface ($<Ship class systems $>Systems))

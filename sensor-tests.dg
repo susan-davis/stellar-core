@@ -1,6 +1,40 @@
 %% dgdebug -u sensor-tests.dg sensors.dg sector.dg grid.dg unit.dg stdlib.dg
 
 (list of tests [
+	#ship-class
+	#long-class
+	#test-ship-is-union
+	#closest-target-is-quellan
+	#near-target-is-quellan
+	#far-target-is-quellan
+	#distant-target-is-quellan
+	#closest-target-is-hostile
+	#near-target-is-hostile
+	#far-target-is-hostile
+	#distant-target-is-hostile
+	#closest-target-finds-test-ship-hostile
+	#closest-target-finds-near-target-friendly
+	#closest-target-finds-far-target-friendly
+	#closest-target-finds-distant-target-friendly
+	#closest-target-in-sensor-range
+	#near-target-in-sensor-range
+	#far-target-in-sensor-range
+	#distant-target-not-in-sensor-range
+	#non-grid-object-not-in-sensor-range
+	#closest-target-in-weapons-range
+	#near-target-in-weapons-range
+	#far-target-not-in-weapons-range
+	#distant-target-not-in-weapons-range
+	#non-grid-object-not-in-weapons-range
+	#closest-target-in-matter-transmission-range
+	#near-target-not-in-matter-transmission-range
+	#far-target-not-in-matter-transmission-range
+	#distant-target-not-in-matter-transmission-range
+	#non-grid-object-not-in-matter-transmission-range
+	#closest-in-sensor-range-of-near
+	#closest-in-weapons-range-of-near
+	#near-out-of-range-of-far
+	#near-out-of-range-of-distant
 	#object-at-precise-ship-position
 	#object-at-imprecise-ship-position
 	#top-object-at-ship-location
@@ -48,6 +82,117 @@
 (reset randomness)
 
 %% ----------------------------------------------------------------------
+
+(test #ship-class)
+	  (collect words) (class #test-ship) (into $Words)
+	  ($Words = [cygnus -class fast scout])
+
+(test #long-class)
+	  (collect words) (long class #test-ship) (into $Words)
+	  ($Words = [stellar union cygnus -class fast scout])
+
+(test #test-ship-is-union)
+	  (#test-ship fleet #union)
+
+(test #closest-target-is-quellan)
+	  (#closest-target fleet #quellan)
+
+(test #near-target-is-quellan)
+	  (#near-target fleet #quellan)
+
+(test #far-target-is-quellan)
+	  (#far-target fleet #quellan)
+
+(test #distant-target-is-quellan)
+	  (#distant-target fleet #quellan)
+
+(test #closest-target-is-hostile)
+	  (#test-ship considers #closest-target hostile)
+
+(test #near-target-is-hostile)
+	  (#test-ship considers #near-target hostile)
+
+(test #far-target-is-hostile)
+	  (#test-ship considers #far-target hostile)
+
+(test #distant-target-is-hostile)
+	  (#test-ship considers #distant-target hostile)
+
+(test #closest-target-finds-test-ship-hostile)
+	  (#closest-target considers #test-ship hostile)
+
+(test #closest-target-finds-near-target-friendly)
+	  (#closest-target considers #near-target friendly)
+
+(test #closest-target-finds-far-target-friendly)
+	  (#closest-target considers #far-target friendly)
+
+(test #closest-target-finds-distant-target-friendly)
+	  (#closest-target considers #distant-target friendly)
+
+(test #closest-target-in-sensor-range)
+	(#closest-target is in sensor range of #test-ship)
+
+(test #near-target-in-sensor-range)
+	(#near-target is in sensor range of #test-ship)
+
+(test #far-target-in-sensor-range)
+	(#far-target is in sensor range of #test-ship)
+
+(test #distant-target-not-in-sensor-range)
+	~(#distant-target is in sensor range of #test-ship)
+
+(test #non-grid-object-not-in-sensor-range)
+	~(#non-grid-object is in sensor range of #test-ship)
+
+(test #asteroid-in-sensor-range)
+	(#asteroid is in sensor range of #test-ship)
+
+(test #closest-target-in-weapons-range)
+	(#closest-target is in weapons range of #test-ship)
+
+(test #near-target-in-weapons-range)
+	(#near-target is in weapons range of #test-ship)
+
+(test #far-target-not-in-weapons-range)
+	~(#far-target is in weapons range of #test-ship)
+
+(test #distant-target-not-in-weapons-range)
+	~(#distant-target is in weapons range of #test-ship)
+
+(test #non-grid-object-not-in-weapons-range)
+	~(#non-grid-object is in weapons range of #test-ship)
+
+(test #asteroid-in-weapons-range)
+	(#asteroid is in weapons range of #test-ship)
+
+(test #closest-target-in-matter-transmission-range)
+	(move #closest-target to 3 4 5 5)
+	(#closest-target is in matter transmission range of #test-ship)
+
+(test #near-target-not-in-matter-transmission-range)
+	~(#near-target is in matter transmission range of #test-ship)
+
+(test #far-target-not-in-matter-transmission-range)
+	~(#far-target is in matter transmission range of #test-ship)
+
+(test #distant-target-not-in-matter-transmission-range)
+	~(#distant-target is in matter transmission range of #test-ship)
+
+(test #non-grid-object-not-in-matter-transmission-range)
+	~(#non-grid-object is in matter transmission range of #test-ship)
+
+(test #closest-in-sensor-range-of-near)
+      (#closest-target is in sensor range of #near-target)
+
+(test #closest-in-weapons-range-of-near)
+      (#closest-target is in weapons range of #near-target)
+
+(test #near-out-of-range-of-far)
+      ~(#near-target is in weapons range of #far-target)
+
+(test #near-out-of-range-of-distant)
+      ~(#near-target is in sensor range of #distant-target)
 
 (test #object-at-precise-ship-position)
 	(object at 3 4 5 6 5 5 into $Obj)

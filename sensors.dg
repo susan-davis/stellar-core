@@ -1,9 +1,45 @@
 %% sensors.dg
-%% Also include sectored-grid.dg, schema.dg, utils.dg, and time.dg
+%% Also include damage.dg, maneuver.dg, sector.dg, grid.dg, utils.dg, and
+%% time.dg when compiling or debugging.
 
 %%-------------------------------- INTERFACES --------------------------------
 
+%% (grid object $) => object exists in space and is sensor-detectable
+%% (stellar object $) => object is a star/planet/asteroid: right column
+%% (ship $) => object can maneuver
+%% (base $) => object can be docked with
+
+(interface (base $))
+
+(interface (stellar object $))
+
+(interface (current ship $))
+
+(interface (class $<Ship)) %% prints the name of the ship class
+
+(interface (long class $<Ship)) %% prints fleet and class name
+
+(interface (type $<Ship))  %% prints what kind of ship it is
+
+(interface (code $<Ship))  %% one-letter code on sensor display
+
+(interface ($<Ship fleet $>Fleet))
+
+(interface ($<Ship considers $<Target friendly))
+
+(interface ($<Ship considers $<Target hostile))
+
 (global variable (current quadrant $))
+
+%% Sensor range: adjacent sector
+%% Weapons range: same sector
+%% Matter transmission range: adjacent subsector
+
+(interface ($<GridObject is in sensor range of $<Ship))
+
+(interface ($<GridObject is in weapons range of $<Ship))
+
+(interface ($<GridObject is in matter transmission range of $<Ship))
 
 %% detected == detected by sensor fusion, or visually
 %% sensor lock == direct lock-on from ship's own sensors
@@ -46,10 +82,67 @@
 
 %%------------------------------ IMPLEMENTATION ------------------------------
 
+(grid object *(base $))
+
+(grid object *(stellar object $))
+
+($Ship fleet $Fleet)
+	($Ship class $Class)
+	($Class class $Fleet)
+
+(sector $X $Y is in sensor range of $Ship)
+	($Ship sector x $SX)
+	($Ship sector y $SY)
+	($X is within 1 of $SX)
+	($Y is within 1 of $SY)
+
+($Object is in sensor range of $Ship)
+	(grid object $Object)
+	($Object sector x $X)
+	($Object sector y $Y)
+	(sector $X $Y is in sensor range of $Ship)
+
+($Object is in weapons range of $Ship)
+	(grid object $Object)
+	($Object sector x $X)
+	($Object sector y $Y)
+	($Ship sector x $SX)
+	($Ship sector y $SY)
+	([$X $Y] = [$SX $SY])
+
+($Object is in matter transmission range of $Ship)
+	(grid object $Object)
+	($Object is in weapons range of $Ship)
+	($Object subsector x $X)
+	($Object subsector y $Y)
+	($Ship subsector x $PX)
+	($Ship subsector y $PY)
+	($X is within 1 of $PX)
+	($Y is within 1 of $PY)
+
+%% override for more nuanced situations
+($Ship considers $Target friendly)
+	($Ship fleet $Fleet)
+	($Target fleet $Fleet)
+
+%% override for more nuanced situations
+($Ship considers $Target hostile)
+	($Ship fleet $Fleet)
+	~($Target fleet $Fleet)
+
+(class $Ship)
+	($Ship class $Class)
+	(italic) (name $Class) (roman) (no space) -class (type $Class)
+
+(long class $Ship)
+	($Ship fleet $Fleet)
+	(name $Fleet) (class $Ship)
+
 (hostile ships in sector $X $Y into $List)
 	(collect $Obj)
 		*(ship $Obj)
-		(hostile $Obj)
+		(current ship $Ship)
+		($Ship considers $Obj hostile)
 		($Obj sector x $SX)
 		($Obj sector y $SY)
 		([$X $Y] = [$SX $SY])
