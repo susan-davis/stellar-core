@@ -1,0 +1,25 @@
+%%---------------------------------- SCHEMA ----------------------------------
+
+%% State about a ship is stored in lists, to cut down on storage:
+%%
+%% position = [X Y Heading Speed]
+%% state = [DstX DstY Helm Throttle Class Energy Crystals Ammo Shields [Lvls]]
+%% system = [Type ID RepairTime]
+%%
+%% The system list for a ship identifies which systems are damaged; healthy
+%% systems, and information about their capabilities, lives in the class
+%% record. Time of repair 0 means that the system is functioning normally. Time
+%% of repair 16383 (maxint) means that the system is irreparably destroyed.
+%%
+%% Ship classes are defined by a class record:
+%%
+%% class  = [Efficiency Subspace TurnMode Accel Fleet MaxEnergy MaxCrystals
+%% 		  	 MaxAmmo MaxShields [MaxLevels]]
+%% system = [System ID Arcs Value Details]
+%%
+%% Ships are either simple, detailed, or player. A simple ship doesn't have
+%% its own list of damaged systems, and the class only records a few systems,
+%% such as weapons, for simple ship behaviours. It explodes after running out
+%% of energy from damage. A detailed ship has a full set of systems in its
+%% class record, and keeps a list of damaged systems in its own systems list.
+%% A player ship has its own map, and uses player-ship.dg for recording damage.
