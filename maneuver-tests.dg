@@ -2,6 +2,39 @@
 %%            unit.dg stdlib.dg
 
 (list of tests [
+	#speed
+	#warp-gradient
+	#energy
+	#crystals
+	#throttle
+	#throttle-gradient
+	#helm
+	#destination
+	#destination-subsector
+	#destination-precisely
+	#turn-mode
+	#effective-turn-mode
+	#effective-turn-mode-sublight
+	#acceleration
+	#drive-params
+	#efficiency
+	#cruising-speed
+	#top-speed
+	#set-destination
+	#set-destination-subsector
+	#set-destination-precisely
+	#set-helm
+	#set-throttle-speed
+	#set-throttle-speed-too-fast
+	#set-throttle-gradient
+	#set-throttle-gradient-too-fast
+	#decrease-energy
+	#decrease-energy-below-zero
+	#regenerate
+	#regenerate-above-max
+	#accelerate
+	#accelerate-too-fast
+	#decelerate
 	#turn-ship
 	#turn-ship-to-starboard
 	#turn-ship-to-port
@@ -27,7 +60,7 @@
 	#move-1-at-7
 	#move-2-at-7
 	#move-5-at-7
-	#move-10-at-4
+	#move-8-at-4
 	#move-1-toward-corner
 	#move-2-toward-corner
 	#move-5-toward-corner
@@ -36,6 +69,139 @@
 (reset randomness)
 
 %% ---------------------------------------------------------------------------
+
+(test #speed)
+	  (#test-ship speed 400)
+
+(test #warp-gradient)
+	  (#test-ship warp gradient 4)
+
+(test #energy)
+	  (#test-ship energy 932)
+
+(test #crystals)
+	  (#test-ship crystals 4)
+
+(test #helm)
+	  (#test-ship helm setting 315)
+
+(test #throttle)
+	  (#test-ship throttle setting 700)
+
+(test #throttle-gradient)
+	  (#test-ship throttle gradient 7)
+
+(test #destination)
+	  (#test-ship destination [300 400])
+
+(test #destination-subsector)
+	  (#test-ship destination 3 4 1 1)
+
+(test #destination-precisely)
+	  (#test-ship destination 3 4 1 1 1 1)
+
+(test #turn-mode)
+	  (#test-ship turn mode 180)
+
+(test #effective-turn-mode)
+	  (#test-ship effective turn mode 45)
+
+(test #effective-turn-mode-sublight)
+	  (accelerate #test-ship to speed 0)
+	  (#test-ship effective turn mode 360)
+
+(test #drive-params)
+	  (#test-ship drive parameters [500 963])
+
+(test #efficiency)
+	  (#test-ship drive efficiency 500)
+
+(test #cruising-speed)
+	  (#test-ship cruising speed 6)
+
+(test #top-speed)
+	  (#test-ship top speed 9)
+
+(test #acceleration)
+	  (#test-ship acceleration 300)
+
+(test #set-destination)
+	  (position for 4 5 6 7 into $Position)
+	  (set destination for #test-ship to $Position)
+	  (#test-ship destination 4 5 6 7)
+	  (#test-ship heading 315)
+	  (#test-ship helm setting 135)
+
+(test #set-destination-subsector)
+	  (set destination for #test-ship to 4 5 6 7)
+	  (#test-ship destination $There)
+	  ([454 564 | $] = $There)
+	  (#test-ship helm setting 135)
+
+(test #set-destination-precisely)
+	  (set destination for #test-ship to 4 5 6 7 8 9)
+	  (#test-ship destination 4 5 6 7 8 9)
+	  (#test-ship helm setting 137)
+
+(test #set-helm)
+	  (set helm for #test-ship to 135)
+	  (#test-ship helm setting 135)
+
+(test #set-throttle-speed)
+	  (set throttle for #test-ship to speed 610)
+	  (#test-ship throttle setting 610)
+
+(test #set-throttle-speed-too-fast)
+	  (set throttle for #test-ship to speed 1099)
+	  (#test-ship throttle setting 900)
+
+(test #set-throttle-gradient)
+	  (set throttle for #test-ship to gradient 6)
+	  (#test-ship throttle setting 600)
+
+(test #set-throttle-gradient-too-fast)
+	  (set throttle for #test-ship to gradient 10)
+	  (#test-ship throttle setting 900)
+
+(test #accelerate)
+	  (accelerate #test-ship to speed 600)
+	  (#test-ship speed 600)
+
+(test #accelerate-too-fast)
+	  (accelerate #test-ship to speed 1000)
+	  (#test-ship speed 900)
+
+(test #decelerate)
+	  (accelerate #test-ship to speed 0)
+	  (#test-ship speed 0)
+
+(test #accelerate-gradient)
+	  (accelerate #test-ship to gradient 6)
+	  (#test-ship warp gradient 6)
+
+(test #accelerate-gradient-too-fast)
+	  (accelerate #test-ship to gradient 10)
+	  (#test-ship warp gradient 9)
+
+(test #decelerate-gradient)
+	  (accelerate #test-ship to gradient 0)
+	  (#test-ship speed 0)
+
+(test #decrease-energy)
+	  (decrease energy for #test-ship by 32)
+	  (#test-ship energy 900)
+
+(test #decrease-energy-below-zero)
+	  ~(decrease energy for #test-ship by 1001)
+
+(test #regenerate)
+	  (regenerate energy for #test-ship)
+	  (#test-ship energy 972)
+
+(test #regenerate-above-max)
+	  (regenerate energy for #test-ship)
+	  (regenerate energy for #test-ship)
+	  (#test-ship energy 1000)
 
 (test #turn-ship)
 	(turn #test-ship to helm setting)
@@ -170,7 +336,7 @@
 (test #move-5-at-7)
 	(assert 5 minutes goes to 94 204 at throttle 7)
 
-(test #move-10-at-4)
+(test #move-8-at-4)
 	(assert 8 minutes goes to 112 222 at throttle 4)
 
 (assert $N minutes toward $Destination goes to $SX $SY $X $Y $PX $PY)

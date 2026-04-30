@@ -2,10 +2,6 @@
 %% 		   	  utils.dg unit.dg stdlib.dg
 
 (list of tests [
-	#speed
-	#warp-gradient
-	#energy
-	#crystals
 	#shields
 	#shield-levels
 	#shield-level-north
@@ -13,20 +9,6 @@
 	#shield-level-south
 	#shield-level-west
 	#ammo
-	#helm
-	#throttle
-	#throttle-gradient
-	#destination
-	#destination-subsector
-	#destination-precisely
-	#turn-mode
-	#effective-turn-mode
-	#effective-turn-mode-sublight
-	#acceleration
-	#drive-params
-	#efficiency
-	#cruising-speed
-	#top-speed
 	#systems-list
 	#class-systems-list
 	#damaged-systems
@@ -42,27 +24,12 @@
 	#ship-class
 	#long-class
 	#initialize
-	#set-destination
-	#set-destination-subsector
-	#set-destination-precisely
-	#set-helm
-	#set-throttle-speed
-	#set-throttle-speed-too-fast
-	#set-throttle-gradient
-	#set-throttle-gradient-too-fast
 	#decrease-ammo
 	#decrease-ammo-below-zero
-	#decrease-energy
-	#decrease-energy-below-zero
-	#regenerate
-	#regenerate-above-max
 	#decrease-shields
 	#decrease-shields-below-zero
 	#regenerate-shields
 	#regenerate-shields-above-max
-	#accelerate
-	#accelerate-too-fast
-	#decelerate
 	#find-torpedoes
 	#dont-find-damaged-torpedo
 	#find-torpedo-1
@@ -138,18 +105,6 @@
 
 %% ----------------------------------------------------------------------
 
-(test #speed)
-	  (#test-ship speed 400)
-
-(test #warp-gradient)
-	  (#test-ship warp gradient 4)
-
-(test #energy)
-	  (#test-ship energy 932)
-
-(test #crystals)
-	  (#test-ship crystals 4)
-
 (test #shields)
 	  (#test-ship shields 500)
 
@@ -171,49 +126,6 @@
 (test #ammo)
 	  (#test-ship ammo 10)
 
-(test #helm)
-	  (#test-ship helm setting 315)
-
-(test #throttle)
-	  (#test-ship throttle setting 700)
-
-(test #throttle-gradient)
-	  (#test-ship throttle gradient 7)
-
-(test #destination)
-	  (#test-ship destination [300 400])
-
-(test #destination-subsector)
-	  (#test-ship destination 3 4 1 1)
-
-(test #destination-precisely)
-	  (#test-ship destination 3 4 1 1 1 1)
-
-(test #turn-mode)
-	  (#test-ship turn mode 180)
-
-(test #effective-turn-mode)
-	  (#test-ship effective turn mode 45)
-
-(test #effective-turn-mode-sublight)
-	  (accelerate #test-ship to speed 0)
-	  (#test-ship effective turn mode 360)
-
-(test #drive-params)
-	  (#test-ship drive parameters [500 963])
-
-(test #efficiency)
-	  (#test-ship drive efficiency 500)
-
-(test #cruising-speed)
-	  (#test-ship cruising speed 6)
-
-(test #top-speed)
-	  (#test-ship top speed 9)
-
-(test #acceleration)
-	  (#test-ship acceleration 300)
-
 (test #class)
 	  (#test-ship class #cygnus-class)
 
@@ -234,66 +146,12 @@
 	  (#test-ship shield levels [100 99 98 97])
 	  (#test-ship ammo 10)
 
-(test #set-destination)
-	  (position for 4 5 6 7 into $Position)
-	  (set destination for #test-ship to $Position)
-	  (#test-ship destination 4 5 6 7)
-	  (#test-ship heading 315)
-	  (#test-ship helm setting 135)
-
-(test #set-destination-subsector)
-	  (set destination for #test-ship to 4 5 6 7)
-	  (#test-ship destination $There)
-	  ([454 564 | $] = $There)
-	  (#test-ship helm setting 135)
-
-(test #set-destination-precisely)
-	  (set destination for #test-ship to 4 5 6 7 8 9)
-	  (#test-ship destination 4 5 6 7 8 9)
-	  (#test-ship helm setting 137)
-
-(test #set-helm)
-	  (set helm for #test-ship to 135)
-	  (#test-ship helm setting 135)
-
-(test #set-throttle-speed)
-	  (set throttle for #test-ship to speed 610)
-	  (#test-ship throttle setting 610)
-
-(test #set-throttle-speed-too-fast)
-	  (set throttle for #test-ship to speed 1099)
-	  (#test-ship throttle setting 900)
-
-(test #set-throttle-gradient)
-	  (set throttle for #test-ship to gradient 6)
-	  (#test-ship throttle setting 600)
-
-(test #set-throttle-gradient-too-fast)
-	  (set throttle for #test-ship to gradient 10)
-	  (#test-ship throttle setting 900)
-
 (test #decrease-ammo)
 	  (decrease ammo for #test-ship by 3)
 	  (#test-ship ammo 7)
 
 (test #decrease-ammo-below-zero)
 	  ~(decrease ammo for #test-ship by 11)
-
-(test #decrease-energy)
-	  (decrease energy for #test-ship by 32)
-	  (#test-ship energy 900)
-
-(test #decrease-energy-below-zero)
-	  ~(decrease energy for #test-ship by 1001)
-
-(test #regenerate)
-	  (regenerate energy for #test-ship)
-	  (#test-ship energy 972)
-
-(test #regenerate-above-max)
-	  (regenerate energy for #test-ship)
-	  (regenerate energy for #test-ship)
-	  (#test-ship energy 1000)
 
 (test #decrease-shields)
 	  (decrease shields for #test-ship by 50)
@@ -313,30 +171,6 @@
 	  (#test-ship shields 450)
 	  (regenerate shields for #test-ship by 100)
 	  (#test-ship shields 500)
-
-(test #accelerate)
-	  (accelerate #test-ship to speed 600)
-	  (#test-ship speed 600)
-
-(test #accelerate-too-fast)
-	  (accelerate #test-ship to speed 1000)
-	  (#test-ship speed 900)
-
-(test #decelerate)
-	  (accelerate #test-ship to speed 0)
-	  (#test-ship speed 0)
-
-(test #accelerate-gradient)
-	  (accelerate #test-ship to gradient 6)
-	  (#test-ship warp gradient 6)
-
-(test #accelerate-gradient-too-fast)
-	  (accelerate #test-ship to gradient 10)
-	  (#test-ship warp gradient 9)
-
-(test #decelerate-gradient)
-	  (accelerate #test-ship to gradient 0)
-	  (#test-ship speed 0)
 
 (test #systems-list)
 	  (#test-ship systems $List)

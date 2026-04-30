@@ -1,17 +1,251 @@
 %% maneuver.dg
 %% Also include utils.dg, sector.dg and grid.dg when compiling or debugging.
 
+%%---------------------------------- SCHEMA ----------------------------------
+
+%% State about a ship is stored in lists, to cut down on storage:
+%%
+%% position = [X Y Heading Speed]
+%% state = [DstX DstY Helm Throttle Class Energy Crystals ]
+%%
+%% Ship classes are defined by a class record:
+%%
+%% class  = [Efficiency Subspace TurnMode Accel Fleet MaxEnergy MaxCrystals]
+%%
+%% There's more that goes into state and class, defined in other files.
+
 %%-------------------------------- INTERFACES --------------------------------
+
+(interface (ship $)) %% can move under its own power
+
+%% schema
+
+(interface ($<Ship class $>Class))
+
+(interface ($<Ship speed $>Speed))
+
+(interface ($<Ship warp gradient $>Gradient))
+
+(interface ($<Ship destination $>Destination))
+
+(interface ($<Ship destination $>SX $>SY $>X $>Y $>PX $>PY))
+
+(interface ($<Ship destination $>SX $>SY $>X $>Y))
+
+(interface ($<Ship energy $>Energy))
+
+(interface ($<Ship crystals $>Crystals))
+
+(interface ($<Ship helm setting $>Helm))
+
+(interface ($<Ship throttle setting $>Throttle))
+
+(interface ($<Ship throttle gradient $>Throttle))
+
+(interface ($<Ship turn mode $>Mode))
+
+(interface ($<Ship effective turn mode $>Mode))
+
+(interface ($<Ship drive parameters $>Params))
+
+(interface ($<Ship drive efficiency $>Params))
+
+(interface ($<Ship acceleration $>Accel))
+
+(interface ($<Ship cruising speed $>Gradient))
+
+(interface ($<Ship top speed $>Gradient))
+
+%% mutators
+
+(interface (set destination for $<Ship to $<Destination))
+
+(interface (set destination for $<Ship to $<SX $<SY $<X $<Y))
+
+(interface (set destination for $<Ship to $<SX $<SY $<X $<Y $<PX $<PY))
+
+(interface (set helm for $<Ship to $<Setting))
+
+(interface (set throttle for $<Ship to speed $<Setting))
+
+(interface (set throttle for $<Ship to gradient $<Setting))
+
+(interface (accelerate $<Ship to speed $<Speed))
+
+(interface (accelerate $<Ship to gradient $<Speed))
+
+(interface (decrease energy for $<Ship by $<Num))
+
+(interface (regenerate energy for $<Ship))
+
+(interface (initialize $<Ship as $<Class))
+
+%% movement per tick
 
 (interface (update $<Ship))
 
 (interface (move $<Ship for $<Ticks minutes))
 
-(interface (move $<Ship randomly))
-
 (interface (attract nearby ships to $<Object))
 
-%%------------------------------ IMPLEMENTATION ------------------------------
+%%---------------------------- SCHEMA DEFINITION ----------------------------
+
+(grid object *(ship $))
+
+($Ship class $Class)
+	($Ship state $State)
+	(nth $State 5 $Class)
+
+($Ship speed $Speed)
+	($Ship position $Pos)
+	(nth $Pos 4 $Speed)
+
+($Ship warp gradient $Gradient)
+	($Ship speed $Speed)
+	($Speed divided by 100 into $Gradient)
+
+($Ship helm setting $Helm)
+	($Ship state $State)
+	(nth $State 3 $Helm)
+
+($Ship throttle setting $Throttle)
+	($Ship state $State)
+	(nth $State 4 $Throttle)
+
+($Ship throttle gradient $Gradient)
+	($Ship throttle setting $Throttle)
+	($Throttle divided by 100 into $Gradient)
+
+($Ship energy $Energy)
+	($Ship state $State)
+	(nth $State 6 $Energy)
+
+($Ship crystals $Crystals)
+	($Ship state $State)
+	(nth $State 7 $Crystals)
+
+($Ship turn mode $Mode)
+	($Ship class $Class)
+	($Class state $State)
+	(nth $State 3 $Mode)
+
+($Ship effective turn mode $Mode)
+	($Ship turn mode $TurnMode)
+	($Ship warp gradient $Speed)
+	(if) ($Speed > 0) (then)
+		($TurnMode divided by $Speed into $Mode)
+	(else)
+		($TurnMode times 2 into $Mode)
+	(endif)
+
+($Ship drive parameters $Params)
+	($Ship class $Class)
+	($Class destination $Params)
+
+($Ship drive efficiency $Efficiency)
+	($Ship drive parameters $Params)
+	([$Efficiency $] = $Params)
+
+($Ship acceleration $Acceleration)
+	($Ship drive parameters $Params)
+	([$ $Engine] = $Params)
+	(split $Engine into $ $ $ $Accel)
+	($Accel times 100 into $Acceleration)
+
+($Ship top speed $Gradient)
+	($Ship drive parameters $Params)
+	([$ $Engine] = $Params)
+	(split $Engine into $ $Gradient $ $)
+
+($Ship cruising speed $Gradient)
+	($Ship drive parameters $Params)
+	([$ $Engine] = $Params)
+	(split $Engine into $ $ $Gradient $)
+
+($Ship destination $Destination)
+	($Ship state $State)
+	([$DX $DY | $] = $State)
+	([$DX $DY] = $Destination)
+
+($Ship destination $SX $SY $X $Y $PX $PY)
+	($Ship destination $Position)
+	(coordinates for $Position into $SX $SY $X $Y $PX $PY)
+
+($Ship destination $SX $SY $X $Y)
+	($Ship destination $Position)
+	(subsector for $Position into $SX $SY $X $Y)
+
+%%--------------------------------- MUTATORS ----------------------------------
+
+(set destination for $Ship to $Destination)
+	($Ship state $State)
+	([$DX $DY | $] = $Destination)
+	([$ $ | $Tail] = $State)
+	([$DX $DY | $Tail] = $NewState)
+	(now) ($Ship state $NewState)
+	($Ship position $Position)
+	(calculate bearing from $Position to $Destination into $Course)
+	(set helm for $Ship to $Course)
+
+(set destination for $Ship to $SX $SY $X $Y $PX $PY)
+	(position for $SX $SY $X $Y $PX $PY into $Position)
+	(set destination for $Ship to $Position)
+
+(set destination for $Ship to $SX $SY $X $Y)
+	(position for $SX $SY $X $Y into $Position)
+	(set destination for $Ship to $Position)
+
+(set helm for $Ship to $Setting)
+	($Ship state $State)
+	(replace element 3 in $State with $Setting into $NewState)
+	(now) ($Ship state $NewState)
+
+(max speed for $Ship into $MaxSpeed)
+	($Ship top speed $Gradient)
+	($Gradient times 100 into $MaxSpeed)
+
+(set throttle for $Ship to speed $Setting)
+	($Ship state $State)
+	(max speed for $Ship into $Max)
+	(replace element 4 in $State with $Setting into $NewState with max $Max)
+	(now) ($Ship state $NewState)
+
+(set throttle for $Ship to gradient $Gradient)
+	($Gradient times 100 into $Speed)
+	(set throttle for $Ship to speed $Speed)
+
+(accelerate $Ship to speed $Speed)
+	($Ship position $Pos)
+	(max speed for $Ship into $MaxSpeed)
+	(replace element 4 in $Pos with $Speed into $NewPos with max $MaxSpeed)
+	(now) ($Ship position $NewPos)
+
+(accelerate $Ship to gradient $Gradient)
+	($Gradient times 100 into $Speed)
+	(accelerate $Ship to speed $Speed)
+
+(decrease energy for $Ship by $Num)
+	($Ship state $State)
+	(decrease element 6 in $State by $Num into $NewState)
+	(now) ($Ship state $NewState)
+
+(regenerate energy for $Ship)
+	($Ship crystals $Crystals)
+	($Crystals times 10 into $Energy)
+	($Ship class $Class)
+	($Class energy $Max)
+	($Ship state $State)
+	(increase element 6 in $State by $Energy into $NewState with max $Max)
+	(now) ($Ship state $NewState)
+
+(initialize $Ship as $Class)
+	($Class state $Default)
+	($Default = [$ $ $ $ $ $Energy $Crystals $Ammo $Shields $Levels])
+	($Ship state [$DX $DY $H $T $Class | $])
+	(now) ($Ship state [$DX $DY $H $T $Class
+		  		 	    $Energy $Crystals $Ammo $Shields $Levels])
+
+%%--------------------------------- MOVEMENT ----------------------------------
 
 (turn $Ship to helm setting)
 	($Ship effective turn mode $Mode)
@@ -87,7 +321,6 @@
 	(move $Ship on course and speed)
 	(regenerate energy for $Ship)
 	(adjust $Ship throttle for remaining energy)
-	($Ship position $Pos)
 
 (move $ for 0 minutes) %% do nothing
 
@@ -95,15 +328,6 @@
 	(update $Ship)
 	($Ticks minus 1 into $Remaining)
 	(move $Ship for $Remaining minutes)
-
-(move $Ship randomly)
-	($Ship subsector into $SX $SY $ $)
-	(roll two #d10 $X  $Y)
-	(roll two #d10 $PX $PY)
-	(set destination for $Ship to $SX $SY $X $Y $PX $PY)
-	($Ship cruising speed $Max)
-	(percentage of $Max into $Throttle)
-	(set throttle for $Ship to gradient $Throttle)
 
 (attract nearby ships to $Object)
 	($Object subsector into $SX $SY $X $Y)

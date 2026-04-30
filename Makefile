@@ -4,8 +4,8 @@ COMPILE=dialogc
 DEBUG=dgdebug -u
 BUNDLE=aambundle
 STDLIB=utils.dg unit.dg stdlib.dg
-LIBS=test-ships.dg schema.dg sector.dg grid.dg $(STDLIB)
-DLIBS=arc.dg d6.dg $(LIBS)
+LIBS=test-ships.dg maneuver.dg sector.dg grid.dg $(STDLIB)
+DLIBS=arc.dg schema.dg d6.dg $(LIBS)
 
 DGSRCDIR=../dialog
 DISTROLIBS=$(DGSRCDIR)/stdlib.dg $(DGSRCDIR)/stddebug.dg $(DGSRCDIR)/unit.dg
@@ -58,10 +58,10 @@ sector:
 	$(DEBUG) sector-tests.dg sector.dg grid.dg $(STDLIB)
 
 maneuver:
-	$(DEBUG) maneuver-tests.dg maneuver.dg $(DLIBS)
+	$(DEBUG) maneuver-tests.dg $(LIBS)
 
 schema:
-	$(DEBUG) schema-tests.dg $(LIBS)
+	$(DEBUG) schema-tests.dg schema.dg $(LIBS)
 
 arc:
 	$(DEBUG) arc-tests.dg $(DLIBS)
