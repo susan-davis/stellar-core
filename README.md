@@ -2,35 +2,35 @@
 Common functionality for *Stellar Union* games. This project contains all the infrastructure needed to implement a *Cygnus*-class (or other) starship in the Stellar Union universe, fly it around, dock and undock, land and take off, repair damage, scan for anomalies, go for EVAs outside the ship, beam to places with the Matter Transport Beam, and generally make an IF game that plays like an episode of a show along the lines of *Star Trek*, *Galaxy Quest*, *The Orville*, or the like.
 
 ## Modules
-`sectored-grid.dg` -- implements the basics of ranges, bearings, and moving objects around on a square grid divided into sectors
+`grid.dg` -- implements the basics of ranges, bearings, and moving objects around on a square grid.
 
-`schema.dg` -- implements the basic record keeping for starships
+`sector.dg` -- divides the grid for `grid.dg` into 10x10 quadrants, sectors, and subsectors.
 
-`maneuvering.dg` -- implements moving ships around to various destinations in a quadrant
+`maneuver.dg` -- implements moving ships around to various destinations in a quadrant.
 
-`sensors.dg` -- implements short and long range sensors, and the quadrant map, along the lines of the classic STARTREK game from the 1970s
+`damage.dg` -- implements the damage model for ships.
 
-`arc.dg` -- implements firing and shield arcs
+`sensors.dg` -- implements short and long range sensors, and the quadrant map, along the lines of the classic STARTREK game from the 1970s.
 
-`damage.dg` -- implements the damage model for ships
+`weapons.dg` -- effects of ship-to-ship weapons.
 
-`weapons.dg` -- effects of ship-to-ship weapons
+`systems.dg` -- non-weapon ship systems.
 
-`systems.dg` -- non-weapon ship systems
+`cygnus.dg` -- the interior of a *Cygnus*-class scout ship, with controls hooked up to the other modules.
 
-`cygnus.dg` -- the interior of a *Cygnus*-class scout ship, with controls hooked up to the other modules
+`union-ship.dg` -- traits and scenery and sound effects common to all Stellar Union ships and bases.
 
-`union-ship.dg` -- traits and scenery and sound effects common to all Stellar Union ships and bases
+`time.dg` -- implements time, timekeeping, formatted output, and related functions.
 
-`time.dg` -- implements time, timekeeping, formatted output, and related functions
+`utils.dg` -- miscellaneous utility routines not included in `stdlib.dg`.
 
-`utils.dg` -- miscellaneous utility routines not included in `stdlib.dg`
+`d6.dg` -- `UNDO`-safe rolls of six-sided dice; also allows us to rig the dice to stage-manage scripted outcomes.
 
-`stdlib.dg` -- the Dialog standard library, not included in source control; get this from the Dialog distribution
+`stdlib.dg` -- the Dialog standard library, not included in source control; get this from the Dialog distribution.
 
-`unit.dg` -- runs unit tests
+`unit.dg` -- runs unit tests.
 
-`Makefile` -- run all the project's tests and compile the validation executable
+`Makefile` -- run all the project's tests and compile the validation executable.
 
 ## Building and Testing
 Testing is with `unit.dg`. Test files end in `-tests.dg`, and test the related file indicated by the beginning of the filename. The comments at the top give the command line needed to run the tests.
