@@ -1,0 +1,88 @@
+%% no-damage.dg
+%% Also include maneuver.dg, sector.dg, grid.dg, and utils.dg when compiling
+%% or debugging.
+
+%% This is a stripped down version for cases when damaging a ship isn't needed.
+%% Include this file, or damage.dg, but not both.
+
+%%-------------------------------- INTERFACES --------------------------------
+
+(interface ($<Ship systems $>Systems))
+
+(interface ($<Ship class systems $>Systems))
+
+(interface ($<Ship undamaged systems $>Systems))
+
+(interface ($<Ship damaged systems $>Systems))
+
+(interface ($<Ship destroyed systems $>Systems))
+
+(interface ($<Ship undestroyed systems $>Systems))
+
+(interface ($<Ship is simple))
+
+(interface (find undamaged $<Type for $<Ship into $>List))
+
+(interface (find $<Ship $<Type $<ID into $>Match))
+
+(interface (system $<System arc $>Arc))
+
+(interface ($<Ship $<Type $<ID arc $>Arc))
+
+(interface (system $<System value $>Value))
+
+(interface ($<Ship $<Type $<ID value $>Value))
+
+(interface (system $<System details $>Details))
+
+(interface ($<Ship $<Type $<ID details $>Details))
+
+%%------------------------------ IMPLEMENTATION ------------------------------
+
+($Ship class systems $Systems)
+	($Ship class $Class)
+	($Class systems $Systems)
+
+($Ship damaged systems [])
+
+($Ship destroyed systems [])
+
+($Ship undamaged systems $Systems)
+	($Ship class systems $Systems)
+
+($Ship undestroyed systems $Systems)
+	($Ship class systems $Systems)
+
+($Ship is simple)
+	($Ship class systems $Systems)
+	(length of $Systems into $Length)
+	($Length < 4)
+
+(find undamaged $Type for $Ship into $List)
+	($Ship undamaged systems $Systems)
+	(take from $Systems where element 1 is $Type into $List)
+
+(find $Ship $Type $ID into $Match)
+    ($Ship class systems $Systems)
+	(find $Type $ID in $Systems into $Match)
+
+(system $Match arc $Arc)
+	(nth $Match 3 $Arc)
+
+($Ship $Type $ID arc $Arc)
+	(find $Ship $Type $ID into $Match)
+	(system $Match arc $Arc)
+
+(system $Match value $Value)
+	(nth $Match 4 $Value)
+
+($Ship $Type $ID value $Value)
+	(find $Ship $Type $ID into $Match)
+	(system $Match value $Value)
+
+(system $Match details $Details)
+	(nth $Match 5 $Details)
+
+($Ship $Type $ID details $Details)
+	(find $Ship $Type $ID into $Match)
+	(system $Match details $Details)
