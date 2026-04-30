@@ -10,7 +10,7 @@ Common functionality for *Stellar Union* games. This project contains all the in
 
 `damage.dg` -- implements the damage model for ships.
 
-`sensors.dg` -- implements short and long range sensors, and the quadrant map, along the lines of the classic STARTREK game from the 1970s.
+`sensor.dg` -- implements short and long range sensors, and the quadrant map, along the lines of the classic STARTREK game from the 1970s.
 
 `weapons.dg` -- effects of ship-to-ship weapons.
 
@@ -25,6 +25,14 @@ Common functionality for *Stellar Union* games. This project contains all the in
 `utils.dg` -- miscellaneous utility routines not included in `stdlib.dg`.
 
 `d6.dg` -- `UNDO`-safe rolls of six-sided dice; also allows us to rig the dice to stage-manage scripted outcomes.
+
+`d6-lite.dg` -- drop-in replacement for d6.dg for vintage hardware.
+
+`no-maneuver.dg` -- minimal replacement for maneuver.dg when maneuvering isn't needed.
+
+`no-damage.dg` -- minimal replacement for damage.dg when ships aren't going to be damaged.
+
+`no-sensor.dg` -- minimal replacement for sensor.dg when no one will be looking at the sensor output.
 
 `stdlib.dg` -- the Dialog standard library, not included in source control; get this from the Dialog distribution.
 
