@@ -136,11 +136,13 @@
 (base *)
 (code *)	\#
 (* position [766 766])
+(* state #union)
 
 #enemy-base
 (base *)
 (code *)	\#
 (* position [211 211])
+(* state #quellan)
 
 (set up $)
 	 (exhaust) {
