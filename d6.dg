@@ -2,7 +2,7 @@
 %% a stripped-down version of dice.dg supporting only six-sided dice
 %% include utils.dg when compiling or debugging
 
-(extension version)	Undo-safe six-sided die rolls v0.6 by Susan Davis (line)
+(extension version)	Undo-safe six-sided die rolls v0.2 by Susan Davis (line)
 
 %%-------------------------------- INTERFACES ---------------------------------
 
@@ -81,6 +81,9 @@
 %% It's 4d6 here, but we still call this "3d6" for compatibility with dice.dg.
 (global variable (3d6 list position 1))
 
+%% Allow more rolls before rolling over the table by saving "unused" dice.
+(global variable (saved roll 0))
+
 ~(3d6 has rolled over) %% ignore if you shuffle randomess
 
 %% Starting at the beginning of the list gives the same output for every single
@@ -96,6 +99,7 @@
 (reset randomness)
 	(now) (3d6 list position 1)
 	(now) ~(3d6 has rolled over)
+	(now) (saved roll 0)
 
 (3d6 choice $Num)
 	(3d6 list position $Pos)
@@ -140,26 +144,64 @@
 #d6
 
 (roll * $Roll)
-	(3d6 choice $Num)
-	($Num modulo 10 into $Roll)
+	(saved roll $Saved)
+	(if) ($Saved > 0) (then)
+		($Saved modulo 10 into $Roll)
+		($Saved divided by 10 into $New)
+	(else)
+		(3d6 choice $Num)
+		($Num modulo 10 into $Roll)
+		($Num divided by 10 into $New)
+	(endif)
+	(now) (saved roll $New)
 
 (roll two * $First $Second)
-	(3d6 choice $Num)
-	(split $Num into $ $First $Second $)
+	(saved roll $Saved)
+	(if) ($Saved > 6) (then)
+		(split $Saved into $ $ $First $Second)
+		($Saved divided by 100 into $New)
+	(else)
+		(3d6 choice $Num)
+		(split $Num into $ $Third $First $Second)
+		(if) ($Saved = 0) (then)
+			($Num divided by 100 into $New)
+		(elseif) ($Saved < 67) (then)
+			($Num divided by 100 into $Lower)
+			($Saved times 100 into $Upper)
+			($Upper plus $Lower into $New)
+		(elseif) ($Saved < 667) (then)
+			($Third times 1000 into $Upper)
+			($Upper plus $Saved into $New)
+		(else)
+			($Saved = $New)
+		(endif)
+	(endif)
+	(now) (saved roll $New)
 
 (roll three * $First $Second $Third)
-	(3d6 choice $Num)
-	(split $Num into $ $First $Second $Third)
+	(3d6 choice $Num) %% always get a fresh roll for 3d6
+	(split $Num into $Extra $First $Second $Third)
+	(saved roll $Saved)
+	(if) ($Saved < 667) (then)
+		($Saved times 10 into $Upper)
+		($Upper plus $Extra into $New)
+		(now) (saved roll $New)
+	(endif)
 
 (roll four * $First $Second $Third $Fourth)
-	(3d6 choice $Num)
-	(split $Num into $First $Second $Third $Fourth)
+	(saved roll $Saved)
+	(if) ($Saved > 666) (then)
+		(split $Saved into $First $Second $Third $Fourth)
+		(now) (saved roll 0)
+	(else)
+		(3d6 choice $Num)
+		(split $Num into $First $Second $Third $Fourth)
+	(endif)
 
 #d36
 
 (roll * $Total)
-	(3d6 choice $Num)
-	(split $Num into $ $ $Two $Ones)
+	(roll two #d6 $Two $Ones)
 	($Two minus 1 into $Second)
 	($Second times 6 into $Sixes)
 	($Sixes plus $Ones into $Total)
@@ -167,8 +209,7 @@
 #d216
 
 (roll * $Total)
-	(3d6 choice $Num)
-	(split $Num into $ $Third $Second $Ones)
+	(roll three #d6 $Third $Second $Ones)
 	($Second minus 1 into $Middle)
 	($Middle times 6 into $Sixes)
 	($Ones plus $Sixes into $Sum)
@@ -179,8 +220,7 @@
 #d1296
 
 (roll * $Total)
-	(3d6 choice $Num)
-	(split $Num into $Fourth $Third $Second $Ones)
+	(roll four #d6 $Fourth $Third $Second $Ones)
 	($Second minus 1 into $Middle)
 	($Middle times 6 into $Sixes)
 	($Ones plus $Sixes into $Sum)
