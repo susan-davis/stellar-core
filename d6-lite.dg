@@ -3,7 +3,7 @@
 %% Swap this in if you want to reduce output size and have been using d6.dg.
 %% Do not include d6.dg if you include this file. Do include utils.dg.
 
-(extension version)	Simple six-sided die rolls v0.4 by Susan Davis (line)
+(extension version)	Simple six-sided die rolls v0.2 by Susan Davis (line)
 
 %%-------------------------------- INTERFACES ---------------------------------
 
