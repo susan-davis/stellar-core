@@ -1,7 +1,7 @@
 %% grid.dg
 %% Include utils.dg when compiling or debugging.
 
-(extension version)		 Grid movement v0.3, by Susan Davis (line)
+(extension version)	Grid movement v0.2, by Susan Davis (line)
 
 %% Implements free movement on a cartesian grid for vehicles, horses, ships,
 %% aircraft, spaceships, and the like. The grid is divided into 10-unit
