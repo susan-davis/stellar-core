@@ -153,6 +153,8 @@
 	     (now) ($Ship state $State)
 	     (if) ($Ship initial systems $Systems) (then)
 	     	 (now) ($Ship systems $Systems)
+		 (else)
+			 (now) ($Ship systems [])
 		 (endif)
 		 ($Ship class $Class)
 		 (initialize $Ship as $Class)

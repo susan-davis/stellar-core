@@ -56,8 +56,10 @@
 			[#torpedo 2 [1 8] 1 500]])
 
 (assert $Ship has $Energy energy and $Ammo ammo)
-	($Ship energy $Energy)
-	($Ship ammo $Ammo)
+	($Ship energy $E) $E
+	($Ship ammo $A) $A
+	(assert $E = $Energy)
+	(assert $A = $Ammo)
 
 (test #dont-projector-self)
 	(#test-ship fires #projector at target #test-ship using 100)
@@ -135,7 +137,7 @@
 	(now) (3d6 list position 10)
 	(#test-ship fires #torpedo at target #near-target using 2)
 	(assert #test-ship has 932 energy and 8 ammo)
-	(#near-target shields 200) %% one miss, one hit
+	(#near-target shields 250) %% both torpedoes miss
 
 (test #fire-at-closest-with-100-and-2)
 	(#test-ship fires at #closest-target using 100 energy and 2 ammo)

@@ -83,7 +83,7 @@
 	 ($Ship weapons bearing on angle $Angle into $Result)
 
 ($Ship energy weapons bearing on angle $Angle into $Result)
-	 ($Ship systems $Systems)
+	 ($Ship undamaged systems $Systems)
 	 (energy weapons in $Systems into $Weapons)
 	 (find systems bearing on $Angle in $Weapons into $Result)
 
@@ -92,7 +92,7 @@
 	 ($Ship energy weapons bearing on angle $Angle into $Result)
 
 ($Ship ammo weapons bearing on angle $Angle into $Result)
-	 ($Ship systems $Systems)
+	 ($Ship undamaged systems $Systems)
 	 (ammo weapons in $Systems into $Weapons)
 	 (find systems bearing on $Angle in $Weapons into $Result)
 
@@ -101,6 +101,10 @@
 	 ($Ship ammo weapons bearing on angle $Angle into $Result)
 
 %%----------------------------------------------------------------------------
+
+($Ship fires $ $ $ at $Ship using $) %% do nothing
+
+($ fires $ $ $ at $ using 0) %% do nothing
 
 %% Energy weapons work by feeding energy into them from the ship's main energy
 %% bus, and produce immediate effects that can't be countered. For simplicity,
@@ -121,8 +125,7 @@
 %% Projector hit chance = 2d6 > (Range * Details)
 %% Projector damage = Energy * (2d6-7)*10 + 20/Range
 ($Ship fires * $ $Details at $Target using $Amount)
-	(if) ($Amount > 0) ~($Target = $Ship) ($Target is in weapons range of $Ship)
-	(then)
+	(if) ($Target is in weapons range of $Ship)	(then)
 		($Ship energy $StartingEnergy)
 		(if) ($Amount > $StartingEnergy) (then)
 		 	($Energy = $StartingEnergy)
@@ -208,8 +211,7 @@
 %% Torpedo hit chance: dependent on target aspect and warp gradient
 %% Torepdo damage: first element of details
 ($Ship fires * $ID $Details at $Target using $Amount)
-	(if) ($Amount > 0) ~($Ship = $Target) ($Target is in sensor range of $Ship)
-	(then)
+	(if) ($Target is in sensor range of $Ship) (then)
 		(decrease ammo for $Ship by $Amount)
         (target aspect from $Ship to $Target into $Aspect)
 		($Target warp gradient $Speed)
@@ -260,14 +262,16 @@
 
 %%----------------------------------------------------------------------------
 
-($ fires at $ with [] using $) %% firing no weapons does nothing
+($ fires at $ with [] using $) %% do nothing
 
-($Ship fires at $Target with $ using $)
-	($Ship = $Target) (or) ($Target is destroyed) %% don't shoot at yourself
+($Ship fires at $Ship with $ using $) %% do nothing
+
+($ fires at $Target with $ using $) %% do nothing
+	($Target is destroyed)
 
 ($Ship fires at $Target with $Weapons using $Amount)
     ($Weapons = [$Head | $Tail])
-	($Head = [$Type $ID $ $Value $Details $ $])
+	($Head = [$Type $ID $ $Value $Details])
 	(min $Value and $Amount into $Fired)
     ($Ship fires $Type $ID $Details at $Target using $Fired)
 	(if) ($Value < $Amount) (then)

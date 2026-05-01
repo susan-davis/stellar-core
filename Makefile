@@ -48,7 +48,7 @@ sensor-narrow:
 	$(DEBUG) -w 40 sensor-tests.dg sensor.dg $(DLIBS)
 
 weapons:
-	$(DEBUG) weapons-tests.dg weapons.dg $(DLIBS)
+	$(DEBUG) weapons-tests.dg weapons.dg no-sensor.dg $(DLIBS)
 
 .PHONY: test all clean utils time sector grid maneuver damage d6 d6-lite
 .PHONY: sensor-wide sensor-narrow arc
