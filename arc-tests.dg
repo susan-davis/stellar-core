@@ -135,9 +135,19 @@
 	#target-aspect-from-distant
 	])
 
+%% ----------------------------------------------------------------------------
+
 (reset randomness)
 
-%% ----------------------------------------------------------------------
+(interface (code $))
+
+(interface (type $))
+
+(interface (stellar object $))
+
+(interface (base $))
+
+%% ----------------------------------------------------------------------------
 
 (test #firing-arc-closest-target)
       (firing arc from #test-ship to #closest-target into 2)

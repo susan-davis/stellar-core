@@ -2,10 +2,6 @@
 %%            unit.dg stdlib.dg
 
 (list of tests [
-	#speed
-	#warp-gradient
-	#energy
-	#crystals
 	#throttle
 	#throttle-gradient
 	#helm
@@ -28,10 +24,6 @@
 	#set-throttle-speed-too-fast
 	#set-throttle-gradient
 	#set-throttle-gradient-too-fast
-	#decrease-energy
-	#decrease-energy-below-zero
-	#regenerate
-	#regenerate-above-max
 	#accelerate
 	#accelerate-too-fast
 	#decelerate
@@ -66,21 +58,19 @@
 	#move-5-toward-corner
 	])
 
-(reset randomness)
-
 %% ---------------------------------------------------------------------------
 
-(test #speed)
-	  (#test-ship speed 400)
+(reset randomness)
 
-(test #warp-gradient)
-	  (#test-ship warp gradient 4)
+(interface (base $))
 
-(test #energy)
-	  (#test-ship energy 932)
+(interface (stellar object $))
 
-(test #crystals)
-	  (#test-ship crystals 4)
+(interface (code $))
+
+(interface (type $))
+
+%% ---------------------------------------------------------------------------
 
 (test #helm)
 	  (#test-ship helm setting 315)
@@ -186,22 +176,6 @@
 (test #decelerate-gradient)
 	  (accelerate #test-ship to gradient 0)
 	  (#test-ship speed 0)
-
-(test #decrease-energy)
-	  (decrease energy for #test-ship by 32)
-	  (#test-ship energy 900)
-
-(test #decrease-energy-below-zero)
-	  ~(decrease energy for #test-ship by 1001)
-
-(test #regenerate)
-	  (regenerate energy for #test-ship)
-	  (#test-ship energy 972)
-
-(test #regenerate-above-max)
-	  (regenerate energy for #test-ship)
-	  (regenerate energy for #test-ship)
-	  (#test-ship energy 1000)
 
 (test #turn-ship)
 	(turn #test-ship to helm setting)

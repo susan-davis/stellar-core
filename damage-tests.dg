@@ -2,8 +2,6 @@
 %% 		   	  sector.dg grid.dg unit.dg stdlib.dg
 
 (list of tests [
-	#class
-	#initialize
 	#shields
 	#shield-levels
 	#shield-level-north
@@ -11,11 +9,8 @@
 	#shield-level-south
 	#shield-level-west
 	#ammo
-	#systems-list
-	#class-systems-list
 	#damaged-systems
 	#destroyed-systems
-	#undamaged-systems
 	#undestroyed-systems
 	#damaged-systems-simple
 	#destroyed-systems-simple
@@ -28,27 +23,7 @@
 	#decrease-shields-below-zero
 	#regenerate-shields
 	#regenerate-shields-above-max
-	#find-torpedoes
 	#dont-find-damaged-torpedo
-	#find-torpedo-1
-	#dont-find-torpedo-3
-	#arc-projector
-	#arc-tractor
-	#arc-mtd
-	#value-projector
-	#value-tractor
-	#value-mtd
-	#details-projector
-	#details-tractor
-	#details-mtd
-	#repair-time-projector
-	#repair-time-tractor
-	#repair-time-mtd
-	#repair-time-type-not-found
-	#repair-time-id-not-found
-	#set-repair-time-projector
-	#set-repair-time-type-not-found
-	#set-repair-time-id-not-found
 	#increase-repair-time-tractor
 	#increase-repair-time-mtd
 	#decrease-repair-time-tractor
@@ -73,7 +48,17 @@
 	#destroy-test-ship
     ])
 
+%% ----------------------------------------------------------------------
+
 (reset randomness)
+
+(interface (code $))
+
+(interface (type $))
+
+(interface (stellar object $))
+
+(interface (base $))
 
 %% ----------------------------------------------------------------------
 
@@ -96,18 +81,6 @@
 	  (#test-ship shield level #west into 97)
 
 (test #ammo)
-	  (#test-ship ammo 10)
-
-(test #class)
-	  (#test-ship class #cygnus-class)
-
-(test #initialize)
-	  (initialize #test-ship as #cygnus-class)
-	  (#test-ship class #cygnus-class)
-	  (#test-ship energy 1000)
-	  (#test-ship crystals 4)
-	  (#test-ship shields 500)
-	  (#test-ship shield levels [100 99 98 97])
 	  (#test-ship ammo 10)
 
 (test #decrease-ammo)
@@ -136,23 +109,11 @@
 	  (regenerate shields for #test-ship by 100)
 	  (#test-ship shields 500)
 
-(test #systems-list)
-	  (#test-ship systems $List)
-	  (length of $List into 2)
-
-(test #class-systems-list)
-	  (#test-ship class systems $List)
-	  (length of $List into 24)
-
 (test #damaged-systems)
 	  (#test-ship damaged systems [[#tractor 1 800]])
 
 (test #destroyed-systems)
 	  (#test-ship destroyed systems [[#mtd 1 16383]])
-
-(test #undamaged-systems)
-	  (#test-ship undamaged systems $List)
-	  (length of $List into 22)
 
 (test #undestroyed-systems)
 	  (#test-ship undestroyed systems $List)
@@ -173,71 +134,9 @@
 (test #near-target-is-simple)
 	  (#near-target is simple)
 
-(test #find-torpedoes)
-	  (find undamaged #torpedo for #test-ship into $Torps)
-	  (assert $Torps = [[#torpedo 1 [1 8] 1 500]
-	  		  		    [#torpedo 2 [1 8] 1 500]])
-
 (test #dont-find-damaged-torpedo)
 	  (increase repair time for #test-ship #torpedo 1 by 30)
 	  (find undamaged #torpedo for #test-ship into [[#torpedo 2 [1 8] 1 500]])
-
-(test #find-torpedo-1)
-	  (find #test-ship #torpedo 1 into [#torpedo 1 [1 8] 1 500])
-
-(test #dont-find-torpedo-3)
-	  ~(find #test-ship #torpedo 3 into $)
-
-(test #arc-projector)
-	  (#test-ship #projector 1 arc [360 #up])
-
-(test #arc-tractor)
-	  (#test-ship #tractor 1 arc [4 5])
-
-(test #arc-mtd)
-	  (#test-ship #mtd 1 arc #down)
-
-(test #value-projector)
-	  (#test-ship #projector 1 value 100)
-
-(test #value-tractor)
-	  (#test-ship #tractor 1 value 250)
-
-(test #value-mtd)
-	  (#test-ship #mtd 1 value 4)
-
-(test #details-projector)
-	  (#test-ship #projector 1 details 141)
-
-(test #details-tractor)
-	  (#test-ship #tractor 1 details 0)
-
-(test #details-mtd)
-	  (#test-ship #mtd 1 details 0)
-
-(test #repair-time-projector)
-      (#test-ship #projector 1 repair time 0)
-
-(test #repair-time-tractor)
-      (#test-ship #tractor 1 repair time 800)
-
-(test #repair-time-mtd)
-      (#test-ship #mtd 1 repair time 16383)
-
-(test #repair-time-type-not-found)
-	  ~(#test-ship #missile 1 repair time $)
-
-(test #repair-time-id-not-found)
-	  ~(#test-ship #projector 2 repair time $)
-
-(test #set-repair-time-projector)
-      (set repair time for #test-ship #projector 1 to 300)
-
-(test #set-repair-time-type-not-found)
-      ~(set repair time for #test-ship #missile 1 to 300)
-
-(test #set-repair-time-id-not-found)
-      ~(set repair time for #test-ship #projector 2 to 300)
 
 (test #increase-repair-time-tractor)
 	  (#test-ship systems $Before)

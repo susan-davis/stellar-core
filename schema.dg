@@ -1,0 +1,199 @@
+%% schema.dg
+%% Include grid.dg and utils.dg when compiling or debugging.
+
+%%---------------------------------- SCHEMA ----------------------------------
+
+%% State about a ship is stored in lists, to cut down on storage:
+%%
+%% position = [X Y Heading Speed]
+%% state = [DstX DstY Helm Throttle Class Energy Crystals Ammo Shields [Lvls]]
+%% system = [Type ID RepairTime]
+%%
+%% The system list for a ship identifies which systems are damaged; healthy
+%% systems, and information about their capabilities, lives in the class
+%% record. Time of repair 0 means that the system is functioning normally. Time
+%% of repair 16383 (maxint) means that the system is irreparably destroyed.
+%%
+%% Ship classes are defined by a class record:
+%%
+%% class  = [Efficiency Subspace TurnMode Accel Fleet MaxEnergy MaxCrystals
+%% 		  	 MaxAmmo MaxShields [MaxLevels]]
+%% system = [System ID Arcs Value Details]
+%%
+%% Ships are either simple, detailed, or player. A simple ship doesn't have
+%% its own list of damaged systems, and the class only records a few systems,
+%% such as weapons, for simple ship behaviours. It explodes after running out
+%% of energy from damage. A detailed ship has a full set of systems in its
+%% class record, and keeps a list of damaged systems in its own systems list.
+%% A player ship has its own map, and uses player-ship.dg for recording damage.
+
+%%-------------------------------- INTERFACES --------------------------------
+
+(interface (ship $)) %% can move under its own power
+
+(interface (current ship $))
+
+%% schema (position and heading are defined in grid.dg)
+
+(interface ($<Ship class $>Class))
+
+(interface ($<Ship speed $>Speed))
+
+(interface ($<Ship warp gradient $>Gradient))
+
+(interface ($<Ship energy $>Energy))
+
+(interface ($<Ship crystals $>Crystals))
+
+%% mutators
+
+(interface (decrease energy for $<Ship by $<Num))
+
+(interface (regenerate energy for $<Ship))
+
+(interface (initialize $<Ship as $<Class))
+
+%% ship's systems
+
+(interface ($<Ship systems $>Systems))
+
+(interface ($<Ship class systems $>Systems))
+
+(interface ($<Ship undamaged systems $>Systems)) %% fully operable
+
+(interface (find undamaged $<Type for $<Ship into $>List))
+
+(interface (find $<Ship $<Type $<ID into $>Match))
+
+(interface (system $<System arc $>Arc))
+
+(interface ($<Ship $<Type $<ID arc $>Arc))
+
+(interface (system $<System value $>Value))
+
+(interface ($<Ship $<Type $<ID value $>Value))
+
+(interface (system $<System details $>Details))
+
+(interface ($<Ship $<Type $<ID details $>Details))
+
+(interface (system $<System repair time $>Time))
+
+(interface ($<Ship $<Type $<ID repair time $>Time))
+
+(interface (set repair time for $<Ship $<Type $<ID to $>Time))
+
+%%----------------------------- SCHEMA DEFINITION ----------------------------
+
+(grid object *(ship $))
+
+($Ship speed $Speed)
+	($Ship position $Pos)
+	(nth $Pos 4 $Speed)
+
+($Ship warp gradient $Gradient)
+	($Ship speed $Speed)
+	($Speed divided by 100 into $Gradient)
+
+($Ship class $Class)
+	($Ship state $State)
+	(nth $State 5 $Class)
+
+($Ship energy $Energy)
+	($Ship state $State)
+	(nth $State 6 $Energy)
+
+($Ship crystals $Crystals)
+	($Ship state $State)
+	(nth $State 7 $Crystals)
+
+%%---------------------------------- MUTATORS ---------------------------------
+
+(decrease energy for $Ship by $Num)
+	($Ship state $State)
+	(decrease element 6 in $State by $Num into $NewState)
+	(now) ($Ship state $NewState)
+
+(regenerate energy for $Ship)
+	($Ship crystals $Crystals)
+	($Crystals times 10 into $Energy)
+	($Ship class $Class)
+	($Class energy $Max)
+	($Ship state $State)
+	(increase element 6 in $State by $Energy into $NewState with max $Max)
+	(now) ($Ship state $NewState)
+
+(initialize $Ship as $Class)
+	($Class state $Default)
+	($Default = [$ $ $ $ $ $Energy $Crystals $Ammo $Shields $Levels])
+	($Ship state [$DX $DY $H $T $Class | $])
+	(now) ($Ship state [$DX $DY $H $T $Class
+		  		 	    $Energy $Crystals $Ammo $Shields $Levels])
+
+%%-------------------------------- SHIP SYSTEMS -------------------------------
+
+($Ship class systems $Systems)
+	($Ship class $Class)
+	($Class systems $Systems)
+
+($Ship undamaged systems $Systems)
+	($Ship class systems $List)
+	($Ship systems $Filter) %% both damaged and destroyed
+	(remove from $List found in $Filter into $Systems)
+
+(find undamaged $Type for $Ship into $List)
+	($Ship undamaged systems $Systems)
+	(take from $Systems where element 1 is $Type into $List)
+
+(find $Ship $Type $ID into $Match)
+    ($Ship class systems $Systems)
+	(find $Type $ID in $Systems into $Match)
+
+(system $Match arc $Arc)
+	(nth $Match 3 $Arc)
+
+($Ship $Type $ID arc $Arc)
+	(find $Ship $Type $ID into $Match)
+	(system $Match arc $Arc)
+
+(system $Match value $Value)
+	(nth $Match 4 $Value)
+
+($Ship $Type $ID value $Value)
+	(find $Ship $Type $ID into $Match)
+	(system $Match value $Value)
+
+(system $Match details $Details)
+	(nth $Match 5 $Details)
+
+($Ship $Type $ID details $Details)
+	(find $Ship $Type $ID into $Match)
+	(system $Match details $Details)
+
+(system $Match repair time $Time)
+	(nth $Match 3 $Time)
+
+($Ship $Type $ID repair time $Time)
+	($Ship systems $Systems)
+	(if) (find $Type $ID in $Systems into $Match) (then)
+		(system $Match repair time $Time)
+	(else)
+		(if) (find $Ship $Type $ID into $) (then)
+			($Time = 0)
+		(else)
+			(fail) %% if we inquire about a nonexistent system
+		(endif)
+	(endif)
+
+(set repair time for $Ship $Type $ID to $Value)
+	($Ship systems $Systems)
+	(if) (find $Type $ID in $Systems into $) (then)
+		(set element 3 in [$Type $ID] in $Systems to $Value into $NewSystems)
+	(else)
+		(if) (find $Ship $Type $ID into $) (then)
+			(append $Systems [[$Type $ID $Value]] $NewSystems)
+		(else)
+			(fail) %% if we try to fix or break a nonexistent system
+		(endif)
+	(endif)
+	(now) ($Ship systems $NewSystems)

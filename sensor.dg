@@ -1,4 +1,4 @@
-%% sensors.dg
+%% sensor.dg
 %% Also include damage.dg, maneuver.dg, sector.dg, grid.dg, utils.dg, and
 %% time.dg when compiling or debugging.
 
@@ -15,13 +15,13 @@
 
 (interface (current ship $))
 
-(interface (class $<Ship)) %% prints the name of the ship class
+(interface (class $)) %% prints the name of the ship class
 
-(interface (long class $<Ship)) %% prints fleet and class name
+(interface (long class $)) %% prints fleet and class name
 
-(interface (type $<Ship))  %% prints what kind of ship it is
+(interface (type $))  %% prints what kind of ship it is
 
-(interface (code $<Ship))  %% one-letter code on sensor display
+(interface (code $))  %% one-letter code on sensor display
 
 (interface ($<Ship fleet $>Fleet))
 
@@ -87,8 +87,13 @@
 (grid object *(stellar object $))
 
 ($Ship fleet $Fleet)
+	(ship $Ship)
 	($Ship class $Class)
 	($Class class $Fleet)
+
+($Base fleet $Fleet)
+	(base $Ship)
+	(base state $Fleet)
 
 (sector $X $Y is in sensor range of $Ship)
 	($Ship sector x $SX)
@@ -163,7 +168,8 @@
 
 (hostile base in sector $X $Y into $Base)
 	*(base $Base)
-	(hostile $Base)
+	(current ship $Ship)
+	($Ship considers $Base hostile)
 	($Base sector x $SX)
 	($Base sector y $SY)
 	([$X $Y] = [$SX $SY])
@@ -171,7 +177,8 @@
 (friendly ships in sector $X $Y into $List)
 	(collect $Obj)
 		*(ship $Obj)
-		(friendly $Obj)
+		(current ship $Ship)
+		($Ship considers $Obj friendly)
 		($Obj sector x $SX)
 		($Obj sector y $SY)
 		([$X $Y] = [$SX $SY])
@@ -179,7 +186,8 @@
 
 (friendly base in sector $X $Y into $Base)
 	*(base $Base)
-	(friendly $Base)
+	(current ship $Ship)
+	($Ship considers $Base friendly)
 	($Base sector x $SX)
 	($Base sector y $SY)
 	([$X $Y] = [$SX $SY])
@@ -339,7 +347,8 @@
 %%(display question marks for undetectable ships)
 
 (long range scan in $SX $SY)
-	(if) (sector $SX $SY is in sensor range) (then)
+	(current ship $Ship)
+	(if) (sector $SX $SY is in sensor range of $Ship) (then)
 		(bold) (no space)
 	(endif)
 	(if) ~(display sectors beyond quadrant)
@@ -354,12 +363,13 @@
 	(roman) (no space) (fixed pitch)
 
 (display enemies in $SX $SY $Enemies)
+	(current ship $Ship)
 	(hostile ships in sector $SX $SY into $Hostile)
 	(length of $Hostile into $Left)
 	(if) (hostile base in sector $SX $SY into $EnemyBase) (then)
 		(code $EnemyBase) (no space)
 		($Enemies = 1)
-	(elseif) (sector $SX $SY is in sensor range) (then)
+	(elseif) (sector $SX $SY is in sensor range of $Ship) (then)
 		(if) ($Left > 0) (then)
 			$Left (no space)
 			($Enemies = $Left)
@@ -389,7 +399,7 @@
 		(code $Ship) (no space)
 	(elseif) (friendly base in sector $SX $SY into $Starbase) (then)
 		(code $Starbase) (no space)
-	(elseif) (sector $SX $SY is in sensor range) (then)
+	(elseif) (sector $SX $SY is in sensor range of $Ship) (then)
 		(if) ($Middle > 0) (or) ($Enemies > 0) (then)
 			$Middle (no space)
 		(else)

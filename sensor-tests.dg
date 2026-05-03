@@ -1,4 +1,5 @@
-%% dgdebug -u sensor-tests.dg sensors.dg sector.dg grid.dg unit.dg stdlib.dg
+%% dgdebug -u sensor-tests.dg sensor.dg test-ships.dg damage.dg maneuver.dg \
+%% 		   	  sector.dg grid.dg d6.dg utils.dg unit.dg stdlib.dg
 
 (list of tests [
 	#ship-class
@@ -321,7 +322,7 @@
 
 (test #long-range-scan-in-corner)
 	(move #test-ship to 1 1 1 1)
-%%	(line) (long range scan)
+	(line) (long range scan)
 	(collect words) (long range scan) (into $Words)
 	($Words contains sublist [e 0 0 0 0 0 0 0 0 0 0 \#])
 

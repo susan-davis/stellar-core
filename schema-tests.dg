@@ -1,0 +1,166 @@
+%% dgdebug -u schema-tests.dg schema.dg grid.dg utils.dg unit.dg stdlib.dg
+
+(list of tests [
+	#class
+	#initialize
+	#speed
+	#warp-gradient
+	#energy
+	#crystals
+	#decrease-energy
+	#decrease-energy-below-zero
+	#regenerate
+	#regenerate-above-max
+	#systems-list
+	#class-systems-list
+	#undamaged-systems
+	#find-torpedoes
+	#dont-find-damaged-tractor
+	#find-torpedo-1
+	#dont-find-torpedo-3
+	#arc-projector
+	#arc-tractor
+	#arc-mtd
+	#value-projector
+	#value-tractor
+	#value-mtd
+	#details-projector
+	#details-tractor
+	#details-mtd
+	#repair-time-projector
+	#repair-time-tractor
+	#repair-time-mtd
+	#repair-time-type-not-found
+	#repair-time-id-not-found
+	#set-repair-time-projector
+	#set-repair-time-type-not-found
+	#set-repair-time-id-not-found
+	])
+
+%% ----------------------------------------------------------------------------
+
+(interface (code $))
+
+(interface (type $))
+
+(interface (stellar object $))
+
+(interface (base $))
+
+(reset randomness)
+
+%% ----------------------------------------------------------------------------
+
+(test #class)
+	  (#test-ship class #cygnus-class)
+
+(test #initialize)
+	  (initialize #test-ship as #cygnus-class)
+	  (#test-ship class #cygnus-class)
+	  (#test-ship energy 1000)
+	  (#test-ship crystals 4)
+
+(test #speed)
+	  (#test-ship speed 400)
+
+(test #warp-gradient)
+	  (#test-ship warp gradient 4)
+
+(test #energy)
+	  (#test-ship energy 932)
+
+(test #crystals)
+	  (#test-ship crystals 4)
+
+(test #decrease-energy)
+	  (decrease energy for #test-ship by 32)
+	  (#test-ship energy 900)
+
+(test #decrease-energy-below-zero)
+	  ~(decrease energy for #test-ship by 1001)
+
+(test #regenerate)
+	  (regenerate energy for #test-ship)
+	  (#test-ship energy 972)
+
+(test #regenerate-above-max)
+	  (regenerate energy for #test-ship)
+	  (regenerate energy for #test-ship)
+	  (#test-ship energy 1000)
+
+(test #systems-list)
+	  (#test-ship systems $List)
+	  (length of $List into 2)
+
+(test #class-systems-list)
+	  (#test-ship class systems $List)
+	  (length of $List into 24)
+
+(test #undamaged-systems)
+	  (#test-ship undamaged systems $List)
+	  (length of $List into 22)
+
+(test #find-torpedoes)
+	  (find undamaged #torpedo for #test-ship into $Torps)
+	  (assert $Torps = [[#torpedo 1 [1 8] 1 500]
+	  		  		    [#torpedo 2 [1 8] 1 500]])
+
+(test #dont-find-damaged-tractor)
+	  (find undamaged #tractor for #test-ship into [])
+
+(test #find-torpedo-1)
+	  (find #test-ship #torpedo 1 into [#torpedo 1 [1 8] 1 500])
+
+(test #dont-find-torpedo-3)
+	  ~(find #test-ship #torpedo 3 into $)
+
+(test #arc-projector)
+	  (#test-ship #projector 1 arc [360 #up])
+
+(test #arc-tractor)
+	  (#test-ship #tractor 1 arc [4 5])
+
+(test #arc-mtd)
+	  (#test-ship #mtd 1 arc #down)
+
+(test #value-projector)
+	  (#test-ship #projector 1 value 100)
+
+(test #value-tractor)
+	  (#test-ship #tractor 1 value 250)
+
+(test #value-mtd)
+	  (#test-ship #mtd 1 value 4)
+
+(test #details-projector)
+	  (#test-ship #projector 1 details 141)
+
+(test #details-tractor)
+	  (#test-ship #tractor 1 details 0)
+
+(test #details-mtd)
+	  (#test-ship #mtd 1 details 0)
+
+(test #repair-time-projector)
+      (#test-ship #projector 1 repair time 0)
+
+(test #repair-time-tractor)
+      (#test-ship #tractor 1 repair time 800)
+
+(test #repair-time-mtd)
+      (#test-ship #mtd 1 repair time 16383)
+
+(test #repair-time-type-not-found)
+	  ~(#test-ship #missile 1 repair time $)
+
+(test #repair-time-id-not-found)
+	  ~(#test-ship #projector 2 repair time $)
+
+(test #set-repair-time-projector)
+      (set repair time for #test-ship #projector 1 to 300)
+
+(test #set-repair-time-type-not-found)
+      ~(set repair time for #test-ship #missile 1 to 300)
+
+(test #set-repair-time-id-not-found)
+      ~(set repair time for #test-ship #projector 2 to 300)

@@ -29,6 +29,16 @@
 
 %% ----------------------------------------------------------------------------
 
+%%(interface (code $))
+
+%%(interface (type $))
+
+%%(interface (stellar object $))
+
+%%(interface (base $))
+
+%% ----------------------------------------------------------------------------
+
 (test #weapons-bearing-on-closest-target-location)
     (#test-ship weapons bearing on angle 90 into
 			[[#projector 1 [360 #up] 100 141]])

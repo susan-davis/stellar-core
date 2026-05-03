@@ -1,5 +1,5 @@
 %% arc.dg
-%% Include sector.dg, grid.dg, schema.dg, and utils.dg
+%% Include damage.dg, sector.dg, grid.dg, and utils.dg
 
 %%-------------------------------- INTERFACES --------------------------------
 

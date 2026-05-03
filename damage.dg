@@ -32,6 +32,8 @@
 
 %% schema definition
 
+(interface ($<Ship is simple))
+
 (interface ($<Ship is destroyed))
 
 (interface ($<Ship shields $>Shields))
@@ -42,19 +44,11 @@
 
 (interface ($<Ship ammo $>Ammo))
 
-(interface ($<Ship systems $>Systems))
-
-(interface ($<Ship class systems $>Systems))
-
-(interface ($<Ship undamaged systems $>Systems)) %% fully operable
-
 (interface ($<Ship damaged systems $>Systems)) %% repairable systems only
 
 (interface ($<Ship destroyed systems $>Systems)) %% destroyed systems only
 
 (interface ($<Ship undestroyed systems $>Systems)) %% for picking random damage
-
-(interface ($<Ship is simple))
 
 %% mutators
 
@@ -65,30 +59,6 @@
 (interface (regenerate shields for $<Ship by $<Num))
 
 (interface (destroy $<Ship))
-
-%% ship's systems
-
-(interface (find undamaged $<Type for $<Ship into $>List))
-
-(interface (find $<Ship $<Type $<ID into $>Match))
-
-(interface (system $<System arc $>Arc))
-
-(interface ($<Ship $<Type $<ID arc $>Arc))
-
-(interface (system $<System value $>Value))
-
-(interface ($<Ship $<Type $<ID value $>Value))
-
-(interface (system $<System details $>Details))
-
-(interface ($<Ship $<Type $<ID details $>Details))
-
-(interface (system $<System repair time $>Time))
-
-(interface ($<Ship $<Type $<ID repair time $>Time))
-
-(interface (set repair time for $<Ship $<Type $<ID to $>Time))
 
 (interface (increase repair time for $<Ship $<Type $<ID by $<Minutes))
 
@@ -117,10 +87,6 @@
 ($Ship is destroyed)
 	~($Ship is on the map)
 
-($Ship class systems $Systems)
-	($Ship class $Class)
-	($Class systems $Systems)
-
 ($Ship damaged systems $Damaged)
 	~($Ship is simple)
 	($Ship systems $Systems)
@@ -138,11 +104,6 @@
 ($Ship destroyed systems $Damaged)
 	($Ship is simple)
 	($Damaged = [])
-
-($Ship undamaged systems $Systems)
-	($Ship class systems $List)
-	($Ship systems $Filter) %% both damaged and destroyed
-	(remove from $List found in $Filter into $Systems)
 
 ($Ship undestroyed systems $Systems) %% for picking random damage
 	($Ship class systems $List)
@@ -203,65 +164,6 @@
 (destroy $Ship)
 	(remove $Ship from the map)
 	(log) { $Ship explodes }
-
-%%-------------------------------- SHIP SYSTEMS -------------------------------
-
-(find undamaged $Type for $Ship into $List)
-	($Ship undamaged systems $Systems)
-	(take from $Systems where element 1 is $Type into $List)
-
-(find $Ship $Type $ID into $Match)
-    ($Ship class systems $Systems)
-	(find $Type $ID in $Systems into $Match)
-
-(system $Match arc $Arc)
-	(nth $Match 3 $Arc)
-
-($Ship $Type $ID arc $Arc)
-	(find $Ship $Type $ID into $Match)
-	(system $Match arc $Arc)
-
-(system $Match value $Value)
-	(nth $Match 4 $Value)
-
-($Ship $Type $ID value $Value)
-	(find $Ship $Type $ID into $Match)
-	(system $Match value $Value)
-
-(system $Match details $Details)
-	(nth $Match 5 $Details)
-
-($Ship $Type $ID details $Details)
-	(find $Ship $Type $ID into $Match)
-	(system $Match details $Details)
-
-(system $Match repair time $Time)
-	(nth $Match 3 $Time)
-
-($Ship $Type $ID repair time $Time)
-	($Ship systems $Systems)
-	(if) (find $Type $ID in $Systems into $Match) (then)
-		(system $Match repair time $Time)
-	(else)
-		(if) (find $Ship $Type $ID into $) (then)
-			($Time = 0)
-		(else)
-			(fail) %% if we inquire about a nonexistent system
-		(endif)
-	(endif)
-
-(set repair time for $Ship $Type $ID to $Value)
-	($Ship systems $Systems)
-	(if) (find $Type $ID in $Systems into $) (then)
-		(set element 3 in [$Type $ID] in $Systems to $Value into $NewSystems)
-	(else)
-		(if) (find $Ship $Type $ID into $) (then)
-			(append $Systems [[$Type $ID $Value]] $NewSystems)
-		(else)
-			(fail) %% if we try to fix or break a nonexistent system
-		(endif)
-	(endif)
-	(now) ($Ship systems $NewSystems)
 
 (increase repair time for $Ship $Type $ID by $Value)
     ($Ship $Type $ID repair time $Time)
