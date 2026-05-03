@@ -23,7 +23,7 @@
 
 #cygnus-class
 (name *)	Cygnus
-(type *)	fast scout
+(ship type *)	fast scout
 (code *)	s
 (* state [500 963 180 500 #union 1000 4 10 500 [100 99 98 97]])
 (* systems [[#projector 1 [360 #up] 100 141]
@@ -82,7 +82,7 @@
 
 #attack-class
 (name *)	Attack
-(type *)	attack ship
+(ship type *)	attack ship
 (code *)	q
 (* state [300 751 90 100 #quellan 500 2 0 250 [100 50 50 50]])
 (* systems [[#projector 1 [8 1] 250 100]])
@@ -99,7 +99,7 @@
 
 #maru-class
 (name *)	Maru
-(type *)	freighter
+(ship type *)	freighter
 (code *)	c
 (* state [100 321 45 100 #civilian 500 2 0 50 [50 50 50 50]])
 

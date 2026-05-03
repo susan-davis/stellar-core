@@ -4,22 +4,13 @@
 
 %%-------------------------------- INTERFACES --------------------------------
 
-%% (grid object $) => object exists in space and is sensor-detectable
-%% (stellar object $) => object is a star/planet/asteroid: right column
-%% (ship $) => object can maneuver
-%% (base $) => object can be docked with
-
-(interface (base $))
-
-(interface (stellar object $))
-
 (interface (current ship $))
 
 (interface (class $)) %% prints the name of the ship class
 
 (interface (long class $)) %% prints fleet and class name
 
-(interface (type $))  %% prints what kind of ship it is
+(interface (ship type $))  %% prints what kind of ship it is
 
 (interface (code $))  %% one-letter code on sensor display
 
@@ -137,7 +128,7 @@
 
 (class $Ship)
 	($Ship class $Class)
-	(italic) (name $Class) (roman) (no space) -class (type $Class)
+	(italic) (name $Class) (roman) (no space) -class (ship type $Class)
 
 (long class $Ship)
 	($Ship fleet $Fleet)

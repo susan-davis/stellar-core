@@ -10,7 +10,7 @@
 
 (interface (long class $)) %% prints fleet and class name
 
-(interface (type $))  %% prints what kind of ship it is
+(interface (ship type $))  %% prints what kind of ship it is
 
 (interface (code $))  %% one-letter code on sensor display
 
@@ -80,7 +80,7 @@
 
 (class $Ship)
 	($Ship class $Class)
-	(italic) (name $Class) (roman) (no space) -class (type $Class)
+	(italic) (name $Class) (roman) (no space) -class (ship type $Class)
 
 (long class $Ship)
 	($Ship fleet $Fleet)

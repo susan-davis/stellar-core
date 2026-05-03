@@ -29,6 +29,11 @@
 
 %%-------------------------------- INTERFACES --------------------------------
 
+%% (grid object $) => object exists in space and is sensor-detectable
+%% (stellar object $) => object is a star/planet/asteroid
+%% (ship $) => object can maneuver
+%% (base $) => object can be docked with
+
 (interface (ship $)) %% can move under its own power
 
 (interface (base $)) %% stationary
