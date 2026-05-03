@@ -13,6 +13,10 @@
 
 (interface (arc $<Arc contains angle $<Angle))
 
+(interface (system $<System arc $>Arc))
+
+(interface ($<Ship $<Type $<ID arc $>Arc))
+
 (interface ($<Ship $<SystemType $<ID bears on angle $<Angle))
 
 (interface ($<Ship $<SystemType $<ID bears on target $<Target))
@@ -119,6 +123,13 @@
 (fire from $Ship to $Target is in arc $Arc)
      (angle from $Ship to $Target into $Angle)
 	 (arc $Arc contains angle $Angle)
+
+(system $Match arc $Arc)
+	(nth $Match 3 $Arc)
+
+($Ship $Type $ID arc $Arc)
+	(find $Ship $Type $ID into $Match)
+	(system $Match arc $Arc)
 
 %% these only check firing arcs and system damage, not whether it's in range
 

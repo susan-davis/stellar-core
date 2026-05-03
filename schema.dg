@@ -67,10 +67,6 @@
 
 (interface (find $<Ship $<Type $<ID into $>Match))
 
-(interface (system $<System arc $>Arc))
-
-(interface ($<Ship $<Type $<ID arc $>Arc))
-
 (interface (system $<System value $>Value))
 
 (interface ($<Ship $<Type $<ID value $>Value))
@@ -152,13 +148,6 @@
 (find $Ship $Type $ID into $Match)
     ($Ship class systems $Systems)
 	(find $Type $ID in $Systems into $Match)
-
-(system $Match arc $Arc)
-	(nth $Match 3 $Arc)
-
-($Ship $Type $ID arc $Arc)
-	(find $Ship $Type $ID into $Match)
-	(system $Match arc $Arc)
 
 (system $Match value $Value)
 	(nth $Match 4 $Value)
