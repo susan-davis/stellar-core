@@ -9,7 +9,11 @@ DLIBS=arc.dg damage.dg d6.dg $(LIBS)
 
 all: test
 
-test: utils time d6 d6-lite grid sector schema maneuver damage arc weapons
+test: test-basics test-systems
+
+test-basics: utils time d6 d6-lite grid sector schema maneuver damage arc 
+
+test-systems: weapons sensor-wide sensor-narrow
 
 clean:
 	rm -f *~ \#*\# *.z8 *.zblorb *.aastory *.d64 *.d71 log.txt

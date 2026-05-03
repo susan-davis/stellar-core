@@ -4,8 +4,6 @@
 
 %%-------------------------------- INTERFACES --------------------------------
 
-(interface (current ship $))
-
 (interface (class $)) %% prints the name of the ship class
 
 (interface (long class $)) %% prints fleet and class name
