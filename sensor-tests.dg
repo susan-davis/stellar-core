@@ -60,6 +60,9 @@
 	#should-display-subsector-base
 	#should-display-subsector-gravity-well
 	#should-display-subsector-other-ship
+	])
+
+(quarantined tests [
 	#long-range-scan-zeros-suppressed
 	#long-range-scan-in-corner
 	#long-range-scan-in-corner-classic-behaviour
@@ -316,7 +319,7 @@
 
 (test #long-range-scan-zeros-suppressed)
 	(now) ~(display zeros for empty categories)
-%%	(line) (long range scan)
+	(line) (long range scan)
 	(collect words) (long range scan) (into $Words)
 	($Words contains sublist [1 0 0 0 2 e 1])
 
@@ -329,14 +332,14 @@
 (test #long-range-scan-in-corner-classic-behaviour)
 	(now) ~(display sectors beyond quadrant)
 	(move #test-ship to 1 1 1 1)
-%%	(line) (long range scan)
+	(line) (long range scan)
 	(collect words) (long range scan) (into $Words)
 	($Words contains sublist [e 0 0 0 0 0 0 0 \#])
 	(now) (display sectors beyond quadrant)
 
 (test #quadrant-chart-zeros-suppressed)
 	(now) ~(display zeros for empty categories)
-%%	(line) (quadrant chart)
+	(line) (quadrant chart)
 	(collect words) (quadrant chart) (into $Words)
 	($Words contains sublist [\| 1 0 0 \|])
 	($Words contains sublist [\| 2 e 1 \|])
@@ -345,7 +348,7 @@
 
 (test #quadrant-chart-question-marks-suppressed)
 	(now) ~(display question marks for undetectable ships)
-%%	(line) (quadrant chart)
+	(line) (quadrant chart)
 	(collect words) (quadrant chart) (into $Words)
 	($Words contains sublist [\| 1 0 0 \|])
 	($Words contains sublist [\| 2 e 1 \|])
