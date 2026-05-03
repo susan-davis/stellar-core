@@ -6,21 +6,9 @@
 
 %%-------------------------------- INTERFACES --------------------------------
 
-(interface (class $)) %% prints the name of the ship class
+(interface (code $))
 
-(interface (long class $)) %% prints fleet and class name
-
-(interface (ship type $))  %% prints what kind of ship it is
-
-(interface (code $))  %% one-letter code on sensor display
-
-(interface ($<Ship fleet $>Fleet))
-
-(interface ($<Ship considers $<Target friendly))
-
-(interface ($<Ship considers $<Target hostile))
-
-(global variable (current quadrant $))
+(interface (ship type $))
 
 %% Sensor range: adjacent sector
 %% Weapons range: same sector
@@ -33,10 +21,6 @@
 (interface ($<GridObject is in matter transmission range of $<Ship))
 
 %%------------------------------ IMPLEMENTATION ------------------------------
-
-($Ship fleet $Fleet)
-	($Ship class $Class)
-	($Class class $Fleet)
 
 (sector $X $Y is in sensor range of $Ship)
 	($Ship sector x $SX)
@@ -67,21 +51,3 @@
 	($Ship subsector y $PY)
 	($X is within 1 of $PX)
 	($Y is within 1 of $PY)
-
-%% override for more nuanced situations
-($Ship considers $Target friendly)
-	($Ship fleet $Fleet)
-	($Target fleet $Fleet)
-
-%% override for more nuanced situations
-($Ship considers $Target hostile)
-	($Ship fleet $Fleet)
-	~($Target fleet $Fleet)
-
-(class $Ship)
-	($Ship class $Class)
-	(italic) (name $Class) (roman) (no space) -class (ship type $Class)
-
-(long class $Ship)
-	($Ship fleet $Fleet)
-	(name $Fleet) (class $Ship)
