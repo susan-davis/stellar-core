@@ -163,7 +163,6 @@
 
 (destroy $Ship)
 	(remove $Ship from the map)
-	(log) { $Ship explodes }
 
 (increase repair time for $Ship $Type $ID by $Value)
     ($Ship $Type $ID repair time $Time)
