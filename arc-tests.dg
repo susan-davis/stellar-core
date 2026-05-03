@@ -143,10 +143,6 @@
 
 (interface (type $))
 
-(interface (stellar object $))
-
-(interface (base $))
-
 %% ----------------------------------------------------------------------------
 
 (test #firing-arc-closest-target)

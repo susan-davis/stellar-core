@@ -56,10 +56,6 @@
 
 (interface (type $))
 
-(interface (stellar object $))
-
-(interface (base $))
-
 %% ----------------------------------------------------------------------
 
 (test #shields)

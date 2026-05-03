@@ -31,6 +31,8 @@
 
 (interface (ship $)) %% can move under its own power
 
+(interface (base $)) %% stationary
+
 (interface (current ship $))
 
 %% schema (position and heading are defined in grid.dg)
@@ -86,6 +88,8 @@
 %%----------------------------- SCHEMA DEFINITION ----------------------------
 
 (grid object *(ship $))
+
+(ship *(base $))
 
 ($Ship speed $Speed)
 	($Ship position $Pos)

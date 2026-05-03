@@ -8,6 +8,8 @@
 
 %%-------------------------------- INTERFACES --------------------------------
 
+(interface (stellar object $)) %% immobile "terrain" feature on the grid
+
 (interface ($<GridObject sector x $>SX))
 
 (interface ($<GridObject sector y $>SY))
@@ -171,6 +173,8 @@
 	($Result plus 1 into $PY) %% positions are 1-based
 
 %% ------------------------------ NEARBY ------------------------------
+
+(grid object *(stellar object $))
 
 ($Place is in the quadrant)
 	([$X $Y | $] = $Place)

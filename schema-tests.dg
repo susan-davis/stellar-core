@@ -45,8 +45,6 @@
 
 (interface (stellar object $))
 
-(interface (base $))
-
 (reset randomness)
 
 %% ----------------------------------------------------------------------------

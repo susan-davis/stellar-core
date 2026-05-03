@@ -6,10 +6,6 @@
 
 %%-------------------------------- INTERFACES --------------------------------
 
-(interface (base $))
-
-(interface (stellar object $))
-
 (interface (class $)) %% prints the name of the ship class
 
 (interface (long class $)) %% prints fleet and class name
@@ -37,10 +33,6 @@
 (interface ($<GridObject is in matter transmission range of $<Ship))
 
 %%------------------------------ IMPLEMENTATION ------------------------------
-
-(grid object *(base $))
-
-(grid object *(stellar object $))
 
 ($Ship fleet $Fleet)
 	($Ship class $Class)
