@@ -6,7 +6,7 @@
 %% where we care about the interior of the subsector. But we'll hide that
 %% behind the curtains when not actually peeking into the subsector.
 
-%% Copyright © 2026, Susan Davis. All rights reserved. See LICENSE for
+%% Copyright © 2021-2026, Susan Davis. All rights reserved. See LICENSE for
 %% licensing details.
 
 %%-------------------------------- INTERFACES --------------------------------

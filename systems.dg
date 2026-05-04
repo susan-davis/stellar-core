@@ -2,7 +2,7 @@
 %% Include damage.dg, arc.dg, maneuver.dg, sector.dg, grid.dg, d6.dg,
 %% and utils.dg when compiling or debugging.
 
-%% Copyright © 2026, Susan Davis. All rights reserved. See LICENSE for
+%% Copyright © 2021-2026, Susan Davis. All rights reserved. See LICENSE for
 %% licensing details.
 
 %%-------------------------------- INTERFACES ---------------------------------

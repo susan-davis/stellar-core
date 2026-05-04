@@ -5,6 +5,9 @@
 
 (extension version)	Simple six-sided die rolls v0.2 by Susan Davis (line)
 
+%% Copyright © 2021-2026, Susan Davis. All rights reserved. See LICENSE for
+%% licensing details.
+
 %%-------------------------------- INTERFACES ---------------------------------
 
 (interface (roll $<Die $>Roll))
