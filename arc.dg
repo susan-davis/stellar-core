@@ -1,6 +1,9 @@
 %% arc.dg
 %% Include damage.dg, sector.dg, grid.dg, and utils.dg
 
+%% Copyright © 2026, Susan Davis. All rights reserved. See LICENSE for
+%% licensing details.
+
 %%-------------------------------- INTERFACES --------------------------------
 
 (interface (firing arc from $<Ship to $<Target into $>Arc))

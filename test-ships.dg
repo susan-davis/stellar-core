@@ -1,6 +1,9 @@
 %% test-ships.dg
 %% standard test ships for unit tests
 
+%% Copyright © 2026, Susan Davis. All rights reserved. See LICENSE for
+%% licensing details.
+
 #union
 (name *)	Stellar Union
 

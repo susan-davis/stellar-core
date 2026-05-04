@@ -2,6 +2,9 @@
 %% Cygnus-class fast scouts
 %% Also include union-ship.dg when compiling or debugging.
 
+%% Copyright © 2026, Susan Davis. All rights reserved. See LICENSE for
+%% licensing details.
+
 %% -------------------- BRIDGE --------------------
 
 #bridge

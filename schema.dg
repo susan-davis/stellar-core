@@ -1,6 +1,9 @@
 %% schema.dg
 %% Include grid.dg and utils.dg when compiling or debugging.
 
+%% Copyright © 2026, Susan Davis. All rights reserved. See LICENSE for
+%% licensing details.
+
 %%---------------------------------- SCHEMA ----------------------------------
 
 %% State about a ship is stored in lists, to cut down on storage:

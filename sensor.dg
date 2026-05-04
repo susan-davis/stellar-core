@@ -2,6 +2,9 @@
 %% Also include damage.dg, maneuver.dg, sector.dg, grid.dg, utils.dg, and
 %% time.dg when compiling or debugging.
 
+%% Copyright © 2026, Susan Davis. All rights reserved. See LICENSE for
+%% licensing details.
+
 %%-------------------------------- INTERFACES --------------------------------
 
 (interface (class $)) %% prints the name of the ship class

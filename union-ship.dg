@@ -1,6 +1,9 @@
 %% union-ship.dg
 %% common properties of Stellar Union ships and bases
 
+%% Copyright © 2026, Susan Davis. All rights reserved. See LICENSE for
+%% licensing details.
+
 (dict #north)	forward fwd
 (dict #south)	aft
 (dict #east)	starboard stbd
