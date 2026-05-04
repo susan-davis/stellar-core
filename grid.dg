@@ -8,6 +8,11 @@
 %% squares, with diagonal squares 14 units from each other, and only one
 %% object occupying a given square.
 
+%% Copyright © 2026, Susan Davis. All rights reserved. See LICENSE for
+%% licensing details.
+
+%%----------------------------------------------------------------------------
+
 ~(x increases west) %% un-negate to make X increase as you go west, not east
 
 (y increases south) %% un-negate to make Y increase as you go south, not north
