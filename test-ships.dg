@@ -164,3 +164,4 @@
 	 }
 	 (decrease energy for #test-ship by 68)
 	 (reset randomness)
+	 (now) (y increases south)

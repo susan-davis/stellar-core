@@ -113,6 +113,7 @@
 	     *(grid object $Object)
 		 ($Object initial position $Position)
 		 (now) ($Object position $Position)
+		 (now) (y increases south)
 	 }
 
 %% ----------------------------------------------------------------------

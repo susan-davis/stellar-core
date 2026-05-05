@@ -4,16 +4,16 @@ COMPILE=dialogc
 DEBUG=dgdebug -u
 BUNDLE=aambundle
 STDLIB=utils.dg unit.dg stdlib.dg
-LIBS=test-ships.dg schema.dg sector.dg grid.dg $(STDLIB)
+LIBS=test-ships.dg schema.dg sector.dg bearing.dg grid.dg $(STDLIB)
 DLIBS=arc.dg damage.dg d6.dg $(LIBS)
 
 all: test
 
 test: test-basics test-systems
 
-test-basics: utils time d6 d6-lite grid sector schema maneuver damage arc 
+test-basics: utils time d6 d6-lite grid bearing sector schema maneuver 
 
-test-systems: weapons sensor-wide sensor-narrow
+test-systems: damage arc weapons sensor-wide sensor-narrow
 
 clean:
 	rm -f *~ \#*\# *.z8 *.zblorb *.aastory *.d64 *.d71 log.txt
@@ -33,11 +33,14 @@ d6-lite:
 grid:
 	$(DEBUG) grid-tests.dg grid.dg $(STDLIB)
 
+bearing:
+	$(DEBUG) bearing-tests.dg bearing.dg grid.dg $(STDLIB)
+
 sector:
-	$(DEBUG) sector-tests.dg sector.dg grid.dg $(STDLIB)
+	$(DEBUG) sector-tests.dg sector.dg bearing.dg grid.dg $(STDLIB)
 
 schema:
-	$(DEBUG) schema-tests.dg schema.dg test-ships.dg grid.dg $(STDLIB)
+	$(DEBUG) schema-tests.dg schema.dg test-ships.dg bearing.dg grid.dg $(STDLIB)
 
 maneuver:
 	$(DEBUG) maneuver-tests.dg maneuver.dg $(LIBS)

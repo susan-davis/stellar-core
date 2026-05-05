@@ -3,19 +3,18 @@
 
 (extension version)	Grid movement v0.2, by Susan Davis (line)
 
-%% Implements free movement on a cartesian grid for vehicles, horses, ships,
-%% aircraft, spaceships, and the like. The grid is divided into 10-unit
-%% squares, with diagonal squares 14 units from each other, and only one
-%% object occupying a given square.
+%% Implements free movement on a cartesian grid. The grid is divided into
+%% 10-unit squares, with diagonal squares 14 units from each other, and only
+%% one object occupying a given square.
 
 %% Copyright © 2021-2026, Susan Davis. All rights reserved. See LICENSE for
 %% licensing details.
 
 %%----------------------------------------------------------------------------
 
-~(x increases west) %% un-negate to make X increase as you go west, not east
+~(x increases west)  %% un-negate to make X increase as you go west, not east
 
-(y increases south) %% un-negate to make Y increase as you go south, not north
+~(y increases south) %% un-negate to make Y increase as you go south, not north
 
 %% The maximum grid size is 1160 x 1160, unless you're willing to have ranges
 %% not be able to be calcuated between two distant objects, in which case you
@@ -25,19 +24,17 @@
 %% you wish. For safety, starting the origin at [100 100] rather than [0 0] can
 %% prevent subtraction overflows.
 
-(global variable (map offset 100)) %% recommended safety margin
+(global variable (map offset 100))   %% recommended safety margin
 
-(global variable (map size  1160)) %% largest map that we can range across
+(global variable (map size  1160))   %% largest map that we can range across
+
+(global variable (stacking limit 1)) %% max objects per square
 
 %%-------------------------------- INTERFACES --------------------------------
 
 %% Grid objects all bind a per-object variable ($ state $), which returns a
-%% list of at least three elements. The first two specify the coordinates of
-%% the object, and the third specifies its facing ("heading"). Operations on
-%% grid objects' states are required to preserve the tail beyond those first
-%% three elements, to support additional state without introducing new
-%% per-object variables. (The number of grid objects is expected to be a tiny
-%% fraction of the total objects in the game.)
+%% tuple of at least two elements, specifying the object's X-Y position. Other
+%% modules may add more elements to the tuple.
 
 (interface (grid object $))
 
@@ -47,11 +44,9 @@
 
 (interface ($<GridObject y $>PY))
 
-(interface ($<GridObject heading $>Heading))
-
 %% Positions and coordinates
 
-(interface (place $<Object at $<Position))
+(interface (place $<Object at $<Position)) %% teleport to another square
 
 (interface ($<GridObject is on the map))
 
@@ -76,75 +71,6 @@
 
 (interface (range from $<Object to $<Target into $>Range))
 
-%% Likewise, we don't have tangent or arctangent available, so we'll have
-%% to use a lookup table, and extrapolate for bearings involving distances
-%% larger than one sector. There's supposed to be some random sloppiness
-%% in navigation at warp speed in mainframe STARTREK anyway.
-
-(interface (calculate bearing from $<Here to $<There into $>Bearing))
-
-(interface (reciprocal bearing for $<Bearing into $>Result))
-
-(interface (bearing from $<Object to $<Target into $>Bearing))
-
-(interface (bearing from $<Object to position $<Position into $>Bearing))
-
-(interface ($<Bearing is in octant $>Octant))
-
-%% "Angle" means bow angle, converting bearing into a value relative
-%% to the object's heading.
-
-(interface (angle from $<Ship to $<Target into $>Angle))
-
-%% Turn, without moving the object
-
-(interface (turn $<Ship to bearing $<Bearing))
-
-(interface (turn $<Ship $<Degrees to starboard))
-
-(interface (turn $<Ship $<Degrees to port))
-
-(interface (turn $<Ship $<Degrees toward heading $<Bearing))
-
-(interface (turn $<Ship to face position $<Position))
-
-(interface (turn $<Ship to face subsector $<Position))
-
-(interface (turn $<Ship about))
-
-(interface (turn $<Ship hard to starboard))
-
-(interface (turn $<Ship hard to port))
-
-(interface (turn $<Ship to face $<Target))
-
-(interface (turn $<Ship away from $<Target))
-
-%% Drag: keep the object in the same orientation and translate the ship to
-%% its new position.
-
-(interface (drag $<Ship to position $<Position))
-
-(interface (drag $<Ship $<Distance on heading $<Heading))
-
-(interface (drag $<Ship $<Distance toward $<GridObject))
-
-(interface (drag $<Ship $<Distance toward position $<Position))
-
-%% Move: turn the object toward the destination, and then drag there.
-
-(interface (move $<Ship to position $<Position))
-
-(interface (move $<Ship $<Distance on heading $<Heading))
-
-(interface (move $<Ship $<Distance forward))
-
-(interface (move $<Ship $<Distance toward $<GridObject))
-
-(interface (move $<Ship $<Distance away from $<GridObject))
-
-(interface (move $<Ship $<Distance toward position $<Position))
-
 %% ------------------------------ STATE ------------------------------
 
 ($Object x $X)
@@ -156,10 +82,6 @@
     ($Object is on the map)
 	($Object position $Position)
 	(nth $Position 2 $Y)
-
-($Object heading $Heading)
-	($Object position $Position)
-	(nth $Position 3 $Heading)
 
 %% ------------------------------ POSITIONS ------------------------------
 
@@ -274,17 +196,6 @@
 	(next coordinates $Relation from $X $Y into $NX $NY)
 	([$NX $NY | $Tail] = $Result)
 
-(closest unoccupied square to $Place from $Origin into $Result)
-	(fully bound $Place) (fully bound $Origin)
-	(if) ~(object at $Place into $) (or) ($Place = $Origin) (then)
-		($Result = $Place)
-	(else)
-		(calculate bearing from $Place to $Origin into $Bearing)
-		(direction for $Bearing into $Direction)
-		(next square $Direction from $Place into $New)
-		(closest unoccupied square to $New from $Origin into $Result)
-	(endif)
-
 %% Fails if we walk off the map to the north or west. Should we hit the
 %% boundary and stick at the point where we go out, instead?
 
@@ -318,350 +229,10 @@
 	(endif)
 	([$NewX $NewY | $Tail] = $Result)
 
-%% ------------------------------ BEARINGS ------------------------------
+%%----------------------------------- RANGE -----------------------------------
 
-(reciprocal bearing for $Bearing into $Result)
-	(180 plus $Bearing into $Sum)
-	($Sum modulo 360 into $Result)
-
-(direction for $Bear into $Direction)
-	(number $Bear) ($Bear modulo 360 into $Bearing)
-	(if) ($Bearing > 22)  ($Bearing < 68)  (then)
-		($Direction = #northeast)
-	(elseif) ($Bearing > 67)  ($Bearing < 113) (then)
-		($Direction = #east)
-	(elseif) ($Bearing > 112) ($Bearing < 158) (then)
-		($Direction = #southeast)
-	(elseif) ($Bearing > 157) ($Bearing < 203) (then)
-		($Direction = #south)
-	(elseif) ($Bearing > 202) ($Bearing < 248) (then)
-		($Direction = #southwest)
-	(elseif) ($Bearing > 247) ($Bearing < 293) (then)
-		($Direction = #west)
-	(elseif) ($Bearing > 292) ($Bearing < 338) (then)
-		($Direction = #northwest)
-	(else)
-		($Direction = #north)
-	(endif)
-
-%% Lookup table for calculating bearings, since we don't have tan/atan
-%% or floating point numbers available. Select the list equal to the
-%% y-delta, and pick the element equal to the x-delta, then adjust for
-%% which quadrant you're in by adding or subtracting from one of the
-%% cardinal bearing numbers. Note that we don't need entries for zero,
-%% since the value will be 0.
-
-(bearings table
-	[[45]
-	 [27 45]
-	 [18 34 45]
-	 [14 27 37 45]
-	 [11 22 31 39 45]
-	 [ 9 18 27 34 40 45]
-	 [ 8 16 23 30 36 41 45]
-	 [ 7 14 21 27 32 37 41 45]
-	 [ 6 13 18 24 29 34 38 42 45]
-	 [ 6 11 17 22 27 31 35 39 42 45]
-	 [ 5 10 15 20 24 29 32 36 39 42 45]
-	 [ 5  9 14 18 23 27 30 34 37 40 43 45]
-	 [ 4  9 13 17 21 25 28 32 35 38 40 43 45]
-	 [ 4  8 12 16 20 23 27 30 33 36 38 41 43 45]
-	 [ 4  8 11 15 18 22 25 28 31 34 36 39 41 43 45]
-	 [ 4  7 11 14 17 21 24 27 29 32 35 37 39 41 43 45]
-	 [ 3  7 10 13 16 19 22 25 28 30 33 35 37 39 41 43 45]
-	 [ 3  6  9 13 15 18 21 24 27 29 31 34 36 38 40 42 43 45]
-	 [ 3  6  9 12 15 18 20 23 25 28 30 32 34 36 38 40 42 43 45]
-	 [ 3  6  9 11 14 17 19 22 24 27 29 31 33 35 37 39 40 42 43 45]])
-
-%% "X" and "Y" in these bearing calculations don't necessarily mean the
-%% actual X and Y on the grid; it depends on which octant. Y is the larger
-%% of the two values.
-
-(look up bearing for $DX $DY into $Bearing)
-	(if) ($DX = 0) (then)
-		($Bearing = 0)
-	(else)
-		(scale $DX $DY into $NX $NY)
-		(sort $NX $NY into $X $Y)
-		(bearings table $Table)
-		(nth $Table $Y $Row)
-		(nth $Row $X $Bearing)
-	(endif)
-
-%% For targets more than 20 squares away, scale down so that we fit
-%% within 20x20 and don't overrun the bearing lookup table.
-
-(scale $DX $DY into $X $Y)
-	(if) ($DY > 10) (or) ($DX > 10) (then)
-		(if) ($DX > $DY) (then)
-			($Largest = $DX)
-			($DX divided by 20 into $Div)
-		(else)
-			($Largest = $DY)
-			($DY divided by 20 into $Div)
-		(endif)
-		($Div plus 1 into $Scale)
-		($DX divided by $Scale into $X)
-		($DY divided by $Scale into $Y)
-	(else)
-		($X = $DX)
-		($Y = $DY)
-	(endif)
-
-%% Dividing into eight octants allows us to make small tables that only
-%% cover a 45 degree sector.
-
-(octant from $Here to $There into $Octant)
-	([$HX $HY | $] = $Here)
-	([$TX $TY | $] = $There)
-	($HX delta $TX into $DX)
-	($HY delta $TY into $DY)
-	(if) ($HX < $TX) (then)
-		(if) ($HY > $TY) (then)
-			(if) ($DY > $DX) (then)
-				($Octant = 1)
-			(else)
-				($Octant = 2)
-			(endif)
-		(else)
-			(if) ($DY < $DX) (then)
-				($Octant = 3)
-			(else)
-				($Octant = 4)
-			(endif)
-		(endif)
-	(else)
-		(if) ($HY < $TY) (then)
-			(if) ($DY > $DX) (then)
-				($Octant = 5)
-			(else)
-				($Octant = 6)
-			(endif)
-		(else)
-			(if) ($DY < $DX) (then)
-				($Octant = 7)
-			(else)
-				($Octant = 8)
-			(endif)
-		(endif)
-	(endif)
-
-%% Convert from the table into the final compass bearing.
-
-(bearing for $Ang in octant $Octant into $Bearing)
-	(number $Ang) ($Ang modulo 360 into $Angle)
-	(if)     ($Octant = 1) (then)
-		($Bearing = $Angle)
-	(elseif) ($Octant = 2) (then)
-		(90 minus $Angle into $Bearing)
-	(elseif) ($Octant = 3) (then)
-		($Angle plus 90 into $Bearing)
-	(elseif) ($Octant = 4) (then)
-		(180 minus $Angle into $Bearing)
-	(elseif) ($Octant = 5) (then)
-		($Angle plus 180 into $Bearing)
-	(elseif) ($Octant = 6) (then)
-		(270 minus $Angle into $Bearing)
-	(elseif) ($Octant = 7) (then)
-		($Angle plus 270 into $Bearing)
-	(elseif) ($Octant = 8) ($Angle > 0) (then)
-		(360 minus $Angle into $Bearing)
-	(else)
-		($Bearing = 0)
-	(endif)
-
-%% And all that adds up to this, which does the final calculation:
-
-(calculate bearing from $Here to $There into $Result)
-	(octant from $Here to $There into $Octant)
-	([$HX $HY | $] = $Here)
-	([$TX $TY | $] = $There)
-	($HX delta $TX into $DX)
-	($HY delta $TY into $DY)
-	(sort $DX $DY into $Little $Big)
-	(look up bearing for $Little $Big into $Angle)
-	(bearing for $Angle in octant $Octant into $Result)
-
-(bearing from $Ship to position $There into $Result)
-	($Ship position $Here)
-	(calculate bearing from $Here to $There into $Result)
-
-(bearing from $Ship to $Target into $Result)
-	($Ship position $Here)
-	($Target position $There)
-	(calculate bearing from $Here to $There into $Result)
-
-%% ------------------------------ BOW ANGLE ------------------------------
-
-%% bow angle = angle clockwise from the current heading to the bearing
-
-(angle clockwise from $Head to $Bear into $Result)
-	(number $Head) ($Head modulo 360 into $Heading)
-	(number $Bear) ($Bear modulo 360 into $Bearing)
-	(if) ($Heading > $Bearing) (then)
-		(360 plus $Bearing into $B)
-	(else)
-		($Bearing = $B)
-	(endif)
-	($B minus $Heading into $Result)
-
-(angle from $Ship to $Target into $Result)
-	($Ship heading $Heading)
-	(bearing from $Ship to $Target into $Bearing)
-	(angle clockwise from $Heading to $Bearing into $Result)
-
-%% ------------------------- REVERSE BEARINGS ---------------------------
-
-%% Since we can't use trigonometry, we'll use a lookup table to get the
-%% approximately correct slope for the angle we want. We'll draw a line
-%% along that slope from the origin, measure out a certain number of
-%% units along that line, and go square by square at the very end.
-
-(angle table $Table) ($Table =
-	[[ 1  0] [20  1] [18  1] [15  1] [11  1] %% 5
-	 [ 9  1] [ 8  1] [ 7  1] [ 6  1] [11  2] %% 10
-	 [16  3] [19  4] [ 9  2] [ 4  1] [19  5] %% 15
-	 [17  5] [10  3] [19  6] [20  7] [19  7] %% 20
-	 [18  7] [ 5  2] [19  8] [20  9] [19  9] %% 25
-	 [ 2  1] [ 2  1] [19 10] [20 11] [19 11] %% 30
-	 [ 5  3] [19 12] [20 13] [19 13] [10  7] %% 35
-	 [19 14] [ 4  3] [19 15] [ 5  4] [20 17] %% 40
-	 [17 15] [10  9] [20 19] [20 19] [ 1  1]])
-
-(slope for $Angle into $X $Y)
-	(if) ($Angle = 0) (then)
-		($X = 1)
-		($Y = 0)
-	(else)
-		(angle table $Table)
-		(nth $Table $Angle $Tuple)
-		([$X $Y] = $Tuple)
-	(endif)
-
-%% Converting backwards from bearings to octants. We also use this for
-%% shield and firing arcs, so we'll bias the dividing points between
-%% octants toward the bow (north).
-
-($Bear is in octant $Octant)
-	(number $Bear) ($Bear modulo 360 into $Bearing)
-	(if) ($Bearing < 46)  (then)
-		($Octant = 1)
-	(elseif) ($Bearing > 45)  ($Bearing < 91) (then)
-		($Octant = 2)
-	(elseif) ($Bearing > 90)  ($Bearing < 136) (then)
-		($Octant = 3)
-	(elseif) ($Bearing > 135) ($Bearing < 180) (then)
-		($Octant = 4)
-	(elseif) ($Bearing > 179) ($Bearing < 225) (then)
-		($Octant = 5)
-	(elseif) ($Bearing > 224) ($Bearing < 270) (then)
-		($Octant = 6)
-	(elseif) ($Bearing > 269) ($Bearing < 315) (then)
-		($Octant = 7)
-	(else)
-		($Octant = 8)
-	(endif)
-
-(octant for $Bearing into $Angle $XDir $YDir)
-	($Bearing is in octant $Octant)
-	(if) ($Octant = 1) (then)
-		($Angle = $Bearing)
-		($XDir = #north)
-		($YDir = #east)
-	(elseif) ($Octant = 2) (then)
-		(90 minus $Bearing into $Angle)
-		($XDir = #east)
-		($YDir = #north)
-	(elseif) ($Octant = 3) (then)
-		($Bearing minus 90 into $Angle)
-		($XDir = #east)
-		($YDir = #south)
-	(elseif) ($Octant = 4) (then)
-		(180 minus $Bearing into $Angle)
-		($XDir = #south)
-		($YDir = #east)
-	(elseif) ($Octant = 5) (then)
-		($Bearing minus 180 into $Angle)
-		($XDir = #south)
-		($YDir = #west)
-	(elseif) ($Octant = 6) (then)
-		(270 minus $Bearing into $Angle)
-		($XDir = #west)
-		($YDir = #south)
-	(elseif) ($Octant = 7) (then)
-		($Bearing minus 270 into $Angle)
-		($XDir = #west)
-		($YDir = #north)
-	(else)
-		(360 minus $Bearing into $Angle)
-		($XDir = #north)
-		($YDir = #west)
-	(endif)
-
-(offset $Num on bearing $Bearing from $Place into $Result)
-	(octant for $Bearing into $Angle $XDir $YDir)
-	(slope for $Angle into $DX $DY)
-	($DX times $Num into $OX)
-	($DY times $Num into $OY)
-	($OX squares $XDir from $Place   into $XOffset)
-	($OY squares $YDir from $XOffset into $R)
-	($Result = $R)
-
-(square $Distance $Origin $Destination into $Result)
-	(calculate bearing from $Origin to $Destination into $Bearing)
-	(direction for $Bearing into $Direction)
-	(if) ($Direction = #northeast) (or) ($Direction = #northwest) (or)
-	     ($Direction = #southeast) (or) ($Direction = #southwest)
-	(then)
-		($Step = 14) ($Half = 7)
-	(else)
-		($Step = 10) ($Half = 5)
-	(endif)
-    (next square $Direction from $Origin into $Next) %% why unbound?
-	(fully bound $Next)
-	(if) ($Origin = $Destination) (or) ($Distance < $Half)
-		 (or) (position $Next is off the map)
-	(then)
-	    ($R = $Origin)
-	(else)
-	    (if) ($Distance < $Step) (then)
-			($R = $Next)
-	    (else)
-			(calculate range from $Origin to $Next into $Travelled)
-			($Distance minus $Travelled into $Remaining)
-			(square at $Remaining from $Next to $Destination into $R)
-	    (endif)
-	(endif)
-	($Result = $R)
-
-(square at $Distance from $Origin to $Destination into $Result)
-	(calculate range from $Origin to $Destination into $Range)
-	(if) ($Distance < $Range) (then)
-		(square $Distance $Origin $Destination into $Result)
-	(else)
-		($Result = $Destination)
-	(endif)
-
-(square at $Distance on bearing $Bearing from $Place into $Result)
-	(offset 1 on bearing $Bearing from $Place into $Offset)
-	(calculate range from $Place to $Offset into $Increment)
-	($Distance divided by $Increment into $Multiple)
-	($Distance modulo $Increment into $Remainder)
-	(offset $Multiple on bearing $Bearing from $Place into $Undershoot)
-	(if) ($Remainder > 0) (then)
-	     ($Multiple plus 1 into $Mult)
-	     (offset $Mult on bearing $Bearing from $Place into $Overshoot)
-	     ($Increment times $Multiple into $Base)
-	     ($Distance minus $Base into $Remaining)
-	     (square at $Remaining from $Undershoot to $Overshoot into $Result)
-	(else)
-	     ($Result = $Undershoot)
-	(endif)
-
-%% ------------------------------ RANGE ------------------------------
-
-%% Again, no square roots, so no Pythagorean Theorem, so we have to use
-%% another lookup table here.
+%% Dialog has no square roots, so no Pythagorean Theorem, so we have to use
+%% a lookup table here.
 
 (range table
 	[[ 141]
@@ -707,135 +278,7 @@
 	($Tens plus $Ones into $Sum2)
 	($Sum1 plus $Sum2 into $Range)
 
-(range from $Ship to $Target into $Range)
-	($Ship   position $Here)
+(range from $Object to $Target into $Range)
+	($Object position $Here)
 	($Target position $There)
 	(calculate range from $Here to $There into $Range)
-
-%% ------------------------------ TURNING ------------------------------
-
-(turn $Ship to heading $Heading)
-	($Ship position $Position)
-	([$X $Y $        | $Tail] = $Position)
-	([$X $Y $Heading | $Tail] = $NewPosition)
-	(now) ($Ship position $NewPosition)
-
-(turn $Ship $Degrees to starboard)
-	($Ship heading $Heading)
-	($Heading plus $Degrees into $New)
-	($New modulo 360 into $NewHeading)
-	(turn $Ship to heading $NewHeading)
-
-(turn $Ship $Degrees to port)
-	($Ship heading $H)
-	(if) ($H < $Degrees) (then)
-		($H plus 360 into $Heading)
-	(else)
-		($Heading = $H)
-	(endif)
-	($Heading minus $Degrees into $NewHeading)
-	(turn $Ship to heading $NewHeading)
-
-(turn $Ship $Degrees toward heading $Heading)
-	($Ship heading $H)
-	(angle clockwise from $H to $Heading into $RawAngle)
-	(if) ($RawAngle > 180) (then)
-		(360 minus $RawAngle into $Angle)
-	(else)
-		($RawAngle = $Angle)
-	(endif)
-	(if) ($Angle > $Degrees) (then)
-		($Turn = $Degrees)
-	(else)
-		($Turn = $Angle)
-	(endif)
-	(if) ($RawAngle > 180) (then)
-		(turn $Ship $Turn to port)
-	(else)
-		(turn $Ship $Turn to starboard)
-	(endif)
-
-(turn $Ship to face position $There)
-	($Ship position $Position)
-	(calculate bearing from $Position to $There into $Bearing)
-	(turn $Ship to heading $Bearing)
-
-(turn $Ship to face $Target)
-	($Target position $There)
-	(turn $Ship to face position $There)
-
-(turn $Ship away from $Target)
-	(turn $Ship to face $Target)
-	(turn $Ship about)
-
-(turn $Ship about)
-	($Ship heading $Course)
-	(reciprocal bearing for $Course into $NewHeading)
-	(turn $Ship to heading $NewHeading)
-
-(turn $Ship hard to starboard)
-	(turn $Ship 90 to starboard)
-
-(turn $Ship hard to port)
-	(turn $Ship 90 to port)
-
-%% ------------------------------ MOVEMENT ------------------------------
-
-%% drag == move, but leave heading alone
-
-(drag $Ship to position $Desired)
-	($Ship is on the map)
-	($Ship position $Origin)
-	([$ $ | $Tail]   = $Origin)
-	(closest unoccupied square to $Desired from $Origin into $Square)
-	([$X $Y | $]     = $Square)
-	([$X $Y | $Tail] = $NewPosition)
-	(place $Ship at $NewPosition)
-
-(drag $Ship $Distance on heading $Heading)
-	($Ship is on the map)
-	($Ship position $Origin)
-	(square at $Distance on bearing $Heading from $Origin into $Desired)
-	(drag $Ship to position $Desired)
-
-(drag $Ship $Distance toward $Target)
-	($Ship is on the map)
-	(bearing from $Ship to $Target into $Bearing)
-	(drag $Ship $Distance on heading $Bearing)
-
-(drag $Ship $Distance toward position $Destination)
-	($Ship is on the map)
-	(bearing from $Ship to position $Destination into $Bearing)
-	(drag $Ship $Distance on heading $Bearing)
-
-%% move == turn, then drag
-
-(move $Ship to position $Destination)
-	($Ship is on the map)
-	(turn $Ship to face position $Destination)
-	(drag $Ship to position $Destination)
-
-(move $Ship $Distance on heading $Heading)
-	($Ship is on the map)
-	(turn $Ship to heading $Heading)
-	(drag $Ship $Distance on heading $Heading)
-
-(move $Ship $Distance forward)
-	($Ship is on the map)
-	($Ship heading $Heading)
-	(move $Ship $Distance on heading $Heading)
-
-(move $Ship $Distance toward $Target)
-	($Ship is on the map)
-	(turn $Ship to face $Target)
-	(drag $Ship $Distance toward $Target)
-
-(move $Ship $Distance away from $Target)
-	($Ship is on the map)
-	(turn $Ship away from $Target)
-	(move $Ship $Distance forward)
-
-(move $Ship $Distance toward position $Destination)
-	($Ship is on the map)
-	(turn $Ship to face position $Destination)
-	(drag $Ship $Distance toward position $Destination)
