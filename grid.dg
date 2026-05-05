@@ -14,7 +14,7 @@
 
 ~(x increases west)  %% un-negate to make X increase as you go west, not east
 
-~(y increases south) %% un-negate to make Y increase as you go south, not north
+(y increases south) %% un-negate to make Y increase as you go south, not north
 
 %% The maximum grid size is 1160 x 1160, unless you're willing to have ranges
 %% not be able to be calcuated between two distant objects, in which case you
