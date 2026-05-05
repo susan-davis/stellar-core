@@ -37,6 +37,7 @@
 	#10-plus-20
 	#10-plus-20-max-25
 	#8192-plus-8191-max-16380
+%%	#intentionally-fail-this-test
 	#8192-plus-8192-max-16380
 	#16380-plus-3
 	#16380-plus-4
@@ -82,6 +83,7 @@
 	#12345-begins-with-12
 	#12345-begins-with-12345
 	#12345-doesnt-begin-with-22
+%%	#intentionally-fail-this-one-also
 	#12345-doesnt-begin-with-123456
 	#12345-doesnt-begin-with-scalar
 	#12345-doesnt-begin-with-nested
@@ -113,6 +115,7 @@
 	#remove-in-empty-filter
 	#remove-empty-list-in-filter
 	#remove-in-disjoint-filter
+%%	#intentionally-fail-this-test-as-well
 	])
 
 (global variable (list of lists [
