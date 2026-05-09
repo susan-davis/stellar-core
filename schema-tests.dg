@@ -1,41 +1,5 @@
 %% dgdebug -u schema-tests.dg schema.dg grid.dg utils.dg unit.dg stdlib.dg
 
-(list of tests [
-	#class
-	#initialize
-	#speed
-	#warp-gradient
-	#energy
-	#crystals
-	#decrease-energy
-	#decrease-energy-below-zero
-	#regenerate
-	#regenerate-above-max
-	#systems-list
-	#class-systems-list
-	#undamaged-systems
-	#find-torpedoes
-	#dont-find-damaged-tractor
-	#find-torpedo-1
-	#dont-find-torpedo-3
-	#value-projector
-	#value-tractor
-	#value-mtd
-	#details-projector
-	#details-tractor
-	#details-mtd
-	#repair-time-projector
-	#repair-time-tractor
-	#repair-time-mtd
-	#repair-time-type-not-found
-	#repair-time-id-not-found
-	#set-repair-time-projector
-	#set-repair-time-type-not-found
-	#set-repair-time-id-not-found
-	])
-
-%% ----------------------------------------------------------------------------
-
 (interface (code $))
 
 (interface (ship type $))
@@ -44,109 +8,150 @@
 
 (reset randomness)
 
+(set up $)	(grid supports every heading)
+
 %% ----------------------------------------------------------------------------
 
-(test #class)
-	  (#test-ship class #cygnus-class)
+#class
+(test *)
+(run *)	  (#test-ship class #cygnus-class)
 
-(test #initialize)
+#initialize
+(test *)
+(run *)
 	  (initialize #test-ship as #cygnus-class)
 	  (#test-ship class #cygnus-class)
 	  (#test-ship energy 1000)
 	  (#test-ship crystals 4)
 
-(test #speed)
-	  (#test-ship speed 400)
+#speed
+(test *)
+(run *)	  (#test-ship speed 400)
 
-(test #warp-gradient)
-	  (#test-ship warp gradient 4)
+#warp-gradient
+(test *)
+(run *)	  (#test-ship warp gradient 4)
 
-(test #energy)
-	  (#test-ship energy 932)
+#energy
+(test *)
+(run *)	  (#test-ship energy 932)
 
-(test #crystals)
-	  (#test-ship crystals 4)
+#crystals
+(test *)
+(run *)	  (#test-ship crystals 4)
 
-(test #decrease-energy)
+#decrease-energy
+(test *)
+(run *)
 	  (decrease energy for #test-ship by 32)
 	  (#test-ship energy 900)
 
-(test #decrease-energy-below-zero)
-	  ~(decrease energy for #test-ship by 1001)
+#decrease-energy-below-zero
+(test *)
+(run *)	  ~(decrease energy for #test-ship by 1001)
 
-(test #regenerate)
+#regenerate
+(test *)
+(run *)
 	  (regenerate energy for #test-ship)
 	  (#test-ship energy 972)
 
-(test #regenerate-above-max)
+#regenerate-above-max
+(test *)
+(run *)
 	  (regenerate energy for #test-ship)
 	  (regenerate energy for #test-ship)
 	  (#test-ship energy 1000)
 
-(test #systems-list)
+#systems-list
+(test *)
+(run *)
 	  (#test-ship systems $List)
 	  (length of $List into 2)
 
-(test #class-systems-list)
+#class-systems-list
+(test *)
+(run *)
 	  (#test-ship class systems $List)
 	  (length of $List into 24)
 
-(test #undamaged-systems)
+#undamaged-systems
+(test *)
+(run *)
 	  (#test-ship undamaged systems $List)
 	  (length of $List into 22)
 
-(test #find-torpedoes)
+#find-torpedoes
+(test *)
+(run *)
 	  (find undamaged #torpedo for #test-ship into $Torps)
 	  (assert $Torps = [[#torpedo 1 [1 8] 1 500]
 	  		  		    [#torpedo 2 [1 8] 1 500]])
 
-(test #dont-find-damaged-tractor)
-	  (find undamaged #tractor for #test-ship into [])
+#dont-find-damaged-tractor
+(test *)
+(run *)	  (find undamaged #tractor for #test-ship into [])
 
-(test #find-torpedo-1)
-	  (find #test-ship #torpedo 1 into [#torpedo 1 [1 8] 1 500])
+#find-torpedo-1
+(test *)
+(run *)	  (find #test-ship #torpedo 1 into [#torpedo 1 [1 8] 1 500])
 
-(test #dont-find-torpedo-3)
-	  ~(find #test-ship #torpedo 3 into $)
+#dont-find-torpedo-3
+(test *)
+(run *)	  ~(find #test-ship #torpedo 3 into $)
 
-(test #value-projector)
-	  (#test-ship #projector 1 value 100)
+#value-projector
+(test *)
+(run *)	  (#test-ship #projector 1 value 100)
 
-(test #value-tractor)
-	  (#test-ship #tractor 1 value 250)
+#value-tractor
+(test *)
+(run *)	  (#test-ship #tractor 1 value 250)
 
-(test #value-mtd)
-	  (#test-ship #mtd 1 value 4)
+#value-mtd
+(test *)
+(run *)	  (#test-ship #mtd 1 value 4)
 
-(test #details-projector)
-	  (#test-ship #projector 1 details 141)
+#details-projector
+(test *)
+(run *)	  (#test-ship #projector 1 details 141)
 
-(test #details-tractor)
-	  (#test-ship #tractor 1 details 0)
+#details-tractor
+(test *)
+(run *)	  (#test-ship #tractor 1 details 0)
 
-(test #details-mtd)
-	  (#test-ship #mtd 1 details 0)
+#details-mtd
+(test *)
+(run *)	  (#test-ship #mtd 1 details 0)
 
-(test #repair-time-projector)
-      (#test-ship #projector 1 repair time 0)
+#repair-time-projector
+(test *)
+(run *)      (#test-ship #projector 1 repair time 0)
 
-(test #repair-time-tractor)
-      (#test-ship #tractor 1 repair time 800)
+#repair-time-tractor
+(test *)
+(run *)      (#test-ship #tractor 1 repair time 800)
 
-(test #repair-time-mtd)
-      (#test-ship #mtd 1 repair time 16383)
+#repair-time-mtd
+(test *)
+(run *)      (#test-ship #mtd 1 repair time 16383)
 
-(test #repair-time-type-not-found)
-	  ~(#test-ship #missile 1 repair time $)
+#repair-time-type-not-found
+(test *)
+(run *)	  ~(#test-ship #missile 1 repair time $)
 
-(test #repair-time-id-not-found)
-	  ~(#test-ship #projector 2 repair time $)
+#repair-time-id-not-found
+(test *)
+(run *)	  ~(#test-ship #projector 2 repair time $)
 
-(test #set-repair-time-projector)
-      (set repair time for #test-ship #projector 1 to 300)
+#set-repair-time-projector
+(test *)
+(run *)      (set repair time for #test-ship #projector 1 to 300)
 
-(test #set-repair-time-type-not-found)
-      ~(set repair time for #test-ship #missile 1 to 300)
+#set-repair-time-type-not-found
+(test *)
+(run *)      ~(set repair time for #test-ship #missile 1 to 300)
 
-(test #set-repair-time-id-not-found)
-      ~(set repair time for #test-ship #projector 2 to 300)
+#set-repair-time-id-not-found
+(test *)
+(run *)      ~(set repair time for #test-ship #projector 2 to 300)

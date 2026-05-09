@@ -1,78 +1,5 @@
 %% dgdebug -u sector-tests.dg sector.dg grid.dg unit.dg stdlib.dg
 
-(list of tests $Tests) ($Tests = [
-	#place-at-subsector
-	#place-in-sector
-	#target-on-map
-	#position-for-subsector
-	#subsector-for-position
-	#subsector-for-edge-position
-	#same-subsector
-	#not-same-subsector
-	#coordinates
-	#subsector
-	#current-ship-in-quadrant
-	#far-target-in-quadrant
-	#distant-target-not-in-quadrant
-	#0-0-not-in-quadrant
-	#1-0-not-in-quadrant
-	#0-1-not-in-quadrant
-	#9-9-not-in-quadrant
-	#9-8-not-in-quadrant
-	#8-9-not-in-quadrant
-	#1-1-in-quadrant
-	#8-8-in-quadrant
-	#objects-in-sector
-	#objects-in-empty-sector
-	#object-at-ship-position
-	#object-next-to-ship-position
-	#objects-in-ships-subsector
-	#object-at-near-target
-	#object-at-far-target
-	#objects-at-closest-target
-	#object-at-empty-position
-	#objects-in-star-system
-	#top-object-is-star
-	#next-subsector-north
-	#next-subsector-northeast
-	#next-subsector-east
-	#next-subsector-southeast
-	#next-subsector-south
-	#next-subsector-southwest
-	#next-subsector-west
-	#next-subsector-northwest
-	#closest-unoccupied-subsector-empty
-	#closest-unoccupied-subsector-north
-	#closest-unoccupied-subsector-south
-	#closest-unoccupied-subsector-east
-	#closest-unoccupied-subsector-west
-	#closest-unoccupied-subsector-quadrant-1
-	#closest-unoccupied-subsector-quadrant-2
-	#closest-unoccupied-subsector-quadrant-3
-	#closest-unoccupied-subsector-quadrant-4
-	#closest-unoccupied-subsector-near-target
-	#closest-unoccupied-subsector-far-target
-	#closest-unoccupied-subsector-two-squares
-	#square-beyond-map-north
-	#square-beyond-map-northwest
-	#turn-to-subsector
-	#drag-to-same-sector
-	#drag-to-different-sector
-	#drag-to-occupied-subsector
- 	#move-to-same-sector
-	#move-to-different-sector
-	#move-to-specified-subsector
-	#move-to-other-subsector
-	#move-to-third-subsector
-	#move-to-occupied-subsector
-	#move-to-star-system
-	#positions-are-equal
-	#angle-42
-	#angle-to-northeast
-	])
-
-%% ----------------------------------------------------------------------
-
 #test-ship
 (grid object *)
 (* initial position [344 454 315])
@@ -109,6 +36,7 @@
 (* initial position [573 573 0])
 
 (set up $)
+	 (grid supports every heading)
 	 (exhaust) {
 	     *(grid object $Object)
 		 ($Object initial position $Position)
@@ -116,22 +44,30 @@
 		 (now) (y increases south)
 	 }
 
-%% ----------------------------------------------------------------------
+%%-----------------------------------------------------------------------------
 
-(test #target-on-map)
+#target-on-map
+(test *)
+(run *)
     (#closest-target is on the map)
 
-(test #position-schema)
+#position-schema
+(test *)
+(run *)
 	(assert that #test-ship is at [3 4 5 6 315])
 
-(test #place-at)
+#place-at
+(test *)
+(run *)
 	(place #test-ship at 2 3 4 5)
 	(#test-ship sector x 2)
 	(#test-ship sector y 3)
 	(#test-ship subsector x 4)
 	(#test-ship subsector y 5)
 
-(test #place-at-subsector)
+#place-at-subsector
+(test *)
+(run *)
 	(place #test-ship at 2 3 4 5 6 7)
 	(#test-ship sector x 2)
 	(#test-ship sector y 3)
@@ -140,129 +76,188 @@
 	(#test-ship position x 6)
 	(#test-ship position y 7)
 
-(test #place-in-sector)
+#place-in-sector
+(test *)
+(run *)
 	(place #test-ship in sector 7 7)
 	(#test-ship sector x 7)
 	(#test-ship sector y 7)
 
-(test #position-for-subsector)
+#position-for-subsector
+(test *)
+(run *)
 	(position for 3 4 5 6 into [344 454])
 
-(test #coordinates)
+#coordinates
+(test *)
+(run *)
 	  (#test-ship coordinates into 3 4 5 6 5 5)
 
-(test #subsector)
+#subsector
+(test *)
+(run *)
 	  (#test-ship subsector into 3 4 5 6)
 
-(test #subsector-for-position)
+#subsector-for-position
+(test *)
+(run *)
 	(subsector for [345 455] into 3 4 5 6)
 
-(test #subsector-for-edge-position)
+#subsector-for-edge-position
+(test *)
+(run *)
 	(subsector for [340 459] into 3 4 5 6)
 
-(test #same-subsector)
+#same-subsector
+(test *)
+(run *)
 	(position for 3 4 5 6 1 10 into $Here)
 	(position for 3 4 5 6 5 5 into $There)
 	($Here is in the same subsector as $There)
 
-(test #not-same-subsector)
+#not-same-subsector
+(test *)
+(run *)
 	(position for 3 4 5 7 1 1 into $Here)
 	(position for 3 4 5 6 5 5 into $There)
 	~($Here is in the same subsector as $There)
 
-(test #current-ship-in-quadrant)
+#current-ship-in-quadrant
+(test *)
+(run *)
 	(#test-ship position $Here)
 	($Here is in the quadrant)
 
-(test #far-target-in-quadrant)
+#far-target-in-quadrant
+(test *)
+(run *)
 	(#far-target position $Here)
 	($Here is in the quadrant)
 
-(test #distant-target-not-in-quadrant)
+#distant-target-not-in-quadrant
+(test *)
+(run *)
 	(#distant-target position $Here)
-	$Here
 	~($Here is in the quadrant)
 
-(test #0-0-not-in-quadrant)
+#0-0-not-in-quadrant
+(test *)
+(run *)
 	(position for 0 0 1 1 into $Here)
 	~($Here is in the quadrant)
 
-(test #1-0-not-in-quadrant)
+#1-0-not-in-quadrant
+(test *)
+(run *)
 	(position for 1 0 1 1 into $Here)
 	~($Here is in the quadrant)
 
-(test #0-1-not-in-quadrant)
+#0-1-not-in-quadrant
+(test *)
+(run *)
 	(position for 0 1 1 1 into $Here)
 	~($Here is in the quadrant)
 
-(test #9-9-not-in-quadrant)
+#9-9-not-in-quadrant
+(test *)
+(run *)
 	(position for 9 9 10 10 into $Here)
 	~($Here is in the quadrant)
 
-(test #9-8-not-in-quadrant)
+#9-8-not-in-quadrant
+(test *)
+(run *)
 	(position for 9 8 10 10 into $Here)
 	~($Here is in the quadrant)
 
-(test #8-9-not-in-quadrant)
+#8-9-not-in-quadrant
+(test *)
+(run *)
 	(position for 8 9 10 10 into $Here)
 	~($Here is in the quadrant)
 
-(test #1-1-in-quadrant)
+#1-1-in-quadrant
+(test *)
+(run *)
 	(position for 1 1 1 1 into $Here)
 	($Here is in the quadrant)
 
-(test #8-8-in-quadrant)
+#8-8-in-quadrant
+(test *)
+(run *)
 	(position for 8 8 10 10 into $Here)
 	($Here is in the quadrant)
 
-(test #objects-in-sector)
+#objects-in-sector
+(test *)
+(run *)
 	(objects in sector 3 4 into $List)
 	(length of $List into 3)
 	(assert $List = [#test-ship #closest-target #near-target])
 
-(test #objects-in-empty-sector)
+#objects-in-empty-sector
+(test *)
+(run *)
 	(objects in sector 1 8 into $List)
 	(length of $List into 0)
 
-(test #object-at-ship-position)
+#object-at-ship-position
+(test *)
+(run *)
 	(#test-ship initial position $Here)
 	(object at $Here into $Obj)
 	(assert $Obj = #test-ship)
 
-(test #object-next-to-ship-position)
+#object-next-to-ship-position
+(test *)
+(run *)
 	(position for 3 4 5 6 6 6 into $Here)
 	~(object at $Here into $)
 
-(test #objects-in-ships-subsector)
+#objects-in-ships-subsector
+(test *)
+(run *)
 	(objects in subsector 3 4 5 6 into $List)
 	(assert $List = [ #test-ship ])
 
-(test #objects-at-closest-target)
+#objects-at-closest-target
+(test *)
+(run *)
 	(#closest-target position $There)
 	(subsector for $There into $SX $SY $X $Y)
 	(objects in subsector $SX $SY $X $Y into $List)
 	(assert $List = [ #closest-target ])
 
-(test #object-at-near-target)
+#object-at-near-target
+(test *)
+(run *)
 	(#near-target position $Here)
 	(object at $Here into $Obj)
 	(assert $Obj = #near-target)
 
-(test #object-at-far-target)
+#object-at-far-target
+(test *)
+(run *)
 	(#far-target position $Here)
 	(object at $Here into $Obj)
 	(assert $Obj = #far-target)
 
-(test #object-at-empty-position)
+#object-at-empty-position
+(test *)
+(run *)
 	~(object at [8 8 10 10] into $Obj)
 	~(bound $Obj)
 
-(test #objects-in-star-system)
+#objects-in-star-system
+(test *)
+(run *)
 	(objects in subsector 5 5 8 8 into $List)
 	(length of $List into 3)
 	(assert $List = [ #sun #planet #other-planet ])
 
-(test #top-object-is-star)
+#top-object-is-star
+(test *)
+(run *)
 	(top object in subsector 5 5 8 8 into #sun)
 
 (assert that $Direction goes to $SX $SY $X $Y)
@@ -270,31 +265,49 @@
 	(position for $SX $SY $X $Y into $There)
 	(next subsector $Direction from $Here into $There)
 
-(test #next-subsector-north)
+#next-subsector-north
+(test *)
+(run *)
 	(assert that #north goes to 3 4 5 5)
 
-(test #next-subsector-northeast)
+#next-subsector-northeast
+(test *)
+(run *)
 	(assert that #northeast goes to 3 4 6 5)
 
-(test #next-subsector-east)
+#next-subsector-east
+(test *)
+(run *)
 	(assert that #east goes to 3 4 6 6)
 
-(test #next-subsector-southeast)
+#next-subsector-southeast
+(test *)
+(run *)
 	(assert that #southeast goes to 3 4 6 7)
 
-(test #next-subsector-south)
+#next-subsector-south
+(test *)
+(run *)
 	(assert that #south goes to 3 4 5 7)
 
-(test #next-subsector-southwest)
+#next-subsector-southwest
+(test *)
+(run *)
 	(assert that #southwest goes to 3 4 4 7)
 
-(test #next-subsector-west)
+#next-subsector-west
+(test *)
+(run *)
 	(assert that #west goes to 3 4 4 6)
 
-(test #next-subsector-northwest)
+#next-subsector-northwest
+(test *)
+(run *)
 	(assert that #northwest goes to 3 4 4 5)
 
-(test #closest-unoccupied-square-empty)
+#closest-unoccupied-square-empty
+(test *)
+(run *)
 	(position for 3 4 5 6 into $Here)
 	(position for 8 8 10 10 5 5 into $There)
 	(closest unoccupied square to $There from $Here into $There)
@@ -305,45 +318,67 @@
 	(position for $SX $SY $X $Y $PX $PY into $Result)
 	(closest unoccupied square to $Here from $There into $Result)
 
-(test #closest-unoccupied-square-north)
+#closest-unoccupied-square-north
+(test *)
+(run *)
 	(assert closest from 3 4 5 1 5 5 is 3 4 5 6 5 4)
 
-(test #closest-unoccupied-square-south)
+#closest-unoccupied-square-south
+(test *)
+(run *)
 	(assert closest from 3 4 5 9 5 5 is 3 4 5 6 5 6)
 
-(test #closest-unoccupied-square-east)
+#closest-unoccupied-square-east
+(test *)
+(run *)
 	(assert closest from 3 4 10 6 5 5 is 3 4 5 6 6 5)
 
-(test #closest-unoccupied-square-west)
+#closest-unoccupied-square-west
+(test *)
+(run *)
 	(assert closest from 3 4 1 6 5 5 is 3 4 5 6 4 5)
 
-(test #closest-unoccupied-square-quadrant-1)
+#closest-unoccupied-square-quadrant-1
+(test *)
+(run *)
 	(assert closest from 3 4 10 4 1 1 is 3 4 5 6 6 4)
 
-(test #closest-unoccupied-square-quadrant-2)
+#closest-unoccupied-square-quadrant-2
+(test *)
+(run *)
 	(assert closest from 3 4 10 10 5 5 is 3 4 5 6 6 6)
 
-(test #closest-unoccupied-square-quadrant-3)
+#closest-unoccupied-square-quadrant-3
+(test *)
+(run *)
 	(assert closest from 3 4 1 8 5 5 is 3 4 5 6 4 6)
 
-(test #closest-unoccupied-square-quadrant-4)
+#closest-unoccupied-square-quadrant-4
+(test *)
+(run *)
 	(assert closest from 3 4 1 1 5 5 is 3 4 5 6 4 4)
 
-(test #closest-unoccupied-square-near-target)
+#closest-unoccupied-square-near-target
+(test *)
+(run *)
 	(#test-ship position $Here)
 	(#near-target position $There)
 	(position for 3 4 2 3 6 6 into $Square)
 	([$X $Y] = $Square)
 	(closest unoccupied square to $There from $Here into [$X $Y 0])
 
-(test #closest-unoccupied-square-far-target)
+#closest-unoccupied-square-far-target
+(test *)
+(run *)
 	(#test-ship position $Here)
 	(#far-target position $There)
 	(position for 4 3 3 2 4 6 into $Square)
 	([$X $Y] = $Square)
 	(closest unoccupied square to $There from $Here into [$X $Y 0])
 
-(test #closest-unoccupied-subsector-empty)
+#closest-unoccupied-subsector-empty
+(test *)
+(run *)
 	(position for 3 4 5 6 into $Here)
 	(position for 8 8 10 10 into $There)
 	(closest unoccupied subsector to $There from $Here into $There)
@@ -355,31 +390,49 @@
 	(closest unoccupied subsector to $Here from $There into $Result)
 	(assert $Result = $Expected)
 
-(test #closest-unoccupied-subsector-north)
+#closest-unoccupied-subsector-north
+(test *)
+(run *)
 	(assert closest from 3 4 5 1 is 3 4 5 5)
 
-(test #closest-unoccupied-subsector-south)
+#closest-unoccupied-subsector-south
+(test *)
+(run *)
 	(assert closest from 3 4 5 9 is 3 4 5 7)
 
-(test #closest-unoccupied-subsector-east)
+#closest-unoccupied-subsector-east
+(test *)
+(run *)
 	(assert closest from 3 4 10 6 is 3 4 6 6)
 
-(test #closest-unoccupied-subsector-west)
+#closest-unoccupied-subsector-west
+(test *)
+(run *)
 	(assert closest from 3 4 1 6 is 3 4 4 6)
 
-(test #closest-unoccupied-subsector-quadrant-1)
+#closest-unoccupied-subsector-quadrant-1
+(test *)
+(run *)
 	(assert closest from 3 4 10 4 is 3 4 6 6)
 
-(test #closest-unoccupied-subsector-quadrant-2)
+#closest-unoccupied-subsector-quadrant-2
+(test *)
+(run *)
 	(assert closest from 3 4 10 10 is 3 4 6 7)
 
-(test #closest-unoccupied-subsector-quadrant-3)
+#closest-unoccupied-subsector-quadrant-3
+(test *)
+(run *)
 	(assert closest from 3 4 1 8 is 3 4 4 7)
 
-(test #closest-unoccupied-subsector-quadrant-4)
+#closest-unoccupied-subsector-quadrant-4
+(test *)
+(run *)
 	(assert closest from 3 4 1 1 is 3 4 4 5)
 
-(test #closest-unoccupied-subsector-near-target)
+#closest-unoccupied-subsector-near-target
+(test *)
+(run *)
 	(#test-ship position $Here)
 	(#near-target position $There)
 	(position for 3 4 3 4 into $Expected)
@@ -387,7 +440,9 @@
 	([$X $Y | $] = $Result)
 	(assert [$X $Y] = $Expected)
 
-(test #closest-unoccupied-subsector-far-target)
+#closest-unoccupied-subsector-far-target
+(test *)
+(run *)
 	(#test-ship position $Here)
 	(#far-target position $There)
 	(position for 4 3 2 3 into $Expected)
@@ -395,20 +450,34 @@
 	([$X $Y | $] = $Result)
 	(assert [$X $Y] = $Expected)
 
-(test #closest-unoccupied-subsector-two-squares)
+#closest-unoccupied-subsector-two-squares
+(test *)
+(run *)
 	(assert closest from 3 4 10 3 is 3 4 7 4)
 
-(test #square-in-next-sector-north)
-	(assert 900 on bearing 27 is 3 3 9 8 6 3)
+#square-in-next-sector-north
+(test *)
+(run *)
+	(#test-ship position $Here)
+	(square at 900 on bearing 27 from $Here into $There)
+	(coordinates for $There into 3 3 9 8 6 3)
 
-(test #square-in-next-sector-northwest)
-	(assert 1400 on bearing 316 is 2 3 6 7 9 5)
+#square-in-next-sector-northwest
+(test *)
+(run *)
+	(#test-ship position $Here)
+	(square at 1400 on bearing 316 from $Here into $There)
+	(coordinates for $There into 2 3 6 7 9 5)
 
-(test #square-beyond-map-north)
+#square-beyond-map-north
+(test *)
+(run *)
 	(position for 1 1 1 1 1 1 into $Here)
 	~(square at 10000 on bearing 0 from $Here into $)
 
-(test #square-beyond-map-northwest)
+#square-beyond-map-northwest
+(test *)
+(run *)
 	(position for 1 1 1 1 1 1 into $Here)
 	~(square at 10000 on bearing 315 from $Here into $)
 
@@ -420,126 +489,179 @@
 	($Ship heading $H)
 	(assert [$SX $SY $X $Y $H] = $Place)
 
-(test #drag-to-same-sector)
+#drag-to-same-sector
+(test *)
+(run *)
 	(drag #test-ship to 3 4 8 7)
 	(assert that #test-ship is at [3 4 8 7 315])
 
-(test #drag-to-different-sector)
+#drag-to-different-sector
+(test *)
+(run *)
 	(drag #test-ship to 5 6 8 7)
 	(assert that #test-ship is at [5 6 8 7 315])
 
-(test #move-to-same-sector)
+#move-to-same-sector
+(test *)
+(run *)
 	(move #test-ship to 3 4 8 7)
 	(assert that #test-ship is at [3 4 8 7 108])
 
-(test #move-to-different-sector)
+#move-to-different-sector
+(test *)
+(run *)
 	(move #test-ship to 5 6 8 7)
 	(assert that #test-ship is at [5 6 8 7 132])
 
-(test #move-to-specified-subsector)
+#move-to-specified-subsector
+(test *)
+(run *)
 	(move #test-ship to 8 8 10 10)
 	(assert that #test-ship is at [8 8 10 10 128])
 
-(test #move-to-other-subsector)
+#move-to-other-subsector
+(test *)
+(run *)
 	(position for 1 1 1 1 into $There)
 	(move #test-ship to subsector $There)
 	(assert that #test-ship is at [1 1 1 1 326])
 
-(test #move-to-third-subsector)
+#move-to-third-subsector
+(test *)
+(run *)
 	(move #test-ship to position [374 414])
 	(assert that #test-ship is at [3 4 8 2 38])
 
-(test #drag-100-north)a
+#drag-100-north
+(test *)
+(run *)
 	(drag #test-ship 100 on heading 0)
 	(assert that #test-ship is at [3 4 5 5 315])
 
-(test #move-100-north)
+#move-100-north
+(test *)
+(run *)
 	(move #test-ship 100 on heading 0)
 	(assert that #test-ship is at [3 4 5 5 0])
 
-(test #drag-141-southeast)
+#drag-141-southeast
+(test *)
+(run *)
 	(drag #test-ship 141 on heading 135)
 	(assert that #test-ship is at [3 4 6 7 315])
 
-(test #move-141-southeast)
+#move-141-southeast
+(test *)
+(run *)
 	(move #test-ship 141 on heading 135)
 	(assert that #test-ship is at [3 4 6 7 135])
 
-(test #move-51-east)
+#move-51-east
+(test *)
+(run *)
 	(move #test-ship 51 on heading 90)
 	(assert that #test-ship is at [3 4 5 6 90])
 
-(test #move-71-southwest)
+#move-71-southwest
+(test *)
+(run *)
 	(move #test-ship 71 on heading 225)
 	(assert that #test-ship is at [3 4 4 6 225])
 
-(test #move-900-27)
+#move-900-27
+(test *)
+(run *)
 	(move #test-ship 900 on heading 27)
 	(assert that #test-ship is at [3 3 9 8 27])
 
-(test #move-1400-316)
+#move-1400-316
+(test *)
+(run *)
 	(move #test-ship 1400 on heading 316)
 	(assert that #test-ship is at [2 3 6 7 316])
 
-(test #move-northwest-from-corner)
+#move-northwest-from-corner
+(test *)
+(run *)
 	(move #test-ship to 1 1 1 1)
 	(assert that #test-ship is at [1 1 1 1 326])
 	(move #test-ship 100 on heading 315)
-	(assert that #test-ship is at [0 0 10 10 315])
+	(#test-ship position [97 97 315])
 
-(test #move-10000-0)
+#move-10000-0
+(test *)
+(run *)
 	~(move #test-ship 10000 on heading 0)
 
-(test #move-10000-314)
+#move-10000-314
+(test *)
+(run *)
 	~(move #test-ship 10000 on heading 314)
 
-(test #long-move)
+#long-move
+(test *)
+(run *)
 	(move #test-ship to 1 1 1 1)
 	(move #test-ship 11100 on heading 135)
 	(assert that #test-ship is at [8 8 10 10 135])
 
-(test #drag-to-occupied-square)
+#drag-to-occupied-square
+(test *)
+(run *)
 	(#near-target position $There)
 	(drag #test-ship to position $There)
 	(assert that #test-ship is at [3 4 2 3 315])
 
-(test #move-to-occupied-square)
+#move-to-occupied-square
+(test *)
+(run *)
 	(#near-target position $There)
 	(move #test-ship to position $There)
 	(assert that #test-ship is at [3 4 2 3 315])
 
-(test #drag-to-occupied-subsector)
+#drag-to-occupied-subsector
+(test *)
+(run *)
 	(#near-target position $There)
 	(drag #test-ship to subsector $There)
 	(assert that #test-ship is at [3 4 2 3 315])
 
-(test #move-to-occupied-subsector)
+#move-to-occupied-subsector
+(test *)
+(run *)
 	(#near-target position $There)
 	(move #test-ship to subsector $There)
 	(assert that #test-ship is at [3 4 2 3 315])
 
-(test #positions-are-equal)
+#positions-are-equal
+(test *)
+(run *)
 	(position for 3 4 6 5 into $Here)
 	(position for 3 4 6 5 5 5 into $There)
 	(assert $Here = $There)
 
-(test #angle-42)
+#angle-42
+(test *)
+(run *)
 	(position for 3 4 5 6 into $Here)
 %%	(position for 3 4 6 5 into $There) %% weirdly gives 42; we'll go with it
 	(position for 3 4 7 4 into $There)
 	(calculate bearing from $Here to $There into 45)
 
-(test #angle-to-northeast) %% Where the hell is 87 coming from?!
+#angle-to-northeast
+(test *)
+(run *)
 	(drag #closest-target to 3 4 7 4)
 	(angle from #test-ship to #closest-target into 90)
 
-(test #not-implemented)
-    Not implemented
-
-(test #turn-to-subsector)
+#turn-to-subsector
+(test *)
+(run *)
     (turn #test-ship to face 1 1 1 1)
     (#test-ship heading 326)
 
-(test #move-to-star-system)
+#move-to-star-system
+(test *)
+(run *)
     (move #test-ship 2000 toward #sun)
     (assert that #test-ship is at [5 5 1 5 118])

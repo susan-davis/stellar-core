@@ -1,194 +1,201 @@
 %% dgdebug -u maneuver-tests.dg test-ships.dg maneuvering.dg sector.dg grid.dg \
 %%            unit.dg stdlib.dg
 
-(list of tests [
-	#throttle
-	#throttle-gradient
-	#helm
-	#destination
-	#destination-subsector
-	#destination-precisely
-	#turn-mode
-	#effective-turn-mode
-	#effective-turn-mode-sublight
-	#acceleration
-	#drive-params
-	#efficiency
-	#cruising-speed
-	#top-speed
-	#set-destination
-	#set-destination-subsector
-	#set-destination-precisely
-	#set-helm
-	#set-throttle-speed
-	#set-throttle-speed-too-fast
-	#set-throttle-gradient
-	#set-throttle-gradient-too-fast
-	#accelerate
-	#accelerate-too-fast
-	#decelerate
-	#turn-ship
-	#turn-ship-to-starboard
-	#turn-ship-to-port
-	#turn-ship-about
-	#turn-ship-to-starboard-too-hard
-	#turn-ship-to-port-too-hard
-	#accelerate
-	#accelerate-too-fast
-	#accelerate-way-too-fast
-	#decelerate
-	#energy-for-warp-4
-	#energy-for-warp-8
-	#move-on-course
-	#move-on-course-closest-target
-	#move-on-course-distant-target
-	#adjust-throttle-932
-	#adjust-throttle-6
-	#adjust-throttle-1
-	#adjust-throttle-0
-	#update-ship-near-target
-	#update-ship-far-target
-	#update-ship-distant-target
-	#move-1-at-7
-	#move-2-at-7
-	#move-5-at-7
-	#move-8-at-4
-	#move-1-toward-corner
-	#move-2-toward-corner
-	#move-5-toward-corner
-	])
-
-%% ---------------------------------------------------------------------------
-
 (reset randomness)
 
 (interface (code $))
 
 (interface (ship type $))
 
+(set up $) (grid supports every heading)
+
 %% ---------------------------------------------------------------------------
 
-(test #helm)
+#helm
+(test *)
+(run *)
 	  (#test-ship helm setting 315)
 
-(test #throttle)
+#throttle
+(test *)
+(run *)
 	  (#test-ship throttle setting 700)
 
-(test #throttle-gradient)
+#throttle-gradient
+(test *)
+(run *)
 	  (#test-ship throttle gradient 7)
 
-(test #destination)
+#destination
+(test *)
+(run *)
 	  (#test-ship destination [300 400])
 
-(test #destination-subsector)
+#destination-subsector
+(test *)
+(run *)
 	  (#test-ship destination 3 4 1 1)
 
-(test #destination-precisely)
+#destination-precisely
+(test *)
+(run *)
 	  (#test-ship destination 3 4 1 1 1 1)
 
-(test #turn-mode)
+#turn-mode
+(test *)
+(run *)
 	  (#test-ship turn mode 180)
 
-(test #effective-turn-mode)
+#effective-turn-mode
+(test *)
+(run *)
 	  (#test-ship effective turn mode 45)
 
-(test #effective-turn-mode-sublight)
+#effective-turn-mode-sublight
+(test *)
+(run *)
 	  (accelerate #test-ship to speed 0)
 	  (#test-ship effective turn mode 360)
 
-(test #drive-params)
+#drive-params
+(test *)
+(run *)
 	  (#test-ship drive parameters [500 963])
 
-(test #efficiency)
+#efficiency
+(test *)
+(run *)
 	  (#test-ship drive efficiency 500)
 
-(test #cruising-speed)
+#cruising-speed
+(test *)
+(run *)
 	  (#test-ship cruising speed 6)
 
-(test #top-speed)
+#top-speed
+(test *)
+(run *)
 	  (#test-ship top speed 9)
 
-(test #acceleration)
+#acceleration
+(test *)
+(run *)
 	  (#test-ship acceleration 300)
 
-(test #set-destination)
+#set-destination
+(test *)
+(run *)
 	  (position for 4 5 6 7 into $Position)
 	  (set destination for #test-ship to $Position)
 	  (#test-ship destination 4 5 6 7)
 	  (#test-ship heading 315)
 	  (#test-ship helm setting 135)
 
-(test #set-destination-subsector)
+#set-destination-subsector
+(test *)
+(run *)
 	  (set destination for #test-ship to 4 5 6 7)
 	  (#test-ship destination $There)
 	  ([454 564 | $] = $There)
 	  (#test-ship helm setting 135)
 
-(test #set-destination-precisely)
+#set-destination-precisely
+(test *)
+(run *)
 	  (set destination for #test-ship to 4 5 6 7 8 9)
 	  (#test-ship destination 4 5 6 7 8 9)
 	  (#test-ship helm setting 137)
 
-(test #set-helm)
+#set-helm
+(test *)
+(run *)
 	  (set helm for #test-ship to 135)
 	  (#test-ship helm setting 135)
 
-(test #set-throttle-speed)
+#set-throttle-speed
+(test *)
+(run *)
 	  (set throttle for #test-ship to speed 610)
 	  (#test-ship throttle setting 610)
 
-(test #set-throttle-speed-too-fast)
+#set-throttle-speed-too-fast
+(test *)
+(run *)
 	  (set throttle for #test-ship to speed 1099)
 	  (#test-ship throttle setting 900)
 
-(test #set-throttle-gradient)
+#set-throttle-gradient
+(test *)
+(run *)
 	  (set throttle for #test-ship to gradient 6)
 	  (#test-ship throttle setting 600)
 
-(test #set-throttle-gradient-too-fast)
+#set-throttle-gradient-too-fast
+(test *)
+(run *)
 	  (set throttle for #test-ship to gradient 10)
 	  (#test-ship throttle setting 900)
 
-(test #accelerate)
+#accelerate
+(test *)
+(run *)
 	  (accelerate #test-ship to speed 600)
 	  (#test-ship speed 600)
 
-(test #accelerate-too-fast)
+#accelerate-too-fast
+(test *)
+(run *)
 	  (accelerate #test-ship to speed 1000)
 	  (#test-ship speed 900)
 
-(test #decelerate)
+#decelerate
+(test *)
+(run *)
 	  (accelerate #test-ship to speed 0)
 	  (#test-ship speed 0)
 
-(test #accelerate-gradient)
+#accelerate-gradient
+(test *)
+(run *)
 	  (accelerate #test-ship to gradient 6)
 	  (#test-ship warp gradient 6)
 
-(test #accelerate-gradient-too-fast)
+#accelerate-gradient-too-fast
+(test *)
+(run *)
 	  (accelerate #test-ship to gradient 10)
 	  (#test-ship warp gradient 9)
 
-(test #decelerate-gradient)
+#decelerate-gradient
+(test *)
+(run *)
 	  (accelerate #test-ship to gradient 0)
 	  (#test-ship speed 0)
 
-(test #turn-ship)
+#turn-ship
+(test *)
+(run *)
 	(turn #test-ship to helm setting)
 	(#test-ship heading 315)
 
-(test #turn-ship-to-starboard)
+#turn-ship-to-starboard
+(test *)
+(run *)
 	(set helm for #test-ship to 359)
 	(#test-ship heading 315)
 	(turn #test-ship to helm setting)
 	(#test-ship heading 359)
 
-(test #turn-ship-to-port)
+#turn-ship-to-port
+(test *)
+(run *)
 	(set helm for #test-ship to 270)
 	(turn #test-ship to helm setting)
 	(#test-ship heading 270)
 
-(test #turn-ship-about)
+#turn-ship-about
+(test *)
+(run *)
 	(set helm for #test-ship to 135)
 	(turn #test-ship to helm setting)
 	(#test-ship heading 0)
@@ -201,56 +208,78 @@
 	(turn #test-ship to helm setting)
 	(#test-ship heading 135)
 
-(test #turn-ship-to-starboard-too-hard)
+#turn-ship-to-starboard-too-hard
+(test *)
+(run *)
 	(set helm for #test-ship to 45)
 	(turn #test-ship to helm setting)
 	(#test-ship heading 0)
 
-(test #turn-ship-to-port-too-hard)
+#turn-ship-to-port-too-hard
+(test *)
+(run *)
 	(set helm for #test-ship to 225)
 	(turn #test-ship to helm setting)
 	(#test-ship heading 270)
 
-(test #accelerate)
+#accelerate
+(test *)
+(run *)
 	(accelerate #test-ship to throttle setting)
 	(#test-ship speed 700)
 	(#test-ship warp gradient 7)
 
-(test #accelerate-too-fast)
+#accelerate-too-fast
+(test *)
+(run *)
 	(set throttle for #test-ship to gradient 9)
 	(accelerate #test-ship to throttle setting)
 	(#test-ship warp gradient 7)
 	(accelerate #test-ship to throttle setting)
 	(#test-ship warp gradient 9)
 
-(test #accelerate-way-too-fast)
+#accelerate-way-too-fast
+(test *)
+(run *)
 	(set throttle for #test-ship to gradient 10)
 	(accelerate #test-ship to throttle setting)
 	(#test-ship warp gradient 7)
 	(accelerate #test-ship to throttle setting)
 	(#test-ship warp gradient 9)
 
-(test #decelerate)
+#decelerate
+(test *)
+(run *)
 	(set throttle for #test-ship to speed 0)
 	(accelerate #test-ship to throttle setting)
 	(#test-ship warp gradient 0)
 
-(test #energy-for-warp-4)
+#energy-for-warp-4
+(test *)
+(run *)
 	(#test-ship energy needed for distance 400 into 1)
 
-(test #energy-for-warp-8)
+#energy-for-warp-8
+(test *)
+(run *)
 	(#test-ship energy needed for distance 800 into 6)
 
-(test #move-on-course)
+#move-on-course
+(test *)
+(run *)
 	(move #test-ship on course and speed)
 	(#test-ship position [315 425 | $])
 
-(test #move-on-course-closest-target)
+#move-on-course-closest-target
+(test *)
+(run *)
 	(turn #test-ship to face #closest-target)
 	(move #test-ship on course and speed)
 	(#test-ship position [373 425 | $])
 
-(test #move-on-course-distant-target)
+#move-on-course-distant-target
+(test *)
+(run *)
 	(turn #test-ship to face #distant-target)
 	(move #test-ship on course and speed)
 	(#test-ship position [331 489 | $])
@@ -261,16 +290,24 @@
 	(adjust #test-ship throttle for remaining energy)
 	(#test-ship throttle setting $Throttle)
 
-(test #adjust-throttle-932)
+#adjust-throttle-932
+(test *)
+(run *)
 	(assert energy 932 yields throttle 700)
 
-(test #adjust-throttle-6)
+#adjust-throttle-6
+(test *)
+(run *)
 	(assert energy 6 yields throttle 700)
 
-(test #adjust-throttle-1)
+#adjust-throttle-1
+(test *)
+(run *)
 	(assert energy 1 yields throttle 500)
 
-(test #adjust-throttle-0)
+#adjust-throttle-0
+(test *)
+(run *)
 	(assert energy 0 yields throttle 0)
 
 (assert $Target goes to $SX $SY $X $Y heading $H speed $S energy $E)
@@ -283,13 +320,19 @@
 	(#test-ship speed $S)
 	(#test-ship energy $E)
 
-(test #update-ship-near-target)
+#update-ship-near-target
+(test *)
+(run *)
 	(assert #near-target goes to 3 4 2 3 heading 315 speed 700 energy 972)
 
-(test #update-ship-far-target)
+#update-ship-far-target
+(test *)
+(run *)
 	(assert #far-target goes to 3 3 5 9 heading 0 speed 700 energy 968)
 
-(test #update-ship-distant-target)
+#update-ship-distant-target
+(test *)
+(run *)
 	(assert #distant-target goes to 2 4 8 6 heading 270 speed 700 energy 968)
 
 (assert $N minutes goes to $X $Y at throttle $Throttle)
@@ -297,16 +340,24 @@
 	(move #test-ship for $N minutes)
 	(#test-ship position [$X $Y | $])
 
-(test #move-1-at-7)
+#move-1-at-7
+(test *)
+(run *)
 	(assert 1 minutes goes to 294 404 at throttle 7)
 
-(test #move-2-at-7)
+#move-2-at-7
+(test *)
+(run *)
 	(assert 2 minutes goes to 244 354 at throttle 7)
 
-(test #move-5-at-7)
+#move-5-at-7
+(test *)
+(run *)
 	(assert 5 minutes goes to 94 204 at throttle 7)
 
-(test #move-8-at-4)
+#move-8-at-4
+(test *)
+(run *)
 	(assert 8 minutes goes to 112 222 at throttle 4)
 
 (assert $N minutes toward $Destination goes to $SX $SY $X $Y $PX $PY)
@@ -315,11 +366,17 @@
 	(move #test-ship for $N minutes)
 	(#test-ship coordinates into $SX $SY $X $Y $PX $PY)
 
-(test #move-1-toward-corner)
+#move-1-toward-corner
+(test *)
+(run *)
 	(assert 1 minutes toward [899 899] goes to 3 4 5 2 5 5)
 
-(test #move-2-toward-corner)
+#move-2-toward-corner
+(test *)
+(run *)
 	(assert 2 minutes toward [899 899] goes to 3 3 8 9 4 6)
 
-(test #move-5-toward-corner)
+#move-5-toward-corner
+(test *)
+(run *)
 	(assert 5 minutes toward [899 899] goes to 4 4 8 4 4 8)
