@@ -7,8 +7,6 @@
 
 (interface (ship type $))
 
-(set up $) (grid supports every heading)
-
 %% ---------------------------------------------------------------------------
 
 #helm

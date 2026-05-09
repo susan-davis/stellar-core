@@ -7,6 +7,9 @@
 %% 10-unit squares, with diagonal squares 14 units from each other, and only
 %% one object occupying a given square.
 
+%% TODO: add an additional file that ties this back to the stdlib.dg world
+%% model, with exits and points of interest at certain coordinates or ranges.
+
 %% Copyright © 2021-2026, Susan Davis. All rights reserved. See LICENSE for
 %% licensing details.
 
