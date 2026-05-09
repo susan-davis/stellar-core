@@ -1,57 +1,10 @@
-%% dgdebug -u dice-tests.dg dice.dg unit.dg stdlib.dg
-
-(list of tests [
-	  #randomize-position
-	  #reset-randomness
-	  #1d3
-	  #one-roll
-	  #wrap-around-1d6
-	  #two-roll-individual
-	  #two-roll-total
-	  #three-roll-individual
-	  #three-roll-total
-	  #four-roll-individual
-	  #four-roll-total
-	  #four-roll-saved
-	  #wrap-around-3d6
-	  #mix-one-and-three
-	  #d36
-	  #d216
-	  #2d3-individual
-	  #2d3-total
-	  #1dF
-	  #2dF
-	  #1-plus-2dF
-	  #4dF
-	  #2-plus-4dF
-	  #7-die-pool-against-target
-	  #8-die-pool-against-target
-	  #9-die-pool-against-target
-	  #10-die-pool-against-target
-	  #11-die-pool-against-target
-	  #11-die-pool-against-higher-target
-	  #11-die-pool-against-lower-target
-	  #percent-of-zero
-	  #percent-of-one
-	  #percent-of-two
-	  #percent-of-five
-	  #percent-of-14
-	  #percent-of-75
-	  #percent-of-150
-	  #percent-of-924
-	  #percent-of-1500
-	  #percent-of-16234
-	  #random-0
-	  #random-element
-	  ])
-
-%%-----------------------------------------------------------------------------
+%% dgdebug -u d6-tests.dg d6.dg unit.dg stdlib.dg
 
 (set up $)	 (reset randomness)
 
-%%-----------------------------------------------------------------------------
-
-(test #1d3)
+#1d3
+(test *)
+(run *)
 	(roll #d3 3)
 	(roll #d3 3)
 	(roll #d3 2)
@@ -65,7 +18,9 @@
 	(roll #d3 3)
 	(3d6 list position 4)
 
-(test #one-roll)
+#one-roll
+(test *)
+(run *)
 	(3d6 list position 1)
 	(roll #d6 6)
 	(3d6 list position 2)
@@ -77,7 +32,9 @@
 	(3d6 list position 3)
 	~(3d6 has rolled over)
 
-(test #wrap-around-1d6)
+#wrap-around-1d6
+(test *)
+(run *)
  	(now) (3d6 list position 215)
 	(roll #d6 3)
 	(roll #d6 2)
@@ -98,7 +55,9 @@
 	(3d6 has rolled over)
 	(3d6 list position 2)
 
-(test #two-roll-individual)
+#two-roll-individual
+(test *)
+(run *)
 	(roll two #d6 5 6)
 	(3d6 list position 2)
 	(roll two #d6 6 4)
@@ -110,7 +69,9 @@
 	(roll two #d6 3 6)
 	(3d6 list position 4)
 
-(test #two-roll-total)
+#two-roll-total
+(test *)
+(run *)
 	(roll 2 #d6 11)
 	(roll 2 #d6 10)
 	(roll 2 #d6 4)
@@ -118,7 +79,9 @@
 	(roll 2 #d6 9)
 	(3d6 list position 4)
 
-(test #three-roll-individual)
+#three-roll-individual
+(test *)
+(run *)
 	(roll three #d6 4 5 6)
 	(roll three #d6 4 3 1)
 	(roll three #d6 5 3 6)
@@ -126,7 +89,9 @@
 	(roll three #d6 1 4 6)
 	(3d6 list position 6)
 
-(test #three-roll-total)
+#three-roll-total
+(test *)
+(run *)
 	(roll 3 #d6 15)
 	(roll 3 #d6 8)
 	(roll 3 #d6 14)
@@ -134,7 +99,9 @@
 	(roll 3 #d6 11)
 	(3d6 list position 6)
 
-(test #wrap-around-3d6)
+#wrap-around-3d6
+(test *)
+(run *)
 	(now) (3d6 list position 215)
 	(roll three #d6 2 2 3)
 	(roll three #d6 6 1 2)
@@ -148,7 +115,9 @@
 	(roll three #d6 1 4 6)
 	(3d6 list position 6)
 
-(test #four-roll-individual)
+#four-roll-individual
+(test *)
+(run *)
 	(roll 4 #d6 21)
 	(roll 4 #d6 11)
 	(roll 4 #d6 20)
@@ -157,21 +126,27 @@
 	(roll 4 #d6 13)
 	(3d6 list position 7)
 
-(test #four-roll-total)
+#four-roll-total
+(test *)
+(run *)
 	(roll four #d6 6 4 5 6)
 	(roll four #d6 3 4 3 1)
 	(roll four #d6 6 5 3 6)
 	(roll four #d6 5 6 5 6)
 	(roll four #d6 4 1 4 6)
 
-(test #four-roll-saved)
+#four-roll-saved
+(test *)
+(run *)
 	(roll #d6 6)
 	(roll three #d6 4 3 1)
 	(3d6 list position 3)
 	(roll four #d6 6 4 5 3)
 	(3d6 list position 3)
 
-(test #mix-one-and-three)
+#mix-one-and-three
+(test *)
+(run *)
 	(roll #d6 6)
 	(roll three #d6 4 3 1)
 	(roll #d6 3)
@@ -179,7 +154,9 @@
 	(roll three #d6 5 3 6)
 	(roll #d6 6)
 
-(test #d36)
+#d36
+(test *)
+(run *)
     (roll #d36 30)
     (roll #d36 34)
     (roll #d36 13)
@@ -187,7 +164,9 @@
     (roll #d36 18)
 	(3d6 list position 4)
 
-(test #d216)
+#d216
+(test *)
+(run *)
 	(roll #d216 138)
 	(roll #d216 121)
 	(roll #d216 162)
@@ -195,7 +174,9 @@
 	(roll #d216 24)
 	(3d6 list position 6)
 
-(test #randomize-position)
+#randomize-position
+(test *)
+(run *)
 	(shuffle randomness)
 	(3d6 list position $Pos)
 	(assert $Pos > 0)
@@ -204,7 +185,9 @@
 	(assert $Pos < 217)
 	$Pos
 
-(test #reset-randomness)
+#reset-randomness
+(test *)
+(run *)
 	(roll three #d6 4 5 6)
 	(roll three #d6 4 3 1)
 	(roll three #d6 5 3 6)
@@ -215,158 +198,210 @@
 	(roll three #d6 4 3 1)
 	(roll three #d6 5 3 6)
 
-(test #2d3-individual)
+#2d3-individual
+(test *)
+(run *)
 	(roll two #d3 3 3)
 	(roll two #d3 3 2)
 	(roll two #d3 2 1)
 	(roll two #d3 2 2)
 	(roll two #d3 2 3)
 
-(test #2d3-total)
+#2d3-total
+(test *)
+(run *)
 	(roll 2 #d3 6)
 	(roll 2 #d3 5)
 	(roll 2 #d3 3)
 	(roll 2 #d3 4)
 	(roll 2 #d3 5)
 
-(test #1dF)
+#1dF
+(test *)
+(run *)
 	(roll 1dF #up   1)
 	(roll 1dF #up   1)
 	(roll 1dF 0     0)
 	(roll 1dF #up   1)
 	(roll 1dF #down 1)
 
-(test #2dF)
+#2dF
+(test *)
+(run *)
 	(roll 2dF #up   2)
 	(roll 2dF #up   1)
 	(roll 2dF #down 1)
 	(roll 2dF 0     0)
 	(roll 2dF #up   1)
 
-(test #1-plus-2dF)
+#1-plus-2dF
+(test *)
+(run *)
 	(1 plus 2dF 3)
 	(1 plus 2dF 2)
 	(1 plus 2dF 0)
 	(1 plus 2dF 1)
 	(1 plus 2dF 2)
 
-(test #4dF)
+#4dF
+(test *)
+(run *)
 	(roll 4dF #up   3)
 	(roll 4dF #down 1)
 	(roll 4dF #up   3)
 	(roll 4dF #up   4)
 	(roll 4dF 0     0)
 
-(test #2-plus-4dF)
+#2-plus-4dF
+(test *)
+(run *)
 	(2 plus 4dF 5)
 	(2 plus 4dF 1)
 	(2 plus 4dF 5)
 	(2 plus 4dF 6)
 	(2 plus 4dF 2)
 
-(test #7-die-pool-against-target)
+#7-die-pool-against-target
+(test *)
+(run *)
 	(roll 7 #d6 with target 5 into 3)
 	(roll 7 #d6 with target 5 into 6)
 	(roll 7 #d6 with target 5 into 3)
 	(roll 7 #d6 with target 5 into 3)
 
-(test #8-die-pool-against-target)
+#8-die-pool-against-target
+(test *)
+(run *)
 	(roll 8 #d6 with target 5 into 3)
 	(roll 8 #d6 with target 5 into 7)
 	(roll 8 #d6 with target 5 into 3)
 	(roll 8 #d6 with target 5 into 3)
 
-(test #9-die-pool-against-target)
+#9-die-pool-against-target
+(test *)
+(run *)
 	(roll 9 #d6 with target 5 into 4)
 	(roll 9 #d6 with target 5 into 5)
 	(roll 9 #d6 with target 5 into 5)
 	(roll 9 #d6 with target 5 into 3)
 
-(test #10-die-pool-against-target)
+#10-die-pool-against-target
+(test *)
+(run *)
 	(roll 10 #d6 with target 5 into 4)
 	(roll 10 #d6 with target 5 into 7)
 	(roll 10 #d6 with target 5 into 4)
 	(roll 10 #d6 with target 5 into 2)
 
-(test #11-die-pool-against-target)
+#11-die-pool-against-target
+(test *)
+(run *)
 	(roll 11 #d6 with target 5 into 5)
 	(roll 11 #d6 with target 5 into 7)
 	(roll 11 #d6 with target 5 into 4)
 	(roll 11 #d6 with target 5 into 4)
 
-(test #11-die-pool-against-higher-target)
+#11-die-pool-against-higher-target
+(test *)
+(run *)
 	(roll 11 #d6 with target 6 into 3)
 	(roll 11 #d6 with target 6 into 3)
 	(roll 11 #d6 with target 6 into 3)
 	(roll 11 #d6 with target 6 into 0)
 
-(test #11-die-pool-against-lower-target)
+#11-die-pool-against-lower-target
+(test *)
+(run *)
 	(roll 11 #d6 with target 4 into 7)
 	(roll 11 #d6 with target 4 into 9)
 	(roll 11 #d6 with target 4 into 7)
 	(roll 11 #d6 with target 4 into 5)
 
-(test #percent-of-zero)
+#percent-of-zero
+(test *)
+(run *)
 	(percentage of 0 into 0)
 
-(test #percent-of-one)
+#percent-of-one
+(test *)
+(run *)
 	(percentage of 1 into 1)
 
-(test #percent-of-two)
+#percent-of-two
+(test *)
+(run *)
 	(percentage of 2 into 2)
 	(percentage of 2 into 2)
 	(percentage of 2 into 2)
 	(percentage of 2 into 2)
 	(percentage of 2 into 1)
 
-(test #percent-of-five)
+#percent-of-five
+(test *)
+(run *)
 	(percentage of 5 into 5)
 	(percentage of 5 into 4)
 	(percentage of 5 into 1)
 	(percentage of 5 into 3)
 	(percentage of 5 into 4)
 
-(test #percent-of-14)
+#percent-of-14
+(test *)
+(run *)
 	(percentage of 14 into 13)
 	(percentage of 14 into 5)
 	(percentage of 14 into 11)
 	(percentage of 14 into 4)
 	(percentage of 14 into 1)
 
-(test #percent-of-75)
+#percent-of-75
+(test *)
+(run *)
 	(percentage of 75 into 69)
 	(percentage of 75 into 61)
 	(percentage of 75 into 12)
 	(percentage of 75 into 75)
 
-(test #percent-of-150)
+#percent-of-150
+(test *)
+(run *)
 	(percentage of 150 into 138)
 	(percentage of 150 into 121)
 	(percentage of 150 into 24)
 	(percentage of 150 into 149)
 
-(test #percent-of-924)
+#percent-of-924
+(test *)
+(run *)
 	(percentage of 924 into 553)
 	(percentage of 924 into 672)
 	(percentage of 924 into 365)
 	(percentage of 924 into 756)
 
-(test #percent-of-1500)
+#percent-of-1500
+(test *)
+(run *)
 	(percentage of 1500 into 1339)
 	(percentage of 1500 into 1266)
 	(percentage of 1500 into 473)
 	(percentage of 1500 into 794)
 
-(test #percent-of-16234)
+#percent-of-16234
+(test *)
+(run *)
 	(percentage of 16234 into 15169)
 	(percentage of 16234 into 15576)
 	(percentage of 16234 into 5008)
 	(percentage of 16234 into 1813)
 
-(test #random-0)
+#random-0
+(test *)
+(run *)
 	~(random element from [] into $)
 
-(test #random-element)
+#random-element
+(test *)
+(run *)
 	(random element from [1 2 3 4 5] into 5)
 	(random element from [1 2 3 4 5] into 4)
 	(random element from [1 2 3 4 5] into 1)

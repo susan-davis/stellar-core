@@ -1,16 +1,6 @@
 %% dgdebug -u d6-lite-tests.dg d6-lite.dg unit.dg stdlib.dg
 
-(list of tests [
-	#d3
-	#d6
-	#d36
-	#d216
-	#d1296
-    ])
-
 (set up $)	(reset randomness)
-
-%%-----------------------------------------------------------------------------
 
 ($ 0 times with max $) %% do nothing
 
@@ -22,20 +12,25 @@
 
 #d3
 (test *)
+(run *)
 	(* 1000 times with max 3)
 
 #d6
 (test *)
+(run *)
 	(* 1000 times with max 6)
 
 #d36
 (test *)
+(run *)
 	(* 1000 times with max 36)
 
 #d216
 (test *)
+(run *)
 	(* 1000 times with max 216)
 
 #d1296
 (test *)
+(run *)
 	(* 1000 times with max 1296)

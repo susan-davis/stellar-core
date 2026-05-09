@@ -1,93 +1,5 @@
 %% dgdebug -u grid-tests.dg grid.dg utils.dg unit.dg stdlib.dg
 
-(list of tests $Tests) ($Tests = [
-	#max-coords
-	#max-coords-on-map
-	#max-coords-plus-one-not-on-map
-	#maxint-not-on-map
-	#offset-on-map
-	#offset-minus-one-not-on-map
-	#position-schema
-	#place-ship
-	#target-on-map
-	#remove-target
-	#restore-removed-target
-	#position-for-removed-target
-	#object-at-ship-position
-	#object-next-to-ship-position
-	#object-at-near-target
-	#object-at-far-target
-	#objects-at-closest-target
-	#object-at-empty-position
-	#next-coordinates-north
-	#next-coordinates-northeast
-	#next-coordinates-east
-	#next-coordinates-southeast
-	#next-coordinates-south
-	#next-coordinates-southwest
-	#next-coordinates-west
-	#next-coordinates-northwest
-	#next-square-north
-	#next-square-northeast
-	#next-square-east
-	#next-square-southeast
-	#next-square-south
-	#next-square-southwest
-	#next-square-west
-	#next-square-northwest
-	#next-coordinates-north-inverted
-	#next-coordinates-northeast-inverted
-	#next-coordinates-east-inverted
-	#next-coordinates-southeast-inverted
-	#next-coordinates-south-inverted
-	#next-coordinates-southwest-inverted
-	#next-coordinates-west-inverted
-	#next-coordinates-northwest-inverted
-	#next-square-north-inverted
-	#next-square-northeast-inverted
-	#next-square-east-inverted
-	#next-square-southeast-inverted
-	#next-square-south-inverted
-	#next-square-southwest-inverted
-	#next-square-west-inverted
-	#next-square-northwest-inverted
-	#7-squares-north
-	#6-squares-northeast
-	#2-squares-east
-	#5-squares-southeast
-	#20-squares-south
-	#24-squares-southwest
-	#50-squares-west
-	#4-squares-northwest
-	#11-squares-east
-	#11-squares-north
-	#7-squares-north-inverted
-	#6-squares-northeast-inverted
-	#2-squares-east-inverted
-	#5-squares-southeast-inverted
-	#20-squares-south-inverted
-	#24-squares-southwest-inverted
-	#50-squares-west-inverted
-	#4-squares-northwest-inverted
-	#11-squares-east-inverted
-	#11-squares-north-inverted
-	#look-up-range-0-1
-	#look-up-range-1-1
-	#look-up-range-6-4
-	#look-up-range-9-8
-	#range-to-closest
-	#range-to-near
-	#range-to-far
-	#range-to-distant
-	#range-to-very-distant
-	#range-due-north
-	#range-due-south
-	#range-due-east
-	#range-due-west
-	])
-
-%% ----------------------------------------------------------------------
-
 #test-ship
 (grid object *)
 (* initial position [344 454 315])
@@ -120,319 +32,486 @@
 		(now) ($Object position $Position)
 	}
 
-%% ----------------------------------------------------------------------
+%%-----------------------------------------------------------------------------
 
-(test #max-coords)
+#max-coords
+(test *)
+(run *)
 	(maximum coordinate value 1260)
 
-(test #max-coords-on-map)
+#max-coords-on-map
+(test *)
+(run *)
 	(position [1260 1260] is on the map)
 
-(test #max-coords-plus-one-not-on-map)
+#max-coords-plus-one-not-on-map
+(test *)
+(run *)
 	(position [1261 1261] is off the map)
 
-(test #maxint-not-on-map)
+#maxint-not-on-map
+(test *)
+(run *)
 	(position [16383 16383] is off the map)
 
-(test #offset-on-map)
+#offset-on-map
+(test *)
+(run *)
 	(position [100 100] is on the map)
 
-(test #offset-minus-one-not-on-map)
+#offset-minus-one-not-on-map
+(test *)
+(run *)
 	(position [99 99] is off the map)
 
-(test #position-schema)
+#position-schema
+(test *)
+(run *)
 	(#test-ship x 344)
 	(#test-ship y 454)
 
-(test #place-ship)
+#place-ship
+(test *)
+(run *)
 	(place #test-ship at [500 500])
 	(#test-ship x 500)
 	(#test-ship y 500)
 
-(test #target-on-map)
+#target-on-map
+(test *)
+(run *)
     (#closest-target is on the map)
 
-(test #remove-target)
+#remove-target
+(test *)
+(run *)
 	(remove #closest-target from the map)
     ~(#closest-target is on the map)
 
-(test #restore-removed-target)
+#restore-removed-target
+(test *)
+(run *)
     (remove #closest-target from the map)
 	(place #closest-target at [334 454])
 	(#closest-target x 334)
 	(#closest-target y 454)
 
-(test #position-for-removed-target)
+#position-for-removed-target
+(test *)
+(run *)
 	(remove #closest-target from the map)
 	(#closest-target position [16383 16383 0])
 
-(test #object-at-ship-position)
+#object-at-ship-position
+(test *)
+(run *)
 	(#test-ship initial position $Here)
 	(object at $Here into $Obj)
 	(assert $Obj = #test-ship)
 
-(test #object-next-to-ship-position)
+#object-next-to-ship-position
+(test *)
+(run *)
 	~(object at [334 555] into $)
 
-(test #objects-at-closest-target)
+#objects-at-closest-target
+(test *)
+(run *)
 	(#closest-target position $There)
 	(object at $There into #closest-target)
 
-(test #object-at-near-target)
+#object-at-near-target
+(test *)
+(run *)
 	(#near-target position $Here)
 	(object at $Here into #near-target)
 
-(test #object-at-far-target)
+#object-at-far-target
+(test *)
+(run *)
 	(#far-target position $Here)
 	(object at $Here into #far-target)
 
-(test #object-at-empty-position)
+#object-at-empty-position
+(test *)
+(run *)
 	~(object at [895 895] into $Obj)
 	~(bound $Obj)
 
-(test #next-coordinates-north)
+#next-coordinates-north
+(test *)
+(run *)
 	(next coordinates #north from 5 5 into 5 4)
 
-(test #next-coordinates-northeast)
+#next-coordinates-northeast
+(test *)
+(run *)
 	(next coordinates #northeast from 5 5 into 6 4)
 
-(test #next-coordinates-east)
+#next-coordinates-east
+(test *)
+(run *)
 	(next coordinates #east from 5 5 into 6 5)
 
-(test #next-coordinates-southeast)
+#next-coordinates-southeast
+(test *)
+(run *)
 	(next coordinates #southeast from 5 5 into 6 6)
 
-(test #next-coordinates-south)
+#next-coordinates-south
+(test *)
+(run *)
 	(next coordinates #south from 5 5 into 5 6)
 
-(test #next-coordinates-southwest)
+#next-coordinates-southwest
+(test *)
+(run *)
 	(next coordinates #southwest from 5 5 into 4 6)
 
-(test #next-coordinates-west)
+#next-coordinates-west
+(test *)
+(run *)
 	(next coordinates #west from 5 5 into 4 5)
 
-(test #next-coordinates-northwest)
+#next-coordinates-northwest
+(test *)
+(run *)
 	(next coordinates #northwest from 5 5 into 4 4)
 
-(test #next-square-north)
+#next-square-north
+(test *)
+(run *)
 	(next square #north from [344 454] into [344 453])
 
-(test #next-square-northeast)
+#next-square-northeast
+(test *)
+(run *)
 	(next square #northeast from [344 454] into [345 453])
 
-(test #next-square-east)
+#next-square-east
+(test *)
+(run *)
 	(next square #east from [344 454] into [345 454])
 
-(test #next-square-southeast)
+#next-square-southeast
+(test *)
+(run *)
 	(next square #southeast from [344 454] into [345 455])
 
-(test #next-square-south)
+#next-square-south
+(test *)
+(run *)
 	(next square #south from [344 454] into [344 455])
 
-(test #next-square-southwest)
+#next-square-southwest
+(test *)
+(run *)
 	(next square #southwest from [344 454] into [343 455])
 
-(test #next-square-west)
+#next-square-west
+(test *)
+(run *)
 	(next square #west from [344 454] into [343 454])
 
-(test #next-square-northwest)
+#next-square-northwest
+(test *)
+(run *)
 	(next square #northwest from [344 454] into [343 453])
 
-(test #next-coordinates-north-inverted)
+#next-coordinates-north-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(next coordinates #north from 5 5 into 5 6)
 
-(test #next-coordinates-northeast-inverted)
+#next-coordinates-northeast-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(next coordinates #northeast from 5 5 into 4 6)
 
-(test #next-coordinates-east-inverted)
+#next-coordinates-east-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(next coordinates #east from 5 5 into 4 5)
 
-(test #next-coordinates-southeast-inverted)
+#next-coordinates-southeast-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(next coordinates #southeast from 5 5 into 4 4)
 
-(test #next-coordinates-south-inverted)
+#next-coordinates-south-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(next coordinates #south from 5 5 into 5 4)
 
-(test #next-coordinates-southwest-inverted)
+#next-coordinates-southwest-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(next coordinates #southwest from 5 5 into 6 4)
 
-(test #next-coordinates-west-inverted)
+#next-coordinates-west-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(next coordinates #west from 5 5 into 6 5)
 
-(test #next-coordinates-northwest-inverted)
+#next-coordinates-northwest-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(next coordinates #northwest from 5 5 into 6 6)
 
-(test #next-square-north-inverted)
+#next-square-north-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(next square #north from [344 454] into [344 455])
 
-(test #next-square-northeast-inverted)
+#next-square-northeast-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(next square #northeast from [344 454] into [343 455])
 
-(test #next-square-east-inverted)
+#next-square-east-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(next square #east from [344 454] into [343 454])
 
-(test #next-square-southeast-inverted)
+#next-square-southeast-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(next square #southeast from [344 454] into [343 453])
 
-(test #next-square-south-inverted)
+#next-square-south-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(next square #south from [344 454] into [344 453])
 
-(test #next-square-southwest-inverted)
+#next-square-southwest-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(next square #southwest from [344 454] into [345 453])
 
-(test #next-square-west-inverted)
+#next-square-west-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(next square #west from [344 454] into [345 454])
 
-(test #next-square-northwest-inverted)
+#next-square-northwest-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(next square #northwest from [344 454] into [345 455])
 
-(test #look-up-range-0-1)
+#look-up-range-0-1
+(test *)
+(run *)
 	(look up range for 0 1 into 100)
 
-(test #look-up-range-1-1)
+#look-up-range-1-1
+(test *)
+(run *)
 	(look up range for 1 1 into 141)
 
-(test #look-up-range-6-4)
+#look-up-range-6-4
+(test *)
+(run *)
 	(look up range for 6 4 into 721)
 
-(test #look-up-range-9-8)
+#look-up-range-9-8
+(test *)
+(run *)
 	(look up range for 9 8 into 1204)
 
-(test #range-to-closest)
+#range-to-closest
+(test *)
+(run *)
 	(range from #test-ship to #closest-target into 141)
 
-(test #range-to-near)
+#range-to-near
+(test *)
+(run *)
 	(range from #test-ship to #near-target into 424)
 
-(test #range-to-far)
+#range-to-far
+(test *)
+(run *)
 	(range from #test-ship to #far-target into 1894)
 
-(test #range-to-distant)
+#range-to-distant
+(test *)
+(run *)
 	(range from #test-ship to #distant-target into 6049)
 
-(test #range-to-very-distant) %% maximum distance we can represent!
+%% maximum distance we can represent
+#range-to-very-distant
+(test *)
+(run *)
 	(calculate range from [100 100] to [1260 1260] into 16359)
 
-(test #range-due-north)
+#range-due-north
+(test *)
+(run *)
 	(calculate range from [344 454] to [344 444] into 100)
 
-(test #range-due-south)
+#range-due-south
+(test *)
+(run *)
 	(calculate range from [344 454] to [344 464] into 100)
 
-(test #range-due-east)
+#range-due-east
+(test *)
+(run *)
 	(calculate range from [344 454] to [354 454] into 100)
 
-(test #range-due-west)
+#range-due-west
+(test *)
+(run *)
 	(calculate range from [344 454] to [334 454] into 100)
 
-(test #7-squares-north)
+#7-squares-north
+(test *)
+(run *)
 	(7 squares #north from [344 454] into [344 447])
 
-(test #6-squares-northeast)
+#6-squares-northeast
+(test *)
+(run *)
 	(6 squares #northeast from [344 454] into [350 448])
 
-(test #2-squares-east)
+#2-squares-east
+(test *)
+(run *)
 	(2 squares #east from [344 454] into [346 454])
 
-(test #5-squares-southeast)
+#5-squares-southeast
+(test *)
+(run *)
 	(5 squares #southeast from [344 454] into [349 459])
 
-(test #20-squares-south)
+#20-squares-south
+(test *)
+(run *)
 	(20 squares #south from [344 454] into [344 474])
 
-(test #24-squares-southwest)
+#24-squares-southwest
+(test *)
+(run *)
 	(24 squares #southwest from [344 454] into [320 478])
 
-(test #50-squares-west)
+#50-squares-west
+(test *)
+(run *)
 	(50 squares #west from [344 454] into [294 454])
 
-(test #4-squares-northwest)
+#4-squares-northwest
+(test *)
+(run *)
 	(4 squares #northwest from [344 454] into [340 450])
 
-(test #11-squares-east)
+#11-squares-east
+(test *)
+(run *)
 	(11 squares #east from [344 454] into [355 454])
 
-(test #11-squares-north)
+#11-squares-north
+(test *)
+(run *)
 	(11 squares #north from [344 454] into [344 443])
 
-(test #7-squares-north-inverted)
+#7-squares-north-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(7 squares #north from [344 454] into [344 461])
 
-(test #6-squares-northeast-inverted)
+#6-squares-northeast-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(6 squares #northeast from [344 454] into [338 460])
 
-(test #2-squares-east-inverted)
+#2-squares-east-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(2 squares #east from [344 454] into [342 454])
 
-(test #5-squares-southeast-inverted)
+#5-squares-southeast-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(5 squares #southeast from [344 454] into [339 449])
 
-(test #20-squares-south-inverted)
+#20-squares-south-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(20 squares #south from [344 454] into [344 434])
 
-(test #24-squares-southwest-inverted)
+#24-squares-southwest-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(24 squares #southwest from [344 454] into [368 430])
 
-(test #50-squares-west-inverted)
+#50-squares-west-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(50 squares #west from [344 454] into [394 454])
 
-(test #4-squares-northwest-inverted)
+#4-squares-northwest-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(4 squares #northwest from [344 454] into [348 458])
 
-(test #11-squares-east-inverted)
+#11-squares-east-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(11 squares #east from [344 454] into [333 454])
 
-(test #11-squares-north-inverted)
+#11-squares-north-inverted
+(test *)
+(run *)
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(11 squares #north from [344 454] into [344 465])

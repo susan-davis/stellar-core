@@ -6,6 +6,8 @@
 %% Copyright © 2021-2026, Susan Davis. All rights reserved. See LICENSE for
 %% licensing details.
 
+(grid supports every heading) %% do not change this flag
+
 %%-------------------------------- INTERFACES --------------------------------
 
 (interface ($<GridObject heading $>Heading))
@@ -32,7 +34,7 @@
 
 %% Turn, without moving the object
 
-(interface (turn $<Ship to bearing $<Bearing))
+(interface (turn $<Ship to heading $<Heading))
 
 (interface (turn $<Ship $<Degrees to starboard))
 
