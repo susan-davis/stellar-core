@@ -36,6 +36,9 @@ grid:
 bearing:
 	$(DEBUG) bearing-tests.dg bearing.dg grid.dg $(STDLIB)
 
+facing:
+	$(DEBUG) facing-tests.dg facing.dg grid.dg $(STDLIB)
+
 sector:
 	$(DEBUG) sector-tests.dg sector.dg bearing.dg grid.dg $(STDLIB)
 

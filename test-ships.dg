@@ -165,3 +165,22 @@
 	 (decrease energy for #test-ship by 68)
 	 (reset randomness)
 	 (now) (y increases south)
+
+%% Ships can have any of the following systems:
+
+#torpedo
+#tractor
+#projector
+#mtd
+#missile
+#sensor
+#shuttle
+#life-support
+#reactor
+#bus
+#reactionless
+#a-drive
+#damage-control
+#quarters
+#lab
+#shield

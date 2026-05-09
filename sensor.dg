@@ -23,6 +23,13 @@
 
 (global variable (current quadrant $))
 
+%% Sensor value 0: display the current subsector
+%% Sensor value 1: display the current sector
+%% Sensor value 2: long-range scan of adjacent sectors
+%% Sensor value 3: extended-range scan up to two sectors away
+
+
+
 %% Sensor range: adjacent sector
 %% Weapons range: same sector
 %% Matter transmission range: adjacent subsector
