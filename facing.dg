@@ -1,0 +1,453 @@
+%% facing.dg
+%% Include grid.dg and utils.dg when compiling or debugging.
+
+(extension version)	Simplified facing v0.1 by Susan Davis (line)
+
+%% Copyright © 2021-2026, Susan Davis. All rights reserved. See LICENSE for
+%% licensing details.
+
+%% This is a stripped-down version of bearing.dg for vintage hardware. The
+%% lookup tables in bearing.dg cause trouble for the Å-machine 6502 interpreter
+%% and for the Z-machine; this is an alternative. Include either this file or
+%% bearing.dg in your build, but not both at once.
+
+%% We use the same schema as bearing.dg, but ships round off to one of eight
+%% directions when dealing with shields and firing arcs. Moving toward a
+%% destination is done by going diagonally until an orthogonal line is reached,
+%% then going orthogonally from there to the destination, or vice versa.
+
+%% TODO: A 5:2 ratio is the boundary between 45 degree directions; use that to
+%% improve this to 16 facings? In a 10x10 sector, it's hard to eyeball anything
+%% finer-grained than that, which can hide how much we've simplified this.
+
+~(grid supports every heading) %% do not change this flag
+
+%%-------------------------------- INTERFACES --------------------------------
+
+(interface ($<GridObject heading $>Heading))
+
+(interface (calculate bearing from $<Here to $<There into $>Bearing))
+
+(interface (reciprocal bearing for $<Bearing into $>Result))
+
+(interface (bearing from $<Object to $<Target into $>Bearing))
+
+(interface (bearing from $<Object to position $<Position into $>Bearing))
+
+(interface ($<Bearing is in octant $>Octant))
+
+(interface (angle from $<Ship to $<Target into $>Angle))
+
+%% Even though we're dealing with 45-degree increments under the covers, we'll
+%% accept any bearing, and only round it off when we need to sort
+
+(interface (turn $<Ship to bearing $<Bearing))
+
+(interface (turn $<Ship $<Degrees to starboard))
+
+(interface (turn $<Ship $<Degrees to port))
+
+(interface (turn $<Ship $<Degrees toward heading $<Bearing))
+
+(interface (turn $<Ship to face position $<Position))
+
+(interface (turn $<Ship to face subsector $<Position))
+
+(interface (turn $<Ship about))
+
+(interface (turn $<Ship hard to starboard))
+
+(interface (turn $<Ship hard to port))
+
+(interface (turn $<Ship to face $<Target))
+
+(interface (turn $<Ship away from $<Target))
+
+(interface (drag $<Ship to position $<Position))
+
+(interface (drag $<Ship $<Distance on heading $<Heading))
+
+(interface (drag $<Ship $<Distance toward $<GridObject))
+
+(interface (drag $<Ship $<Distance toward position $<Position))
+
+(interface (move $<Ship to position $<Position))
+
+(interface (move $<Ship $<Distance on heading $<Heading))
+
+(interface (move $<Ship $<Distance forward))
+
+(interface (move $<Ship $<Distance toward $<GridObject))
+
+(interface (move $<Ship $<Distance away from $<GridObject))
+
+(interface (move $<Ship $<Distance toward position $<Position))
+
+%%------------------------------ IMPLEMENTATION -------------------------------
+
+($Object heading $Heading)
+	($Object position $Position)
+	(nth $Position 3 $Heading)
+
+(closest unoccupied square to $Place from $Origin into $Result)
+	(fully bound $Place) (fully bound $Origin)
+	(if) ~(object at $Place into $) (or) ($Place = $Origin) (then)
+		($Result = $Place)
+	(else)
+		(calculate bearing from $Place to $Origin into $Bearing)
+		(direction for $Bearing into $Direction)
+		(next square $Direction from $Place into $New)
+		(closest unoccupied square to $New from $Origin into $Result)
+	(endif)
+
+(reciprocal bearing for $Bearing into $Result)
+	(180 plus $Bearing into $Sum)
+	($Sum modulo 360 into $Result)
+
+(direction for $Bear into $Direction)
+	(number $Bear) ($Bear modulo 360 into $Bearing)
+	(if) ($Bearing > 22)  ($Bearing < 68)  (then)
+		($Direction = #northeast)
+	(elseif) ($Bearing > 67)  ($Bearing < 113) (then)
+		($Direction = #east)
+	(elseif) ($Bearing > 112) ($Bearing < 158) (then)
+		($Direction = #southeast)
+	(elseif) ($Bearing > 157) ($Bearing < 203) (then)
+		($Direction = #south)
+	(elseif) ($Bearing > 202) ($Bearing < 248) (then)
+		($Direction = #southwest)
+	(elseif) ($Bearing > 247) ($Bearing < 293) (then)
+		($Direction = #west)
+	(elseif) ($Bearing > 292) ($Bearing < 338) (then)
+		($Direction = #northwest)
+	(else)
+		($Direction = #north)
+	(endif)
+
+(octant from $Here to $There into $Octant)
+	([$HX $HY | $] = $Here)
+	([$TX $TY | $] = $There)
+	($HX delta $TX into $DX)
+	($HY delta $TY into $DY)
+	(if) ($HX < $TX) (then)
+		(if) ($HY > $TY) (then)
+			(if) ($DY > $DX) (then)
+				($Octant = 1)
+			(else)
+				($Octant = 2)
+			(endif)
+		(else)
+			(if) ($DY < $DX) (then)
+				($Octant = 3)
+			(else)
+				($Octant = 4)
+			(endif)
+		(endif)
+	(else)
+		(if) ($HY < $TY) (then)
+			(if) ($DY > $DX) (then)
+				($Octant = 5)
+			(else)
+				($Octant = 6)
+			(endif)
+		(else)
+			(if) ($DY < $DX) (then)
+				($Octant = 7)
+			(else)
+				($Octant = 8)
+			(endif)
+		(endif)
+	(endif)
+
+%% 5:2 is 22 degrees, halfway between 0 and 45
+(look up bearing for $DX $DY into $Bearing)
+	($DX divided by 2 into $Denom)
+	($DY divided by 5 into $Numer)
+	(if) ($Denom > $Numer) (then)
+		($Bearing = 45)
+	(else)
+		($Bearing = 0)
+	(endif)
+
+(bearing for $Ang in octant $Octant into $Bearing)
+	(number $Ang) ($Ang modulo 360 into $Angle)
+	(if)     ($Octant = 1) (then)
+		($Bearing = $Angle)
+	(elseif) ($Octant = 2) (then)
+		(90 minus $Angle into $Bearing)
+	(elseif) ($Octant = 3) (then)
+		($Angle plus 90 into $Bearing)
+	(elseif) ($Octant = 4) (then)
+		(180 minus $Angle into $Bearing)
+	(elseif) ($Octant = 5) (then)
+		($Angle plus 180 into $Bearing)
+	(elseif) ($Octant = 6) (then)
+		(270 minus $Angle into $Bearing)
+	(elseif) ($Octant = 7) (then)
+		($Angle plus 270 into $Bearing)
+	(elseif) ($Octant = 8) ($Angle > 0) (then)
+		(360 minus $Angle into $Bearing)
+	(else)
+		($Bearing = 0)
+	(endif)
+
+(calculate bearing from $Here to $There into $Result)
+	(octant from $Here to $There into $Octant)
+	([$HX $HY | $] = $Here)
+	([$TX $TY | $] = $There)
+	($HX delta $TX into $DX)
+	($HY delta $TY into $DY)
+	(sort $DX $DY into $Little $Big)
+	(look up bearing for $Little $Big into $Angle)
+	(bearing for $Angle in octant $Octant into $Result)
+
+(bearing from $Ship to position $There into $Result)
+	($Ship position $Here)
+	(calculate bearing from $Here to $There into $Result)
+
+(bearing from $Ship to $Target into $Result)
+	($Ship position $Here)
+	($Target position $There)
+	(calculate bearing from $Here to $There into $Result)
+
+(angle clockwise from $Head to $Bear into $Result)
+	(number $Head) ($Head modulo 360 into $Heading)
+	(number $Bear) ($Bear modulo 360 into $Bearing)
+	(if) ($Heading > $Bearing) (then)
+		(360 plus $Bearing into $B)
+	(else)
+		($Bearing = $B)
+	(endif)
+	($B minus $Heading into $Result)
+
+(angle from $Ship to $Target into $Result)
+	($Ship heading $Heading)
+	(bearing from $Ship to $Target into $Bearing)
+	(angle clockwise from $Heading to $Bearing into $Result)
+
+($Bear is in octant $Octant)
+	(number $Bear) ($Bear modulo 360 into $Bearing)
+	(if) ($Bearing < 46)  (then)
+		($Octant = 1)
+	(elseif) ($Bearing > 45)  ($Bearing < 91) (then)
+		($Octant = 2)
+	(elseif) ($Bearing > 90)  ($Bearing < 136) (then)
+		($Octant = 3)
+	(elseif) ($Bearing > 135) ($Bearing < 180) (then)
+		($Octant = 4)
+	(elseif) ($Bearing > 179) ($Bearing < 225) (then)
+		($Octant = 5)
+	(elseif) ($Bearing > 224) ($Bearing < 270) (then)
+		($Octant = 6)
+	(elseif) ($Bearing > 269) ($Bearing < 315) (then)
+		($Octant = 7)
+	(else)
+		($Octant = 8)
+	(endif)
+
+(square $Distance $Origin $Destination into $Result)
+	(calculate bearing from $Origin to $Destination into $Bearing)
+	(direction for $Bearing into $Direction)
+	(if) ($Direction = #northeast) (or) ($Direction = #northwest) (or)
+	     ($Direction = #southeast) (or) ($Direction = #southwest)
+	(then)
+		($Step = 14) ($Half = 7)
+	(else)
+		($Step = 10) ($Half = 5)
+	(endif)
+    (next square $Direction from $Origin into $Next)
+	(fully bound $Next)
+	(if) ($Origin = $Destination) (or) ($Distance < $Half)
+		 (or) (position $Next is off the map)
+	(then)
+	    ($R = $Origin)
+	(else)
+	    (if) ($Distance < $Step) (then)
+			($R = $Next)
+	    (else)
+			(calculate range from $Origin to $Next into $Travelled)
+			($Distance minus $Travelled into $Remaining)
+			(square at $Remaining from $Next to $Destination into $R)
+	    (endif)
+	(endif)
+	($Result = $R)
+
+(square at $Distance from $Origin to $Destination into $Result)
+	(calculate range from $Origin to $Destination into $Range)
+	(if) ($Distance < $Range) (then)
+		(square $Distance $Origin $Destination into $Result)
+	(else)
+		($Result = $Destination)
+	(endif)
+
+(square at $Distance on bearing $Bearing from $Place into $Result)
+	(offset 1 on bearing $Bearing from $Place into $Offset)
+	(calculate range from $Place to $Offset into $Increment)
+	($Distance divided by $Increment into $Multiple)
+	($Distance modulo $Increment into $Remainder)
+	(offset $Multiple on bearing $Bearing from $Place into $Undershoot)
+	(if) ($Remainder > 0) (then)
+	     ($Multiple plus 1 into $Mult)
+	     (offset $Mult on bearing $Bearing from $Place into $Overshoot)
+	     ($Increment times $Multiple into $Base)
+	     ($Distance minus $Base into $Remaining)
+	     (square at $Remaining from $Undershoot to $Overshoot into $Result)
+	(else)
+	     ($Result = $Undershoot)
+	(endif)
+
+(look up range for $X $Y into $Result)
+	($X delta $Y into $Delta)
+	($Delta times 100 into $Orthogonal)
+	(min $X and $Y into $Min)
+	($Min times 141 into $Diagonal)
+	($Orthogonal plus $Diagonal into $Result)
+
+(calculate range from $Here to $There into $Range)
+	([$HX $HY | $] = $Here)
+	([$TX $TY | $] = $There)
+	($HX delta $TX into $DX)
+	($HY delta $TY into $DY)
+	(split $DX into $XThousands $XHundreds $XTens $XOnes)
+	(split $DY into $YThousands $YHundreds $YTens $YOnes)
+	(look up range for $XThousands $YThousands into $RangeThousands)
+	(look up range for $XHundreds $YHundreds into $RangeHundreds)
+	(look up range for $XTens $YTens into $Tens)
+	(look up range for $XOnes $YOnes into $RangeOnes)
+	($RangeThousands times 100 into $Thousands)
+	($RangeHundreds times 10 into $Hundreds)
+	($RangeOnes divided by 10 into $Ones)
+	($Thousands plus $Hundreds into $Sum1)
+	($Tens plus $Ones into $Sum2)
+	($Sum1 plus $Sum2 into $Range)
+
+(range from $Ship to $Target into $Range)
+	($Ship   position $Here)
+	($Target position $There)
+	(calculate range from $Here to $There into $Range)
+
+(turn $Ship to heading $H)
+	(round $H to the nearest 45 into $Heading)
+	($Ship position $Position)
+	([$X $Y $        | $Tail] = $Position)
+	([$X $Y $Heading | $Tail] = $NewPosition)
+	(now) ($Ship position $NewPosition)
+
+(turn $Ship $Degrees to starboard)
+	($Ship heading $Heading)
+	($Heading plus $Degrees into $New)
+	(round $New to the nearest 45 into $NewHeading)
+	(turn $Ship to heading $NewHeading)
+
+(turn $Ship $Degrees to port)
+	($Ship heading $H)
+	(if) ($H < $Degrees) (then)
+		($H plus 360 into $Heading)
+	(else)
+		($Heading = $H)
+	(endif)
+	($Heading minus $Degrees into $New)
+	(round $New to the nearest 45 into $NewHeading)
+	(turn $Ship to heading $NewHeading)
+
+(turn $Ship $Degrees toward heading $Heading)
+	($Ship heading $H)
+	(angle clockwise from $H to $Heading into $RawAngle)
+	(if) ($RawAngle > 180) (then)
+		(360 minus $RawAngle into $Angle)
+	(else)
+		($RawAngle = $Angle)
+	(endif)
+	(if) ($Angle > $Degrees) (then)
+		($Turn = $Degrees)
+	(else)
+		($Turn = $Angle)
+	(endif)
+	(if) ($RawAngle > 180) (then)
+		(turn $Ship $Turn to port)
+	(else)
+		(turn $Ship $Turn to starboard)
+	(endif)
+
+(turn $Ship to face position $There)
+	($Ship position $Position)
+	(calculate bearing from $Position to $There into $Bearing)
+	(turn $Ship to heading $Bearing)
+
+(turn $Ship to face $Target)
+	($Target position $There)
+	(turn $Ship to face position $There)
+
+(turn $Ship away from $Target)
+	(turn $Ship to face $Target)
+	(turn $Ship about)
+
+(turn $Ship about)
+	($Ship heading $Course)
+	(reciprocal bearing for $Course into $NewHeading)
+	(turn $Ship to heading $NewHeading)
+
+(turn $Ship hard to starboard)
+	(turn $Ship 90 to starboard)
+
+(turn $Ship hard to port)
+	(turn $Ship 90 to port)
+
+%% drag == move, but leave heading alone
+
+(drag $Ship to position $Desired)
+	($Ship is on the map)
+	($Ship position $Origin)
+	([$ $ | $Tail]   = $Origin)
+	(closest unoccupied square to $Desired from $Origin into $Square)
+	([$X $Y | $]     = $Square)
+	([$X $Y | $Tail] = $NewPosition)
+	(place $Ship at $NewPosition)
+
+(drag $Ship $Distance on heading $Heading)
+	($Ship is on the map)
+	($Ship position $Origin)
+	(square at $Distance on bearing $Heading from $Origin into $Desired)
+	(drag $Ship to position $Desired)
+
+(drag $Ship $Distance toward $Target)
+	($Ship is on the map)
+	(bearing from $Ship to $Target into $Bearing)
+	(drag $Ship $Distance on heading $Bearing)
+
+(drag $Ship $Distance toward position $Destination)
+	($Ship is on the map)
+	(bearing from $Ship to position $Destination into $Bearing)
+	(drag $Ship $Distance on heading $Bearing)
+
+%% move == turn, then drag
+
+(move $Ship to position $Destination)
+	($Ship is on the map)
+	(turn $Ship to face position $Destination)
+	(drag $Ship to position $Destination)
+
+(move $Ship $Distance on heading $Heading)
+	($Ship is on the map)
+	(turn $Ship to heading $Heading)
+	(drag $Ship $Distance on heading $Heading)
+
+(move $Ship $Distance forward)
+	($Ship is on the map)
+	($Ship heading $Heading)
+	(move $Ship $Distance on heading $Heading)
+
+(move $Ship $Distance toward $Target)
+	($Ship is on the map)
+	(turn $Ship to face $Target)
+	(drag $Ship $Distance toward $Target)
+
+(move $Ship $Distance away from $Target)
+	($Ship is on the map)
+	(turn $Ship away from $Target)
+	(move $Ship $Distance forward)
+
+(move $Ship $Distance toward position $Destination)
+	($Ship is on the map)
+	(turn $Ship to face position $Destination)
+	(drag $Ship $Distance toward position $Destination)
