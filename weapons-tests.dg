@@ -1,55 +1,37 @@
 %% dgdebug -u weapons-tests.dg test-ships.dg weapons.dg damage.dg arc.dg \
 %% 		   	  schema.dg sector.dg grid.dg unit.dg stdlib.dg
 
-(list of tests [
-	  #weapons-bearing-on-closest-target-location
-	  #weapons-bearing-on-near-target-location
-	  #weapons-bearing-on-closest-target
-	  #weapons-bearing-on-near-target
-	  #damaged-weapons-dont-bear
-	  #dont-projector-self
-	  #dont-projector-destroyed-target
-	  #dont-fire-projector-at-far-target
-	  #dont-fire-projector-at-distant-target
-	  #fire-projector-with-0
-	  #fire-projector-with-100
-	  #fire-projector-with-200
-	  #projector-miss
-	  #fire-torpedo-with-0
-	  #fire-torpedo-with-1
-	  #fire-torpedo-with-2
-	  #fire-torpedo-with-4
-	  #dont-torpedo-self
-	  #dont-torpedo-destroyed-target
-	  #torpedo-miss
-	  #fire-at-closest-with-100-and-2
-	  #fire-at-near-with-100-and-2
-	  #fire-at-near-with-200-and-4
-	  ])
-
-%% ----------------------------------------------------------------------------
-
-(test #weapons-bearing-on-closest-target-location)
+#weapons-bearing-on-closest-target-location
+(test *)
+(run *)
     (#test-ship weapons bearing on angle 90 into
 			[[#projector 1 [360 #up] 100 141]])
 
-(test #weapons-bearing-on-near-target-location)
+#weapons-bearing-on-near-target-location
+(test *)
+(run *)
     (#test-ship weapons bearing on angle 0 into
 			[[#projector 1 [360 #up] 100 141]
 			[#torpedo 1 [1 8] 1 500]
 			[#torpedo 2 [1 8] 1 500]])
 
-(test #weapons-bearing-on-closest-target)
+#weapons-bearing-on-closest-target
+(test *)
+(run *)
     (#test-ship weapons bearing on target #closest-target into
 			[[#projector 1 [360 #up] 100 141]])
 
-(test #weapons-bearing-on-near-target)
+#weapons-bearing-on-near-target
+(test *)
+(run *)
     (#test-ship weapons bearing on target #near-target into
 			[[#projector 1 [360 #up] 100 141]
 			[#torpedo 1 [1 8] 1 500]
 			[#torpedo 2 [1 8] 1 500]])
 
-(test #damaged-weapons-dont-bear)
+#damaged-weapons-dont-bear
+(test *)
+(run *)
 	(damage #test-ship system #torpedo 1 with 50)
     (#test-ship weapons bearing on target #near-target into
 			[[#projector 1 [360 #up] 100 141]
@@ -61,95 +43,131 @@
 	(assert $E = $Energy)
 	(assert $A = $Ammo)
 
-(test #dont-projector-self)
+#dont-projector-self
+(test *)
+(run *)
 	(#test-ship fires #projector at target #test-ship using 100)
 	(assert #test-ship has 932 energy and 10 ammo)
 	(#test-ship shields 500)
 
-(test #dont-projector-destroyed-target)
+#dont-projector-destroyed-target
+(test *)
+(run *)
 	(destroy #closest-target)
 	(#test-ship fires #projector at target #closest-target using 100)
 	(assert #test-ship has 932 energy and 10 ammo)
 
-(test #dont-fire-projector-at-far-target)
+#dont-fire-projector-at-far-target
+(test *)
+(run *)
 	(#test-ship fires #projector at target #far-target using 100)
 	(assert #test-ship has 932 energy and 10 ammo)
 	(#far-target shields 250)
 
-(test #dont-fire-projector-at-distant-target)
+#dont-fire-projector-at-distant-target
+(test *)
+(run *)
 	(#test-ship fires #projector at target #distant-target using 100)
 	(assert #test-ship has 932 energy and 10 ammo)
 	(#distant-target shields 250)
 
-(test #fire-projector-with-0)
+#fire-projector-with-0
+(test *)
+(run *)
 	(#test-ship fires #projector at target #near-target using 0)
 	(assert #test-ship has 932 energy and 10 ammo)
 	(#near-target shields 250)
 
-(test #fire-projector-with-100)
+#fire-projector-with-100
+(test *)
+(run *)
 	(#test-ship fires #projector at target #near-target using 100)
 	(assert #test-ship has 832 energy and 10 ammo)
 	(#near-target shields 200)
 
-(test #fire-projector-with-200)
+#fire-projector-with-200
+(test *)
+(run *)
 	(#test-ship fires #projector at target #near-target using 200)
 	(assert #test-ship has 832 energy and 10 ammo)
 	(#near-target shields 200)
 
-(test #projector-miss)
+#projector-miss
+(test *)
+(run *)
 	(now) (3d6 list position 10)
 	(#test-ship fires #projector at target #near-target using 100)
 	(assert #test-ship has 832 energy and 10 ammo)
 	(#near-target shields 250)
 
-(test #dont-torpedo-self)
+#dont-torpedo-self
+(test *)
+(run *)
 	(#test-ship fires #torpedo at target #test-ship using 2)
 	(assert #test-ship has 932 energy and 10 ammo)
 	(#test-ship shields 500)
 
-(test #dont-torpedo-destroyed-target)
+#dont-torpedo-destroyed-target
+(test *)
+(run *)
 	(destroy #near-target)
 	(#test-ship fires #torpedo at target #near-target using 2)
 	(assert #test-ship has 932 energy and 10 ammo)
 
-(test #fire-torpedo-with-0)
+#fire-torpedo-with-0
+(test *)
+(run *)
 	(#test-ship fires #torpedo at target #near-target using 0)
 	(assert #test-ship has 932 energy and 10 ammo)
 	(#near-target shields 250)
 
-(test #fire-torpedo-with-1)
+#fire-torpedo-with-1
+(test *)
+(run *)
 	(#test-ship fires #torpedo at target #near-target using 1)
 	(assert #test-ship has 932 energy and 9 ammo)
 	(#near-target shields 200)
 
-(test #fire-torpedo-with-2)
+#fire-torpedo-with-2
+(test *)
+(run *)
 	(#test-ship fires #torpedo at target #near-target using 2)
 	(assert #test-ship has 932 energy and 8 ammo)
 	(#near-target is destroyed)
 
-(test #fire-torpedo-with-4)
+#fire-torpedo-with-4
+(test *)
+(run *)
 	(#test-ship fires #torpedo at target #near-target using 4)
 	(assert #test-ship has 932 energy and 8 ammo)
 	(#near-target is destroyed)
 
-(test #torpedo-miss)
+#torpedo-miss
+(test *)
+(run *)
 	(accelerate #near-target to gradient 6)
 	(now) (3d6 list position 10)
 	(#test-ship fires #torpedo at target #near-target using 2)
 	(assert #test-ship has 932 energy and 8 ammo)
 	(#near-target shields 250) %% both torpedoes miss
 
-(test #fire-at-closest-with-100-and-2)
+#fire-at-closest-with-100-and-2
+(test *)
+(run *)
 	(#test-ship fires at #closest-target using 100 energy and 2 ammo)
 	(#closest-target shields 150) %% hit the front shield, harder
 	(assert #test-ship has 832 energy and 10 ammo) %% torpedoes out of arc
 
-(test #fire-at-near-with-100-and-2)
+#fire-at-near-with-100-and-2
+(test *)
+(run *)
 	(#test-ship fires at #near-target using 100 energy and 2 ammo)
 	(assert #test-ship has 832 energy and 8 ammo)
 	(#near-target is destroyed)
 
-(test #fire-at-near-with-200-and-4)
+#fire-at-near-with-200-and-4
+(test *)
+(run *)
 	(#test-ship fires at #near-target using 200 energy and 4 ammo)
 	(assert #test-ship has 832 energy and 8 ammo)
 	(#near-target is destroyed)

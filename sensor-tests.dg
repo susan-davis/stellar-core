@@ -1,84 +1,6 @@
 %% dgdebug -u sensor-tests.dg sensor.dg test-ships.dg damage.dg maneuver.dg \
 %% 		   	  sector.dg grid.dg d6.dg utils.dg unit.dg stdlib.dg
 
-(list of tests [
-	#ship-class
-	#long-class
-	#test-ship-is-union
-	#closest-target-is-quellan
-	#near-target-is-quellan
-	#far-target-is-quellan
-	#distant-target-is-quellan
-	#closest-target-is-hostile
-	#near-target-is-hostile
-	#far-target-is-hostile
-	#distant-target-is-hostile
-	#closest-target-finds-test-ship-hostile
-	#closest-target-finds-near-target-friendly
-	#closest-target-finds-far-target-friendly
-	#closest-target-finds-distant-target-friendly
-	#closest-target-in-sensor-range
-	#near-target-in-sensor-range
-	#far-target-in-sensor-range
-	#distant-target-not-in-sensor-range
-	#non-grid-object-not-in-sensor-range
-	#closest-target-in-weapons-range
-	#near-target-in-weapons-range
-	#far-target-not-in-weapons-range
-	#distant-target-not-in-weapons-range
-	#non-grid-object-not-in-weapons-range
-	#closest-target-in-matter-transmission-range
-	#near-target-not-in-matter-transmission-range
-	#far-target-not-in-matter-transmission-range
-	#distant-target-not-in-matter-transmission-range
-	#non-grid-object-not-in-matter-transmission-range
-	#closest-in-sensor-range-of-near
-	#closest-in-weapons-range-of-near
-	#near-out-of-range-of-far
-	#near-out-of-range-of-distant
-	#object-at-precise-ship-position
-	#object-at-imprecise-ship-position
-	#top-object-at-ship-location
-	#glyph-at-ship-location
-	#scan-ship-location
-	#detected-closest
-	#detected-near
-	#detected-far
-	#not-detected-distant
-	#sensor-lock-closest
-	#sensor-lock-near
-	#sensor-lock-far
-	#not-sensor-lock-distant
-	#weapons-lock-closest
-	#weapons-lock-near
-	#not-weapons-lock-far
-	#condition-1
-	#condition-2
-	#condition-3
-	#condition-4
-	#shouldnt-display-subsector
-	#should-display-subsector-base
-	#should-display-subsector-gravity-well
-	#should-display-subsector-other-ship
-	])
-
-(quarantined tests [
-	#long-range-scan-zeros-suppressed
-	#long-range-scan-in-corner
-	#long-range-scan-in-corner-classic-behaviour
-	#quadrant-chart-zeros-suppressed
-	#quadrant-chart-question-marks-suppressed
-	#dont-display-subsector
-	#display-subsector-base
-	#display-subsector-gravity-well
-	#display-subsector-other-ship
-	#short-range-scan
-	#long-range-scan
-	#quadrant-chart
-	])
-
-%% ----------------------------------------------------------------------
-
 (nato time)		051235Z Mar 73
 
 (current quadrant)	(space) -103 (space) -37
@@ -87,249 +9,349 @@
 
 %% ----------------------------------------------------------------------
 
-(test #ship-class)
+#ship-class
+(test *)
+(run *)
 	  (collect words) (class #test-ship) (into $Words)
 	  ($Words = [cygnus -class fast scout])
 
-(test #long-class)
+#long-class
+(test *)
+(run *)
 	  (collect words) (long class #test-ship) (into $Words)
 	  ($Words = [stellar union cygnus -class fast scout])
 
-(test #test-ship-is-union)
+#test-ship-is-union
+(test *)
+(run *)
 	  (#test-ship fleet #union)
 
-(test #closest-target-is-quellan)
+#closest-target-is-quellan
+(test *)
+(run *)
 	  (#closest-target fleet #quellan)
 
-(test #near-target-is-quellan)
+#near-target-is-quellan
+(test *)
+(run *)
 	  (#near-target fleet #quellan)
 
-(test #far-target-is-quellan)
+#far-target-is-quellan
+(test *)
+(run *)
 	  (#far-target fleet #quellan)
 
-(test #distant-target-is-quellan)
+#distant-target-is-quellan
+(test *)
+(run *)
 	  (#distant-target fleet #quellan)
 
-(test #closest-target-is-hostile)
+#closest-target-is-hostile
+(test *)
+(run *)
 	  (#test-ship considers #closest-target hostile)
 
-(test #near-target-is-hostile)
+#near-target-is-hostile
+(test *)
+(run *)
 	  (#test-ship considers #near-target hostile)
 
-(test #far-target-is-hostile)
+#far-target-is-hostile
+(test *)
+(run *)
 	  (#test-ship considers #far-target hostile)
 
-(test #distant-target-is-hostile)
+#distant-target-is-hostile
+(test *)
+(run *)
 	  (#test-ship considers #distant-target hostile)
 
-(test #closest-target-finds-test-ship-hostile)
+#closest-target-finds-test-ship-hostile
+(test *)
+(run *)
 	  (#closest-target considers #test-ship hostile)
 
-(test #closest-target-finds-near-target-friendly)
+#closest-target-finds-near-target-friendly
+(test *)
+(run *)
 	  (#closest-target considers #near-target friendly)
 
-(test #closest-target-finds-far-target-friendly)
+#closest-target-finds-far-target-friendly
+(test *)
+(run *)
 	  (#closest-target considers #far-target friendly)
 
-(test #closest-target-finds-distant-target-friendly)
+#closest-target-finds-distant-target-friendly
+(test *)
+(run *)
 	  (#closest-target considers #distant-target friendly)
 
-(test #closest-target-in-sensor-range)
+#closest-target-in-sensor-range
+(test *)
+(run *)
 	(#closest-target is in sensor range of #test-ship)
 
-(test #near-target-in-sensor-range)
+#near-target-in-sensor-range
+(test *)
+(run *)
 	(#near-target is in sensor range of #test-ship)
 
-(test #far-target-in-sensor-range)
+#far-target-in-sensor-range
+(test *)
+(run *)
 	(#far-target is in sensor range of #test-ship)
 
-(test #distant-target-not-in-sensor-range)
+#distant-target-not-in-sensor-range
+(test *)
+(run *)
 	~(#distant-target is in sensor range of #test-ship)
 
-(test #non-grid-object-not-in-sensor-range)
+#non-grid-object-not-in-sensor-range
+(test *)
+(run *)
 	~(#non-grid-object is in sensor range of #test-ship)
 
-(test #asteroid-in-sensor-range)
+#asteroid-in-sensor-range
+(test *)
+(run *)
 	(#asteroid is in sensor range of #test-ship)
 
-(test #closest-target-in-weapons-range)
+#closest-target-in-weapons-range
+(test *)
+(run *)
 	(#closest-target is in weapons range of #test-ship)
 
-(test #near-target-in-weapons-range)
+#near-target-in-weapons-range
+(test *)
+(run *)
 	(#near-target is in weapons range of #test-ship)
 
-(test #far-target-not-in-weapons-range)
+#far-target-not-in-weapons-range
+(test *)
+(run *)
 	~(#far-target is in weapons range of #test-ship)
 
-(test #distant-target-not-in-weapons-range)
+#distant-target-not-in-weapons-range
+(test *)
+(run *)
 	~(#distant-target is in weapons range of #test-ship)
 
-(test #non-grid-object-not-in-weapons-range)
+#non-grid-object-not-in-weapons-range
+(test *)
+(run *)
 	~(#non-grid-object is in weapons range of #test-ship)
 
-(test #asteroid-in-weapons-range)
+#asteroid-in-weapons-range
+(test *)
+(run *)
 	(#asteroid is in weapons range of #test-ship)
 
-(test #closest-target-in-matter-transmission-range)
+#closest-target-in-matter-transmission-range
+(test *)
+(run *)
 	(move #closest-target to 3 4 5 5)
 	(#closest-target is in matter transmission range of #test-ship)
 
-(test #near-target-not-in-matter-transmission-range)
+#near-target-not-in-matter-transmission-range
+(test *)
+(run *)
 	~(#near-target is in matter transmission range of #test-ship)
 
-(test #far-target-not-in-matter-transmission-range)
+#far-target-not-in-matter-transmission-range
+(test *)
+(run *)
 	~(#far-target is in matter transmission range of #test-ship)
 
-(test #distant-target-not-in-matter-transmission-range)
+#distant-target-not-in-matter-transmission-range
+(test *)
+(run *)
 	~(#distant-target is in matter transmission range of #test-ship)
 
-(test #non-grid-object-not-in-matter-transmission-range)
+#non-grid-object-not-in-matter-transmission-range
+(test *)
+(run *)
 	~(#non-grid-object is in matter transmission range of #test-ship)
 
-(test #closest-in-sensor-range-of-near)
+#closest-in-sensor-range-of-near
+(test *)
+(run *)
       (#closest-target is in sensor range of #near-target)
 
-(test #closest-in-weapons-range-of-near)
+#closest-in-weapons-range-of-near
+(test *)
+(run *)
       (#closest-target is in weapons range of #near-target)
 
-(test #near-out-of-range-of-far)
+#near-out-of-range-of-far
+(test *)
+(run *)
       ~(#near-target is in weapons range of #far-target)
 
-(test #near-out-of-range-of-distant)
+#near-out-of-range-of-distant
+(test *)
+(run *)
       ~(#near-target is in sensor range of #distant-target)
 
-(test #object-at-precise-ship-position)
+#object-at-precise-ship-position
+(test *)
+(run *)
 	(object at 3 4 5 6 5 5 into $Obj)
 	(assert $Obj = #test-ship)
 
-(test #object-at-imprecise-ship-position)
+#object-at-imprecise-ship-position
+(test *)
+(run *)
 	(position for 3 4 5 6 1 1 into $Here)
 	~(object at $Here into $)
 
-(test #top-object-at-ship-location)
+#top-object-at-ship-location
+(test *)
+(run *)
 	(top object in subsector 3 4 5 6 into $Obj)
 	(assert $Obj = #test-ship)
 
-(test #glyph-at-ship-location)
+#glyph-at-ship-location
+(test *)
+(run *)
 	(collect words)
 		(glyph at 3 4 5 6)
 	(into $Words)
 	$Words
 	(assert $Words = [ e ])
 
-(test #scan-ship-location)
+#scan-ship-location
+(test *)
+(run *)
 	(collect words)
 		(scan 3 4 5 6)
 	(into $Words)
 	($Words = [ e | $ ])
 
-(test #detected-closest)
+#detected-closest
+(test *)
+(run *)
       (#test-ship has detected #closest-target)
 
-(test #detected-near)
+#detected-near
+(test *)
+(run *)
       (#test-ship has detected #near-target)
 
-(test #detected-far)
+#detected-far
+(test *)
+(run *)
       (#test-ship has detected #far-target)
 
-(test #not-detected-distant)
+#not-detected-distant
+(test *)
+(run *)
       ~(#test-ship has detected #distant-target)
 
-(test #sensor-lock-closest)
+#sensor-lock-closest
+(test *)
+(run *)
       (#test-ship has sensor lock on #closest-target)
 
-(test #sensor-lock-near)
+#sensor-lock-near
+(test *)
+(run *)
       (#test-ship has sensor lock on #near-target)
 
-(test #sensor-lock-far)
+#sensor-lock-far
+(test *)
+(run *)
       (#test-ship has sensor lock on #far-target)
 
-(test #not-sensor-lock-distant)
+#not-sensor-lock-distant
+(test *)
+(run *)
       ~(#test-ship has sensor lock on #distant-target)
 
-(test #weapons-lock-closest)
+#weapons-lock-closest
+(test *)
+(run *)
       (#test-ship has weapons lock on #closest-target)
 
-(test #weapons-lock-near)
+#weapons-lock-near
+(test *)
+(run *)
       (#test-ship has weapons lock on #near-target)
 
-(test #not-weapons-lock-far)
+#not-weapons-lock-far
+(test *)
+(run *)
       ~(#test-ship has weapons lock on #far-target)
 
-(test #condition-1)
+#condition-1
+(test *)
+(run *)
 	(set condition 1)
 	(collect words) (alert status) (into $Words)
 	($Words contains sublist [red alert])
 
-(test #condition-2)
+#condition-2
+(test *)
+(run *)
 	(set condition 2)
 	(collect words) (alert status) (into $Words)
 	($Words contains sublist [yellow alert])
 
-(test #condition-3)
+#condition-3
+(test *)
+(run *)
 	(set condition 3)
 	(collect words) (alert status) (into $Words)
 	($Words contains sublist [under way])
 
-(test #condition-4)
+#condition-4
+(test *)
+(run *)
 	(set condition 4)
 	(collect words) (alert status) (into $Words)
 	($Words contains sublist [docked])
 
-(test #shouldnt-display-subsector)
+#shouldnt-display-subsector
+(test *)
+(run *)
 	~(should display subsector)
 
-(test #should-display-subsector-base)
+#should-display-subsector-base
+(test *)
+(run *)
 	(move #test-ship to 7 7 7 7)
 	(should display subsector)
 
-(test #should-display-subsector-gravity-well)
+#should-display-subsector-gravity-well
+(test *)
+(run *)
 	(move #test-ship to 3 4 9 2)
 	(should display subsector)
 
-(test #should-display-subsector-other-ship)
+#should-display-subsector-other-ship
+(test *)
+(run *)
 	(move #test-ship to 3 4 6 5)
 	(should display subsector)
 
-%% put these tests last in (list of tests $)
-
-(test #short-range-scan)
-	(line) (short range scan)
-	(collect words) (short range scan) (into $Words)
-	($Words contains sublist [3 . q])
-	($Words contains sublist [5 . . . . . q])
-	($Words contains sublist [6 . . . . e])
-	($Words contains sublist [heading: 315])
-	($Words contains sublist [warp gradient: 4])
-	($Words contains sublist [position: 3 - 4 \/ 5 - 6])
-	($Words contains sublist [energy: 932 , 4 crystals online])
-
-(test #long-range-scan)
-	(line) (long range scan)
-	(collect words) (long range scan) (into $Words)
-	($Words contains sublist [1 0 0 0 0 0 2 e 1])
-
-(test #quadrant-chart)
-	(line) (quadrant chart)
-	(collect words) (quadrant chart) (into $Words)
-	($Words contains sublist [\| 1 0 0 \|])
-	($Words contains sublist [\| 2 e 1 \|])
-
-%% end of "put these last" group
-
-(test #long-range-scan-zeros-suppressed)
+#long-range-scan-zeros-suppressed
+(test *)
+(run *)
 	(now) ~(display zeros for empty categories)
 	(line) (long range scan)
 	(collect words) (long range scan) (into $Words)
 	($Words contains sublist [1 0 0 0 2 e 1])
 
-(test #long-range-scan-in-corner)
+#long-range-scan-in-corner
+(test *)
+(run *)
 	(move #test-ship to 1 1 1 1)
 	(line) (long range scan)
 	(collect words) (long range scan) (into $Words)
 	($Words contains sublist [e 0 0 0 0 0 0 0 0 0 0 \#])
 
-(test #long-range-scan-in-corner-classic-behaviour)
+#long-range-scan-in-corner-classic-behaviour
+(test *)
+(run *)
 	(now) ~(display sectors beyond quadrant)
 	(move #test-ship to 1 1 1 1)
 	(line) (long range scan)
@@ -337,7 +359,9 @@
 	($Words contains sublist [e 0 0 0 0 0 0 0 \#])
 	(now) (display sectors beyond quadrant)
 
-(test #quadrant-chart-zeros-suppressed)
+#quadrant-chart-zeros-suppressed
+(test *)
+(run *)
 	(now) ~(display zeros for empty categories)
 	(line) (quadrant chart)
 	(collect words) (quadrant chart) (into $Words)
@@ -346,7 +370,9 @@
 	($Words contains sublist [\| 0 \|])
 	($Words contains sublist [\| \# \? 0 \|])
 
-(test #quadrant-chart-question-marks-suppressed)
+#quadrant-chart-question-marks-suppressed
+(test *)
+(run *)
 	(now) ~(display question marks for undetectable ships)
 	(line) (quadrant chart)
 	(collect words) (quadrant chart) (into $Words)
@@ -360,20 +386,56 @@
 	($Words contains sublist [8 9 10 1 2 3])
 	($Words contains sublist [e . . . . . destination:])
 
-(test #dont-display-subsector)
+#dont-display-subsector
+(test *)
+(run *)
 	~(assert displays subsector)
 
-(test #display-subsector-base)
+#display-subsector-base
+(test *)
+(run *)
 	(move #test-ship to 7 7 7 7)
 	(line) (short range scan)
 	(assert displays subsector)
 
-(test #display-subsector-gravity-well)
+#display-subsector-gravity-well
+(test *)
+(run *)
 	(move #test-ship to 5 5 8 8)
 	(line) (short range scan)
 	(assert displays subsector)
 
-(test #display-subsector-other-ship)
+#display-subsector-other-ship
+(test *)
+(run *)
 	(move #test-ship to 3 4 6 5)
 	(line) (short range scan)
 	(assert displays subsector)
+
+#short-range-scan
+(test *)
+(run *)
+	(line) (short range scan)
+	(collect words) (short range scan) (into $Words)
+	($Words contains sublist [3 . q])
+	($Words contains sublist [5 . . . . . q])
+	($Words contains sublist [6 . . . . e])
+	($Words contains sublist [heading: 315])
+	($Words contains sublist [warp gradient: 4])
+	($Words contains sublist [position: 3 - 4 \/ 5 - 6])
+	($Words contains sublist [energy: 932 , 4 crystals online])
+
+#long-range-scan
+(test *)
+(run *)
+	(line) (long range scan)
+	(collect words) (long range scan) (into $Words)
+	($Words contains sublist [1 0 0 0 0 0 2 e 1])
+
+#quadrant-chart
+(test *)
+(run *)
+	(line) (quadrant chart)
+	(collect words) (quadrant chart) (into $Words)
+	($Words contains sublist [\| 1 0 0 \|])
+	($Words contains sublist [\| 2 e 1 \|])
