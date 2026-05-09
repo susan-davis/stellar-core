@@ -36,7 +36,6 @@
 (* initial position [573 573 0])
 
 (set up $)
-	 (grid supports every heading)
 	 (exhaust) {
 	     *(grid object $Object)
 		 ($Object initial position $Position)

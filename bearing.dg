@@ -621,3 +621,5 @@
 	($Ship is on the map)
 	(turn $Ship to face position $Destination)
 	(drag $Ship $Distance toward position $Destination)
+
+(interface (grid supports every heading))

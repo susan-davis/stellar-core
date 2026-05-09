@@ -24,7 +24,6 @@
 (* initial position [374 474 0])
 
 (set up $)
-	(grid supports every heading)
 	(now) ~(x increases west)
 	(now) (y increases south)
     (exhaust) {

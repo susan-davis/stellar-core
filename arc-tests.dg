@@ -1,145 +1,6 @@
 %% dgdebug -u arc-tests.dg test-ships.dg arc.dg sector.dg grid.dg \
 %%            unit.dg stdlib.dg
 
-(list of tests [
-	#firing-arc-closest-target
-	#firing-arc-near-target
-	#firing-arc-far-target
-	#firing-arc-distant-target
-	#shield-direction-closest-target
-	#shield-direction-near-target
-	#shield-direction-far-target
-	#shield-direction-distant-target
-	#due-northwest
-	#due-north
-	#due-northeast
-	#due-east
-	#due-southeast
-	#due-south
-	#due-southwest
-	#due-west
-	#fa-0
-	#fa-44
-	#fa-45
-	#fa-46
-	#fa-135
-	#fa-314
-	#fa-315
-	#fa-316
-	#fa-360
-	#arc0-0
-	#arc0-1
-	#arc0-3
-	#arc0-4
-	#arc0-5
-	#arc0-355
-	#arc0-356
-	#arc0-357
-	#arc0-359
-	#arc0-360
-	#arc360-0
-	#arc360-45
-	#arc360-90
-	#arc360-180
-	#arc360-270
-	#north-0
-	#north-23
-	#north-24
-	#north-336
-	#north-337
- 	#northeast-23
-	#northeast-24
-	#northeast-45
-	#northeast-68
-	#northeast-69
-	#east-68
-	#east-69
-	#east-90
-	#east-113
-	#east-114
-	#southeast-113
- 	#southeast-114
-	#southeast-135
-	#southeast-158
-	#southeast-159
-	#south-158
-	#south-159
-	#south-180
-	#south-201
-	#south-202
-	#southwest-201
-	#southwest-202
-	#southwest-225
-	#southwest-246
-	#southwest-247
-	#west-246
-	#west-247
-	#west-270
-	#west-291
-	#west-292
-	#northwest-291
-	#northwest-292
-	#northwest-315
-	#northwest-336
-	#northwest-337
-	#dont-hit-closest-target-fa
-	#hit-near-target-fa
-	#dont-hit-far-target-fa
-	#dont-hit-distant-target-fa
-	#hit-closest-target-rs
-	#hit-near-target-rs
-	#hit-far-target-rs
-	#dont-hit-distant-target-rs
-	#hit-closest-target-360
-	#hit-near-target-360
-	#hit-far-target-360
-	#hit-distant-target-360
-	#dont-hit-closest-target-0
-	#hit-near-target-0
-	#dont-hit-far-target-0
-	#dont-hit-distant-target-0
-	#dont-hit-closest-target-odd
-	#hit-near-target-odd
-	#dont-hit-far-target-odd
-	#hit-distant-target-odd
-	#arc-projector
-	#arc-tractor
-	#arc-mtd
-	#torpedo-0
-	#torpedo-44
-	#torpedo-45
-	#torpedo-46
-	#torpedo-135
-	#torpedo-314
-	#torpedo-315
-	#torpedo-316
-	#torpedo-360
-	#torpedo-closest-target
-	#torpedo-near-target
-	#torpedo-far-target
-	#torpedo-distant-target
-	#bearing-on-closest-target-location
-	#bearing-on-near-target-location
-	#bearing-on-far-target-location
-	#bearing-on-distant-target-location
-	#bearing-on-closest-target
-	#bearing-on-near-target
-	#damaged-systems-dont-bear
-	#bearing-on-far-target
-	#bearing-on-distant-target
-	#bearing-as-ship-turns
-	#target-aspect-closest
-	#target-aspect-near
-	#target-aspect-far
-	#target-aspect-distant
-	#target-aspect-from-closest
-	#target-aspect-from-near
-	#target-aspect-from-far
-	#target-aspect-from-distant
-	])
-
-%% ----------------------------------------------------------------------------
-
 (reset randomness)
 
 (interface (code $))
@@ -148,28 +9,44 @@
 
 %% ----------------------------------------------------------------------------
 
-(test #firing-arc-closest-target)
+#firing-arc-closest-target
+(test *)
+(run *)
       (firing arc from #test-ship to #closest-target into 2)
 
-(test #firing-arc-near-target)
+#firing-arc-near-target
+(test *)
+(run *)
       (firing arc from #test-ship to #near-target into 1)
 
-(test #firing-arc-far-target)
+#firing-arc-far-target
+(test *)
+(run *)
       (firing arc from #test-ship to #far-target into 2)
 
-(test #firing-arc-distant-target)
+#firing-arc-distant-target
+(test *)
+(run *)
       (firing arc from #test-ship to #distant-target into 6)
 
-(test #shield-direction-closest-target)
+#shield-direction-closest-target
+(test *)
+(run *)
       (shield direction for #closest-target against #test-ship into #east)
 
-(test #shield-direction-near-target)
+#shield-direction-near-target
+(test *)
+(run *)
       (shield direction for #near-target against #test-ship into #north)
 
-(test #shield-direction-far-target)
+#shield-direction-far-target
+(test *)
+(run *)
       (shield direction for #far-target against #test-ship into #east)
 
-(test #shield-direction-distant-target)
+#shield-direction-distant-target
+(test *)
+(run *)
       (shield direction for #distant-target against #test-ship into #west)
 
 (position $SX $SY $X $Y should have $Angle $Arc $Dir)
@@ -178,367 +55,603 @@
 	  (shield direction for #closest-target against #test-ship into $Dir)
 	  (angle from #test-ship to #closest-target into $Angle)
 
-(test #due-northwest)
+#due-northwest
+(test *)
+(run *)
       (position 3 4 4 5 should have 0 1 #north)
 
-(test #due-north)
+#due-north
+(test *)
+(run *)
       (position 3 4 5 5 should have 45 1 #north)
 
-(test #due-northeast)
+#due-northeast
+(test *)
+(run *)
 %%	  (position 3 4 6 5 should have 90 2 #east) %% weirdly gives 42, off by 1?
 	  (position 3 4 7 4 should have 90 2 #east)
 
-(test #due-east)
+#due-east
+(test *)
+(run *)
       (position 3 4 6 6 should have 135 3 #east)
 
-(test #due-southeast)
+#due-southeast
+(test *)
+(run *)
       (position 3 4 6 7 should have 180 5 #south)
 
-(test #due-south)
+#due-south
+(test *)
+(run *)
       (position 3 4 5 7 should have 225 6 #west)
 
-(test #due-southwest)
+#due-southwest
+(test *)
+(run *)
       (position 3 4 4 7 should have 270 7 #west)
 
-(test #due-west)
+#due-west
+(test *)
+(run *)
       (position 3 4 4 6 should have 315 8 #north)
 
-(test #fa-0)
+#fa-0
+(test *)
+(run *)
 	  (arc [1 8] contains angle 0)
 
-(test #fa-44)
+#fa-44
+(test *)
+(run *)
 	  (arc [1 8] contains angle 44)
 
-(test #fa-45)
+#fa-45
+(test *)
+(run *)
 	  (arc [1 8] contains angle 45)
 
-(test #fa-46)
+#fa-46
+(test *)
+(run *)
 	  ~(arc [1 8] contains angle 46)
 
-(test #fa-135)
+#fa-135
+(test *)
+(run *)
 	  ~(arc [1 8] contains angle 135)
 
-(test #fa-314)
+#fa-314
+(test *)
+(run *)
 	  ~(arc [1 8] contains angle 314)
 
-(test #fa-315)
+#fa-315
+(test *)
+(run *)
 	  (arc [1 8] contains angle 315)
 
-(test #fa-316)
+#fa-316
+(test *)
+(run *)
 	  (arc [1 8] contains angle 316)
 
-(test #fa-360)
+#fa-360
+(test *)
+(run *)
 	  (arc [1 8] contains angle 360)
 
 %% there's an extra pair of tests here to enable arc 0 to be switched
 %% to either 3 degrees or 4 degrees off boresight; final answer TBD
-(test #arc0-0)
+#arc0-0
+(test *)
+(run *)
 	  (arc 0 contains angle 0)
 
-(test #arc0-1)
+#arc0-1
+(test *)
+(run *)
 	  (arc 0 contains angle 1)
 
-(test #arc0-3)
+#arc0-3
+(test *)
+(run *)
 	  (arc 0 contains angle 3)
 
-(test #arc0-4)
+#arc0-4
+(test *)
+(run *)
 	  (arc 0 contains angle 4)
 
-(test #arc0-5)
+#arc0-5
+(test *)
+(run *)
 	  ~(arc 0 contains angle 5)
 
-(test #arc0-355)
+#arc0-355
+(test *)
+(run *)
 	  ~(arc 0 contains angle 355)
 
-(test #arc0-356)
+#arc0-356
+(test *)
+(run *)
 	  (arc 0 contains angle 356)
 
-(test #arc0-357)
+#arc0-357
+(test *)
+(run *)
 	  (arc 0 contains angle 357)
 
-(test #arc0-359)
+#arc0-359
+(test *)
+(run *)
 	  (arc 0 contains angle 359)
 
-(test #arc0-360)
+#arc0-360
+(test *)
+(run *)
 	  (arc 0 contains angle 360)
 
-(test #arc360-0)
+#arc360-0
+(test *)
+(run *)
 	  (arc 360 contains angle 0)
 
-(test #arc360-45)
+#arc360-45
+(test *)
+(run *)
 	  (arc [360] contains angle 45)
 
-(test #arc360-90)
+#arc360-90
+(test *)
+(run *)
 	  (arc 360 contains angle 90)
 
-(test #arc360-180)
+#arc360-180
+(test *)
+(run *)
 	  (arc [360] contains angle 180)
 
-(test #arc360-270)
+#arc360-270
+(test *)
+(run *)
 	  (arc 360 contains angle 270)
 
-(test #north-0)
+#north-0
+(test *)
+(run *)
 	  (arc #north contains angle 0)
 
-(test #north-23)
+#north-23
+(test *)
+(run *)
 	  (arc [#north] contains angle 23)
 
-(test #north-24)
+#north-24
+(test *)
+(run *)
 	  ~(arc #north contains angle 24)
 
-(test #north-336)
+#north-336
+(test *)
+(run *)
 	  ~(arc #north contains angle 336)
 
-(test #north-337)
+#north-337
+(test *)
+(run *)
 	  (arc #north contains angle 337)
 
-(test #northeast-23)
+#northeast-23
+(test *)
+(run *)
 	  ~(arc #northeast contains angle 23)
 
-(test #northeast-24)
+#northeast-24
+(test *)
+(run *)
 	  (arc #northeast contains angle 24)
 
-(test #northeast-45)
+#northeast-45
+(test *)
+(run *)
 	  (arc #northeast contains angle 45)
 
-(test #northeast-68)
+#northeast-68
+(test *)
+(run *)
 	  (arc #northeast contains angle 68)
 
-(test #northeast-69)
+#northeast-69
+(test *)
+(run *)
 	  ~(arc #northeast contains angle 69)
 
-(test #east-68)
+#east-68
+(test *)
+(run *)
 	  ~(arc #east contains angle 68)
 
-(test #east-69)
+#east-69
+(test *)
+(run *)
 	  (arc #east contains angle 69)
 
-(test #east-90)
+#east-90
+(test *)
+(run *)
 	  (arc #east contains angle 90)
 
-(test #east-113)
+#east-113
+(test *)
+(run *)
 	  (arc #east contains angle 113)
 
-(test #east-114)
+#east-114
+(test *)
+(run *)
 	  ~(arc #east contains angle 114)
 
-(test #southeast-113)
+#southeast-113
+(test *)
+(run *)
 	  ~(arc #southeast contains angle 113)
 
-(test #southeast-114)
+#southeast-114
+(test *)
+(run *)
 	  (arc #southeast contains angle 114)
 
-(test #southeast-135)
+#southeast-135
+(test *)
+(run *)
 	  (arc #southeast contains angle 135)
 
-(test #southeast-158)
+#southeast-158
+(test *)
+(run *)
 	  (arc #southeast contains angle 158)
 
-(test #southeast-159)
+#southeast-159
+(test *)
+(run *)
 	  ~(arc #southeast contains angle 159)
 
-(test #south-158)
+#south-158
+(test *)
+(run *)
 	  ~(arc #south contains angle 158)
 
-(test #south-159)
+#south-159
+(test *)
+(run *)
 	  (arc #south contains angle 159)
 
-(test #south-180)
+#south-180
+(test *)
+(run *)
 	  (arc #south contains angle 180)
 
-(test #south-201)
+#south-201
+(test *)
+(run *)
 	  (arc #south contains angle 201)
 
-(test #south-202)
+#south-202
+(test *)
+(run *)
 	  ~(arc #south contains angle 202)
 
-(test #southwest-201)
+#southwest-201
+(test *)
+(run *)
 	  ~(arc #southwest contains angle 201)
 
-(test #southwest-202)
+#southwest-202
+(test *)
+(run *)
 	  (arc #southwest contains angle 202)
 
-(test #southwest-225)
+#southwest-225
+(test *)
+(run *)
 	  (arc #southwest contains angle 225)
 
-(test #southwest-246)
+#southwest-246
+(test *)
+(run *)
 	  (arc #southwest contains angle 246)
 
-(test #southwest-247)
+#southwest-247
+(test *)
+(run *)
 	  ~(arc #southwest contains angle 247)
 
-(test #west-246)
+#west-246
+(test *)
+(run *)
 	  ~(arc #west contains angle 246)
 
-(test #west-247)
+#west-247
+(test *)
+(run *)
 	  (arc #west contains angle 247)
 
-(test #west-270)
+#west-270
+(test *)
+(run *)
 	  (arc [#west] contains angle 270)
 
-(test #west-291)
+#west-291
+(test *)
+(run *)
 	  (arc #west contains angle 291)
 
-(test #west-292)
+#west-292
+(test *)
+(run *)
 	  ~(arc #west contains angle 292)
 
-(test #northwest-291)
+#northwest-291
+(test *)
+(run *)
 	  ~(arc #northwest contains angle 291)
 
-(test #northwest-292)
+#northwest-292
+(test *)
+(run *)
 	  (arc #northwest contains angle 292)
 
-(test #northwest-315)
+#northwest-315
+(test *)
+(run *)
 	  (arc #northwest contains angle 315)
 
-(test #northwest-336)
+#northwest-336
+(test *)
+(run *)
 	  (arc #northwest contains angle 336)
 
-(test #northwest-337)
+#northwest-337
+(test *)
+(run *)
 	  ~(arc #northwest contains angle 337)
 
-(test #dont-hit-closest-target-fa)
+#dont-hit-closest-target-fa
+(test *)
+(run *)
       ~(fire from #test-ship to #closest-target is in arc [1 8])
 
-(test #hit-near-target-fa)
+#hit-near-target-fa
+(test *)
+(run *)
       (fire from #test-ship to #near-target is in arc [1 8])
 
-(test #dont-hit-far-target-fa)
+#dont-hit-far-target-fa
+(test *)
+(run *)
       ~(fire from #test-ship to #far-target is in arc [1 8])
 
-(test #dont-hit-distant-target-fa)
+#dont-hit-distant-target-fa
+(test *)
+(run *)
       ~(fire from #test-ship to #distant-target is in arc [1 8])
 
-(test #hit-closest-target-rs)
+#hit-closest-target-rs
+(test *)
+(run *)
       (fire from #test-ship to #closest-target is in arc [1 2 3 4])
 
-(test #hit-near-target-rs)
+#hit-near-target-rs
+(test *)
+(run *)
       (fire from #test-ship to #near-target is in arc [1 2 3 4])
 
-(test #hit-far-target-rs)
+#hit-far-target-rs
+(test *)
+(run *)
       (fire from #test-ship to #far-target is in arc [1 2 3 4])
 
-(test #dont-hit-distant-target-rs)
+#dont-hit-distant-target-rs
+(test *)
+(run *)
       ~(fire from #test-ship to #distant-target is in arc [1 2 3 4])
 
-(test #hit-closest-target-360)
+#hit-closest-target-360
+(test *)
+(run *)
       (fire from #test-ship to #closest-target is in arc 360)
 
-(test #hit-near-target-360)
+#hit-near-target-360
+(test *)
+(run *)
       (fire from #test-ship to #near-target is in arc 360)
 
-(test #hit-far-target-360)
+#hit-far-target-360
+(test *)
+(run *)
       (fire from #test-ship to #far-target is in arc 360)
 
-(test #hit-distant-target-360)
+#hit-distant-target-360
+(test *)
+(run *)
       (fire from #test-ship to #distant-target is in arc [360])
 
-(test #dont-hit-closest-target-0)
+#dont-hit-closest-target-0
+(test *)
+(run *)
       ~(fire from #test-ship to #closest-target is in arc 0)
 
-(test #hit-near-target-0)
+#hit-near-target-0
+(test *)
+(run *)
       (fire from #test-ship to #near-target is in arc [0])
 
-(test #dont-hit-far-target-0)
+#dont-hit-far-target-0
+(test *)
+(run *)
       ~(fire from #test-ship to #far-target is in arc 0)
 
-(test #dont-hit-distant-target-0)
+#dont-hit-distant-target-0
+(test *)
+(run *)
       ~(fire from #test-ship to #distant-target is in arc 0)
 
-(test #dont-hit-closest-target-odd)
+#dont-hit-closest-target-odd
+(test *)
+(run *)
 	  ~(fire from #test-ship to #closest-target is in arc [#north 6])
 
-(test #hit-near-target-odd)
+#hit-near-target-odd
+(test *)
+(run *)
 	  (fire from #test-ship to #near-target is in arc [#north 6])
 
-(test #dont-hit-far-target-odd)
+#dont-hit-far-target-odd
+(test *)
+(run *)
 	  ~(fire from #test-ship to #far-target is in arc [#north 6])
 
-(test #hit-distant-target-odd)
+#hit-distant-target-odd
+(test *)
+(run *)
 	  (fire from #test-ship to #distant-target is in arc [#north 6])
 
-(test #arc-projector)
+#arc-projector
+(test *)
+(run *)
 	  (#test-ship #projector 1 arc [360 #up])
 
-(test #arc-tractor)
+#arc-tractor
+(test *)
+(run *)
 	  (#test-ship #tractor 1 arc [4 5])
 
-(test #arc-mtd)
+#arc-mtd
+(test *)
+(run *)
 	  (#test-ship #mtd 1 arc #down)
 
-(test #torpedo-0)
+#torpedo-0
+(test *)
+(run *)
 	  (#test-ship #torpedo 1 bears on angle 0)
 
-(test #torpedo-44)
+#torpedo-44
+(test *)
+(run *)
 	  (#test-ship #torpedo 1 bears on angle 44)
 
-(test #torpedo-45)
+#torpedo-45
+(test *)
+(run *)
 	  (#test-ship #torpedo 1 bears on angle 45)
 
-(test #torpedo-46)
+#torpedo-46
+(test *)
+(run *)
 	  ~(#test-ship #torpedo 1 bears on angle 46)
 
-(test #torpedo-135)
+#torpedo-135
+(test *)
+(run *)
 	  ~(#test-ship #torpedo 1 bears on angle 135)
 
-(test #torpedo-314)
+#torpedo-314
+(test *)
+(run *)
 	  ~(#test-ship #torpedo 1 bears on angle 314)
 
-(test #torpedo-315)
+#torpedo-315
+(test *)
+(run *)
 	  (#test-ship #torpedo 1 bears on angle 315)
 
-(test #torpedo-316)
+#torpedo-316
+(test *)
+(run *)
 	  (#test-ship #torpedo 1 bears on angle 316)
 
-(test #torpedo-360)
+#torpedo-360
+(test *)
+(run *)
 	  (#test-ship #torpedo 1 bears on angle 360)
 
-(test #torpedo-closest-target)
+#torpedo-closest-target
+(test *)
+(run *)
 	  ~(#test-ship #torpedo 1 bears on target #closest-target)
 
-(test #torpedo-near-target)
+#torpedo-near-target
+(test *)
+(run *)
 	  (#test-ship #torpedo 1 bears on target #near-target)
 
-(test #torpedo-far-target)
+#torpedo-far-target
+(test *)
+(run *)
 	  ~(#test-ship #torpedo 1 bears on target #far-target)
 
-(test #torpedo-distant-target)
+#torpedo-distant-target
+(test *)
+(run *)
 	  ~(#test-ship #torpedo 1 bears on target #distant-target)
 
-(test #bearing-on-closest-target-location)
+#bearing-on-closest-target-location
+(test *)
+(run *)
 	  (#test-ship #torpedo bearing on angle 90 into [])
 
-(test #bearing-on-near-target-location)
+#bearing-on-near-target-location
+(test *)
+(run *)
 	  (#test-ship #torpedo bearing on angle 0 into
 	  		[[#torpedo 1 [1 8] 1 500]
 			 [#torpedo 2 [1 8] 1 500]])
 
-(test #bearing-on-far-target-location)
+#bearing-on-far-target-location
+(test *)
+(run *)
 	  (#test-ship #torpedo bearing on angle 75 into [])
 
-(test #bearing-on-distant-target-location)
+#bearing-on-distant-target-location
+(test *)
+(run *)
 	  (#test-ship #torpedo bearing on angle 245 into [])
 
-(test #bearing-on-closest-target)
+#bearing-on-closest-target
+(test *)
+(run *)
 	  (#test-ship #torpedo bearing on target #closest-target into [])
 
-(test #bearing-on-near-target)
+#bearing-on-near-target
+(test *)
+(run *)
 	  (#test-ship #torpedo bearing on target #near-target into
 	  		[[#torpedo 1 [1 8] 1 500]
 			 [#torpedo 2 [1 8] 1 500]])
 
-(test #damaged-systems-dont-bear)
+#damaged-systems-dont-bear
+(test *)
+(run *)
 	  (set repair time for #test-ship #torpedo 2 to 1)
 	  (#test-ship #torpedo bearing on target #near-target into
 	  		[[#torpedo 1 [1 8] 1 500]])
 
-(test #bearing-on-far-target)
+#bearing-on-far-target
+(test *)
+(run *)
 	  (#test-ship #torpedo bearing on target #far-target into [])
 
-(test #bearing-on-distant-target)
+#bearing-on-distant-target
+(test *)
+(run *)
 	  (#test-ship #torpedo bearing on target #distant-target into [])
 
-(test #bearing-as-ship-turns)
+#bearing-as-ship-turns
+(test *)
+(run *)
 	  (turn #test-ship to heading 0)
 	  (#test-ship #torpedo bearing on target #closest-target into
 	  		[[#torpedo 1 [1 8] 1 500]
@@ -551,26 +664,42 @@
 			 [#torpedo 2 [1 8] 1 500]])
 	  (#test-ship #torpedo bearing on target #distant-target into [])
 
-(test #target-aspect-closest)
+#target-aspect-closest
+(test *)
+(run *)
 	  (target aspect from #test-ship to #closest-target into #east)
 
-(test #target-aspect-near)
+#target-aspect-near
+(test *)
+(run *)
 	  (target aspect from #test-ship to #near-target into #north)
 
-(test #target-aspect-far)
+#target-aspect-far
+(test *)
+(run *)
 	  (target aspect from #test-ship to #far-target into #east)
 
-(test #target-aspect-distant)
+#target-aspect-distant
+(test *)
+(run *)
 	  (target aspect from #test-ship to #distant-target into #southwest)
 
-(test #target-aspect-from-closest)
+#target-aspect-from-closest
+(test *)
+(run *)
 	  (target aspect from #closest-target to #test-ship into #north)
 
-(test #target-aspect-from-near)
+#target-aspect-from-near
+(test *)
+(run *)
 	  (target aspect from #near-target to #test-ship into #east)
 
-(test #target-aspect-from-far)
+#target-aspect-from-far
+(test *)
+(run *)
 	  (target aspect from #far-target to #test-ship into #southwest)
 
-(test #target-aspect-from-distant)
+#target-aspect-from-distant
+(test *)
+(run *)
 	  (target aspect from #distant-target to #test-ship into #north)

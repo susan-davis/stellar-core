@@ -8,8 +8,6 @@
 
 (reset randomness)
 
-(set up $)	(grid supports every heading)
-
 %% ----------------------------------------------------------------------------
 
 #class

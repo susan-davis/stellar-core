@@ -1,140 +1,137 @@
 %% dgdebug -u damage-tests.dg damage.dg test-ships.dg no-maneuver.dg \
 %% 		   	  sector.dg grid.dg unit.dg stdlib.dg
 
-(list of tests [
-	#shields
-	#shield-levels
-	#shield-level-north
-	#shield-level-east
-	#shield-level-south
-	#shield-level-west
-	#ammo
-	#damaged-systems
-	#destroyed-systems
-	#undestroyed-systems
-	#damaged-systems-simple
-	#destroyed-systems-simple
-	#test-ship-isnt-simple
-	#closest-target-is-simple
-	#near-target-is-simple
-	#decrease-ammo
-	#decrease-ammo-below-zero
-	#decrease-shields
-	#decrease-shields-below-zero
-	#regenerate-shields
-	#regenerate-shields-above-max
-	#dont-find-damaged-torpedo
-	#increase-repair-time-tractor
-	#increase-repair-time-mtd
-	#decrease-repair-time-tractor
-	#decrease-repair-time-beyond-zero
-	#decrease-repair-time-mtd
-	#repair-tractor
-	#destroy-ship
-	#test-ship-is-not-destroyed
-    #shields-hold-from-ahead-50
-    #shields-penetrated-from-ahead-101
-    #shields-hold-from-port-50
-    #shields-penetrated-from-port-101
-	#energy-depleted-from-port-550
-	#energy-depleted-from-ahead-600
-	#penetrating-shields-damages-system
-	#damage-projector-with-300
-	#damage-tractor-with-300
-	#damage-mtd-with-300
-	#damage-tractor-to-destruction
-	#wreck-with-300
-	#wreck-closest-target-with-500
-	#destroy-test-ship
-    ])
-
-%% ----------------------------------------------------------------------
-
-(reset randomness)
-
 (interface (code $))
 
 (interface (ship type $))
 
+(set up $) (reset randomness)
+
 %% ----------------------------------------------------------------------
 
-(test #shields)
+#shields
+(test *)
+(run *)
 	  (#test-ship shields 500)
 
-(test #shield-levels)
+#shield-levels
+(test *)
+(run *)
 	  (#test-ship shield levels [100 99 98 97])
 
-(test #shield-level-north)
+#shield-level-north
+(test *)
+(run *)
 	  (#test-ship shield level #north into 100)
 
-(test #shield-level-east)
+#shield-level-east
+(test *)
+(run *)
 	  (#test-ship shield level #east into 99)
 
-(test #shield-level-south)
+#shield-level-south
+(test *)
+(run *)
 	  (#test-ship shield level #south into 98)
 
-(test #shield-level-west)
+#shield-level-west
+(test *)
+(run *)
 	  (#test-ship shield level #west into 97)
 
-(test #ammo)
+#ammo
+(test *)
+(run *)
 	  (#test-ship ammo 10)
 
-(test #decrease-ammo)
+#decrease-ammo
+(test *)
+(run *)
 	  (decrease ammo for #test-ship by 3)
 	  (#test-ship ammo 7)
 
-(test #decrease-ammo-below-zero)
+#decrease-ammo-below-zero
+(test *)
+(run *)
 	  ~(decrease ammo for #test-ship by 11)
 
-(test #decrease-shields)
+#decrease-shields
+(test *)
+(run *)
 	  (decrease shields for #test-ship by 50)
 	  (#test-ship shields 450)
 
-(test #decrease-shields-below-zero)
+#decrease-shields-below-zero
+(test *)
+(run *)
 	  ~(decrease shields for #test-ship by 501)
 
-(test #regenerate-shields)
+#regenerate-shields
+(test *)
+(run *)
 	  (decrease shields for #test-ship by 50)
 	  (#test-ship shields 450)
 	  (regenerate shields for #test-ship by 50)
 	  (#test-ship shields 500)
 
-(test #regenerate-shields-above-max)
+#regenerate-shields-above-max
+(test *)
+(run *)
 	  (decrease shields for #test-ship by 50)
 	  (#test-ship shields 450)
 	  (regenerate shields for #test-ship by 100)
 	  (#test-ship shields 500)
 
-(test #damaged-systems)
+#damaged-systems
+(test *)
+(run *)
 	  (#test-ship damaged systems [[#tractor 1 800]])
 
-(test #destroyed-systems)
+#destroyed-systems
+(test *)
+(run *)
 	  (#test-ship destroyed systems [[#mtd 1 16383]])
 
-(test #undestroyed-systems)
+#undestroyed-systems
+(test *)
+(run *)
 	  (#test-ship undestroyed systems $List)
 	  (length of $List into 23)
 
-(test #damaged-systems-simple)
+#damaged-systems-simple
+(test *)
+(run *)
 	  (#closest-target damaged systems [])
 
-(test #destroyed-systems-simple)
+#destroyed-systems-simple
+(test *)
+(run *)
 	  (#closest-target destroyed systems [])
 
-(test #test-ship-isnt-simple)
+#test-ship-isnt-simple
+(test *)
+(run *)
 	  ~(#test-ship is simple)
 
-(test #closest-target-is-simple)
+#closest-target-is-simple
+(test *)
+(run *)
 	  (#closest-target is simple)
 
-(test #near-target-is-simple)
+#near-target-is-simple
+(test *)
+(run *)
 	  (#near-target is simple)
 
-(test #dont-find-damaged-torpedo)
+#dont-find-damaged-torpedo
+(test *)
+(run *)
 	  (increase repair time for #test-ship #torpedo 1 by 30)
 	  (find undamaged #torpedo for #test-ship into [[#torpedo 2 [1 8] 1 500]])
 
-(test #increase-repair-time-tractor)
+#increase-repair-time-tractor
+(test *)
+(run *)
 	  (#test-ship systems $Before)
 	  (length of $Before into $LenBefore)
 	  (increase repair time for #test-ship #tractor 1 by 200)
@@ -143,11 +140,15 @@
 	  (length of $After into $LenAfter)
 	  (assert $LenBefore = $LenAfter)
 
-(test #increase-repair-time-mtd)
+#increase-repair-time-mtd
+(test *)
+(run *)
 	  (increase repair time for #test-ship #mtd 1 by 200)
 	  (#test-ship #mtd 1 repair time 16383)
 
-(test #decrease-repair-time-tractor)
+#decrease-repair-time-tractor
+(test *)
+(run *)
 	  (#test-ship systems $Before)
 	  (length of $Before into $LenBefore)
 	  (decrease repair time for #test-ship #tractor 1 by 200)
@@ -156,76 +157,110 @@
 	  (length of $After into $LenAfter)
 	  (assert $LenBefore = $LenAfter)
 
-(test #decrease-repair-time-beyond-zero)
+#decrease-repair-time-beyond-zero
+(test *)
+(run *)
 	  (decrease repair time for #test-ship #tractor 1 by 900)
 	  (#test-ship #tractor 1 repair time 0)
 
-(test #decrease-repair-time-mtd)
+#decrease-repair-time-mtd
+(test *)
+(run *)
 	  ~(decrease repair time for #test-ship #mtd 1 by 900)
 
-(test #repair-tractor)
+#repair-tractor
+(test *)
+(run *)
 	  (repair #test-ship #tractor 1)
 	  (#test-ship #tractor 1 repair time 0)
 
-(test #destroy-ship)
+#destroy-ship
+(test *)
+(run *)
 	  (destroy #test-ship)
 	  (#test-ship is destroyed)
 
-(test #test-ship-is-not-destroyed)
+#test-ship-is-not-destroyed
+(test *)
+(run *)
 	  ~(#test-ship is destroyed)
 
 (assert $Ship has $Shields and $Energy)
 	  ($Ship shields $Shields) $Shields
 	  ($Ship energy $Energy) $Energy
 
-(test #shields-hold-from-ahead-50)
+#shields-hold-from-ahead-50
+(test *)
+(run *)
       (hit #closest-target with 50 from #north)
       (assert #closest-target has 200 and 500)
 
-(test #shields-penetrated-from-ahead-101)
+#shields-penetrated-from-ahead-101
+(test *)
+(run *)
       (hit #closest-target with 101 from #north)
       (assert #closest-target has 150 and 499)
 
-(test #shields-hold-from-port-50)
+#shields-hold-from-port-50
+(test *)
+(run *)
       (hit #closest-target with 50 from #west)
       (assert #closest-target has 200 and 500)
 
-(test #shields-penetrated-from-port-101)
+#shields-penetrated-from-port-101
+(test *)
+(run *)
       (hit #closest-target with 101 from #west)
       (assert #closest-target has 200 and 449)
 
-(test #energy-depleted-from-port-550)
+#energy-depleted-from-port-550
+(test *)
+(run *)
       (hit #closest-target with 550 from #west)
 	  (assert #closest-target has 200 and 0)
 
-(test #energy-depleted-from-ahead-600)
+#energy-depleted-from-ahead-600
+(test *)
+(run *)
       (hit #closest-target with 600 from #north)
 	  (assert #closest-target has 150 and 0)
 
-(test #penetrating-shields-damages-system)
+#penetrating-shields-damages-system
+(test *)
+(run *)
       (hit #test-ship with 150 from #north)
 	  (assert #test-ship has 400 and 882)
 	  (#test-ship damaged systems $Systems) $Systems
 	  (length of $Systems into $Length) $Length
 	  (assert $Length = 2)
 
-(test #damage-projector-with-300)
+#damage-projector-with-300
+(test *)
+(run *)
 	  (damage #test-ship system #projector 1 with 300)
 	  (#test-ship #projector 1 repair time 300)
 
-(test #damage-tractor-with-300)
+#damage-tractor-with-300
+(test *)
+(run *)
 	  (damage #test-ship system #tractor 1 with 300)
 	  (#test-ship #tractor 1 repair time 1100)
 
-(test #damage-mtd-with-300)
+#damage-mtd-with-300
+(test *)
+(run *)
 	  (damage #test-ship system #mtd 1 with 300)
 	  (#test-ship #mtd 1 repair time 16383)
 
-(test #damage-tractor-to-destruction)
+#damage-tractor-to-destruction
+(test *)
+(run *)
 	  (damage #test-ship system #tractor 1 with 16300)
 	  (#test-ship #tractor 1 repair time 16383)
 
-(test #wreck-with-300)
+#wreck-with-300
+(test *)
+(run *)
 	  (#test-ship systems $Before)
 	  (length of $Before into $Length)
 	  (wreck #test-ship with 300 from #north)
@@ -233,8 +268,8 @@
 	  ~(length of $After into $Length)
 	  ~($Before = $After)
 
-(test #wreck-closest-target-with-500)
+#wreck-closest-target-with-500
+(test *)
+(run *)
 	  (wreck #closest-target with 500 from #north)
 	  (#closest-target is destroyed)
-
-(test #destroy-test-ship)
