@@ -73,6 +73,8 @@
 (test *)
 (run *)	  (#closest-target considers #distant-target friendly)
 
+
+
 #closest-target-in-sensor-range
 (test *)
 (run *)	(#closest-target is in sensor range of #test-ship)

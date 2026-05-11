@@ -7,32 +7,43 @@
 
 %%-------------------------------- INTERFACES --------------------------------
 
+(global variable (current quadrant $))
+
+(interface ($<Ship fleet $>Fleet))
+
+(interface (sensor $<Obj))
+
+(interface (ship type $))  %% prints what kind of ship it is
+
 (interface (class $)) %% prints the name of the ship class
 
 (interface (long class $)) %% prints fleet and class name
 
-(interface (ship type $))  %% prints what kind of ship it is
-
 (interface (code $))  %% one-letter code on sensor display
-
-(interface ($<Ship fleet $>Fleet))
 
 (interface ($<Ship considers $<Target friendly))
 
 (interface ($<Ship considers $<Target hostile))
 
-(global variable (current quadrant $))
-
-%% Sensor value 0: display the current subsector
+%% Sensor value 0: display the current or an adjacent subsector
 %% Sensor value 1: display the current sector
 %% Sensor value 2: long-range scan of adjacent sectors
 %% Sensor value 3: extended-range scan up to two sectors away
 
+(interface ($<Ship best functioning sensor for angle $<Angle into $>System))
 
+(interface ($<Ship best functioning sensor for position $<Pos into $>System))
 
-%% Sensor range: adjacent sector
-%% Weapons range: same sector
-%% Matter transmission range: adjacent subsector
+(interface ($<Ship best functioning sensor for target $<Target into $>System))
+
+(interface ($<Ship jams sensors with $<Energy energy))
+
+%% Extended range: two sectors away (sensors 3)
+%% Sensor range: adjacent sector (sensors 2)
+%% Weapons range: same sector (sensors 1)
+%% Matter transmission range: adjacent subsector (sensors 0)
+
+(interface ($<GridObject is in extended sensor range of $<Ship))
 
 (interface ($<GridObject is in sensor range of $<Ship))
 
@@ -44,6 +55,8 @@
 %% sensor lock == direct lock-on from ship's own sensors
 %% weapons lock == direct lock-on from ship's fire control scanners
 %% (jamming, and damage to sensors or scanners, can affect these)
+
+(interface ($<Ship can see position $<Pos))
 
 (interface ($<Ship has detected $<GridObject))
 
@@ -94,6 +107,53 @@
 	(base $Ship)
 	(base state $Fleet)
 
+(class $Ship)
+	($Ship class $Class)
+	(italic) (name $Class) (roman) (no space) -class (ship type $Class)
+
+(long class $Ship)
+	($Ship fleet $Fleet)
+	(name $Fleet) (class $Ship)
+
+%% override for more nuanced situations
+($Ship considers $Target friendly)
+	($Ship fleet $Fleet)
+	($Target fleet $Fleet)
+
+%% override for more nuanced situations
+($Ship considers $Target hostile)
+	($Ship fleet $Fleet)
+	~($Target fleet $Fleet)
+
+%%-----------------------------------------------------------------------------
+
+%% Do we want to have the active scanner/passive sensor distinction? We'll add
+%% #scanner to the set of systems if so. That would add scanning as a distinct
+%% action, to get more information about a target.
+#sensor
+(name *)		sensor
+(long name *)	sensor suite
+(sensor *)
+
+#scanner
+(name *)		scanner
+(long name *)	active scanner
+(sensor *)
+
+(sensors in [] into [])
+
+(sensors in $List into $Result)
+	($List = [$Head | $Tail])
+	(nth $Head 1 $Type)
+	(if) (sensor $Type) (then)
+		(sensors in $Tail into $Remainder)
+		(append [$Head] $Remainder $Result)
+	(else)
+		(weapons in $Tail into $Result)
+	(endif)
+
+%%-----------------------------------------------------------------------------
+
 (sector $X $Y is in sensor range of $Ship)
 	($Ship sector x $SX)
 	($Ship sector y $SY)
@@ -123,24 +183,6 @@
 	($Ship subsector y $PY)
 	($X is within 1 of $PX)
 	($Y is within 1 of $PY)
-
-%% override for more nuanced situations
-($Ship considers $Target friendly)
-	($Ship fleet $Fleet)
-	($Target fleet $Fleet)
-
-%% override for more nuanced situations
-($Ship considers $Target hostile)
-	($Ship fleet $Fleet)
-	~($Target fleet $Fleet)
-
-(class $Ship)
-	($Ship class $Class)
-	(italic) (name $Class) (roman) (no space) -class (ship type $Class)
-
-(long class $Ship)
-	($Ship fleet $Fleet)
-	(name $Fleet) (class $Ship)
 
 (hostile ships in sector $X $Y into $List)
 	(collect $Obj)

@@ -13,12 +13,7 @@
 
 %%----------------------------------------------------------------------------
 
-%% Do we want to have the active scanner/passive sensor distinction? We'll add
-%% #scanner to the set of systems if so. That would add scanning as a distinct
-%% action, to get more information about a target.
-#sensor
-(name *)		sensor
-(long name *)	sensor suite
+%% Sensors are in sensor.dg. Weapons are in weapons.dg.
 
 %% Tractor beams work just like they do in every other space opera.
 #tractor
