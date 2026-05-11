@@ -232,12 +232,30 @@
 	($Sublist = $Prefix)
 
 (find in $List beginning with sublist $Sublist into $Match)
-  	~(empty $List) %% fail if we don't find it
+	~(empty $List) %% fail if we don't find it
 	($List = [$Head | $Tail])
 	(if) ($Head begins with sublist $Sublist) (then)
 		($Match = $Head)
 	(else)
 	    (find in $Tail beginning with sublist $Sublist into $Match)
+	(endif)
+
+(find in [] with highest element $ into [])
+
+(find in $ with highest element 0 into [])
+
+(find in $List with highest element $ into $Match)
+	($List = [$Match])
+
+(find in $List with highest element $Num into $Match)
+	($List = [$Head | $Tail])
+	(find in $Tail with highest element $Num into $Candidate)
+	(nth $Head $Num $H)
+	(nth $Candidate $Num $C)
+	(if) ($C > $H) (then)
+		($Match = $Candidate)
+	(else)
+		($Match = $Head)
 	(endif)
 
 (remove from [] beginning with sublist $ into [])
