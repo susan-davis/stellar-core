@@ -267,3 +267,15 @@
 (run *)
 	  (list of lists $List)
 	  (remove from $List found in [[7 8] [9 9]] into $List)
+
+#find-type-and-id
+(test *)
+(run *)
+	  (list of lists $List)
+	  (find 2 2 in $List into [2 2 4 5 6])
+
+#dont-find-type-and-id
+(test *)
+(run *)
+	  (list of lists $List)
+	  ~(find 9 9 in $List into $)
