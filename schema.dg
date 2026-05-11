@@ -32,6 +32,14 @@
 
 %%-------------------------------- INTERFACES --------------------------------
 
+%% helpers, moved here from utils.dg
+
+(interface (find $<X $<Y in $<List into $>Match))
+
+(interface (remove $<X $<Y from $<List into $>NewList))
+
+(interface (remove from $<List found in $<Filter into $>NewList))
+
 %% (grid object $) => object exists in space and is sensor-detectable
 %% (stellar object $) => object is a star/planet/asteroid
 %% (ship $) => object can maneuver
@@ -114,6 +122,30 @@
 ($Ship crystals $Crystals)
 	($Ship state $State)
 	(nth $State 7 $Crystals)
+
+%%---------------------------------- HELPERS ----------------------------------
+
+%% moved here from utils.dg
+
+(find $X $Y in $List into $Match)
+	(find in $List beginning with sublist [$X $Y] into $Match)
+
+(remove $X $Y from $List into $NewList)
+	(remove from $List beginning with sublist [$X $Y] into $NewList)
+
+(remove from [] found in $ into [])
+
+(remove from $List found in [] into $List)
+
+(remove from $List found in $Filter into $Result)
+	([$Head | $Tail] = $Filter)
+	([$X $Y | $] = $Head)
+	(remove $X $Y from $List into $NewList)
+	(if) ($List = $NewList) (then)
+		(remove from $NewList found in $Tail into $Result)
+	(else)
+		(remove from $NewList found in $Filter into $Result)
+	(endif)
 
 %%---------------------------------- MUTATORS ---------------------------------
 
