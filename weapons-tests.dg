@@ -38,10 +38,8 @@
 			[#torpedo 2 [1 8] 1 500]])
 
 (assert $Ship has $Energy energy and $Ammo ammo)
-	($Ship energy $E) $E
-	($Ship ammo $A) $A
-	(assert $E = $Energy)
-	(assert $A = $Ammo)
+	($Ship energy $Energy)
+	($Ship ammo $Ammo)
 
 #dont-projector-self
 (test *)
