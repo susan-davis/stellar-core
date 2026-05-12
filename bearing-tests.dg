@@ -510,6 +510,30 @@
 	(turn #test-ship to heading 180)
 	(angle from #test-ship to #distant-target into 20)
 
+#angle-to-closest-target-position
+(test *)
+(run *)
+	(#closest-target position $Pos)
+	(angle from #test-ship to position $Pos into 90)
+
+#angle-to-near-target-position
+(test *)
+(run *)
+	(#near-target position $Pos)
+	(angle from #test-ship to position $Pos into 0)
+
+#angle-to-far-target-position
+(test *)
+(run *)
+	(#far-target position $Pos)
+	(angle from #test-ship to position $Pos into 75)
+
+#angle-to-distant-target-position
+(test *)
+(run *)
+	(#distant-target position $Pos)
+	(angle from #test-ship to position $Pos into 245)
+
 #turn-to-face-closest
 (test *)
 (run *)
