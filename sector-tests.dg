@@ -504,7 +504,7 @@
 (test *)
 (run *)
 	(move #test-ship to 3 4 8 7)
-	(assert that #test-ship is at [3 4 8 7 108])
+	(assert that #test-ship is at [3 4 8 7 105])
 
 #move-to-different-sector
 (test *)

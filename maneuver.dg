@@ -262,8 +262,11 @@
 
 (move $Ship for $Ticks minutes)
 	(update $Ship)
-	($Ticks minus 1 into $Remaining)
-	(move $Ship for $Remaining minutes)
+	(minutes per tick $Minutes)
+	(if) ~($Ticks < $Minutes) (then)
+		 ($Ticks minus $Minutes into $Remaining)
+		 (move $Ship for $Remaining minutes)
+	(endif)
 
 (attract nearby ships to $Object)
 	($Object subsector into $SX $SY $X $Y)

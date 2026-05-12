@@ -73,31 +73,95 @@
 (test *)
 (run *)	  (#closest-target considers #distant-target friendly)
 
-
-
-#closest-target-in-sensor-range
+#test-ship-sensors-list
 (test *)
-(run *)	(#closest-target is in sensor range of #test-ship)
+(run *)
+	(#test-ship undamaged systems $Systems)
+	(sensors in $Systems into [
+	   [#sensor 2 [1 8] 2 0]
+	   [#sensor 1 [360 #up #down] 1 0]
+	   [#sensor 0 [360 #up #down] 1 0]])
 
-#near-target-in-sensor-range
+#sensors-covering-0
 (test *)
-(run *)	(#near-target is in sensor range of #test-ship)
+(run *)
+	(#test-ship sensors covering angle 0 into [
+	   [#sensor 2 [1 8] 2 0]
+	   [#sensor 1 [360 #up #down] 1 0]
+	   [#sensor 0 [360 #up #down] 1 0]])
 
-#far-target-in-sensor-range
+#sensors-covering-135
 (test *)
-(run *)	(#far-target is in sensor range of #test-ship)
+(run *)
+	(#test-ship sensors covering angle 135 into [
+	   [#sensor 1 [360 #up #down] 1 0]
+	   [#sensor 0 [360 #up #down] 1 0]])
 
-#distant-target-not-in-sensor-range
+#best-functioning-sensor-0
 (test *)
-(run *)	~(#distant-target is in sensor range of #test-ship)
+(run *)
+	(#test-ship best functioning sensor for angle 0 into [#sensor 2 [1 8] 2 0])
 
-#non-grid-object-not-in-sensor-range
+#best-functioning-sensor-195
 (test *)
-(run *)	~(#non-grid-object is in sensor range of #test-ship)
+(run *)
+	(#test-ship best functioning sensor for angle 195 into
+	   [#sensor 1 [360 #up #down] 1 0])
 
-#asteroid-in-sensor-range
+#best-functioning-sensor-closest-target
 (test *)
-(run *)	(#asteroid is in sensor range of #test-ship)
+(run *)
+	(#test-ship best functioning sensor for target #closest-target into
+	   [#sensor 1 [360 #up #down] 1 0])
+
+#best-functioning-sensor-near-target
+(test *)
+(run *)
+	(#test-ship best functioning sensor for target #near-target into
+	   [#sensor 2 [1 8] 2 0])
+
+#best-functioning-sensor-far-target
+(test *)
+(run *)
+	(#test-ship best functioning sensor for target #far-target into
+	   [#sensor 1 [360 #up #down] 1 0])
+
+#best-functioning-sensor-distant-target
+(test *)
+(run *)
+	(#test-ship best functioning sensor for target #distant-target into
+	   [#sensor 1 [360 #up #down] 1 0])
+
+#best-functioning-sensor-near-target-position
+(test *)
+(run *)
+	(#near-target position $Pos)
+	(#test-ship best functioning sensor for position $Pos into
+	   [#sensor 2 [1 8] 2 0])
+
+#closest-target-in-missile-range
+(test *)
+(run *)	(#closest-target is in missile range of #test-ship)
+
+#near-target-in-missile-range
+(test *)
+(run *)	(#near-target is in missile range of #test-ship)
+
+#far-target-in-missile-range
+(test *)
+(run *)	(#far-target is in missile range of #test-ship)
+
+#distant-target-not-in-missile-range
+(test *)
+(run *)	~(#distant-target is in missile range of #test-ship)
+
+#non-grid-object-not-in-missile-range
+(test *)
+(run *)	~(#non-grid-object is in missile range of #test-ship)
+
+#asteroid-in-missile-range
+(test *)
+(run *)	(#asteroid is in missile range of #test-ship)
 
 #closest-target-in-weapons-range
 (test *)
@@ -145,9 +209,9 @@
 (test *)
 (run *)	~(#non-grid-object is in matter transmission range of #test-ship)
 
-#closest-in-sensor-range-of-near
+#closest-in-missile-range-of-near
 (test *)
-(run *)      (#closest-target is in sensor range of #near-target)
+(run *)      (#closest-target is in missile range of #near-target)
 
 #closest-in-weapons-range-of-near
 (test *)
@@ -159,7 +223,7 @@
 
 #near-out-of-range-of-distant
 (test *)
-(run *)      ~(#near-target is in sensor range of #distant-target)
+(run *)      ~(#near-target is in missile range of #distant-target)
 
 #object-at-precise-ship-position
 (test *)

@@ -5,7 +5,7 @@ DEBUG=dgdebug -u
 BUNDLE=aambundle
 STDLIB=utils.dg unit.dg stdlib.dg
 LIBS=test-ships.dg schema.dg sector.dg bearing.dg grid.dg $(STDLIB)
-DLIBS=arc.dg damage.dg d6.dg $(LIBS)
+DLIBS=arc.dg damage.dg d6.dg time.dg $(LIBS)
 
 all: test
 
@@ -26,6 +26,7 @@ time:
 
 d6:
 	$(DEBUG) d6-tests.dg d6.dg $(STDLIB)
+#	$(DEBUG) d6-lite-tests.dg d6.dg $(STDLIB)
 
 d6-lite:
 	$(DEBUG) d6-lite-tests.dg d6-lite.dg $(STDLIB)
@@ -46,7 +47,7 @@ schema:
 	$(DEBUG) schema-tests.dg schema.dg test-ships.dg bearing.dg grid.dg $(STDLIB)
 
 maneuver:
-	$(DEBUG) maneuver-tests.dg maneuver.dg $(LIBS)
+	$(DEBUG) maneuver-tests.dg maneuver.dg time.dg $(LIBS)
 
 damage:
 	$(DEBUG) damage-tests.dg damage.dg d6.dg $(LIBS)
