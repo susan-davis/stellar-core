@@ -267,7 +267,7 @@
 	($Ship sector y $Y)
 	($X delta $SX into $DX)
 	($Y delta $SY into $DY)
-	(max $DX and $DY into $Delta)
+	(max $DX $DY $Delta)
 	($Delta plus 1 into $Level)
 	%% TODO: seeing into the edge sectors of the next quadrant
 

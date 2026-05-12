@@ -206,7 +206,7 @@
 (hit $Target with $Units from $Direction)
 	($Target shields $TotalShieldPower)
 	($Target shield level $Direction into $DirectionShieldPower)
-	(min $TotalShieldPower and $DirectionShieldPower into $ShieldPower)
+	(min $TotalShieldPower $DirectionShieldPower $ShieldPower)
 	(if) ($Units > $ShieldPower) (then)
 		(decrease shields for $Target by $ShieldPower) %% to 0
 		($Units minus $ShieldPower into $Damage)
