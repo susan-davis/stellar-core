@@ -33,6 +33,8 @@
 
 (interface (angle from $<Ship to $<Target into $>Angle))
 
+(interface (angle from $<Ship to position $<Position into $>Angle))
+
 %% Turn, without moving the object
 
 (interface (turn $<Ship to heading $<Heading))
@@ -291,6 +293,11 @@
 (angle from $Ship to $Target into $Result)
 	($Ship heading $Heading)
 	(bearing from $Ship to $Target into $Bearing)
+	(angle clockwise from $Heading to $Bearing into $Result)
+
+(angle from $Ship to position $Pos into $Result)
+	($Ship heading $Heading)
+	(bearing from $Ship to position $Pos into $Bearing)
 	(angle clockwise from $Heading to $Bearing into $Result)
 
 %% ------------------------- REVERSE BEARINGS ---------------------------
