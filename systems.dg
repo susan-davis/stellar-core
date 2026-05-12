@@ -15,6 +15,11 @@
 
 %% Sensors are in sensor.dg. Weapons are in weapons.dg.
 
+#scanner
+(name *)		scanner
+(long name *)	active scanner
+(sensor *)
+
 %% Tractor beams work just like they do in every other space opera.
 #tractor
 (name *)		tractor
