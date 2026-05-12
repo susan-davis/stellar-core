@@ -591,7 +591,7 @@
 	(tick)
 	(14 hours 53 minutes)
 
-#time-rate
+#minutes-per-tick
 (test *)
 (run *)
 	(now) (minutes per tick 5)
