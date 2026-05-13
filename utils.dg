@@ -233,6 +233,22 @@
 	    (find in $Tail beginning with sublist $Sublist into $Match)
 	(endif)
 
+(find in [] with highest element $ into [])
+
+(find in $List with highest element $Num into $Match)
+	($List = [$Head | $Tail])
+	(nth $Head $Num $First)
+	(find in $Tail with highest element $Num into $HighTail)
+	(if) (nth $HighTail $Num $Second) (then)
+		(if) ($First < $Second) (then)
+			($Match = $HighTail)
+		(else)
+			($Match = $Head)
+		(endif)
+	(else)
+		($Match = $Head)
+	(endif)
+
 (remove from [] beginning with sublist $ into [])
 
 (remove from $List beginning with sublist $Sublist into $NewList)

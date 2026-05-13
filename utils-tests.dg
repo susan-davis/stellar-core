@@ -496,21 +496,20 @@
 #find-2-2
 (test *)
 (run *)
-	  (list of lists $List)
-	  (find in $List beginning with sublist [2 2] into [2 2 4 5 6])
+	(list of lists $List)
+	(find in $List beginning with sublist [2 2] into [2 2 4 5 6])
 
 #dont-find-9-9
 (test *)
 (run *)
-	  (list of lists $List)
-	  ~(find in $List beginning with sublist [9 9] into $)
+	(list of lists $List)
+	~(find in $List beginning with sublist [9 9] into $)
 
 #remove-1-2
 (test *)
 (run *)
-	  (list of lists $List)
-	  (remove from $List beginning with sublist [1 2] into $NewList)
-	  (assert $NewList = [
+	(list of lists $List)
+	(remove from $List beginning with sublist [1 2] into [
 		[2 2 4 5 6]
 		[3 2 4 5 6]
 		[3 2 4 6 7]
@@ -519,10 +518,9 @@
 #remove-1-2-twice
 (test *)
 (run *)
-	  (list of lists $List)
-	  (remove from $List beginning with sublist [1 2] into $NewList)
-	  (remove from $NewList beginning with sublist [1 2] into $NewerList)
-	  (assert $NewerList = [
+	(list of lists $List)
+	(remove from $List beginning with sublist [1 2] into $NewList)
+	(remove from $NewList beginning with sublist [1 2] into [
 		[2 2 4 5 6]
 		[3 2 4 5 6]
 		[3 2 4 6 7]
@@ -531,9 +529,8 @@
 #remove-2-2
 (test *)
 (run *)
-	  (list of lists $List)
-	  (remove from $List beginning with sublist [2 2] into $NewList)
-	  (assert $NewList = [
+	(list of lists $List)
+	(remove from $List beginning with sublist [2 2] into [
 	  	[1 2 3 4 5]
 		[3 2 4 5 6]
 		[3 2 4 6 7]
@@ -542,9 +539,8 @@
 #remove-3-2
 (test *)
 (run *)
-	  (list of lists $List)
-	  (remove from $List beginning with sublist [3 2] into $NewList)
-	  (assert $NewList = [
+	(list of lists $List)
+	(remove from $List beginning with sublist [3 2] into [
 	  	[1 2 3 4 5]
 		[2 2 4 5 6]
 		[3 2 4 6 7]
@@ -553,10 +549,9 @@
 #remove-3-2-twice
 (test *)
 (run *)
-	  (list of lists $List)
-	  (remove from $List beginning with sublist [3 2] into $NewList)
-	  (remove from $NewList beginning with sublist [3 2] into $NewerList)
-	  (assert $NewerList = [
+	(list of lists $List)
+	(remove from $List beginning with sublist [3 2] into $NewList)
+	(remove from $NewList beginning with sublist [3 2] into [
 	  	[1 2 3 4 5]
 		[2 2 4 5 6]
 		[4 1 7 8 9]])
@@ -564,9 +559,8 @@
 #remove-4-1
 (test *)
 (run *)
-	  (list of lists $List)
-	  (remove from $List beginning with sublist [4 1] into $NewList)
-	  (assert $NewList = [
+	(list of lists $List)
+	(remove from $List beginning with sublist [4 1] into [
 	  	[1 2 3 4 5]
 		[2 2 4 5 6]
 		[3 2 4 5 6]
@@ -575,5 +569,17 @@
 #remove-7-7
 (test *)
 (run *)
-	  (list of lists $List)
-	  (remove from $List beginning with sublist [7 7] into $List)
+	(list of lists $List)
+	(remove from $List beginning with sublist [7 7] into $List)
+
+#highest-element-1
+(test *)
+(run *)
+    (list of lists $List)
+	(find in $List with highest element 1 into [4 1 7 8 9])
+
+#highest-element-3
+(test *)
+(run *)
+    (list of lists $List)
+	(find in $List with highest element 3 into [4 1 7 8 9])
