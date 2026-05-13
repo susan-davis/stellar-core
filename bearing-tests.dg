@@ -1480,3 +1480,8 @@
 	(#distant-target position $There)
 	(move #test-ship 1500 toward position $There)
 	(#test-ship position [295 587 200])
+
+#slope-38
+(test *)
+(run *)
+	(slope for 38 into 19 15) %% left this out of an older version
