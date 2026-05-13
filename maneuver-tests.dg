@@ -377,6 +377,4 @@
 #move-5-toward-corner
 (test *)
 (run *)
-	(assert 5 minutes toward [899 899] goes to $SX $SY $X $Y $PX $PY)
-	$SX $SY $X $Y $PX $PY
-	(assert [$SX $SY $X $Y $PX $PY] = [4 4 8 4 4 8])
+	(assert 5 minutes toward [899 899] goes to 4 4 8 4 4 8)
