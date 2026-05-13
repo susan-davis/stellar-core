@@ -1,12 +1,5 @@
 %% dgdebug -u utils-tests.dg utils.dg unit.dg stdlib.dg
 
-(global variable (list of lists [
-	[1 2 3 4 5]
-	[2 2 4 5 6]
-	[3 2 4 5 6]
-	[3 2 4 6 7]
-	[4 1 7 8 9]]))
-
 #0-isnt-odd-or-even
 (test *)
 (run *)
@@ -314,6 +307,13 @@
 (test *)
 (run *)
 	~(decrease element 3 in [1 2 3 4 5] by 4 into $)
+
+(global variable (list of lists [
+	[1 2 3 4 5]
+	[2 2 4 5 6]
+	[3 2 4 5 6]
+	[3 2 4 6 7]
+	[4 1 7 8 9]]))
 
 #match-one-of-the-key
 (test *)
