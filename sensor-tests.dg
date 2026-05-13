@@ -78,66 +78,66 @@
 (run *)
 	(#test-ship undamaged systems $Systems)
 	(sensors in $Systems into [
-	   [#sensor 2 [1 8] 2 0]
-	   [#sensor 1 [360 #up #down] 1 0]
-	   [#sensor 0 [360 #up #down] 1 0]])
+	   [#sensor 3 [1 8] 2 0]
+	   [#sensor 2 [360 #up #down] 1 0]
+	   [#sensor 1 [360 #up #down] 1 0]])
 
 #sensors-covering-0
 (test *)
 (run *)
 	(#test-ship sensors covering angle 0 into [
-	   [#sensor 2 [1 8] 2 0]
-	   [#sensor 1 [360 #up #down] 1 0]
-	   [#sensor 0 [360 #up #down] 1 0]])
+	   [#sensor 3 [1 8] 2 0]
+	   [#sensor 2 [360 #up #down] 1 0]
+	   [#sensor 1 [360 #up #down] 1 0]])
 
 #sensors-covering-135
 (test *)
 (run *)
 	(#test-ship sensors covering angle 135 into [
-	   [#sensor 1 [360 #up #down] 1 0]
-	   [#sensor 0 [360 #up #down] 1 0]])
+	   [#sensor 2 [360 #up #down] 1 0]
+	   [#sensor 1 [360 #up #down] 1 0]])
 
 #best-functioning-sensor-0
 (test *)
 (run *)
-	(#test-ship best functioning sensor for angle 0 into [#sensor 2 [1 8] 2 0])
+	(#test-ship best functioning sensor for angle 0 into [#sensor 3 [1 8] 2 0])
 
 #best-functioning-sensor-195
 (test *)
 (run *)
 	(#test-ship best functioning sensor for angle 195 into
-	   [#sensor 1 [360 #up #down] 1 0])
+	   [#sensor 2 [360 #up #down] 1 0])
 
 #best-functioning-sensor-closest-target
 (test *)
 (run *)
 	(#test-ship best functioning sensor for target #closest-target into
-	   [#sensor 1 [360 #up #down] 1 0])
+	   [#sensor 2 [360 #up #down] 1 0])
 
 #best-functioning-sensor-near-target
 (test *)
 (run *)
 	(#test-ship best functioning sensor for target #near-target into
-	   [#sensor 2 [1 8] 2 0])
+	   [#sensor 3 [1 8] 2 0])
 
 #best-functioning-sensor-far-target
 (test *)
 (run *)
 	(#test-ship best functioning sensor for target #far-target into
-	   [#sensor 1 [360 #up #down] 1 0])
+	   [#sensor 2 [360 #up #down] 1 0])
 
 #best-functioning-sensor-distant-target
 (test *)
 (run *)
 	(#test-ship best functioning sensor for target #distant-target into
-	   [#sensor 1 [360 #up #down] 1 0])
+	   [#sensor 2 [360 #up #down] 1 0])
 
 #best-functioning-sensor-near-target-position
 (test *)
 (run *)
 	(#near-target position $Pos)
 	(#test-ship best functioning sensor for position $Pos into
-	   [#sensor 2 [1 8] 2 0])
+	   [#sensor 3 [1 8] 2 0])
 
 #closest-target-in-missile-range
 (test *)
@@ -259,6 +259,10 @@
 		(scan 3 4 5 6)
 	(into $Words)
 	($Words = [ e | $ ])
+
+#needs-1-for-closest
+(test *)
+(run *)
 
 #detected-closest
 (test *)

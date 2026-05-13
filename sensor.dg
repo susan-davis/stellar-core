@@ -284,10 +284,10 @@
 	%% TODO: blind spots from terrain
 
 ($Ship has sensor lock on $Object)
-    ($Ship sensor value for target $Object into $SensorValue)
-	($Ship needs sensor level $Needs to see $Object)
-	($Object noise level $Noise)
-	($SensorValue plus $Noise into $Has)
+    ($Ship sensor value for target $Object into $SensorValue) $SensorValue
+	($Ship needs sensor level $Needs to see $Object) $Needs
+	($Object noise level $Noise) $Noise
+	($SensorValue plus $Noise into $Has) $Has
 	~($Needs > $Has)
 
 ($Ship has detected $Object)
