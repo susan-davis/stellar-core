@@ -234,34 +234,70 @@
 
 %%----------------------------------- RANGE -----------------------------------
 
-%% Dialog has no square roots, so no Pythagorean Theorem, so we have to use
-%% a lookup table here.
+%% No square roots, so no Pythagorean Theorem, so we use a lookup table here.
 
-(range table
-	[[ 141]
-	 [ 224  283]
-	 [ 316  361  424]
-	 [ 412  447  500  566]
-	 [ 510  539  583  640  707]
-	 [ 608  632  671  721  781  849]
-	 [ 707  728  762  806  860  922  990]
-	 [ 806  825  854  894  943 1000 1063 1131]
-	 [ 906  922  949  985 1030 1082 1140 1204 1273]
-	 [1005 1020 1044 1077 1118 1166 1221 1280 1345 1414]])
+(look up range for 1 1 into 141)
+(look up range for 1 2 into 224)
+(look up range for 2 2 into 283)
+(look up range for 1 3 into 316)
+(look up range for 2 3 into 361)
+(look up range for 3 3 into 424)
+(look up range for 1 4 into 412)
+(look up range for 2 4 into 447)
+(look up range for 3 4 into 500)
+(look up range for 4 4 into 566)
+(look up range for 1 5 into 510)
+(look up range for 2 5 into 539)
+(look up range for 3 5 into 583)
+(look up range for 4 5 into 640)
+(look up range for 5 5 into 707)
+(look up range for 1 6 into 608)
+(look up range for 2 6 into 632)
+(look up range for 3 6 into 671)
+(look up range for 4 6 into 721)
+(look up range for 5 6 into 781)
+(look up range for 6 6 into 849)
+(look up range for 1 7 into 707)
+(look up range for 2 7 into 728)
+(look up range for 3 7 into 762)
+(look up range for 4 7 into 806)
+(look up range for 5 7 into 860)
+(look up range for 6 7 into 922)
+(look up range for 7 7 into 990)
+(look up range for 1 8 into 806)
+(look up range for 2 8 into 825)
+(look up range for 3 8 into 854)
+(look up range for 4 8 into 894)
+(look up range for 5 8 into 943)
+(look up range for 6 8 into 1000)
+(look up range for 7 8 into 1063)
+(look up range for 8 8 into 1131)
+(look up range for 1 9 into 906)
+(look up range for 2 9 into 922)
+(look up range for 3 9 into 949)
+(look up range for 4 9 into 985)
+(look up range for 5 9 into 1030)
+(look up range for 6 9 into 1082)
+(look up range for 7 9 into 1140)
+(look up range for 8 9 into 1204)
+(look up range for 9 9 into 1273)
+(look up range for 1 10 into 1005)
+(look up range for 2 10 into 1020)
+(look up range for 3 10 into 1044)
+(look up range for 4 10 into 1077)
+(look up range for 5 10 into 1118)
+(look up range for 6 10 into 1166)
+(look up range for 7 10 into 1221)
+(look up range for 8 10 into 1280)
+(look up range for 9 10 into 1345)
+(look up range for 10 10 into 1414)
 
-(look up range for $X $Y into $Result)
-	(range table $Table)
-	(if) ($X = 0) (then)
-		($Y times 100 into $Result)
-	(elseif) ($Y = 0) (then)
-		($X times 100 into $Result)
-	(elseif) ($X > $Y) (then)
-		(nth $Table $X $Row)
-		(nth $Row $Y $Result)
-	(else)
-		(nth $Table $Y $Row)
-		(nth $Row $X $Result)
-	(endif)
+(look up range for 0 $Y into $Result)
+	 (100 times $Y into $Result)
+
+(look up range for $DX $DY into $Result)
+	(sort $DX $DY into $X $Y)
+	(look up range for $X $Y into $Result)
 
 (calculate range from $Here to $There into $Range)
 	([$HX $HY | $] = $Here)
@@ -281,7 +317,7 @@
 	($Tens plus $Ones into $Sum2)
 	($Sum1 plus $Sum2 into $Range)
 
-(range from $Object to $Target into $Range)
-	($Object position $Here)
+(range from $Ship to $Target into $Range)
+	($Ship   position $Here)
 	($Target position $There)
 	(calculate range from $Here to $There into $Range)
