@@ -578,8 +578,26 @@
     (list of lists $List)
 	(find in $List with highest element 1 into [4 1 7 8 9])
 
+#highest-element-2
+(test *)
+(run *)
+    (list of lists $List)
+	(find in $List with highest element 2 into [1 2 3 4 5])
+
 #highest-element-3
 (test *)
 (run *)
     (list of lists $List)
 	(find in $List with highest element 3 into [4 1 7 8 9])
+
+#lowest-element-1
+(test *)
+(run *)
+    (list of lists $List)
+	(find in $List with lowest element 1 into [1 2 3 4 5])
+
+#lowest-element-2
+(test *)
+(run *)
+    (list of lists $List)
+	(find in $List with lowest element 2 into [4 1 7 8 9])
