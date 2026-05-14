@@ -6,6 +6,7 @@ NARROW=$(DEBUG) -w 40
 STDLIB=utils.dg unit.dg stdlib.dg
 LIBS=test-ships.dg schema.dg sector.dg bearing.dg grid.dg $(STDLIB)
 DLIBS=arc.dg damage.dg d6.dg time.dg $(LIBS)
+SLIBS=probe.dg systems.dg weapons.dg scanner.dg sensor.dg $(DLIBS)
 
 COMPILE=dialogc
 AA=$(COMPILE) -t aa
@@ -22,7 +23,7 @@ test: test-basics test-systems
 
 test-basics: utils time d6 d6-lite grid bearing sector schema maneuver 
 
-test-systems: damage arc sensor weapons
+test-systems: damage arc sensor weapons # systems scanner probe
 
 test-display: sensor-wide sensor-narrow
 
