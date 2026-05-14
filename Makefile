@@ -79,4 +79,4 @@ weapons:
 	$(DEBUG) weapons-tests.dg weapons.dg sensor.dg maneuver.dg $(DLIBS)
 
 .PHONY: test all clean utils time sector grid maneuver damage d6 d6-lite
-.PHONY: sensor sensor-wide sensor-narrow arc
+.PHONY: sensor sensor-wide sensor-narrow arc weapons
