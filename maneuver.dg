@@ -157,20 +157,24 @@
 %%--------------------------------- MUTATORS ----------------------------------
 
 (update $Ship helm for destination)
+	($Ship has a set destination)
 	($Ship destination $Destination)
-    (if) ($Ship has a set destination) (then)
-	    (bearing from $Ship to position $Destination into $Course)
-	    (set helm for $Ship to $Course)
-	(elseif) ($Ship has a pursuit target) (then)
-		([$Target $Direction] = $Destination)
-		(if) ($Direction = #out) (then)
-			(bearing from $Ship to $Target into $Bearing)
-			(reciprocal bearing for $Bearing into $Course)
-		(else)
-			(bearing from $Ship to $Target into $Course)
-		(endif)
-		(set helm for $Ship to $Course)
+    (bearing from $Ship to position $Destination into $Course)
+    (set helm for $Ship to $Course)
+
+(update $Ship helm for destination)
+	($Ship has a pursuit target)
+	($Ship destination $Destination)
+	([$Target $Direction] = $Destination)
+	(if) ($Direction = #out) (then)
+		(bearing from $Ship to $Target into $Bearing)
+		(reciprocal bearing for $Bearing into $Course)
+	(else)
+		(bearing from $Ship to $Target into $Course)
 	(endif)
+	(set helm for $Ship to $Course)
+
+(update $ helm for destination) %% do nothing if destination not set
 
 (set destination for $Ship to $Destination)
 	($Ship state $State)
