@@ -144,6 +144,7 @@
 	(#test-ship has a pursuit target)
 	~(#test-ship has a set destination)
 	(#test-ship destination [#far-target #in])
+	(#test-ship helm setting 30)
 
 #set-evasion
 (test *)
@@ -152,6 +153,7 @@
 	(#test-ship has a pursuit target)
 	~(#test-ship has a set destination)
 	(#test-ship destination [#near-target #out])
+	(#test-ship helm setting 135)
 
 #set-helm
 (test *)
