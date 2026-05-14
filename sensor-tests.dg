@@ -66,66 +66,104 @@
 (run *)
 	(#test-ship undamaged systems $Systems)
 	(sensors in $Systems into [
-	   [#sensor 3 [1 8] 2 0]
-	   [#sensor 2 [360 #up #down] 1 0]
-	   [#sensor 1 [360 #up #down] 1 0]])
+	    [#sensor 3 [1 8] 3 0]
+	    [#sensor 2 [360 #up #down] 2 0]
+	    [#sensor 1 [360 #up #down] 1 0]])
 
 #sensors-covering-0
 (test *)
 (run *)
 	(#test-ship sensors covering angle 0 into [
-	   [#sensor 3 [1 8] 2 0]
-	   [#sensor 2 [360 #up #down] 1 0]
-	   [#sensor 1 [360 #up #down] 1 0]])
+	    [#sensor 3 [1 8] 3 0]
+	    [#sensor 2 [360 #up #down] 2 0]
+	    [#sensor 1 [360 #up #down] 1 0]])
 
 #sensors-covering-135
 (test *)
 (run *)
 	(#test-ship sensors covering angle 135 into [
-	   [#sensor 2 [360 #up #down] 1 0]
-	   [#sensor 1 [360 #up #down] 1 0]])
+	    [#sensor 2 [360 #up #down] 2 0]
+	    [#sensor 1 [360 #up #down] 1 0]])
 
 #best-functioning-sensor-0
 (test *)
 (run *)
-	(#test-ship best functioning sensor for angle 0 into [#sensor 3 [1 8] 2 0])
+	(#test-ship best functioning sensor for angle 0 into
+	    [#sensor 3 [1 8] 3 0])
 
 #best-functioning-sensor-195
 (test *)
 (run *)
 	(#test-ship best functioning sensor for angle 195 into
-	   [#sensor 2 [360 #up #down] 1 0])
+	    [#sensor 2 [360 #up #down] 2 0])
 
 #best-functioning-sensor-closest-target
 (test *)
 (run *)
 	(#test-ship best functioning sensor for target #closest-target into
-	   [#sensor 2 [360 #up #down] 1 0])
+	    [#sensor 2 [360 #up #down] 2 0])
 
 #best-functioning-sensor-near-target
 (test *)
 (run *)
 	(#test-ship best functioning sensor for target #near-target into
-	   [#sensor 3 [1 8] 2 0])
+	    [#sensor 3 [1 8] 3 0])
 
 #best-functioning-sensor-far-target
 (test *)
 (run *)
 	(#test-ship best functioning sensor for target #far-target into
-	   [#sensor 2 [360 #up #down] 1 0])
+	    [#sensor 2 [360 #up #down] 2 0])
 
 #best-functioning-sensor-distant-target
 (test *)
 (run *)
 	(#test-ship best functioning sensor for target #distant-target into
-	   [#sensor 2 [360 #up #down] 1 0])
+	    [#sensor 2 [360 #up #down] 2 0])
+
+#best-functioning-sensor-closest-target-position
+(test *)
+(run *)
+	(#closest-target position $Pos)
+	(#test-ship best functioning sensor for position $Pos into
+	    [#sensor 2 [360 #up #down] 2 0])
 
 #best-functioning-sensor-near-target-position
 (test *)
 (run *)
 	(#near-target position $Pos)
 	(#test-ship best functioning sensor for position $Pos into
-	   [#sensor 3 [1 8] 2 0])
+	    [#sensor 3 [1 8] 3 0])
+
+#best-functioning-sensor-far-target-position
+(test *)
+(run *)
+	(#far-target position $Pos)
+	(#test-ship best functioning sensor for position $Pos into
+	    [#sensor 2 [360 #up #down] 2 0])
+
+#best-functioning-sensor-distant-target-position
+(test *)
+(run *)
+	(#distant-target position $Pos)
+	(#test-ship best functioning sensor for position $Pos into
+	    [#sensor 2 [360 #up #down] 2 0])
+
+#sensor-value-sensor-closest-target
+(test *)
+(run *)	(#test-ship sensor value for target #closest-target into 2)
+
+#sensor-value-sensor-near-target
+(test *)
+(run *)	(#test-ship sensor value for target #near-target into 3)
+
+#sensor-value-sensor-far-target
+(test *)
+(run *)	(#test-ship sensor value for target #far-target into 2)
+
+#sensor-value-sensor-distant-target
+(test *)
+(run *)	(#test-ship sensor value for target #distant-target into 2)
 
 #closest-target-in-missile-range
 (test *)
@@ -278,3 +316,7 @@
 #not-weapons-lock-far
 (test *)
 (run *)      ~(#test-ship has weapons lock on #far-target)
+
+#not-weapons-lock-distant
+(test *)
+(run *)      ~(#test-ship has weapons lock on #distant-target)

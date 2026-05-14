@@ -208,7 +208,7 @@
 %% Torpedo hit chance: dependent on target aspect and warp gradient
 %% Torepdo damage: first element of details
 ($Ship fires * $ID $Details at $Target using $Amount)
-	(if) ($Target is in sensor range of $Ship) (then)
+	(if) ($Target is in weapons range of $Ship) (then)
 		(decrease ammo for $Ship by $Amount)
         (target aspect from $Ship to $Target into $Aspect)
 		($Target warp gradient $Speed)

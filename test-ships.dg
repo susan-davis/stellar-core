@@ -33,9 +33,9 @@
 		   [#torpedo 1 [1 8] 1 500]
 		   [#torpedo 2 [1 8] 1 500]
 		   [#tractor 1 [4 5] 250 0]
-		   [#sensor 3 [1 8] 2 0]
-		   [#sensor 2 [360 #up #down] 1 0]
-		   [#sensor 1 [360 #up #down] 1 0]
+		   [#sensor 3 [1 8] 3 0]           %% scout sensors
+		   [#sensor 2 [360 #up #down] 2 0] %% long-range sensors
+		   [#sensor 1 [360 #up #down] 1 0] %% short-range sensors
 		   [#mtd 1 #down 4 0]
 		   [#shuttle 1 #south 10 0]
 		   [#life-support 1 360 20 1100]

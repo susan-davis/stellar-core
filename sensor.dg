@@ -216,7 +216,7 @@
 
 ($Ship needs sensor level $Level to see $GridObject)
 	($GridObject position $Position)
-	($Ship needs sensor level $Level to see $Position)
+	($Ship needs sensor level $Level to see position $Position)
 
 %% who sees whom
 
@@ -227,10 +227,10 @@
 	%% TODO: blind spots from terrain
 
 ($Ship has sensor lock on $Object)
-    ($Ship sensor value for target $Object into $SensorValue) $SensorValue
-	($Ship needs sensor level $Needs to see $Object) $Needs
-	($Object noise level $Noise) $Noise
-	($SensorValue plus $Noise into $Has) $Has
+    ($Ship sensor value for target $Object into $SensorValue)
+	($Ship needs sensor level $Needs to see $Object)
+	($Object noise level $Noise)
+	($SensorValue plus $Noise into $Has)
 	~($Needs > $Has)
 
 ($Ship has detected $Object)
@@ -238,6 +238,7 @@
 	%% TODO: sensor fusion
 
 ($Ship has weapons lock on $Object)
+	($Object is in weapons range of $Ship)
     ($Ship sensor value for target $Object into $SensorValue)
 	($Ship needs sensor level $RequiredValue to see $Object)
 	($Object noise level $Noise)
