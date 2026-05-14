@@ -8,7 +8,13 @@ LIBS=test-ships.dg schema.dg sector.dg bearing.dg grid.dg $(STDLIB)
 DLIBS=arc.dg damage.dg d6.dg time.dg $(LIBS)
 
 COMPILE=dialogc
+AA=$(COMPILE) -t aa
 BUNDLE=aambundle
+
+Z5=$(COMPILE) -t z5
+Z8=$(COMPILE) -t z8
+BLORB=$(COMPILE) -t zblorb
+ZBUNDLE=ozmoo
 
 all: test
 
@@ -21,7 +27,7 @@ test-systems: damage arc sensor weapons
 test-display: sensor-wide sensor-narrow
 
 clean:
-	rm -f *~ \#*\# *.z8 *.zblorb *.aastory *.d64 *.d71 log.txt
+	rm -f *~ \#*\# *.z5 *.z8 *.zblorb *.aastory *.d64 *.d71 log.txt
 
 utils:
 	$(DEBUG) utils-tests.dg $(STDLIB)
@@ -31,7 +37,7 @@ time:
 
 d6:
 	$(DEBUG) d6-tests.dg d6.dg $(STDLIB)
-#	$(DEBUG) d6-lite-tests.dg d6.dg $(STDLIB)
+#	$(DEBUG) d6-lite-tests.dg d6.dg $(STDLIB) # FIXME
 
 d6-lite:
 	$(DEBUG) d6-lite-tests.dg d6-lite.dg $(STDLIB)
@@ -73,4 +79,4 @@ weapons:
 	$(DEBUG) weapons-tests.dg weapons.dg sensor.dg maneuver.dg $(DLIBS)
 
 .PHONY: test all clean utils time sector grid maneuver damage d6 d6-lite
-.PHONY: sensor-wide sensor-narrow arc
+.PHONY: sensor sensor-wide sensor-narrow arc
