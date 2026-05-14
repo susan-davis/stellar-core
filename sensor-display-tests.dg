@@ -1,0 +1,199 @@
+%% dgdebug -u -w 80 sensor-display-tests.dg sensor-display.dg sensor.dg \
+%% 		   test-ships.dg damage.dg maneuver.dg sector.dg grid.dg d6.dg \
+%%		   utils.dg unit.dg stdlib.dg
+
+(nato time)		051235Z Mar 73
+
+(current quadrant)	(space) -103 (space) -37
+
+(reset randomness)
+
+%%-----------------------------------------------------------------------------
+
+#ship-class
+(test *)
+(run *)
+	  (collect words) (class #test-ship) (into $Words)
+	  ($Words = [cygnus -class fast scout])
+
+#long-class
+(test *)
+(run *)
+	  (collect words) (long class #test-ship) (into $Words)
+	  ($Words = [stellar union cygnus -class fast scout])
+
+#glyph-at-ship-location
+(test *)
+(run *)
+	(collect words)
+		(glyph at 3 4 5 6)
+	(into $Words)
+	$Words
+	(assert $Words = [ e ])
+
+#scan-ship-location
+(test *)
+(run *)
+	(collect words)
+		(scan 3 4 5 6)
+	(into $Words)
+	($Words = [ e | $ ])
+
+#condition-1
+(test *)
+(run *)
+	(set condition 1)
+	(collect words) (alert status) (into $Words)
+	($Words contains sublist [red alert])
+
+#condition-2
+(test *)
+(run *)
+	(set condition 2)
+	(collect words) (alert status) (into $Words)
+	($Words contains sublist [yellow alert])
+
+#condition-3
+(test *)
+(run *)
+	(set condition 3)
+	(collect words) (alert status) (into $Words)
+	($Words contains sublist [under way])
+
+#condition-4
+(test *)
+(run *)
+	(set condition 4)
+	(collect words) (alert status) (into $Words)
+	($Words contains sublist [docked])
+
+#shouldnt-display-subsector
+(test *)
+(run *)
+	~(should display subsector)
+
+#should-display-subsector-base
+(test *)
+(run *)
+	(move #test-ship to 7 7 7 7)
+	(should display subsector)
+
+#should-display-subsector-gravity-well
+(test *)
+(run *)
+	(move #test-ship to 3 4 9 2)
+	(should display subsector)
+
+#should-display-subsector-other-ship
+(test *)
+(run *)
+	(move #test-ship to 3 4 6 5)
+	(should display subsector)
+
+#long-range-scan-zeros-suppressed
+(test *)
+(run *)
+	(now) ~(display zeros for empty categories)
+	(line) (long range scan)
+	(collect words) (long range scan) (into $Words)
+	($Words contains sublist [1 0 0 0 2 e 1])
+
+#long-range-scan-in-corner
+(test *)
+(run *)
+	(move #test-ship to 1 1 1 1)
+	(line) (long range scan)
+	(collect words) (long range scan) (into $Words)
+	($Words contains sublist [e 0 0 0 0 0 0 0 0 0 0 \#])
+
+#long-range-scan-in-corner-classic-behaviour
+(test *)
+(run *)
+	(now) ~(display sectors beyond quadrant)
+	(move #test-ship to 1 1 1 1)
+	(line) (long range scan)
+	(collect words) (long range scan) (into $Words)
+	($Words contains sublist [e 0 0 0 0 0 0 0 \#])
+	(now) (display sectors beyond quadrant)
+
+#quadrant-chart-zeros-suppressed
+(test *)
+(run *)
+	(now) ~(display zeros for empty categories)
+	(line) (quadrant chart)
+	(collect words) (quadrant chart) (into $Words)
+	($Words contains sublist [\| 1 0 0 \|])
+	($Words contains sublist [\| 2 e 1 \|])
+	($Words contains sublist [\| 0 \|])
+	($Words contains sublist [\| \# \? 0 \|])
+
+#quadrant-chart-question-marks-suppressed
+(test *)
+(run *)
+	(now) ~(display question marks for undetectable ships)
+	(line) (quadrant chart)
+	(collect words) (quadrant chart) (into $Words)
+	($Words contains sublist [\| 1 0 0 \|])
+	($Words contains sublist [\| 2 e 1 \|])
+	($Words contains sublist [\| 0 0 0 \|])
+	($Words contains sublist [\| 4 \|])
+
+(assert displays subsector)
+	(line) (short range scan)
+	(collect words) (short range scan) (into $Words)
+	($Words contains sublist [8 9 10 1 2 3])
+	($Words contains sublist [e . . . . . destination:])
+
+#dont-display-subsector
+(test *)
+(run *)
+	~(assert displays subsector)
+
+#display-subsector-base
+(test *)
+(run *)
+	(move #test-ship to 7 7 7 7)
+	(line) (short range scan)
+	(assert displays subsector)
+
+#display-subsector-gravity-well
+(test *)
+(run *)
+	(move #test-ship to 5 5 8 8)
+	(line) (short range scan)
+	(assert displays subsector)
+
+#display-subsector-other-ship
+(test *)
+(run *)
+	(move #test-ship to 3 4 6 5)
+	(line) (short range scan)
+	(assert displays subsector)
+
+#short-range-scan
+(test *)
+(run *)
+	(line) (short range scan)
+	(collect words) (short range scan) (into $Words)
+	($Words contains sublist [3 . q])
+	($Words contains sublist [5 . . . . . q])
+	($Words contains sublist [6 . . . . e])
+	($Words contains sublist [heading: 315])
+	($Words contains sublist [warp gradient: 4])
+	($Words contains sublist [position: 3 - 4 \/ 5 - 6])
+	($Words contains sublist [energy: 932 , 4 crystals online])
+
+#long-range-scan
+(test *)
+(run *)
+	(line) (long range scan)
+	(collect words) (long range scan) (into $Words)
+	($Words contains sublist [1 0 0 0 0 0 2 e 1])
+
+#quadrant-chart
+(test *)
+(run *)
+	(line) (quadrant chart)
+	(collect words) (quadrant chart) (into $Words)
+	($Words contains sublist [\| 1 0 0 \|])
+	($Words contains sublist [\| 2 e 1 \|])

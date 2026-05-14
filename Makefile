@@ -13,7 +13,9 @@ test: test-basics test-systems
 
 test-basics: utils time d6 d6-lite grid bearing sector schema maneuver 
 
-test-systems: damage arc weapons sensor-wide sensor-narrow
+test-systems: damage arc sensor weapons
+
+test-display: sensor-wide sensor-narrow
 
 clean:
 	rm -f *~ \#*\# *.z8 *.zblorb *.aastory *.d64 *.d71 log.txt
@@ -55,14 +57,17 @@ damage:
 arc:
 	$(DEBUG) arc-tests.dg arc.dg $(LIBS)
 
+sensor:
+	$(DEBUG) sensor-tests.dg sensor.dg $(DLIBS)
+
 sensor-wide:
-	$(DEBUG) -w 80 sensor-tests.dg sensor.dg $(DLIBS)
+	$(DEBUG) -w 80 sensor-display-tests.dg sensor-display.dg sensor.dg $(DLIBS)
 
 sensor-narrow:
-	$(DEBUG) -w 40 sensor-tests.dg sensor.dg $(DLIBS)
+	$(DEBUG) -w 40 sensor-display-tests.dg sensor-display.dg sensor.dg $(DLIBS)
 
 weapons:
-	$(DEBUG) weapons-tests.dg weapons.dg no-sensor.dg maneuver.dg $(DLIBS)
+	$(DEBUG) weapons-tests.dg weapons.dg sensor.dg maneuver.dg $(DLIBS)
 
 .PHONY: test all clean utils time sector grid maneuver damage d6 d6-lite
 .PHONY: sensor-wide sensor-narrow arc
