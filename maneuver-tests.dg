@@ -108,6 +108,7 @@
 (run *)
 	(position for 4 5 6 7 into $Position)
 	(set destination for #test-ship to $Position)
+	(#test-ship has a set destination)
 	(#test-ship destination 4 5 6 7)
 	(#test-ship heading 315)
 	(#test-ship helm setting 135)
@@ -116,6 +117,7 @@
 (test *)
 (run *)
 	(set destination for #test-ship to 4 5 6 7)
+	(#test-ship has a set destination)
 	(#test-ship destination $There)
 	([454 564 | $] = $There)
 	(#test-ship helm setting 135)
@@ -124,6 +126,7 @@
 (test *)
 (run *)
 	(set destination for #test-ship to 4 5 6 7 8 9)
+	(#test-ship has a set destination)
 	(#test-ship destination 4 5 6 7 8 9)
 	(#test-ship helm setting 137)
 
@@ -133,6 +136,22 @@
     (clear destination for #test-ship)
 	~(#test-ship has a set destination)
 	(#test-ship destination [16383 16383])
+
+#set-pursuit
+(test *)
+(run *)
+    (#test-ship pursues #far-target)
+	(#test-ship has a pursuit target)
+	~(#test-ship has a set destination)
+	(#test-ship destination [#far-target #in])
+
+#set-evasion
+(test *)
+(run *)
+    (#test-ship flees #near-target)
+	(#test-ship has a pursuit target)
+	~(#test-ship has a set destination)
+	(#test-ship destination [#near-target #out])
 
 #set-helm
 (test *)

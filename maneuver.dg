@@ -156,15 +156,29 @@
 
 %%--------------------------------- MUTATORS ----------------------------------
 
+(update $Ship helm for destination)
+	($Ship destination $Destination)
+    (if) ($Ship has a set destination) (then)
+	    (bearing from $Ship to position $Destination into $Course)
+	    (set helm for $Ship to $Course)
+	(elseif) ($Ship has a pursuit target) (then)
+		([$Target $Direction] = $Destination)
+		(if) ($Direction = #out) (then)
+			(bearing from $Ship to $Target into $Bearing)
+			(reciprocal bearing for $Bearing into $Course)
+		(else)
+			(bearing from $Ship to $Target into $Course)
+		(endif)
+		(set helm for $Ship to $Course)
+	(endif)
+
 (set destination for $Ship to $Destination)
 	($Ship state $State)
 	([$DX $DY | $] = $Destination)
 	([$ $ | $Tail] = $State)
 	([$DX $DY | $Tail] = $NewState)
 	(now) ($Ship state $NewState)
-	($Ship position $Position)
-	(calculate bearing from $Position to $Destination into $Course)
-	(set helm for $Ship to $Course)
+	(update $Ship helm for destination)
 
 (set destination for $Ship to $SX $SY $X $Y $PX $PY)
 	(position for $SX $SY $X $Y $PX $PY into $Position)
@@ -176,6 +190,12 @@
 
 (clear destination for $Ship)
 	(set destination for $Ship to [16383 16383])
+
+($Ship pursues $Target)
+    (set destination for $Ship to [$Target #in])
+
+($Ship flees $Target)
+    (set destination for $Ship to [$Target #out])
 
 (set helm for $Ship to $Setting)
 	($Ship state $State)
