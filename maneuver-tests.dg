@@ -35,23 +35,23 @@
 
 #has-destination
 (test *)
-(run *)    (#test-ship has a fixed destination)
+(run *)    (#test-ship has a set destination)
 
 #closest-target-doesnt-have-destination
 (test *)
-(run *)    ~(#closest-target has a fixed destination)
+(run *)    ~(#closest-target has a set destination)
 
 #near-target-has-destination
 (test *)
-(run *)    (#near-target has a fixed destination)
+(run *)    (#near-target has a set destination)
 
 #far-target-doesnt-have-destination
 (test *)
-(run *)    ~(#far-target has a fixed destination)
+(run *)    ~(#far-target has a set destination)
 
 #distant-target-doesnt-have-destination
 (test *)
-(run *)    ~(#distant-target has a fixed destination)
+(run *)    ~(#distant-target has a set destination)
 
 #closest-target-doesnt-have-pursuit
 (test *)
@@ -106,56 +106,63 @@
 #set-destination
 (test *)
 (run *)
-	  (position for 4 5 6 7 into $Position)
-	  (set destination for #test-ship to $Position)
-	  (#test-ship destination 4 5 6 7)
-	  (#test-ship heading 315)
-	  (#test-ship helm setting 135)
+	(position for 4 5 6 7 into $Position)
+	(set destination for #test-ship to $Position)
+	(#test-ship destination 4 5 6 7)
+	(#test-ship heading 315)
+	(#test-ship helm setting 135)
 
 #set-destination-subsector
 (test *)
 (run *)
-	  (set destination for #test-ship to 4 5 6 7)
-	  (#test-ship destination $There)
-	  ([454 564 | $] = $There)
-	  (#test-ship helm setting 135)
+	(set destination for #test-ship to 4 5 6 7)
+	(#test-ship destination $There)
+	([454 564 | $] = $There)
+	(#test-ship helm setting 135)
 
 #set-destination-precisely
 (test *)
 (run *)
-	  (set destination for #test-ship to 4 5 6 7 8 9)
-	  (#test-ship destination 4 5 6 7 8 9)
-	  (#test-ship helm setting 137)
+	(set destination for #test-ship to 4 5 6 7 8 9)
+	(#test-ship destination 4 5 6 7 8 9)
+	(#test-ship helm setting 137)
+
+#clear-destination
+(test *)
+(run *)
+    (clear destination for #test-ship)
+	~(#test-ship has a set destination)
+	(#test-ship destination [16383 16383])
 
 #set-helm
 (test *)
 (run *)
-	  (set helm for #test-ship to 135)
-	  (#test-ship helm setting 135)
+	(set helm for #test-ship to 135)
+	(#test-ship helm setting 135)
 
 #set-throttle-speed
 (test *)
 (run *)
-	  (set throttle for #test-ship to speed 610)
-	  (#test-ship throttle setting 610)
+	(set throttle for #test-ship to speed 610)
+	(#test-ship throttle setting 610)
 
 #set-throttle-speed-too-fast
 (test *)
 (run *)
-	  (set throttle for #test-ship to speed 1099)
-	  (#test-ship throttle setting 900)
+	(set throttle for #test-ship to speed 1099)
+	(#test-ship throttle setting 900)
 
 #set-throttle-gradient
 (test *)
 (run *)
-	  (set throttle for #test-ship to gradient 6)
-	  (#test-ship throttle setting 600)
+	(set throttle for #test-ship to gradient 6)
+	(#test-ship throttle setting 600)
 
 #set-throttle-gradient-too-fast
 (test *)
 (run *)
-	  (set throttle for #test-ship to gradient 10)
-	  (#test-ship throttle setting 900)
+	(set throttle for #test-ship to gradient 10)
+	(#test-ship throttle setting 900)
 
 #accelerate
 (test *)

@@ -27,7 +27,7 @@
 
 (interface ($<Ship destination $>SX $>SY $>X $>Y))
 
-(interface ($<Ship has a fixed destination))
+(interface ($<Ship has a set destination))
 
 (interface ($<Ship has a pursuit target))
 
@@ -144,7 +144,7 @@
 	($Ship destination $Position)
 	(subsector for $Position into $SX $SY $X $Y)
 
-($Ship has a fixed destination)
+($Ship has a set destination)
 	($Ship destination [$X $Y])
 	(number $X)   (number $Y)
 	~($X = 16383) ~($Y = 16383)
@@ -173,6 +173,9 @@
 (set destination for $Ship to $SX $SY $X $Y)
 	(position for $SX $SY $X $Y into $Position)
 	(set destination for $Ship to $Position)
+
+(clear destination for $Ship)
+	(set destination for $Ship to [16383 16383])
 
 (set helm for $Ship to $Setting)
 	($Ship state $State)
