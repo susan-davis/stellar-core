@@ -119,30 +119,32 @@
 %% damage = (2 to 3)*energy/range, but miss if less than 15% of target
 %% "range" = 1/100 of what our ranges are
 
+($Ship fires * $ $ at $Target using $)
+	~($Target is in weapons range of $Ship) %% so do nothing
+
 %% Projector hit chance = 2d6 > (Range * Details)
 %% Projector damage = Energy * (2d6-7)*10 + 20/Range
 ($Ship fires * $ $Details at $Target using $Amount)
-	(if) ($Target is in weapons range of $Ship)	(then)
-		($Ship energy $StartingEnergy)
-		(if) ($Amount > $StartingEnergy) (then)
-		 	($Energy = $StartingEnergy)
-		(else)
-			($Energy = $Amount)
-		(endif)
-		(decrease energy for $Ship by $Energy)
-		(range from $Ship to $Target into $Range)
-		($Range divided by $Details into $Increments)
-		(roll 2 #d6 $HitChance)
-		(if) ($HitChance > $Increments) (then)
-			(roll 2 #d6 $DieRoll)
-			($DieRoll minus 2 into $Random)
-			($Random times $Energy into $Potential)
-			($Potential divided by 10 into $AddedEnergy)
-			($Energy plus $AddedEnergy into $PlusEnergy)
-			($Energy plus $PlusEnergy into $EffectiveEnergy)
-			($EffectiveEnergy divided by $Increments into $Damage)
-			($Ship hits $Target with $Damage)
-		(endif)
+	($Target is in weapons range of $Ship)
+	($Ship energy $StartingEnergy)
+	(if) ($Amount > $StartingEnergy) (then)
+	 	($Energy = $StartingEnergy)
+	(else)
+		($Energy = $Amount)
+	(endif)
+	(decrease energy for $Ship by $Energy)
+	(range from $Ship to $Target into $Range)
+	($Range divided by $Details into $Increments)
+	(roll 2 #d6 $HitChance)
+	(if) ($HitChance > $Increments) (then)
+		(roll 2 #d6 $DieRoll)
+		($DieRoll minus 2 into $Random)
+		($Random times $Energy into $Potential)
+		($Potential divided by 10 into $AddedEnergy)
+		($Energy plus $AddedEnergy into $PlusEnergy)
+		($Energy plus $PlusEnergy into $EffectiveEnergy)
+		($EffectiveEnergy divided by $Increments into $Damage)
+		($Ship hits $Target with $Damage)
 	(endif)
 
 %% Plasma bolts work similarly to energy projectors, but have a more rapid
@@ -153,8 +155,12 @@
 (long name *)	plasma bolt
 (energy weapon *)
 
+($Ship fires * $ $ at $Target using $)
+	~($Target is in weapons range of $Ship) %% so do nothing
+
 %% For now, just treat them like projectors.
 ($Ship fires * $ID $Details at $Target using $Amount)
+	($Target is in weapons range of $Ship)
 	($Ship fires #projector $ID $Details at $Target using $Amount)
 
 %% Collapsers are the Quellan disruptor-equivalents. In addition to regular
@@ -165,10 +171,14 @@
 (long name *)	warp field collapser
 (energy weapon *)
 
+($Ship fires * $ $ at $Target using $)
+	~($Target is in weapons range of $Ship) %% so do nothing
+
 %% Collapser hit chance: as energy projector
 %% Collapser damage: as energy projector
 %% Collapser warp field reduction:
 ($Ship fires * $ID $Details at $Target using $Amount)
+	($Target is in weapons range of $Ship)
 	($Ship fires #projector $ID $Details at $Target using $Amount)
 
 %% Hyperspace vortex generators are the Tiberian plasma torpedo equivalent.
@@ -179,9 +189,13 @@
 #vortex
 (name *)		vortex generator
 (long name *)	hyperspace vortex generator
-(weapon *)
+(energy weapon *)
+
+($Ship fires * $ $ at $Target using $)
+	~($Target is in weapons range of $Ship) %% so do nothing
 
 ($Ship fires * $ID $Details at $Target using $Amount)
+	($Target is in weapons range of $Ship)
     (line) $Ship fires * $ID $Details at $Target using $Amount
 
 %% Ammo weapons work by expending ammo from the ship's magazine(s). Shots from
@@ -205,32 +219,34 @@
 %% first object that they encounter. Anything other than a star is destroyed
 %% instantly. Star Fleet I has them, too, and they have a chance of missing.
 
+($Ship fires * $ $ at $Target using $)
+	~($Target is in weapons range of $Ship) %% so do nothing
+
 %% Torpedo hit chance: dependent on target aspect and warp gradient
 %% Torepdo damage: first element of details
 ($Ship fires * $ID $Details at $Target using $Amount)
-	(if) ($Target is in weapons range of $Ship) (then)
-		(decrease ammo for $Ship by $Amount)
-        (target aspect from $Ship to $Target into $Aspect)
-		($Target warp gradient $Speed)
-		(if) ($Aspect = #north) (then)
-		    ($Speed divided by 2 into $ToHit)
-		(elseif) { ($Aspect = #northeast) (or) ($Aspect = #northwest) } (then)
-			($Speed times 3 into $ToHit)
-		(elseif) { ($Aspect = #southeast) (or) ($Aspect = #southwest) } (then)
-			($Speed = $ToHit)
-		(elseif) ($Aspect = #south) (then)
-			($Speed divided by 3 into $ToHit)
-		(else) %% #east #west #up #down
-			($Speed times 2 into $ToHit)
-		(endif)
-		(roll 2 #d6 $Roll)
-		(if) ($Roll > $ToHit) (then)
-		    ($Ship * $ID details $Damage)
-			($Ship hits $Target with $Damage)
-		(endif)
-		(subtract 1 from $Amount into $Remaining)
-		($Ship fires * $ID $Details at $Target using $Remaining)
+	($Target is in weapons range of $Ship)
+	(decrease ammo for $Ship by $Amount)
+    (target aspect from $Ship to $Target into $Aspect)
+	($Target warp gradient $Speed)
+	(if) ($Aspect = #north) (then)
+	    ($Speed divided by 2 into $ToHit)
+	(elseif) { ($Aspect = #northeast) (or) ($Aspect = #northwest) } (then)
+		($Speed times 3 into $ToHit)
+	(elseif) { ($Aspect = #southeast) (or) ($Aspect = #southwest) } (then)
+		($Speed = $ToHit)
+	(elseif) ($Aspect = #south) (then)
+		($Speed divided by 3 into $ToHit)
+	(else) %% #east #west #up #down
+		($Speed times 2 into $ToHit)
 	(endif)
+	(roll 2 #d6 $Roll)
+	(if) ($Roll > $ToHit) (then)
+	    ($Ship * $ID details $Damage)
+		($Ship hits $Target with $Damage)
+	(endif)
+	(subtract 1 from $Amount into $Remaining)
+	($Ship fires * $ID $Details at $Target using $Remaining)
 
 %% Alcubierre missiles are equipped with small A-drives, and can engage at
 %% superluminal speeds. They work like torpedoes, but at a slower speed and
@@ -243,8 +259,26 @@
 (long name *)	Alcubierre missile launcher
 (ammo weapon *)
 
+($Ship fires * $ $ at $Target using $)
+	~($Target is in missile range of $Ship) %% so do nothing
+
+%% Missiles can be shot down by the target's defensive weapons.
 ($Ship fires * $ID $Details at $Target using $Amount)
+	($Target is in missile range of $Ship)
     (line) $Ship fires * $ID $Details at $Target using $Amount
+
+#multistage-missile
+(name *)		multi-stage missile
+(long name *)	multi-stage Alcubierre missile launcher
+(ammo weapon *)
+
+($Ship fires * $ $ at $Target using $)
+	~($Target is in extended range of $Ship) %% so do nothing
+
+($Ship fires * $ID $Details at $Target using $Amount)
+	~($Target is in extended range of $Ship) %% so do nothing
+	%% for now, fall back to regular missiles
+	($Ship fires #missile $ID $Details at $Target using $Amount)
 
 %% Bombardment rockets are missiles equipped with reactionless engines, or even
 %% reaction engines in more primitive fleets. They're mostly used for attacking
@@ -254,7 +288,11 @@
 (long name *)	bombardment rocket launcher
 (ammo weapon *)
 
+($Ship fires * $ $ at $Target using $)
+	~($Target is in weapons range of $Ship) %% so do nothing
+
 ($Ship fires * $ID $Details at $Target using $Amount)
+	($Target is in weapons range of $Ship) %% or mtd range?
     (line) $Ship fires * $ID $Details at $Target using $Amount
 
 %%----------------------------------------------------------------------------

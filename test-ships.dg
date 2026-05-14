@@ -61,22 +61,26 @@
 #closest-target
 (ship *)
 (* initial position [354 444 225 200])
-(* initial state [0 0 225 200 #attack-class 500 2 0 250 [100 50 50 50]])
+(* initial state
+    [16383 16383 225 200 #attack-class 500 2 0 250 [100 50 50 50]])
 
 #near-target
 (ship *)
 (* initial position [314 424 45 300])
-(* initial state [0 0 45 310 #attack-class 500 2 0 250 [100 50 50 50]])
+(* initial state
+    [344 444 45 310 #attack-class 500 2 0 250 [100 50 50 50]])
 
 #far-target
 (ship *)
 (* initial position [424 314 0 300])
-(* initial state [0 0 45 310 #attack-class 500 2 0 250 [100 50 50 50]])
+(* initial state
+    [#test-ship #in 45 310 #attack-class 500 2 0 250 [100 50 50 50]])
 
 #distant-target
 (ship *)
 (* initial position [154 984 0 300])
-(* initial state [0 0 45 310 #attack-class 500 2 0 250 [100 50 50 50]])
+(* initial state
+    [#test-ship #in 45 310 #attack-class 500 2 0 250 [100 50 50 50]])
 
 #off-map-target
 (ship *)

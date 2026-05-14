@@ -11,43 +11,71 @@
 
 #helm
 (test *)
-(run *)
-	  (#test-ship helm setting 315)
+(run *)    (#test-ship helm setting 315)
 
 #throttle
 (test *)
-(run *)
-	  (#test-ship throttle setting 700)
+(run *)    (#test-ship throttle setting 700)
 
 #throttle-gradient
 (test *)
-(run *)
-	  (#test-ship throttle gradient 7)
+(run *)    (#test-ship throttle gradient 7)
 
 #destination
 (test *)
-(run *)
-	  (#test-ship destination [300 400])
+(run *)	   (#test-ship destination [300 400])
 
 #destination-subsector
 (test *)
-(run *)
-	  (#test-ship destination 3 4 1 1)
+(run *)	   (#test-ship destination 3 4 1 1)
 
 #destination-precisely
 (test *)
-(run *)
-	  (#test-ship destination 3 4 1 1 1 1)
+(run *)	   (#test-ship destination 3 4 1 1 1 1)
+
+#has-destination
+(test *)
+(run *)    (#test-ship has a fixed destination)
+
+#closest-target-doesnt-have-destination
+(test *)
+(run *)    ~(#closest-target has a fixed destination)
+
+#near-target-has-destination
+(test *)
+(run *)    (#near-target has a fixed destination)
+
+#far-target-doesnt-have-destination
+(test *)
+(run *)    ~(#far-target has a fixed destination)
+
+#distant-target-doesnt-have-destination
+(test *)
+(run *)    ~(#distant-target has a fixed destination)
+
+#closest-target-doesnt-have-pursuit
+(test *)
+(run *)    ~(#closest-target has a pursuit target)
+
+#near-target-doesnt-have-pursuit
+(test *)
+(run *)    ~(#near-target has a pursuit target)
+
+#far-target-has-pursuit
+(test *)
+(run *)    (#far-target has a pursuit target)
+
+#distant-target-has-pursuit
+(test *)
+(run *)    (#distant-target has a pursuit target)
 
 #turn-mode
 (test *)
-(run *)
-	  (#test-ship turn mode 180)
+(run *)	   (#test-ship turn mode 180)
 
 #effective-turn-mode
 (test *)
-(run *)
-	  (#test-ship effective turn mode 45)
+(run *)	   (#test-ship effective turn mode 45)
 
 #effective-turn-mode-sublight
 (test *)
@@ -57,28 +85,23 @@
 
 #drive-params
 (test *)
-(run *)
-	  (#test-ship drive parameters [500 963])
+(run *)	   (#test-ship drive parameters [500 963])
 
 #efficiency
 (test *)
-(run *)
-	  (#test-ship drive efficiency 500)
+(run *)	   (#test-ship drive efficiency 500)
 
 #cruising-speed
 (test *)
-(run *)
-	  (#test-ship cruising speed 6)
+(run *)	   (#test-ship cruising speed 6)
 
 #top-speed
 (test *)
-(run *)
-	  (#test-ship top speed 9)
+(run *)	   (#test-ship top speed 9)
 
 #acceleration
 (test *)
-(run *)
-	  (#test-ship acceleration 300)
+(run *)	   (#test-ship acceleration 300)
 
 #set-destination
 (test *)
@@ -290,23 +313,19 @@
 
 #adjust-throttle-932
 (test *)
-(run *)
-	(assert energy 932 yields throttle 700)
+(run *)    (assert energy 932 yields throttle 700)
 
 #adjust-throttle-6
 (test *)
-(run *)
-	(assert energy 6 yields throttle 700)
+(run *)    (assert energy 6 yields throttle 700)
 
 #adjust-throttle-1
 (test *)
-(run *)
-	(assert energy 1 yields throttle 500)
+(run *)    (assert energy 1 yields throttle 500)
 
 #adjust-throttle-0
 (test *)
-(run *)
-	(assert energy 0 yields throttle 0)
+(run *)    (assert energy 0 yields throttle 0)
 
 (assert $Target goes to $SX $SY $X $Y heading $H speed $S energy $E)
 	(if) ($Target position $Destination) (then)
@@ -340,23 +359,19 @@
 
 #move-1-at-7
 (test *)
-(run *)
-	(assert 1 minutes goes to 294 404 at throttle 7)
+(run *)    (assert 1 minutes goes to 294 404 at throttle 7)
 
 #move-2-at-7
 (test *)
-(run *)
-	(assert 2 minutes goes to 244 354 at throttle 7)
+(run *)    (assert 2 minutes goes to 244 354 at throttle 7)
 
 #move-5-at-7
 (test *)
-(run *)
-	(assert 5 minutes goes to 94 204 at throttle 7)
+(run *)    (assert 5 minutes goes to 94 204 at throttle 7)
 
 #move-8-at-4
 (test *)
-(run *)
-	(assert 8 minutes goes to 112 222 at throttle 4)
+(run *)    (assert 8 minutes goes to 112 222 at throttle 4)
 
 (assert $N minutes toward $Destination goes to $SX $SY $X $Y $PX $PY)
 	(set destination for #test-ship to $Destination)
@@ -366,15 +381,12 @@
 
 #move-1-toward-corner
 (test *)
-(run *)
-	(assert 1 minutes toward [899 899] goes to 3 4 5 2 5 5)
+(run *)    (assert 1 minutes toward [899 899] goes to 3 4 5 2 5 5)
 
 #move-2-toward-corner
 (test *)
-(run *)
-	(assert 2 minutes toward [899 899] goes to 3 3 8 9 4 6)
+(run *)    (assert 2 minutes toward [899 899] goes to 3 3 8 9 4 6)
 
 #move-5-toward-corner
 (test *)
-(run *)
-	(assert 5 minutes toward [899 899] goes to 4 4 8 4 4 8)
+(run *)    (assert 5 minutes toward [899 899] goes to 4 4 8 4 4 8)

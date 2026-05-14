@@ -8,13 +8,6 @@
 
 (reset randomness)
 
-(global variable (list of lists [
-	[1 2 3 4 5]
-	[2 2 4 5 6]
-	[3 2 4 5 6]
-	[3 2 4 6 7]
-	[4 1 7 8 9]]))
-
 %% ----------------------------------------------------------------------------
 
 #class
@@ -160,6 +153,13 @@
 #set-repair-time-id-not-found
 (test *)
 (run *)      ~(set repair time for #test-ship #projector 2 to 300)
+
+(global variable (list of lists [
+	[1 2 3 4 5]
+	[2 2 4 5 6]
+	[3 2 4 5 6]
+	[3 2 4 6 7]
+	[4 1 7 8 9]]))
 
 #remove-1-2
 (test *)

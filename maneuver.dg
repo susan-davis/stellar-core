@@ -27,6 +27,10 @@
 
 (interface ($<Ship destination $>SX $>SY $>X $>Y))
 
+(interface ($<Ship has a fixed destination))
+
+(interface ($<Ship has a pursuit target))
+
 (interface ($<Ship helm setting $>Helm))
 
 (interface ($<Ship throttle setting $>Throttle))
@@ -55,6 +59,12 @@
 
 (interface (set destination for $<Ship to $<SX $<SY $<X $<Y $<PX $<PY))
 
+(interface (clear destination for $<Ship))
+
+(interface ($<Ship pursues $<Target))
+
+(interface ($<Ship flees $<Target))
+
 (interface (set helm for $<Ship to $<Setting))
 
 (interface (set throttle for $<Ship to speed $<Setting))
@@ -68,6 +78,8 @@
 (interface (move $<Ship for $<Ticks minutes))
 
 (interface (attract nearby ships to $<Object))
+
+%%----------------------------- SCHEMA DEFINITION ----------------------------
 
 ($Ship helm setting $Helm)
 	($Ship state $State)
@@ -131,6 +143,16 @@
 ($Ship destination $SX $SY $X $Y)
 	($Ship destination $Position)
 	(subsector for $Position into $SX $SY $X $Y)
+
+($Ship has a fixed destination)
+	($Ship destination [$X $Y])
+	(number $X)   (number $Y)
+	~($X = 16383) ~($Y = 16383)
+
+($Ship has a pursuit target)
+	($Ship destination [$Target $Direction])
+	(grid object $Target)
+	{ ($Direction = #in) (or) ($Direction = #out) }
 
 %%--------------------------------- MUTATORS ----------------------------------
 

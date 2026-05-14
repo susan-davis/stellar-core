@@ -7,7 +7,6 @@ NARROW=$(DEBUG) -w 40
 COMPILE=dialogc
 AA=$(COMPILE) -t aa
 BUNDLE=aambundle
-
 Z5=$(COMPILE) -t z5
 Z8=$(COMPILE) -t z8
 BLORB=$(COMPILE) -t zblorb
