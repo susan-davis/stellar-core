@@ -1,11 +1,14 @@
 # stellar-core consists of shared components between Stellar Union games
 
-COMPILE=dialogc
 DEBUG=dgdebug -u
-BUNDLE=aambundle
+WIDE=$(DEBUG) -w 80
+NARROW=$(DEBUG) -w 40
 STDLIB=utils.dg unit.dg stdlib.dg
 LIBS=test-ships.dg schema.dg sector.dg bearing.dg grid.dg $(STDLIB)
 DLIBS=arc.dg damage.dg d6.dg time.dg $(LIBS)
+
+COMPILE=dialogc
+BUNDLE=aambundle
 
 all: test
 
@@ -61,10 +64,10 @@ sensor:
 	$(DEBUG) sensor-tests.dg sensor.dg $(DLIBS)
 
 sensor-wide:
-	$(DEBUG) -w 80 sensor-display-tests.dg sensor-display.dg sensor.dg $(DLIBS)
+	$(WIDE) sensor-display-tests.dg sensor-display.dg sensor.dg $(DLIBS)
 
 sensor-narrow:
-	$(DEBUG) -w 40 sensor-display-tests.dg sensor-display.dg sensor.dg $(DLIBS)
+	$(NARROW) sensor-display-tests.dg sensor-display.dg sensor.dg $(DLIBS)
 
 weapons:
 	$(DEBUG) weapons-tests.dg weapons.dg sensor.dg maneuver.dg $(DLIBS)
