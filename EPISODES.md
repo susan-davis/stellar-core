@@ -249,15 +249,11 @@ TBD
 
 TBD
 
-### 306:	TBD
-
-TBD
-
-### 307:	*Men That Strove With Gods*
+### 306:	*Men That Strove With Gods*
 
 Harmony seizes control of the Union, and Player and the ride-or-die Level 2 crew must escape by stealing the *Eridanus*.
 	
-### 308:	*The Utmost Bound of Human Thought*
+### 307:	*The Utmost Bound of Human Thought*
 
 The fate of the Union hangs in the balance, in the final confrontation with Harmony. The stolen *Eridanus* is pursued by half the Union fleet, and must get away and somehow prevent Harmony from overrunning what’s left of the Union… and perhaps recover what was lost?
 
@@ -272,6 +268,12 @@ How do you recover from a Harmony pandemic?
 
 Success triggers a victory sequence, in which the surviving crew are reunited to depart in a refitted *Odysseus*.
 	
+### 308:	*Manners, Climates, Councils, Governments*
+
+Harmony has been defeated, but the Union is in tatters, and there's utter chaos on the other side of the Quellan border and beyond. Player is the hero of the quadrant; can they put the Union back together again?
+
+TBD: Do we have a denouement episode, or is this the final act of *The Utmost Bound of Human Thought?*
+
 ### 309	*The Baths of All the Western Stars* (FULL LENGTH PLUS)
 	
 Another "sandbox" episode, but with the *Odysseus*. Not confined to a single quadrant. Lots of procedural generation, full implementation of the *Odysseus*, at least a dozen scripted miniplots on planets. Needs to move to Glulx. Getting 100% completion, after a successful playthrough of 307, triggers a "series end" sequence, after which the *Odysseus* sets out on deeper-range exploration, on a hopeful note. Throw in the discover and handling of another threat from the treat file? It's Star Control II, but it's TREK. (Is this 309, or 401?)
@@ -279,10 +281,10 @@ Another "sandbox" episode, but with the *Odysseus*. Not confined to a single qua
 ## Unused Titles
 
 - To Strive, To Seek, To Find
+- Like a Sinking Star
 - Drink Life to the Lees
 - Mine Own Telemachus
 - Roaming With a Hungry Heart
-- Manners, Climates, Councils, Governments
 - I Am Become a Name
 - Some Work of Noble Note
 - A Bringer of New Things
