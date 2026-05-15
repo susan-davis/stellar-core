@@ -167,3 +167,7 @@
 	(length of $List into $Length)
 	(percentage of $Length into $Percent)
 	(nth $List $Percent $Choice)
+
+(shuffle randomness) %% do nothing
+
+(reset randomness) %% do nothing
