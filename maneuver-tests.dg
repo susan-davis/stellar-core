@@ -356,11 +356,11 @@
 (run *)    (assert energy 0 yields throttle 0)
 
 (assert $Target goes to $SX $SY $X $Y heading $H speed $S energy $E)
-	(if) ($Target position $Destination) (then)
-		(set destination for #test-ship to $Destination)
-	(endif)
-	(update #test-ship)
-	(#test-ship subsector into $SX $SY $X $Y)
+    (if) ($Target position $Destination) (then)
+        (set destination for #test-ship to $Destination)
+    (endif)
+    (update #test-ship position and velocity)
+    (#test-ship subsector into $SX $SY $X $Y)
 	(#test-ship heading $H)
 	(#test-ship speed $S)
 	(#test-ship energy $E)
@@ -383,7 +383,20 @@
 (assert $N minutes goes to $X $Y at throttle $Throttle)
 	(set throttle for #test-ship to gradient $Throttle)
 	(move #test-ship for $N minutes)
-	(#test-ship position [$X $Y | $])
+	(#test-ship position $Pos) $Pos
+	(assert $Pos = [$X $Y])
+
+#move-straight-1-at-7
+(test *)
+(run *)
+	(clear #test-ship destination)
+    (assert 1 minutes goes to 294 404 at throttle 7)
+
+#move-straight-2-at-7
+(test *)
+(run *)
+	(clear #test-ship destination)
+	(assert 2 minutes goes to 244 354 at throttle 7)
 
 #move-1-at-7
 (test *)
@@ -418,3 +431,23 @@
 #move-5-toward-corner
 (test *)
 (run *)    (assert 5 minutes toward [899 899] goes to 4 4 8 4 4 8)
+
+#pursue-far-target
+(test *)
+(run *)
+	 (range from #test-ship to #far-target into 1894)
+	 (#test-ship pursues #far-target)
+	 (set throttle for #test-ship to gradient 4)
+	 (move #test-ship for 3 minutes)
+	 (#test-ship position $Pos) $Pos
+	 (range from #test-ship to #far-target into $R) $R
+
+#evade-near-target
+(test *)
+(run *)
+	 (range from #test-ship to #near-target into 424)
+	 (#test-ship flees #near-target)
+	 (set throttle for #test-ship to gradient 4)
+	 (move #test-ship for 3 minutes)
+	 (#test-ship position $Pos) $Pos
+	 (range from #test-ship to #far-target into $R) $R

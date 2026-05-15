@@ -71,13 +71,13 @@
 (test *)
 (run *)
 	  (#test-ship class systems $List)
-	  (length of $List into 24)
+	  (length of $List into 26)
 
 #undamaged-systems
 (test *)
 (run *)
 	  (#test-ship undamaged systems $List)
-	  (length of $List into 22)
+	  (length of $List into 24)
 
 #find-torpedoes
 (test *)

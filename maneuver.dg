@@ -73,7 +73,7 @@
 
 %% movement per tick
 
-(interface (update $<Ship))
+(interface (update $<Ship position and velocity))
 
 (interface (move $<Ship for $<Ticks minutes))
 
@@ -146,8 +146,8 @@
 
 ($Ship has a set destination)
 	($Ship destination [$X $Y])
-	(number $X)   (number $Y)
-	~($X = 16383) ~($Y = 16383)
+	(number $X)    (number $Y)
+	($X < 16383)   ($Y < 16383)
 
 ($Ship has a pursuit target)
 	($Ship destination [$Target $Direction])
@@ -243,11 +243,7 @@
 	(if) ($Speed < $Throttle) (then)
 		($Ship acceleration $Acceleration)
 		($Speed plus $Acceleration into $MaxSpeed)
-		(if) ($MaxSpeed > $Throttle) (then)
-			($NewSpeed = $Throttle)
-		(else)
-			($NewSpeed = $MaxSpeed)
-		(endif)
+		(min $Throttle $MaxSpeed $NewSpeed)
 	(else)
 		($NewSpeed = $Throttle)
 	(endif)
@@ -300,7 +296,8 @@
 		(set throttle for $Ship to speed $Throttle)
 	(endif)
 
-(update $Ship)
+(update $Ship position and velocity)
+	(update $Ship helm for destination)
 	(turn $Ship to helm setting)
 	(accelerate $Ship to throttle setting)
 	(move $Ship on course and speed)
@@ -310,7 +307,7 @@
 (move $ for 0 minutes) %% do nothing
 
 (move $Ship for $Ticks minutes)
-	(update $Ship)
+	(update $Ship position and velocity)
 	(minutes per tick $Minutes)
 	(if) ~($Ticks < $Minutes) (then)
 		 ($Ticks minus $Minutes into $Remaining)
