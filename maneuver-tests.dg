@@ -381,22 +381,11 @@
 	(assert #distant-target goes to 2 4 8 6 heading 270 speed 700 energy 968)
 
 (assert $N minutes goes to $X $Y at throttle $Throttle)
+	(clear destination for #test-ship)
 	(set throttle for #test-ship to gradient $Throttle)
 	(move #test-ship for $N minutes)
-	(#test-ship position $Pos) $Pos
-	(assert $Pos = [$X $Y])
-
-#move-straight-1-at-7
-(test *)
-(run *)
-	(clear #test-ship destination)
-    (assert 1 minutes goes to 294 404 at throttle 7)
-
-#move-straight-2-at-7
-(test *)
-(run *)
-	(clear #test-ship destination)
-	(assert 2 minutes goes to 244 354 at throttle 7)
+	(#test-ship position $Pos)
+	(assert $Pos = [$X $Y | $])
 
 #move-1-at-7
 (test *)
@@ -414,23 +403,24 @@
 (test *)
 (run *)    (assert 8 minutes goes to 112 222 at throttle 4)
 
-(assert $N minutes toward $Destination goes to $SX $SY $X $Y $PX $PY)
+(assert $N minutes toward $Destination goes to $X $Y)
 	(set destination for #test-ship to $Destination)
 	(set throttle for #test-ship to gradient 4)
 	(move #test-ship for $N minutes)
-	(#test-ship coordinates into $SX $SY $X $Y $PX $PY)
+	(#test-ship position $Pos)
+	(assert $Pos = [$X $Y | $])
 
 #move-1-toward-corner
 (test *)
-(run *)    (assert 1 minutes toward [899 899] goes to 3 4 5 2 5 5)
+(run *)    (assert 1 minutes toward [899 899] goes to 344 414)
 
 #move-2-toward-corner
 (test *)
-(run *)    (assert 2 minutes toward [899 899] goes to 3 3 8 9 4 6)
+(run *)    (assert 2 minutes toward [899 899] goes to 373 385)
 
 #move-5-toward-corner
 (test *)
-(run *)    (assert 5 minutes toward [899 899] goes to 4 4 8 4 4 8)
+(run *)    (assert 5 minutes toward [899 899] goes to 899 899)
 
 #pursue-far-target
 (test *)
@@ -439,8 +429,8 @@
 	 (#test-ship pursues #far-target)
 	 (set throttle for #test-ship to gradient 4)
 	 (move #test-ship for 3 minutes)
-	 (#test-ship position $Pos) $Pos
-	 (range from #test-ship to #far-target into $R) $R
+	 (#test-ship position [393 351 37 400])
+	 (range from #test-ship to #far-target into 494)
 
 #evade-near-target
 (test *)
@@ -449,5 +439,5 @@
 	 (#test-ship flees #near-target)
 	 (set throttle for #test-ship to gradient 4)
 	 (move #test-ship for 3 minutes)
-	 (#test-ship position $Pos) $Pos
-	 (range from #test-ship to #far-target into $R) $R
+	 (#test-ship position [404 362 56 400])
+	 (range from #test-ship to #far-target into 527)

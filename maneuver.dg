@@ -249,9 +249,16 @@
 	(endif)
 	(accelerate $Ship to speed $NewSpeed)
 
-(move $Ship on course and speed)
+(move $Ship in a straight line)
 	($Ship state $State)
-	($Ship destination $Destination)
+	($Ship speed $Distance)
+	(move $Ship $Distance forward)
+	($Travelled = $Distance)
+	($Ship energy needed for distance $Travelled into $Energy)
+	(decrease energy for $Ship by $Energy)
+
+(move $Ship on course and speed toward $Destination)
+	($Ship state $State)
 	(calculate range from $State to $Destination into $Range)
 	($Ship speed $Distance)
 	(bearing from $Ship to position $Destination into $Bearing)
@@ -266,6 +273,24 @@
 	(endif)
 	($Ship energy needed for distance $Travelled into $Energy)
 	(decrease energy for $Ship by $Energy)
+
+(move $Ship on course and speed)
+	($Ship has a set destination)
+	($Ship destination $Destination)
+	(move $Ship on course and speed toward $Destination)
+
+(move $Ship on course and speed)
+	($Ship has a pursuit target)
+	($Ship destination $Destination)
+	([$Target $Direction] = $Destination)
+	(if) ($Direction = #in) (then)
+		(move $Ship on course and speed toward $Destination)
+	(else)
+		(move $Ship in a straight line)
+	(endif)
+
+(move $Ship on course and speed)
+	(move $Ship in a straight line)
 
 ($Ship energy needed for distance $Distance into $Result)
 	($Ship drive efficiency $Efficiency)
