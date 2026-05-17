@@ -17,10 +17,90 @@
 #initialize
 (test *)
 (run *)
-	  (initialize #test-ship as #cygnus-class)
-	  (#test-ship class #cygnus-class)
-	  (#test-ship energy 1000)
-	  (#test-ship crystals 4)
+    (initialize #test-ship as #cygnus-class)
+	(#test-ship class #cygnus-class)
+	(#test-ship energy 1000)
+	(#test-ship crystals 4)
+
+#speed-for-gradient-0
+(test *)
+(run *)    (speed for warp gradient 0 is 0)
+
+#speed-for-gradient-1
+(test *)
+(run *)    (speed for warp gradient 1 is 1)
+
+#speed-for-gradient-2
+(test *)
+(run *)    (speed for warp gradient 2 is 4)
+
+#speed-for-gradient-3
+(test *)
+(run *)    (speed for warp gradient 3 is 13)
+
+#speed-for-gradient-4
+(test *)
+(run *)    (speed for warp gradient 4 is 32)
+
+#speed-for-gradient-5
+(test *)
+(run *)    (speed for warp gradient 5 is 62)
+
+#speed-for-gradient-6
+(test *)
+(run *)    (speed for warp gradient 6 is 108)
+
+#speed-for-gradient-7
+(test *)
+(run *)    (speed for warp gradient 7 is 171)
+
+#speed-for-gradient-8
+(test *)
+(run *)    (speed for warp gradient 8 is 256)
+
+#speed-for-gradient-9
+(test *)
+(run *)    (speed for warp gradient 9 is 364)
+
+#gradient-for-0
+(test *)
+(run *)    (warp gradient for speed 0 is 0)
+
+#gradient-for-1
+(test *)
+(run *)    (warp gradient for speed 1 is 1)
+
+#gradient-for-5
+(test *)
+(run *)    (warp gradient for speed 5 is 2)
+
+#gradient-for-20
+(test *)
+(run *)    (warp gradient for speed 20 is 3)
+
+#gradient-for-50
+(test *)
+(run *)    (warp gradient for speed 50 is 4)
+
+#gradient-for-100
+(test *)
+(run *)    (warp gradient for speed 100 is 5)
+
+#gradient-for-150
+(test *)
+(run *)    (warp gradient for speed 150 is 6)
+
+#gradient-for-200
+(test *)
+(run *)    (warp gradient for speed 200 is 7)
+
+#gradient-for-300
+(test *)
+(run *)    (warp gradient for speed 300 is 8)
+
+#gradient-for-400
+(test *)
+(run *)    (warp gradient for speed 400 is 9)
 
 #speed
 (test *)
