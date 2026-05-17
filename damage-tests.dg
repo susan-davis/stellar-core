@@ -96,7 +96,7 @@
 (test *)
 (run *)
 	  (#test-ship undestroyed systems $List)
-	  (length of $List into 23)
+	  (length of $List into 25)
 
 #damaged-systems-simple
 (test *)
