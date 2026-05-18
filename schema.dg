@@ -21,7 +21,7 @@
 %% Ship classes are defined by a class record:
 %%
 %% class  = [DriveEfficiency ReactorEfficiency TurnMode DriveParams Fleet
-%%           MaxEnergy MaxCrystals MaxAmmo MaxShields [MaxLevels] Crew]
+%%           MaxEnergy MaxCrystals MaxAmmo MaxShields [MaxLevels] [Crew]]
 %% system = [System ID Arcs Value Details]
 %%
 %% Ships are either simple, detailed, or player. A simple ship doesn't have
@@ -153,7 +153,7 @@
 ($Ship crew fit for duty $Crew)
     ($Ship state $State)
     (nth $State 11 $List)
-	([$Crew | $] = $List)
+    ($List = [$Crew | $])
 
 %%---------------------------------- MUTATORS ---------------------------------
 
@@ -173,10 +173,13 @@
 
 (initialize $Ship as $Class)
 	($Class state $Default)
-	($Default = [$ $ $ $ $ $Energy $Crystals $Ammo $Shields $Levels])
+	($Default =
+	    [$ $ $ $ $ $Energy $Crystals $Ammo $Shields $Levels $Billets])
+	($Billets = [$Fit | $])
+	($Crew = [$Fit 0 0])
 	($Ship state [$DX $DY $H $T $Class | $])
 	(now) ($Ship state [$DX $DY $H $T $Class
-		  		 	    $Energy $Crystals $Ammo $Shields $Levels])
+		  		 	    $Energy $Crystals $Ammo $Shields $Levels $Crew])
 
 %%-------------------------------- SHIP SYSTEMS -------------------------------
 

@@ -24,15 +24,23 @@
 
 #speed
 (test *)
-(run *)	  (#test-ship speed 32)
+(run *)	   (#test-ship speed 32)
 
 #energy
 (test *)
-(run *)	  (#test-ship energy 932)
+(run *)	   (#test-ship energy 932)
 
 #crystals
 (test *)
-(run *)	  (#test-ship crystals 4)
+(run *)	   (#test-ship crystals 4)
+
+#life-signs
+(test *)
+(run *)    (#test-ship life signs 15)
+
+#crew
+(test *)
+(run *)    (#test-ship crew fit for duty 13)
 
 #decrease-energy
 (test *)
