@@ -24,7 +24,7 @@
 
 #speed
 (test *)
-(run *)	  (#test-ship speed 400)
+(run *)	  (#test-ship speed 32)
 
 #energy
 (test *)

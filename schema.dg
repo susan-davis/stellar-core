@@ -9,7 +9,8 @@
 %% State about a ship is stored in lists, to cut down on storage:
 %%
 %% position = [X Y Heading Speed]
-%% state = [DstX DstY Helm Throttle Class Energy Crystals Ammo Shields [Lvls]]
+%% state = [DstX DstY Helm Throttle Class Energy Crystals Ammo Shields
+%%          [Shield Levels] [Crew]]
 %% system = [Type ID RepairTime]
 %%
 %% The system list for a ship identifies which systems are damaged; healthy
@@ -19,8 +20,8 @@
 %%
 %% Ship classes are defined by a class record:
 %%
-%% class  = [Efficiency Subspace TurnMode Accel Fleet MaxEnergy MaxCrystals
-%% 		  	 MaxAmmo MaxShields [MaxLevels]]
+%% class  = [Efficiency DriveParams TurnMode Reactionless Fleet MaxEnergy
+%%           MaxCrystals MaxAmmo MaxShields [MaxLevels] Crew]
 %% system = [System ID Arcs Value Details]
 %%
 %% Ships are either simple, detailed, or player. A simple ship doesn't have
