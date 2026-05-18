@@ -30,7 +30,7 @@
 (name *)	Cygnus
 (ship type *)	fast scout
 (code *)	s
-(* state [500 10 180 9632 #union 1000 4 10 500 [100 99 98 97] [16 2]])
+(* state [100 10 180 9632 #union 1000 4 10 500 [100 99 98 97] [16 2]])
 (* systems [[#projector 1 [360 #up] 100 141]
 		   [#torpedo 1 [1 8] 1 500]
 		   [#torpedo 2 [1 8] 1 500]
@@ -95,7 +95,7 @@
 (name *)	Attack
 (ship type *)	attack ship
 (code *)	q
-(* state [300 751 90 100 #quellan 500 2 0 250 [100 50 50 50] [38 14]])
+(* state [50 10 90 7511 #quellan 500 2 0 250 [100 50 50 50] [38 14]])
 (* systems [[#projector 1 [8 1] 250 100]])
 
 #civilian

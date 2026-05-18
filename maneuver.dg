@@ -193,7 +193,8 @@
 	(if) ($Speed > 0) (then)
 		($TurnMode divided by $Speed into $Mode)
 	(else)
-		($TurnMode times 2 into $Mode)
+		($Ship reactionless $Reactionless)
+		($TurnMode times $Reactionless into $Mode)
 	(endif)
 
 ($Ship drive parameters $Params)
