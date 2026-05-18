@@ -40,10 +40,6 @@
 
 (interface (remove from $<List found in $<Filter into $>NewList))
 
-(interface (speed for warp gradient $<Gradient is $>Speed))
-
-(interface (warp gradient for speed $<Speed is $>Gradient))
-
 %% (grid object $) => object exists in space and is sensor-detectable
 %% (stellar object $) => object is a star/planet/asteroid
 %% (ship $) => object can maneuver
@@ -60,8 +56,6 @@
 (interface ($<Ship class $>Class))
 
 (interface ($<Ship speed $>Speed))
-
-(interface ($<Ship warp gradient $>Gradient))
 
 (interface ($<Ship energy $>Energy))
 
@@ -103,8 +97,6 @@
 
 %%---------------------------------- HELPERS ----------------------------------
 
-%% moved here from utils.dg
-
 (find $X $Y in $List into $Match)
 	(find in $List beginning with sublist [$X $Y] into $Match)
 
@@ -134,39 +126,6 @@
 ($Ship speed $Speed)
 	($Ship position $Pos)
 	(nth $Pos 4 $Speed)
-
-(speed for warp gradient 1 is 1)
-
-(speed for warp gradient $Gradient is $Speed)
-    ($Gradient times $Gradient into $Square)
-	($Gradient times $Square into $Cube)
-	($Cube divided by 2 into $Speed)
-
-(warp gradient for speed 0 is 0)
-
-(warp gradient for speed $Speed is 1)    ($Speed < 4)
-
-(warp gradient for speed $Speed is 2)    ($Speed < 13)
-
-(warp gradient for speed $Speed is 3)    ($Speed < 32)
-
-(warp gradient for speed $Speed is 4)    ($Speed < 62)
-
-(warp gradient for speed $Speed is 5)    ($Speed < 108)
-
-(warp gradient for speed $Speed is 6)    ($Speed < 171)
-
-(warp gradient for speed $Speed is 7)    ($Speed < 256)
-
-(warp gradient for speed $Speed is 8)    ($Speed < 364)
-
-(warp gradient for speed $Speed is 9)    ($Speed < 500)
-
-(warp gradient for speed $Speed is 10)   ~($Speed < 500)
-
-($Ship warp gradient $Gradient)
-	($Ship speed $Speed)
-	($Speed divided by 100 into $Gradient)
 
 ($Ship class $Class)
 	($Ship state $State)

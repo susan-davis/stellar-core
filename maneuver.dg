@@ -19,6 +19,12 @@
 
 %%-------------------------------- INTERFACES --------------------------------
 
+%% helpers
+
+(interface (speed for warp gradient $<Gradient is $>Speed))
+
+(interface (warp gradient for speed $<Speed is $>Gradient))
+
 %% schema
 
 (interface ($<Ship destination $>Destination))
@@ -36,6 +42,8 @@
 (interface ($<Ship throttle setting $>Throttle))
 
 (interface ($<Ship throttle gradient $>Throttle))
+
+(interface ($<Ship warp gradient $>Gradient))
 
 (interface ($<Ship turn mode $>Mode))
 
@@ -78,6 +86,41 @@
 (interface (move $<Ship for $<Ticks minutes))
 
 (interface (attract nearby ships to $<Object))
+
+%%---------------------------------- HELPERS ----------------------------------
+
+(speed for warp gradient 1 is 1)
+
+(speed for warp gradient $Gradient is $Speed)
+    ($Gradient times $Gradient into $Square)
+	($Gradient times $Square into $Cube)
+	($Cube divided by 2 into $Speed)
+
+(warp gradient for speed 0 is 0)
+
+(warp gradient for speed $Speed is 1)    ($Speed < 4)
+
+(warp gradient for speed $Speed is 2)    ($Speed < 13)
+
+(warp gradient for speed $Speed is 3)    ($Speed < 32)
+
+(warp gradient for speed $Speed is 4)    ($Speed < 62)
+
+(warp gradient for speed $Speed is 5)    ($Speed < 108)
+
+(warp gradient for speed $Speed is 6)    ($Speed < 171)
+
+(warp gradient for speed $Speed is 7)    ($Speed < 256)
+
+(warp gradient for speed $Speed is 8)    ($Speed < 364)
+
+(warp gradient for speed $Speed is 9)    ($Speed < 500)
+
+(warp gradient for speed $Speed is 10)   ~($Speed < 500)
+
+($Ship warp gradient $Gradient)
+	($Ship speed $Speed)
+	($Speed divided by 100 into $Gradient)
 
 %%----------------------------- SCHEMA DEFINITION ----------------------------
 
