@@ -30,7 +30,7 @@
 (name *)	Cygnus
 (ship type *)	fast scout
 (code *)	s
-(* state [500 963 180 500 #union 1000 4 10 500 [100 99 98 97] [16 2]])
+(* state [500 10 180 9632 #union 1000 4 10 500 [100 99 98 97] [16 2]])
 (* systems [[#projector 1 [360 #up] 100 141]
 		   [#torpedo 1 [1 8] 1 500]
 		   [#torpedo 2 [1 8] 1 500]

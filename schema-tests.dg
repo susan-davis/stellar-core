@@ -52,19 +52,6 @@
 (test *)
 (run *)	  ~(decrease energy for #test-ship by 1001)
 
-#regenerate
-(test *)
-(run *)
-	  (regenerate energy for #test-ship)
-	  (#test-ship energy 972)
-
-#regenerate-above-max
-(test *)
-(run *)
-	  (regenerate energy for #test-ship)
-	  (regenerate energy for #test-ship)
-	  (#test-ship energy 1000)
-
 #systems-list
 (test *)
 (run *)

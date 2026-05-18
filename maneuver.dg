@@ -9,11 +9,12 @@
 %% State about a ship is stored in lists, to cut down on storage:
 %%
 %% position = [X Y Heading Speed]
-%% state = [DstX DstY Helm Throttle Class Energy Crystals ]
+%% state = [DstX DstY Helm Throttle Class Energy Crystals]
 %%
 %% Ship classes are defined by a class record:
 %%
-%% class  = [Efficiency Subspace TurnMode Accel Fleet MaxEnergy MaxCrystals]
+%% class  = [DriveEfficiency ReactorEfficiency TurnMode DriveParams Fleet
+%%           MaxEnergy MaxCrystals]
 %%
 %% There's more that goes into state and class, defined in other files.
 
@@ -25,7 +26,7 @@
 
 (interface (warp gradient for speed $<Speed is $>Gradient))
 
-%% schema
+%% ship schema
 
 (interface ($<Ship destination $>Destination))
 
@@ -45,13 +46,19 @@
 
 (interface ($<Ship warp gradient $>Gradient))
 
+%% class schema
+
+(interface ($<Ship drive efficiency $>Efficiency))
+
+(interface ($<Ship reactor efficiency $>Efficiency))
+
 (interface ($<Ship turn mode $>Mode))
 
 (interface ($<Ship effective turn mode $>Mode))
 
 (interface ($<Ship drive parameters $>Params))
 
-(interface ($<Ship drive efficiency $>Params))
+(interface ($<Ship reactionless $>Reactionless))
 
 (interface ($<Ship acceleration $>Accel))
 
@@ -78,6 +85,8 @@
 (interface (set throttle for $<Ship to speed $<Setting))
 
 (interface (set throttle for $<Ship to gradient $<Setting))
+
+(interface (regenerate energy for $<Ship))
 
 %% movement per tick
 
@@ -118,11 +127,9 @@
 
 (warp gradient for speed $Speed is 10)   ~($Speed < 500)
 
-($Ship warp gradient $Gradient)
-	($Ship speed $Speed)
-	($Speed divided by 100 into $Gradient)
-
 %%----------------------------- SCHEMA DEFINITION ----------------------------
+
+%% ship attributes
 
 ($Ship helm setting $Helm)
 	($Ship state $State)
@@ -134,45 +141,11 @@
 
 ($Ship throttle gradient $Gradient)
 	($Ship throttle setting $Throttle)
-	($Throttle divided by 100 into $Gradient)
+	(warp gradient for speed $Throttle is $Gradient)
 
-($Ship turn mode $Mode)
-	($Ship class $Class)
-	($Class state $State)
-	(nth $State 3 $Mode)
-
-($Ship effective turn mode $Mode)
-	($Ship turn mode $TurnMode)
-	($Ship warp gradient $Speed)
-	(if) ($Speed > 0) (then)
-		($TurnMode divided by $Speed into $Mode)
-	(else)
-		($TurnMode times 2 into $Mode)
-	(endif)
-
-($Ship drive parameters $Params)
-	($Ship class $Class)
-	($Class destination $Params)
-
-($Ship drive efficiency $Efficiency)
-	($Ship drive parameters $Params)
-	([$Efficiency $] = $Params)
-
-($Ship acceleration $Acceleration)
-	($Ship drive parameters $Params)
-	([$ $Engine] = $Params)
-	(split $Engine into $ $ $ $Accel)
-	($Accel times 100 into $Acceleration)
-
-($Ship top speed $Gradient)
-	($Ship drive parameters $Params)
-	([$ $Engine] = $Params)
-	(split $Engine into $ $Gradient $ $)
-
-($Ship cruising speed $Gradient)
-	($Ship drive parameters $Params)
-	([$ $Engine] = $Params)
-	(split $Engine into $ $ $Gradient $)
+($Ship warp gradient $Gradient)
+	($Ship speed $Speed)
+	(warp gradient for speed $Speed is $Gradient)
 
 ($Ship destination $Destination)
 	($Ship state $State)
@@ -196,6 +169,53 @@
 	($Ship destination [$Target $Direction])
 	(grid object $Target)
 	{ ($Direction = #in) (or) ($Direction = #out) }
+
+%% class attributes
+
+($Ship drive efficiency $Efficiency)
+	($Ship class $Class)
+	($Class state $State)
+	(nth $State 1 $Efficiency)
+
+($Ship reactor efficiency $Efficiency)
+	($Ship class $Class)
+	($Class state $State)
+	(nth $State 2 $Efficiency)
+
+($Ship turn mode $Mode)
+	($Ship class $Class)
+	($Class state $State)
+	(nth $State 3 $Mode)
+
+($Ship effective turn mode $Mode)
+	($Ship turn mode $TurnMode)
+	($Ship warp gradient $Speed)
+	(if) ($Speed > 0) (then)
+		($TurnMode divided by $Speed into $Mode)
+	(else)
+		($TurnMode times 2 into $Mode)
+	(endif)
+
+($Ship drive parameters $Params)
+	($Ship class $Class)
+	($Class state $State)
+	(nth $State 4 $Params)
+
+($Ship top speed $Gradient)
+	($Ship drive parameters $Params)
+	(split $Params into $Gradient $ $ $)
+
+($Ship cruising speed $Gradient)
+	($Ship drive parameters $Params)
+	(split $Params into $ $Gradient $ $)
+
+($Ship acceleration $Acceleration)
+	($Ship drive parameters $Params)
+	(split $Params into $ $ $Acceleration $)
+
+($Ship reactionless $Reactionless)
+	($Ship drive parameters $Params)
+	(split $Params into $ $ $ $Reactionless)
 
 %%--------------------------------- MUTATORS ----------------------------------
 
@@ -251,7 +271,7 @@
 
 (max speed for $Ship into $MaxSpeed)
 	($Ship top speed $Gradient)
-	($Gradient times 100 into $MaxSpeed)
+	(speed for warp gradient $Gradient is $MaxSpeed)
 
 (set throttle for $Ship to speed $Setting)
 	($Ship state $State)
@@ -260,7 +280,7 @@
 	(now) ($Ship state $NewState)
 
 (set throttle for $Ship to gradient $Gradient)
-	($Gradient times 100 into $Speed)
+	(speed for warp gradient $Gradient is $Speed)
 	(set throttle for $Ship to speed $Speed)
 
 (accelerate $Ship to speed $Speed)
@@ -270,8 +290,20 @@
 	(now) ($Ship position $NewPos)
 
 (accelerate $Ship to gradient $Gradient)
-	($Gradient times 100 into $Speed)
+	($Ship top speed $Top)
+	(min $Gradient $Top $Grad)
+	(speed for warp gradient $Grad is $Speed)
 	(accelerate $Ship to speed $Speed)
+
+(regenerate energy for $Ship)
+	($Ship crystals $Crystals)
+	($Ship reactor efficiency $Efficiency)
+	($Crystals times $Efficiency into $Energy)
+	($Ship class $Class)
+	($Class energy $Max)
+	($Ship state $State)
+	(increase element 6 in $State by $Energy into $NewState with max $Max)
+	(now) ($Ship state $NewState)
 
 %%--------------------------------- MOVEMENT ----------------------------------
 
@@ -339,6 +371,11 @@
 (move $Ship on course and speed)
 	(move $Ship in a straight line)
 
+%% superstartrek.bas: energy = warp factor * 8 + 0.5
+
+%% STARTREK calculates warp by how far away your destination is; we have an
+%% explicit throttle.
+
 ($Ship energy needed for distance $Distance into $Result)
 	($Ship drive efficiency $Efficiency)
 	($Distance divided by $Efficiency into $Dividend)
@@ -348,7 +385,7 @@
 	(else)
 		($Dividend = $Energy)
 	(endif)
-	($Distance divided by 100 into $Gradient)
+	(warp gradient for speed $Distance is $Gradient)
 	($Ship cruising speed $Cruising)
 	(if) ($Gradient > $Cruising) (then)
 		($Gradient minus $Cruising into $Difference)
