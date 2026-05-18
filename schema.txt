@@ -14,8 +14,8 @@
 %%
 %% Ship classes are defined by a class record:
 %%
-%% class  = [Efficiency DriveParams TurnMode Reactionless Fleet MaxEnergy
-%%           MaxCrystals MaxAmmo MaxShields [MaxLevels] Crew]
+%% class  = [DriveEfficiency ReactorEfficiency TurnMode DriveParams Fleet
+%%           MaxEnergy MaxCrystals MaxAmmo MaxShields [MaxLevels] Crew]
 %% system = [System ID Arcs Value Details]
 %%
 %% Ships are either simple, detailed, or player. A simple ship doesn't have

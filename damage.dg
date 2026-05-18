@@ -53,6 +53,12 @@
 
 (interface ($<Ship undestroyed systems $>Systems)) %% for picking random damage
 
+(interface ($<Ship casualties $>Casualties))
+
+(interface ($<Ship is shorthanded))
+
+(interface ($<Ship is unmanned))
+
 %% mutators
 
 (interface (decrease ammo for $<Ship by $<Num))
@@ -68,6 +74,12 @@
 (interface (decrease repair time for $<Ship $<Type $<ID by $<Minutes))
 
 (interface (repair $<Ship $<Type $<ID))
+
+(interface (injure $<Num crew aboard $>Ship))
+
+(interface (kill $<Num crew aboard $>Ship))
+
+(interface (heal $<Num crew aboard $>Ship))
 
 %% weapons fire
 
@@ -145,6 +157,22 @@
 	(length of $Systems into $Length)
 	($Length < 4)
 
+($Ship casualties $Casualties)
+    ($Ship state $State)
+    (nth $State 11 $List)
+    ([$ $Injured $Dead] = $List)
+	($Injured plus $Dead into $Casualties)
+
+($Ship is shorthanded)
+	($Ship class $Class)
+	($Class state $State)
+	([$ $Needed] = $State)
+	($Ship crew fit for duty $Available)
+	($Available < $Needed)
+
+($Ship is unmanned)
+    ($Ship crew fit for duty 0)
+
 %%--------------------------------- MUTATORS ----------------------------------
 
 (decrease ammo for $Ship by $Num)
@@ -186,6 +214,42 @@
 	($Ship systems $Systems)
 	(remove $Type $ID from $Systems into $NewSystems)
 	(now) ($Ship systems $NewSystems)
+
+(injure $Num crew aboard $Ship)
+	($Ship state $State)
+	(nth $State 11 $List)
+	([$Healthy $Injured $Dead] = $List)
+	(if) ($Healthy > $Num) (then)
+	    ($Healthy minus $Num into $Fit)
+		($Injured plus $Num into $Down)
+		($Killed = $Dead)
+	(else)
+	    ($Num minus $Healthy into $Killed)
+		($Injured minus $Killed into $Down)
+		($Fit = 0)
+	(endif)
+	(replace element 11 in $State with [$Fit $Down $Killed] into $NewState)
+	(now) ($Ship state $NewState)
+
+(kill $Num crew aboard $Ship)
+	($Ship state $State)
+	(nth $State 11 $List)
+	([$Healthy $Injured $Dead] = $List)
+	(min $Num $Healthy $Deaths)
+	($Healthy minus $Deaths into $Fit)
+	($Dead plus $Deaths into $DeathToll)
+	(replace element 11 in $State with [$Fit $Injured $DeathToll] into $New)
+	(now) ($Ship state $New)
+
+(heal $Num crew aboard $Ship)
+	($Ship state $State)
+	(nth $State 11 $List)
+	([$Healthy $Injured $Dead] = $List)
+    (min $Num $Injured $Healed)
+	($Injured minus $Healed into $Remaining)
+	($Healthy plus $Healed into $Fit)
+	(replace element 11 in $State with [$Fit $Remaining $Dead] into $NewState)
+	(now) ($Ship state $NewState)
 
 %%------------------------------ IMPLEMENTATION ------------------------------
 
