@@ -11,87 +11,87 @@
 
 #speed-for-gradient-0
 (test *)
-(run *)    (speed for warp gradient 0 is 0)
+(run *)    (speed for warp gradient 0 into 0)
 
 #speed-for-gradient-1
 (test *)
-(run *)    (speed for warp gradient 1 is 1)
+(run *)    (speed for warp gradient 1 into 1)
 
 #speed-for-gradient-2
 (test *)
-(run *)    (speed for warp gradient 2 is 4)
+(run *)    (speed for warp gradient 2 into 4)
 
 #speed-for-gradient-3
 (test *)
-(run *)    (speed for warp gradient 3 is 13)
+(run *)    (speed for warp gradient 3 into 13)
 
 #speed-for-gradient-4
 (test *)
-(run *)    (speed for warp gradient 4 is 32)
+(run *)    (speed for warp gradient 4 into 32)
 
 #speed-for-gradient-5
 (test *)
-(run *)    (speed for warp gradient 5 is 62)
+(run *)    (speed for warp gradient 5 into 62)
 
 #speed-for-gradient-6
 (test *)
-(run *)    (speed for warp gradient 6 is 108)
+(run *)    (speed for warp gradient 6 into 108)
 
 #speed-for-gradient-7
 (test *)
-(run *)    (speed for warp gradient 7 is 171)
+(run *)    (speed for warp gradient 7 into 171)
 
 #speed-for-gradient-8
 (test *)
-(run *)    (speed for warp gradient 8 is 256)
+(run *)    (speed for warp gradient 8 into 256)
 
 #speed-for-gradient-9
 (test *)
-(run *)    (speed for warp gradient 9 is 364)
+(run *)    (speed for warp gradient 9 into 364)
 
 #gradient-for-0
 (test *)
-(run *)    (warp gradient for speed 0 is 0)
+(run *)    (warp gradient for speed 0 into 0)
 
 #gradient-for-1
 (test *)
-(run *)    (warp gradient for speed 1 is 1)
+(run *)    (warp gradient for speed 1 into 1)
 
 #gradient-for-5
 (test *)
-(run *)    (warp gradient for speed 5 is 2)
+(run *)    (warp gradient for speed 5 into 2)
 
 #gradient-for-20
 (test *)
-(run *)    (warp gradient for speed 20 is 3)
+(run *)    (warp gradient for speed 20 into 3)
 
 #gradient-for-50
 (test *)
-(run *)    (warp gradient for speed 50 is 4)
+(run *)    (warp gradient for speed 50 into 4)
 
 #gradient-for-100
 (test *)
-(run *)    (warp gradient for speed 100 is 5)
+(run *)    (warp gradient for speed 100 into 5)
 
 #gradient-for-150
 (test *)
-(run *)    (warp gradient for speed 150 is 6)
+(run *)    (warp gradient for speed 150 into 6)
 
 #gradient-for-200
 (test *)
-(run *)    (warp gradient for speed 200 is 7)
+(run *)    (warp gradient for speed 200 into 7)
 
 #gradient-for-300
 (test *)
-(run *)    (warp gradient for speed 300 is 8)
+(run *)    (warp gradient for speed 300 into 8)
 
 #gradient-for-400
 (test *)
-(run *)    (warp gradient for speed 400 is 9)
+(run *)    (warp gradient for speed 400 into 9)
 
 #gradient-for-499
 (test *)
-(run *)    (warp gradient for speed 499 is 9)
+(run *)    (warp gradient for speed 499 into 9)
 
 #helm
 (test *)
@@ -173,7 +173,7 @@
 
 #drive-efficiency
 (test *)
-(run *)	   (#test-ship drive efficiency 100)
+(run *)	   (#test-ship drive efficiency 10)
 
 #reactor-efficiency
 (test *)
@@ -412,15 +412,45 @@
 	(accelerate #test-ship to throttle setting)
 	(#test-ship warp gradient 0)
 
-#energy-for-400
+#energy-for-32
 (test *)
 (run *)
-	(#test-ship energy needed for distance 400 into 16)
+	(#test-ship energy needed for speed 32 into 4) %% DE 10
 
-#energy-for-800
+#energy-for-108
 (test *)
 (run *)
-	(#test-ship energy needed for distance 800 into 40)
+	(#test-ship energy needed for speed 108 into 11)
+
+#energy-for-170
+(test *)
+(run *)
+	(#test-ship energy needed for speed 170 into 17)
+
+#energy-for-171
+(test *)
+(run *)
+	(#test-ship energy needed for speed 171 into 36)
+
+#energy-for-256
+(test *)
+(run *)
+	(#test-ship energy needed for speed 256 into 78)
+
+#energy-for-363
+(test *)
+(run *)
+	(#test-ship energy needed for speed 363 into 111)
+
+#energy-for-364
+(test *)
+(run *)
+	(#test-ship energy needed for speed 364 into 148)
+
+#energy-for-499
+(test *)
+(run *)
+	(#test-ship energy needed for speed 499 into 200)
 
 #move-on-course
 (test *)
@@ -454,11 +484,11 @@
 
 #adjust-throttle-6
 (test *)
-(run *)    (assert energy 6 yields throttle 171)
+(run *)    (assert energy 6 yields throttle 60)
 
 #adjust-throttle-1
 (test *)
-(run *)    (assert energy 1 yields throttle $T) $T
+(run *)    (assert energy 1 yields throttle 10)
 
 #adjust-throttle-0
 (test *)
@@ -547,3 +577,7 @@
 	 (move #test-ship for 3 minutes)
 	 (#test-ship position [351 447 90 41])
 	 (range from #test-ship to #far-target into 1804)
+
+#warp-6-is-sustainable
+
+#warp-7-isnt-sustainable

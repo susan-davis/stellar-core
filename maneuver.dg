@@ -22,9 +22,9 @@
 
 %% helpers
 
-(interface (speed for warp gradient $<Gradient is $>Speed))
+(interface (speed for warp gradient $<Gradient into $>Speed))
 
-(interface (warp gradient for speed $<Speed is $>Gradient))
+(interface (warp gradient for speed $<Speed into $>Gradient))
 
 %% ship schema
 
@@ -98,34 +98,34 @@
 
 %%---------------------------------- HELPERS ----------------------------------
 
-(speed for warp gradient 1 is 1)
+(speed for warp gradient 1 into 1)
 
-(speed for warp gradient $Gradient is $Speed)
+(speed for warp gradient $Gradient into $Speed)
     ($Gradient times $Gradient into $Square)
 	($Gradient times $Square into $Cube)
 	($Cube divided by 2 into $Speed)
 
-(warp gradient for speed 0 is 0)
+(warp gradient for speed 0 into 0)
 
-(warp gradient for speed $Speed is 1)    ($Speed < 4)
+(warp gradient for speed $Speed into 1)    ($Speed < 4)
 
-(warp gradient for speed $Speed is 2)    ($Speed < 13)
+(warp gradient for speed $Speed into 2)    ($Speed < 13)
 
-(warp gradient for speed $Speed is 3)    ($Speed < 32)
+(warp gradient for speed $Speed into 3)    ($Speed < 32)
 
-(warp gradient for speed $Speed is 4)    ($Speed < 62)
+(warp gradient for speed $Speed into 4)    ($Speed < 62)
 
-(warp gradient for speed $Speed is 5)    ($Speed < 108)
+(warp gradient for speed $Speed into 5)    ($Speed < 108)
 
-(warp gradient for speed $Speed is 6)    ($Speed < 171)
+(warp gradient for speed $Speed into 6)    ($Speed < 171)
 
-(warp gradient for speed $Speed is 7)    ($Speed < 256)
+(warp gradient for speed $Speed into 7)    ($Speed < 256)
 
-(warp gradient for speed $Speed is 8)    ($Speed < 364)
+(warp gradient for speed $Speed into 8)    ($Speed < 364)
 
-(warp gradient for speed $Speed is 9)    ($Speed < 500)
+(warp gradient for speed $Speed into 9)    ($Speed < 500)
 
-(warp gradient for speed $Speed is 10)   ~($Speed < 500)
+(warp gradient for speed $Speed into 10)   ~($Speed < 500)
 
 %%----------------------------- SCHEMA DEFINITION ----------------------------
 
@@ -141,11 +141,11 @@
 
 ($Ship throttle gradient $Gradient)
 	($Ship throttle setting $Throttle)
-	(warp gradient for speed $Throttle is $Gradient)
+	(warp gradient for speed $Throttle into $Gradient)
 
 ($Ship warp gradient $Gradient)
 	($Ship speed $Speed)
-	(warp gradient for speed $Speed is $Gradient)
+	(warp gradient for speed $Speed into $Gradient)
 
 ($Ship destination $Destination)
 	($Ship state $State)
@@ -272,7 +272,7 @@
 
 (max speed for $Ship into $MaxSpeed)
 	($Ship top speed $Gradient)
-	(speed for warp gradient $Gradient is $MaxSpeed)
+	(speed for warp gradient $Gradient into $MaxSpeed)
 
 (set throttle for $Ship to speed $Setting)
 	($Ship state $State)
@@ -281,7 +281,7 @@
 	(now) ($Ship state $NewState)
 
 (set throttle for $Ship to gradient $Gradient)
-	(speed for warp gradient $Gradient is $Speed)
+	(speed for warp gradient $Gradient into $Speed)
 	(set throttle for $Ship to speed $Speed)
 
 (accelerate $Ship to speed $Speed)
@@ -293,7 +293,7 @@
 (accelerate $Ship to gradient $Gradient)
 	($Ship top speed $Top)
 	(min $Gradient $Top $Grad)
-	(speed for warp gradient $Grad is $Speed)
+	(speed for warp gradient $Grad into $Speed)
 	(accelerate $Ship to speed $Speed)
 
 (regenerate energy for $Ship)
@@ -326,10 +326,9 @@
 	(accelerate $Ship to speed $NewSpeed)
 
 (move $Ship in a straight line)
-	($Ship speed $Distance)
-	(move $Ship $Distance forward)
-	($Travelled = $Distance)
-	($Ship energy needed for distance $Travelled into $Energy)
+	($Ship speed $Speed)
+	(move $Ship $Speed forward)
+	($Ship energy needed for speed $Speed into $Energy)
 	(decrease energy for $Ship by $Energy)
 
 (move $Ship to its destination)
@@ -338,7 +337,7 @@
 	(calculate range from $Position to $Destination into $Travelled)
 	(move $Ship to position $Destination)
 	(set throttle for $Ship to speed 0)
-	($Ship energy needed for distance $Travelled into $Energy)
+	($Ship energy needed for speed $Travelled into $Energy)
 	(decrease energy for $Ship by $Energy)
 
 (move $Ship toward $Destination)
@@ -374,19 +373,10 @@
 
 %% superstartrek.bas: energy = warp factor * 8 + 0.5
 
-%% STARTREK calculates warp by how far away your destination is; we have an
-%% explicit throttle.
-
-($Ship energy needed for distance $Distance into $Result)
+($Ship energy needed for speed $Speed into $Result)
 	($Ship drive efficiency $Efficiency)
-	($Distance divided by $Efficiency into $Dividend)
-	($Distance modulo $Efficiency into $Remainder)
-	(if) ($Remainder > 0) (then)
-		($Dividend plus 1 into $Energy)
-	(else)
-		($Dividend = $Energy)
-	(endif)
-	(warp gradient for speed $Distance is $Gradient)
+	($Speed divided by $Efficiency into $Energy rounding up)
+	(warp gradient for speed $Speed into $Gradient)
 	($Ship cruising speed $Cruising)
 	(if) ($Gradient > $Cruising) (then)
 		($Gradient minus $Cruising into $Difference)
@@ -397,8 +387,8 @@
 	(endif)
 
 (adjust $Ship throttle for remaining energy)
-	($Ship throttle setting $Distance)
-	($Ship energy needed for distance $Distance into $Needed)
+	($Ship throttle setting $Speed)
+	($Ship energy needed for speed $Speed into $Needed)
 	($Ship energy $Energy)
 	(if) ($Energy < $Needed) (then)
 		($Ship drive efficiency $Efficiency)
