@@ -336,6 +336,10 @@
 	(accelerate $Ship to speed $NewSpeed)
 
 (move $Ship in a straight line)
+    ($Ship speed 0)
+	%% move under reactionless
+
+(move $Ship in a straight line)
 	($Ship speed $Speed)
 	(move $Ship $Speed forward)
 	($Ship energy needed for speed $Speed into $Energy)
@@ -349,6 +353,10 @@
 	(set throttle for $Ship to speed 0)
 	($Ship energy needed for speed $Travelled into $Energy)
 	(decrease energy for $Ship by $Energy)
+
+(move $Ship toward $)
+    ($Ship speed 0)
+	%% move under reactionless
 
 (move $Ship toward $Destination)
 	($Ship position $Position)
