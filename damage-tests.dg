@@ -17,7 +17,7 @@
 #shield-levels
 (test *)
 (run *)
-	  (#test-ship shield levels [100 99 98 97])
+	  (#test-ship shield levels [100 99 98 97 96 95])
 
 #shield-level-north
 (test *)
@@ -38,6 +38,16 @@
 (test *)
 (run *)
 	  (#test-ship shield level #west into 97)
+
+#shield-level-up
+(test *)
+(run *)
+	  (#test-ship shield level #up into 96)
+
+#shield-level-down
+(test *)
+(run *)
+	  (#test-ship shield level #down into 95)
 
 #ammo
 (test *)

@@ -19,7 +19,7 @@
 (code *)	E
 (* initial position [344 454 315 32])
 (* initial state
-    [300 400 315 171 #cygnus-class 932 4 10 500 [100 99 98 97] [13 2 1]])
+    [300 400 315 171 #cygnus-class 932 4 10 500 [100 99 98 97 96 95] [13 2 1]])
 (* initial systems [[#tractor 1 800] [#mtd 1 16383]])
 
 %% class  = [DriveEfficiency ReactorEfficiency TurnMode DriveParams Fleet
@@ -30,7 +30,7 @@
 (name *)	Cygnus
 (ship type *)	fast scout
 (code *)	s
-(* state [10 10 180 9632 #union 1000 4 10 500 [100 99 98 97] [16 2]])
+(* state [10 10 180 9632 #union 1000 4 10 500 [100 99 98 97 96 95] [16 2]])
 (* systems [[#projector 1 [360 #up] 100 141]
 		   [#torpedo 1 [1 8] 1 500]
 		   [#torpedo 2 [1 8] 1 500]
@@ -66,36 +66,42 @@
 (ship *)
 (* initial position [354 444 225 108])
 (* initial state
-    [16383 16383 225 108 #attack-class 500 2 0 250 [100 50 50 50] [38 0 0]])
+    [16383 16383 225 108 #attack-class 500 2 0 250
+	[100 50 50 50 25 25 ] [38 0 0]])
 
 #near-target
 (ship *)
 (* initial position [314 424 45 62])
 (* initial state
-    [344 444 45 108 #attack-class 500 2 0 250 [100 50 50 50] [38 0 0]])
+    [344 444 45 108 #attack-class 500 2 0 250
+	[100 50 50 50 25 25] [38 0 0]])
 
 #far-target
 (ship *)
 (* initial position [424 314 0 108])
 (* initial state
-    [#test-ship #in 45 171 #attack-class 500 2 0 250 [100 50 50 50] [38 0 0]])
+    [#test-ship #in 45 171 #attack-class 500 2 0 250
+	[100 50 50 50 25 25] [38 0 0]])
 
 #distant-target
 (ship *)
 (* initial position [154 984 0 108])
 (* initial state
-    [#test-ship #in 45 171 #attack-class 500 2 0 250 [100 50 50 50] [38 0 0]])
+    [#test-ship #in 45 171 #attack-class 500 2 0 250
+	[100 50 50 50 25 25] [38 0 0]])
 
 #off-map-target
 (ship *)
 (* initial position [16383 16383 180 108])
-(* initial state [0 0 45 171 #attack-class 500 2 0 250 [100 50 50 50] [38 0 0]])
+(* initial state
+    [16383 16383 45 171 #attack-class 500 2 0 250
+	[100 50 50 50 25 25] [38 0 0]])
 
 #attack-class
 (name *)	Attack
 (ship type *)	attack ship
 (code *)	q
-(* state [5 10 90 7511 #quellan 500 2 0 250 [100 50 50 50] [38 14]])
+(* state [5 10 90 7511 #quellan 500 2 0 250 [100 50 50 50 25 25] [38 14]])
 (* systems [[#projector 1 [8 1] 250 100]])
 
 #civilian
