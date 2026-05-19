@@ -27,8 +27,6 @@
 
 (interface (percentage of $<Number into $>Result))
 
-(interface (random element from $<List into $>Result))
-
 %% Dice pool style roll, with one success for every die equal to or exceeding
 %% the target number.
 
@@ -625,8 +623,8 @@
 		($Product plus $Remainder into $Percentage)
 	(endif)
 
-%% This used to live in utils.dg, but we don't want to couple dice.dg to it.
-(random element from $List into $Choice)
+%% interface is declared in stdlib.dg
+(randomly select $Choice from $List)
 	(length of $List into $Length)
 	(percentage of $Length into $Percent)
 	(nth $List $Percent $Choice)

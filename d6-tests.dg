@@ -397,12 +397,12 @@
 #random-0
 (test *)
 (run *)
-	~(random element from [] into $)
+	~(randomly select $ from [])
 
 #random-element
 (test *)
 (run *)
-	(random element from [1 2 3 4 5] into 5)
-	(random element from [1 2 3 4 5] into 4)
-	(random element from [1 2 3 4 5] into 1)
-	(random element from [1 2 3 4 5] into 3)
+	(randomly select 5 from [1 2 3 4 5])
+	(randomly select 4 from [1 2 3 4 5])
+	(randomly select 1 from [1 2 3 4 5])
+	(randomly select 3 from [1 2 3 4 5])

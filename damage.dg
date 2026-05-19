@@ -297,7 +297,7 @@
 (damage random $Target system with $Units)
 	~($Target is simple)
 	($Target undestroyed systems $Systems)
-	(random element from $Systems into $System)
+	(randomly select $System from $Systems)
 	($System = [$Type $ID | $])
 	(damage $Target system $Type $ID with $Units)
 
@@ -310,7 +310,7 @@
 
 (destroy random $Target system)
 	($Target undestroyed systems $Systems)
-	(random element from $Systems into $System)
+	(randomly select $System from $Systems)
 	($System = [$Type $ID | $])
 	(destroy $Target system $Type $ID)
 
