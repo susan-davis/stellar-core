@@ -452,6 +452,41 @@
 (run *)
 	(#test-ship energy needed for speed 499 into 200)
 
+#max-speed-for-0
+(test *)
+(run *)
+    (#test-ship maximum speed for energy 0 into $S) $S
+
+#max-speed-for-1
+(test *)
+(run *)
+    (#test-ship maximum speed for energy 1 into $S) $S
+
+#max-speed-for-10
+(test *)
+(run *)
+    (#test-ship maximum speed for energy 10 into $S) $S
+
+#max-speed-for-11
+(test *)
+(run *)
+    (#test-ship maximum speed for energy 10 into $S) $S
+
+#max-speed-for-17
+(test *)
+(run *)
+    (#test-ship maximum speed for energy 17 into $S) $S
+
+#max-speed-for-18
+(test *)
+(run *)
+    (#test-ship maximum speed for energy 18 into $S) $S
+
+#max-speed-for-932
+(test *)
+(run *)
+    (#test-ship maximum speed for energy 932 into 499)
+
 #move-on-course
 (test *)
 (run *)

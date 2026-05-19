@@ -64,7 +64,9 @@
 
 (interface ($<Ship cruising speed $>Gradient))
 
-(interface ($<Ship top speed $>Gradient))
+(interface ($<Ship top speed $>Gradient))  %% in warp gradient
+
+(interface ($<Ship speed limit $>Speed)) %% in millisectors per minute
 
 %% mutators
 
@@ -202,9 +204,15 @@
 	($Class state $State)
 	(nth $State 4 $Params)
 
-($Ship top speed $Gradient)
+($Ship top speed $Gradient) %% in warp gradient
 	($Ship drive parameters $Params)
 	(split $Params into $Gradient $ $ $)
+
+($Ship speed limit $Max) %% in millisectors per minute
+    ($Ship top speed $Gradient)
+	($Gradient plus 1 into $Above)
+	(speed for warp gradient $Above into $Speed)
+	($Speed minus 1 into $Max)
 
 ($Ship cruising speed $Gradient)
 	($Ship drive parameters $Params)
@@ -314,8 +322,10 @@
 	(turn $Ship $Mode toward heading $Helm)
 
 (accelerate $Ship to throttle setting)
+	($Ship throttle setting $Desired)
+	($Ship speed limit $Max)
+	(min $Desired $Max $Throttle)
 	($Ship speed $Speed)
-	($Ship throttle setting $Throttle)
 	(if) ($Speed < $Throttle) (then)
 		($Ship acceleration $Acceleration)
 		($Speed plus $Acceleration into $MaxSpeed)
@@ -386,13 +396,34 @@
 		($Result = $Energy)
 	(endif)
 
+($Ship max speed $Available $Speed $Result)
+    ($Ship energy needed for speed $Speed into $Needed)
+	(if) ($Needed > $Available) (then)
+	    (warp gradient for speed $Speed into $Gradient)
+		(speed for warp gradient $Gradient into $BottomOfGradient)
+		($BottomOfGradient minus 1 into $NewSpeed)
+		($Ship max speed $Available $NewSpeed $Result)
+	(else)
+	    ($Result = $Speed)
+	(endif)
+
+($Ship maximum speed for energy $Energy into $Result)
+    ($Ship drive efficiency $Efficiency)
+	($Efficiency times $Energy into $Proposed)
+	(warp gradient for speed $Proposed into $Gradient)
+	($Ship cruising speed $Cruising)
+	(if) ($Gradient > $Cruising) (then)
+	    ($Ship max speed $Energy $Proposed $Result)
+	(else)
+	    ($Result = $Proposed)
+	(endif)
+
 (adjust $Ship throttle for remaining energy)
 	($Ship throttle setting $Speed)
 	($Ship energy needed for speed $Speed into $Needed)
 	($Ship energy $Energy)
 	(if) ($Energy < $Needed) (then)
-		($Ship drive efficiency $Efficiency)
-		($Energy times $Efficiency into $Throttle)
+		($Ship maximum speed for energy $Energy into $Throttle)
 		(set throttle for $Ship to speed $Throttle)
 	(endif)
 
