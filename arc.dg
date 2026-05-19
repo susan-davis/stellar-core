@@ -6,6 +6,8 @@
 
 %%-------------------------------- INTERFACES --------------------------------
 
+(interface ($<Ship elevation $>Elevation))
+
 (interface (firing arc from $<Ship to $<Target into $>Arc))
 
 (interface (fire from $<Ship to $<Target is in arc $<Arc))
@@ -29,6 +31,28 @@
 (interface ($<Ship $<SystemType bearing on target $<Target into $>List))
 
 %%------------------------------ IMPLEMENTATION ------------------------------
+
+%% This is really a 2D implementation. We only use elevation for same-position
+%% firing, so we just set them in the order in which grid-objects were defined.
+%% This should be a rare enough case that we won't bother to memoize it.
+
+($GridObject elevation $Elevation)
+    (collect $Obj) *(grid object $Obj) (into $Objects)
+	(index $GridObject $Objects $Elevation)
+
+%% Same-position firing, including at stellar objects, happens vertically.
+
+(firing arc from $Ship to $Target into $Arc)
+    ($Ship position $Here)
+	($Target position $There)
+	($Here = $There)
+	($Ship elevation $Us)
+	($Target elevation $Them)
+	(if) ($Us > $Them) (then)
+	    ($Arc = #down)
+	(else)
+	    ($Arc = #up)
+	(endif)
 
 %% The simplest firing arcs are numbered 1 through 8, and are 45 degree
 %% sectors, starting just starboard of the forward centreline. This matches
