@@ -99,7 +99,7 @@
 
 #delta-2-4
 (test *)
-(run *)p	(2 delta 4 into 2)
+(run *)	(2 delta 4 into 2)
 
 #delta-2-2
 (test *)
@@ -228,6 +228,30 @@
 #split-smallest
 (test *)
 (run *)	(split 1 into 0 0 0 1)
+
+#index-not-found
+(test *)
+(run *)	~(index 7 [2 3 4 6 5] $)
+
+#index-1
+(test *)
+(run *)	(index 2 [2 3 4 6 5] 1)
+
+#index-2
+(test *)
+(run *)	(index 3 [2 3 4 6 5] 2)
+
+#index-3
+(test *)
+(run *)	(index 4 [2 3 4 6 5] 3)
+
+#index-4
+(test *)
+(run *)	(index 6 [2 3 4 6 5] 4)
+
+#index-5
+(test *)
+(run *)	(index 5 [2 3 4 6 5] 5)
 
 #take-last-n
 (test *)

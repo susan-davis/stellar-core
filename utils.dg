@@ -36,6 +36,8 @@
 
 (interface (split $<Number into $>Thousands $>Hundreds $>Tens $>Ones))
 
+(interface (index $<Element $<List $>Index)) %% opposite of (nth $ $ $)
+
 (interface (take last $<N from $<List into $>Suffix))
 
 (interface (replace element $<N in $<List with $<Element into $>NewList))
@@ -162,6 +164,23 @@
 	($Remaining1 modulo 100 into $Remaining2)
 	($Remaining2 divided by 10 into $Tens)
 	($Remaining2 modulo 10 into $Ones)
+
+(find-index $ [] 0 $)
+
+(find-index $Element $List $Index $Count)
+    ([$Head | $Tail] = $List)
+	(if) ($Head = $Element) (then)
+	    ($Index = $Count)
+	(else)
+	    (add 1 to $Count into $Next)
+		(find-index $Element $Tail $Index $Next)
+	(endif)
+
+(index $Element $List $Index) %% opposite of (nth $ $ $)
+    (find-index $Element $List $Index 1)
+	(if) ($Index = 0) (then)
+	    (fail)
+	(endif)
 
 (take last $N from $List into $Suffix)
 	(reverse $List $Reverse)
