@@ -27,7 +27,7 @@
 
 #distant-target-elevation
 (test *)
-(run *)    (#distant-target elevation $E) $E
+(run *)    (#distant-target elevation 5)
 
 #firing-arc-closest-target
 (test *)
@@ -44,6 +44,25 @@
 #firing-arc-distant-target
 (test *)
 (run *)    (firing arc from #test-ship to #distant-target into 6)
+
+#firing-arc-same-position
+(test *)
+(run *)
+    (now) (stacking limit 16383)
+    (#test-ship position $Pos)
+	(drag #closest-target to position $Pos)
+	(firing arc from #test-ship to #closest-target into #up)
+	(firing arc from #closest-target to #test-ship into #down)
+
+#shield-direction-same-position
+(test *)
+(run *)
+    (now) (stacking limit 16383)
+    (#test-ship position $Pos)
+	(drag #closest-target to position $Pos)
+	(#test-ship is at the same position as #closest-target)
+	(shield direction for #test-ship against #closest-target into #down)
+	(shield direction for #closest-target against #test-ship into #up)
 
 #shield-direction-closest-target
 (test *)
