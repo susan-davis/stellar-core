@@ -409,7 +409,9 @@
 
 ($Ship maximum speed for energy $Energy into $Result)
     ($Ship drive efficiency $Efficiency)
-	($Efficiency times $Energy into $Proposed)
+	($Efficiency times $Energy into $Product)
+	($Ship speed limit $Max)
+	(min $Product $Max $Proposed)
 	(warp gradient for speed $Proposed into $Gradient)
 	($Ship cruising speed $Cruising)
 	(if) ($Gradient > $Cruising) (then)
