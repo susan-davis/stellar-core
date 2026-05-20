@@ -1,7 +1,7 @@
 %% grid.dg
 %% Include utils.dg when compiling or debugging.
 
-(extension version)	Grid movement v0.2, by Susan Davis (line)
+(extension version)	Grid movement v0.3, by Susan Davis (line)
 
 %% Implements free movement on a cartesian grid. The grid is divided into
 %% 10-unit squares, with diagonal squares 14 units from each other, and only
@@ -19,6 +19,10 @@
 
 ~(y increases south) %% un-negate to make Y increase as you go south, not north
 
+~(square per unit)   %% un-negate to make squares 1 unit, not 10
+
+~(occupied squares block movement) %% un-negate to make objects obstacles
+
 %% The maximum grid size is 1160 x 1160, unless you're willing to have ranges
 %% not be able to be calcuated between two distant objects, in which case you
 %% can use anything up to 16382 x 16382. (Location [16383 16383] specifies that
@@ -27,11 +31,11 @@
 %% you wish. For safety, starting the origin at [100 100] rather than [0 0] can
 %% prevent subtraction overflows.
 
-(global variable (map offset 100))   %% recommended safety margin
+(global variable (map offset 100)) %% recommended safety margin
 
-(global variable (map size  1160))   %% largest map that we can range across
+(global variable (map size  1160)) %% largest map that we can range across
 
-(global variable (stacking limit 1)) %% max objects per square
+(global variable (stacking limit 16383)) %% max objects per square
 
 %%-------------------------------- INTERFACES --------------------------------
 
@@ -63,7 +67,21 @@
 
 (interface ($<Object is at the same position as $<Target))
 
-(interface (object at $<Position into $>Obj))
+(interface (object at $<Position into $>Obj)) %% first object if more than one
+
+(interface (objects at $<Position into $>List))
+
+(interface (number of objects at $<Position into $>Num))
+
+(interface (another object can move to $<Position))
+
+%% Moving on the grid
+
+(interface ($<Object can jump $<Num obstacles)) %% 16383 = unlimited
+
+(interface ($<Object moves $<Num squares $<Direction)) %% raw squares
+
+(interface ($<Object moves $<Num units $<Direction)) %% adjusted for diagonal
 
 %% Most other games use floating point numbers, floating point math,
 %% trignometry, square roots, and so forth, to get ranges and bearings
@@ -109,6 +127,7 @@
 	~(position $Place is on the map)
 
 (place $Object at $Place)
+    (another object can move to $Place)
 	(if) ($Object position $Position) (then)
 		([$ $ | $Tail] = $Position)
 	(else)
@@ -135,6 +154,22 @@
 	*(grid object $Obj)
 	($Obj position $There)
 	(position $Here equals position $There)
+
+(objects at $Here into $List)
+    (collect $Obj) {
+	    *(grid object $Obj)
+        ($Obj position $There)
+		(position $Here equals position $There)
+	} (into $List)
+
+(number of objects at $Position into $Num)
+    (objects at $Position into $List)
+	(length of $List into $Num)
+
+(another object can move to $Position)
+    (stacking limit $Limit)
+	(number of objects at $Position into $Num)
+	($Num < $Limit)
 
 %% ------------------------- SQUARES AND COLLISIONS -------------------------
 
@@ -232,6 +267,39 @@
 	(endif)
 	([$NewX $NewY | $Tail] = $Result)
 
+(next unoccupied square $Direction from $Here is $Num away)
+    (fully bound $Here)
+    (next square $Direction from $Here into $There)
+	(if) (another object can move to $There) (then)
+	    ($Num = 1)
+	(else)
+	    (next unoccupied square $Direction from $There is $ThatMany away)
+		($ThatMany plus 1 into $Num)
+	(endif)
+
+%%--------------------------------- MOVEMENT ----------------------------------
+
+($ can jump 0 obstacles) %% always true
+
+($ can jump $ obstacles) %% override for more complicated cases
+    ~(occupied squares block movement)
+
+($ moves 0 squares $) %% do nothing
+
+($Object moves $Num squares $Direction)
+    (grid object $Object)
+    ($Object position $Here)
+    (next unoccupied square $Direction from $Here is $Moves away)
+	($Moves minus 1 into $Jumps)
+	(if) ($Object can jump $Jumps obstacles) ~($Moves > $Num) (then)
+	    ($Moves squares $Direction from $Here into $There)
+		(now) ($Object position $There)
+		($Num minus $Moves into $Remaining)
+		($Object moves $Remaining squares $Direction)
+	(endif)
+
+($ moves $ squares $) %% don't move if the above fails somehow
+
 %%----------------------------------- RANGE -----------------------------------
 
 %% No square roots, so no Pythagorean Theorem, so we use a lookup table here.
@@ -315,7 +383,12 @@
 	($RangeOnes divided by 10 into $Ones)
 	($Thousands plus $Hundreds into $Sum1)
 	($Tens plus $Ones into $Sum2)
-	($Sum1 plus $Sum2 into $Range)
+	($Sum1 plus $Sum2 into $Total)
+	(if) (square per unit) (then)
+	    ($Total divided by 10 into $Range)
+	(else)
+	    ($Total = $Range)
+	(endif)
 
 (range from $Ship to $Target into $Range)
 	($Ship   position $Here)

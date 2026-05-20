@@ -105,14 +105,18 @@
 #object-at-ship-position
 (test *)
 (run *)
-	(#test-ship initial position $Here)
-	(object at $Here into $Obj)
-	(assert $Obj = #test-ship)
+	(object at [344 454] into #test-ship)
+
+#object-at-ship-position-with-stacking
+(test *)
+(run *)
+    (place #closest-target at [344 454])
+	(object at [344 454] into #test-ship)
 
 #object-next-to-ship-position
 (test *)
 (run *)
-	~(object at [334 555] into $)
+	~(object at [334 455] into $)
 
 #objects-at-closest-target
 (test *)
@@ -137,6 +141,45 @@
 (run *)
 	~(object at [895 895] into $Obj)
 	~(bound $Obj)
+
+#objects-at-test-ship
+(test *)
+(run *)
+    (objects at [344 454] into [#test-ship])
+
+#objects-at-test-ship-with-stacking
+(test *)
+(run *)
+    (place #closest-target at [344 454])
+    (objects at [344 454] into [#test-ship #closest-target])
+
+#number-of-objects-at-test-ship
+(test *)
+(run *)
+    (number of objects at [344 454] into 1)
+
+#number-of-objects-with-stacking
+(test *)
+(run *)
+    (place #closest-target at [344 454])
+	(number of objects at [344 454] into 2)
+
+#another-object-can-move-to-test-ship
+(test *)
+(run *)
+    (another object can move to [344 454])
+
+#another-object-cant-move-to-test-ship
+(test *)
+(run *)
+    (now) (stacking limit 1)
+    ~(another object can move to [344 454])
+
+#enforce-stacking-limit
+(test *)
+(run *)
+    (now) (stacking limit 1)
+    ~(place #closest-target at [344 454])
 
 #next-coordinates-north
 (test *)
@@ -515,3 +558,92 @@
 	(now) (x increases west)
 	(now) ~(y increases south)
 	(11 squares #north from [344 454] into [344 465])
+
+#can-jump
+(test *)
+(run *)
+    (#test-ship can jump 1 obstacles)
+	(#test-ship can jump 16383 obstacles)
+
+#next-unoccupied-square-north-1
+(test *)
+(run *)
+    (now) (stacking limit 1)
+    (next unoccupied square #north from [344 454] is 1 away)
+
+#next-unoccupied-square-north-2
+(test *)
+(run *)
+    (now) (stacking limit 1)
+    (place #closest-target at [344 453])
+    (next unoccupied square #north from [344 454] is 2 away)
+
+#next-unoccupied-square-north-5
+(test *)
+(run *)
+    (now) (stacking limit 1)
+    (place #closest-target at [344 453])
+    (place #near-target at [344 452])
+    (place #far-target at [344 451])
+    (place #distant-target at [344 450])
+    (next unoccupied square #north from [344 454] is 5 away)
+
+#move-7-squares-north
+(test *)
+(run *)
+	(#test-ship moves 7 squares #north)
+	(#test-ship position [344 447 | $])
+
+#move-6-squares-northeast
+(test *)
+(run *)
+	(#test-ship moves 6 squares #northeast)
+	(#test-ship position [350 448 | $])
+
+#move-2-squares-east
+(test *)
+(run *)
+	(#test-ship moves 2 squares #east)
+	(#test-ship position [346 454 | $])
+
+#move-5-squares-southeast
+(test *)
+(run *)
+	(#test-ship moves 5 squares #southeast)
+	(#test-ship position [349 459 | $])
+
+#move-20-squares-south
+(test *)
+(run *)
+	(#test-ship moves 20 squares #south)
+	(#test-ship position [344 474 | $])
+
+#move-24-squares-southwest
+(test *)
+(run *)
+	(#test-ship moves 24 squares #southwest)
+	(#test-ship position [320 478 | $])
+
+#move-50-squares-west
+(test *)
+(run *)
+	(#test-ship moves 50 squares #west)
+	(#test-ship position [294 454 | $])
+
+#move-4-squares-northwest
+(test *)
+(run *)
+	(#test-ship moves 4 squares #northwest)
+	(#test-ship position [340 450 | $])
+
+#move-11-squares-east
+(test *)
+(run *)
+	(#test-ship moves 11 squares #east)
+	(#test-ship position [355 454 | $])
+
+#move-11-squares-north
+(test *)
+(run *)
+	(#test-ship moves 11 squares #north)
+	(#test-ship position [344 443 | $])
