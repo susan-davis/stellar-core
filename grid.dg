@@ -316,6 +316,16 @@
 	    ($Units divided by 14 into $Squares rounding evenly)
 	(endif)
 
+($Object moves $Num units $Direction)
+    (grid object $Object)
+	(if) ($Direction is one of [#northeast #northwest #southeast #southwest])
+	(then)
+	    ($Num units is $Squares squares diagonally)
+	(else)
+	    ($Num units is $Squares squares orthogonally)
+	(endif)
+	($Object moves $Squares squares $Direction)
+
 %%----------------------------------- RANGE -----------------------------------
 
 %% No square roots, so no Pythagorean Theorem, so we use a lookup table here.

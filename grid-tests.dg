@@ -771,6 +771,11 @@
 (run *)
     (35 units is 4 squares orthogonally)
 
+#1170-units-ortho
+(test *)
+(run *)
+    (11700 units is 1170 squares orthogonally) %% max supported size
+
 #16383-units-ortho
 (test *)
 (run *)
@@ -799,6 +804,12 @@
 (run *)
     (now) (one unit per square)
     (34 units is 34 squares orthogonally)
+
+#1170-units-ortho-small
+(test *)
+(run *)
+    (now) (one unit per square)
+    (1170 units is 1170 squares orthogonally)
 
 #16383-units-ortho-small
 (test *)
@@ -877,3 +888,120 @@
 (run *)
     (now) (one unit per square)
     (1638 units is 1170 squares diagonally) %% max supported size anyway
+
+#move-10-units-north
+(test *)
+(run *)
+	(#test-ship moves 10 units #north)
+	(#test-ship position [344 453 | $])
+
+#move-10-units-north-small
+(test *)
+(run *)
+    (now) (one unit per square)
+	(#test-ship moves 1 units #north)
+	(#test-ship position [344 453 | $])
+
+#move-70-units-north
+(test *)
+(run *)
+	(#test-ship moves 70 units #north)
+	(#test-ship position [344 447 | $])
+
+#move-7-units-north-small
+(test *)
+(run *)
+    (now) (one unit per square)
+	(#test-ship moves 7 units #north)
+	(#test-ship position [344 447 | $])
+
+#move-84-units-northeast
+(test *)
+(run *)
+	(#test-ship moves 84 units #northeast)
+	(#test-ship position [350 448 | $])
+
+#move-8-units-northeast-small
+(test *)
+(run *)
+    (now) (one unit per square)
+	(#test-ship moves 8 units #northeast)
+	(#test-ship position [350 448 | $])
+
+#move-20-units-east
+(test *)
+(run *)
+	(#test-ship moves 20 units #east)
+	(#test-ship position [346 454 | $])
+
+#move-2-units-east-small
+(test *)
+(run *)
+    (now) (one unit per square)
+	(#test-ship moves 2 units #east)
+	(#test-ship position [346 454 | $])
+
+#move-70-squares-southeast
+(test *)
+(run *)
+	(#test-ship moves 70 units #southeast)
+	(#test-ship position [349 459 | $])
+
+#move-7-units-southeast-small
+(test *)
+(run *)
+    (now) (one unit per square)
+	(#test-ship moves 7 units #southeast)
+	(#test-ship position [349 459 | $])
+
+#move-20-squares-south
+(test *)
+(run *)
+	(#test-ship moves 200 units #south)
+	(#test-ship position [344 474 | $])
+
+#move-20-units-south-small
+(test *)
+(run *)
+    (now) (one unit per square)
+	(#test-ship moves 20 units #south)
+	(#test-ship position [344 474 | $])
+
+#move-336-units-southwest
+(test *)
+(run *)
+	(#test-ship moves 336 units #southwest)
+	(#test-ship position [320 478 | $])
+
+#move-34-units-southwest-small
+(test *)
+(run *)
+    (now) (one unit per square)
+	(#test-ship moves 34 units #southwest)
+	(#test-ship position [320 478 | $])
+
+#move-500-units-west
+(test *)
+(run *)
+	(#test-ship moves 500 units #west)
+	(#test-ship position [294 454 | $])
+
+#move-50-units-west-small
+(test *)
+(run *)
+    (now) (one unit per square)
+	(#test-ship moves 50 units #west)
+	(#test-ship position [294 454 | $])
+
+#move-56-units-northwest
+(test *)
+(run *)
+	(#test-ship moves 56 units #northwest)
+	(#test-ship position [340 450 | $])
+
+#move-6-units-northwest-small
+(test *)
+(run *)
+    (now) (one unit per square)
+	(#test-ship moves 6 units #northwest)
+	(#test-ship position [340 450 | $])
