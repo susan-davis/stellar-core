@@ -19,7 +19,7 @@
 
 ~(y increases south) %% un-negate to make Y increase as you go south, not north
 
-~(square per unit)   %% un-negate to make squares 1 unit, not 10
+~(one unit squares)   %% un-negate to make squares 1 unit, not 10
 
 ~(occupied squares block movement) %% un-negate to make objects obstacles
 
@@ -384,7 +384,7 @@
 	($Thousands plus $Hundreds into $Sum1)
 	($Tens plus $Ones into $Sum2)
 	($Sum1 plus $Sum2 into $Total)
-	(if) (square per unit) (then)
+	(if) (one unit squares) (then)
 	    ($Total divided by 10 into $Range)
 	(else)
 	    ($Total = $Range)

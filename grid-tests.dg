@@ -28,6 +28,7 @@
 	(now) (y increases south)
 	(now) (stacking limit 16383)
 	(now) ~(occupied squares block movement)
+	(now) ~(one unit squares)
     (exhaust) {
         *(grid object $Object)
         ($Object initial position $Position)
@@ -414,6 +415,30 @@
 (test *)
 (run *)
 	(range from #test-ship to #distant-target into 6049)
+
+#range-to-closest-small
+(test *)
+(run *)
+    (now) (one unit squares)
+	(range from #test-ship to #closest-target into 14)
+
+#range-to-near-small
+(test *)
+(run *)
+    (now) (one unit squares)
+	(range from #test-ship to #near-target into 42)
+
+#range-to-far-small
+(test *)
+(run *)
+    (now) (one unit squares)
+	(range from #test-ship to #far-target into 189)
+
+#range-to-distant-small
+(test *)
+(run *)
+    (now) (one unit squares)
+	(range from #test-ship to #distant-target into 604)
 
 %% maximum distance we can represent
 #range-to-very-distant
