@@ -28,7 +28,7 @@
 	(now) (y increases south)
 	(now) (stacking limit 16383)
 	(now) ~(occupied squares block movement)
-	(now) ~(one unit squares)
+	(now) ~(one unit per square)
     (exhaust) {
         *(grid object $Object)
         ($Object initial position $Position)
@@ -419,25 +419,25 @@
 #range-to-closest-small
 (test *)
 (run *)
-    (now) (one unit squares)
+    (now) (one unit per square)
 	(range from #test-ship to #closest-target into 14)
 
 #range-to-near-small
 (test *)
 (run *)
-    (now) (one unit squares)
+    (now) (one unit per square)
 	(range from #test-ship to #near-target into 42)
 
 #range-to-far-small
 (test *)
 (run *)
-    (now) (one unit squares)
+    (now) (one unit per square)
 	(range from #test-ship to #far-target into 189)
 
 #range-to-distant-small
 (test *)
 (run *)
-    (now) (one unit squares)
+    (now) (one unit per square)
 	(range from #test-ship to #distant-target into 604)
 
 %% maximum distance we can represent
@@ -745,3 +745,135 @@
     (place #distant-target at [344 450])
     (#test-ship moves 5 squares #north)
     (#test-ship position [344 454 | $])
+
+#0-units-ortho
+(test *)
+(run *)
+    (0 units is 0 squares orthogonally)
+
+#4-units-ortho
+(test *)
+(run *)
+    (4 units is 0 squares orthogonally)
+
+#5-units-ortho
+(test *)
+(run *)
+    (5 units is 1 squares orthogonally)
+
+#34-units-ortho
+(test *)
+(run *)
+    (34 units is 3 squares orthogonally)
+
+#35-units-ortho
+(test *)
+(run *)
+    (35 units is 4 squares orthogonally)
+
+#16383-units-ortho
+(test *)
+(run *)
+    (16383 units is 1638 squares orthogonally)
+
+#0-units-ortho-small
+(test *)
+(run *)
+    (now) (one unit per square)
+    (0 units is 0 squares orthogonally)
+
+#4-units-ortho-small
+(test *)
+(run *)
+    (now) (one unit per square)
+    (4 units is 4 squares orthogonally)
+
+#5-units-ortho-small
+(test *)
+(run *)
+    (now) (one unit per square)
+    (5 units is 5 squares orthogonally)
+
+#34-units-ortho-small
+(test *)
+(run *)
+    (now) (one unit per square)
+    (34 units is 34 squares orthogonally)
+
+#16383-units-ortho-small
+(test *)
+(run *)
+    (now) (one unit per square)
+    (16383 units is 16383 squares orthogonally)
+
+#0-units-diag
+(test *)
+(run *)
+    (0 units is 0 squares diagonally)
+
+#6-units-diag
+(test *)
+(run *)
+    (6 units is 0 squares diagonally)
+
+#7-units-diag
+(test *)
+(run *)
+    (7 units is 1 squares diagonally)
+
+#34-units-diag
+(test *)
+(run *)
+    (34 units is 2 squares diagonally)
+
+#35-units-diag
+(test *)
+(run *)
+    (35 units is 3 squares diagonally)
+
+#16383-units-diag
+(test *)
+(run *)
+    (16383 units is 1170 squares diagonally)
+
+#0-units-diag-small
+(test *)
+(run *)
+    (now) (one unit per square)
+    (0 units is 0 squares diagonally)
+
+#3-units-diag-small
+(test *)
+(run *)
+    (now) (one unit per square)
+    (3 units is 2 squares diagonally)
+
+#6-units-diag-small
+(test *)
+(run *)
+    (now) (one unit per square)
+    (6 units is 4 squares diagonally)
+
+#7-units-diag-small
+(test *)
+(run *)
+    (now) (one unit per square)
+    (7 units is 5 squares diagonally)
+
+#34-units-diag-small
+(test *)
+(run *)
+    (now) (one unit per square)
+    (34 units is 24 squares diagonally)
+
+#35-units-diag-small
+(test *)
+(run *)
+    (now) (one unit per square)
+    (35 units is 25 squares diagonally)
+
+#1638-units-diag-small
+(test *)
+(run *)
+    (now) (one unit per square)
+    (1638 units is 1170 squares diagonally) %% max supported size anyway

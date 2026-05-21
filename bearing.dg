@@ -611,7 +611,7 @@
 	(else)
 		($Step = 10) ($Half = 5)
 	(endif)
-    (next square $Direction from $Origin into $Next) %% why unbound?
+    (next square $Direction from $Origin into $Next)
 	(fully bound $Next)
 	(if) ($Origin = $Destination) (or) ($Distance < $Half)
 		 (or) (position $Next is off the map)
