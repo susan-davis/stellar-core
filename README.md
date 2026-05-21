@@ -2,11 +2,15 @@
 Common functionality for *Stellar Union* games. This project contains all the infrastructure needed to implement a *Cygnus*-class (or other) starship in the Stellar Union universe, fly it around, dock and undock, land and take off, repair damage, scan for anomalies, go for EVAs outside the ship, beam to places with the Matter Transport Beam, and generally make an IF game that plays like an episode of a show along the lines of *Star Trek*, *Galaxy Quest*, *The Orville*, or the like.
 
 ## Modules
-`grid.dg` -- implements the basics of ranges, bearings, and moving objects around on a square grid.
+`grid.dg` -- implements the basics of ranges and movement on a grid.
+
+`bearing.dg` -- implements bearings, headings, and 360 degree movement.
 
 `sector.dg` -- divides the grid for `grid.dg` into 10x10 quadrants, sectors, and subsectors.
 
 `maneuver.dg` -- implements moving ships around to various destinations in a quadrant.
+
+`schema.dg` -- the data model for representing starships.
 
 `damage.dg` -- implements the damage model for ships.
 
@@ -27,12 +31,6 @@ Common functionality for *Stellar Union* games. This project contains all the in
 `d6.dg` -- `UNDO`-safe rolls of six-sided dice; also allows us to rig the dice to stage-manage scripted outcomes.
 
 `d6-lite.dg` -- drop-in replacement for `d6.dg` for vintage hardware.
-
-`no-maneuver.dg` -- minimal replacement for `maneuver.dg` when maneuvering isn't needed.
-
-`no-damage.dg` -- minimal replacement for `damage.dg` when ships aren't going to be damaged.
-
-`no-sensor.dg` -- minimal replacement for `sensor.dg` when no one will be looking at the sensor output.
 
 `stdlib.dg` -- the Dialog standard library, not included in source control; get this from the Dialog distribution.
 
