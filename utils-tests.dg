@@ -145,6 +145,30 @@
 (test *)
 (run *)	(6 divided by 3 into 2 rounding up)
 
+#3-div-3-rounding-evenly
+(test *)
+(run *)	(3 divided by 3 into 1 rounding evenly)
+
+#4-div-3-rounding-evenly
+(test *)
+(run *)	(4 divided by 3 into 1 rounding evenly)
+
+#4-div-2-rounding-evenly
+(test *)
+(run *)	(4 divided by 2 into 2 rounding evenly)
+
+#5-div-3-rounding-evenly
+(test *)
+(run *)	(5 divided by 3 into 2 rounding evenly)
+
+#6-div-3-rounding-evenly
+(test *)
+(run *)	(6 divided by 3 into 2 rounding evenly)
+
+#5-div-2-rounding-evenly
+(test *)
+(run *)	(5 divided by 2 into 3 rounding evenly)
+
 #intentionally-fail-this-test
 %%(test *)
 (run *)	(fail)

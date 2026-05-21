@@ -32,6 +32,8 @@
 
 (interface ($<Num1 divided by $<Num2 into $>Result rounding up))
 
+(interface ($<Num1 divided by $<Num2 into $>Result rounding evenly))
+
 (interface (round $<Num to the nearest $<Increment into $>Result))
 
 (interface (split $<Number into $>Thousands $>Hundreds $>Tens $>Ones))
@@ -146,6 +148,16 @@
 	(subtract 1 from $Num1 into $Num)
 	($Num divided by $Num2 into $Div)
 	($Div plus 1 into $Result)
+
+($Num1 divided by $Num2 into $Result rounding evenly)
+	($Num1 divided by $Num2 into $Div)
+	($Num1 modulo $Num2 into $Mod)
+	($Mod times 2 into $Double)
+	(if) ($Double < $Num2) (then)
+	    ($Result = $Div)
+	(else)
+	    ($Div plus 1 into $Result)
+	(endif)
 
 (round $Num to the nearest $Increment into $Result)
 	($Num modulo $Increment into $Mod)
