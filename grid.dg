@@ -268,8 +268,8 @@
 	([$NewX $NewY | $Tail] = $Result)
 
 (next unoccupied square $Direction from $Here is $Num away)
-    (fully bound $Here)
     (next square $Direction from $Here into $There)
+    (fully bound $There)
 	(if) (another object can move to $There) (then)
 	    ($Num = 1)
 	(else)
