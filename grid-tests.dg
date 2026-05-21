@@ -26,7 +26,7 @@
 (small map)
     (now) (one unit per square)
 	(now) (map size 11700)
-	(now) (map offset 100)
+	(now) (map offset 1000)
 
 (inverted map)
     (now) (x increases west)
@@ -40,7 +40,7 @@
 	(now) ~(x increases west)
 	(now) (y increases south)
 	(now) ~(one unit per square)
-	(now) (map size 1100)
+	(now) (map size 1170)
 	(now) (map offset 100)
 	(now) (stacking limit 16383)
 	(now) ~(occupied squares block movement)
@@ -88,6 +88,7 @@
 #max-coords-small
 (test *)
 (run *)
+    (small map)
 	(maximum coordinate value 12700)
 
 #max-coords-on-map-small
