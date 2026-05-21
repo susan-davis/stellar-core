@@ -291,7 +291,7 @@
     ($Object position $Here)
     (next unoccupied square $Direction from $Here is $Moves away)
 	($Moves minus 1 into $Jumps)
-	(if) ($Object can jump $Jumps obstacles) ~($Moves > $Num) (then)
+	(if) ~($Moves > $Num) ($Object can jump $Jumps obstacles) (then)
 	    ($Moves squares $Direction from $Here into $There)
 		(now) ($Object position $There)
 		($Num minus $Moves into $Remaining)

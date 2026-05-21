@@ -26,6 +26,8 @@
 (set up $)
 	(now) ~(x increases west)
 	(now) (y increases south)
+	(now) (stacking limit 16383)
+	(now) ~(occupied squares block movement)
     (exhaust) {
         *(grid object $Object)
         ($Object initial position $Position)
@@ -588,6 +590,12 @@
     (place #distant-target at [344 450])
     (next unoccupied square #north from [344 454] is 5 away)
 
+#move-1-square-north
+(test *)
+(run *)
+	(#test-ship moves 1 squares #north)
+	(#test-ship position [344 453 | $])
+
 #move-7-squares-north
 (test *)
 (run *)
@@ -647,3 +655,68 @@
 (run *)
 	(#test-ship moves 11 squares #north)
 	(#test-ship position [344 443 | $])
+
+#move-1-stacking
+(test *)
+(run *)
+    (place #closest-target at [344 453])
+	(#test-ship moves 1 squares #north)
+	(#test-ship position [344 453 | $])
+
+#blocked-1
+(test *)
+(run *)
+    (now) (occupied squares block movement)
+	(now) (stacking limit 1)
+	(place #closest-target at [344 453])
+	(#closest-target moves 1 squares #south)
+	(#closest-target position [344 453 | $])
+
+#blocked-2
+(test *)
+(run *)
+    (now) (occupied squares block movement)
+	(now) (stacking limit 1)
+	(place #closest-target at [344 453])
+	(#closest-target moves 2 squares #south)
+	(#closest-target position [344 453 | $])
+
+#jump-1
+(test *)
+(run *)
+    (now) (stacking limit 1)
+    (place #closest-target at [344 453])
+	(#test-ship moves 2 squares #north)
+	(#test-ship position [344 452 | $])
+
+#jump-and-move
+(test *)
+(run *)
+    (now) (stacking limit 1)
+    (place #closest-target at [344 453])
+	(#test-ship moves 3 squares #north)
+	(#test-ship position [344 451 | $])
+
+(#test-ship can jump $Num obstacles)
+    (just) ~($Num = 4)
+
+#can-jump
+(test *)
+(run *)
+    (#test-ship can jump 1 obstacles)
+
+#cant-jump
+(test *)
+(run *)
+    ~(#test-ship can jump 4 obstacles)
+
+#dont-jump-4
+(test *)
+(run *)
+    (now) (stacking limit 1)
+    (place #closest-target at [344 453])
+    (place #near-target at [344 452])
+    (place #far-target at [344 451])
+    (place #distant-target at [344 450])
+    (#test-ship moves 5 squares #north)
+    (#test-ship position [344 454 | $])
