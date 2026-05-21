@@ -15,15 +15,15 @@
 
 %%----------------------------------------------------------------------------
 
-~(x increases west)  %% un-negate to make X increase as you go west, not east
+~(x increases west)   %% un-negate to make X increase as you go west, not east
 
-~(y increases south) %% un-negate to make Y increase as you go south, not north
+(y increases south)   %% un-negate to make Y increase as you go south not north
 
-~(one unit per square)   %% un-negate to make squares 1 unit, not 10
+~(one unit per square) %% un-negate to make squares 1 unit, not 10
 
 ~(occupied squares block movement) %% un-negate to make objects obstacles
 
-%% The maximum grid size is 1160 x 1160, unless you're willing to have ranges
+%% The maximum grid size is 1170 x 1170, unless you're willing to have ranges
 %% not be able to be calcuated between two distant objects, in which case you
 %% can use anything up to 16382 x 16382. (Location [16383 16383] specifies that
 %% the object has been removed from the map.) Range is measured in abstract
@@ -33,7 +33,7 @@
 
 (global variable (map offset 100)) %% recommended safety margin
 
-(global variable (map size  1160)) %% largest map that we can range across
+(global variable (map size  1170)) %% largest map that we can range across
 
 (global variable (stacking limit 16383)) %% max objects per square
 

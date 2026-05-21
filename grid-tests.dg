@@ -23,12 +23,30 @@
 #non-grid-object
 (* initial position [374 474 0])
 
-(set up $)
+(small map)
+    (now) (one unit per square)
+	(now) (map size 11700)
+	(now) (map offset 100)
+
+(inverted map)
+    (now) (x increases west)
+    (now) ~(y increases south)
+
+(blocking map)
+	(now) (stacking limit 1)
+	(now) (occupied squares block movement)
+
+(reset map)
 	(now) ~(x increases west)
 	(now) (y increases south)
+	(now) ~(one unit per square)
+	(now) (map size 1100)
+	(now) (map offset 100)
 	(now) (stacking limit 16383)
 	(now) ~(occupied squares block movement)
-	(now) ~(one unit per square)
+
+(set up $)
+    (reset map)
     (exhaust) {
         *(grid object $Object)
         ($Object initial position $Position)
@@ -40,17 +58,17 @@
 #max-coords
 (test *)
 (run *)
-	(maximum coordinate value 1260)
+	(maximum coordinate value 1270)
 
 #max-coords-on-map
 (test *)
 (run *)
-	(position [1260 1260] is on the map)
+	(position [1270 1270] is on the map)
 
 #max-coords-plus-one-not-on-map
 (test *)
 (run *)
-	(position [1261 1261] is off the map)
+	(position [1271 1271] is off the map)
 
 #maxint-not-on-map
 (test *)
@@ -66,6 +84,41 @@
 (test *)
 (run *)
 	(position [99 99] is off the map)
+
+#max-coords-small
+(test *)
+(run *)
+	(maximum coordinate value 12700)
+
+#max-coords-on-map-small
+(test *)
+(run *)
+    (small map)
+	(position [12700 12700] is on the map)
+
+#max-coords-plus-one-not-on-map-small
+(test *)
+(run *)
+    (small map)
+	(position [12710 12710] is off the map)
+
+#maxint-not-on-map-small
+(test *)
+(run *)
+    (small map)
+	(position [16383 16383] is off the map)
+
+#offset-on-map-small
+(test *)
+(run *)
+    (small map)
+	(position [1000 1000] is on the map)
+
+#offset-minus-one-not-on-map-small
+(test *)
+(run *)
+    (small map)
+	(position [999 999] is off the map)
 
 #position-schema
 (test *)
@@ -175,13 +228,13 @@
 #another-object-cant-move-to-test-ship
 (test *)
 (run *)
-    (now) (stacking limit 1)
+    (blocking map)
     ~(another object can move to [344 454])
 
 #enforce-stacking-limit
 (test *)
 (run *)
-    (now) (stacking limit 1)
+    (blocking map)
     ~(place #closest-target at [344 454])
 
 #next-coordinates-north
@@ -267,113 +320,97 @@
 #next-coordinates-north-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(next coordinates #north from 5 5 into 5 6)
 
 #next-coordinates-northeast-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(next coordinates #northeast from 5 5 into 4 6)
 
 #next-coordinates-east-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(next coordinates #east from 5 5 into 4 5)
 
 #next-coordinates-southeast-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(next coordinates #southeast from 5 5 into 4 4)
 
 #next-coordinates-south-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(next coordinates #south from 5 5 into 5 4)
 
 #next-coordinates-southwest-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(next coordinates #southwest from 5 5 into 6 4)
 
 #next-coordinates-west-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(next coordinates #west from 5 5 into 6 5)
 
 #next-coordinates-northwest-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(next coordinates #northwest from 5 5 into 6 6)
 
 #next-square-north-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(next square #north from [344 454] into [344 455])
 
 #next-square-northeast-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(next square #northeast from [344 454] into [343 455])
 
 #next-square-east-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(next square #east from [344 454] into [343 454])
 
 #next-square-southeast-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(next square #southeast from [344 454] into [343 453])
 
 #next-square-south-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(next square #south from [344 454] into [344 453])
 
 #next-square-southwest-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(next square #southwest from [344 454] into [345 453])
 
 #next-square-west-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(next square #west from [344 454] into [345 454])
 
 #next-square-northwest-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(next square #northwest from [344 454] into [345 455])
 
 #look-up-range-0-1
@@ -419,25 +456,25 @@
 #range-to-closest-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
 	(range from #test-ship to #closest-target into 14)
 
 #range-to-near-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
 	(range from #test-ship to #near-target into 42)
 
 #range-to-far-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
 	(range from #test-ship to #far-target into 189)
 
 #range-to-distant-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
 	(range from #test-ship to #distant-target into 604)
 
 %% maximum distance we can represent
@@ -519,71 +556,61 @@
 #7-squares-north-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(7 squares #north from [344 454] into [344 461])
 
 #6-squares-northeast-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(6 squares #northeast from [344 454] into [338 460])
 
 #2-squares-east-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(2 squares #east from [344 454] into [342 454])
 
 #5-squares-southeast-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(5 squares #southeast from [344 454] into [339 449])
 
 #20-squares-south-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(20 squares #south from [344 454] into [344 434])
 
 #24-squares-southwest-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(24 squares #southwest from [344 454] into [368 430])
 
 #50-squares-west-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(50 squares #west from [344 454] into [394 454])
 
 #4-squares-northwest-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(4 squares #northwest from [344 454] into [348 458])
 
 #11-squares-east-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(11 squares #east from [344 454] into [333 454])
 
 #11-squares-north-inverted
 (test *)
 (run *)
-	(now) (x increases west)
-	(now) ~(y increases south)
+    (inverted map)
 	(11 squares #north from [344 454] into [344 465])
 
 #can-jump
@@ -595,20 +622,20 @@
 #next-unoccupied-square-north-1
 (test *)
 (run *)
-    (now) (stacking limit 1)
+    (blocking map)
     (next unoccupied square #north from [344 454] is 1 away)
 
 #next-unoccupied-square-north-2
 (test *)
 (run *)
-    (now) (stacking limit 1)
+    (blocking map)
     (place #closest-target at [344 453])
     (next unoccupied square #north from [344 454] is 2 away)
 
 #next-unoccupied-square-north-5
 (test *)
 (run *)
-    (now) (stacking limit 1)
+    (blocking map)
     (place #closest-target at [344 453])
     (place #near-target at [344 452])
     (place #far-target at [344 451])
@@ -691,8 +718,7 @@
 #blocked-1
 (test *)
 (run *)
-    (now) (occupied squares block movement)
-	(now) (stacking limit 1)
+    (blocking map)
 	(place #closest-target at [344 453])
 	(#closest-target moves 1 squares #south)
 	(#closest-target position [344 453 | $])
@@ -700,8 +726,7 @@
 #blocked-2
 (test *)
 (run *)
-    (now) (occupied squares block movement)
-	(now) (stacking limit 1)
+    (blocking map)
 	(place #closest-target at [344 453])
 	(#closest-target moves 2 squares #south)
 	(#closest-target position [344 453 | $])
@@ -709,7 +734,7 @@
 #jump-1
 (test *)
 (run *)
-    (now) (stacking limit 1)
+    (blocking map)
     (place #closest-target at [344 453])
 	(#test-ship moves 2 squares #north)
 	(#test-ship position [344 452 | $])
@@ -717,7 +742,7 @@
 #jump-and-move
 (test *)
 (run *)
-    (now) (stacking limit 1)
+    (blocking map)
     (place #closest-target at [344 453])
 	(#test-ship moves 3 squares #north)
 	(#test-ship position [344 451 | $])
@@ -738,7 +763,7 @@
 #dont-jump-4
 (test *)
 (run *)
-    (now) (stacking limit 1)
+    (blocking map)
     (place #closest-target at [344 453])
     (place #near-target at [344 452])
     (place #far-target at [344 451])
@@ -784,37 +809,37 @@
 #0-units-ortho-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
     (0 units is 0 squares orthogonally)
 
 #4-units-ortho-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
     (4 units is 4 squares orthogonally)
 
 #5-units-ortho-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
     (5 units is 5 squares orthogonally)
 
 #34-units-ortho-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
     (34 units is 34 squares orthogonally)
 
 #1170-units-ortho-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
     (1170 units is 1170 squares orthogonally)
 
 #16383-units-ortho-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
     (16383 units is 16383 squares orthogonally)
 
 #0-units-diag
@@ -850,43 +875,43 @@
 #0-units-diag-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
     (0 units is 0 squares diagonally)
 
 #3-units-diag-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
     (3 units is 2 squares diagonally)
 
 #6-units-diag-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
     (6 units is 4 squares diagonally)
 
 #7-units-diag-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
     (7 units is 5 squares diagonally)
 
 #34-units-diag-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
     (34 units is 24 squares diagonally)
 
 #35-units-diag-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
     (35 units is 25 squares diagonally)
 
 #1638-units-diag-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
     (1638 units is 1170 squares diagonally) %% max supported size anyway
 
 #move-10-units-north
@@ -898,7 +923,7 @@
 #move-10-units-north-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
 	(#test-ship moves 1 units #north)
 	(#test-ship position [344 453 | $])
 
@@ -911,7 +936,7 @@
 #move-7-units-north-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
 	(#test-ship moves 7 units #north)
 	(#test-ship position [344 447 | $])
 
@@ -924,7 +949,7 @@
 #move-8-units-northeast-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
 	(#test-ship moves 8 units #northeast)
 	(#test-ship position [350 448 | $])
 
@@ -937,7 +962,7 @@
 #move-2-units-east-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
 	(#test-ship moves 2 units #east)
 	(#test-ship position [346 454 | $])
 
@@ -950,7 +975,7 @@
 #move-7-units-southeast-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
 	(#test-ship moves 7 units #southeast)
 	(#test-ship position [349 459 | $])
 
@@ -963,7 +988,7 @@
 #move-20-units-south-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
 	(#test-ship moves 20 units #south)
 	(#test-ship position [344 474 | $])
 
@@ -976,7 +1001,7 @@
 #move-34-units-southwest-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
 	(#test-ship moves 34 units #southwest)
 	(#test-ship position [320 478 | $])
 
@@ -989,7 +1014,7 @@
 #move-50-units-west-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
 	(#test-ship moves 50 units #west)
 	(#test-ship position [294 454 | $])
 
@@ -1002,6 +1027,6 @@
 #move-6-units-northwest-small
 (test *)
 (run *)
-    (now) (one unit per square)
+    (small map)
 	(#test-ship moves 6 units #northwest)
 	(#test-ship position [340 450 | $])
