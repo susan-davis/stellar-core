@@ -23,11 +23,22 @@
 #non-grid-object
 (* initial position [374 474 0])
 
-(set up $)
+(reset map)
 	(now) ~(x increases west)
 	(now) (y increases south)
-	(now) ~(occupied squares block movement)
+	(now) ~(one unit per square)
+	(now) (map size 1170)
+	(now) (map offset 100)
 	(now) (stacking limit 16383)
+	(now) ~(occupied squares block movement)
+
+%%(small map)
+%%    (now) (one unit per square)
+%%    (now) (map size 11700)
+%%    (now) (map offset 1000)
+
+(set up $)
+    (reset map)
     (exhaust) {
         *(grid object $Object)
         ($Object initial position $Position)
