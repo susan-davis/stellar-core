@@ -291,6 +291,66 @@
 (run *)
 	(next square #northwest from [344 454] into [343 453])
 
+#direction-north
+(test *)
+(run *)
+	(direction from [344 454] to [344 453] into #north)
+
+#direction-northeast
+(test *)
+(run *)
+	(direction from [344 454] to [345 453] into #northeast)
+
+#direction-east
+(test *)
+(run *)
+	(direction from [344 454] to [345 454] into #east)
+
+#direction-southeast
+(test *)
+(run *)
+	(direction from [344 454] to [345 455] into #southeast)
+
+#direction-south
+(test *)
+(run *)
+	(direction from [344 454] to [344 455] into #south)
+
+#direction-southwest
+(test *)
+(run *)
+	(direction from [344 454] to [343 455] into #southwest)
+
+#direction-west
+(test *)
+(run *)
+	(direction from [344 454] to [343 454] into #west)
+
+#direction-northwest
+(test *)
+(run *)
+	(direction from [344 454] to [343 453] into #northwest)
+
+#target-closest
+(test *)
+(run *)
+    (target #closest-target is #northeast of #test-ship)
+
+#target-near
+(test *)
+(run *)
+    (target #near-target is #northwest of #test-ship)
+
+#target-far
+(test *)
+(run *)
+    (target #far-target is #northeast of #test-ship)
+
+#target-distant
+(test *)
+(run *)
+    (target #distant-target is #south of #test-ship)
+
 #next-coordinates-north-inverted
 (test *)
 (run *)
@@ -386,6 +446,78 @@
 (run *)
     (inverted map)
 	(next square #northwest from [344 454] into [345 455])
+
+#direction-south-inverted
+(test *)
+(run *)
+    (inverted map)
+	(direction from [344 454] to [344 453] into #south)
+
+#direction-southwest-inverted
+(test *)
+(run *)
+    (inverted map)
+	(direction from [344 454] to [345 453] into #southwest)
+
+#direction-west-inverted
+(test *)
+(run *)
+    (inverted map)
+	(direction from [344 454] to [345 454] into #west)
+
+#direction-northwest-inverted
+(test *)
+(run *)
+    (inverted map)
+	(direction from [344 454] to [345 455] into #northwest)
+
+#direction-north-inverted
+(test *)
+(run *)
+    (inverted map)
+	(direction from [344 454] to [344 455] into #north)
+
+#direction-northeast-inverted
+(test *)
+(run *)
+    (inverted map)
+	(direction from [344 454] to [343 455] into #northeast)
+
+#direction-east-inverted
+(test *)
+(run *)
+    (inverted map)
+	(direction from [344 454] to [343 454] into #east)
+
+#direction-southeast-inverted
+(test *)
+(run *)
+    (inverted map)
+	(direction from [344 454] to [343 453] into #southeast)
+
+#target-closest-inverted
+(test *)
+(run *)
+    (inverted map)
+    (target #closest-target is #southwest of #test-ship)
+
+#target-near-inverted
+(test *)
+(run *)
+    (inverted map)
+    (target #near-target is #southeast of #test-ship)
+
+#target-far-inverted
+(test *)
+(run *)
+    (inverted map)
+    (target #far-target is #southwest of #test-ship)
+
+#target-distant-inverted
+(test *)
+(run *)
+    (inverted map)
+    (target #distant-target is #north of #test-ship)
 
 #look-up-range-0-1
 (test *)
@@ -1014,3 +1146,43 @@
     (big numbers)
 	(#test-ship moves 56 units #northwest)
 	(#test-ship position [3404 4504 | $])
+
+#octant-1
+(test *)
+(run *)
+	(octant from [344 454] to [345 452] into 1)
+
+#octant-2
+(test *)
+(run *)
+	(octant from [344 454] to [346 453] into 2)
+
+#octant-3
+(test *)
+(run *)
+	(octant from [344 454] to [346 455] into 3)
+
+#octant-4
+(test *)
+(run *)
+	(octant from [344 454] to [345 456] into 4)
+
+#octant-5
+(test *)
+(run *)
+	(octant from [344 454] to [343 456] into 5)
+
+#octant-6
+(test *)
+(run *)
+	(octant from [344 454] to [342 455] into 6)
+
+#octant-7
+(test *)
+(run *)
+	(octant from [344 454] to [342 453] into 7)
+
+#octant-8
+(test *)
+(run *)
+	(octant from [344 454] to [343 452] into 8)

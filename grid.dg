@@ -75,13 +75,7 @@
 
 (interface (another object can move to $<Position))
 
-%% Moving on the grid
-
 (interface ($<Object can jump $<Num obstacles)) %% 16383 = unlimited
-
-(interface ($<Object moves $<Num squares $<Direction)) %% raw squares
-
-(interface ($<Object moves $<Num units $<Direction)) %% adjusted for diagonal
 
 %% Most other games use floating point numbers, floating point math,
 %% trignometry, square roots, and so forth, to get ranges and bearings
@@ -91,6 +85,26 @@
 (interface (calculate range from $<Here to $<There into $>Range))
 
 (interface (range from $<Object to $<Target into $>Range))
+
+%% Simple 8-way directions
+
+(interface (direction from $<Here to $<There into $>Direction))
+
+(interface (target $<Target is $>Direction of $<Object))
+
+%% Moving on the grid
+
+(interface ($<Object moves $<Num squares $<Direction)) %% raw squares
+
+(interface ($<Object moves $<Num units $<Direction)) %% adjusted for diagonal
+
+(interface ($<Object moves $<Num squares toward position $<Destination))
+
+(interface ($<Object moves $<Num units toward position $<Destination))
+
+(interface ($<Object moves $<Num squares toward target $<Target))
+
+(interface ($<Object moves $<Num units toward target $<Target))
 
 %% ------------------------------ STATE ------------------------------
 
@@ -135,6 +149,7 @@
 	(endif)
 	([$X $Y | $] = $Place)
 	([$X $Y | $Tail] = $NewPosition)
+	(fully bound $NewPosition)
 	(now) ($Object position $NewPosition)
 
 (remove $Object from the map)
@@ -260,45 +275,6 @@
 		($ThatMany plus 1 into $Num)
 	(endif)
 
-%%--------------------------------- MOVEMENT ----------------------------------
-
-($ can jump 0 obstacles) %% always true
-
-($ can jump $ obstacles) %% override for more complicated cases
-    ~(occupied squares block movement)
-
-($ moves 0 squares $) %% do nothing
-
-($Object moves $Num squares $Direction)
-    (grid object $Object)
-    ($Object position $Here)
-    (next unoccupied square $Direction from $Here is $Moves away)
-	($Moves minus 1 into $Jumps)
-	(if) ~($Moves > $Num) ($Object can jump $Jumps obstacles) (then)
-	    ($Moves squares $Direction from $Here into $There)
-		(now) ($Object position $There)
-		($Num minus $Moves into $Remaining)
-		($Object moves $Remaining squares $Direction)
-	(endif)
-
-($ moves $ squares $) %% don't move if the above fails somehow
-
-($Units units is $Squares squares orthogonally)
-    ($Units divided by 10 into $Squares rounding evenly)
-
-($Units units is $Squares squares diagonally)
-    ($Units divided by 14 into $Squares rounding evenly)
-
-($Object moves $Num units $Direction)
-    (grid object $Object)
-	(if) ($Direction is one of [#northeast #northwest #southeast #southwest])
-	(then)
-	    ($Num units is $Squares squares diagonally)
-	(else)
-	    ($Num units is $Squares squares orthogonally)
-	(endif)
-	($Object moves $Squares squares $Direction)
-
 %%----------------------------------- RANGE -----------------------------------
 
 %% No square roots, so no Pythagorean Theorem, so we use a lookup table here.
@@ -407,3 +383,131 @@
 	($Ship   position $Here)
 	($Target position $There)
 	(calculate range from $Here to $There into $Range)
+
+%%--------------------------------- DIRECTION ---------------------------------
+
+($Y1 is north of $Y2)
+    (if) (y increases south) (then)
+	    ($Y1 < $Y2)
+	(else)
+	    ($Y1 > $Y2)
+	(endif)
+
+($X1 is east of $X2)
+    (if) (x increases west) (then)
+	    ($X1 < $X2)
+	(else)
+	    ($X1 > $X2)
+	(endif)
+
+(octant from $Here to $There into $Octant)
+	([$HX $HY | $] = $Here)
+	([$TX $TY | $] = $There)
+	($HX delta $TX into $DX)
+	($HY delta $TY into $DY)
+	(if) ($TX is east of $HX) (then)
+		(if) ($TY is north of $HY) (then)
+			(if) ($DY > $DX) (then)
+				($Octant = 1)
+			(else)
+				($Octant = 2)
+			(endif)
+		(else)
+			(if) ($DY < $DX) (then)
+				($Octant = 3)
+			(else)
+				($Octant = 4)
+			(endif)
+		(endif)
+	(else)
+		(if) ($TY is north of $HY) (then)
+			(if) ($DY < $DX) (then)
+				($Octant = 7)
+			(else)
+				($Octant = 8)
+			(endif)
+		(else)
+			(if) ($DY > $DX) (then)
+				($Octant = 5)
+			(else)
+				($Octant = 6)
+			(endif)
+		(endif)
+	(endif)
+
+(ortho 1 #north)
+(diag  1 #northeast)
+(ortho 2 #east)
+(diag  2 #northeast)
+(ortho 3 #east)
+(diag  3 #southeast)
+(ortho 4 #south)
+(diag  4 #southeast)
+(ortho 5 #south)
+(diag  5 #southwest)
+(ortho 6 #west)
+(diag  6 #southwest)
+(ortho 7 #west)
+(diag  7 #northwest)
+(ortho 8 #north)
+(diag  8 #northwest)
+
+(direction from $Here to $There into $Direction)
+    (octant from $Here to $There into $Octant)
+	([$HX $HY | $] = $Here)
+	([$TX $TY | $] = $There)
+	($HX delta $TX into $DX)
+	($HY delta $TY into $DY)
+    (sort $DX $DY into $Little $Big)
+    ($Little times 5 into $Diag) %% 5:2 ratio == 22 degrees, half of 45
+	($Big times 2 into $Ortho)
+	(if) ($Diag > $Ortho) (then)
+	    (diag  $Octant $Direction)
+	(else)
+	    (ortho $Octant $Direction)
+	(endif)
+
+(target $Target is $Direction of $Object)
+    ($Object position $Here)
+	($Target position $There)
+	(direction from $Here to $There into $Direction)
+
+%%--------------------------------- MOVEMENT ----------------------------------
+
+($ can jump 0 obstacles) %% always true
+
+($ can jump $ obstacles) %% override for more complicated cases
+    ~(occupied squares block movement)
+
+($ moves 0 squares $) %% do nothing
+
+($Object moves $Num squares $Direction)
+    (grid object $Object)
+    ($Object position $Here)
+    (next unoccupied square $Direction from $Here is $Moves away)
+	($Moves minus 1 into $Jumps)
+	(if) ~($Moves > $Num) ($Object can jump $Jumps obstacles) (then)
+	    ($Moves squares $Direction from $Here into $There)
+		(fully bound $There)
+		(now) ($Object position $There)
+		($Num minus $Moves into $Remaining)
+		($Object moves $Remaining squares $Direction)
+	(endif)
+
+($ moves $ squares $) %% don't move if the above fails somehow
+
+($Units units is $Squares squares orthogonally)
+    ($Units divided by 10 into $Squares rounding evenly)
+
+($Units units is $Squares squares diagonally)
+    ($Units divided by 14 into $Squares rounding evenly)
+
+($Object moves $Num units $Direction)
+    (grid object $Object)
+	(if) ($Direction is one of [#northeast #northwest #southeast #southwest])
+	(then)
+	    ($Num units is $Squares squares diagonally)
+	(else)
+	    ($Num units is $Squares squares orthogonally)
+	(endif)
+	($Object moves $Squares squares $Direction)
