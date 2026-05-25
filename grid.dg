@@ -504,10 +504,11 @@
 
 ($Object moves $Num units $Direction)
     (grid object $Object)
-	(if) ($Direction is one of [#northeast #northwest #southeast #southwest])
-	(then)
-	    ($Num units is $Squares squares diagonally)
-	(else)
-	    ($Num units is $Squares squares orthogonally)
-	(endif)
-	($Object moves $Squares squares $Direction)
+    (if) ($Direction is one of [#northeast #northwest #southeast #southwest])
+    (then)
+        ($Num units is $Squares squares diagonally)
+    (else)
+        ($Num units is $Squares squares orthogonally)
+    (endif)
+    ($Object moves $Squares squares $Direction)
+    %% TODO: move by individual units for shuttles etc.
