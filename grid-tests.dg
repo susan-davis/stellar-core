@@ -59,6 +59,19 @@
 
 %%-----------------------------------------------------------------------------
 
+#position-schema
+(test *)
+(run *)
+	(#test-ship x 344)
+	(#test-ship y 454)
+
+#place-ship
+(test *)
+(run *)
+	(place #test-ship at [500 500])
+	(#test-ship x 500)
+	(#test-ship y 500)
+
 #max-coords
 (test *)
 (run *)
@@ -89,19 +102,6 @@
 (run *)
 	(position [99 99] is off the map)
 
-#position-schema
-(test *)
-(run *)
-	(#test-ship x 344)
-	(#test-ship y 454)
-
-#place-ship
-(test *)
-(run *)
-	(place #test-ship at [500 500])
-	(#test-ship x 500)
-	(#test-ship y 500)
-
 #target-on-map
 (test *)
 (run *)
@@ -126,6 +126,42 @@
 (run *)
 	(remove #closest-target from the map)
 	(#closest-target position [16383 16383 0])
+
+#max-coords-on-map-big
+(test *)
+(run *)
+    (big numbers)
+	(position [12709 12709] is on the map)
+
+#max-coords-plus-one-not-on-map-big
+(test *)
+(run *)
+    (big numbers)
+	(position [12710 12710] is off the map)
+
+#maxint-not-on-map-big
+(test *)
+(run *)
+    (big numbers)
+	(position [16383 16383] is off the map)
+
+#offset-on-map-big
+(test *)
+(run *)
+    (big numbers)
+	(position [1000 1000] is on the map)
+
+#offset-minus-one-not-on-map-big
+(test *)
+(run *)
+    (big numbers)
+	(position [999 999] is off the map)
+
+#target-on-map-big
+(test *)
+(run *)
+    (big numbers)
+    (#closest-target is on the map)
 
 #object-at-ship-position
 (test *)
