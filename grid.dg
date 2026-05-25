@@ -21,8 +21,6 @@
 
 (storing positions in units) %% un-negage to store in units, not grid squares
 
-~(occupied squares block movement) %% un-negate to make objects obstacles
-
 %% The maximum grid size is 1170 x 1170, unless you're willing to have ranges
 %% not be able to be calcuated between two distant objects, in which case you
 %% can use anything up to 16382 x 16382. (Location [16383 16383] specifies that
@@ -189,12 +187,12 @@
     (objects at $Position into $List)
 	(length of $List into $Num)
 
+%% ------------------------- SQUARES AND COLLISIONS -------------------------
+
 (another object can move to $Position)
     (stacking limit $Limit)
 	(number of objects at $Position into $Num)
 	($Num < $Limit)
-
-%% ------------------------- SQUARES AND COLLISIONS -------------------------
 
 ($Num north from $Y into $NY)
 	(if) (y increases south) (then)
@@ -265,14 +263,16 @@
 (next square $Relation from $Place into $Result)
     (1 squares $Relation from $Place into $Result)
 
-(next unoccupied square $Direction from $Here is $Num away)
-    (next square $Direction from $Here into $There)
-    (fully bound $There)
-	(if) (another object can move to $There) (then)
-	    ($Num = 1)
+(closest unoccupied square to $Place from $Place into $Place)
+
+(closest unoccupied square to $Place from $Origin into $Result)
+    (fully bound $Place) (fully bound $Origin)
+    (if) (another object can move to $Place) (then)
+	    ($Result = $Place)
 	(else)
-	    (next unoccupied square $Direction from $There is $ThatMany away)
-		($ThatMany plus 1 into $Num)
+	    (direction from $Place to $Origin into $Direction)
+		(next square $Direction from $Place into $New)
+		(closest unoccupied square to $New from $Origin into $Result)
 	(endif)
 
 %%----------------------------------- RANGE -----------------------------------
@@ -474,25 +474,21 @@
 
 %%--------------------------------- MOVEMENT ----------------------------------
 
-($ can jump 0 obstacles) %% always true
-
-($ can jump $ obstacles) %% override for more complicated cases
-    ~(occupied squares block movement)
+($Object moves to square $There)
+    ($Object position $Here)
+	([$ $ | $Tail] = $Here)
+    (closest unoccupied square to $There from $Here into $Square)
+	([$X $Y | $]     = $Square)
+	([$X $Y | $Tail] = $There)
+	(now) ($Object position $There)
 
 ($ moves 0 squares $) %% do nothing
 
 ($Object moves $Num squares $Direction)
     (grid object $Object)
     ($Object position $Here)
-    (next unoccupied square $Direction from $Here is $Moves away)
-	($Moves minus 1 into $Jumps)
-	(if) ~($Moves > $Num) ($Object can jump $Jumps obstacles) (then)
-	    ($Moves squares $Direction from $Here into $There)
-		(fully bound $There)
-		(now) ($Object position $There)
-		($Num minus $Moves into $Remaining)
-		($Object moves $Remaining squares $Direction)
-	(endif)
+	($Num squares $Direction from $Here into $There)
+	($Object moves to square $There)
 
 ($ moves $ squares $) %% don't move if the above fails somehow
 

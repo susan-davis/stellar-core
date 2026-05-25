@@ -13,6 +13,8 @@
 
 (interface ($<GridObject heading $>Heading))
 
+(interface ($<GridObject direction $>Direction))
+
 %% We don't have tangent or arctangent available, so we'll have to use a
 %% lookup table, and extrapolate for bearings involving distances larger
 %% than one sector. There's supposed to be some random sloppiness in
@@ -90,18 +92,9 @@
 	($Object position $Position)
 	(nth $Position 3 $Heading)
 
-%% ------------------------- SQUARES AND COLLISIONS -------------------------
-
-(closest unoccupied square to $Place from $Origin into $Result)
-	(fully bound $Place) (fully bound $Origin)
-	(if) ~(object at $Place into $) (or) ($Place = $Origin) (then)
-		($Result = $Place)
-	(else)
-		(calculate bearing from $Place to $Origin into $Bearing)
-		(direction for $Bearing into $Direction)
-		(next square $Direction from $Place into $New)
-		(closest unoccupied square to $New from $Origin into $Result)
-	(endif)
+($Object direction $Direction)
+    ($Object heading $Heading)
+	(direction for $Heading into $Direction)
 
 %% ------------------------------ BEARINGS ------------------------------
 
@@ -371,46 +364,6 @@
 		($Y = $DY)
 	(endif)
 
-%% Dividing into eight octants allows us to make small tables that only
-%% cover a 45 degree sector.
-
-(octant from $Here to $There into $Octant)
-	([$HX $HY | $] = $Here)
-	([$TX $TY | $] = $There)
-	($HX delta $TX into $DX)
-	($HY delta $TY into $DY)
-	(if) ($HX < $TX) (then)
-		(if) ($HY > $TY) (then)
-			(if) ($DY > $DX) (then)
-				($Octant = 1)
-			(else)
-				($Octant = 2)
-			(endif)
-		(else)
-			(if) ($DY < $DX) (then)
-				($Octant = 3)
-			(else)
-				($Octant = 4)
-			(endif)
-		(endif)
-	(else)
-		(if) ($HY < $TY) (then)
-			(if) ($DY > $DX) (then)
-				($Octant = 5)
-			(else)
-				($Octant = 6)
-			(endif)
-		(else)
-			(if) ($DY < $DX) (then)
-				($Octant = 7)
-			(else)
-				($Octant = 8)
-			(endif)
-		(endif)
-	(endif)
-
-%% Convert from the table into the final compass bearing.
-
 (bearing for $Ang in octant $Octant into $Bearing)
 	(number $Ang) ($Ang modulo 360 into $Angle)
 	(if)     ($Octant = 1) (then)
@@ -432,8 +385,6 @@
 	(else)
 		($Bearing = 0)
 	(endif)
-
-%% And all that adds up to this, which does the final calculation:
 
 (calculate bearing from $Here to $There into $Result)
 	(octant from $Here to $There into $Octant)
@@ -628,6 +579,7 @@
 	($Result = $R)
 
 (square at $Distance from $Origin to $Destination into $Result)
+    (fully bound $Origin) (fully bound $Destination)
 	(calculate range from $Origin to $Destination into $Range)
 	(if) ($Distance < $Range) (then)
 		(square $Distance $Origin $Destination into $Result)
@@ -637,6 +589,7 @@
 
 (square at $Distance on bearing $Bearing from $Place into $Result)
 	(offset 1 on bearing $Bearing from $Place into $Offset)
+	(fully bound $Offset)
 	(calculate range from $Place to $Offset into $Increment)
 	($Distance divided by $Increment into $Multiple)
 	($Distance modulo $Increment into $Remainder)
@@ -724,22 +677,13 @@
 
 (drag $Ship to position $Desired)
 	($Ship is on the map)
-	($Ship position $Origin)
-	([$ $ | $Tail]   = $Origin)
-	(stacking limit $Stacking)
-	(if) ($Stacking = 1) (then)
-		(closest unoccupied square to $Desired from $Origin into $Square)
-	(else)
-		($Desired = $Square)
-	(endif)
-	([$X $Y | $]     = $Square)
-	([$X $Y | $Tail] = $NewPosition)
-	(place $Ship at $NewPosition)
+	($Ship moves to square $Desired)
 
 (drag $Ship $Distance on heading $Heading)
 	($Ship is on the map)
 	($Ship position $Origin)
 	(square at $Distance on bearing $Heading from $Origin into $Desired)
+	(fully bound $Desired)
 	(drag $Ship to position $Desired)
 
 (drag $Ship $Distance toward $Target)
