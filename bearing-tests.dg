@@ -23,19 +23,28 @@
 #non-grid-object
 (* initial position [374 474 0])
 
+(big numbers)
+    (now) (storing positions in units)
+    (exhaust) {
+        *(grid object $Object)
+        ($Object initial position $Position)
+		([$X $Y | $Tail] = $Position)
+		($X times 10 into $XUnits)
+		($XUnits plus 4 into $NewX) %% put them in the middle of the square
+		($Y times 10 into $YUnits)
+		($YUnits plus 4 into $NewY)
+		([$NewX $NewY | $Tail] = $NewPosition)
+		(now) ($Object position $NewPosition)
+	}
+
 (reset map)
 	(now) ~(x increases west)
 	(now) (y increases south)
-	(now) ~(one unit per square)
+	(now) ~(storing positions in units)
 	(now) (map size 1170)
 	(now) (map offset 100)
 	(now) (stacking limit 16383)
 	(now) ~(occupied squares block movement)
-
-%%(small map)
-%%    (now) (one unit per square)
-%%    (now) (map size 11700)
-%%    (now) (map offset 1000)
 
 (set up $)
     (reset map)
