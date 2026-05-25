@@ -37,18 +37,13 @@
 		(now) ($Object position $NewPosition)
 	}
 
-(inverted map)
-	(now) (x increases west)
-    (now) ~(y increases south)
-
 (reset map)
+	(now) ~(storing positions in units)
 	(now) ~(x increases west)
 	(now) (y increases south)
-	(now) ~(storing positions in units)
 	(now) (map size 1170)
 	(now) (map offset 100)
 	(now) (stacking limit 16383)
-	(now) ~(occupied squares block movement)
 
 (set up $)
     (reset map)
@@ -948,7 +943,7 @@
 (run *)
     (big numbers)
 	(drag #test-ship 100 on heading 0)
-	(#test-ship position $A) $A
+	(#test-ship position [3444 4444 315])
 
 #move-100-north
 (test *)
@@ -1005,13 +1000,6 @@
 (run *)
 	(move #test-ship 1400 on heading 316)
 	(#test-ship position [258 364 316])
-
-#long-move
-(test *)
-(run *)
-	(move #test-ship to position [100 100])
-	(move #test-ship 11100 on heading 135)
-	(#test-ship position [893 893 135])
 
 #move-10000-0
 (test *)
@@ -1252,3 +1240,18 @@
 (test *)
 (run *)
 	(slope for 38 into 19 15) %% left this out of an older version
+
+#long-move
+(test *)
+(run *)
+	(move #test-ship to position [100 100])
+	(move #test-ship 11100 on heading 135)
+	(#test-ship position [893 893 135])
+
+#long-move-big
+(test *)
+(run *)
+    (big numbers)
+	(move #test-ship to position [1000 1000])
+	(move #test-ship 11100 on heading 135)
+	(#test-ship position [8930 8930 135])
