@@ -326,8 +326,7 @@
     (now) (stacking limit 1)
 	(#test-ship position $Here)
 	(#near-target position $There)
-	(closest unoccupied square to $There from $Here into $Unoccupied)
-	(assert $Unoccupied = [315 425 0])
+	(closest unoccupied square to $There from $Here into [315 425])
 
 #closest-unoccupied-square-far-target
 (test *)
@@ -335,8 +334,7 @@
     (now) (stacking limit 1)
 	(#test-ship position $Here)
 	(#far-target position $There)
-	(closest unoccupied square to $There from $Here into $Unoccupied)
-	(assert $Unoccupied = [423 315 0])
+	(closest unoccupied square to $There from $Here into [423 315])
 
 #next-coordinates-north
 (test *)
