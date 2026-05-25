@@ -17,7 +17,7 @@
 (current ship *)
 (name *)	Eridanus
 (code *)	E
-(* initial position [344 454 315 32])
+(* initial position [3444 4544 315 32])
 (* initial state
     [300 400 315 171 #cygnus-class 932 4 10 500 [100 99 98 97 96 95] [13 2 1]])
 (* initial systems [[#tractor 1 800] [#mtd 1 16383]])
@@ -64,28 +64,28 @@
 
 #closest-target
 (ship *)
-(* initial position [354 444 225 108])
+(* initial position [3544 4444 225 108])
 (* initial state
     [16383 16383 225 108 #attack-class 500 2 0 250
 	[100 50 50 50 25 25 ] [38 0 0]])
 
 #near-target
 (ship *)
-(* initial position [314 424 45 62])
+(* initial position [3144 4244 45 62])
 (* initial state
-    [344 444 45 108 #attack-class 500 2 0 250
+    [3444 4444 45 108 #attack-class 500 2 0 250
 	[100 50 50 50 25 25] [38 0 0]])
 
 #far-target
 (ship *)
-(* initial position [424 314 0 108])
+(* initial position [4244 3144 0 108])
 (* initial state
     [#test-ship #in 45 171 #attack-class 500 2 0 250
 	[100 50 50 50 25 25] [38 0 0]])
 
 #distant-target
 (ship *)
-(* initial position [154 984 0 108])
+(* initial position [1544 9844 0 108])
 (* initial state
     [#test-ship #in 45 171 #attack-class 500 2 0 250
 	[100 50 50 50 25 25] [38 0 0]])
@@ -110,9 +110,8 @@
 #neutral-ship
 (ship *)
 (name *)	Ko Maru
-%%(* initial state [544 544 180 1 0 0 0 0 #maru-class])
-(* initial position [544 544 180 1])
-(* initial state [0 0 0 0 #maru-class 500 2 0 50 [50 50 50 50]])
+(* initial position [5444 5444 180 1])
+(* initial state [16383 16383 0 0 #maru-class 500 2 0 50 [50 50 50 50]])
 
 #maru-class
 (name *)	Maru
@@ -122,46 +121,52 @@
 
 #non-grid-object
 (code *)	\*
-(* position [374 474])
+(* position [3744 4744])
 
 #sun
 (stellar object *)
 (code *)	O
-(* position [577 577])
+(* position [5774 5774])
 
 #planet
 (stellar object *)
 (code *)	o
-(* position [575 575])
+(* position [5754 5754])
 
 #other-planet
 (stellar object *)
 (code *)	o
-(* position [573 573])
+(* position [5734 5734])
 
 #asteroid
 (stellar object *)
 (code *)	\*
-(* position [385 415])
+(* position [3854 4154])
 
 #asteroid-2
 (stellar object *)
 (code *)	\*
-(* position [585 515])
+(* position [5854 5154])
 
 #starbase
 (base *)
 (code *)	\#
-(* position [766 766])
+(* position [7664 7664])
 (* state #union)
 
 #enemy-base
 (base *)
 (code *)	\#
-(* position [211 211])
+(* position [2114 2114])
 (* state #quellan)
 
 (set up $)
+     (now) ~(x increases west)
+	 (now) (y increases south)
+	 (now) (storing positions in units)
+	 (now) (stacking limit 16383)
+	 (now) (map offset 1000)
+	 (now) (map size 11000)
 	 (exhaust) {
 	     *(ship $Ship)
 	     ($Ship initial position $Position)
@@ -179,7 +184,6 @@
 	 (#test-ship initial state $Initial)
 	 (now) (#test-ship state $Initial)
 	 (reset randomness)
-	 (now) (y increases south)
 
 %% Ships can have any of the following systems:
 
