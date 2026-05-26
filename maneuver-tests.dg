@@ -507,7 +507,7 @@
 (test *)
 (run *)
 	(move #test-ship on course and speed)
-	(#test-ship position $P) $P
+	(#test-ship position [3424 4524 315 32])
 
 #move-on-course-closest-target
 (test *)

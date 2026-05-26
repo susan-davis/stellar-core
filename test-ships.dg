@@ -166,8 +166,8 @@
 	 (now) (y increases south)
 	 (now) (storing positions in units)
 	 (now) (stacking limit 16383)
-	 (now) (map offset 1000)
-	 (now) (map size 11000)
+	 (now) (map offset 100)
+	 (now) (map size 1100)
 	 (exhaust) {
 	     *(ship $Ship)
 	     ($Ship initial position $Position)
