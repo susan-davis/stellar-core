@@ -49,8 +49,6 @@
 
 (interface (turn $<Ship to face position $<Position))
 
-(interface (turn $<Ship to face subsector $<Position))
-
 (interface (turn $<Ship about))
 
 (interface (turn $<Ship hard to starboard))
