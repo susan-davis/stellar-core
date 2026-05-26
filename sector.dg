@@ -32,8 +32,6 @@
 
 (interface ($<Object is in the same quadrant as $<Target))
 
-(interface (split position $<Pos into $>SX $>SY $>X $>Y $>PX $>PY))
-
 (interface ($<Object is in sector $<SX $<SY))
 
 (interface ($<Object is within $<Num sectors of $<Target))
@@ -98,11 +96,17 @@
 
 (interface (position $<A $<B $<C $<D $<E $<F is in a very steep gravity well))
 
-(interface (object $<Object is in a gravity well))            %% speed / 10
+(interface (fine position $Pos is in a gravity well))
 
-(interface (object $<Object is deep in a gravity well))       %% speed / 100
+(interface (fine position $Pos is deep in a gravity well))
 
-(interface (object $<Object is in a very steep gravity well)) %% speed / 1000
+(interface (fine position $Pos is in a very steep gravity well))
+
+(interface ($<Object is in a gravity well))            %% speed / 10
+
+(interface ($<Object is deep in a gravity well))       %% speed / 100
+
+(interface ($<Object is in a very steep gravity well)) %% speed / 1000
 
 %%---------------------------------- SCHEMA ----------------------------------
 
@@ -166,10 +170,10 @@
 
 (split position $Pos into $SX $SY $X $Y $PX $PY)
     ([$BigX $BigY | $] = $Pos)
-	(split $BigX into $SX $MX $MPX $)
-	(split $BigY into $SY $MY $MPY $)
-	($MX  plus 1 into $X)  ($MY  plus 1 into $Y)
-	($MPX plus 1 into $PX) ($MPY plus 1 into $PY)
+    (split $BigX into $SX $MX $MPX $)
+    (split $BigY into $SY $MY $MPY $)
+    ($MX  plus 1 into $X)  ($MY  plus 1 into $Y)
+    ($MPX plus 1 into $PX) ($MPY plus 1 into $PY)
 
 ($Object is in sector $SX $SY)
 	($Object sector x $SX)
@@ -383,17 +387,47 @@
     (position $SX $SY $X $Y $PX $PY has a very massive object) (or)
 	(subsector $SX $SY $X $Y is in a very steep gravity well)
 
-(object $Object is in a gravity well)
-    ($Object position $Pos)
-    (split position $Pos into $SX $SY $X $Y $PX $PY)
-	(position $SX $SY $X $Y $PX $PY is in a gravity well)
+(fine position $Position has a stellar object)
+    (accumulate 1)
+	    *(stellar object $Object)
+		($Object position $Pos)
+		(position $Pos precisely equals position $Position)
+	(into $Count)
+	($Count > 0)
 
-(object $Object is deep in a gravity well)
-    ($Object position $Pos)
-    (split position $Pos into $SX $SY $X $Y $PX $PY)
-	(position $SX $SY $X $Y $PX $PY is deep in a gravity well)
+(fine position $Position has a massive object)
+    (accumulate 1)
+	    *(stellar object $Object)
+		($Object position $Pos)
+		(position $Pos precisely equals position $Position)
+		($Object is massive)
+	(into $Count)
+	($Count > 0)
 
-(object $Object is in a very steep gravity well)
+(fine position $Position is in a gravity well)
+    (split position $Position into $SX $SY $X $Y $PX $PY)
+    (position $SX $SY $X $Y $PX $PY is in a gravity well)
+
+(fine position $Position is deep in a gravity well)
+    (split position $Position into $SX $SY $X $Y $PX $PY) {
+	    (fine position $Position has a stellar object) (or)
+        (position $SX $SY $X $Y $PX $PY is deep in a gravity well)
+    }
+
+(fine position $Position is in a very steep gravity well)
+    (split position $Position into $SX $SY $X $Y $PX $PY) {
+        (fine position $Position has a massive object) (or)
+	    (position $SX $SY $X $Y $PX $PY is in a very steep gravity well)
+    }
+
+($Object is in a gravity well)
     ($Object position $Pos)
-    (split position $Pos into $SX $SY $X $Y $PX $PY)
-	(position $SX $SY $X $Y $PX $PY is in a very steep gravity well)
+    (fine position $Pos is in a gravity well)
+
+($Object is deep in a gravity well)
+    ($Object position $Pos)
+    (fine position $Pos is in a gravity well)
+
+($Object is in a very steep gravity well)
+    ($Object position $Pos)
+    (fine position $Pos is in a gravity well)

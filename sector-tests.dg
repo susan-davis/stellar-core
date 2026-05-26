@@ -247,4 +247,23 @@
 (test *)
 (run *)
     (move #other-planet to position [3456 4567])
-	(position 3 4 5 6 6 7 is in a gravity well)
+	(subsector 3 4 5 6 is in a gravity well)
+
+#rogue-planet-has-deep-gravity
+(test *)
+(run *)
+    (move #other-planet to position [3456 4567])
+	(position 3 4 5 6 6 7 is deep in a gravity well)
+
+#rogue-planet-has-very-steep-gravity
+(test *)
+(run *)
+    (move #other-planet to position [3456 4567])
+    (#test-ship is in a very steep gravity well)
+
+#off-the-planet-isnt-as-steep
+(test *)
+(run *)
+    (move #other-planet to position [3457 4567])
+    (#test-ship is deep in a gravity well)
+%%    ~(#test-ship is in a very steep gravity well)
