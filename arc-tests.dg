@@ -80,45 +80,43 @@
 (test *)
 (run *)    (shield direction for #distant-target against #test-ship into #west)
 
-(position $SX $SY $X $Y should have $Angle $Arc $Dir)
-	  (drag #closest-target to $SX $SY $X $Y)
+(position $Pos should have $Angle $Arc $Dir)
+	  (drag #closest-target to position $Pos)
 	  (firing arc from #test-ship to #closest-target into $Arc)
 	  (shield direction for #closest-target against #test-ship into $Dir)
 	  (angle from #test-ship to #closest-target into $Angle)
 
 #due-northwest
 (test *)
-(run *)    (position 3 4 4 5 should have 0 1 #north)
+(run *)    (position [3344 4444] should have 0 1 #north)
 
 #due-north
 (test *)
-(run *)    (position 3 4 5 5 should have 45 1 #north)
+(run *)    (position [3444 4444] should have 45 1 #north)
 
 #due-northeast
 (test *)
-(run *)
-%%	  (position 3 4 6 5 should have 90 2 #east) %% weirdly gives 42, off by 1?
-	  (position 3 4 7 4 should have 90 2 #east)
+(run *)    (position [3544 4444] should have 90 2 #east)
 
 #due-east
 (test *)
-(run *)    (position 3 4 6 6 should have 135 3 #east)
+(run *)    (position [3544 4544] should have 135 3 #east)
 
 #due-southeast
 (test *)
-(run *)    (position 3 4 6 7 should have 180 5 #south)
+(run *)    (position [3544 4644] should have 180 5 #south)
 
 #due-south
 (test *)
-(run *)    (position 3 4 5 7 should have 225 6 #west)
+(run *)    (position [3444 4644] should have 225 6 #west)
 
 #due-southwest
 (test *)
-(run *)    (position 3 4 4 7 should have 270 7 #west)
+(run *)    (position [3344 4644] should have 270 7 #west)
 
 #due-west
 (test *)
-(run *)    (position 3 4 4 6 should have 315 8 #north)
+(run *)    (position [3344 4544] should have 315 8 #north)
 
 #fa-0
 (test *)
