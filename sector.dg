@@ -62,6 +62,8 @@
 
 (interface (top object in subsector $<SX $<SY $<X $<Y into $>Obj))
 
+(interface (top object at position $<SX $<SY $<X $<Y $<PX $<PY into $>Obj))
+
 %% gravity -- move this to quadrant/planet/terrain?
 
 (interface (stellar object $)) %% immobile "terrain" feature on the grid
@@ -80,13 +82,21 @@
 
 (interface (sector $<SX $<SY is in a gravity well))
 
+(interface (sector $<SX $<SY is deep in a gravity well))
+
+(interface (sector $<SX $<SY is in a very steep gravity well))
+
 (interface (subsector $<SX $<SY $<X $<Y is in a gravity well))
 
 (interface (subsector $<SX $<SY $<X $<Y is deep in a gravity well))
 
+(interface (subsector $<SX $<SY $<X $<Y is in a very steep gravity well))
+
 (interface (position $<SX $<SY $<X $<Y $<PX $<PY is in a gravity well))
 
 (interface (position $<SX $<SY $<X $<Y $<PX $<PY is deep in a gravity well))
+
+(interface (position $<A $<B $<C $<D $<E $<F is in a very steep gravity well))
 
 (interface (object $<Object is in a gravity well))            %% speed / 10
 
@@ -249,9 +259,13 @@
 	(objects in subsector $SX $SY $X $Y into $List)
 	([$Obj | $] = $List)
 
+(top object at position $SX $SY $X $Y $PX $PY into $Obj)
+	(objects at position $SX $SY $X $Y $PX $PY into $List)
+	([$Obj | $] = $List)
+
 %%--------------------------------- GRAVITY ----------------------------------
 
-(grid object *(stellar object $))
+(grid object *(stellar object $)) %% space "terrain" features
 
 (stellar object *(star $))
 
@@ -273,9 +287,30 @@
 	(into $Count)
 	($Count > 0)
 
+(sector $SX $SY has an extremely massive object)
+    (accumulate 1)
+	    *(stellar object $Object)
+		    ($Object is in sector $SX $SY)
+			($Object is extremely massive)
+	(into $Count)
+	($Count > 0)
+
+%%(sector $SX $SY has a supermassive object)
+%%    (accumulate 1)
+%%	    *(stellar object $Object)
+%%		    ($Object is in sector $SX $SY)
+%%			($Object is supermassive)
+%%	(into $Count)
+%%	($Count > 0)
+
 (sector $SX $SY is in a gravity well)
     (sector $SX $SY has a very massive object)
-	%% TODO: add black holes and supermassive black holes
+
+(sector $SX $SY is deep in a gravity well)
+    (sector $SX $SY has an extremely massive object)
+
+(sector $SX $SY is in a very steep gravity well)
+    (sector $SX $SY has an extremely massive object)
 
 (subsector $SX $SY $X $Y has a massive object)
     (accumulate 1)
@@ -285,17 +320,33 @@
 	(into $Count)
 	($Count > 0)
 
-(subsector $SX $SY $X $Y is in a gravity well)
-    (subsector $SX $SY $X $Y has a massive object) (or)
-	(sector $SX $SY is in a gravity well)
-
-(subsector $SX $SY $X $Y is deep in a gravity well)
+(subsector $SX $SY $X $Y has a very massive object)
     (accumulate 1)
 	    *(stellar object $Object)
 		($Object is in subsector $SX $SY $X $Y)
 		($Object is very massive)
 	(into $Count)
 	($Count > 0)
+
+(subsector $SX $SY $X $Y has an extremely massive object)
+    (accumulate 1)
+	    *(stellar object $Object)
+		($Object is in subsector $SX $SY $X $Y)
+		($Object is extremely massive)
+	(into $Count)
+	($Count > 0)
+
+(subsector $SX $SY $X $Y is in a gravity well)
+    (subsector $SX $SY $X $Y has a massive object) (or)
+	(sector $SX $SY is in a gravity well)
+
+(subsector $SX $SY $X $Y is deep in a gravity well)
+    (subsector $SX $SY $X $Y has a very massive object) (or)
+	(sector $SX $SY is deep in a gravity well)
+
+(subsector $SX $SY $X $Y is in a very steep gravity well)
+    (subsector $SX $SY $X $Y has an extremely massive object) (or)
+	(sector $SX $SY is in a very steep gravity well)
 
 (position $SX $SY $X $Y $PX $PY has a stellar object)
     (accumulate 1)
@@ -304,11 +355,7 @@
 	(into $Count)
 	($Count > 0)
 
-(position $SX $SY $X $Y $PX $PY is in a gravity well)
-    (position $SX $SY $X $Y $PX $PY has a stellar object) (or)
-	(subsector $SX $SY $X $Y is in a gravity well)
-
-(position $SX $SY $X $Y $PX $PY is deep in a gravity well)
+(position $SX $SY $X $Y $PX $PY has a massive object)
     (accumulate 1)
 	    *(stellar object $Object)
 		($Object is at position $SX $SY $X $Y $PX $PY)
@@ -316,13 +363,25 @@
 	(into $Count)
 	($Count > 0)
 
-(position $SX $SY $X $Y $PX $PY is in a very steep gravity well)
+(position $SX $SY $X $Y $PX $PY has a very massive object)
     (accumulate 1)
 	    *(stellar object $Object)
 		($Object is at position $SX $SY $X $Y $PX $PY)
 		($Object is very massive)
 	(into $Count)
 	($Count > 0)
+
+(position $SX $SY $X $Y $PX $PY is in a gravity well)
+    (position $SX $SY $X $Y $PX $PY has a stellar object) (or)
+	(subsector $SX $SY $X $Y is in a gravity well)
+
+(position $SX $SY $X $Y $PX $PY is deep in a gravity well)
+    (position $SX $SY $X $Y $PX $PY has a massive object) (or)
+	(subsector $SX $SY $X $Y is deep in a gravity well)
+
+(position $SX $SY $X $Y $PX $PY is in a very steep gravity well)
+    (position $SX $SY $X $Y $PX $PY has a very massive object) (or)
+	(subsector $SX $SY $X $Y is in a very steep gravity well)
 
 (object $Object is in a gravity well)
     ($Object position $Pos)
