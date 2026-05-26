@@ -93,7 +93,7 @@
 
 #objects-at-ships-position
 (test *)
-(run *) (objects at position 3 4 5 6 5 5 into $O) $O
+(run *) (objects at position 3 4 5 6 6 7 into [#test-ship])
 
 #objects-at-closest-target
 (test *)
