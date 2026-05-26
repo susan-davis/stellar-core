@@ -63,7 +63,11 @@
 
 (interface (position $<Here equals position $<There))
 
+(interface (position $<Here precisely equals position $<There))
+
 (interface ($<Object is at the same position as $<Target))
+
+(interface ($<Object is at precisely the same position as $<Target))
 
 (interface (object at $<Position into $>Obj)) %% first object if more than one
 
@@ -161,7 +165,7 @@
 (remove $Object from the map)
 	(place $Object at [16383 16383])
 
-(position $Here equals position $There)
+(position $Here equals position $There) %% round off units
 	([$X1 $Y1 | $] = $Here)
 	([$X2 $Y2 | $] = $There)
 	(if) (storing positions in units) (then)
@@ -178,6 +182,16 @@
 	($Object position $Here)
 	($Target position $There)
 	(position $Here equals position $There)
+
+(position $Here precisely equals position $There)
+	([$X1 $Y1 | $] = $Here)
+	([$X2 $Y2 | $] = $There)
+    ([$X1 $Y1] = [$X2 $Y2])
+
+($Object is at the precisely the same position as $Target)
+	($Object position $Here)
+	($Target position $There)
+	(position $Here precisely equals position $There)
 
 (object at $Here into $Obj)
 	*(grid object $Obj)

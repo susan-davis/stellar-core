@@ -163,6 +163,29 @@
     (big numbers)
     (#closest-target is on the map)
 
+#same-position
+(test *)
+(run *)
+    (position [344 454] equals position [344 454])
+
+#same-position-big
+(test *)
+(run *)
+    (big numbers)
+    (position [3444 4544] equals position [3440 4549])
+
+#same-position-precisely
+(test *)
+(run *)
+    (position [344 454] precisely equals position [344 454])
+
+#precise-position-big
+(test *)
+(run *)
+    (big numbers)
+    ~(position [3444 4544] precisely equals position [3440 4549])
+    (position [3444 4544] precisely equals position [3444 4544])
+
 #object-at-ship-position
 (test *)
 (run *)
