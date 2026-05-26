@@ -31,7 +31,7 @@
 
 (global variable (map offset 100)) %% recommended safety margin
 
-(global variable (map size  1100)) %% one quadrant, plus one sector margin
+(global variable (map size 1100)) %% one quadrant, plus one sector margin
 
 (global variable (stacking limit 16383)) %% max objects per square
 

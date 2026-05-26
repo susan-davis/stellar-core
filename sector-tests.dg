@@ -171,38 +171,3 @@
 #top-object-is-star
 (test *)
 (run *)	(top object in subsector 5 5 8 8 into #sun)
-
-(assert that $Direction goes to $There)
-	(next subsector $Direction from [3444 4544] into $There)
-
-#next-subsector-north
-(test *)
-(run *)	(assert that #north goes to [3444 4444])
-
-#next-subsector-northeast
-(test *)
-(run *)	(assert that #northeast goes to [3544 4444])
-
-#next-subsector-east
-(test *)
-(run *)	(assert that #east goes to [3544 4544])
-
-#next-subsector-southeast
-(test *)
-(run *)	(assert that #southeast goes to [3544 4644])
-
-#next-subsector-south
-(test *)
-(run *)	(assert that #south goes to [3444 4644])
-
-#next-subsector-southwest
-(test *)
-(run *)	(assert that #southwest goes to [3344 4644])
-
-#next-subsector-west
-(test *)
-(run *)	(assert that #west goes to [3344 4544])
-
-#next-subsector-northwest
-(test *)
-(run *)	(assert that #northwest goes to [3344 4444])

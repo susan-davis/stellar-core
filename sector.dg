@@ -169,16 +169,6 @@
 	(objects in subsector $SX $SY $X $Y into $List)
 	([$Obj | $] = $List)
 
-(next subsector $Relation from $Place into $Result)
-	(fully bound $Place)
-	([$ $ | $Tail] = $Place)
-	(subsector for $Place into $SX $SY $X $Y)
-	(coordinates 1 $Relation from $X $Y into $NX $NY)
-	(fully bound $NX) (fully bound $NY)
-	(position for $SX $SY $NX $NY into $Position)
-	([$RX $RY] = $Position)
-	([$RX $RY | $Tail] = $Result)
-
 (turn $Ship to face subsector $Desired)
     (subsector for $Desired into $SX $SY $X $Y)
     (position for $SX $SY $X $Y into $There)
