@@ -123,77 +123,33 @@
 
 %%-----------------------------------------------------------------------------
 
-($ is in the same quadrant as position $) %% To be implemented
-
-%%($Obj1 is in the same quadrant as $Obj2) %% To be implemented
-
 ($ jamming level 0) %% To be implemented
 
 ($ noise level 0) %% To be implemented
 
-(position $Pos is in extended range of $Ship)
-	($Ship is in the same quadrant as position $Pos)
-	(subsector for $Pos into $SX $SY $ $)
-	($Ship sector x $X)
-	($Ship sector y $Y)
-	($X is within 2 of $SX)
-	($Y is within 2 of $SY)
-
 ($Object is in extended range of $Ship)
-	(grid object $Object)
-	($Object position $Pos)
-	(position $Pos is in extended range of $Ship)
-
-(position $Pos is in missile range of $Ship)
-	($Ship is in the same quadrant as position $Pos)
-	(subsector for $Pos into $SX $SY $ $)
-	($Ship sector x $X)
-	($Ship sector y $Y)
-	($X is within 1 of $SX)
-	($Y is within 1 of $SY)
+    ($Object is within 2 sectors of $Ship)
 
 ($Object is in missile range of $Ship)
-	(grid object $Object)
-	($Object position $Pos)
-	(position $Pos is in missile range of $Ship)
-
-(position $Pos is in weapons range of $Ship)
-	($Ship is in the same quadrant as position $Pos)
-	(subsector for $Pos into $SX $SY $ $)
-	($Ship sector x $X)
-	($Ship sector y $Y)
-	([$X $Y] = [$SX $SY])
+    ($Object is within 1 sectors of $Ship)
 
 ($Object is in weapons range of $Ship)
-	(grid object $Object)
-	($Object position $Pos)
-	(position $Pos is in weapons range of $Ship)
-
-(position $Pos is in matter transmission range of $Ship)
-	(position $Pos is in weapons range of $Ship)
-	(subsector for $Pos into $ $ $ZX $ZY)
-	($Ship subsector x $X)
-	($Ship subsector y $Y)
-	($X is within 1 of $ZX)
-	($Y is within 1 of $ZY)
+    ($Object is in the same sector as $Ship)
 
 ($Object is in matter transmission range of $Ship)
-	(grid object $Object)
-	($Object position $Pos)
-	(position $Pos is in matter transmission range of $Ship)
-
-(position $Pos is in visual range of $Ship)
-	($Ship is in the same quadrant as position $Pos)
-	(coordinates for $Pos into $TSX $TSY $TX $TY $TPX $TPY)
-	($Ship coordinates into $SX $SY $X $Y $PX $PY)
-	([$SX $SY $X $Y] = [$TSX $TSY $TX $TY])
-	($PX is within 1 of $TPX)
-	($PY is within 1 of $TPY)
+	($Object is in weapons range of $Ship)
 
 ($Object is in visual range of $Ship)
-	(grid object $Object)
-	($Object position $Pos)
-	(position $Pos is in visual range of $Ship)
+	($Object is in weapons range of $Ship)
+	($Ship   subsector x $X)
+	($Ship   subsector y $Y)
+	($Ship   position x  $PX)
+	($Ship   position y  $PY)
+	($Object subsector x $ZX)
+	($Object subsector y $ZY)
+	($Object position x  $QX)
+	($Object position y  $QY)
+	([$X $Y $PX $PY] = [$ZX $ZY $QX $QY])
 
 %% matching ranges to sensor levels
 

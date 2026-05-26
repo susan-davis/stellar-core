@@ -9,7 +9,7 @@
 %% Copyright © 2021-2026, Susan Davis. All rights reserved. See LICENSE for
 %% licensing details.
 
-%%-------------------------------- INTERFACES --------------------------------
+%%-------------------------------- INTERFACES ---------------------------------
 
 (interface (stellar object $)) %% immobile "terrain" feature on the grid
 
@@ -32,11 +32,21 @@
 %% Quadrant = 8x8 (expand to 10x10?) sectors. Sector = 10x10 subsectors.
 %% Subsector = 10x10 position. Position = 10x10 units.
 
-(interface ($<Here is in the same subsector as $<There))
+(interface ($<Object is in the same quadrant as $<Target))
 
-(interface (position $<Position is in the quadrant))
+(interface ($<Object is within $<Num sectors of $<Target))
 
-(interface ($<Object is in the quadrant))
+(interface ($<Object is in the same sector as $<Target))
+
+(interface ($<Object is within $<Num subsectors of $<Target))
+
+(interface ($<Object is in the same subsector as $<Target))
+
+(interface ($<Object is within $<Num positions of $<Target))
+
+(interface ($<Object is within $<Num millisectors of $<Target))
+
+%% objects
 
 (interface (objects in sector $<X $<Y into $>List))
 
@@ -46,13 +56,15 @@
 
 (interface (top object in subsector $<SX $<SY $<X $<Y into $>Obj))
 
+%% mutators
+
 (interface (turn $<Ship to face subsector $<Position))
 
 (interface (drag $<Ship to subsector $<Position))
 
 (interface (move $<Ship to subsector $<Position))
 
-%%------------------------------ IMPLEMENTATION ------------------------------
+%%---------------------------------- SCHEMA ----------------------------------
 
 (grid object *(stellar object $))
 
@@ -62,77 +74,102 @@
 %% STARTREK is 1-based rather than 0-based in its coordinates, that means
 %% correcting subsectors and position squares, but not sectors.
 
-(subsector for $Position into $SX $SY $X $Y)
-	([$BigX $BigY | $] = $Position)
-	(split $BigX into $SX $X $ $)
-	(split $BigY into $SY $Y $ $)
-
-(position for $SX $SY $X $Y into $Position)
-    ($SX times 1000 into $XT)
-    ($SY times 1000 into $YT)
-    ($X times  100  into $XH)
-    ($Y times  100  into $YH)
-	($XT plus $XH into $XSum)
-	($YT plus $YH into $YSum)
-	($XSum plus 44 into $NewX) %% centre of the subsector
-	($YSum plus 44 into $NewY)
-	([$NewX $NewY] = $Position)
-
-($Here is in the same subsector as $There)
-	(subsector for $Here  into $HSX $HSY $HX $HY)
-	(subsector for $There into $TSX $TSY $TX $TY)
-	([$HSX $HSY $HX $HY] = [$TSX $TSY $TX $TY])
-
 ($Object sector x $SX)
     ($Object is on the map)
 	($Object x $BigX)
-	(split $BigX into $SX $ $ $)
+	($BigX divided by 1000 into $SX)
 
 ($Object sector y $SY)
     ($Object is on the map)
 	($Object y $BigY)
-	(split $BigY into $SY $ $ $)
+	($BigY divided by 1000 into $SY)
 
 ($Object subsector x $X)
     ($Object is on the map)
 	($Object x $BigX)
-	(split $BigX into $ $Result $ $)
+	($BigX modulo 1000 into $BX)
+	($BX divided by 100 into $Result)
 	($Result plus 1 into $X) %% subsectors are 1-based
 
 ($Object subsector y $Y)
     ($Object is on the map)
 	($Object y $BigY)
-	(split $BigY into $ $Result $ $)
+	($BigY modulo 1000 into $BY)
+	($BY divided by 100 into $Result)
 	($Result plus 1 into $Y) %% subsectors are 1-based
 
 ($Object position x $PX)
     ($Object is on the map)
 	($Object x $BigX)
-	(split $BigX into $ $ $Result $)
+	($BigX modulo 100 into $BX)
+	($BX divided by 10 into $Result)
 	($Result plus 1 into $PX) %% positions are 1-based
 
 ($Object position y $PY)
     ($Object is on the map)
 	($Object y $BigY)
-	(split $BigY into $ $ $Result $)
-	($Result plus 1 into $PY) %% positions are 1-based
+	($BigX modulo 100 into $BX)
+	($BX divided by 10 into $Result)
+	($Result plus 1 into $PX) %% positions are 1-based
 
 ($Object fine position x $FX)
     ($Object is on the map)
 	($Object x $BigX)
-	($BigX modulo 10 into $Mod)
-	($Mod plus 1 into $FX)
+	($BigX modulo 100 into $FX)
 
 ($Object fine position y $FY)
     ($Object is on the map)
 	($Object y $BigY)
-	($BigY modulo 10 into $Mod)
-	($Mod plus 1 into $FY)
+	($BigY modulo 100 into $FY)
 
-($Place is in the quadrant)
-	([$X $Y | $] = $Place)
-	($X > 999) ($X < 9000) %% or 11000 if we go to 10x10 quadrants
-	($Y > 999) ($Y < 9000) %% or 1100 if we go to 10x10 quadrants
+%%-------------------------------- POSITIONS ---------------------------------
+
+($ is in the same quadrant as $) %% Override for multi-quadrant games.
+
+($Object is within $Num sectors of $Target)
+	(grid object $Object)
+	($Ship is in the same quadrant as $Object)
+	($Ship   sector x $X)
+	($Ship   sector y $Y)
+	($Object sector x $SX)
+	($Object sector y $SY)
+	($X is within $Num of $SX)
+	($Y is within $Num of $SY)
+
+($Object is in the same sector as $Target)
+    ($Object is within 0 sectors of $Target)
+
+($Object is within $Num subsectors of $Target)
+    ($Object is in the same sector as $Target)
+	($Object subsector x $X)
+	($Object subsector y $Y)
+	($Target subsector x $ZX)
+	($Target subsector y $ZY)
+	($X is within $Num of $ZX)
+	($Y is within $Num of $ZY)
+
+($Object is in the same subsector as $Target)
+    ($Object is within 0 subsectors of $Target)
+
+($Object is within $Num positions of $Target)
+    ($Object is in the same subsector as $Target)
+	($Object position x $X)
+	($Object position y $Y)
+	($Target position x $PX)
+	($Target position y $PY)
+	($X is within $Num of $PX)
+	($Y is within $Num of $PY)
+
+($Object is within $Num millisectors of $Target)
+    ($Object is in the same subsector as $Target)
+	($Object fine position x $X)
+	($Object fine position y $Y)
+	($Target fine position x $FX)
+	($Target fine position y $FY)
+	($X is within $Num of $FX)
+	($Y is within $Num of $FY)
+
+%%--------------------------------- OBJECTS ----------------------------------
 
 (objects in sector $X $Y into $List)
 	(collect $Obj)
@@ -168,6 +205,8 @@
 (top object in subsector $SX $SY $X $Y into $Obj)
 	(objects in subsector $SX $SY $X $Y into $List)
 	([$Obj | $] = $List)
+
+%%--------------------------------- MUTATORS ---------------------------------
 
 (turn $Ship to face subsector $Desired)
     (subsector for $Desired into $SX $SY $X $Y)

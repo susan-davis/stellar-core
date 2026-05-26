@@ -31,9 +31,7 @@
 
 (global variable (map offset 100)) %% recommended safety margin
 
-(global variable (map size 1100)) %% one quadrant, plus one sector margin
-
-(global variable (stacking limit 16383)) %% max objects per square
+(global variable (map size 1100)) %% max we can range across
 
 %%-------------------------------- INTERFACES --------------------------------
 
@@ -151,7 +149,6 @@
 	~(position $Place is on the map)
 
 (place $Object at $Place)
-    (another object can move to $Place)
 	(if) ($Object position $Position) (then)
 		([$ $ | $Tail] = $Position)
 	(else)
@@ -188,7 +185,7 @@
 	([$X2 $Y2 | $] = $There)
     ([$X1 $Y1] = [$X2 $Y2])
 
-($Object is at the precisely the same position as $Target)
+($Object is at precisely the same position as $Target)
 	($Object position $Here)
 	($Target position $There)
 	(position $Here precisely equals position $There)
@@ -210,11 +207,6 @@
 	(length of $List into $Num)
 
 %% ------------------------- SQUARES AND COLLISIONS -------------------------
-
-(another object can move to $Position)
-    (stacking limit $Limit)
-	(number of objects at $Position into $Num)
-	($Num < $Limit)
 
 ($Num north from $Y into $NY)
 	(if) (y increases south) (then)
@@ -284,19 +276,6 @@
 
 (next square $Relation from $Place into $Result)
     (1 squares $Relation from $Place into $Result)
-
-(closest unoccupied square to $Place from $Place into $Place)
-
-(closest unoccupied square to $Place from $Origin into $Result)
-    (fully bound $Place) (fully bound $Origin)
-    (if) (another object can move to $Place) (then)
-	    ([$X $Y | $] = $Place)
-	    ([$X $Y]     = $Result)
-	(else)
-	    (direction from $Place to $Origin into $Direction)
-		(next square $Direction from $Place into $New)
-		(closest unoccupied square to $New from $Origin into $Result)
-	(endif)
 
 %%----------------------------------- RANGE -----------------------------------
 
@@ -500,9 +479,9 @@
 ($Object moves to square $There)
     ($Object position $Here)
 	([$ $ | $Tail] = $Here)
-    (closest unoccupied square to $There from $Here into $Square)
-	([$X $Y | $]     = $Square)
+	([$X $Y | $]     = $There)
 	([$X $Y | $Tail] = $New)
+    (fully bound $New)
 	(now) ($Object position $New)
 
 ($ moves 0 squares $) %% do nothing

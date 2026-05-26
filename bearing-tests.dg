@@ -43,7 +43,6 @@
 	(now) (y increases south)
 	(now) (map size 1170)
 	(now) (map offset 100)
-	(now) (stacking limit 16383)
 
 (set up $)
     (reset map)
@@ -1018,28 +1017,12 @@
 	(drag #test-ship to position $There)
 	(#test-ship position [314 424 315])
 
-#drag-to-occupied-square-blocked
-(test *)
-(run *)
-    (now) (stacking limit 1)
-	(#near-target position $There)
-	(drag #test-ship to position $There)
-	(#test-ship position [315 425 315])
-
 #move-to-occupied-square
 (test *)
 (run *)
 	(#near-target position $There)
 	(move #test-ship to position $There)
 	(#test-ship position [314 424 315])
-
-#move-to-occupied-square-blocked
-(test *)
-(run *)
-    (now) (stacking limit 1)
-	(#near-target position $There)
-	(move #test-ship to position $There)
-	(#test-ship position [315 425 315])
 
 #move-toward-near-target
 (test *)

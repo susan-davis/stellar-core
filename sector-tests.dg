@@ -57,12 +57,12 @@
 #same-subsector
 (test *)
 (run *)
-	([3400 4594] is in the same subsector as [3444 4544])
+	(position [3400 4594] is in the same subsector as position [3444 4544])
 
 #not-same-subsector
 (test *)
 (run *)
-	~([3444 4544] is in the same subsector as [5555 6666])
+	~(position [3444 4544] is in the same subsector as position [5555 6666])
 
 #schema
 (test *)

@@ -216,7 +216,7 @@
 #closest-target-in-matter-transmission-range
 (test *)
 (run *)
-	(move #closest-target to 3 4 5 5)
+	(move #closest-target to [3444 4444])
 	(#closest-target is in matter transmission range of #test-ship)
 
 #near-target-not-in-matter-transmission-range
@@ -237,41 +237,19 @@
 
 #closest-in-missile-range-of-near
 (test *)
-(run *)      (#closest-target is in missile range of #near-target)
+(run *) (#closest-target is in missile range of #near-target)
 
 #closest-in-weapons-range-of-near
 (test *)
-(run *)      (#closest-target is in weapons range of #near-target)
+(run *) (#closest-target is in weapons range of #near-target)
 
 #near-out-of-range-of-far
 (test *)
-(run *)      ~(#near-target is in weapons range of #far-target)
+(run *) ~(#near-target is in weapons range of #far-target)
 
 #near-out-of-range-of-distant
 (test *)
-(run *)      ~(#near-target is in missile range of #distant-target)
-
-#object-at-precise-ship-position
-(test *)
-(run *)
-	(object at 3 4 5 6 5 5 into $Obj)
-	(assert $Obj = #test-ship)
-
-#object-at-imprecise-ship-position
-(test *)
-(run *)
-	(position for 3 4 5 6 1 1 into $Here)
-	~(object at $Here into $)
-
-#top-object-at-ship-location
-(test *)
-(run *)
-	(top object in subsector 3 4 5 6 into $Obj)
-	(assert $Obj = #test-ship)
-
-#needs-1-for-closest
-(test *)
-(run *)
+(run *) ~(#near-target is in missile range of #distant-target)
 
 #detected-closest
 (test *)

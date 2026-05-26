@@ -47,7 +47,6 @@
 	(now) ~(storing positions in units)
 	(now) (map size 1170)
 	(now) (map offset 100)
-	(now) (stacking limit 16383)
 
 (set up $)
     (reset map)
@@ -247,117 +246,6 @@
 (run *)
     (place #closest-target at [344 454])
 	(number of objects at [344 454] into 2)
-
-#another-object-can-move-to-test-ship
-(test *)
-(run *)
-    (another object can move to [344 454])
-
-#another-object-cant-move-to-test-ship
-(test *)
-(run *)
-    (now) (stacking limit 1)
-    ~(another object can move to [344 454])
-
-#enforce-stacking-limit
-(test *)
-(run *)
-    (now) (stacking limit 1)
-    ~(place #closest-target at [344 454])
-
-#closest-unoccupied-square-empty
-(test *)
-(run *)
-	(closest unoccupied square to [879 1044] from [344 454] into [879 1044])
-
-#closest-unoccupied-square-empty-big
-(test *)
-(run *)
-    (big numbers)
-	(closest unoccupied square to [8794 10444] from [3444 4544]
-	         into [8794 10444])
-
-#closest-unoccupied-square-north
-(test *)
-(run *)
-    (now) (stacking limit 1)
-	(closest unoccupied square to [344 454] from [344 444] into [344 453])
-
-#closest-unoccupied-square-north-big
-(test *)
-(run *)
-    (now) (stacking limit 1)
-    (big numbers)
-	(closest unoccupied square to [3444 4544] from [3444 4444] into [3444 4534])
-
-#closest-unoccupied-square-south
-(test *)
-(run *)
-    (now) (stacking limit 1)
-	(closest unoccupied square to [344 454] from [344 466] into [344 455])
-
-#closest-unoccupied-square-south-big
-(test *)
-(run *)
-    (now) (stacking limit 1)
-    (big numbers)
-	(closest unoccupied square to [3444 4544] from [3444 4664] into [3444 4554])
-
-#closest-unoccupied-square-east
-(test *)
-(run *)
-    (now) (stacking limit 1)
-	(closest unoccupied square to [344 454] from [355 454] into [345 454])
-
-#closest-unoccupied-square-west
-(test *)
-(run *)
-    (now) (stacking limit 1)
-	(closest unoccupied square to [344 454] from [333 454] into [343 454])
-
-#closest-unoccupied-square-north-inverted
-(test *)
-(run *)
-    (now) (stacking limit 1)
-    (inverted map)
-	(closest unoccupied square to [344 454] from [344 466] into [344 455])
-
-#closest-unoccupied-square-south-inverted
-(test *)
-(run *)
-    (now) (stacking limit 1)
-    (inverted map)
-	(closest unoccupied square to [344 454] from [344 444] into [344 453])
-
-#closest-unoccupied-square-east-inverted
-(test *)
-(run *)
-    (now) (stacking limit 1)
-    (inverted map)
-	(closest unoccupied square to [344 454] from [333 454] into [343 454])
-
-#closest-unoccupied-square-west-inverted
-(test *)
-(run *)
-    (now) (stacking limit 1)
-    (inverted map)
-	(closest unoccupied square to [344 454] from [355 454] into [345 454])
-
-#closest-unoccupied-square-near-target
-(test *)
-(run *)
-    (now) (stacking limit 1)
-	(#test-ship position $Here)
-	(#near-target position $There)
-	(closest unoccupied square to $There from $Here into [315 425])
-
-#closest-unoccupied-square-far-target
-(test *)
-(run *)
-    (now) (stacking limit 1)
-	(#test-ship position $Here)
-	(#far-target position $There)
-	(closest unoccupied square to $There from $Here into [423 315])
 
 #next-coordinates-north
 (test *)
@@ -955,14 +843,6 @@
     (place #closest-target at [344 453])
 	(#test-ship moves 1 squares #north)
 	(#test-ship position [344 453 | $])
-
-#blocked-1
-(test *)
-(run *)
-    (now) (stacking limit 1)
-	(place #closest-target at [344 453])
-	(#closest-target moves 1 squares #south)
-	(#closest-target position [344 453 | $])
 
 #0-units-ortho
 (test *)
