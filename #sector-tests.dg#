@@ -231,6 +231,10 @@
 (test *)
 (run *) (subsector 5 5 8 8 is deep in a gravity well)
 
+#deep-gravity-around-sun
+(test *)
+(run *) (subsector 5 5 8 8 is deep in a gravity well)
+
 #steep-gravity-sun
 (test *)
 (run *) (position 5 5 8 8 8 8 is in a very steep gravity well)

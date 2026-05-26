@@ -70,6 +70,14 @@
 
 (interface (planet $))
 
+(interface ($ is massive)) %% planet-scale
+
+(interface ($ is very massive)) %% stellar scale
+
+(interface ($ is extremely massive)) %% supergiant or black hole
+
+(interface ($ is supermassive)) %% supermassive black hole
+
 (interface (sector $<SX $<SY is in a gravity well))
 
 (interface (subsector $<SX $<SY $<X $<Y is in a gravity well))
@@ -257,15 +265,17 @@
 
 ($ is supermassive)          (fail) %% supermassive black holes
 
-(sector $SX $SY is in a gravity well)
+(sector $SX $SY has a very massive object)
     (accumulate 1)
-	    *(stellar object $Object) {
-		    ($Object is supermassive) (or)
-		    { ($Object is on the map) ($Object is extremely massive) } (or)
-		    { ($Object is in sector $SX $SY) ($Object is very massive) }
-	    }
+	    *(stellar object $Object)
+		    ($Object is in sector $SX $SY)
+			($Object is very massive)
 	(into $Count)
 	($Count > 0)
+
+(sector $SX $SY is in a gravity well)
+    (sector $SX $SY has a very massive object)
+	%% TODO: add black holes and supermassive black holes
 
 (subsector $SX $SY $X $Y has a massive object)
     (accumulate 1)
