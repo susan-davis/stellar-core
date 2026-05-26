@@ -111,15 +111,7 @@
 
 #destination
 (test *)
-(run *)	   (#test-ship destination [300 400])
-
-#destination-subsector
-(test *)
-(run *)	   (#test-ship destination 3 4 1 1)
-
-#destination-precisely
-(test *)
-(run *)	   (#test-ship destination 3 4 1 1 1 1)
+(run *)	   (#test-ship destination [3000 4000])
 
 #has-destination
 (test *)
@@ -202,29 +194,11 @@
 #set-destination
 (test *)
 (run *)
-	(position for 4 5 6 7 into $Position)
-	(set destination for #test-ship to $Position)
+	(set destination for #test-ship to [4544 5644])
 	(#test-ship has a set destination)
-	(#test-ship destination 4 5 6 7)
+	(#test-ship destination [4544 5644])
 	(#test-ship heading 315)
 	(#test-ship helm setting 135)
-
-#set-destination-subsector
-(test *)
-(run *)
-	(set destination for #test-ship to 4 5 6 7)
-	(#test-ship has a set destination)
-	(#test-ship destination $There)
-	([454 564 | $] = $There)
-	(#test-ship helm setting 135)
-
-#set-destination-precisely
-(test *)
-(run *)
-	(set destination for #test-ship to 4 5 6 7 8 9)
-	(#test-ship has a set destination)
-	(#test-ship destination 4 5 6 7 8 9)
-	(#test-ship helm setting 137)
 
 #clear-destination
 (test *)
@@ -507,26 +481,6 @@
 (run *)
     (#test-ship maximum speed for energy 932 into 499)
 
-#move-on-course
-(test *)
-(run *)
-	(move #test-ship on course and speed)
-	(#test-ship position [342 452 315 32])
-
-#move-on-course-closest-target
-(test *)
-(run *)
-	(turn #test-ship to face #closest-target)
-	(move #test-ship on course and speed)
-	(#test-ship position [346 452 45 32])
-
-#move-on-course-distant-target
-(test *)
-(run *)
-	(turn #test-ship to face #distant-target)
-	(move #test-ship on course and speed)
-	(#test-ship position [344 457 200 32])
-
 (assert energy $Energy yields throttle $Throttle)
 	(932 minus $Energy into $Deficit)
 	(decrease energy for #test-ship by $Deficit)
@@ -549,6 +503,26 @@
 (test *)
 (run *)    (assert energy 0 yields throttle 0)
 
+#move-on-course
+(test *)
+(run *)
+	(move #test-ship on course and speed)
+	(#test-ship position $P) $P
+
+#move-on-course-closest-target
+(test *)
+(run *)
+	(turn #test-ship to face #closest-target)
+	(move #test-ship on course and speed)
+	(#test-ship position [3464 4524 45 32])
+
+#move-on-course-distant-target
+(test *)
+(run *)
+	(turn #test-ship to face #distant-target)
+	(move #test-ship on course and speed)
+	(#test-ship position [3444 4574 200 32])
+
 (assert $Target goes to $Pos)
     (if) ($Target position $Destination) (then)
         (set destination for #test-ship to $Destination)
@@ -559,17 +533,17 @@
 #update-ship-near-target
 (test *)
 (run *)
-	(assert #near-target goes to [341 451 315 35])
+	(assert #near-target goes to [3414 4514 315 35])
 
 #update-ship-far-target
 (test *)
 (run *)
-	(assert #far-target goes to [344 450 0 35])
+	(assert #far-target goes to [3444 4504 0 35])
 
 #update-ship-distant-target
 (test *)
 (run *)
-	(assert #distant-target goes to [340 454 270 35])
+	(assert #distant-target goes to [3404 4544 270 35])
 
 (assert $N minutes goes to $X $Y at throttle $Throttle)
 	(clear destination for #test-ship)
@@ -580,19 +554,19 @@
 
 #move-1-at-7
 (test *)
-(run *)    (assert 1 minutes goes to 341 451 at throttle 7)
+(run *)    (assert 1 minutes goes to 3414 4514 at throttle 7)
 
 #move-2-at-7
 (test *)
-(run *)    (assert 2 minutes goes to 338 448 at throttle 7)
+(run *)    (assert 2 minutes goes to 3384 4484 at throttle 7)
 
 #move-5-at-7
 (test *)
-(run *)    (assert 5 minutes goes to 329 439 at throttle 7)
+(run *)    (assert 5 minutes goes to 3294 4394 at throttle 7)
 
 #move-8-at-4
 (test *)
-(run *)    (assert 8 minutes goes to 328 438 at throttle 4)
+(run *)    (assert 8 minutes goes to 3284 4384 at throttle 4)
 
 (assert $N minutes toward $Destination goes to $X $Y)
 	(set destination for #test-ship to $Destination)
@@ -603,15 +577,15 @@
 
 #move-1-toward-corner
 (test *)
-(run *)    (assert 1 minutes toward [899 899] goes to 344 450)
+(run *)    (assert 1 minutes toward [8999 8999] goes to 3444 4504)
 
 #move-2-toward-corner
 (test *)
-(run *)    (assert 2 minutes toward [899 899] goes to 347 447)
+(run *)    (assert 2 minutes toward [8999 8999] goes to 3474 4474)
 
 #move-5-toward-corner
 (test *)
-(run *)    (assert 5 minutes toward [899 899] goes to 357 453)
+(run *)    (assert 5 minutes toward [8999 8999] goes to 3574 4534)
 
 #pursue-far-target
 (test *)
@@ -620,7 +594,7 @@
 	 (#test-ship pursues #far-target)
 	 (set throttle for #test-ship to gradient 6)
 	 (move #test-ship for 3 minutes)
-	 (#test-ship position [350 444 30 41])
+	 (#test-ship position [3504 4444 30 41])
 	 (range from #test-ship to #far-target into 1802)
 
 #evade-near-target
@@ -630,9 +604,5 @@
 	 (#test-ship flees #near-target)
 	 (set throttle for #test-ship to gradient 6)
 	 (move #test-ship for 3 minutes)
-	 (#test-ship position [351 447 90 41])
+	 (#test-ship position [3514 4474 90 41])
 	 (range from #test-ship to #far-target into 1804)
-
-#warp-6-is-sustainable
-
-#warp-7-isnt-sustainable

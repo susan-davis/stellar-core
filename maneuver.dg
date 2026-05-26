@@ -30,10 +30,6 @@
 
 (interface ($<Ship destination $>Destination))
 
-(interface ($<Ship destination $>SX $>SY $>X $>Y $>PX $>PY))
-
-(interface ($<Ship destination $>SX $>SY $>X $>Y))
-
 (interface ($<Ship has a set destination))
 
 (interface ($<Ship has a pursuit target))
@@ -72,10 +68,6 @@
 
 (interface (set destination for $<Ship to $<Destination))
 
-(interface (set destination for $<Ship to $<SX $<SY $<X $<Y))
-
-(interface (set destination for $<Ship to $<SX $<SY $<X $<Y $<PX $<PY))
-
 (interface (clear destination for $<Ship))
 
 (interface ($<Ship pursues $<Target))
@@ -95,8 +87,6 @@
 (interface (update $<Ship position and velocity))
 
 (interface (move $<Ship for $<Ticks minutes))
-
-(interface (attract nearby ships to $<Object))
 
 %%---------------------------------- HELPERS ----------------------------------
 
@@ -153,14 +143,6 @@
 	($Ship state $State)
 	([$DX $DY | $] = $State)
 	([$DX $DY] = $Destination)
-
-($Ship destination $SX $SY $X $Y $PX $PY)
-	($Ship destination $Position)
-	(coordinates for $Position into $SX $SY $X $Y $PX $PY)
-
-($Ship destination $SX $SY $X $Y)
-	($Ship destination $Position)
-	(subsector for $Position into $SX $SY $X $Y)
 
 ($Ship has a set destination)
 	($Ship destination [$X $Y])
@@ -256,14 +238,6 @@
 	(now) ($Ship state $NewState)
 	(update $Ship helm for destination)
 
-(set destination for $Ship to $SX $SY $X $Y $PX $PY)
-	(position for $SX $SY $X $Y $PX $PY into $Position)
-	(set destination for $Ship to $Position)
-
-(set destination for $Ship to $SX $SY $X $Y)
-	(position for $SX $SY $X $Y into $Position)
-	(set destination for $Ship to $Position)
-
 (clear destination for $Ship)
 	(set destination for $Ship to [16383 16383])
 
@@ -335,40 +309,40 @@
 	(endif)
 	(accelerate $Ship to speed $NewSpeed)
 
-(move $Ship in a straight line)
-    ($Ship speed 0)
-	%% move under reactionless
+%% move under reactionless
+%%(move $Ship in a straight line)
+%%    ($Ship speed 0)
 
-(move $Ship in a straight line)
-	($Ship speed $Speed)
-	(move $Ship $Speed forward)
-	($Ship energy needed for speed $Speed into $Energy)
-	(decrease energy for $Ship by $Energy)
+(move $Ship in a straight line) l
+	($Ship speed $Speed) m
+	(move $Ship $Speed forward) n
+	($Ship energy needed for speed $Speed into $Energy) o
+	(decrease energy for $Ship by $Energy) p
 
-(move $Ship to its destination)
-	($Ship position $Position)
-	($Ship destination $Destination)
-	(calculate range from $Position to $Destination into $Travelled)
-	(move $Ship to position $Destination)
-	(set throttle for $Ship to speed 0)
-	($Ship energy needed for speed $Travelled into $Energy)
-	(decrease energy for $Ship by $Energy)
+(move $Ship to its destination) q
+	($Ship position $Position) r
+	($Ship destination $Destination) s
+	(calculate range from $Position to $Destination into $Travelled) t
+	(move $Ship to position $Destination) u
+	(set throttle for $Ship to speed 0) v
+	($Ship energy needed for speed $Travelled into $Energy) w
+	(decrease energy for $Ship by $Energy) x
 
-(move $Ship toward $)
-    ($Ship speed 0)
-	%% move under reactionless
+%% move under reactionless
+%%(move $Ship toward $)
+%%    ($Ship speed 0)
 
-(move $Ship toward $Destination)
-	($Ship position $Position)
-	(calculate range from $Position to $Destination into $Range)
-	($Ship speed $Distance)
-	(bearing from $Ship to position $Destination into $Bearing)
-	($Ship heading $Heading)
-	(if) ($Range > $Distance) (or) ~($Bearing = $Heading) (then)
-		(move $Ship in a straight line)
-	(else)
-		(move $Ship to its destination)
-	(endif)
+(move $Ship toward $Destination) a
+	($Ship position $Position) b
+	(calculate range from $Position to $Destination into $Range) c
+	($Ship speed $Distance) d
+	(bearing from $Ship to position $Destination into $Bearing) e
+	($Ship heading $Heading) f
+	(if) ($Range > $Distance) (or) ~($Bearing = $Heading) (then) g
+		(move $Ship in a straight line) h
+	(else) i
+		(move $Ship to its destination) j
+	(endif) k
 
 (move $Ship on course and speed)
 	($Ship has a set destination)
@@ -454,11 +428,3 @@
 		 ($Ticks minus $Minutes into $Remaining)
 		 (move $Ship for $Remaining minutes)
 	(endif)
-
-(attract nearby ships to $Object)
-	($Object subsector into $SX $SY $X $Y)
-	(exhaust) {
-		*(ship $Ship)
-		($Ship subsector into $SX $SY $X $Y)
-		(drag $Ship 12 toward $Object)
-	}
