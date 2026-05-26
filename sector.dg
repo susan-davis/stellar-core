@@ -34,11 +34,15 @@
 
 (interface ($<Object is in sector $<SX $<SY))
 
+(interface ($<Object is within $<Num sectors of sector $<SX $<SY))
+
 (interface ($<Object is within $<Num sectors of $<Target))
 
 (interface ($<Object is in the same sector as $<Target))
 
 (interface ($<Object is in subsector $<SX $<SY $<X $<Y))
+
+(interface ($<Object is within $<Num subsectors of subsector $<SX $<SY $<X $<Y))
 
 (interface ($<Object is within $<Num subsectors of $<Target))
 

@@ -137,7 +137,7 @@
     ($Object is in the same sector as $Ship)
 
 ($Object is in matter transmission range of $Ship)
-	($Object is in within 1 positions of $Ship)
+	($Object is within 1 positions of $Ship)
 
 ($Object is in visual range of $Ship)
     ($Object is within 1 millisectors of $Ship)
@@ -152,7 +152,7 @@
 
 ($Ship needs sensor level $Level to see position $Position)
 	($Ship is in the same quadrant as position $Position)
-	(subsector for $Position into $SX $SY $ $)
+	(split position $Position into $SX $SY $ $ $ $)
 	($Ship sector x $X)
 	($Ship sector y $Y)
 	($X delta $SX into $DX)

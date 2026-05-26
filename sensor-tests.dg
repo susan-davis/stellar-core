@@ -216,7 +216,7 @@
 #closest-target-in-matter-transmission-range
 (test *)
 (run *)
-	(move #closest-target to [3444 4444])
+	(move #closest-target to position [3444 4554])
 	(#closest-target is in matter transmission range of #test-ship)
 
 #near-target-not-in-matter-transmission-range
