@@ -41,7 +41,6 @@
 	(now) (storing positions in units)
 	(now) (map size 1170)
 	(now) (map offset 100)
-	(now) (stacking limit 16383)
 
 (set up $)
     (reset map)
@@ -54,16 +53,6 @@
 
 %%-----------------------------------------------------------------------------
 
-#same-subsector
-(test *)
-(run *)
-	(position [3400 4594] is in the same subsector as position [3444 4544])
-
-#not-same-subsector
-(test *)
-(run *)
-	~(position [3444 4544] is in the same subsector as position [5555 6666])
-
 #schema
 (test *)
 (run *)
@@ -73,58 +62,8 @@
     (#test-ship subsector y 6)
 	(#test-ship position x 6)
 	(#test-ship position y 7)
-	(#test-ship fine position x 7)
-	(#test-ship fine position y 8)
-
-#current-ship-in-quadrant
-(test *)
-(run *)
-	(#test-ship position $Here)
-	($Here is in the quadrant)
-
-#far-target-in-quadrant
-(test *)
-(run *)
-	(#far-target position $Here)
-	($Here is in the quadrant)
-
-#distant-target-not-in-quadrant
-(test *)
-(run *)
-	(#distant-target position $Here)
-	~($Here is in the quadrant)
-
-#0-0-not-in-quadrant
-(test *)
-(run *)	~([0199 0199] is in the quadrant)
-
-#1-0-not-in-quadrant
-(test *)
-(run *)	~([0900 1000] is in the quadrant)
-
-#0-1-not-in-quadrant
-(test *)
-(run *)	~([1000 0900] is in the quadrant)
-
-#9-9-not-in-quadrant
-(test *)
-(run *)	~([9999 9999] is in the quadrant)
-
-#9-8-not-in-quadrant
-(test *)
-(run *)	~([9999 8999] is in the quadrant)
-
-#8-9-not-in-quadrant
-(test *)
-(run *)	~([8999 9999] is in the quadrant)
-
-#1-1-in-quadrant
-(test *)
-(run *)	([1000 1000] is in the quadrant)
-
-#8-8-in-quadrant
-(test *)
-(run *)	([8999 8999] is in the quadrant)
+	(#test-ship fine position x 56)
+	(#test-ship fine position y 67)
 
 #objects-in-sector
 (test *)

@@ -165,7 +165,6 @@
      (now) ~(x increases west)
 	 (now) (y increases south)
 	 (now) (storing positions in units)
-	 (now) (stacking limit 16383)
 	 (now) (map offset 100)
 	 (now) (map size 1100)
 	 (exhaust) {

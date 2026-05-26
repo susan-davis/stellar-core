@@ -48,7 +48,6 @@
 #firing-arc-same-position
 (test *)
 (run *)
-    (now) (stacking limit 16383)
     (#test-ship position $Pos)
 	(drag #closest-target to position $Pos)
 	(firing arc from #test-ship to #closest-target into #up)
@@ -57,7 +56,6 @@
 #shield-direction-same-position
 (test *)
 (run *)
-    (now) (stacking limit 16383)
     (#test-ship position $Pos)
 	(drag #closest-target to position $Pos)
 	(#test-ship is at the same position as #closest-target)
