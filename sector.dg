@@ -148,8 +148,10 @@
 
 (split position $Pos into $SX $SY $X $Y $PX $PY)
     ([$BigX $BigY | $] = $Pos)
-	(split $BigX into $SX $X $PX $)
-	(split $BigY into $SY $Y $PY $)
+	(split $BigX into $SX $MX $MPX $)
+	(split $BigY into $SY $MY $MPY $)
+	($MX  plus 1 into $X)  ($MY  plus 1 into $Y)
+	($MPX plus 1 into $PX) ($MPY plus 1 into $PY)
 
 ($Object is in sector $SX $SY)
 	($Object sector x $SX)
@@ -245,7 +247,7 @@
 
 (stellar object *(star $))
 
-(stellar object *(planet $))
+(stellar object *(planet $)) %% includes large moons with their own biosphere
 
 ($Object is massive)         (star $Object) (or) (planet $Object)
 

@@ -83,9 +83,17 @@
 (test *)
 (run *)	~(object at [3455 4555] into $)
 
+#objects-in-ships-sector
+(test *)
+(run *) (objects in sector 3 4 into [#test-ship #closest-target #near-target])
+
 #objects-in-ships-subsector
 (test *)
 (run *)	(objects in subsector 3 4 5 6 into [#test-ship])
+
+#objects-at-ships-position
+(test *)
+(run *) (objects at position 3 4 5 6 5 5 into $O) $O
 
 #objects-at-closest-target
 (test *)
@@ -95,11 +103,11 @@
 (test *)
 (run *)	(top object in subsector 3 4 2 3 into #near-target)
 
-#object-at-far-target
+#top-object-at-far-target
 (test *)
 (run *)	(top object in subsector 4 3 3 2 into #far-target)
 
-#object-at-empty-position
+#objects-at-empty-position
 (test *)
 (run *)	(objects in subsector 8 8 10 10 into [])
 
@@ -111,4 +119,86 @@
 (test *)
 (run *)	(top object in subsector 5 5 8 8 into #sun)
 
-%% TODO: write more tests!
+#split-position
+(test *)
+(run *) (split position [3444 4544] into 3 4 5 6 5 5)
+
+#test-ship-sector
+(test *)
+(run *) (#test-ship is in sector 3 4)
+
+#test-ship-wrong-sector
+(test *)
+(run *) ~(#test-ship is in sector 4 3)
+
+#test-ship-subsector
+(test *)
+(run *) (#test-ship is in subsector 3 4 5 6)
+
+#test-ship-position
+(test *)
+(run *) (#test-ship is at position 3 4 5 6 6 7)
+
+#closest-target-same-sector
+(test *)
+(run *) (#test-ship is in the same sector as #closest-target)
+
+#near-target-same-sector
+(test *)
+(run *) (#test-ship is within 0 sectors of #near-target)
+
+#far-target-one-sector
+(test *)
+(run *) (#test-ship is within 1 sectors of #near-target)
+
+#distant-target-five-sectors
+(test *)
+(run *) (#test-ship is within 5 sectors of #distant-target)
+
+#closest-target-one-subsector
+(test *)
+(run *) (#test-ship is within 1 subsectors of #closest-target)
+
+#near-target-three-subsectors
+(test *)
+(run *) (#test-ship is within 3 subsectors of #near-target)
+
+#far-target-no-subsectors
+(test *)
+(run *) ~(#test-ship is within 16383 subsectors of #far-target)
+
+#closest-target-in-subsector
+(test *)
+(run *)
+    (move #test-ship to position [3555 4455])
+	(#test-ship is in the same subsector as #closest-target)
+
+#closest-target-two-positions-away
+(test *)
+(run *)
+    (move #test-ship to position [3555 4465])
+	(#test-ship is within 2 positions of #closest-target)
+
+#closest-target-at-position
+(test *)
+(run *)
+    (move #test-ship to position [3545 4446])
+	(#test-ship is at the same position as #closest-target)
+
+#closest-target-not-at-fine-position
+(test *)
+(run *)
+    (move #test-ship to position [3545 4446])
+	~(#test-ship is at precisely the same position as #closest-target)
+
+#closest-target-two-millisectors-away
+(test *)
+(run *)
+    (move #test-ship to position [3545 4446])
+	(#test-ship is within 2 millisectors of #closest-target)
+
+#closest-target-at-fine-position
+(test *)
+(run *)
+    (move #test-ship to position [3544 4444])
+	(#test-ship is at precisely the same position as #closest-target)
