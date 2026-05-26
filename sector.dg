@@ -34,13 +34,19 @@
 
 (interface ($<Object is in the same quadrant as $<Target))
 
+(interface ($<Object is in sector $<SX $<SY))
+
 (interface ($<Object is within $<Num sectors of $<Target))
 
 (interface ($<Object is in the same sector as $<Target))
 
+(interface ($<Object is in subsector $<SX $<SY $<X $<Y))
+
 (interface ($<Object is within $<Num subsectors of $<Target))
 
 (interface ($<Object is in the same subsector as $<Target))
+
+(interface ($<Object is at position $<SX $<SY $<X $<Y $<PX $<PY))
 
 (interface ($<Object is within $<Num positions of $<Target))
 
@@ -55,14 +61,6 @@
 (interface (objects at position $<SX $<SY $<X $<Y $<PX $<PY into $>List))
 
 (interface (top object in subsector $<SX $<SY $<X $<Y into $>Obj))
-
-%% mutators
-
-(interface (turn $<Ship to face subsector $<Position))
-
-(interface (drag $<Ship to subsector $<Position))
-
-(interface (move $<Ship to subsector $<Position))
 
 %%---------------------------------- SCHEMA ----------------------------------
 
@@ -108,9 +106,9 @@
 ($Object position y $PY)
     ($Object is on the map)
 	($Object y $BigY)
-	($BigX modulo 100 into $BX)
-	($BX divided by 10 into $Result)
-	($Result plus 1 into $PX) %% positions are 1-based
+	($BigY modulo 100 into $BY)
+	($BY divided by 10 into $Result)
+	($Result plus 1 into $PY) %% positions are 1-based
 
 ($Object fine position x $FX)
     ($Object is on the map)
@@ -126,11 +124,15 @@
 
 ($ is in the same quadrant as $) %% Override for multi-quadrant games.
 
+($Object is in sector $SX $SY)
+	($Object sector x $SX)
+	($Object sector y $SY)
+
 ($Object is within $Num sectors of $Target)
 	(grid object $Object)
-	($Ship is in the same quadrant as $Object)
-	($Ship   sector x $X)
-	($Ship   sector y $Y)
+	($Target is in the same quadrant as $Object)
+	($Target sector x $X)
+	($Target sector y $Y)
 	($Object sector x $SX)
 	($Object sector y $SY)
 	($X is within $Num of $SX)
@@ -138,6 +140,12 @@
 
 ($Object is in the same sector as $Target)
     ($Object is within 0 sectors of $Target)
+
+($Object is in subsector $SX $SY $X $Y)
+	($Object sector x $SX)
+	($Object sector y $SY)
+	($Object subsector x $X)
+	($Object subsector y $Y)
 
 ($Object is within $Num subsectors of $Target)
     ($Object is in the same sector as $Target)
@@ -150,6 +158,14 @@
 
 ($Object is in the same subsector as $Target)
     ($Object is within 0 subsectors of $Target)
+
+($Object is at position $SX $SY $X $Y $PX $PY)
+	($Object sector x $SX)
+	($Object sector y $SY)
+	($Object subsector x $X)
+	($Object subsector y $Y)
+	($Object position x $PX)
+	($Object position y $PY)
 
 ($Object is within $Num positions of $Target)
     ($Object is in the same subsector as $Target)
@@ -174,29 +190,19 @@
 (objects in sector $X $Y into $List)
 	(collect $Obj)
 		*(grid object $Obj)
-		       ($Obj sector x $SX)
-		       ($Obj sector y $SY)
-		       ([$SX $SY] = [$X $Y])
+		($Obj is in sector $X $Y)
 	(into $List)
 
 (objects in subsector $SX $SY $X $Y into $List)
 	(collect $Obj)
 		*(grid object $Obj)
-		       ($Obj sector x $SX)
-		       ($Obj sector y $SY)
-		       ($Obj subsector x $X)
-		       ($Obj subsector y $Y)
+		($Obj is in subsector $SX $SY $X $Y)
 	(into $List)
 
 (objects at position $SX $SY $X $Y $PX $PY into $List)
 	(collect $Obj)
 		*(grid object $Obj)
-		       ($Obj sector x $SX)
-		       ($Obj sector y $SY)
-		       ($Obj subsector x $X)
-		       ($Obj subsector y $Y)
-			   ($Obj position x $PX)
-			   ($Obj position y $PY)
+		($Obj is at position $SX $SY $X $Y $PX $PY)
 	(into $List)
 
 %% Declare all grid objects in ascending order of importance in scans,
@@ -205,21 +211,3 @@
 (top object in subsector $SX $SY $X $Y into $Obj)
 	(objects in subsector $SX $SY $X $Y into $List)
 	([$Obj | $] = $List)
-
-%%--------------------------------- MUTATORS ---------------------------------
-
-(turn $Ship to face subsector $Desired)
-    (subsector for $Desired into $SX $SY $X $Y)
-    (position for $SX $SY $X $Y into $There)
-	(turn $Ship to face position $There)
-
-(drag $Ship to subsector $Desired)
-	($Ship is on the map)
-    (subsector for $Desired into $SX $SY $X $Y)
-    (position for $SX $SY $X $Y into $There)
-    (drag $Ship to position $There)
-
-(move $Ship to subsector $Destination)
-	($Ship is on the map)
-	(turn $Ship to face subsector $Destination)
-	(drag $Ship to subsector $Destination)
