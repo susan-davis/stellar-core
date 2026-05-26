@@ -110,3 +110,5 @@
 #top-object-is-star
 (test *)
 (run *)	(top object in subsector 5 5 8 8 into #sun)
+
+%% TODO: write more tests!

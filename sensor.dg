@@ -137,19 +137,10 @@
     ($Object is in the same sector as $Ship)
 
 ($Object is in matter transmission range of $Ship)
-	($Object is in weapons range of $Ship)
+	($Object is in within 1 positions of $Ship)
 
 ($Object is in visual range of $Ship)
-	($Object is in weapons range of $Ship)
-	($Ship   subsector x $X)
-	($Ship   subsector y $Y)
-	($Ship   position x  $PX)
-	($Ship   position y  $PY)
-	($Object subsector x $ZX)
-	($Object subsector y $ZY)
-	($Object position x  $QX)
-	($Object position y  $QY)
-	([$X $Y $PX $PY] = [$ZX $ZY $QX $QY])
+    ($Object is within 1 millisectors of $Ship)
 
 %% matching ranges to sensor levels
 

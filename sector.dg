@@ -11,8 +11,6 @@
 
 %%-------------------------------- INTERFACES ---------------------------------
 
-(interface (stellar object $)) %% immobile "terrain" feature on the grid
-
 (interface ($<GridObject sector x $>SX))
 
 (interface ($<GridObject sector y $>SY))
@@ -33,6 +31,8 @@
 %% Subsector = 10x10 position. Position = 10x10 units.
 
 (interface ($<Object is in the same quadrant as $<Target))
+
+(interface (split position $<Pos into $>SX $>SY $>X $>Y $>PX $>PY))
 
 (interface ($<Object is in sector $<SX $<SY))
 
@@ -62,9 +62,31 @@
 
 (interface (top object in subsector $<SX $<SY $<X $<Y into $>Obj))
 
-%%---------------------------------- SCHEMA ----------------------------------
+%% gravity -- move this to quadrant/planet/terrain?
 
-(grid object *(stellar object $))
+(interface (stellar object $)) %% immobile "terrain" feature on the grid
+
+(interface (star $))
+
+(interface (planet $))
+
+(interface (sector $<SX $<SY is in a gravity well))
+
+(interface (subsector $<SX $<SY $<X $<Y is in a gravity well))
+
+(interface (subsector $<SX $<SY $<X $<Y is deep in a gravity well))
+
+(interface (position $<SX $<SY $<X $<Y $<PX $<PY is in a gravity well))
+
+(interface (position $<SX $<SY $<X $<Y $<PX $<PY is deep in a gravity well))
+
+(interface (object $<Object is in a gravity well))            %% speed / 10
+
+(interface (object $<Object is deep in a gravity well))       %% speed / 100
+
+(interface (object $<Object is in a very steep gravity well)) %% speed / 1000
+
+%%---------------------------------- SCHEMA ----------------------------------
 
 %% As a cheap, sleazy hack, we set our origin point at 100, 100 and not
 %% 0, 0, so that subtraction doesn't cross zero and fail, and so that we
@@ -123,6 +145,11 @@
 %%-------------------------------- POSITIONS ---------------------------------
 
 ($ is in the same quadrant as $) %% Override for multi-quadrant games.
+
+(split position $Pos into $SX $SY $X $Y $PX $PY)
+    ([$BigX $BigY | $] = $Pos)
+	(split $BigX into $SX $X $PX $)
+	(split $BigY into $SY $Y $PY $)
 
 ($Object is in sector $SX $SY)
 	($Object sector x $SX)
@@ -211,3 +238,91 @@
 (top object in subsector $SX $SY $X $Y into $Obj)
 	(objects in subsector $SX $SY $X $Y into $List)
 	([$Obj | $] = $List)
+
+%%--------------------------------- GRAVITY ----------------------------------
+
+(grid object *(stellar object $))
+
+(stellar object *(star $))
+
+(stellar object *(planet $))
+
+($Object is massive)         (star $Object) (or) (planet $Object)
+
+($Object is very massive)    (star $Object)
+
+($ is extremely massive)     (fail) %% black holes, gravitational anomalies
+
+($ is supermassive)          (fail) %% supermassive black holes
+
+(sector $SX $SY is in a gravity well)
+    (accumulate 1)
+	    *(stellar object $Object) {
+		    ($Object is supermassive) (or)
+		    { ($Object is on the map) ($Object is extremely massive) } (or)
+		    { ($Object is in sector $SX $SY) ($Object is very massive) }
+	    }
+	(into $Count)
+	($Count > 0)
+
+(subsector $SX $SY $X $Y has a massive object)
+    (accumulate 1)
+	    *(stellar object $Object)
+		($Object is in subsector $SX $SY $X $Y)
+		($Object is massive)
+	(into $Count)
+	($Count > 0)
+
+(subsector $SX $SY $X $Y is in a gravity well)
+    (subsector $SX $SY $X $Y has a massive object) (or)
+	(sector $SX $SY is in a gravity well)
+
+(subsector $SX $SY $X $Y is deep in a gravity well)
+    (accumulate 1)
+	    *(stellar object $Object)
+		($Object is in subsector $SX $SY $X $Y)
+		($Object is very massive)
+	(into $Count)
+	($Count > 0)
+
+(position $SX $SY $X $Y $PX $PY has a stellar object)
+    (accumulate 1)
+	    *(stellar object $Object)
+		($Object is at position $SX $SY $X $Y $PX $PY)
+	(into $Count)
+	($Count > 0)
+
+(position $SX $SY $X $Y $PX $PY is in a gravity well)
+    (position $SX $SY $X $Y $PX $PY has a stellar object) (or)
+	(subsector $SX $SY $X $Y is in a gravity well)
+
+(position $SX $SY $X $Y $PX $PY is deep in a gravity well)
+    (accumulate 1)
+	    *(stellar object $Object)
+		($Object is at position $SX $SY $X $Y $PX $PY)
+		($Object is massive)
+	(into $Count)
+	($Count > 0)
+
+(position $SX $SY $X $Y $PX $PY is in a very steep gravity well)
+    (accumulate 1)
+	    *(stellar object $Object)
+		($Object is at position $SX $SY $X $Y $PX $PY)
+		($Object is very massive)
+	(into $Count)
+	($Count > 0)
+
+(object $Object is in a gravity well)
+    ($Object position $Pos)
+    (split position $Pos into $SX $SY $X $Y $PX $PY)
+	(position $SX $SY $X $Y $PX $PY is in a gravity well)
+
+(object $Object is deep in a gravity well)
+    ($Object position $Pos)
+    (split position $Pos into $SX $SY $X $Y $PX $PY)
+	(position $SX $SY $X $Y $PX $PY is deep in a gravity well)
+
+(object $Object is in a very steep gravity well)
+    ($Object position $Pos)
+    (split position $Pos into $SX $SY $X $Y $PX $PY)
+	(position $SX $SY $X $Y $PX $PY is in a very steep gravity well)
