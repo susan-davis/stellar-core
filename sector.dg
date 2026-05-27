@@ -32,21 +32,23 @@
 
 (interface ($<Object is in the same quadrant as $<Target))
 
-(interface ($<Object is in sector $<SX $<SY))
+(interface ($<Object is within $<Num sectors of $<SX $<SY))
 
-(interface ($<Object is within $<Num sectors of sector $<SX $<SY))
+(interface ($<Object is in sector $<SX $<SY))
 
 (interface ($<Object is within $<Num sectors of $<Target))
 
 (interface ($<Object is in the same sector as $<Target))
 
-(interface ($<Object is in subsector $<SX $<SY $<X $<Y))
+(interface ($<Object is within $<Num subsectors of $<SX $<SY $<X $<Y))
 
-(interface ($<Object is within $<Num subsectors of subsector $<SX $<SY $<X $<Y))
+(interface ($<Object is in subsector $<SX $<SY $<X $<Y))
 
 (interface ($<Object is within $<Num subsectors of $<Target))
 
 (interface ($<Object is in the same subsector as $<Target))
+
+(interface ($<Object is within $<Num positions of $<SX $<SY $<X $<Y $<PX $<PY))
 
 (interface ($<Object is at position $<SX $<SY $<X $<Y $<PX $<PY))
 
@@ -170,7 +172,9 @@
 
 %%-------------------------------- POSITIONS ---------------------------------
 
-($ is in the same quadrant as $) %% Override for multi-quadrant games.
+($This is in the same quadrant as $That) %% Override for multi-quadrant games.
+    ($This is on the map)
+    ($That is on the map)
 
 (split position $Pos into $SX $SY $X $Y $PX $PY)
     ([$BigX $BigY | $] = $Pos)
@@ -179,57 +183,64 @@
     ($MX  plus 1 into $X)  ($MY  plus 1 into $Y)
     ($MPX plus 1 into $PX) ($MPY plus 1 into $PY)
 
-($Object is in sector $SX $SY)
-	($Object sector x $SX)
-	($Object sector y $SY)
-
-($Object is within $Num sectors of $Target)
-	(grid object $Object)
-	($Target is in the same quadrant as $Object)
-	($Target sector x $X)
-	($Target sector y $Y)
-	($Object sector x $SX)
-	($Object sector y $SY)
+($Object is within $Num sectors of $SX $SY)
+	($Object sector x $X)
+	($Object sector y $Y)
 	($X is within $Num of $SX)
 	($Y is within $Num of $SY)
+
+($Object is in sector $SX $SY)
+    ($Object is within 0 sectors of $SX $SY)
+
+($Object is within $Num sectors of $Target)
+	($Target is in the same quadrant as $Object)
+	($Target sector x $SX)
+	($Target sector y $SY)
+	($Object is within $Num sectors of $SX $SY)
 
 ($Object is in the same sector as $Target)
     ($Object is within 0 sectors of $Target)
 
-($Object is in subsector $SX $SY $X $Y)
+($Object is within $Num subsectors of $SX $SY $X $Y)
 	($Object sector x $SX)
 	($Object sector y $SY)
-	($Object subsector x $X)
-	($Object subsector y $Y)
+	($Object subsector x $ZX)
+	($Object subsector y $ZY)
+	($X is within $Num of $ZX)
+	($Y is within $Num of $ZY)
+
+($Object is in subsector $SX $SY $X $Y)
+    ($Object is within 0 subsectors of $SX $SY $X $Y)
 
 ($Object is within $Num subsectors of $Target)
     ($Object is in the same sector as $Target)
-	($Object subsector x $X)
-	($Object subsector y $Y)
-	($Target subsector x $ZX)
-	($Target subsector y $ZY)
-	($X is within $Num of $ZX)
-	($Y is within $Num of $ZY)
+	($Target sector x $SX)
+	($Target sector y $SY)
+	($Target subsector x $X)
+	($Target subsector y $Y)
+	($Object is within $Num subsectors of $SX $SY $X $Y)
 
 ($Object is in the same subsector as $Target)
     ($Object is within 0 subsectors of $Target)
 
-($Object is at position $SX $SY $X $Y $PX $PY)
+($Object is within $Num positions of $SX $SY $X $Y $PX $PY)
 	($Object sector x $SX)
 	($Object sector y $SY)
 	($Object subsector x $X)
 	($Object subsector y $Y)
-	($Object position x $PX)
-	($Object position y $PY)
+	($Object position x $QX)
+	($Object position y $QY)
+	($QX is within $Num of $PX)
+	($QY is within $Num of $PY)
+
+($Object is at position $SX $SY $X $Y $PX $PY)
+    ($Object is within 0 positions of $SX $SY $X $Y $PX $PY)
 
 ($Object is within $Num positions of $Target)
     ($Object is in the same subsector as $Target)
-	($Object position x $X)
-	($Object position y $Y)
-	($Target position x $PX)
-	($Target position y $PY)
-	($X is within $Num of $PX)
-	($Y is within $Num of $PY)
+    ($Target position $Pos)
+	(split position $Pos into $SX $SY $X $Y $PX $PY)
+	($Object is within $Num positions of $SX $SY $X $Y $PX $PY)
 
 ($Object is within $Num millisectors of $Target)
     ($Object is in the same subsector as $Target)
