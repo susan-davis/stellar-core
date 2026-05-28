@@ -147,6 +147,10 @@
 (test *)
 (run *) ~(#test-ship is at position 3 4 5 6 5 5)
 
+#non-grid-object-no-sector
+(test *)
+(run *) ~(#non-grid-object is in sector $ $)
+
 #closest-target-same-sector
 (test *)
 (run *) (#test-ship is in the same sector as #closest-target)
@@ -163,6 +167,10 @@
 (test *)
 (run *) (#test-ship is within 5 sectors of #distant-target)
 
+#non-grid-object-no-sectors
+(test *)
+(run *) ~(#non-grid-object is within 16383 sectors of #test-ship)
+
 #closest-target-one-subsector
 (test *)
 (run *) (#test-ship is within 1 subsectors of #closest-target)
@@ -174,6 +182,10 @@
 #far-target-no-subsectors
 (test *)
 (run *) ~(#test-ship is within 16383 subsectors of #far-target)
+
+#non-grid-object-no-subsectors
+(test *)
+(run *) ~(#non-grid-object is within 16383 subsectors of #test-ship)
 
 #closest-target-in-subsector
 (test *)
