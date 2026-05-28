@@ -12,10 +12,11 @@
 
 (interface ($<Ship considers $<Target hostile))
 
-%% Sensor value 0: display the current or an adjacent subsector
-%% Sensor value 1: display the current sector
-%% Sensor value 2: long-range scan of adjacent sectors
-%% Sensor value 3: extended-range scan up to two sectors away
+%% Sensor value 1: display the current or an adjacent position
+%% Sensor value 2: display the current or an adjacent subsector
+%% Sensor value 3: display the current sector
+%% Sensor value 4: long-range scan of adjacent sectors
+%% Sensor value 5: extended-range scan up to two sectors away
 
 (interface ($<Ship sensor value for angle $<Angle into $>Value))
 
@@ -23,21 +24,36 @@
 
 (interface ($<Ship sensor value for position $<Pos into $>Value))
 
-%% Extended range: two sectors away (sensors 3)
-%% Missile range: adjacent sector (sensors 2)
-%% Weapons range: same sector (sensors 1)
-%% Matter transmission range: same or adjacent subsector (sensors 0)
-%% Visual range: same or adjacent position (always detectable)
+%% Extended range: two sectors away (sensors 5)
+%% Missile range: adjacent sector (sensors 4)
+%% Weapons range: same sector (sensors 3)
+%% Matter transmission range: same or adjacent subsector (sensors 2)
+%% Tractor range: same or adjacent position (sensors 1)
+%% Visual range: same position (always detectable, even with jamming)
+
+(interface ($<GridObject is in extended range of $<SX $<SY))
 
 (interface ($<GridObject is in extended range of $<Ship))
 
+(interface ($<GridObject is in missile range of $<SX $<SY))
+
 (interface ($<GridObject is in missile range of $<Ship))
+
+(interface ($<GridObject is in weapons range of $<SX $<SY))
 
 (interface ($<GridObject is in weapons range of $<Ship))
 
+(interface ($<GridObject is in matter transmission range of $<SX $<SY $<X $<Y))
+
 (interface ($<GridObject is in matter transmission range of $<Ship))
 
-(interface ($<GridObject is in visual range of $<Ship))
+(interface ($<GridObject is in tractor range of $<SX $<SY $<X $<Y $<PX $<PY))
+
+(interface ($<GridObject is in tractor range of $<Ship))
+
+(interface ($<Object is in visual range of $<SX $<SY $<X $<Y $<PX $<PY))
+
+(interface ($<Object is in visual range of $<Ship))
 
 %% detected == detected by sensor fusion, or visually
 %% can identify == actually detected the ship, and not a cloud of jamming
@@ -127,38 +143,68 @@
 
 ($ noise level 0) %% To be implemented
 
+($Object is in extended range of $SX $SY)
+    ($Object is within 2 sectors of $SX $SY)
+
 ($Object is in extended range of $Ship)
     ($Object is within 2 sectors of $Ship)
+
+($Object is in missile range of $SX $SY)
+    ($Object is within 1 sectors of $SX $SY)
 
 ($Object is in missile range of $Ship)
     ($Object is within 1 sectors of $Ship)
 
+($Object is in weapons range of $SX $SY)
+    ($Object is in sector $SX $SY)
+
 ($Object is in weapons range of $Ship)
     ($Object is in the same sector as $Ship)
 
+($Object is in matter transmission range of $SX $SY $X $Y)
+    ($Object is within 1 subsectors of $SX $SY $X $Y)
+
 ($Object is in matter transmission range of $Ship)
+    ($Object is within 1 subsectors of $Ship)
+
+($Object is in tractor range of $SX $SY $X $Y $PX $PY)
+    ($Object is within 1 positions of $SX $SY $X $Y $PX $PY)
+
+($Object is in tractor range of $Ship)
 	($Object is within 1 positions of $Ship)
 
+($Object is in visual range of $SX $SY $X $Y $PX $PY)
+    ($Object is within 0 positions of $SX $SY $X $Y $PX $PY)
+
 ($Object is in visual range of $Ship)
-    ($Object is within 1 millisectors of $Ship)
+    ($Object is within 0 positions of $Ship)
 
 %% matching ranges to sensor levels
 
 ($Ship needs sensor level 0 to see position $Position)
-	(position $Position is in matter transmission range of $Ship)
+    (split position $Position into $SX $SY $X $Y $PX $PY)
+    ($Ship is in visual range of $SX $SY $X $Y $PX $PY)
 
 ($Ship needs sensor level 1 to see position $Position)
-	(position $Position is in weapons range of $Ship)
+    (split position $Position into $SX $SY $X $Y $PX $PY)
+    ($Ship is in tractor range of $SX $SY $X $Y $PX $PY)
+
+($Ship needs sensor level 2 to see position $Position)
+    (split position $Position into $SX $SY $X $Y $ $)
+    ($Ship is in matter transmission range of $SX $SY $X $Y)
+
+($Ship needs sensor level 3 to see position $Position)
+    (split position $Position into $SX $SY $ $ $ $)
+    ($Ship is in weapons range of $SX $SY)
 
 ($Ship needs sensor level $Level to see position $Position)
-	($Ship is in the same quadrant as position $Position)
 	(split position $Position into $SX $SY $ $ $ $)
 	($Ship sector x $X)
 	($Ship sector y $Y)
 	($X delta $SX into $DX)
 	($Y delta $SY into $DY)
 	(max $DX $DY $Delta)
-	($Delta plus 1 into $Level)
+	($Delta plus 3 into $Level)
 	%% TODO: seeing into the edge sectors of the next quadrant
 
 ($Ship needs sensor level $Level to see $GridObject)

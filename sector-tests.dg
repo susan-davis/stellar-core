@@ -267,3 +267,5 @@
     (move #other-planet to position [3457 4567])
     (#test-ship is deep in a gravity well)
 %%    ~(#test-ship is in a very steep gravity well)
+
+%% TODO: write tests for reintroduced integer predicates

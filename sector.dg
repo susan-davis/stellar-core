@@ -184,6 +184,7 @@
     ($MPX plus 1 into $PX) ($MPY plus 1 into $PY)
 
 ($Object is within $Num sectors of $SX $SY)
+    (grid object $Object)
 	($Object sector x $X)
 	($Object sector y $Y)
 	($X is within $Num of $SX)
@@ -193,6 +194,7 @@
     ($Object is within 0 sectors of $SX $SY)
 
 ($Object is within $Num sectors of $Target)
+    (grid object $Target)
 	($Target is in the same quadrant as $Object)
 	($Target sector x $SX)
 	($Target sector y $SY)
@@ -202,6 +204,7 @@
     ($Object is within 0 sectors of $Target)
 
 ($Object is within $Num subsectors of $SX $SY $X $Y)
+    (grid object $Object)
 	($Object sector x $SX)
 	($Object sector y $SY)
 	($Object subsector x $ZX)
@@ -213,6 +216,7 @@
     ($Object is within 0 subsectors of $SX $SY $X $Y)
 
 ($Object is within $Num subsectors of $Target)
+    (grid object $Target)
     ($Object is in the same sector as $Target)
 	($Target sector x $SX)
 	($Target sector y $SY)
@@ -224,6 +228,7 @@
     ($Object is within 0 subsectors of $Target)
 
 ($Object is within $Num positions of $SX $SY $X $Y $PX $PY)
+    (grid object $Object)
 	($Object sector x $SX)
 	($Object sector y $SY)
 	($Object subsector x $X)
@@ -237,12 +242,14 @@
     ($Object is within 0 positions of $SX $SY $X $Y $PX $PY)
 
 ($Object is within $Num positions of $Target)
+    (grid object $Target)
     ($Object is in the same subsector as $Target)
     ($Target position $Pos)
 	(split position $Pos into $SX $SY $X $Y $PX $PY)
 	($Object is within $Num positions of $SX $SY $X $Y $PX $PY)
 
 ($Object is within $Num millisectors of $Target)
+    (grid object $Target)
     ($Object is in the same subsector as $Target)
 	($Object fine position x $X)
 	($Object fine position y $Y)
