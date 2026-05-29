@@ -217,23 +217,23 @@
 (test *)
 (run *)
 	(move #closest-target to position [3444 4554])
-	(#closest-target is in matter transmission range of #test-ship)
+	(#closest-target is in point defence range of #test-ship)
 
 #near-target-not-in-matter-transmission-range
 (test *)
-(run *)	~(#near-target is in matter transmission range of #test-ship)
+(run *)	~(#near-target is in point defence range of #test-ship)
 
 #far-target-not-in-matter-transmission-range
 (test *)
-(run *)	~(#far-target is in matter transmission range of #test-ship)
+(run *)	~(#far-target is in point defence range of #test-ship)
 
 #distant-target-not-in-matter-transmission-range
 (test *)
-(run *)	~(#distant-target is in matter transmission range of #test-ship)
+(run *)	~(#distant-target is in point defence range of #test-ship)
 
 #non-grid-object-not-in-matter-transmission-range
 (test *)
-(run *)	~(#non-grid-object is in matter transmission range of #test-ship)
+(run *)	~(#non-grid-object is in point defence range of #test-ship)
 
 #closest-in-missile-range-of-near
 (test *)

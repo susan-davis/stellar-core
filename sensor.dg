@@ -27,8 +27,8 @@
 %% Extended range: two sectors away (sensors 5)
 %% Missile range: adjacent sector (sensors 4)
 %% Weapons range: same sector (sensors 3)
-%% Matter transmission range: same or adjacent subsector (sensors 2)
-%% Tractor range: same or adjacent position (sensors 1)
+%% Point defence range: same or adjacent subsector (sensors 2)
+%% Matter Transmission range: same or adjacent position (sensors 1)
 %% Visual range: same position (always detectable, even with jamming)
 
 (interface ($<GridObject is in extended range of $<SX $<SY))
@@ -43,13 +43,14 @@
 
 (interface ($<GridObject is in weapons range of $<Ship))
 
-(interface ($<GridObject is in matter transmission range of $<SX $<SY $<X $<Y))
+(interface ($<GridObject is in point defence range of $<SX $<SY $<X $<Y))
+
+(interface ($<GridObject is in point defence range of $<Ship))
+
+(interface ($<GridObject is in matter transmission range of
+            $<SX $<SY $<X $<Y $<PX $<PY))
 
 (interface ($<GridObject is in matter transmission range of $<Ship))
-
-(interface ($<GridObject is in tractor range of $<SX $<SY $<X $<Y $<PX $<PY))
-
-(interface ($<GridObject is in tractor range of $<Ship))
 
 (interface ($<Object is in visual range of $<SX $<SY $<X $<Y $<PX $<PY))
 
@@ -161,16 +162,16 @@
 ($Object is in weapons range of $Ship)
     ($Object is in the same sector as $Ship)
 
-($Object is in matter transmission range of $SX $SY $X $Y)
+($Object is in point defence range of $SX $SY $X $Y)
     ($Object is within 1 subsectors of $SX $SY $X $Y)
 
-($Object is in matter transmission range of $Ship)
+($Object is in point defence range of $Ship)
     ($Object is within 1 subsectors of $Ship)
 
-($Object is in tractor range of $SX $SY $X $Y $PX $PY)
+($Object is in matter transmission range of $SX $SY $X $Y $PX $PY)
     ($Object is within 1 positions of $SX $SY $X $Y $PX $PY)
 
-($Object is in tractor range of $Ship)
+($Object is in matter transmission range of $Ship)
 	($Object is within 1 positions of $Ship)
 
 ($Object is in visual range of $SX $SY $X $Y $PX $PY)
@@ -187,11 +188,11 @@
 
 ($Ship needs sensor level 1 to see position $Position)
     (split position $Position into $SX $SY $X $Y $PX $PY)
-    ($Ship is in tractor range of $SX $SY $X $Y $PX $PY)
+    ($Ship is in matter transmission range of $SX $SY $X $Y $PX $PY)
 
 ($Ship needs sensor level 2 to see position $Position)
     (split position $Position into $SX $SY $X $Y $ $)
-    ($Ship is in matter transmission range of $SX $SY $X $Y)
+    ($Ship is in point defence range of $SX $SY $X $Y)
 
 ($Ship needs sensor level 3 to see position $Position)
     (split position $Position into $SX $SY $ $ $ $)
