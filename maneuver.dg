@@ -115,9 +115,21 @@
 
 (warp gradient for speed $Speed into 8)    ($Speed < 364)
 
-(warp gradient for speed $Speed into 9)    ($Speed < 500)
+(warp gradient for speed $Speed into 9)    ($Speed < 500) %% max sustain speed
 
-(warp gradient for speed $Speed into 10)   ~($Speed < 500)
+(warp gradient for speed $Speed into 10)   ($Speed < 665) %% max ship speed + 1
+
+(warp gradient for speed $Speed into 11)   ($Speed < 864)
+
+(warp gradient for speed $Speed into 12)   ($Speed < 1098)
+
+(warp gradient for speed $Speed into 13)   ($Speed < 1372)
+
+(warp gradient for speed $Speed into 14)   ($Speed < 1687)
+
+(warp gradient for speed $Speed into 15)   ($Speed < 2048) %% torpedo speed
+
+(warp gradient for speed $Speed into 16)   ~($Speed < 2048) %% torp speed + 1
 
 %%----------------------------- SCHEMA DEFINITION ----------------------------
 

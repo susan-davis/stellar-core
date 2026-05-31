@@ -5,6 +5,21 @@
 %% Copyright © 2021-2026, Susan Davis. All rights reserved. See LICENSE for
 %% licensing details.
 
+%% Here we add the concept of interceptable missiles. mmm
+%% Here we introduce the concept of seeking weapons. Missiles have a target
+%% that they home in on. A missile that's about to hit is placed at the last
+%% square before impact, and if the target doesn't shoot them down on its
+%% turn, they immediately impact. Missiles are represented in volleys of
+%% identical missiles launched at the same target. Any missile hit by four
+%% or more points of damage at once is destroyed; any missile hit by one
+%% to three points is unaffected. All missiles are equally easy to hit.
+
+%% Missile schema: [X Y Target Speed Endurance ID Number Value]
+
+(global variable (list of missiles []))
+
+(global variable (next missile id 1))
+
 %%-------------------------------- INTERFACES ---------------------------------
 
 (interface (weapon $<Obj))
