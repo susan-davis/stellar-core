@@ -22,7 +22,7 @@
 
 (interface ($<Ship sensor value for target $<Target into $>Value))
 
-(interface ($<Ship sensor value for position $<Pos into $>Value))
+(interface ($<Ship sensor value for position $<Position into $>Value))
 
 %% Extended range: two sectors away (sensors 5)
 %% Missile range: adjacent sector (sensors 4)
