@@ -649,3 +649,51 @@
 (run *)
     (list of lists $List)
 	(find in $List with lowest element 2 into [4 1 7 8 9])
+
+#find-3-is-3
+(test *)
+(run *)
+    (list of lists $List)
+	(find in $List where element 3 is 3 into [1 2 3 4 5])
+
+#find-3-is-4
+(test *)
+(run *)
+    (list of lists $List)
+	(find in $List where element 3 is 4 into [2 2 4 5 6])
+
+#find-3-is-7
+(test *)
+(run *)
+    (list of lists $List)
+	(find in $List where element 3 is 7 into [4 1 7 8 9])
+
+#remove-3-is-3
+(test *)
+(run *)
+    (list of lists $List)
+	(remove from $List where element 3 is 3 into [
+		[2 2 4 5 6]
+		[3 2 4 5 6]
+		[3 2 4 6 7]
+		[4 1 7 8 9]])
+
+#remove-3-is-4
+(test *)
+(run *)
+    (list of lists $List)
+	(remove from $List where element 3 is 4 into [
+        [1 2 3 4 5]
+		[3 2 4 5 6]
+		[3 2 4 6 7]
+		[4 1 7 8 9]])
+
+#remove-3-is-7
+(test *)
+(run *)
+    (list of lists $List)
+	(remove from $List where element 3 is 7 into [
+        [1 2 3 4 5]
+		[2 2 4 5 6]
+		[3 2 4 5 6]
+		[3 2 4 6 7]])
