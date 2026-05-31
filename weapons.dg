@@ -5,7 +5,6 @@
 %% Copyright © 2021-2026, Susan Davis. All rights reserved. See LICENSE for
 %% licensing details.
 
-%% Here we add the concept of interceptable missiles. mmm
 %% Here we introduce the concept of seeking weapons. Missiles have a target
 %% that they home in on. A missile that's about to hit is placed at the last
 %% square before impact, and if the target doesn't shoot them down on its
@@ -13,6 +12,8 @@
 %% identical missiles launched at the same target. Any missile hit by four
 %% or more points of damage at once is destroyed; any missile hit by one
 %% to three points is unaffected. All missiles are equally easy to hit.
+%% Missiles are referred to by numerical ID, rather than by object. Predicates
+%% for shooting at ships expect objects; shooting at missiles expects numbers.
 
 %% Missile schema: [X Y Target Speed Endurance ID Number Value]
 
@@ -42,7 +43,7 @@
 
 (interface ($<Ship ammo weapons bearing on target $<Target into $>List))
 
-(interface ($<Ship fires $<System $<ID $<Details at $<Target using $<Amount))
+(interface ($<Ship fires $<System $<ID $<Det at $<Target using $<Amount))
 
 (interface ($<Ship fires $<Type at target $<Target using $<Amount))
 
@@ -87,35 +88,38 @@
 	(endif)
 
 ($Ship weapons bearing on angle $Angle into $Result)
-	 ($Ship undamaged systems $Systems)
-	 (weapons in $Systems into $Weapons)
-	 (find systems bearing on $Angle in $Weapons into $Result)
+	($Ship undamaged systems $Systems)
+	(weapons in $Systems into $Weapons)
+	(find systems bearing on $Angle in $Weapons into $Result)
 
 ($Ship weapons bearing on target $Target into $Result)
-	 (angle from $Ship to $Target into $Angle)
-	 ($Ship weapons bearing on angle $Angle into $Result)
+    (object $Target)
+	(angle from $Ship to $Target into $Angle)
+	($Ship weapons bearing on angle $Angle into $Result)
 
 ($Ship energy weapons bearing on angle $Angle into $Result)
-	 ($Ship undamaged systems $Systems)
-	 (energy weapons in $Systems into $Weapons)
-	 (find systems bearing on $Angle in $Weapons into $Result)
+    ($Ship undamaged systems $Systems)
+	(energy weapons in $Systems into $Weapons)
+	(find systems bearing on $Angle in $Weapons into $Result)
 
 ($Ship energy weapons bearing on target $Target into $Result)
-	 (angle from $Ship to $Target into $Angle)
-	 ($Ship energy weapons bearing on angle $Angle into $Result)
+    (object $Target)
+	(angle from $Ship to $Target into $Angle)
+	($Ship energy weapons bearing on angle $Angle into $Result)
 
 ($Ship ammo weapons bearing on angle $Angle into $Result)
-	 ($Ship undamaged systems $Systems)
-	 (ammo weapons in $Systems into $Weapons)
-	 (find systems bearing on $Angle in $Weapons into $Result)
+	($Ship undamaged systems $Systems)
+	(ammo weapons in $Systems into $Weapons)
+	(find systems bearing on $Angle in $Weapons into $Result)
 
 ($Ship ammo weapons bearing on target $Target into $Result)
-	 (angle from $Ship to $Target into $Angle)
-	 ($Ship ammo weapons bearing on angle $Angle into $Result)
+    (object $Target)
+	(angle from $Ship to $Target into $Angle)
+	($Ship ammo weapons bearing on angle $Angle into $Result)
 
 %%----------------------------------------------------------------------------
 
-($Ship fires $ $ $ at $Ship using $) %% do nothing
+($Ship fires $ $ $ at $Ship using $) %% don't fire at self
 
 ($ fires $ $ $ at $ using 0) %% do nothing
 
@@ -141,6 +145,7 @@
 %% Projector hit chance = 2d6 > (Range * Details)
 %% Projector damage = Energy * (2d6-7)*10 + 20/Range
 ($Ship fires * $ $Details at $Target using $Amount)
+    (object $Target)
 	($Target is in weapons range of $Ship)
 	($Ship energy $StartingEnergy)
 	(if) ($Amount > $StartingEnergy) (then)
@@ -200,8 +205,7 @@
 %% Hyperspace vortex generators are the Tiberian plasma torpedo equivalent.
 %% They rip ships apart by creating small hyperspace portals in their area
 %% of effect. For now, they're direct fire, because we've equated "energy" with
-%% "direct fire," but we could revisit that. This is kind of a weird
-%% intermediate case between ammo and energy weapons, like plasma torpedoes.
+%% "direct fire," but we could revisit that.
 #vortex
 (name *)		vortex generator
 (long name *)	hyperspace vortex generator
@@ -241,6 +245,7 @@
 %% Torpedo hit chance: dependent on target aspect and warp gradient
 %% Torepdo damage: first element of details
 ($Ship fires * $ID $Details at $Target using $Amount)
+    (object $Target)
 	($Target is in weapons range of $Ship)
 	(decrease ammo for $Ship by $Amount)
     (target aspect from $Ship to $Target into $Aspect)
@@ -309,7 +314,7 @@
 
 ($Ship fires * $ID $Details at $Target using $Amount)
 	($Target is in weapons range of $Ship) %% or mtd range?
-    (line) $Ship fires * $ID $Details at $Target using $Amount
+    (line) $Ship fires * $ID $Details at $Target 0 using $Amount
 
 %%----------------------------------------------------------------------------
 
@@ -321,6 +326,7 @@
 	($Target is destroyed)
 
 ($Ship fires at $Target with $Weapons using $Amount)
+    (object $Target)
     ($Weapons = [$Head | $Tail])
 	($Head = [$Type $ID $ $Value $Details])
 	(min $Value $Amount $Fired)
@@ -331,11 +337,13 @@
 	(endif)
 
 ($Ship fires at $Target using $Energy energy and $Ammo ammo)
+    (object $Target)
 	($Ship energy weapons bearing on target $Target into $EnergyWeapons)
 	($Ship fires at $Target with $EnergyWeapons using $Energy)
 	($Ship ammo weapons bearing on target $Target into $AmmoWeapons)
 	($Ship fires at $Target with $AmmoWeapons using $Ammo)
 
 ($Ship fires $Type at target $Target using $Amount)
+    (object $Target)
 	($Ship $Type bearing on target $Target into $Weapons)
     ($Ship fires at $Target with $Weapons using $Amount)
