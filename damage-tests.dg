@@ -138,7 +138,7 @@
 (test *)
 (run *)
     (increase repair time for #test-ship #torpedo 1 by 30)
-	(find undamaged #torpedo for #test-ship into [[#torpedo 2 [1 8] 500 1 499]])
+	(find undamaged #torpedo for #test-ship into [[#torpedo 2 500 [1 8] 1 499]])
 
 #increase-repair-time-tractor
 (test *)

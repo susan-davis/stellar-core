@@ -22,7 +22,12 @@
 %%
 %% class  = [DriveEfficiency ReactorEfficiency TurnMode DriveParams Fleet
 %%           MaxEnergy MaxCrystals MaxAmmo MaxShields [MaxLevels] [Crew]]
-%% system = [System ID Arcs Value Details]
+%% system = [System ID Value Arcs Details...]
+%%
+%% Systems that don't need arcs or supplementary details can have just three
+%% values. An arc is mandatory to have supplementary details; use [] if an
+%% arc doesn't make sense. Any additional values after the arc are system-
+%% defined details.
 %%
 %% Ships are either simple, detailed, or player. A simple ship doesn't have
 %% its own list of damaged systems, and the class only records a few systems,
@@ -190,7 +195,7 @@
 	(find $Type $ID in $Systems into $Match)
 
 (system $Match value $Value)
-	(nth $Match 4 $Value)
+	(nth $Match 3 $Value)
 
 ($Ship $Type $ID value $Value)
 	(find $Ship $Type $ID into $Match)

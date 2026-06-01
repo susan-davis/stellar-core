@@ -151,7 +151,7 @@
 	 (arc $Arc contains angle $Angle)
 
 (system $Match arc $Arc)
-	(nth $Match 3 $Arc)
+	(nth $Match 4 $Arc)
 
 ($Ship $Type $ID arc $Arc)
 	(find $Ship $Type $ID into $Match)

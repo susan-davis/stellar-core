@@ -15,8 +15,13 @@
 %% Ship classes are defined by a class record:
 %%
 %% class  = [DriveEfficiency ReactorEfficiency TurnMode DriveParams Fleet
-%%           MaxEnergy MaxCrystals MaxAmmo MaxShields [MaxLevels] Crew]
-%% system = [System ID Arcs Value Details]
+%%           MaxEnergy MaxCrystals MaxAmmo MaxShields [MaxLevels] [Crew]]
+%% system = [System ID Value Arcs Details...]
+%%
+%% Systems that don't need arcs or supplementary details can have just three
+%% values. An arc is mandatory to have supplementary details; use [] if an
+%% arc doesn't make sense. Any additional values after the arc are system-
+%% defined details.
 %%
 %% Ships are either simple, detailed, or player. A simple ship doesn't have
 %% its own list of damaged systems, and the class only records a few systems,
