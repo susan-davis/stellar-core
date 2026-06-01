@@ -129,7 +129,7 @@
 
 (missile $ID into $Missile)
     (list of missiles $Missiles)
-	(find in $Missiles element 3 is $ID into $Missile)
+	(find in $Missiles where element 3 is $ID into $Missile)
 
 ($Ship weapons bearing on target $ID into $Result)
     (number $ID)
@@ -161,11 +161,6 @@
 	(append $Missiles [$Missile] $New)
 	(now) (list of missiles $New)
 
-(destroy volley $ID)
-    (list of missiles $Missiles)
-	(remove from $Missiles where element 3 is $ID into $New)
-	(now) (list of missiles $New)
-
 (destroy 0 missiles from volley $)
 
 (destroy $Num missiles from volley $ID)
@@ -174,10 +169,12 @@
 	(nth $Missile 4 $Volley)
 	(subtract $Num from $Volley into $NewVolley)
 	(replace element 4 in $Missile with $NewVolley into $NewMissile)
-    (destroy volley $ID)
-	(if) ($Volley > 0) (then)
-        (append $Missiles [$NewMissile] $New)
-		(now) (list of missiles $New)
+    (remove from $Missiles where element 3 is $ID into $Removed)
+	(if) ($NewVolley > 0) (then)
+        (append $Removed [$NewMissile] $NewList)
+		(now) (list of missiles $NewList)
+	(else)
+	    (now) (list of missiles $Removed)
 	(endif)
 
 %%----------------------------------------------------------------------------
@@ -287,11 +284,10 @@
 %% weapon installed.
 (weapon *(ammo weapon $))
 
-%% Hypervelocity torpedoes fire from long railgun launchers, and hit rapidly
-%% enough that the target doesn't get a change to engage them with defensive
-%% fire. If they have a range that reaches into neighbouring sectors, ships in
-%% other sectors *do* get defensive fire, because the flight time has been long
-%% enough, albeit at a penalty.
+%% Hypervelocity torpedoes fire from long railgun launchers, which give a
+%% boost to the torpedo on initial launch. If the boost is enough to let the
+%% torpedo hit immediately, the target doesn't get a change to engage them with
+%% defensive fire.
 #torpedo
 (name *)		torpedo
 (long name *)	hypervelocity torpedo tube
@@ -333,11 +329,9 @@
 	($Ship fires * $ID $Details at $Target using $Remaining)
 
 %% Alcubierre missiles are equipped with small A-drives, and can engage at
-%% superluminal speeds. They work like torpedoes, but at a slower speed and
-%% with less elaborate launch hardware. Targets get to engage incoming missiles
-%% with defensive fire from any weapons that are set to autofire; they don't
-%% get that opportunity against hypervelocity torpedoes that are in arc and
-%% within the same sector.
+%% superluminal speeds. They work like torpedoes, but with less elaborate
+%% launch hardware. Targets get to engage incoming missiles with defensive
+%% fire from any weapons that are set to autofire.
 #missile
 (name *)		missile
 (long name *)	Alcubierre missile launcher
@@ -350,19 +344,6 @@
 ($Ship fires * $ID $Details at $Target using $Amount)
 	($Target is in missile range of $Ship)
     (line) $Ship fires * $ID $Details at $Target using $Amount
-
-#multistage-missile
-(name *)		multi-stage missile
-(long name *)	multi-stage Alcubierre missile launcher
-(ammo weapon *)
-
-($Ship fires * $ $ at $Target using $)
-	~($Target is in extended range of $Ship) %% so do nothing
-
-($Ship fires * $ID $Details at $Target using $Amount)
-	~($Target is in extended range of $Ship) %% so do nothing
-	%% for now, fall back to regular missiles
-	($Ship fires #missile $ID $Details at $Target using $Amount)
 
 %% Bombardment rockets are missiles equipped with reactionless engines, or even
 %% reaction engines in more primitive fleets. They're mostly used for attacking

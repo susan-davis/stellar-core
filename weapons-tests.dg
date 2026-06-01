@@ -181,6 +181,7 @@
 (run *)
     (launch 4 200 499 2 missiles from [3544 4444] at #test-ship)
 	(list of missiles [[3544 4444 1 4 200 499 2 #test-ship]])
+	(next missile id 2)
 
 #launch-more-missiles
 (test *)
@@ -190,9 +191,45 @@
 	(list of missiles [
 	    [3544 4444 1 4 200 499 2 #test-ship]
 		[3144 4244 2 2 200 499 2 #test-ship]])
+	(next missile id 3)
 
 #launch-no-missiles
 (test *)
 (run *)
     (launch 0 200 499 2 missiles from [3544 4444] at #test-ship)
     (list of missiles [])
+
+#shoot-down-no-missiles
+(test *)
+(run *)
+    (launch 4 200 499 2 missiles from [3544 4444] at #test-ship)
+	(destroy 0 missiles from volley 1)
+	(list of missiles [[3544 4444 1 4 200 499 2 #test-ship]])
+
+#shoot-down-wrong-missiles
+(test *)
+(run *)
+    (launch 4 200 499 2 missiles from [3544 4444] at #test-ship)
+	~(destroy 2 missiles from volley 2)
+	(list of missiles [[3544 4444 1 4 200 499 2 #test-ship]])
+
+#shoot-down-some-missiles
+(test *)
+(run *)
+    (launch 4 200 499 2 missiles from [3544 4444] at #test-ship)
+	(destroy 2 missiles from volley 1)
+	(list of missiles [[3544 4444 1 2 200 499 2 #test-ship]])
+
+#shoot-down-all-missiles
+(test *)
+(run *)
+    (launch 4 200 499 2 missiles from [3544 4444] at #test-ship)
+	(destroy 4 missiles from volley 1)
+	(list of missiles [])
+
+#shoot-down-too-many-missiles
+(test *)
+(run *)
+    (launch 4 200 499 2 missiles from [3544 4444] at #test-ship)
+	(destroy 16383 missiles from volley 1)
+	(list of missiles [])
