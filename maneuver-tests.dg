@@ -162,7 +162,7 @@
 (test *)
 (run *)
 	  (accelerate #test-ship to speed 0)
-	  (#test-ship effective turn mode 360)
+	  (#test-ship effective turn mode 1080)
 
 #drive-efficiency
 (test *)
@@ -174,7 +174,7 @@
 
 #drive-params
 (test *)
-(run *)	   (#test-ship drive parameters 9632)
+(run *)	   (#test-ship drive parameters 9636)
 
 #top-speed
 (test *)
@@ -190,7 +190,7 @@
 
 #reactionless
 (test *)
-(run *)	   (#test-ship reactionless 2)
+(run *)	   (#test-ship reactionless 6)
 
 #set-destination
 (test *)

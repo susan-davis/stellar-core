@@ -137,150 +137,150 @@
 #dont-find-damaged-torpedo
 (test *)
 (run *)
-	  (increase repair time for #test-ship #torpedo 1 by 30)
-	  (find undamaged #torpedo for #test-ship into [[#torpedo 2 [1 8] 1 500]])
+    (increase repair time for #test-ship #torpedo 1 by 30)
+	(find undamaged #torpedo for #test-ship into [[#torpedo 2 [1 8] 500 1 499]])
 
 #increase-repair-time-tractor
 (test *)
 (run *)
-	  (#test-ship systems $Before)
-	  (length of $Before into $LenBefore)
-	  (increase repair time for #test-ship #tractor 1 by 200)
-	  (#test-ship #tractor 1 repair time 1000)
-	  (#test-ship systems $After)
-	  (length of $After into $LenAfter)
-	  (assert $LenBefore = $LenAfter)
+	(#test-ship systems $Before)
+	(length of $Before into $LenBefore)
+	(increase repair time for #test-ship #tractor 1 by 200)
+	(#test-ship #tractor 1 repair time 1000)
+	(#test-ship systems $After)
+	(length of $After into $LenAfter)
+	(assert $LenBefore = $LenAfter)
 
 #increase-repair-time-mtd
 (test *)
 (run *)
-	  (increase repair time for #test-ship #mtd 1 by 200)
-	  (#test-ship #mtd 1 repair time 16383)
+	(increase repair time for #test-ship #mtd 1 by 200)
+	(#test-ship #mtd 1 repair time 16383)
 
 #decrease-repair-time-tractor
 (test *)
 (run *)
-	  (#test-ship systems $Before)
-	  (length of $Before into $LenBefore)
-	  (decrease repair time for #test-ship #tractor 1 by 200)
-	  (#test-ship #tractor 1 repair time 600)
-	  (#test-ship systems $After)
-	  (length of $After into $LenAfter)
-	  (assert $LenBefore = $LenAfter)
+	(#test-ship systems $Before)
+	(length of $Before into $LenBefore)
+	(decrease repair time for #test-ship #tractor 1 by 200)
+	(#test-ship #tractor 1 repair time 600)
+	(#test-ship systems $After)
+	(length of $After into $LenAfter)
+	(assert $LenBefore = $LenAfter)
 
 #decrease-repair-time-beyond-zero
 (test *)
 (run *)
-	  (decrease repair time for #test-ship #tractor 1 by 900)
-	  (#test-ship #tractor 1 repair time 0)
+	(decrease repair time for #test-ship #tractor 1 by 900)
+	(#test-ship #tractor 1 repair time 0)
 
 #decrease-repair-time-mtd
 (test *)
 (run *)
-	  ~(decrease repair time for #test-ship #mtd 1 by 900)
+	~(decrease repair time for #test-ship #mtd 1 by 900)
 
 #repair-tractor
 (test *)
 (run *)
-	  (repair #test-ship #tractor 1)
-	  (#test-ship #tractor 1 repair time 0)
+	(repair #test-ship #tractor 1)
+	(#test-ship #tractor 1 repair time 0)
 
 #destroy-ship
 (test *)
 (run *)
-	  (destroy #test-ship)
-	  (#test-ship is destroyed)
+	(destroy #test-ship)
+	(#test-ship is destroyed)
 
 #test-ship-is-not-destroyed
 (test *)
 (run *)
-	  ~(#test-ship is destroyed)
+	~(#test-ship is destroyed)
 
 (assert $Ship has $Shields and $Energy)
-	  ($Ship shields $Shields)
-	  ($Ship energy $Energy)
+	($Ship shields $Shields)
+	($Ship energy $Energy)
 
 #shields-hold-from-ahead-50
 (test *)
 (run *)
-      (hit #closest-target with 50 from #north)
-      (assert #closest-target has 200 and 500)
+    (hit #closest-target with 50 from #north)
+    (assert #closest-target has 200 and 500)
 
 #shields-penetrated-from-ahead-101
 (test *)
 (run *)
-      (hit #closest-target with 101 from #north)
-      (assert #closest-target has 150 and 499)
+    (hit #closest-target with 101 from #north)
+    (assert #closest-target has 150 and 499)
 
 #shields-hold-from-port-50
 (test *)
 (run *)
-      (hit #closest-target with 50 from #west)
-      (assert #closest-target has 200 and 500)
+    (hit #closest-target with 50 from #west)
+    (assert #closest-target has 200 and 500)
 
 #shields-penetrated-from-port-101
 (test *)
 (run *)
-      (hit #closest-target with 101 from #west)
-      (assert #closest-target has 200 and 449)
+    (hit #closest-target with 101 from #west)
+    (assert #closest-target has 200 and 449)
 
 #energy-depleted-from-port-550
 (test *)
 (run *)
-      (hit #closest-target with 550 from #west)
-	  (assert #closest-target has 200 and 0)
+    (hit #closest-target with 550 from #west)
+    (assert #closest-target has 200 and 0)
 
 #energy-depleted-from-ahead-600
 (test *)
 (run *)
-      (hit #closest-target with 600 from #north)
-	  (assert #closest-target has 150 and 0)
+    (hit #closest-target with 600 from #north)
+    (assert #closest-target has 150 and 0)
 
 #penetrating-shields-damages-system
 (test *)
 (run *)
-      (hit #test-ship with 150 from #north)
-	  (assert #test-ship has 400 and 882)
-	  (#test-ship damaged systems $Systems)
-	  (length of $Systems into $Length)
-	  (assert $Length = 2)
+    (hit #test-ship with 150 from #north)
+    (assert #test-ship has 400 and 882)
+    (#test-ship damaged systems $Systems)
+    (length of $Systems into $Length)
+    (assert $Length = 2)
 
 #damage-projector-with-300
 (test *)
 (run *)
-	  (damage #test-ship system #projector 1 with 300)
-	  (#test-ship #projector 1 repair time 300)
+    (damage #test-ship system #projector 1 with 300)
+    (#test-ship #projector 1 repair time 300)
 
 #damage-tractor-with-300
 (test *)
 (run *)
-	  (damage #test-ship system #tractor 1 with 300)
-	  (#test-ship #tractor 1 repair time 1100)
+    (damage #test-ship system #tractor 1 with 300)
+    (#test-ship #tractor 1 repair time 1100)
 
 #damage-mtd-with-300
 (test *)
 (run *)
-	  (damage #test-ship system #mtd 1 with 300)
-	  (#test-ship #mtd 1 repair time 16383)
+    (damage #test-ship system #mtd 1 with 300)
+    (#test-ship #mtd 1 repair time 16383)
 
 #damage-tractor-to-destruction
 (test *)
 (run *)
-	  (damage #test-ship system #tractor 1 with 16300)
-	  (#test-ship #tractor 1 repair time 16383)
+    (damage #test-ship system #tractor 1 with 16300)
+    (#test-ship #tractor 1 repair time 16383)
 
 #wreck-with-300
 (test *)
 (run *)
-	  (#test-ship systems $Before)
-	  (length of $Before into $Length)
-	  (wreck #test-ship with 300 from #north)
-	  (#test-ship systems $After)
-	  ~(length of $After into $Length)
-	  ~($Before = $After)
+    (#test-ship systems $Before)
+    (length of $Before into $Length)
+    (wreck #test-ship with 300 from #north)
+    (#test-ship systems $After)
+    ~(length of $After into $Length)
+    ~($Before = $After)
 
 #wreck-closest-target-with-500
 (test *)
 (run *)
-	  (wreck #closest-target with 500 from #north)
-	  (#closest-target is destroyed)
+    (wreck #closest-target with 500 from #north)
+    (#closest-target is destroyed)

@@ -102,13 +102,9 @@
 (test *)
 (run *)	  (#test-ship #mtd 1 value 4)
 
-#details-torpedo
-(test *)
-(run *)	  (#test-ship #torpedo 1 details [1 499])
-
 #details-projector
 (test *)
-(run *)	  (#test-ship #projector 1 details [141])
+(run *)	  (#test-ship #projector 1 details [1 141])
 
 #details-tractor
 (test *)
@@ -117,6 +113,10 @@
 #details-mtd
 (test *)
 (run *)	  (#test-ship #mtd 1 details [])
+
+#details-shuttle
+(test *)
+(run *)	  (#test-ship #shuttle 1 details [1])
 
 #repair-time-projector
 (test *)
