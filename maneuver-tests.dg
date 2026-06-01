@@ -2,6 +2,7 @@
 %%            sector.dg grid.dg unit.dg stdlib.dg
 
 (reset randomness)
+(reset missiles)
 
 (interface (code $))
 

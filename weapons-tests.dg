@@ -175,3 +175,24 @@
 	(#test-ship fires at #near-target using 200 energy and 4 ammo)
 	(assert #test-ship has 832 energy and 8 ammo)
 	(#near-target is destroyed)
+
+#launch-missiles
+(test *)
+(run *)
+    (launch 4 200 499 2 missiles from [3544 4444] at #test-ship)
+	(list of missiles [[3544 4444 1 4 200 499 2 #test-ship]])
+
+#launch-more-missiles
+(test *)
+(run *)
+    (launch 4 200 499 2 missiles from [3544 4444] at #test-ship)
+	(launch 2 200 499 2 missiles from [3144 4244] at #test-ship)
+	(list of missiles [
+	    [3544 4444 1 4 200 499 2 #test-ship]
+		[3144 4244 2 2 200 499 2 #test-ship]])
+
+#launch-no-missiles
+(test *)
+(run *)
+    (launch 0 200 499 2 missiles from [3544 4444] at #test-ship)
+    (list of missiles [])

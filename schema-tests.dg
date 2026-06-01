@@ -7,6 +7,7 @@
 (interface (stellar object $))
 
 (reset randomness)
+(reset missiles)
 
 %% ----------------------------------------------------------------------------
 

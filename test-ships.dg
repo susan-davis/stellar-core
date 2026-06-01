@@ -185,6 +185,7 @@
 	 }
 	 (#test-ship initial state $Initial)
 	 (now) (#test-ship state $Initial)
+	 (reset missiles)
 	 (reset randomness)
 
 %% Ships can have any of the following systems:

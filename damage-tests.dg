@@ -5,7 +5,8 @@
 
 (interface (ship type $))
 
-(set up $) (reset randomness)
+(reset randomness)
+(reset missiles)
 
 %% ----------------------------------------------------------------------
 

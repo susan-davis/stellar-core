@@ -49,7 +49,13 @@
 
 (interface ($<Ship fires at $<Target using $<Energy energy and $<Ammo ammo))
 
+(interface (reset missiles))
+
 %%------------------------------ IMPLEMENTATION ------------------------------
+
+(reset missiles)
+    (now) (list of missiles [])
+	(now) (next missile id 1)
 
 (weapons in [] into [])
 
@@ -116,6 +122,63 @@
     (object $Target)
 	(angle from $Ship to $Target into $Angle)
 	($Ship ammo weapons bearing on angle $Angle into $Result)
+
+%%----------------------------------------------------------------------------
+
+%% Missile schema: [X Y ID Number Value Speed Endurance $Target]
+
+(missile $ID into $Missile)
+    (list of missiles $Missiles)
+	(find in $Missiles element 3 is $ID into $Missile)
+
+($Ship weapons bearing on target $ID into $Result)
+    (number $ID)
+	(missile $ID into $Missile)
+	(angle from $Ship to position $Missile into $Angle)
+	($Ship weapons bearing on angle $Angle into $Result)
+
+($Ship energy weapons bearing on target $ID into $Result)
+    (number $ID)
+	(missile $ID into $Missile)
+	(angle from $Ship to position $Missile into $Angle)
+	($Ship energy weapons bearing on angle $Angle into $Result)
+
+($Ship ammo weapons bearing on target $ID into $Result)
+    (number $ID)
+	(missile $ID into $Missile)
+	(angle from $Ship to position $Missile into $Angle)
+	($Ship ammo weapons bearing on angle $Angle into $Result)
+
+(launch 0 $ $ $ missiles from $ at $)
+
+(launch $Num $Value $Speed $Endurance missiles from $Position at $Target)
+    ([$X $Y | $] = $Position)
+	(next missile id $ID)
+	(add 1 to $ID into $NewID)
+	(now) (next missile id $NewID)
+	(list of missiles $Missiles)
+	($Missile = [$X $Y $ID $Num $Value $Speed $Endurance $Target])
+	(append $Missiles [$Missile] $New)
+	(now) (list of missiles $New)
+
+(destroy volley $ID)
+    (list of missiles $Missiles)
+	(remove from $Missiles where element 3 is $ID into $New)
+	(now) (list of missiles $New)
+
+(destroy 0 missiles from volley $)
+
+(destroy $Num missiles from volley $ID)
+    (list of missiles $Missiles)
+	(find in $Missiles where element 3 is $ID into $Missile)
+	(nth $Missile 4 $Volley)
+	(subtract $Num from $Volley into $NewVolley)
+	(replace element 4 in $Missile with $NewVolley into $NewMissile)
+    (destroy volley $ID)
+	(if) ($Volley > 0) (then)
+        (append $Missiles [$NewMissile] $New)
+		(now) (list of missiles $New)
+	(endif)
 
 %%----------------------------------------------------------------------------
 
