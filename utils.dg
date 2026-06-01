@@ -42,6 +42,8 @@
 
 (interface (take last $<N from $<List into $>Suffix))
 
+(interface (take after $<N from $<List into $>Suffix))
+
 (interface (replace element $<N in $<List with $<Element into $>NewList))
 
 (interface (replace element $<N in $<List with $<Num into $>New with max $<Max))
@@ -201,10 +203,24 @@
 	(take $N from $Reverse into $After)
 	(reverse $After $Suffix)
 
+(take after 0 from $List into $List)
+
+(take after $ from [] into [])
+
+(take after 1 from $List into $Suffix)
+    ([$Head | $Suffix] = $List)
+
+(take after $N from $List into $Suffix)
+    (length of $List into $Len)
+	~($Len < $N)
+    ([$Head | $Tail] = $List)
+	($N minus 1 into $M)
+	(take after $M from $Tail into $Suffix)
+
 (replace element $N in $List with $Element into $NewList)
 	($N > 0)
 	(length of $List into $Len)
-	~($Len < $N) %% fail fast if trying to replace past end of list
+	~($Len < $N)
 	($N minus 1 into $PrefixLen)
 	($Len minus $N into $SuffixLen)
 	(take $PrefixLen from $List into $Prefix)
