@@ -208,12 +208,12 @@
 (take after $ from [] into [])
 
 (take after 1 from $List into $Suffix)
-    ([$Head | $Suffix] = $List)
+    ([$ | $Suffix] = $List)
 
 (take after $N from $List into $Suffix)
     (length of $List into $Len)
 	~($Len < $N)
-    ([$Head | $Tail] = $List)
+    ([$ | $Tail] = $List)
 	($N minus 1 into $M)
 	(take after $M from $Tail into $Suffix)
 
