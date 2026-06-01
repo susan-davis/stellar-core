@@ -149,9 +149,9 @@
 	(angle from $Ship to position $Missile into $Angle)
 	($Ship ammo weapons bearing on angle $Angle into $Result)
 
-(launch 0 $ $ $ missiles from $ at $)
+(launch 0 missiles of $ $ $ from $ at $)
 
-(launch $Num $Value $Speed $Endurance missiles from $Position at $Target)
+(launch $Num missiles of $Value $Speed $Endurance from $Position at $Target)
     ([$X $Y | $] = $Position)
 	(next missile id $ID)
 	(add 1 to $ID into $NewID)
@@ -314,11 +314,15 @@
 	($Ship * $ID details [$Tubes $Speed $Boost])
 	($Ship ammo $Ammo)
 	(min $Ammo $Amount $Proposed)
-	(min $Proposed $Tubes $Torpedoes)
+	(min $Proposed $Tubes $Torps)
 	(range from $Ship to $Target into $Range)
 	(if) ~($Range > $Boost) (then)
-	    ($Ship fires $Torpedoes direct fire torpedoes of $Damage at $Target)
+	    ($Ship fires $Torps direct fire torpedoes of $Damage at $Target)
 	(else)
+	    ($Ship position $Here)
+		($Target position $There)
+	    (square at $Boost from $Here to $There into $Position)
+		(launch $Torps missiles of $Damage $Speed 1 from $Position at $Target)
 	(endif)
 
 ($ fires 0 direct fire torpedoes of $ at $) %% no ammo, so do nothing

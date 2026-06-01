@@ -123,15 +123,13 @@
 
 (warp gradient for speed $Speed into 12)   ($Speed < 1098)
 
-(warp gradient for speed $Speed into 13)   ~($Speed < 1098)
+(warp gradient for speed $Speed into 13)   ($Speed < 1372)
 
-%%(warp gradient for speed $Speed into 13)   ~($Speed < 1372)
-%%
-%%(warp gradient for speed $Speed into 14)   ($Speed < 1687)
-%%
-%%(warp gradient for speed $Speed into 15)   ($Speed < 2048)
-%%
-%%(warp gradient for speed $Speed into 16)   ~($Speed < 2048)
+(warp gradient for speed $Speed into 14)   ($Speed < 1687)
+
+(warp gradient for speed $Speed into 15)   ($Speed < 2048)
+
+(warp gradient for speed $Speed into 16)   ~($Speed < 2048)
 
 %%----------------------------- SCHEMA DEFINITION ----------------------------
 
