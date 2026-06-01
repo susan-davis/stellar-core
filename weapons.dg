@@ -43,7 +43,7 @@
 
 (interface ($<Ship ammo weapons bearing on target $<Target into $>List))
 
-(interface ($<Ship fires $<System $<ID $<Det at $<Target using $<Amount))
+(interface ($<Ship fires $<System $<ID at $<Target using $<Amount))
 
 (interface ($<Ship fires $<Type at target $<Target using $<Amount))
 
@@ -179,9 +179,9 @@
 
 %%----------------------------------------------------------------------------
 
-($Ship fires $ $ $ at $Ship using $) %% don't fire at self
+($Ship fires $ $ at $Ship using $) %% don't fire at self
 
-($ fires $ $ $ at $ using 0) %% do nothing
+($ fires $ $ at $ using 0) %% do nothing
 
 %% Energy weapons work by feeding energy into them from the ship's main energy
 %% bus, and produce immediate effects that can't be countered. For simplicity,
@@ -198,24 +198,19 @@
 %% superstartrek.bas phasers (and Klingon return fire):
 %% damage = (2 to 3)*energy/range, but miss if less than 15% of target
 %% "range" = 1/100 of what our ranges are
-
-($Ship fires * $ $ at $Target using $)
+($Ship fires * $ at $Target using $)
 	~($Target is in weapons range of $Ship) %% so do nothing
 
 %% Projector hit chance = 2d6 > (Range * Details)
 %% Projector damage = Energy * (2d6-7)*10 + 20/Range
-($Ship fires * $ $Details at $Target using $Amount)
-    (object $Target)
-	($Target is in weapons range of $Ship)
+($Ship fires projector with $Num $Value $Increment at $Target using $Amount)
 	($Ship energy $StartingEnergy)
-	(if) ($Amount > $StartingEnergy) (then)
-	 	($Energy = $StartingEnergy)
-	(else)
-		($Energy = $Amount)
-	(endif)
+	(min $Amount $StartingEnergy $Proposed)
+	($Num times $Value into $Maximum)
+	(min $Proposed $Maximum $Energy)
 	(decrease energy for $Ship by $Energy)
 	(range from $Ship to $Target into $Range)
-	($Range divided by $Details into $Increments)
+	($Range divided by $Increment into $Increments)
 	(roll 2 #d6 $HitChance)
 	(if) ($HitChance > $Increments) (then)
 		(roll 2 #d6 $DieRoll)
@@ -228,6 +223,13 @@
 		($Ship hits $Target with $Damage)
 	(endif)
 
+($Ship fires * $ID at $Target using $Amount)
+    (object $Target)
+	($Target is in weapons range of $Ship)
+	($Ship * $ID value $Value)
+	($Ship * $ID details [$Num $Increment])
+	($Ship fires projector with $Num $Value $Increment at $Target using $Amount)
+
 %% Plasma bolts work similarly to energy projectors, but have a more rapid
 %% range decay. They mostly exist to give some colour to foreign (Regulan)
 %% ships, to make them different. Assign smaller numbers in their details.
@@ -236,13 +238,16 @@
 (long name *)	plasma bolt
 (energy weapon *)
 
-($Ship fires * $ $ at $Target using $)
+($Ship fires * $ at $Target using $)
 	~($Target is in weapons range of $Ship) %% so do nothing
 
 %% For now, just treat them like projectors.
-($Ship fires * $ID $Details at $Target using $Amount)
+($Ship fires * $ID at $Target using $Amount)
+    (object $Target)
 	($Target is in weapons range of $Ship)
-	($Ship fires #projector $ID $Details at $Target using $Amount)
+	($Ship * $ID value $Value)
+	($Ship * $ID details [$Num $Increment])
+	($Ship fires projector with $Num $Value $Increment at $Target using $Amount)
 
 %% Collapsers are the Quellan disruptor-equivalents. In addition to regular
 %% energy damage, they also reduce the target's speed, allowing Quellan ships
@@ -252,15 +257,15 @@
 (long name *)	warp field collapser
 (energy weapon *)
 
-($Ship fires * $ $ at $Target using $)
+($Ship fires * $ at $Target using $)
 	~($Target is in weapons range of $Ship) %% so do nothing
 
 %% Collapser hit chance: as energy projector
 %% Collapser damage: as energy projector
 %% Collapser warp field reduction:
-($Ship fires * $ID $Details at $Target using $Amount)
+($Ship fires * $ID at $Target using $Amount)
 	($Target is in weapons range of $Ship)
-	($Ship fires #projector $ID $Details at $Target using $Amount)
+	($Ship fires #projector $ID at $Target using $Amount)
 
 %% Hyperspace vortex generators are the Tiberian plasma torpedo equivalent.
 %% They rip ships apart by creating small hyperspace portals in their area
@@ -271,12 +276,12 @@
 (long name *)	hyperspace vortex generator
 (energy weapon *)
 
-($Ship fires * $ $ at $Target using $)
+($Ship fires * $ at $Target using $)
 	~($Target is in weapons range of $Ship) %% so do nothing
 
-($Ship fires * $ID $Details at $Target using $Amount)
+($Ship fires * $ID at $Target using $Amount)
 	($Target is in weapons range of $Ship)
-    (line) $Ship fires * $ID $Details at $Target using $Amount
+    (line) $Ship fires * $ID at $Target using $Amount
 
 %% Ammo weapons work by expending ammo from the ship's magazine(s). Shots from
 %% an ammo weapon might (in a future release) appear on the map as targets for
@@ -298,13 +303,27 @@
 %% first object that they encounter. Anything other than a star is destroyed
 %% instantly. Star Fleet I has them, too, and they have a chance of missing.
 
-($Ship fires * $ $ at $Target using $)
+($Ship fires * $ at $Target using $)
 	~($Target is in weapons range of $Ship) %% so do nothing
 
 %% Torpedo hit chance: dependent on target aspect and warp gradient
 %% Torepdo damage: first element of details
-($Ship fires * $ID $Details at $Target using $Amount)
+($Ship fires * $ID at $Target using $Amount)
     (object $Target)
+	($Ship * $ID value $Damage)
+	($Ship * $ID details [$Tubes $Speed $Boost])
+	($Ship ammo $Ammo)
+	(min $Ammo $Amount $Proposed)
+	(min $Proposed $Tubes $Torpedoes)
+	(range from $Ship to $Target into $Range)
+	(if) ~($Range > $Boost) (then)
+	    ($Ship fires $Torpedoes direct fire torpedoes of $Damage at $Target)
+	(else)
+	(endif)
+
+($ fires 0 direct fire torpedoes of $ at $) %% no ammo, so do nothing
+
+($Ship fires $Amount direct fire torpedoes of $Damage at $Target)
 	($Target is in weapons range of $Ship)
 	(decrease ammo for $Ship by $Amount)
     (target aspect from $Ship to $Target into $Aspect)
@@ -322,11 +341,10 @@
 	(endif)
 	(roll 2 #d6 $Roll)
 	(if) ($Roll > $ToHit) (then)
-	    ($Ship * $ID details $Damage)
 		($Ship hits $Target with $Damage)
 	(endif)
 	(subtract 1 from $Amount into $Remaining)
-	($Ship fires * $ID $Details at $Target using $Remaining)
+	($Ship fires $Remaining direct fire torpedoes of $Damage at $Target)
 
 %% Alcubierre missiles are equipped with small A-drives, and can engage at
 %% superluminal speeds. They work like torpedoes, but with less elaborate
@@ -337,13 +355,13 @@
 (long name *)	Alcubierre missile launcher
 (ammo weapon *)
 
-($Ship fires * $ $ at $Target using $)
+($Ship fires * $ at $Target using $)
 	~($Target is in missile range of $Ship) %% so do nothing
 
 %% Missiles can be shot down by the target's defensive weapons.
-($Ship fires * $ID $Details at $Target using $Amount)
+($Ship fires * $ID at $Target using $Amount)
 	($Target is in missile range of $Ship)
-    (line) $Ship fires * $ID $Details at $Target using $Amount
+    (line) $Ship fires * $ID at $Target using $Amount
 
 %% Bombardment rockets are missiles equipped with reactionless engines, or even
 %% reaction engines in more primitive fleets. They're mostly used for attacking
@@ -353,12 +371,12 @@
 (long name *)	bombardment rocket launcher
 (ammo weapon *)
 
-($Ship fires * $ $ at $Target using $)
+($Ship fires * $ at $Target using $)
 	~($Target is in weapons range of $Ship) %% so do nothing
 
-($Ship fires * $ID $Details at $Target using $Amount)
+($Ship fires * $ID at $Target using $Amount)
 	($Target is in weapons range of $Ship) %% or mtd range?
-    (line) $Ship fires * $ID $Details at $Target 0 using $Amount
+    (line) $Ship fires * $ID at $Target 0 using $Amount
 
 %%----------------------------------------------------------------------------
 
@@ -372,9 +390,9 @@
 ($Ship fires at $Target with $Weapons using $Amount)
     (object $Target)
     ($Weapons = [$Head | $Tail])
-	($Head = [$Type $ID $ $Value $Details])
+	($Head = [$Type $ID $Value | $])
 	(min $Value $Amount $Fired)
-    ($Ship fires $Type $ID $Details at $Target using $Fired)
+    ($Ship fires $Type $ID at $Target using $Fired)
 	(if) ($Value < $Amount) (then)
 		(subtract $Value from $Amount into $Remainder)
 		($Ship fires at $Target with $Tail using $Remainder)

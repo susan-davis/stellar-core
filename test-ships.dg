@@ -33,8 +33,8 @@
 (code *)	s
 (* state [10 10 180 9636 #union 1000 4 10 500 [100 99 98 97 96 95] [16 2]])
 (* systems [[#projector 1 100 [360 #up] 1 141]
-		   [#torpedo 1 500 [1 8] 1 499]
-		   [#torpedo 2 500 [1 8] 1 499]
+		   [#torpedo 1 500 [1 8] 1 499 1097]
+		   [#torpedo 2 500 [1 8] 1 499 1097]
 		   [#tractor 1 250 [4 5]]
 		   [#sensor 1 5 #north]          %% scout sensors
 		   [#sensor 2 4 [360 #up #down]] %% long-range sensors
@@ -104,7 +104,7 @@
 (* state [5 10 90 7511 #quellan 500 2 0 250 [100 50 50 50 25 25] [38 14]])
 (* systems [
     [#projector 1 250 [8 1] 1 100]
-	[#sensor 3 3 [8 1]]])
+	[#sensor 1 3 [8 1]]])
 
 #civilian
 (name *)	civilian
