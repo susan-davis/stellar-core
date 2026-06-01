@@ -2,6 +2,7 @@
 %% 		   	  sector.dg grid.dg d6.dg utils.dg unit.dg stdlib.dg
 
 (reset randomness)
+(reset missiles)
 
 (interface (ship type $))  %% silence warnings
 
@@ -66,88 +67,88 @@
 (run *)
 	(#test-ship undamaged systems $Systems)
 	(sensors in $Systems into [
-	    [#sensor 5 [1 8] 5 0]
-	    [#sensor 4 [360 #up #down] 4 0]
-	    [#sensor 3 [360 #up #down] 3 0]])
+	    [#sensor 5 #north 5]
+	    [#sensor 4 [360 #up #down] 4]
+	    [#sensor 3 [360 #up #down] 3]])
 
 #sensors-covering-0
 (test *)
 (run *)
 	(#test-ship sensors covering angle 0 into [
-	    [#sensor 5 [1 8] 5 0]
-	    [#sensor 4 [360 #up #down] 4 0]
-	    [#sensor 3 [360 #up #down] 3 0]])
+	    [#sensor 5 #north 5]
+	    [#sensor 4 [360 #up #down] 4]
+	    [#sensor 3 [360 #up #down] 3]])
 
 #sensors-covering-135
 (test *)
 (run *)
 	(#test-ship sensors covering angle 135 into [
-	    [#sensor 4 [360 #up #down] 4 0]
-	    [#sensor 3 [360 #up #down] 3 0]])
+	    [#sensor 4 [360 #up #down] 4]
+	    [#sensor 3 [360 #up #down] 3]])
 
 #best-functioning-sensor-0
 (test *)
 (run *)
 	(#test-ship best functioning sensor for angle 0 into
-	    [#sensor 5 [1 8] 5 0])
+	    [#sensor 5 #north 5])
 
 #best-functioning-sensor-195
 (test *)
 (run *)
 	(#test-ship best functioning sensor for angle 195 into
-	    [#sensor 4 [360 #up #down] 4 0])
+	    [#sensor 4 [360 #up #down] 4])
 
 #best-functioning-sensor-closest-target
 (test *)
 (run *)
 	(#test-ship best functioning sensor for target #closest-target into
-	    [#sensor 4 [360 #up #down] 4 0])
+	    [#sensor 4 [360 #up #down] 4])
 
 #best-functioning-sensor-near-target
 (test *)
 (run *)
 	(#test-ship best functioning sensor for target #near-target into
-	    [#sensor 5 [1 8] 5 0])
+	    [#sensor 5 #north 5])
 
 #best-functioning-sensor-far-target
 (test *)
 (run *)
 	(#test-ship best functioning sensor for target #far-target into
-	    [#sensor 4 [360 #up #down] 4 0])
+	    [#sensor 4 [360 #up #down] 4])
 
 #best-functioning-sensor-distant-target
 (test *)
 (run *)
 	(#test-ship best functioning sensor for target #distant-target into
-	    [#sensor 4 [360 #up #down] 4 0])
+	    [#sensor 4 [360 #up #down] 4])
 
 #best-functioning-sensor-closest-target-position
 (test *)
 (run *)
 	(#closest-target position $Pos)
 	(#test-ship best functioning sensor for position $Pos into
-	    [#sensor 4 [360 #up #down] 4 0])
+	    [#sensor 4 [360 #up #down] 4])
 
 #best-functioning-sensor-near-target-position
 (test *)
 (run *)
 	(#near-target position $Pos)
 	(#test-ship best functioning sensor for position $Pos into
-	    [#sensor 5 [1 8] 5 0])
+	    [#sensor 5 #north 5])
 
 #best-functioning-sensor-far-target-position
 (test *)
 (run *)
 	(#far-target position $Pos)
 	(#test-ship best functioning sensor for position $Pos into
-	    [#sensor 4 [360 #up #down] 4 0])
+	    [#sensor 4 [360 #up #down] 4])
 
 #best-functioning-sensor-distant-target-position
 (test *)
 (run *)
 	(#distant-target position $Pos)
 	(#test-ship best functioning sensor for position $Pos into
-	    [#sensor 4 [360 #up #down] 4 0])
+	    [#sensor 4 [360 #up #down] 4])
 
 #sensor-value-sensor-closest-target
 (test *)
