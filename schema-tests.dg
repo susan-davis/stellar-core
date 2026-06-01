@@ -75,8 +75,8 @@
 (test *)
 (run *)
 	  (find undamaged #torpedo for #test-ship into $Torps)
-	  (assert $Torps = [[#torpedo 1 [1 8] 1 500]
-	  		  		    [#torpedo 2 [1 8] 1 500]])
+	  (assert $Torps = [[#torpedo 1 [1 8] 500 1 499]
+	  		  		    [#torpedo 2 [1 8] 500 1 499]])
 
 #dont-find-damaged-tractor
 (test *)
@@ -84,7 +84,7 @@
 
 #find-torpedo-1
 (test *)
-(run *)	  (find #test-ship #torpedo 1 into [#torpedo 1 [1 8] 1 500])
+(run *)	  (find #test-ship #torpedo 1 into [#torpedo 1 [1 8] 500 1 499])
 
 #dont-find-torpedo-3
 (test *)
@@ -102,17 +102,21 @@
 (test *)
 (run *)	  (#test-ship #mtd 1 value 4)
 
+#details-torpedo
+(test *)
+(run *)	  (#test-ship #torpedo 1 details [1 499])
+
 #details-projector
 (test *)
-(run *)	  (#test-ship #projector 1 details 141)
+(run *)	  (#test-ship #projector 1 details [141])
 
 #details-tractor
 (test *)
-(run *)	  (#test-ship #tractor 1 details 0)
+(run *)	  (#test-ship #tractor 1 details [])
 
 #details-mtd
 (test *)
-(run *)	  (#test-ship #mtd 1 details 0)
+(run *)	  (#test-ship #mtd 1 details [])
 
 #repair-time-projector
 (test *)

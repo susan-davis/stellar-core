@@ -197,7 +197,7 @@
 	(system $Match value $Value)
 
 (system $Match details $Details)
-	(nth $Match 5 $Details)
+    (take after 4 from $Match into $Details)
 
 ($Ship $Type $ID details $Details)
 	(find $Ship $Type $ID into $Match)
