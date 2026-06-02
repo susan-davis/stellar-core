@@ -35,6 +35,8 @@
 %% of energy from damage. A detailed ship has a full set of systems in its
 %% class record, and keeps a list of damaged systems in its own systems list.
 %% A player ship has its own map, and uses player-ship.dg for recording damage.
+%%
+%% Missile schema: [X Y Target Speed Endurance Damage Number ID]
 
 %%-------------------------------- INTERFACES --------------------------------
 
