@@ -380,7 +380,7 @@
 	($Ship * $ID value $Damage)
 	($Ship * $ID details [$Launchers $Speed $Endurance])
 	($Ship ammo $Ammo)
-	(min $Amount $Ammo $Launchers $Num)
+	(min $Amount $Launchers $Ammo $Num)
 	(decrease ammo for $Ship by $Num)
 	(launch $Num missiles of $Speed $Endurance $Damage from $Pos at $Target)
 
