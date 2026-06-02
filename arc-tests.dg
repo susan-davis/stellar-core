@@ -28,7 +28,7 @@
 
 #distant-target-elevation
 (test *)
-(run *)    (#distant-target elevation 5)
+(run *)    (#distant-target elevation 6)
 
 #firing-arc-closest-target
 (test *)
