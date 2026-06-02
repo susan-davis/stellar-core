@@ -177,6 +177,15 @@
 	    (now) (list of missiles $Removed)
 	(endif)
 
+(remove volley $ID)
+    (list of missiles $Missiles)
+    (remove from $Missiles where element 8 is $ID into $New)
+    (now) (list of missiles $New)
+
+(volley $ID reaches its target)
+    (list of missiles $Missiles)
+	(find in $Missiles where element 8 is $ID into $Missile)
+
 %%----------------------------------------------------------------------------
 
 ($Ship fires $ $ at $Ship using $) %% don't fire at self

@@ -262,3 +262,16 @@
     (list of missiles [
 	    [3219 4219 #near-target 499 1 500 1 1]
 	    [3219 4219 #near-target 499 1 500 1 2]])
+
+#remove-volley
+(test *)
+(run *)
+    (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
+	(remove volley 1)
+	(list of missiles [])
+
+#remove-nonexistent-volley
+(test *)
+(run *)
+	(remove volley 1)
+	(list of missiles [])
