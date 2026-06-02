@@ -87,6 +87,8 @@
 
 (interface (hit $<Ship with $<Units from angle $<Angle))
 
+(interface (hit $<Ship $<Num times with $<Units from angle $<Angle))
+
 (interface (hit $<Ship with $<Units from $<Direction))
 
 (interface (damage $<Ship with $<Units from $<Direction))
@@ -261,6 +263,13 @@
 (hit $Target with $Units from angle $Angle)
     (direction for $Angle into $Direction)
     (hit $Target with $Units from $Direction)
+
+(hit $ 0 times with $ from angle $) %% do nothing
+
+(hit $Target $Num times with $Units from angle $Angle)
+    (hit $Target with $Units from angle $Angle)
+	($Num minus 1 into $Remaining)
+	(hit $Target $Remaining times with $Units from angle $Angle)
 
 %% Damage rubric:
 %%   * hit facing shield first

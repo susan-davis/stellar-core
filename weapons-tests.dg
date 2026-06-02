@@ -275,3 +275,18 @@
 (run *)
 	(remove volley 1)
 	(list of missiles [])
+
+#volley-reaches-target
+(test *)
+(run *)
+    (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
+    (volley 1 reaches its target)
+	(#test-ship shields 104)
+	(#test-ship energy 528)
+	(#test-ship systems [
+        [#tractor 1 800]
+		[#mtd 1 16383]
+		[#reactionless #east 101]
+		[#a-drive #west 101]
+		[#quarters 1 101]
+		[#shield #up 101]])

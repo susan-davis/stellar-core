@@ -184,7 +184,10 @@
 
 (volley $ID reaches its target)
     (list of missiles $Missiles)
-	(find in $Missiles where element 8 is $ID into $Missile)
+	(find in $Missiles where element 8 is $ID into $Volley)
+	([$ $ $Target $ $ $Damage $Num $] = $Volley)
+	(angle from $Target to position $Volley into $Angle)
+	(hit $Target $Num times with $Damage from angle $Angle)
 
 %%----------------------------------------------------------------------------
 
