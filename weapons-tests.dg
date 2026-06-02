@@ -182,7 +182,7 @@
 (test *)
 (run *)
     (launch 4 missiles of 200 499 2 from [3544 4444] at #test-ship)
-	(list of missiles [[3544 4444 1 4 200 499 2 #test-ship]])
+	(list of missiles [[3544 4444 #test-ship 499 2 4 200 1]])
 	(next missile id 2)
 
 #launch-more-missiles
@@ -191,8 +191,8 @@
     (launch 4 missiles of 200 499 2 from [3544 4444] at #test-ship)
 	(launch 2 missiles of 200 499 2 from [3144 4244] at #test-ship)
 	(list of missiles [
-	    [3544 4444 1 4 200 499 2 #test-ship]
-		[3144 4244 2 2 200 499 2 #test-ship]])
+	    [3544 4444 #test-ship 499 2 4 200 1]
+	    [3144 4244 #test-ship 499 2 2 200 2]])
 	(next missile id 3)
 
 #launch-no-missiles
@@ -206,21 +206,21 @@
 (run *)
     (launch 4 missiles of 200 499 2 from [3544 4444] at #test-ship)
 	(destroy 0 missiles from volley 1)
-	(list of missiles [[3544 4444 1 4 200 499 2 #test-ship]])
+	(list of missiles [[3544 4444 #test-ship 499 2 4 200 1]])
 
 #shoot-down-wrong-missiles
 (test *)
 (run *)
     (launch 4 missiles of 200 499 2 from [3544 4444] at #test-ship)
 	~(destroy 2 missiles from volley 2)
-	(list of missiles [[3544 4444 1 4 200 499 2 #test-ship]])
+	(list of missiles [[3544 4444 #test-ship 499 2 4 200 1]])
 
 #shoot-down-some-missiles
 (test *)
 (run *)
     (launch 4 missiles of 200 499 2 from [3544 4444] at #test-ship)
 	(destroy 2 missiles from volley 1)
-	(list of missiles [[3544 4444 1 2 200 499 2 #test-ship]])
+	(list of missiles [[3544 4444 #test-ship 499 2 2 200 1]])
 
 #shoot-down-all-missiles
 (test *)
@@ -241,7 +241,7 @@
 (run *)
     (launch 16383 missiles of 200 499 2 from [3544 4444] at #test-ship)
 	(destroy 16382 missiles from volley 1)
-	(list of missiles [[3544 4444 1 1 200 499 2 #test-ship]])
+	(list of missiles [[3544 4444 #test-ship 499 2 1 200 1]])
 
 #max-amount-for-projector
 (test *)
@@ -260,5 +260,5 @@
 	(drag #near-target to position [3000 4000])
 	(#test-ship fires #torpedo at target #near-target using 2)
     (list of missiles [
-	    [3219 4219 1 1 500 499 1 #near-target]
-		[3219 4219 2 1 500 499 1 #near-target]])
+	    [3219 4219 #near-target 499 1 1 500 1]
+	    [3219 4219 #near-target 499 1 1 500 2]])

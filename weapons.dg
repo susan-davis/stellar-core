@@ -125,11 +125,11 @@
 
 %%----------------------------------------------------------------------------
 
-%% Missile schema: [X Y ID Number Value Speed Endurance $Target]
+%% Missile schema: [X Y Target Speed Endurance Number Value ID]
 
 (missile $ID into $Missile)
     (list of missiles $Missiles)
-	(find in $Missiles where element 3 is $ID into $Missile)
+	(find in $Missiles where element 8 is $ID into $Missile)
 
 ($Ship weapons bearing on target $ID into $Result)
     (number $ID)
@@ -157,7 +157,7 @@
 	(add 1 to $ID into $NewID)
 	(now) (next missile id $NewID)
 	(list of missiles $Missiles)
-	($Missile = [$X $Y $ID $Num $Value $Speed $Endurance $Target])
+	($Missile = [$X $Y $Target $Speed $Endurance $Num $Value $ID])
 	(append $Missiles [$Missile] $New)
 	(now) (list of missiles $New)
 
@@ -165,11 +165,11 @@
 
 (destroy $Num missiles from volley $ID)
     (list of missiles $Missiles)
-	(find in $Missiles where element 3 is $ID into $Missile)
-	(nth $Missile 4 $Volley)
+	(find in $Missiles where element 8 is $ID into $Missile)
+	(nth $Missile 6 $Volley)
 	(subtract $Num from $Volley into $NewVolley)
-	(replace element 4 in $Missile with $NewVolley into $NewMissile)
-    (remove from $Missiles where element 3 is $ID into $Removed)
+	(replace element 6 in $Missile with $NewVolley into $NewMissile)
+    (remove from $Missiles where element 8 is $ID into $Removed)
 	(if) ($NewVolley > 0) (then)
         (append $Removed [$NewMissile] $NewList)
 		(now) (list of missiles $NewList)
