@@ -325,8 +325,7 @@
 	($Ship * $ID value $Damage)
 	($Ship * $ID details [$Tubes $Speed $Boost])
 	($Ship ammo $Ammo)
-	(min $Ammo $Amount $Proposed)
-	(min $Proposed $Tubes $Torps)
+	(min $Ammo $Amount $Tubes $Torps)
 	(decrease ammo for $Ship by $Torps)
 	(range from $Ship to $Target into $Range)
 	(if) ~($Range > $Boost) (then)
@@ -382,8 +381,7 @@
 	($Ship * $ID value $Damage)
 	($Ship * $ID details [$Launchers $Speed $Endurance])
 	($Ship ammo $Ammo)
-	(min $Amount $Ammo $Proposed)
-	(min $Proposed $Launchers $Num)
+	(min $Amount $Ammo $Launchers $Num)
 	(decrease ammo for $Ship by $Num)
 	(launch $Num missiles of $Speed $Endurance $Damage from $Pos at $Target)
 
@@ -404,13 +402,6 @@
 
 %%----------------------------------------------------------------------------
 
-($ fires at $ with [] using $) %% do nothing
-
-($Ship fires at $Ship with $ using $) %% do nothing
-
-($ fires at $Target with $ using $) %% do nothing
-	($Target is destroyed)
-
 (max amount for $Weapon into $Amount)
     ($Weapon = [$Type $ $Value $ $Num | $])
 	(if) (energy weapon $Type) (then)
@@ -418,6 +409,13 @@
 	(else)
 	    ($Num = $Amount)
 	(endif)
+
+($ fires at $ with [] using $) %% do nothing
+
+($Ship fires at $Ship with $ using $) %% do nothing
+
+($ fires at $Target with $ using $) %% do nothing
+	($Target is destroyed)
 
 ($Ship fires at $Target with $Weapons using $Amount)
     (object $Target)
