@@ -391,14 +391,23 @@
 ($ fires at $Target with $ using $) %% do nothing
 	($Target is destroyed)
 
+(max amount for $Weapon into $Amount)
+    ($Weapon = [$Type $ $Value $ $Num | $])
+	(if) (energy weapon $Type) (then)
+	    ($Num times $Value into $Amount)
+	(else)
+	    ($Num = $Amount)
+	(endif)
+
 ($Ship fires at $Target with $Weapons using $Amount)
     (object $Target)
     ($Weapons = [$Head | $Tail])
-	($Head = [$Type $ID $Value | $])
-	(min $Value $Amount $Fired)
+	($Head = [$Type $ID | $])
+    (max amount for $Head into $Max)
+	(min $Amount $Max $Fired)
     ($Ship fires $Type $ID at $Target using $Fired)
-	(if) ($Value < $Amount) (then)
-		(subtract $Value from $Amount into $Remainder)
+	(if) ($Max < $Amount) (then)
+		(subtract $Max from $Amount into $Remainder)
 		($Ship fires at $Target with $Tail using $Remainder)
 	(endif)
 
