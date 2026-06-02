@@ -125,7 +125,7 @@
 
 %%----------------------------------------------------------------------------
 
-%% Missile schema: [X Y Target Speed Endurance Number Value ID]
+%% Missile schema: [X Y Target Speed Endurance Damage Number ID]
 
 (missile $ID into $Missile)
     (list of missiles $Missiles)
@@ -151,13 +151,13 @@
 
 (launch 0 missiles of $ $ $ from $ at $)
 
-(launch $Num missiles of $Value $Speed $Endurance from $Position at $Target)
+(launch $Num missiles of $Speed $Endurance $Damage from $Position at $Target)
     ([$X $Y | $] = $Position)
 	(next missile id $ID)
 	(add 1 to $ID into $NewID)
 	(now) (next missile id $NewID)
 	(list of missiles $Missiles)
-	($Missile = [$X $Y $Target $Speed $Endurance $Num $Value $ID])
+	($Missile = [$X $Y $Target $Speed $Endurance $Damage $Num $ID])
 	(append $Missiles [$Missile] $New)
 	(now) (list of missiles $New)
 
@@ -166,9 +166,9 @@
 (destroy $Num missiles from volley $ID)
     (list of missiles $Missiles)
 	(find in $Missiles where element 8 is $ID into $Missile)
-	(nth $Missile 6 $Volley)
+	(nth $Missile 7 $Volley)
 	(subtract $Num from $Volley into $NewVolley)
-	(replace element 6 in $Missile with $NewVolley into $NewMissile)
+	(replace element 7 in $Missile with $NewVolley into $NewMissile)
     (remove from $Missiles where element 8 is $ID into $Removed)
 	(if) ($NewVolley > 0) (then)
         (append $Removed [$NewMissile] $NewList)
@@ -322,7 +322,7 @@
 	    ($Ship position $Here)
 		($Target position $There)
 	    (square at $Boost from $Here to $There into $Position)
-		(launch $Torps missiles of $Damage $Speed 1 from $Position at $Target)
+		(launch $Torps missiles of $Speed 1 $Damage from $Position at $Target)
 	(endif)
 
 ($ fires 0 direct fire torpedoes of $ at $) %% no ammo, so do nothing
