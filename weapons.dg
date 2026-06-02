@@ -327,6 +327,7 @@
 	($Ship ammo $Ammo)
 	(min $Ammo $Amount $Proposed)
 	(min $Proposed $Tubes $Torps)
+	(decrease ammo for $Ship by $Torps)
 	(range from $Ship to $Target into $Range)
 	(if) ~($Range > $Boost) (then)
 	    ($Ship fires $Torps direct fire torpedoes of $Damage at $Target)
@@ -341,7 +342,6 @@
 
 ($Ship fires $Amount direct fire torpedoes of $Damage at $Target)
 	($Target is in weapons range of $Ship)
-	(decrease ammo for $Ship by $Amount)
     (target aspect from $Ship to $Target into $Aspect)
 	($Target warp gradient $Speed)
 	(if) ($Aspect = #north) (then)
@@ -376,8 +376,16 @@
 
 %% Missiles can be shot down by the target's defensive weapons.
 ($Ship fires * $ID at $Target using $Amount)
+    (object $Target)
 	($Target is in missile range of $Ship)
-    (line) $Ship fires * $ID at $Target using $Amount
+	($Ship position $Pos)
+	($Ship * $ID value $Damage)
+	($Ship * $ID details [$Launchers $Speed $Endurance])
+	($Ship ammo $Ammo)
+	(min $Amount $Ammo $Proposed)
+	(min $Proposed $Launchers $Num)
+	(decrease ammo for $Ship by $Num)
+	(launch $Num missiles of $Speed $Endurance $Damage from $Pos at $Target)
 
 %% Bombardment rockets are missiles equipped with reactionless engines, or even
 %% reaction engines in more primitive fleets. They're mostly used for attacking
