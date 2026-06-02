@@ -242,3 +242,23 @@
     (launch 16383 missiles of 200 499 2 from [3544 4444] at #test-ship)
 	(destroy 16382 missiles from volley 1)
 	(list of missiles [[3544 4444 1 1 200 499 2 #test-ship]])
+
+#max-amount-for-projector
+(test *)
+(run *)
+    (max amount for [#projector 1 100 [360 #up #down] 1 141] into 100)
+
+#max-amount-for-torpedo
+(test *)
+(run *)
+    (max amount for [#torpedo 1 500 [360 #up #down] 1 499 1097] into 1)
+
+#fire-torpedo-from-beyond-boost
+(test *)
+(run *)
+    (drag #test-ship to position [3999 4999])
+	(drag #near-target to position [3000 4000])
+	(#test-ship fires #torpedo at target #near-target using 2)
+    (list of missiles [
+	    [3219 4219 1 1 500 499 1 #near-target]
+		[3219 4219 2 1 500 499 1 #near-target]])
