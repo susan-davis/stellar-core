@@ -215,9 +215,9 @@
 
 %% Projector hit chance = 2d6 > (Range * Details)
 %% Projector damage = Energy * (2d6-7)*10 + 20/Range
-($Ship fires projector with $Num $Value $Increment at $Target using $Amount)
+($Ship projector $N $V $Increment at $Target using $Amount generates $Damage)
 	($Ship energy $StartingEnergy)
-	($Num times $Value into $Maximum)
+	($N times $V into $Maximum)
 	(min $Amount $Maximum $StartingEnergy $Energy)
 	(decrease energy for $Ship by $Energy)
 	(range from $Ship to $Target into $Range)
@@ -231,7 +231,8 @@
 		($Energy plus $AddedEnergy into $PlusEnergy)
 		($Energy plus $PlusEnergy into $EffectiveEnergy)
 		($EffectiveEnergy divided by $Increments into $Damage)
-		($Ship hits $Target with $Damage)
+	(else)
+	    ($Damage = 0)
 	(endif)
 
 ($Ship fires * $ID at $Target using $Amount)
@@ -239,7 +240,9 @@
 	($Target is in weapons range of $Ship)
 	($Ship * $ID value $Value)
 	($Ship * $ID details [$Num $Increment])
-	($Ship fires projector with $Num $Value $Increment at $Target using $Amount)
+    ($Ship projector $Num $Value $Increment at $Target using $Amount
+           generates $Damage)
+	($Ship hits $Target with $Damage)
 
 %% Plasma bolts work similarly to energy projectors, but have a more rapid
 %% range decay. They mostly exist to give some colour to foreign (Regulan)
@@ -258,7 +261,9 @@
 	($Target is in weapons range of $Ship)
 	($Ship * $ID value $Value)
 	($Ship * $ID details [$Num $Increment])
-	($Ship fires projector with $Num $Value $Increment at $Target using $Amount)
+    ($Ship projector $Num $Value $Increment at $Target using $Amount
+           generates $Damage)
+	($Ship hits $Target with $Damage)
 
 %% Collapsers are the Quellan disruptor-equivalents. In addition to regular
 %% energy damage, they also reduce the target's speed, allowing Quellan ships
@@ -275,8 +280,13 @@
 %% Collapser damage: as energy projector
 %% Collapser warp field reduction:
 ($Ship fires * $ID at $Target using $Amount)
+    (object $Target)
 	($Target is in weapons range of $Ship)
-	($Ship fires #projector $ID at $Target using $Amount)
+	($Ship * $ID value $Value)
+	($Ship * $ID details [$Num $Increment])
+    ($Ship projector $Num $Value $Increment at $Target using $Amount
+           generates $Damage)
+	($Ship hits $Target with $Damage)
 
 %% Hyperspace vortex generators are the Tiberian plasma torpedo equivalent.
 %% They rip ships apart by creating small hyperspace portals in their area
