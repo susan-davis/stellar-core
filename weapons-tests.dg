@@ -75,7 +75,7 @@
 (run *)
 	(#test-ship fires #projector at target #distant-target using 100)
 	(assert #test-ship has 932 energy and 10 ammo)
-	(#distant-target shields 250)
+	(#distant-target shields 500)
 
 #fire-projector-with-0
 (test *)
