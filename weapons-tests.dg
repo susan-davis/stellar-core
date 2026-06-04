@@ -106,6 +106,16 @@
 	(assert #test-ship has 832 energy and 10 ammo)
 	(#near-target shields 250)
 
+#dont-fire-projector-without-lock-on
+(test *)
+(run *)
+    (increase repair time for #test-ship #sensor 1 by 30)
+    (increase repair time for #test-ship #sensor 2 by 30)
+    (increase repair time for #test-ship #sensor 3 by 30)
+	(#test-ship fires #projector at target #near-target using 100)
+	(assert #test-ship has 932 energy and 10 ammo)
+	(#near-target shields 250)
+
 #dont-torpedo-self
 (test *)
 (run *)
