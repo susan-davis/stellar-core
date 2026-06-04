@@ -178,6 +178,31 @@
 	(assert #test-ship has 832 energy and 8 ammo)
 	(#near-target is destroyed)
 
+(use q7)
+    (move #distant-target to position [3644 4744])
+	(turn #distant-target to face #test-ship)
+
+#fire-collapser-with-100
+(test *)
+(run *)
+    (use q7)
+	(#distant-target fires #collapser at target #test-ship using 100)
+	(#test-ship speed 0)
+	(#test-ship shields 402)
+	(#test-ship energy 922)
+	(#test-ship systems offline 3)
+
+#fire-collapser-with-100-faster-target
+(test *)
+(run *)
+    (use q7)
+	(accelerate #test-ship to gradient 8)
+	(#distant-target fires #collapser at target #test-ship using 100)
+	(#test-ship speed 116)
+	(#test-ship shields 500)
+    (#test-ship energy 932)
+	(#test-ship systems offline 2)
+
 #launch-missiles
 (test *)
 (run *)
@@ -276,6 +301,14 @@
 	(remove volley 1)
 	(list of missiles [])
 
+#remove-tracking-missiles
+(test *)
+(run *)
+    (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
+	(list of missiles [[3544 4444 225 499 #test-ship 2 200 4 1]])
+    (remove all missiles tracking on #test-ship)
+	(list of missiles [])
+
 #volley-reaches-target
 (test *)
 (run *)
@@ -285,30 +318,17 @@
 	(#test-ship energy 528)
 	(#test-ship systems offline 6)
 
-(use q7)
-    (move #distant-target to position [3644 4744])
-	(turn #distant-target to face #test-ship)
-
-#fire-collapser-with-100
+#move-volley-to-target
 (test *)
 (run *)
-    (use q7)
-	(#distant-target fires #collapser at target #test-ship using 100)
-	(#test-ship speed 0)
-	(#test-ship shields 402)
-	(#test-ship energy 922)
-	(#test-ship systems offline 3)
-
-#fire-collapser-with-100-faster-target
-(test *)
-(run *)
-    (use q7)
-	(accelerate #test-ship to gradient 8)
-	(#distant-target fires #collapser at target #test-ship using 100)
-	(#test-ship speed 116)
-	(#test-ship shields 500)
-    (#test-ship energy 932)
-	(#test-ship systems offline 2)
+    (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
+	(list of missiles [[3544 4444 225 499 #test-ship 2 200 4 1]])
+    (update missiles for #test-ship)
+	(list of missiles [[3444 4544 225 499 #test-ship 1 200 4 1]])
+    (update missiles for #test-ship)
+	(#test-ship shields 100)
+	(#test-ship energy 532)
+	(#test-ship systems offline 6)
 
 #dont-fire-not-bearing-missiles
 (test *)
@@ -359,23 +379,3 @@
 	(#distant-target energy 2800)
 	(#distant-target ammo 7)
 	(list of missiles [[3644 4744 315 255 #test-ship 3 200 1 1]])
-
-#remove-tracking-missiles
-(test *)
-(run *)
-    (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
-	(list of missiles [[3544 4444 225 499 #test-ship 2 200 4 1]])
-    (remove all missiles tracking on #test-ship)
-	(list of missiles [])
-
-#move-volley-to-target
-(test *)
-(run *)
-    (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
-	(list of missiles [[3544 4444 225 499 #test-ship 2 200 4 1]])
-    (update missiles for #test-ship)
-	(list of missiles [[3444 4544 225 499 #test-ship 2 200 4 1]])
-    (update missiles for #test-ship)
-	(#test-ship shields 100)
-	(#test-ship energy 532)
-	(#test-ship systems offline 6)
