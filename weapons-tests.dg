@@ -309,3 +309,53 @@
 	(#test-ship shields 500)
     (#test-ship energy 932)
 	(#test-ship systems offline 2)
+
+#dont-fire-not-bearing-missiles
+(test *)
+(run *)
+    (use q7)
+    (#distant-target fires #missile at target #test-ship using 1)
+	(list of missiles [])
+
+#fire-missiles
+(test *)
+(run *)
+    (use q7)
+	(turn #distant-target away from #test-ship)
+    (#distant-target fires #missile at target #test-ship using 1)
+	(list of missiles [[3644 4744 #test-ship 255 3 200 1 1]])
+
+#fire-too-many-missiles
+(test *)
+(run *)
+    (use q7)
+	(turn #distant-target away from #test-ship)
+    (#distant-target fires #missile at target #test-ship using 2)
+	(list of missiles [[3644 4744 #test-ship 255 3 200 1 1]])
+
+#fire-q7-with-200-and-2-bow
+(test *)
+(run *)
+    (use q7)
+    (#distant-target fires at #test-ship using 200 energy and 2 ammo)
+	(#test-ship speed 0)
+	(#test-ship shields 402)
+	(#test-ship energy 782)
+	(#test-ship systems offline 3)
+	(#distant-target energy 2800)
+	(#distant-target ammo 8)
+	(list of missiles [])
+
+#fire-q7-with-200-and-2-stern
+(test *)
+(run *)
+    (use q7)
+	(turn #distant-target away from #test-ship)
+    (#distant-target fires at #test-ship using 200 energy and 2 ammo)
+	(#test-ship speed 32)
+	(#test-ship shields 260)
+	(#test-ship energy 905)
+	(#test-ship systems offline 3)
+	(#distant-target energy 2800)
+	(#distant-target ammo 7)
+	(list of missiles [[3644 4744 #test-ship 255 3 200 1 1]])
