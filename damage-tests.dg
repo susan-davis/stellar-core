@@ -12,127 +12,123 @@
 
 #shields
 (test *)
-(run *)
-	  (#test-ship shields 500)
+(run *) (#test-ship shields 500)
 
 #shield-levels
 (test *)
-(run *)
-	  (#test-ship shield levels [100 99 98 97 96 95])
+(run *) (#test-ship shield levels [100 99 98 97 96 95])
 
 #shield-level-north
 (test *)
-(run *)
-	  (#test-ship shield level #north into 100)
+(run *) (#test-ship shield level #north into 100)
 
 #shield-level-east
 (test *)
-(run *)
-	  (#test-ship shield level #east into 99)
+(run *) (#test-ship shield level #east into 99)
 
 #shield-level-south
 (test *)
-(run *)
-	  (#test-ship shield level #south into 98)
+(run *) (#test-ship shield level #south into 98)
 
 #shield-level-west
 (test *)
-(run *)
-	  (#test-ship shield level #west into 97)
+(run *) (#test-ship shield level #west into 97)
 
 #shield-level-up
 (test *)
-(run *)
-	  (#test-ship shield level #up into 96)
+(run *) (#test-ship shield level #up into 96)
 
 #shield-level-down
 (test *)
-(run *)
-	  (#test-ship shield level #down into 95)
+(run *) (#test-ship shield level #down into 95)
 
 #ammo
 (test *)
-(run *)
-	  (#test-ship ammo 10)
+(run *) (#test-ship ammo 10)
 
 #decrease-ammo
 (test *)
 (run *)
-	  (decrease ammo for #test-ship by 3)
-	  (#test-ship ammo 7)
+	(decrease ammo for #test-ship by 3)
+	(#test-ship ammo 7)
 
 #decrease-ammo-below-zero
 (test *)
-(run *)
-	  ~(decrease ammo for #test-ship by 11)
+(run *) ~(decrease ammo for #test-ship by 11)
 
 #decrease-shields
 (test *)
 (run *)
-	  (decrease shields for #test-ship by 50)
-	  (#test-ship shields 450)
+	(decrease shields for #test-ship by 50)
+	(#test-ship shields 450)
 
 #decrease-shields-below-zero
 (test *)
-(run *)
-	  ~(decrease shields for #test-ship by 501)
+(run *) ~(decrease shields for #test-ship by 501)
 
 #regenerate-shields
 (test *)
 (run *)
-	  (decrease shields for #test-ship by 50)
-	  (#test-ship shields 450)
-	  (regenerate shields for #test-ship by 50)
-	  (#test-ship shields 500)
+	(decrease shields for #test-ship by 50)
+	(#test-ship shields 450)
+	(regenerate shields for #test-ship by 50)
+	(#test-ship shields 500)
 
 #regenerate-shields-above-max
 (test *)
 (run *)
-	  (decrease shields for #test-ship by 50)
-	  (#test-ship shields 450)
-	  (regenerate shields for #test-ship by 100)
-	  (#test-ship shields 500)
+	(decrease shields for #test-ship by 50)
+	(#test-ship shields 450)
+	(regenerate shields for #test-ship by 100)
+	(#test-ship shields 500)
+
+#systems-offline
+(test *)
+(run *) (#test-ship systems offline 2)
 
 #damaged-systems
 (test *)
-(run *)
-	  (#test-ship damaged systems [[#tractor 1 800]])
+(run *) (#test-ship damaged systems [[#tractor 1 800]])
 
 #destroyed-systems
 (test *)
-(run *)
-	  (#test-ship destroyed systems [[#mtd 1 16383]])
+(run *) (#test-ship destroyed systems [[#mtd 1 16383]])
 
 #undestroyed-systems
 (test *)
 (run *)
-	  (#test-ship undestroyed systems $List)
-	  (length of $List into 25)
+    (#test-ship undestroyed systems $List)
+	(length of $List into 25)
+
+(#systems-offline-simple)
 
 #damaged-systems-simple
 (test *)
-(run *)
-	  (#closest-target damaged systems [])
+(run *)	(#closest-target damaged systems [])
 
 #destroyed-systems-simple
 (test *)
-(run *)
-	  (#closest-target destroyed systems [])
+(run *)	(#closest-target destroyed systems [])
 
 #test-ship-isnt-simple
 (test *)
-(run *)
-	  ~(#test-ship is simple)
+(run *)	~(#test-ship is simple)
 
 #closest-target-is-simple
 (test *)
-(run *)
-	  (#closest-target is simple)
+(run *) (#closest-target is simple)
 
 #near-target-is-simple
 (test *)
-(run *)
-	  (#near-target is simple)
+(run *) (#near-target is simple)
+
+#far-target-is-simple
+(test *)
+(run *) (#far-target is simple)
+
+#distant-target-isnt-simple
+(test *)
+(run *) ~(#distant-target is simple)
 
 #dont-find-damaged-torpedo
 (test *)

@@ -290,3 +290,28 @@
 		[#a-drive #west 101]
 		[#quarters 1 101]
 		[#shield #up 101]])
+
+(use q7)
+    (move #distant-target to position [3644 4744])
+	(turn #distant-target to face #test-ship)
+
+#fire-collapser-with-100
+(test *)
+(run *)
+    (use q7)
+	(#distant-target fires #collapser at target #test-ship using 100)
+	(#test-ship speed 0)
+	(#test-ship shields 402)
+	(#test-ship energy 922)
+	(#test-ship systems [
+	    [#tractor 1 800] [#mtd 1 16383] [#reactionless #east 10]])
+
+#fire-collapser-with-100-faster-target
+(test *)
+(run *)
+    (use q7)
+	(accelerate #test-ship to gradient 8)
+	(#distant-target fires #collapser at target #test-ship using 100)
+	(#test-ship speed 116)
+	(#test-ship shields 500)
+    (#test-ship energy 932)

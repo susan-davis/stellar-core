@@ -47,6 +47,8 @@
 
 (interface ($<Ship ammo $>Ammo))
 
+(interface ($<Ship systems offline $>Number)) %% how many are out
+
 (interface ($<Ship damaged systems $>Systems)) %% repairable systems only
 
 (interface ($<Ship destroyed systems $>Systems)) %% destroyed systems only
@@ -104,23 +106,29 @@
 ($Ship is destroyed)
 	~($Ship is on the map)
 
+($Ship systems offline $HowMany)
+	~($Ship is simple)
+    ($Ship systems $Systems)
+	(length of $Systems into $HowMany)
+
+($Ship systems offline 0)
+    ($Ship is simple)
+
 ($Ship damaged systems $Damaged)
 	~($Ship is simple)
 	($Ship systems $Systems)
 	(take from $Systems where element 3 is not 16383 into $Damaged)
 
-($Ship damaged systems $Damaged)
+($Ship damaged systems [])
 	($Ship is simple)
-	($Damaged = [])
 
 ($Ship destroyed systems $Destroyed)
 	~($Ship is simple)
 	($Ship systems $Systems)
 	(take from $Systems where element 3 is 16383 into $Destroyed)
 
-($Ship destroyed systems $Damaged)
+($Ship destroyed systems [])
 	($Ship is simple)
-	($Damaged = [])
 
 ($Ship undestroyed systems $Systems) %% for picking random damage
 	($Ship class systems $List)
