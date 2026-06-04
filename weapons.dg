@@ -272,10 +272,17 @@
 
 ($ fires $ $ at $ using 0) %% do nothing
 
+($Ship fires $ $ at $Target using $)
+	~($Ship has sensor lock on $Target) %% no lock-on, no fire
+
 %% Energy weapons work by feeding energy into them from the ship's main energy
 %% bus, and produce immediate effects that can't be countered. For simplicity,
 %% no ship has more than one kind of energy weapon installed.
 (weapon *(energy weapon $))
+
+($Ship fires $Weapon $ at $Target using $)
+    (energy weapon $Weapon)
+	~($Ship has weapons lock on $Target) %% energy weapons need direct lock-on
 
 %% Energy projectors are the basic phaser-equivalent energy weapons that most
 %% fleets use.
