@@ -329,6 +329,7 @@
 	(#test-ship shields 100)
 	(#test-ship energy 532)
 	(#test-ship systems offline 6)
+	(list of missiles [])
 
 #move-volley-maximum-range
 (test *)
@@ -343,6 +344,7 @@
 	(#test-ship shields 100)
 	(#test-ship energy 532)
 	(#test-ship systems offline 6)
+	(list of missiles [])
 
 #volley-runs-out-of-fuel
 (test *)
