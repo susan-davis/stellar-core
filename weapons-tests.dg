@@ -360,6 +360,18 @@
 	(#test-ship systems offline 2)
 	(list of missiles [])
 
+#volley-loses-tracking
+(test *)
+(run *)
+    (turn #test-ship to heading 30)
+	(accelerate #test-ship to speed 499)
+    (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
+    (move #test-ship on course and speed)
+	(update missiles for #test-ship)
+    (#test-ship shields 500)
+	(#test-ship systems offline 2)
+	(list of missiles [])
+
 #dont-fire-not-bearing-missiles
 (test *)
 (run *)
