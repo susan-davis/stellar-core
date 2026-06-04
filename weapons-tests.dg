@@ -283,13 +283,7 @@
     (volley 1 reaches its target)
 	(#test-ship shields 104)
 	(#test-ship energy 528)
-	(#test-ship systems [
-        [#tractor 1 800]
-		[#mtd 1 16383]
-		[#reactionless #east 101]
-		[#a-drive #west 101]
-		[#quarters 1 101]
-		[#shield #up 101]])
+	(#test-ship systems offline 6)
 
 (use q7)
     (move #distant-target to position [3644 4744])
@@ -303,8 +297,7 @@
 	(#test-ship speed 0)
 	(#test-ship shields 402)
 	(#test-ship energy 922)
-	(#test-ship systems [
-	    [#tractor 1 800] [#mtd 1 16383] [#reactionless #east 10]])
+	(#test-ship systems offline 3)
 
 #fire-collapser-with-100-faster-target
 (test *)
@@ -315,3 +308,4 @@
 	(#test-ship speed 116)
 	(#test-ship shields 500)
     (#test-ship energy 932)
+	(#test-ship systems offline 2)
