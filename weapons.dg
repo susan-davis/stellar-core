@@ -277,8 +277,9 @@
 	~($Target is in weapons range of $Ship) %% so do nothing
 
 %% Collapser hit chance: as energy projector
-%% Collapser damage: as energy projector
-%% Collapser warp field reduction:
+%% Collapser nominal damage: as energy projector
+%% Collapser warp field reduction: first reduce 1 speed per point of damage,
+%% then apply any remainder as ship damage.
 ($Ship fires * $ID at $Target using $Amount)
     (object $Target)
 	($Target is in weapons range of $Ship)
@@ -286,12 +287,31 @@
 	($Ship * $ID details [$Num $Increment])
     ($Ship projector $Num $Value $Increment at $Target using $Amount
            generates $Damage)
-	($Ship hits $Target with $Damage)
+    ($Target speed $Speed)
+	(subtract $Damage from $Speed into $NewSpeed) %% 0-safe
+	(accelerate $Target to speed $NewSpeed)
+    (subtract $Speed from $Damage into $Remaining) %% 0-safe
+    ($Ship hits $Target with $Remaining)
+
+%% Lasers are basic ship-to-ship weapons of pre-Alcubierre civilizations.
+%% They have difficulty engaging superluminal targets.
+#laser
+(name *)		laser
+(long name *)	laser cannon
+(energy weapon *)
+
+($Ship fires * $ at $Target using $)
+	~($Target is in point defence range of $Ship) %% so do nothing
+
+($Ship fires * $ID at $Target using $Amount)
+	($Target is in point defence range of $Ship)
+	$Ship fires * $ID at $Target using $Amount
 
 %% Hyperspace vortex generators are the Tiberian plasma torpedo equivalent.
 %% They rip ships apart by creating small hyperspace portals in their area
-%% of effect. For now, they're direct fire, because we've equated "energy" with
-%% "direct fire," but we could revisit that.
+%% of effect. For now, they're direct fire, because we've equated "energy"
+%% with "direct fire," but we could revisit that. Does this thing do the
+%% job of both the cloaking device and the plasma torpedo?
 #vortex
 (name *)		vortex generator
 (long name *)	hyperspace vortex generator
@@ -394,19 +414,40 @@
 	(decrease ammo for $Ship by $Num)
 	(launch $Num missiles of $Speed $Endurance $Damage from $Pos at $Target)
 
-%% Bombardment rockets are missiles equipped with reactionless engines, or even
-%% reaction engines in more primitive fleets. They're mostly used for attacking
-%% fixed targets, and can't reliably hit vessels moving at superluminal speeds.
-#rocket
-(name *)		rocket
-(long name *)	bombardment rocket launcher
+%% Interceptor missiles do exactly what it says on the tin -- they intercept
+%% missiles inbound for their launch platform. Are these limited to PD range,
+%% or to weapons range? Perhaps they're direct fire at PD range, and missiles
+%% beyond.
+#interceptor
+(name *)		interceptor
+(long name *)	interceptor missile launcher
 (ammo weapon *)
 
 ($Ship fires * $ at $Target using $)
 	~($Target is in weapons range of $Ship) %% so do nothing
 
 ($Ship fires * $ID at $Target using $Amount)
-	($Target is in weapons range of $Ship) %% or mtd range?
+	($Target is in point defence range of $Ship)
+    (line) $Ship fires * $ID as direct fire at $Target 0 using $Amount
+
+($Ship fires * $ID at $Target using $Amount)
+	($Target is in weapons range of $Ship)
+    (line) $Ship fires * $ID at $Target using $Amount
+
+%% Bombardment rockets are missiles equipped with reactionless engines, or
+%% even reaction engines in more primitive fleets. They're mostly used for
+%% attacking fixed targets, and can't reliably hit vessels moving at
+%% superluminal speeds. Point defence range? MTD range?
+#rocket
+(name *)		rocket
+(long name *)	bombardment rocket launcher
+(ammo weapon *)
+
+($Ship fires * $ at $Target using $)
+	~($Target is in point defence range of $Ship) %% so do nothing
+
+($Ship fires * $ID at $Target using $Amount)
+	($Target is in point defence range of $Ship) %% or mtd range?
     (line) $Ship fires * $ID at $Target 0 using $Amount
 
 %%----------------------------------------------------------------------------
