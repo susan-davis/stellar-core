@@ -125,11 +125,11 @@
 
 %%----------------------------------------------------------------------------
 
-%% Missile schema: [X Y Target Speed Endurance Damage Number ID]
+%% Missile schema: [X Y Heading Speed Target Endurance Damage Number ID]
 
 (missile $ID into $Missile)
     (list of missiles $Missiles)
-	(find in $Missiles where element 8 is $ID into $Missile)
+	(find in $Missiles where element 9 is $ID into $Missile)
 
 ($Ship weapons bearing on target $ID into $Result)
     (number $ID)
@@ -153,11 +153,13 @@
 
 (launch $Num missiles of $Speed $Endurance $Damage from $Position at $Target)
     ([$X $Y | $] = $Position)
+	($Target position $TargetPosition)
+	(calculate bearing from $Position to $TargetPosition into $Heading)
 	(next missile id $ID)
 	(add 1 to $ID into $NewID)
 	(now) (next missile id $NewID)
 	(list of missiles $Missiles)
-	($Missile = [$X $Y $Target $Speed $Endurance $Damage $Num $ID])
+	($Missile = [$X $Y $Heading $Speed $Target $Endurance $Damage $Num $ID])
 	(append $Missiles [$Missile] $New)
 	(now) (list of missiles $New)
 
@@ -165,11 +167,11 @@
 
 (destroy $Num missiles from volley $ID)
     (list of missiles $Missiles)
-	(find in $Missiles where element 8 is $ID into $Missile)
-	(nth $Missile 7 $Volley)
+	(find in $Missiles where element 9 is $ID into $Missile)
+	(nth $Missile 8 $Volley)
 	(subtract $Num from $Volley into $NewVolley)
-	(replace element 7 in $Missile with $NewVolley into $NewMissile)
-    (remove from $Missiles where element 8 is $ID into $Removed)
+	(replace element 8 in $Missile with $NewVolley into $NewMissile)
+    (remove from $Missiles where element 9 is $ID into $Removed)
 	(if) ($NewVolley > 0) (then)
         (append $Removed [$NewMissile] $NewList)
 		(now) (list of missiles $NewList)
@@ -179,15 +181,20 @@
 
 (remove volley $ID)
     (list of missiles $Missiles)
-    (remove from $Missiles where element 8 is $ID into $New)
+    (remove from $Missiles where element 9 is $ID into $New)
     (now) (list of missiles $New)
+
+%%(move volley $ID toward its target)
+%%    (list of missiles $Missiles)
+%%	(find in $Missiles where element 9 is $ID into $Missile)
 
 (volley $ID reaches its target)
     (list of missiles $Missiles)
-	(find in $Missiles where element 8 is $ID into $Volley)
-	([$ $ $Target $ $ $Damage $Num $] = $Volley)
+	(find in $Missiles where element 9 is $ID into $Volley)
+	([$ $ $ $ $Target $ $Damage $Num $] = $Volley)
 	(angle from $Target to position $Volley into $Angle)
 	(hit $Target $Num times with $Damage from angle $Angle)
+	(remove volley $ID)
 
 %%----------------------------------------------------------------------------
 
