@@ -330,6 +330,36 @@
 	(#test-ship energy 532)
 	(#test-ship systems offline 6)
 
+#move-volley-maximum-range
+(test *)
+(run *)
+    (launch 4 missiles of 499 2 200 from [3999 4999] at #test-ship)
+	(list of missiles [[3999 4999 310 499 #test-ship 2 200 4 1]])
+    (update missiles for #test-ship)
+	(list of missiles [[3639 4639 310 499 #test-ship 1 200 4 1]])
+    (update missiles for #test-ship)
+	(list of missiles [[3444 4544 295 499 #test-ship 0 200 4 1]])
+    (update missiles for #test-ship)
+	(#test-ship shields 100)
+	(#test-ship energy 532)
+	(#test-ship systems offline 6)
+
+#volley-runs-out-of-fuel
+(test *)
+(run *)
+    (drag #test-ship to position [3000 4000])
+    (launch 4 missiles of 499 2 200 from [3999 4999] at #test-ship)
+	(list of missiles [[3999 4999 315 499 #test-ship 2 200 4 1]])
+    (update missiles for #test-ship)
+	(list of missiles [[3639 4639 315 499 #test-ship 1 200 4 1]])
+    (update missiles for #test-ship)
+	(list of missiles [[3279 4279 315 499 #test-ship 0 200 4 1]])
+    (update missiles for #test-ship)
+    (#test-ship shields 500)
+	(#test-ship energy 932)
+	(#test-ship systems offline 2)
+	(list of missiles [])
+
 #dont-fire-not-bearing-missiles
 (test *)
 (run *)
