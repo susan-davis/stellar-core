@@ -100,7 +100,9 @@
     (#test-ship undestroyed systems $List)
 	(length of $List into 25)
 
-(#systems-offline-simple)
+#systems-offline-simple
+(test *)
+(run *) (#closest-target systems offline 0)
 
 #damaged-systems-simple
 (test *)
@@ -194,8 +196,10 @@
 	~(#test-ship is destroyed)
 
 (assert $Ship has $Shields and $Energy)
-	($Ship shields $Shields)
-	($Ship energy $Energy)
+	($Ship shields $S) %% $S
+	(assert $S = $Shields)
+	($Ship energy $E) %% $E
+	(assert $E = $Energy)
 
 #shields-hold-from-ahead-50
 (test *)
@@ -203,11 +207,23 @@
     (hit #closest-target with 50 from #north)
     (assert #closest-target has 200 and 500)
 
+#shields-hold-from-ahead-50-times-3
+(test *)
+(run *)
+    (hit #closest-target 3 times with 50 from angle 0)
+    (assert #closest-target has 100 and 500)
+
 #shields-penetrated-from-ahead-101
 (test *)
 (run *)
     (hit #closest-target with 101 from #north)
     (assert #closest-target has 150 and 499)
+
+#shields-penetrated-from-ahead-101-times-3
+(test *)
+(run *)
+    (hit #closest-target 3 times with 101 from angle 0)
+    (assert #closest-target has 0 and 447)
 
 #shields-hold-from-port-50
 (test *)
@@ -281,3 +297,17 @@
 (run *)
     (wreck #closest-target with 500 from #north)
     (#closest-target is destroyed)
+
+#hit-from-ship
+(test *)
+(run *)
+    (#near-target hits #test-ship with 150)
+	(assert #test-ship has 400 and 882)
+    (#test-ship systems offline 3)
+
+#hit-from-ship-3-times
+(test *)
+(run *)
+    (#near-target hits #test-ship 3 times with 150)
+	(assert #test-ship has 200 and 782)
+    (#test-ship systems offline 5)

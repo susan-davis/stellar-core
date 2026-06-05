@@ -89,6 +89,8 @@
 
 (interface (hit $<Ship with $<Units from angle $<Angle))
 
+(interface ($<Attacker hits $<Target $<Num times with $<Units))
+
 (interface (hit $<Ship $<Num times with $<Units from angle $<Angle))
 
 (interface (hit $<Ship with $<Units from $<Direction))
@@ -265,12 +267,17 @@
 %%------------------------------ IMPLEMENTATION ------------------------------
 
 ($Attacker hits $Target with $Units)
+    (object $Target)
     (angle from $Target to $Attacker into $Angle)
 	(hit $Target with $Units from angle $Angle)
 
 (hit $Target with $Units from angle $Angle)
     (direction for $Angle into $Direction)
     (hit $Target with $Units from $Direction)
+
+($Attacker hits $Target $Num times with $Units)
+    (angle from $Target to $Attacker into $Angle)
+	(hit $Target $Num times with $Units from angle $Angle)
 
 (hit $ 0 times with $ from angle $) %% do nothing
 
