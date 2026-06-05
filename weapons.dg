@@ -281,6 +281,18 @@
 	($Ship position $Here)
 	(calculate range from $Here to $There into $Range)
 
+(hit $TID with $Units from angle $)
+    (number $TID)
+	(if) ($Units > 3) (then)
+	    (destroy 1 missiles from volley $TID)
+	(endif)
+
+(hit $TID $Num times with $Units from angle $)
+    (number $TID)
+	(if) ($Units > 3) (then)
+	    (destroy $Num missiles from volley $TID)
+	(endif)
+
 %%----------------------------------------------------------------------------
 
 ($Ship fires $ $ at $Ship using $) %% don't fire at self
@@ -334,13 +346,24 @@
 	    ($Damage = 0)
 	(endif)
 
+($Ship damages $Target with projector $Num $Value $Increment $Amount)
+    (object $Target)
+    ($Ship projector $Num $Value $Increment at $Target using $Amount
+           generates $Damage)
+	($Ship hits $Target with $Damage)
+
+($Ship damages $TID with projector $Num $Value $Increment $Amount)
+    (number $TID)
+    ($Ship projector $Num $Value $Increment at $Target using $Amount
+           generates $Raw)
+	($Raw divided by $Num into $Damage)
+	($Ship hits $Target $Num times with $Damage)
+
 ($Ship fires * $ID at $Target using $Amount)
 	($Target is in weapons range of $Ship)
 	($Ship * $ID value $Value)
 	($Ship * $ID details [$Num $Increment])
-    ($Ship projector $Num $Value $Increment at $Target using $Amount
-           generates $Damage)
-	($Ship hits $Target with $Damage)
+	($Ship damages $Target with projector $Num $Value $Increment $Amount)
 
 %% Plasma bolts work similarly to energy projectors, but have a more rapid
 %% range decay. They mostly exist to give some colour to foreign (Regulan)
@@ -355,13 +378,10 @@
 
 %% For now, just treat them like projectors.
 ($Ship fires * $ID at $Target using $Amount)
-    (object $Target)
 	($Target is in weapons range of $Ship)
 	($Ship * $ID value $Value)
 	($Ship * $ID details [$Num $Increment])
-    ($Ship projector $Num $Value $Increment at $Target using $Amount
-           generates $Damage)
-	($Ship hits $Target with $Damage)
+	($Ship damages $Target with projector $Num $Value $Increment $Amount)
 
 %% Collapsers are the Quellan disruptor-equivalents. In addition to regular
 %% energy damage, they also reduce the target's speed, allowing Quellan ships

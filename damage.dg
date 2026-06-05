@@ -267,11 +267,11 @@
 %%------------------------------ IMPLEMENTATION ------------------------------
 
 ($Attacker hits $Target with $Units)
-    (object $Target)
     (angle from $Target to $Attacker into $Angle)
 	(hit $Target with $Units from angle $Angle)
 
 (hit $Target with $Units from angle $Angle)
+    (object $Target)
     (direction for $Angle into $Direction)
     (hit $Target with $Units from $Direction)
 
@@ -282,6 +282,7 @@
 (hit $ 0 times with $ from angle $) %% do nothing
 
 (hit $Target $Num times with $Units from angle $Angle)
+    (object $Target)
     (hit $Target with $Units from angle $Angle)
 	($Num minus 1 into $Remaining)
 	(hit $Target $Remaining times with $Units from angle $Angle)

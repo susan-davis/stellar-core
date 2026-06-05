@@ -278,6 +278,27 @@
 	(destroy 16382 missiles from volley 1)
 	(list of missiles [[3544 4444 225 499 #test-ship 2 200 1 1]])
 
+#hit-missiles
+(test *)
+(run *)
+    (launch 4 missiles of 499 2 200 from [3444 4544] at #near-target)
+    (hit 1 with 5 from angle 0)
+	(list of missiles [[3444 4544 315 499 #near-target 2 200 3 1]])
+
+#hit-missiles-3-times
+(test *)
+(run *)
+    (launch 4 missiles of 499 2 200 from [3444 4544] at #near-target)
+    (hit 1 3 times with 5 from angle 0)
+	(list of missiles [[3444 4544 315 499 #near-target 2 200 1 1]])
+
+#hit-missiles-too-softly
+(test *)
+(run *)
+    (launch 4 missiles of 499 2 200 from [3444 4544] at #near-target)
+    (hit 1 with 3 from angle 0)
+	(list of missiles [[3444 4544 315 499 #near-target 2 200 4 1]])
+
 #max-amount-for-projector
 (test *)
 (run *)
