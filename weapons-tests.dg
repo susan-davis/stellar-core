@@ -299,6 +299,13 @@
     (hit 1 with 3 from angle 0)
 	(list of missiles [[3444 4544 315 499 #near-target 2 200 4 1]])
 
+#hit-missiles-too-softly-3-times
+(test *)
+(run *)
+    (launch 4 missiles of 499 2 200 from [3444 4544] at #near-target)
+    (hit 1 3 times with 3 from angle 0)
+	(list of missiles [[3444 4544 315 499 #near-target 2 200 4 1]])
+
 #max-amount-for-projector
 (test *)
 (run *)
@@ -412,6 +419,14 @@
 	(list of missiles [[3444 4544 315 499 #near-target 2 200 4 1]])
 	(destroy #near-target)
 	(list of missiles [])
+
+#point-defence-test-ship
+%%(test *)
+(run *)
+    (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
+	(list of missiles [[3544 4444 225 499 #test-ship 2 200 4 1]])
+	(#test-ship fires #projector 1 at 1 with 10)
+	(list of missiles $M) $M
 
 #dont-fire-not-bearing-missiles
 (test *)
