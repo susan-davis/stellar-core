@@ -425,8 +425,8 @@
 (run *)
     (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
 	(list of missiles [[3544 4444 225 499 #test-ship 2 200 4 1]])
-	(#test-ship fires #projector 1 at 1 with 10)
-	(list of missiles $M) $M
+	(#test-ship fires #projector 1 at 1 using 10)
+	(list of missiles [[3544 4444 225 499 #test-ship 2 200 3 1]])
 
 #dont-fire-not-bearing-missiles
 (test *)
