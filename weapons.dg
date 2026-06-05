@@ -187,8 +187,7 @@
 (destroy 0 missiles from volley $)
 
 (destroy $Num missiles from volley $ID)
-    (list of missiles $Missiles)
-	(find in $Missiles where element 9 is $ID into $Volley)
+    (missile $ID into $Volley)
 	(nth $Volley 8 $Count)
 	(subtract $Num from $Count into $NewCount)
 	(if) ($NewCount > 0) (then)
@@ -199,8 +198,7 @@
 	(endif)
 
 (move volley $ID toward $Destination)
-    (list of missiles $Missiles)
-    (find in $Missiles where element 9 is $ID into $Volley)
+    (missile $ID into $Volley)
 	([$ $ $ $Speed $Target $Endurance | $Tail] = $Volley)
 	(if) ($Endurance = 0) (then)
 	    (remove volley $ID)
@@ -219,8 +217,7 @@
 	(endif)
 
 (move volley $ID toward target $Target)
-    (list of missiles $Missiles)
-    (find in $Missiles where element 9 is $ID into $Missile)
+    (missile $ID into $Missile)
 	(nth $Missile 3 $Heading)
 	($Target position $There)
 	(calculate bearing from $Missile to $There into $Bearing)
@@ -235,8 +232,7 @@
     move volley $ID toward volley $TID
 
 (move volley $ID toward its target)
-    (list of missiles $Missiles)
-    (find in $Missiles where element 9 is $ID into $Missile)
+    (missile $ID into $Missile)
 	(nth $Missile 5 $Target)
 	(if) (number $Target) (then)
 	    (move volley $ID toward volley $Target)
@@ -245,8 +241,7 @@
 	(endif)
 
 (volley $ID reaches its target)
-    (list of missiles $Missiles)
-	(find in $Missiles where element 9 is $ID into $Volley)
+    (missile $ID into $Volley)
 	([$ $ $ $ $Target $ $Damage $Num $] = $Volley)
 	(angle from $Target to position $Volley into $Angle)
 	(hit $Target $Num times with $Damage from angle $Angle)
@@ -276,10 +271,19 @@
 
 (find range from $Ship to $TID into $Range)
     (number $TID)
-	(list of missiles $Missiles)
-	(find in $Missiles where element 9 is $TID into $There)
+	(missile $TID into $There)
 	($Ship position $Here)
 	(calculate range from $Here to $There into $Range)
+
+(bearing from $Ship to $TID into $Bearing)
+    (number $TID)
+	(missile $TID into $There)
+	(bearing from $Ship to position $There into $Bearing)
+
+(angle from $Ship to $TID into $Angle)
+    (number $TID)
+	(missile $TID into $There)
+	(angle from $Ship to position $There into $Angle)
 
 (hit $TID with $Units from angle $)
     (number $TID)
@@ -292,6 +296,31 @@
 	(if) ($Units > 3) (then)
 	    (destroy $Num missiles from volley $TID)
 	(endif)
+
+($Ship is within $Num sectors of $TID)
+    (number $TID)
+	(missile $TID into $Missile)
+    (split position $Missile into $SX $SY $ $ $ $)
+	($Ship is within $Num sectors of $SX $SY)
+
+($Ship is within $Num subsectors of $TID)
+    (number $TID)
+	(missile $TID into $Missile)
+    (split position $Missile into $SX $SY $X $Y $ $)
+	($Ship is within $Num subsectors of $SX $SY $X $Y)
+
+($Ship is within $Num positions of $TID)
+    (number $TID)
+	(missile $TID into $Missile)
+    (split position $Missile into $SX $SY $X $Y $PX $PY)
+	($Ship is within $Num positions of $SX $SY $X $Y $PX $PY)
+
+($Ship is within $Num millisectors of $TID)
+    (number $TID)
+	(missile $TID into $There)
+	($Ship position $Here)
+	(calculate range from $Here to $There into $Range)
+	~($Range > $Num)
 
 %%----------------------------------------------------------------------------
 
@@ -322,7 +351,7 @@
 %% damage = (2 to 3)*energy/range, but miss if less than 15% of target
 %% "range" = 1/100 of what our ranges are
 ($Ship fires * $ at $Target using $)
-	~($Target is in weapons range of $Ship) %% so do nothing
+	~($Ship is in weapons range of $Target) %% so do nothing
 
 %% Projector hit chance = 2d6 > (Range * Details)
 %% Projector damage = Energy * (2d6-7)*10 + 20/Range
@@ -359,7 +388,7 @@
 	($Ship hits $Target $Num times with $Damage)
 
 ($Ship fires * $ID at $Target using $Amount)
-	($Target is in weapons range of $Ship)
+	($Ship is in weapons range of $Target)
 	($Ship * $ID value $Value)
 	($Ship * $ID details [$Num $Increment])
 	($Ship damages $Target with projector $Num $Value $Increment $Amount)
@@ -604,6 +633,5 @@
 	($Ship fires at $Target with $AmmoWeapons using $Ammo)
 
 ($Ship fires $Type at target $Target using $Amount)
-    (object $Target)
 	($Ship $Type bearing on target $Target into $Weapons)
     ($Ship fires at $Target with $Weapons using $Amount)

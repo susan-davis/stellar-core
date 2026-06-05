@@ -399,6 +399,7 @@
 	(calculate bearing from $Here to $There into $Result)
 
 (bearing from $Ship to $Target into $Result)
+    (object $Target)
 	($Ship position $Here)
 	($Target position $There)
 	(calculate bearing from $Here to $There into $Result)
@@ -418,6 +419,7 @@
 	($B minus $Heading into $Result)
 
 (angle from $Ship to $Target into $Result)
+    (object $Target)
 	($Ship heading $Heading)
 	(bearing from $Ship to $Target into $Bearing)
 	(angle clockwise from $Heading to $Bearing into $Result)

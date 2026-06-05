@@ -27,6 +27,8 @@
 
 (interface ($<GridObject fine position y $>FY))
 
+(interface (split position $<Pos into $>SX $>SY $>X $>Y $>PX $>PY))
+
 %% Quadrant = 8x8 (expand to 10x10?) sectors. Sector = 10x10 subsectors.
 %% Subsector = 10x10 position. Position = 10x10 units.
 
