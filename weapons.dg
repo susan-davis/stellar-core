@@ -270,6 +270,17 @@
     (list of missiles $Missiles)
 	(update missiles in $Missiles for $Target)
 
+(find range from $Ship to $Target into $Range)
+    (object $Target)
+	(range from $Ship to $Target into $Range)
+
+(find range from $Ship to $TID into $Range)
+    (number $TID)
+	(list of missiles $Missiles)
+	(find in $Missiles where element 9 is $TID into $There)
+	($Ship position $Here)
+	(calculate range from $Here to $There into $Range)
+
 %%----------------------------------------------------------------------------
 
 ($Ship fires $ $ at $Ship using $) %% don't fire at self
@@ -308,7 +319,7 @@
 	($N times $V into $Maximum)
 	(min $Amount $Maximum $StartingEnergy $Energy)
 	(decrease energy for $Ship by $Energy)
-	(range from $Ship to $Target into $Range)
+	(find range from $Ship to $Target into $Range)
 	($Range divided by $Increment into $Increments)
 	(roll 2 #d6 $HitChance)
 	(if) ($HitChance > $Increments) (then)
@@ -324,7 +335,6 @@
 	(endif)
 
 ($Ship fires * $ID at $Target using $Amount)
-    (object $Target)
 	($Target is in weapons range of $Ship)
 	($Ship * $ID value $Value)
 	($Ship * $ID details [$Num $Increment])
