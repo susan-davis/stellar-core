@@ -25,6 +25,10 @@
 
 (interface (roll $<Num $<Dice $>Total))
 
+(interface (roll $<Num $<Dice plus $<Modifier $>Total))
+
+(interface (roll $<Num $<Dice minus $<Modifier $>Total))
+
 %% Our version of (random from 1 to $ into $), without blocking that predicate,
 %% so that we can randomize the list position in (shuffle randomness).
 
@@ -533,6 +537,14 @@
 	($Num minus 4 into $Remaining)
 	(roll $Remaining $Dice $More)
 	($Subtotal plus $More into $Total)
+
+(roll $Num $Dice plus $Modifier $Total)
+    (roll $Num $Dice $Roll)
+	($Roll plus $Modifier into $Total)
+
+(roll $Num $Dice minus $Modifier $Total)
+    (roll $Num $Dice $Roll)
+	(subtract $Modifier from $Roll into $Total)
 
 (target die $Die $Target $OldCount $NewCount)
 	(if) ($Die < $Target) (then)
