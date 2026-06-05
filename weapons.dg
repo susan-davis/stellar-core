@@ -180,6 +180,10 @@
 	(remove from $Missiles where element 5 is $Target into $New)
 	(now) (list of missiles $New)
 
+(destroy $Ship)
+    (remove $Ship from the map)
+	(remove all missiles tracking on $Ship)
+
 (destroy 0 missiles from volley $)
 
 (destroy $Num missiles from volley $ID)
