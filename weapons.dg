@@ -375,7 +375,6 @@
 	(endif)
 
 ($Ship damages $Target with projector $Num $Value $Increment $Amount)
-    (object $Target)
     ($Ship projector $Num $Value $Increment at $Target using $Amount
            generates $Damage)
 	($Ship hits $Target with $Damage)
@@ -614,7 +613,6 @@
 	($Target is destroyed)
 
 ($Ship fires at $Target with $Weapons using $Amount)
-    (object $Target)
     ($Weapons = [$Head | $Tail])
 	($Head = [$Type $ID | $])
     (max amount for $Head into $Max)
@@ -626,7 +624,6 @@
 	(endif)
 
 ($Ship fires at $Target using $Energy energy and $Ammo ammo)
-    (object $Target)
 	($Ship energy weapons bearing on target $Target into $EnergyWeapons)
 	($Ship fires at $Target with $EnergyWeapons using $Energy)
 	($Ship ammo weapons bearing on target $Target into $AmmoWeapons)
