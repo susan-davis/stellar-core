@@ -131,6 +131,10 @@
     (list of missiles $Missiles)
 	(find in $Missiles where element 9 is $ID into $Missile)
 
+($TID is destroyed)
+    (number $TID)
+	(missile $TID into [])
+
 ($Ship weapons bearing on target $ID into $Result)
     (number $ID)
 	(missile $ID into $Missile)

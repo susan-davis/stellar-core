@@ -106,6 +106,7 @@
 %%---------------------------- SCHEMA DEFINITION ----------------------------
 
 ($Ship is destroyed)
+    (object $Ship)
 	~($Ship is on the map)
 
 ($Ship systems offline $HowMany)
