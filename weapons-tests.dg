@@ -339,6 +339,24 @@
 	(remove volley 1)
 	(list of missiles [])
 
+#volley-is-destroyed
+(test *)
+(run *)
+    (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
+	(remove volley 1)
+	(1 is destroyed)
+
+#volley-is-not-destroyed
+(test *)
+(run *)
+    (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
+	~(1 is destroyed)
+
+#nonexistent-volley-is-destroyed
+(test *)
+(run *)
+	(1 is destroyed)
+
 #remove-tracking-missiles
 (test *)
 (run *)
@@ -420,8 +438,33 @@
 	(destroy #near-target)
 	(list of missiles [])
 
+#bfs-test-ship
+(test *)
+(run *)
+    (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
+	(#test-ship best functioning sensor for target 1 into
+	    [#sensor 2 4 [360 #up #down]])
+
+#test-ship-locks-onto-incoming-missiles
+(test *)
+(run *)
+    (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
+	(#test-ship has sensor lock on 1)
+
+#test-ship-sensor-4-on-missiles
+(test *)
+(run *)
+    (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
+	(#test-ship sensor value for target 1 into 4)
+
+#test-ship-needs-sensor-2-on-missiles
+(test *)
+(run *)
+    (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
+	(#test-ship needs sensor level 2 to see 1)
+
 #point-defence-test-ship
-%%(test *)
+(test *)
 (run *)
     (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
 	(list of missiles [[3544 4444 225 499 #test-ship 2 200 4 1]])

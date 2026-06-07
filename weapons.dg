@@ -141,9 +141,15 @@
 	(bearing from $Ship to position $There into $Bearing)
 
 (angle from $Ship to $TID into $Angle)
-    (number $TID)
+    (object $Ship) (number $TID)
 	(missile $TID into $There)
 	(angle from $Ship to position $There into $Angle)
+
+(angle from $TID to $Ship into $Angle)
+    (number $TID) (object $Ship)
+	(missile $TID into $There)
+	(angle from $Ship to position $There into $Raw)
+	(reciprocal bearing for $Raw into $Angle)
 
 (launch 0 missiles of $ $ $ from $ at $)
 
@@ -308,6 +314,11 @@
 	(calculate range from $Here to $There into $Range)
 	~($Range > $Num)
 
+($Ship needs sensor level $Level to see $TID)
+    (number $TID)
+	(missile $TID into $Position)
+	($Ship needs sensor level $Level to see position $Position)
+
 %%----------------------------------------------------------------------------
 
 ($Ship fires $ $ at $Ship using $) %% don't fire at self
@@ -316,7 +327,6 @@
 
 ($Ship fires $ $ at $Target using $)
 	~($Ship has sensor lock on $Target) %% no lock-on, no fire
-	%% (log) {$Ship doesn't have a lock on $Target}
 
 %% Energy weapons work by feeding energy into them from the ship's main energy
 %% bus, and produce immediate effects that can't be countered. For simplicity,
@@ -343,7 +353,6 @@
 %% Projector hit chance = 2d6 > (Range * Details)
 %% Projector damage = Energy * (2d6-7)*10 + 20/Range
 ($Ship projector $N $V $Increment at $Target using $Amount generates $Damage)
-    %% (log) {$Ship projector $N $V $Increment at $Target using $Amount}
 	($Ship energy $StartingEnergy)
 	($N times $V into $Maximum)
 	(min $Amount $Maximum $StartingEnergy $Energy)
@@ -363,21 +372,19 @@
 	(endif)
 
 ($Ship damages $Target with projector $Num $Value $Increment $Amount)
-    %% (log) {$Ship damages target with projector $Num $Value}
+    (object $Target)
     ($Ship projector $Num $Value $Increment at $Target using $Amount
            generates $Damage)
 	($Ship hits $Target with $Damage)
 
 ($Ship damages $TID with projector $Num $Value $Increment $Amount)
     (number $TID)
-    %% (log) {$Ship damages volley $TID with projector $Num $Value}
-    ($Ship projector $Num $Value $Increment at $Target using $Amount
+    ($Ship projector $Num $Value $Increment at $TID using $Amount
            generates $Raw)
 	($Raw divided by $Num into $Damage)
-	($Ship hits $Target $Num times with $Damage)
+	($Ship hits $TID $Num times with $Damage)
 
 ($Ship fires * $ID at $Target using $Amount)
-    %% (log) {$Ship fires * $ID at $Target using $Amount}
 	($Ship is in weapons range of $Target)
 	($Ship * $ID value $Value)
 	($Ship * $ID details [$Num $Increment])
