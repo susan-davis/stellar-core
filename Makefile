@@ -15,7 +15,7 @@ ZBUNDLE=ozmoo
 STDLIB=utils.dg unit.dg stdlib.dg
 LIBS=test-ships.dg schema.dg sector.dg bearing.dg grid.dg $(STDLIB)
 DLIBS=arc.dg damage.dg d6.dg time.dg $(LIBS)
-SLIBS=probe.dg systems.dg weapons.dg scanner.dg sensor.dg $(DLIBS)
+SLIBS=probe.dg systems.dg missile.dg weapons.dg scanner.dg sensor.dg $(DLIBS)
 TLIBS=quadrant.dg orbit.dg planet.dg terrain.dg transient.dg $(SLIBS)
 
 LIBRARIES=state.dg crew.dg goals.dg $(SHIP)
@@ -28,7 +28,7 @@ test: test-basics test-systems
 
 test-basics: utils time d6 d6-lite grid bearing sector schema maneuver 
 
-test-systems: damage arc sensor weapons # systems scanner probe shuttle mtd
+test-systems: damage arc sensor weapons missile # systems scanner probe shuttle mtd
 
 test-controls: sensor-wide sensor-narrow scanner-panel weapons-panel helm ops engine-panel controls
 
@@ -84,5 +84,8 @@ sensor-narrow:
 weapons:
 	$(DEBUG) weapons-tests.dg weapons.dg sensor.dg maneuver.dg $(DLIBS)
 
+missile:
+	$(DEBUG) missile-tests.dg missile.dg weapons.dg sensor.dg maneuver.dg $(DLIBS)
+
 .PHONY: test all clean utils time sector grid maneuver damage d6 d6-lite
-.PHONY: sensor sensor-wide sensor-narrow arc weapons
+.PHONY: sensor sensor-wide sensor-narrow arc weapons missile

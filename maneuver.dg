@@ -80,6 +80,10 @@
 
 (interface (set throttle for $<Ship to gradient $<Setting))
 
+(interface (accelerate $<Ship to speed $<Speed))
+
+(interface (accelerate $<Ship to gradient $<Gradient))
+
 (interface (regenerate energy for $<Ship))
 
 %% movement per tick

@@ -1,0 +1,312 @@
+%% missile.dg
+%% Include weapons.dg, damage.dg, arc.dg, maneuver.dg, schema.dg, sector.dg,
+%% grid.dg, d6.dg, and utils.dg when compiling or debugging.
+
+%% Copyright © 2021-2026, Susan Davis. All rights reserved. See LICENSE for
+%% licensing details.
+
+%% Here we introduce the concept of seeking weapons. Missiles have a target
+%% that they home in on. A missile that's about to hit is placed at the last
+%% square before impact, and if the target doesn't shoot them down on its
+%% turn, they immediately impact. Missiles are represented in volleys of
+%% identical missiles launched at the same target. Any missile hit by four
+%% or more points of damage at once is destroyed; any missile hit by one
+%% to three points is unaffected. All missiles are equally easy to hit.
+%% Missiles are referred to by numerical ID, rather than by object. Predicates
+%% for shooting at ships expect objects; shooting at missiles expects numbers.
+
+%% Missile schema: [X Y Target Speed Endurance ID Number Value]
+
+(global variable (list of missiles []))
+
+(global variable (next missile id 1))
+
+%%-------------------------------- INTERFACES ---------------------------------
+
+(interface (reset missiles))
+
+(interface (launch $<Num missiles of $<Speed $<Endurance $<Damage
+            from $<Position at $<Target))
+
+%%------------------------------ IMPLEMENTATION ------------------------------
+
+%% Predicates defined in other modules that need different handling for
+%% missile volleys:
+
+(destroy $Ship)
+    (remove $Ship from the map)
+	(remove all missiles tracking on $Ship)
+
+($TID is destroyed)
+    (number $TID)
+	(missile $TID into [])
+
+(bearing from $Ship to $TID into $Bearing)
+    (number $TID)
+	(missile $TID into $There)
+	(bearing from $Ship to position $There into $Bearing)
+
+(angle from $Ship to $TID into $Angle)
+    (object $Ship) (number $TID)
+	(missile $TID into $There)
+	(angle from $Ship to position $There into $Angle)
+
+(angle from $TID to $Ship into $Angle)
+    (number $TID) (object $Ship)
+	(missile $TID into $There)
+	(angle from $Ship to position $There into $Raw)
+	(reciprocal bearing for $Raw into $Angle)
+
+(hit $TID with $Units from angle $)
+    (number $TID)
+	(if) ($Units > 3) (then)
+	    (destroy 1 missiles from volley $TID)
+	(endif)
+
+(hit $TID $Num times with $Units from angle $)
+    (number $TID)
+	(if) ($Units > 3) (then)
+	    (destroy $Num missiles from volley $TID)
+	(endif)
+
+($Ship is within $Num sectors of $TID)
+    (number $TID)
+	(missile $TID into $Missile)
+    (split position $Missile into $SX $SY $ $ $ $)
+	($Ship is within $Num sectors of $SX $SY)
+
+($Ship is within $Num subsectors of $TID)
+    (number $TID)
+	(missile $TID into $Missile)
+    (split position $Missile into $SX $SY $X $Y $ $)
+	($Ship is within $Num subsectors of $SX $SY $X $Y)
+
+($Ship is within $Num positions of $TID)
+    (number $TID)
+	(missile $TID into $Missile)
+    (split position $Missile into $SX $SY $X $Y $PX $PY)
+	($Ship is within $Num positions of $SX $SY $X $Y $PX $PY)
+
+($Ship is within $Num millisectors of $TID)
+    (number $TID)
+	(missile $TID into $There)
+	($Ship position $Here)
+	(calculate range from $Here to $There into $Range)
+	~($Range > $Num)
+
+($Ship needs sensor level $Level to see $TID)
+    (number $TID)
+	(missile $TID into $Position)
+	($Ship needs sensor level $Level to see position $Position)
+
+%%----------------------------------------------------------------------------
+
+%% Missile schema: [X Y Target Speed Endurance ID Number Value]
+
+(reset missiles)
+    (now) (list of missiles [])
+	(now) (next missile id 1)
+
+(missile $ID into $Missile)
+    (list of missiles $Missiles)
+	(find in $Missiles where element 9 is $ID into $Missile)
+
+(launch 0 missiles of $ $ $ from $ at $)
+
+(launch $Num missiles of $Speed $Endurance $Damage from $Position at $Target)
+    ([$X $Y | $] = $Position)
+	($Target position $TargetPosition)
+	(calculate bearing from $Position to $TargetPosition into $Heading)
+	(next missile id $ID)
+	(add 1 to $ID into $NewID)
+	(now) (next missile id $NewID)
+	(list of missiles $Missiles)
+	($Missile = [$X $Y $Heading $Speed $Target $Endurance $Damage $Num $ID])
+	(append $Missiles [$Missile] $New)
+	(now) (list of missiles $New)
+
+(replace volley $ID with $NewVolley)
+    (list of missiles $Missiles)
+    (remove from $Missiles where element 9 is $ID into $Removed)
+	(append $Removed [$NewVolley] $NewMissiles)
+	(now) (list of missiles $NewMissiles)
+
+(remove volley $ID)
+    (list of missiles $Missiles)
+    (remove from $Missiles where element 9 is $ID into $New)
+	(remove from $New where element 5 is $ID into $NewMissiles)
+    (now) (list of missiles $NewMissiles)
+
+(remove all missiles tracking on $Target)
+    (list of missiles $Missiles)
+	(remove from $Missiles where element 5 is $Target into $New)
+	(now) (list of missiles $New)
+
+(destroy 0 missiles from volley $)
+
+(destroy $Num missiles from volley $ID)
+    (missile $ID into $Volley)
+	(nth $Volley 8 $Count)
+	(subtract $Num from $Count into $NewCount)
+	(if) ($NewCount > 0) (then)
+        (replace element 8 in $Volley with $NewCount into $NewVolley)
+		(replace volley $ID with $NewVolley)
+	(else)
+	    (remove volley $ID)
+	(endif)
+
+(move volley $ID toward $Destination)
+    (missile $ID into $Volley)
+	([$ $ $ $Speed $Target $Endurance | $Tail] = $Volley)
+	(if) ($Endurance = 0) (then)
+	    (remove volley $ID)
+	(else)
+	    (subtract 1 from $Endurance into $RemainingFuel)
+	    (calculate range from $Volley to $Destination into $Range)
+		(calculate bearing from $Volley to $Destination into $Bearing)
+		(if) ($Range > $Speed) (then)
+	    	(square at $Speed from $Volley to $Destination into $NewLocation)
+		(else)
+			($Destination = $NewLocation)
+		(endif)
+		([$NX $NY | $] = $NewLocation)
+		([$NX $NY $Bearing $Speed $Target $RemainingFuel | $Tail] = $NewVolley)
+		(replace volley $ID with $NewVolley)
+	(endif)
+
+(move volley $ID toward target $Target)
+    (missile $ID into $Missile)
+	(nth $Missile 3 $Heading)
+	($Target position $There)
+	(calculate bearing from $Missile to $There into $Bearing)
+	($Bearing delta $Heading into $Delta)
+	(if) ($Delta > 45) ($Delta < 315) (then) %% lost tracking
+	    (remove volley $ID)
+	(else)
+        (move volley $ID toward $There)
+	(endif)
+
+(move volley $ID toward volley $TID)
+    move volley $ID toward volley $TID
+
+(move volley $ID toward its target)
+    (missile $ID into $Missile)
+	(nth $Missile 5 $Target)
+	(if) (number $Target) (then)
+	    (move volley $ID toward volley $Target)
+	(else)
+	    (move volley $ID toward target $Target)
+	(endif)
+
+(volley $ID reaches its target)
+    (missile $ID into $Volley)
+	([$ $ $ $ $Target $ $Damage $Num $] = $Volley)
+	(angle from $Target to position $Volley into $Angle)
+	(hit $Target $Num times with $Damage from angle $Angle)
+	(remove volley $ID)
+
+(update missiles in [] for $) %% do nothing
+
+(update missiles in $Missiles for $Target)
+    (object $Target)
+    ([$Head | $Tail] = $Missiles)
+    (nth $Head 9 $ID)
+	($Target position $There)
+	(if) (position $Head equals position $There) (then)
+		(volley $ID reaches its target)
+	(else)
+	    (move volley $ID toward its target)
+	(endif)
+	(update missiles in $Tail for $Target)
+
+(update missiles for $Target)
+    (list of missiles $Missiles)
+	(update missiles in $Missiles for $Target)
+
+(find range from $Ship to $TID into $Range)
+    (number $TID)
+	(missile $TID into $There)
+	($Ship position $Here)
+	(calculate range from $Here to $There into $Range)
+
+%%----------------------------------------------------------------------------
+
+%% Alcubierre missiles are equipped with small A-drives, and can engage at
+%% superluminal speeds. They work like torpedoes, but with less elaborate
+%% launch hardware. Targets get to engage incoming missiles with defensive
+%% fire from any weapons that are set to autofire.
+#missile
+(name *)		missile
+(long name *)	Alcubierre missile launcher
+(ammo weapon *)
+
+($Ship fires * $ at $Target using $)
+	~($Target is in missile range of $Ship) %% so do nothing
+
+%% Missiles can be shot down by the target's defensive weapons.
+($Ship fires * $ID at $Target using $Amount)
+    (object $Target)
+	($Target is in missile range of $Ship)
+	($Ship position $Pos)
+	($Ship * $ID value $Damage)
+	($Ship * $ID details [$Launchers $Speed $Endurance])
+	($Ship ammo $Ammo)
+	(min $Amount $Launchers $Ammo $Num)
+	(decrease ammo for $Ship by $Num)
+	(launch $Num missiles of $Speed $Endurance $Damage from $Pos at $Target)
+
+%% Interceptor missiles do exactly what it says on the tin -- they intercept
+%% missiles inbound for their launch platform. Are these limited to PD range,
+%% or to weapons range? Perhaps they're direct fire at PD range, and missiles
+%% beyond.
+#interceptor
+(name *)		interceptor
+(long name *)	interceptor missile launcher
+(ammo weapon *)
+
+($Ship fires * $ at $Target using $)
+	~($Target is in weapons range of $Ship) %% so do nothing
+
+($Ship fires * $ID at $Target using $Amount)
+	($Target is in point defence range of $Ship)
+    (line) $Ship fires * $ID as direct fire at $Target 0 using $Amount
+
+($Ship fires * $ID at $Target using $Amount)
+	($Target is in weapons range of $Ship)
+    (line) $Ship fires * $ID at $Target using $Amount
+
+%% Bombardment rockets are missiles equipped with reactionless engines, or
+%% even reaction engines in more primitive fleets. They're mostly used for
+%% attacking fixed targets, and can't reliably hit vessels moving at
+%% superluminal speeds. Point defence range? MTD range?
+#rocket
+(name *)		rocket
+(long name *)	bombardment rocket launcher
+(ammo weapon *)
+
+($Ship fires * $ at $Target using $)
+	~($Target is in point defence range of $Ship) %% so do nothing
+
+($Ship fires * $ID at $Target using $Amount)
+	($Target is in point defence range of $Ship) %% or mtd range?
+    (line) $Ship fires * $ID at $Target 0 using $Amount
+
+#torpedo
+%% Torpedo hit chance: dependent on target aspect and warp gradient
+%% Torepdo damage: first element of details
+($Ship fires * $ID at $Target using $Amount)
+    (object $Target)
+	($Ship * $ID value $Damage)
+	($Ship * $ID details [$Tubes $Speed $Boost])
+	($Ship ammo $Ammo)
+	(min $Amount $Tubes $Ammo $Torps)
+	(decrease ammo for $Ship by $Torps)
+	(range from $Ship to $Target into $Range)
+	(if) ~($Range > $Boost) (then)
+	    ($Ship fires $Torps direct fire torpedoes of $Damage at $Target)
+	(else)
+	    ($Ship position $Here)
+		($Target position $There)
+	    (square at $Boost from $Here to $There into $Position)
+		(launch $Torps missiles of $Speed 1 $Damage from $Position at $Target)
+	(endif)
