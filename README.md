@@ -14,9 +14,15 @@ Common functionality for *Stellar Union* games. This project contains all the in
 
 `damage.dg` -- implements the damage model for ships.
 
-`sensor.dg` -- implements short and long range sensors, and the quadrant map, along the lines of the classic STARTREK game from the 1970s.
+`sensor.dg` -- ship sensors, ranges, and electronic warfare.
 
-`weapons.dg` -- effects of ship-to-ship weapons.
+`sensor-display.dg` -- implements short and long range sensor displays, and the quadrant map, along the lines of the classic STARTREK game from the 1970s.
+
+`weapons.dg` -- effects of direct fire ship-to-ship weapons.
+
+`missile.dg` -- effects of seeking weapons, and their representation, movement, and targeting.
+
+`missile-lite.dg` -- simplified handling of missiles for vintage and 16-bit games, treating missiles as direct fire.
 
 `systems.dg` -- non-weapon ship systems.
 
