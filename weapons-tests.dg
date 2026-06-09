@@ -224,3 +224,21 @@
 (test *)
 (run *)
     (max amount for [#torpedo 1 500 [360 #up #down] 1 499 1097] into 1)
+
+#empty-autofire
+(test *)
+(run *)
+	(autofire for #test-ship into [])
+
+#set-autofire
+(test *)
+(run *)
+    (set autofire for #test-ship to [#projector 1 100 360 141])
+	(autofire for #test-ship into [#projector 1 100 360 141])
+
+#clear-autofire
+(test *)
+(run *)
+    (set autofire for #test-ship to [#projector 1 100 360 141])
+    (clear autofire for #test-ship)
+	(autofire for #test-ship into [])
