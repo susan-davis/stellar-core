@@ -10,8 +10,9 @@
 %% State about a ship is stored in lists, to cut down on storage:
 %%
 %% position = [X Y Heading Speed]
-%% state = [DstX DstY Helm Throttle Class Energy Crystals Ammo Shields [Lvls]]
-%% system = [Type ID RepairTime]
+%% state = [DstX DstY Helm Throttle Class Energy Crystals Ammo Shields
+%%          [Shield Levels] [Crew] [Autofire]]
+%% system = [Type ID DegradeValue RepairTime DegradeDetails...]
 %%
 %% The system list for a ship identifies which systems are damaged; healthy
 %% systems, and information about their capabilities, lives in the class
@@ -20,9 +21,14 @@
 %%
 %% Ship classes are defined by a class record:
 %%
-%% class  = [Efficiency Subspace TurnMode Accel Fleet MaxEnergy MaxCrystals
-%% 		  	 MaxAmmo MaxShields [MaxLevels]]
-%% system = [System ID Arcs Value Details]
+%% class  = [DriveEfficiency ReactorEfficiency TurnMode DriveParams Fleet
+%%           MaxEnergy MaxCrystals MaxAmmo MaxShields [MaxLevels] [Crew]]
+%% system = [System ID Value Arcs Details...]
+%%
+%% Systems that don't need arcs or supplementary details can have just three
+%% values. An arc is mandatory to have supplementary details; use [] if an
+%% arc doesn't make sense. Any additional values after the arc are system-
+%% defined details.
 %%
 %% Ships are either simple, detailed, or player. A simple ship doesn't have
 %% its own list of damaged systems, and the class only records a few systems,
@@ -30,6 +36,8 @@
 %% of energy from damage. A detailed ship has a full set of systems in its
 %% class record, and keeps a list of damaged systems in its own systems list.
 %% A player ship has its own map, and uses player-ship.dg for recording damage.
+%%
+%% Missile schema: [X Y Target Speed Endurance Damage Number ID]
 
 %%-------------------------------- INTERFACES --------------------------------
 
@@ -47,9 +55,11 @@
 
 (interface ($<Ship ammo $>Ammo))
 
-(interface ($<Ship systems offline $>Number)) %% how many are out
+(interface ($<Ship damaged systems $>Systems)) %% systems needing repair
 
-(interface ($<Ship damaged systems $>Systems)) %% repairable systems only
+(interface ($<Ship systems offline $>Systems)) %% systems that aren't working
+
+(interface ($<Ship number of systems offline $>Number))
 
 (interface ($<Ship destroyed systems $>Systems)) %% destroyed systems only
 
@@ -109,12 +119,20 @@
     (object $Ship)
 	~($Ship is on the map)
 
-($Ship systems offline $HowMany)
+($Ship systems offline [])
+    ($Ship is simple)
+
+($Ship systems offline $Offline)
+    ~($Ship is simple)
+	($Ship systems $Systems)
+	(take from $Systems where element 3 is 0 into $Offline)
+
+($Ship number of systems offline $HowMany)
 	~($Ship is simple)
-    ($Ship systems $Systems)
+    ($Ship systems offline $Systems)
 	(length of $Systems into $HowMany)
 
-($Ship systems offline 0)
+($Ship number of systems offline 0)
     ($Ship is simple)
 
 ($Ship damaged systems $Damaged)

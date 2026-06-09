@@ -202,7 +202,7 @@
 	(#test-ship speed 0)
 	(#test-ship shields 402)
 	(#test-ship energy 922)
-	(#test-ship systems offline 3)
+	(#test-ship number of systems offline 2)
 
 #fire-collapser-with-100-faster-target
 (test *)
@@ -213,7 +213,7 @@
 	(#test-ship speed 116)
 	(#test-ship shields 500)
     (#test-ship energy 932)
-	(#test-ship systems offline 2)
+	(#test-ship number of systems offline 1)
 
 #max-amount-for-projector
 (test *)

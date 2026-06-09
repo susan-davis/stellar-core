@@ -84,7 +84,7 @@
 
 #systems-offline
 (test *)
-(run *) (#test-ship systems offline 2)
+(run *) (#test-ship number of systems offline 1)
 
 #damaged-systems
 (test *)
@@ -102,7 +102,7 @@
 
 #systems-offline-simple
 (test *)
-(run *) (#closest-target systems offline 0)
+(run *) (#closest-target number of systems offline 0)
 
 #damaged-systems-simple
 (test *)
@@ -302,11 +302,11 @@
 (run *)
     (#near-target hits #test-ship with 150)
 	(assert #test-ship has 400 and 882)
-    (#test-ship systems offline 3)
+    (#test-ship number of systems offline 2)
 
 #hit-from-ship-3-times
 (test *)
 (run *)
     (#near-target hits #test-ship 3 times with 150)
 	(assert #test-ship has 200 and 782)
-    (#test-ship systems offline 5)
+    (#test-ship number of systems offline 4)

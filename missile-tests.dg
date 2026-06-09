@@ -157,7 +157,7 @@
     (volley 1 reaches its target)
 	(#test-ship shields 104)
 	(#test-ship energy 528)
-	(#test-ship systems offline 6)
+	(#test-ship number of systems offline 5)
 
 #move-volley-to-target
 (test *)
@@ -169,7 +169,7 @@
     (update missiles for #test-ship)
 	(#test-ship shields 100)
 	(#test-ship energy 532)
-	(#test-ship systems offline 6)
+	(#test-ship number of systems offline 5)
 	(list of missiles [])
 
 #move-volley-maximum-range
@@ -184,7 +184,7 @@
     (update missiles for #test-ship)
 	(#test-ship shields 100)
 	(#test-ship energy 532)
-	(#test-ship systems offline 6)
+	(#test-ship number of systems offline 5)
 	(list of missiles [])
 
 #volley-runs-out-of-fuel
@@ -200,7 +200,7 @@
     (update missiles for #test-ship)
     (#test-ship shields 500)
 	(#test-ship energy 932)
-	(#test-ship systems offline 2)
+	(#test-ship number of systems offline 1)
 	(list of missiles [])
 
 #volley-loses-tracking
@@ -212,7 +212,7 @@
     (move #test-ship on course and speed)
 	(update missiles for #test-ship)
     (#test-ship shields 500)
-	(#test-ship systems offline 2)
+	(#test-ship number of systems offline 1)
 	(list of missiles [])
 
 #volley-loses-tracking-when-target-destroyed
@@ -300,7 +300,7 @@
 	(#test-ship speed 0) %% collapser hit
 	(#test-ship shields 402)
 	(#test-ship energy 782)
-	(#test-ship systems offline 3)
+	(#test-ship number of systems offline 2)
 	(#distant-target energy 2800)
 	(#distant-target ammo 8)
 	(list of missiles [])
@@ -314,7 +314,7 @@
 	(#test-ship speed 32) %% no collapsers bearing
 	(#test-ship shields 260)
 	(#test-ship energy 905)
-	(#test-ship systems offline 3)
+	(#test-ship number of systems offline 2)
 	(#distant-target energy 2800)
 	(#distant-target ammo 7)
 	(list of missiles [[3644 4744 315 255 #test-ship 3 200 1 1]])
