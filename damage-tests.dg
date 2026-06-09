@@ -82,9 +82,9 @@
 	(regenerate shields for #test-ship by 100)
 	(#test-ship shields 500)
 
-#systems-offline
+#systems-length
 (test *)
-(run *) (#test-ship number of systems offline 1)
+(run *) (#test-ship length of systems 2)
 
 #damaged-systems
 (test *)
@@ -100,9 +100,9 @@
     (#test-ship undestroyed systems $List)
 	(length of $List into 25)
 
-#systems-offline-simple
+#systems-length-simple
 (test *)
-(run *) (#closest-target number of systems offline 0)
+(run *) (#closest-target length of systems 0)
 
 #damaged-systems-simple
 (test *)
@@ -302,11 +302,19 @@
 (run *)
     (#near-target hits #test-ship with 150)
 	(assert #test-ship has 400 and 882)
-    (#test-ship systems $S) $S
+    (#test-ship systems
+	    [[#tractor 1 123 800]
+		 [#mtd 1 0 16383]
+		 [#shield #up 32 5]])
 
 #hit-from-ship-3-times
 (test *)
 (run *)
     (#near-target hits #test-ship 3 times with 150)
 	(assert #test-ship has 200 and 782)
-    (#test-ship systems $S) $S
+    (#test-ship systems
+	    [[#tractor 1 123 800]
+		 [#mtd 1 0 16383]
+		 [#shield #north 26 5]
+		 [#sensor 3 2 5]
+		 [#sensor 2 4 5]])

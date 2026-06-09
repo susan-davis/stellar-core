@@ -200,7 +200,7 @@
     (update missiles for #test-ship)
     (#test-ship shields 500)
 	(#test-ship energy 932)
-	(#test-ship number of systems offline 1)
+	(#test-ship length of systems 2)
 	(list of missiles [])
 
 #volley-loses-tracking
@@ -212,7 +212,7 @@
     (move #test-ship on course and speed)
 	(update missiles for #test-ship)
     (#test-ship shields 500)
-	(#test-ship number of systems offline 1)
+	(#test-ship length of systems 2)
 	(list of missiles [])
 
 #volley-loses-tracking-when-target-destroyed
