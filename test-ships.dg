@@ -220,16 +220,6 @@
 (* position [2114 2114])
 (* state #quellan)
 
-(interface ($<Ship length of systems $>Num))
-
-($Ship length of systems 0)
-    ($Ship is simple)
-
-($Ship length of systems $Length)
-    ~($Ship is simple)
-	($Ship systems $Systems)
-	(length of $Systems into $Length)
-
 (set up $)
      (now) ~(x increases west)
 	 (now) (y increases south)

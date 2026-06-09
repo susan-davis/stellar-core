@@ -94,13 +94,21 @@
 (test *)
 (run *)	  (#test-ship #projector 1 value 100)
 
+#undamaged-value-tractor
+(test *)
+(run *)	  (#test-ship #tractor 1 undamaged value 250)
+
 #value-tractor
 (test *)
-(run *)	  (#test-ship #tractor 1 value 250)
+(run *)	  (#test-ship #tractor 1 value 123)
+
+#undamaged-value-mtd
+(test *)
+(run *)	  (#test-ship #mtd 1 undamaged value 4)
 
 #value-mtd
 (test *)
-(run *)	  (#test-ship #mtd 1 value 4)
+(run *)	  (#test-ship #mtd 1 value 0)
 
 #details-projector
 (test *)
@@ -110,9 +118,13 @@
 (test *)
 (run *)	  (#test-ship #tractor 1 details [])
 
+#undamaged-details-mtd
+(test *)
+(run *)	  ~(#test-ship #mtd 1 undamaged details $)
+
 #details-mtd
 (test *)
-(run *)	  ~(#test-ship #mtd 1 details $)
+(run *)	  (#test-ship #mtd 1 details [])
 
 #details-shuttle
 (test *)

@@ -55,6 +55,8 @@
 
 (interface ($<Ship ammo $>Ammo))
 
+(interface ($<Ship length of systems $>Num))
+
 (interface ($<Ship damaged systems $>Systems)) %% systems needing repair
 
 (interface ($<Ship systems offline $>Systems)) %% systems that aren't working
@@ -118,6 +120,14 @@
 ($Ship is destroyed)
     (object $Ship)
 	~($Ship is on the map)
+
+($Ship length of systems 0)
+    ($Ship is simple)
+
+($Ship length of systems $Length)
+    ~($Ship is simple)
+	($Ship systems $Systems)
+	(length of $Systems into $Length)
 
 ($Ship systems offline [])
     ($Ship is simple)
