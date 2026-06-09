@@ -28,6 +28,10 @@
 (interface (launch $<Num missiles of $<Speed $<Endurance $<Damage
             from $<Position at $<Target))
 
+(interface (autofire for $<Ship into $<Weapons))
+
+(interface (set autofire for $<Ship to $<Weapons))
+
 %%------------------------------ IMPLEMENTATION ------------------------------
 
 %% Predicates defined in other modules that need different handling for
@@ -288,8 +292,18 @@
 	~($Target is in point defence range of $Ship) %% so do nothing
 
 ($Ship fires * $ID at $Target using $Amount)
+    (object $Target)
 	($Target is in point defence range of $Ship) %% or mtd range?
     (line) $Ship fires * $ID at $Target 0 using $Amount
+
+#projector
+%% when firing at missiles, use as many mounts as possible
+($Ship damages $TID with projector $Num $Value $Increment $Amount)
+    (number $TID)
+    ($Ship projector $Num $Value $Increment at $TID using $Amount
+           generates $Raw)
+	($Raw divided by $Num into $Damage)
+	($Ship hits $TID $Num times with $Damage)
 
 #torpedo
 %% Torpedo hit chance: dependent on target aspect and warp gradient

@@ -152,23 +152,21 @@
 		($Potential divided by 10 into $AddedEnergy)
 		($Energy plus $AddedEnergy into $PlusEnergy)
 		($Energy plus $PlusEnergy into $EffectiveEnergy)
-		($EffectiveEnergy divided by $Increments into $Damage)
+		(if) ($Increments > 0) (then)
+		    ($EffectiveEnergy divided by $Increments into $Damage)
+		(else)
+			($EffectiveEnergy = $Damage)
+		(endif)
 	(else)
 	    ($Damage = 0)
 	(endif)
 
+%% when firing at shielded ships, send energy through minimum number of mounts
 ($Ship damages $Target with projector $Num $Value $Increment $Amount)
     (object $Target)
     ($Ship projector $Num $Value $Increment at $Target using $Amount
            generates $Damage)
 	($Ship hits $Target with $Damage)
-
-($Ship damages $TID with projector $Num $Value $Increment $Amount)
-    (number $TID)
-    ($Ship projector $Num $Value $Increment at $TID using $Amount
-           generates $Raw)
-	($Raw divided by $Num into $Damage)
-	($Ship hits $TID $Num times with $Damage)
 
 ($Ship fires * $ID at $Target using $Amount)
 	($Ship is in weapons range of $Target)
