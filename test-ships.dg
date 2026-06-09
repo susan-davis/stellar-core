@@ -20,7 +20,7 @@
 (* initial position [3444 4544 315 32])
 (* initial state
     [3000 4000 315 171 #cygnus-class 932 4 10 500
-    [100 99 98 97 96 95] [13 2 1]])
+    [100 99 98 97 96 95] [13 2 1] [0 0]])
 (* initial systems [[#tractor 1 123 800] [#mtd 1 0 16383]])
 
 %% class  = [DriveEfficiency ReactorEfficiency TurnMode DriveParams Fleet
@@ -67,28 +67,28 @@
 (* initial position [3544 4444 225 108])
 (* initial state
     [16383 16383 225 108 #attack-class 500 2 0 250
-	[100 50 50 50 25 25 ] [38 0 0]])
+	[100 50 50 50 25 25 ] [38 0 0] [0 0]])
 
 #near-target
 (ship *)
 (* initial position [3144 4244 45 62])
 (* initial state
     [3444 4444 45 108 #attack-class 500 2 0 250
-	[100 50 50 50 25 25] [38 0 0]])
+	[100 50 50 50 25 25] [38 0 0] [0 0]])
 
 #far-target
 (ship *)
 (* initial position [4244 3144 0 108])
 (* initial state
     [#test-ship #in 45 171 #attack-class 500 2 0 250
-	[100 50 50 50 25 25] [38 0 0]])
+	[100 50 50 50 25 25] [38 0 0] [0 0]])
 
 #off-map-target
 (ship *)
 (* initial position [16383 16383 180 108])
 (* initial state
     [16383 16383 45 171 #attack-class 500 2 0 250
-	[100 50 50 50 25 25] [38 0 0]])
+	[100 50 50 50 25 25] [38 0 0] [0 0]])
 
 #attack-class
 (name *)		Attack
@@ -103,14 +103,15 @@
 (ship *)
 (* initial position [1544 9844 0 108])
 (* initial state
-    [#test-ship #in 45 171 #q7 500 2 0 250
-	[100 50 50 50 25 25] [38 0 0]])
+    [#test-ship #in 45 171 #q7 3000 10 8 500
+	[100 50 50 50 25 25] [38 0 0] [0 0]])
 
 #q7
 (name *)		Victory III
 (ship type *)	cruiser
 (code *)   		Q
-(* state [8 8 90 9622 #quellan 3000 10 8 500 [250 200 200 200 200 200] [200]])
+(* state [8 8 90 9622 #quellan 3000 10 8 500
+          [250 200 200 200 200 200] [200 0 0]])
 (* systems [
     [#collapser 1 250 [6 7 8 1] 2 141]
     [#collapser 2 250 [8 1 2 3] 2 141]

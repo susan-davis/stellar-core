@@ -174,12 +174,12 @@
 (initialize $Ship as $Class)
 	($Class state $Default)
 	($Default =
-	    [$ $ $ $ $ $Energy $Crystals $Ammo $Shields $Levels $Billets])
+	    [$ $ $ $ $ $Energy $Crystals $Ammo $Shields $Levels $Billets | $])
 	($Billets = [$Fit | $])
 	($Crew = [$Fit 0 0])
 	($Ship state [$DX $DY $H $T $Class | $])
-	(now) ($Ship state [$DX $DY $H $T $Class
-		  		 	    $Energy $Crystals $Ammo $Shields $Levels $Crew])
+	(now) ($Ship state [$DX $DY $H $T $Class $Energy $Crystals $Ammo
+	       $Shields $Levels $Crew [0 0]])
 
 %%-------------------------------- SHIP SYSTEMS -------------------------------
 
@@ -219,11 +219,6 @@
 ($Ship $Type $ID undamaged value $Value)
 	(find $Ship $Type $ID into $Match)
 	(system $Match value $Value)
-
-(degrade $Ship $Type $ID to $Value for $Minutes minutes)
-    ($Ship systems $Systems)
-    (append $Systems [[$Type $ID $Value $Minutes]] $NewSystems)
-	(now) ($Ship systems $NewSystems)
 
 (system $Match details $Details)
     (take after 4 from $Match into $Details)

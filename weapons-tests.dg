@@ -46,9 +46,9 @@
 			[#torpedo 2 500 [1 8] 1 499 1097]])
 
 (assert $Ship has $Energy energy and $Ammo ammo)
-	($Ship energy $E) %% $E
+	($Ship energy $E) $E
 	(assert $Energy = $E)
-	($Ship ammo $A) %% $A
+	($Ship ammo $A) $A
 	(assert $Ammo = $A)
 
 #dont-projector-self
@@ -228,7 +228,7 @@
 #empty-autofire
 (test *)
 (run *)
-	(autofire for #test-ship into [])
+	(autofire for #test-ship into [0 0])
 
 #set-autofire
 (test *)
@@ -241,4 +241,4 @@
 (run *)
     (set autofire for #test-ship to [#projector 1 100 360 141])
     (clear autofire for #test-ship)
-	(autofire for #test-ship into [])
+	(autofire for #test-ship into [0 0])

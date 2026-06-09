@@ -365,6 +365,11 @@
 	    (destroy $Target system $Type $ID from $Direction)
     (endif)
 
+(degrade $Ship $Type $ID to $Value for $Minutes minutes)
+    ($Ship systems $Systems)
+    (append $Systems [[$Type $ID $Value $Minutes]] $NewSystems)
+	(now) ($Ship systems $NewSystems)
+
 (destroy random $Target system from $Direction)
 	($Target undestroyed systems $Systems)
 	(randomly select $System from $Systems)

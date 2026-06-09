@@ -117,25 +117,15 @@
 
 (autofire for $Ship into $List)
     ($Ship state $State)
-	(length of $State into $Length)
-	(if) ($Length > 11) (then)
-	    (nth $State 12 $List)
-	(else)
-	    ($List = [])
-	(endif)
+    (nth $State 12 $List)
 
 (set autofire for $Ship to $List)
     ($Ship state $State)
-	(length of $State into $Length)
-	(if) ($Length > 11) (then)
-	    (replace element 12 in $State with $List into $NewState)
-	(else)
-		(append $State [$List] $NewState)
-	(endif)
+    (replace element 12 in $State with $List into $NewState)
 	(now) ($Ship state $NewState)
 
 (clear autofire for $Ship)
-    (set autofire for $Ship to [])
+    (set autofire for $Ship to [0 0])
 
 %%----------------------------------------------------------------------------
 
