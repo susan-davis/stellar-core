@@ -149,7 +149,7 @@
 
 #non-grid-object-no-sector
 (test *)
-(run *) ~(#non-grid-object is in sector $ $)
+(run *) ~(#non-grid-object is in sector 3 4)
 
 #closest-target-same-sector
 (test *)
