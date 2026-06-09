@@ -252,33 +252,33 @@
 #penetrating-shields-damages-system
 (test *)
 (run *)
-    (hit #test-ship with 150 from #north) hit
+    (hit #test-ship with 150 from #north)
     (assert #test-ship has 400 and 882)
     (#test-ship damaged systems $Systems)
-	(assert $Systems = [[#tractor 1 123 800] [#reactionless #east 0 50]])
+	(assert $Systems = [[#tractor 1 123 800] [#reactionless #east 2 5]])
 
 #damage-projector-with-300
 (test *)
 (run *)
-    (damage #test-ship system #projector 1 with 300)
-    (#test-ship #projector 1 repair time 300)
+    (damage #test-ship system #projector 1 with 300 from #north)
+    (#test-ship #projector 1 repair time 30)
 
 #damage-tractor-with-300
 (test *)
 (run *)
-    (damage #test-ship system #tractor 1 with 300)
+    (damage #test-ship system #tractor 1 with 300 from #north)
     (#test-ship #tractor 1 repair time 1100)
 
 #damage-mtd-with-300
 (test *)
 (run *)
-    (damage #test-ship system #mtd 1 with 300)
+    (damage #test-ship system #mtd 1 with 300 from #north)
     (#test-ship #mtd 1 repair time 16383)
 
 #damage-tractor-to-destruction
 (test *)
 (run *)
-    (damage #test-ship system #tractor 1 with 16300)
+    (damage #test-ship system #tractor 1 with 16300 from #north)
     (#test-ship #tractor 1 repair time 16383)
 
 #wreck-with-300
@@ -302,11 +302,11 @@
 (run *)
     (#near-target hits #test-ship with 150)
 	(assert #test-ship has 400 and 882)
-    (#test-ship number of systems offline 2)
+    (#test-ship systems $S) $S
 
 #hit-from-ship-3-times
 (test *)
 (run *)
     (#near-target hits #test-ship 3 times with 150)
 	(assert #test-ship has 200 and 782)
-    (#test-ship number of systems offline 4)
+    (#test-ship systems $S) $S

@@ -111,7 +111,7 @@
 
 (interface (wreck $<Ship with $<Units from $<Direction))
 
-(interface (damage $<Ship system $<Type $<ID with $<Units))
+(interface (damage $<Ship system $<Type $<ID with $<Units from $<Direction))
 
 (interface (destroy $<Ship system $<Type $<ID))
 
@@ -342,31 +342,44 @@
 		(wreck $Target with $Damage from $Direction)
 	(else)
 		(decrease energy for $Target by $Units)
-		(damage random $Target system with $Units)
+		(damage random $Target system with $Units from $Direction)
 	(endif)
 
-(damage random $Target system with $)
+(damage random $Target system with $ from $)
 	($Target is simple) %% then do nothing
 
-(damage random $Target system with $Units)
+(damage random $Target system with $Units from $Direction)
 	~($Target is simple)
 	($Target undestroyed systems $Systems)
 	(randomly select $System from $Systems)
 	($System = [$Type $ID | $])
-	(damage $Target system $Type $ID with $Units)
+	(damage $Target system $Type $ID with $Units from $Direction)
 
-(damage $Target system $Type $ID with $Units)
-	(increase repair time for $Target $Type $ID by $Units)
-	($Target $Type $ID repair time $NewTime)
-	(if) ($NewTime = 16383) (then)
-		(destroy $Target system $Type $ID)
+%% Undamaged systems should degrade on the first hit, and be knocked offline
+%% by subsequent ones. We care about the direction because shield damage should
+%% damage the facing shield, and we could later implement custom per-direction
+%% DACs.
+
+(damage $Target system $Type $ID with $Units from $Direction)
+    (if) (modified $Target $Type $ID into $) (then)
+	    ($Units = $Increase)
+        (increase repair time for $Target $Type $ID by $Units)
+	(else)
+		($Target $Type $ID undamaged value $Original)
+	    (percentage of $Original into $New)
+		($Units divided by 10 into $Increase)
+		(degrade $Target $Type $ID to $New for $Increase minutes)
 	(endif)
+    ($Target $Type $ID repair time $NewTime)
+    (if) ($NewTime = 16383) (then)
+	    (destroy $Target system $Type $ID from $Direction)
+    (endif)
 
-(destroy random $Target system)
+(destroy random $Target system from $Direction)
 	($Target undestroyed systems $Systems)
 	(randomly select $System from $Systems)
 	($System = [$Type $ID | $])
-	(destroy $Target system $Type $ID)
+	(destroy $Target system $Type $ID from $Direction)
 
 (wreck $Target with $ from $)
 	($Target is simple)
@@ -374,7 +387,7 @@
 
 (wreck $Target with $Units from $Direction)
 	~($Target is simple)
-	(destroy random $Target system)
+	(destroy random $Target system from $Direction)
 	(roll 3 #d6 $Roll)
 	($Roll times 5 into $Damage)
 	(subtract $Damage from $Units into $Remaining)
@@ -382,7 +395,7 @@
 		 (wreck $Target with $Remaining from $Direction)
 	(endif)
 
-(destroy $Ship system $Type $ID)
+(destroy $Ship system $Type $ID from $)
 	(set repair time for $Ship $Type $ID to 16383)
 	($Ship class systems $AllSystems)
 	($Ship systems $DamagedSystems)

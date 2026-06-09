@@ -40,7 +40,7 @@
 #damaged-weapons-dont-bear
 (test *)
 (run *)
-	(damage #test-ship system #torpedo 1 with 50)
+	(damage #test-ship system #torpedo 1 with 50 from #north)
     (#test-ship weapons bearing on target #near-target into
 			[[#projector 1 100 [360 #up] 1 141]
 			[#torpedo 2 500 [1 8] 1 499 1097]])
@@ -202,7 +202,7 @@
 	(#test-ship speed 0)
 	(#test-ship shields 402)
 	(#test-ship energy 922)
-	(#test-ship number of systems offline 2)
+	(#test-ship length of systems 3)
 
 #fire-collapser-with-100-faster-target
 (test *)
@@ -213,7 +213,7 @@
 	(#test-ship speed 116)
 	(#test-ship shields 500)
     (#test-ship energy 932)
-	(#test-ship number of systems offline 1)
+	(#test-ship length of systems 2)
 
 #max-amount-for-projector
 (test *)
