@@ -10,8 +10,8 @@
 %%
 %% position = [X Y Heading Speed]
 %% state = [DstX DstY Helm Throttle Class Energy Crystals Ammo Shields
-%%          [Shield Levels] [Crew]]
-%% system = [Type ID RepairTime]
+%%          [Shield Levels] [Crew] [Autofire]]
+%% system = [Type ID DegradeValue RepairTime DegradeDetails...]
 %%
 %% The system list for a ship identifies which systems are damaged; healthy
 %% systems, and information about their capabilities, lives in the class
@@ -211,7 +211,7 @@
 	(system $Match details $Details)
 
 (system $Match repair time $Time)
-	(nth $Match 3 $Time)
+	(nth $Match 4 $Time)
 
 ($Ship $Type $ID repair time $Time)
 	($Ship systems $Systems)
@@ -225,13 +225,13 @@
 		(endif)
 	(endif)
 
-(set repair time for $Ship $Type $ID to $Value)
+(set repair time for $Ship $Type $ID to $Time)
 	($Ship systems $Systems)
 	(if) (find $Type $ID in $Systems into $) (then)
-		(set element 3 in [$Type $ID] in $Systems to $Value into $NewSystems)
+		(set element 4 in [$Type $ID] in $Systems to $Time into $NewSystems)
 	(else)
 		(if) (find $Ship $Type $ID into $) (then)
-			(append $Systems [[$Type $ID $Value]] $NewSystems)
+			(append $Systems [[$Type $ID 0 $Time]] $NewSystems)
 		(else)
 			(fail) %% if we try to fix or break a nonexistent system
 		(endif)

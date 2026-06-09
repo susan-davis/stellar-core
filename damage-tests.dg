@@ -88,11 +88,11 @@
 
 #damaged-systems
 (test *)
-(run *) (#test-ship damaged systems [[#tractor 1 800]])
+(run *) (#test-ship damaged systems [[#tractor 1 123 800]])
 
 #destroyed-systems
 (test *)
-(run *) (#test-ship destroyed systems [[#mtd 1 16383]])
+(run *) (#test-ship destroyed systems [[#mtd 1 0 16383]])
 
 #undestroyed-systems
 (test *)
@@ -252,11 +252,10 @@
 #penetrating-shields-damages-system
 (test *)
 (run *)
-    (hit #test-ship with 150 from #north)
+    (hit #test-ship with 150 from #north) hit
     (assert #test-ship has 400 and 882)
     (#test-ship damaged systems $Systems)
-    (length of $Systems into $Length)
-    (assert $Length = 2)
+	(assert $Systems = [[#tractor 1 123 800] [#reactionless #east 0 50]])
 
 #damage-projector-with-300
 (test *)

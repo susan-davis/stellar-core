@@ -33,6 +33,14 @@
 
 (interface ($<Ship fires at $<Target using $<Energy energy and $<Ammo ammo))
 
+(interface (autofire for $<Ship into $<Weapons))
+
+(interface (set autofire for $<Ship to $<Weapons))
+
+(interface ($<Ship autofires with $<Weapons))
+
+(interface ($<Ship autofires))
+
 %%------------------------------ IMPLEMENTATION ------------------------------
 
 (weapons in [] into [])

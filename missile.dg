@@ -28,10 +28,6 @@
 (interface (launch $<Num missiles of $<Speed $<Endurance $<Damage
             from $<Position at $<Target))
 
-(interface (autofire for $<Ship into $<Weapons))
-
-(interface (set autofire for $<Ship to $<Weapons))
-
 %%------------------------------ IMPLEMENTATION ------------------------------
 
 %% Predicates defined in other modules that need different handling for

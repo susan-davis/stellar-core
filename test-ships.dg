@@ -21,7 +21,7 @@
 (* initial state
     [3000 4000 315 171 #cygnus-class 932 4 10 500
     [100 99 98 97 96 95] [13 2 1]])
-(* initial systems [[#tractor 1 800] [#mtd 1 16383]])
+(* initial systems [[#tractor 1 123 800] [#mtd 1 0 16383]])
 
 %% class  = [DriveEfficiency ReactorEfficiency TurnMode DriveParams Fleet
 %%           MaxEnergy MaxCrystals MaxAmmo MaxShields [MaxLevels] Crew]

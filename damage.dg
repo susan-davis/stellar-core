@@ -120,7 +120,7 @@
 ($Ship damaged systems $Damaged)
 	~($Ship is simple)
 	($Ship systems $Systems)
-	(take from $Systems where element 3 is not 16383 into $Damaged)
+	(take from $Systems where element 4 is not 16383 into $Damaged)
 
 ($Ship damaged systems [])
 	($Ship is simple)
@@ -128,7 +128,7 @@
 ($Ship destroyed systems $Destroyed)
 	~($Ship is simple)
 	($Ship systems $Systems)
-	(take from $Systems where element 3 is 16383 into $Destroyed)
+	(take from $Systems where element 4 is 16383 into $Destroyed)
 
 ($Ship destroyed systems [])
 	($Ship is simple)

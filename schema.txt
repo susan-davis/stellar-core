@@ -4,8 +4,8 @@
 %%
 %% position = [X Y Heading Speed]
 %% state = [DstX DstY Helm Throttle Class Energy Crystals Ammo Shields
-%%          [Shield Levels] [Crew]]
-%% system = [Type ID RepairTime]
+%%          [Shield Levels] [Crew] [Autofire]]
+%% system = [Type ID DegradeValue RepairTime [Degrade Details]]
 %%
 %% The system list for a ship identifies which systems are damaged; healthy
 %% systems, and information about their capabilities, lives in the class
