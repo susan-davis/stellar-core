@@ -85,15 +85,15 @@
 
 %% override for more nuanced situations
 ($Ship considers $Target friendly)
-	($Ship fleet $Fleet)
-	($Target fleet $)
-	($Target fleet $Fleet)
+	($Ship fleet $OurFleet)
+	($Target fleet $TheirFleet)
+	($OurFleet = $TheirFleet)
 
 %% override for more nuanced situations
 ($Ship considers $Target hostile)
-	($Ship fleet $Fleet)
-	($Target fleet $)
-	~($Target fleet $Fleet)
+	($Ship fleet $OurFleet)
+	($Target fleet $TheirFleet)
+	~($OurFleet = $TheirFleet)
 
 (closest target to $Ship in [] into $Ship 16383)
 
