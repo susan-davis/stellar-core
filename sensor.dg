@@ -86,7 +86,7 @@
 %% override for more nuanced situations
 ($Ship considers $Target friendly)
 	($Ship fleet $OurFleet)
-	($Target fleet $TheirFleet)
+	($Target fleet $TheirFleet) %% fails for non-ship objects
 	($OurFleet = $TheirFleet)
 
 %% override for more nuanced situations
