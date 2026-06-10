@@ -86,12 +86,36 @@
 %% override for more nuanced situations
 ($Ship considers $Target friendly)
 	($Ship fleet $Fleet)
+	($Target fleet $)
 	($Target fleet $Fleet)
 
 %% override for more nuanced situations
 ($Ship considers $Target hostile)
 	($Ship fleet $Fleet)
+	($Target fleet $)
 	~($Target fleet $Fleet)
+
+(closest target to $Ship in [] into $Ship 16383)
+
+(closest target to $Ship in $List into $Target $Range)
+    ([$Head | $Tail] = $List)
+	(range from $Ship to $Head into $HeadRange)
+    (closest target to $Ship in $Tail into $Other $TailRange)
+	(if) ($TailRange < $HeadRange) (then)
+	    ($Target = $Other)
+		($Range = $TailRange)
+	(else)
+	    ($Target = $Head)
+		($Range = $HeadRange)
+	(endif)
+
+(closest hostile target to $Ship into $Target)
+    (collect $Obj) {
+	    *(grid object $Obj)
+		($Ship considers $Obj hostile)
+		($Ship has detected $Obj)
+	} (into $List)
+	(closest target to $Ship in $List into $Target $)
 
 %%-----------------------------------------------------------------------------
 
