@@ -233,13 +233,13 @@
 #set-autofire
 (test *)
 (run *)
-    (set autofire for #test-ship to [[#projector 1 100 360 141]])
-	(autofire for #test-ship into [5 1 [#projector 1 100 360 141]])
+    (set autofire for #test-ship to [[#projector 1]])
+	(autofire for #test-ship into [5 1 [#projector 1]])
 
 #clear-autofire
 (test *)
 (run *)
-    (set autofire for #test-ship to [[#projector 1 100 360 141]])
+    (set autofire for #test-ship to [[#projector 1]])
     (clear autofire for #test-ship)
 	(autofire for #test-ship into [5 1])
 
@@ -254,3 +254,11 @@
 (run *)
     (set autofire for #test-ship to 16383 2)
 	(autofire for #test-ship into [5 2])
+
+#set-autofire-q7
+(test *)
+(run *)
+    (set autofire for #distant-target to
+	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
+	(autofire for #distant-target into
+        [5 1 [#projector 2] [#projector 3] [#projector 4] [#projector 5]])
