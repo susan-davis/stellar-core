@@ -12,6 +12,8 @@
 
 (interface ($<Ship considers $<Target hostile))
 
+(interface (closest hostile target to $<Ship into $>Target))
+
 %% Sensor value 1: display the current or an adjacent position
 %% Sensor value 2: display the current or an adjacent subsector
 %% Sensor value 3: display the current sector

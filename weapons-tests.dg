@@ -262,3 +262,18 @@
 	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
 	(autofire for #distant-target into
         [5 1 [#projector 2] [#projector 3] [#projector 4] [#projector 5]])
+
+#q7-autofire-energy-weapons
+(test *)
+(run *)
+    (set autofire for #distant-target to
+	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
+	(#distant-target autofire energy weapons
+        [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
+
+#q7-autofire-ammo-weapons
+(test *)
+(run *)
+    (set autofire for #distant-target to
+	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
+	(#distant-target autofire ammo weapons [])

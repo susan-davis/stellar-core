@@ -33,6 +33,8 @@
 
 (interface ($<Ship fires at $<Target using $<Energy energy and $<Ammo ammo))
 
+%% TODO: move the autofire list into npc.dg
+
 (interface (autofire for $<Ship into $>Weapons))
 
 (interface (set autofire for $<Ship to $<Weapons))
@@ -45,7 +47,9 @@
 
 (interface ($<Ship autofire ammo $>Ammo))
 
-(interface ($<Ship autofires with $<Weapons))
+(interface ($<Ship autofire energy weapons $>Weapons))
+
+(interface ($<Ship autofire ammo weapons $>Weapons))
 
 (interface ($<Ship autofires))
 
@@ -162,6 +166,16 @@
 ($Ship autofire ammo $Ammo)
     (autofire for $Ship into $List)
 	(nth $List 2 $Ammo)
+
+($Ship autofire energy weapons $Weapons)
+    (autofire for $Ship into $Autofire)
+	(take after 2 from $Autofire into $List)
+	(energy weapons in $List into $Weapons)
+
+($Ship autofire ammo weapons $Weapons)
+    (autofire for $Ship into $Autofire)
+	(take after 2 from $Autofire into $List)
+	(ammo weapons in $List into $Weapons)
 
 %%----------------------------------------------------------------------------
 
