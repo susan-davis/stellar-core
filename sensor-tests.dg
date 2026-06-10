@@ -314,3 +314,31 @@
 #closest-hostile-target
 (test *)
 (run *)      (closest hostile target to #test-ship into #closest-target)
+
+#closest-hostile-target-for-closest-target
+(test *)
+(run *)      (closest hostile target to #closest-target into #test-ship)
+
+#test-ship-out-of-arc-for-near-target
+(test *)
+(run *)      (closest hostile target to #near-target into #near-target)
+
+#closest-target-for-near-target
+(test *)
+(run *)
+	 (turn #near-target to face #test-ship)
+	 (closest hostile target to #near-target into #test-ship)
+
+#no-targets-for-far-target
+(test *)
+(run *)      (closest hostile target to #far-target into #far-target)
+
+#still-no-targets-for-far-target
+(test *)
+(run *)
+	 (turn #far-target to face #test-ship)
+	 (closest hostile target to #far-target into #far-target)
+
+#no-targets-for-distant-target
+(test *)
+(run *)      (closest hostile target to #distant-target into #distant-target)
