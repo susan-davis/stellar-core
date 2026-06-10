@@ -361,3 +361,9 @@
 (run *)
     (move #test-ship to position [3000 4000])
 	(closest hostile target to #test-ship into #near-target)
+
+#closest-target-from-other-sector
+(test *)
+(run *)
+    (move #test-ship to position [4444 3444])
+	(closest hostile target to #test-ship into #far-target)
