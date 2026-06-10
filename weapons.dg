@@ -33,11 +33,17 @@
 
 (interface ($<Ship fires at $<Target using $<Energy energy and $<Ammo ammo))
 
-(interface (autofire for $<Ship into $<Weapons))
+(interface (autofire for $<Ship into $>Weapons))
 
 (interface (set autofire for $<Ship to $<Weapons))
 
+(interface (set autofire for $<Ship to $<Energy $<Ammo))
+
 (interface (clear autofire for $<Ship))
+
+(interface ($<Ship autofire energy $>Energy))
+
+(interface ($<Ship autofire ammo $>Ammo))
 
 (interface ($<Ship autofires with $<Weapons))
 
@@ -124,8 +130,32 @@
     (replace element 12 in $State with $List into $NewState)
 	(now) ($Ship state $NewState)
 
+(set autofire for $Ship to $Energy $Ammo)
+    (autofire for $Ship into $Existing)
+	([$OldE $OldA | $Weapons] = $Existing)
+	(if) ($Energy = 16383) (then)
+	    ($NewE = $OldE)
+	(else)
+	    ($NewE = $Energy)
+	(endif)
+	(if) ($Ammo = 16383) (then)
+	    ($NewA = $OldA)
+	(else)
+	    ($NewA = $Ammo)
+	(endif)
+	([$NewE $NewA | $Weapons] = $List)
+    (set autofire for $Ship to $List)
+
 (clear autofire for $Ship)
-    (set autofire for $Ship to [0 0])
+    (set autofire for $Ship to [5 1])
+
+($Ship autofire energy $Energy)
+    (autofire for $Ship into $List)
+	(nth $List 1 $Energy)
+
+($Ship autofire ammo $Ammo)
+    (autofire for $Ship into $List)
+	(nth $List 2 $Ammo)
 
 %%----------------------------------------------------------------------------
 

@@ -228,7 +228,7 @@
 #empty-autofire
 (test *)
 (run *)
-	(autofire for #test-ship into [0 0])
+	(autofire for #test-ship into [5 1])
 
 #set-autofire
 (test *)
@@ -241,4 +241,4 @@
 (run *)
     (set autofire for #test-ship to [#projector 1 100 360 141])
     (clear autofire for #test-ship)
-	(autofire for #test-ship into [0 0])
+	(autofire for #test-ship into [5 1])
