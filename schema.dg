@@ -179,7 +179,7 @@
 	($Crew = [$Fit 0 0])
 	($Ship state [$DX $DY $H $T $Class | $])
 	(now) ($Ship state [$DX $DY $H $T $Class $Energy $Crystals $Ammo
-	       $Shields $Levels $Crew [0 0]])
+	       $Shields $Levels $Crew [5 1]])
 
 %%-------------------------------- SHIP SYSTEMS -------------------------------
 

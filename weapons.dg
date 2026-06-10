@@ -126,8 +126,11 @@
     (nth $State 12 $List)
 
 (set autofire for $Ship to $List)
+    (autofire for $Ship into $Existing)
+	([$Energy $Ammo | $] = $Existing)
+	([$Energy $Ammo | $List] = $New)
     ($Ship state $State)
-    (replace element 12 in $State with $List into $NewState)
+    (replace element 12 in $State with $New into $NewState)
 	(now) ($Ship state $NewState)
 
 (set autofire for $Ship to $Energy $Ammo)
@@ -144,10 +147,13 @@
 	    ($NewA = $Ammo)
 	(endif)
 	([$NewE $NewA | $Weapons] = $List)
-    (set autofire for $Ship to $List)
+    ($Ship state $State)
+    (replace element 12 in $State with $List into $NewState)
+	(now) ($Ship state $NewState)
 
 (clear autofire for $Ship)
-    (set autofire for $Ship to [5 1])
+    (set autofire for $Ship to [])
+    (set autofire for $Ship to 5 1)
 
 ($Ship autofire energy $Energy)
     (autofire for $Ship into $List)
