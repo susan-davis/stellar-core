@@ -241,6 +241,7 @@
 	($Ship hits $Target with $Damage)
 
 ($Ship fires * $ID at $Target using $Amount)
+    (log) {$Ship fires * $ID at $Target using $Amount}
 	($Ship is in weapons range of $Target)
 	($Ship * $ID value $Value)
 	($Ship * $ID details [$Num $Increment])
@@ -259,6 +260,7 @@
 
 %% For now, just treat them like projectors.
 ($Ship fires * $ID at $Target using $Amount)
+    (log) {$Ship fires * $ID at $Target using $Amount}
 	($Target is in weapons range of $Ship)
 	($Ship * $ID value $Value)
 	($Ship * $ID details [$Num $Increment])
@@ -280,6 +282,7 @@
 %% Collapser warp field reduction: first reduce 1 speed per point of damage,
 %% then apply any remainder as ship damage.
 ($Ship fires * $ID at $Target using $Amount)
+    (log) {$Ship fires * $ID at $Target using $Amount}
     (object $Target)
 	($Target is in weapons range of $Ship)
 	($Ship * $ID value $Value)
@@ -303,6 +306,7 @@
 	~($Target is in point defence range of $Ship) %% so do nothing
 
 ($Ship fires * $ID at $Target using $Amount)
+    (log) {$Ship fires * $ID at $Target using $Amount}
 	($Target is in point defence range of $Ship)
 	$Ship fires * $ID at $Target using $Amount
 
@@ -317,9 +321,10 @@
 (energy weapon *)
 
 ($Ship fires * $ at $Target using $)
-	~($Target is in weapons range of $Ship) %% so do nothing
+	~(object $Target) (or) ~($Target is in weapons range of $Ship)
 
 ($Ship fires * $ID at $Target using $Amount)
+    (log) {$Ship fires * $ID at $Target using $Amount}
 	($Target is in weapons range of $Ship)
     (line) $Ship fires * $ID at $Target using $Amount
 
@@ -370,10 +375,10 @@
 	($Ship fires $Remaining direct fire torpedoes of $Damage at $Target)
 
 ($Ship fires * $ at $Target using $)
-	~($Target is in weapons range of $Ship) %% so do nothing
+	~(object $Target) (or) ~($Target is in weapons range of $Ship)
 
 ($Ship fires * $ID at $Target using $Amount)
-    (object $Target)
+    (log) {$Ship fires * $ID at $Target using $Amount}
 	($Ship * $ID value $Damage)
 	($Ship * $ID details [$Tubes | $])
 	($Ship ammo $Ammo)
@@ -424,12 +429,30 @@
 	($Ship $Type bearing on target $Target into $Weapons)
     ($Ship fires at $Target with $Weapons using $Amount)
 
+($ autofires with [] using $)
+
+($Ship autofires with $Weapons using $Amount)
+    ($Amount < 16383)
+    ($Weapons = [$Head | $Tail])
+	($Head = [$Type $ID | $])
+	(find $Ship $Type $ID into $Weapon)
+	($Weapon = [$ $ $Value $Arc $Num | $])
+	(closest hostile target to $Ship in arc $Arc into $Target)
+	(if) ~($Target = $Ship) (then)
+		(min $Value $Amount $Min)
+		(if) (energy weapon $Type) (then)
+	    	($Num times $Min into $Fired)
+		(else)
+			($Fired = $Min)
+		(endif)
+    	($Ship fires $Type $ID at $Target using $Fired)
+	(endif)
+	($Ship autofires with $Tail using $Amount)
+
 ($Ship autofires)
     ($Ship autofire energy $Energy)
     ($Ship autofire energy weapons $EnergyWeapons)
-    (closest hostile target to $Ship into $Target)
-	($Ship fires at $Target with $EnergyWeapons using $Energy)
+    ($Ship autofires with $EnergyWeapons using $Energy)
     ($Ship autofire ammo $Ammo)
     ($Ship autofire ammo weapons $AmmoWeapons)
-    (closest hostile target to $Ship into $Target)
-	($Ship fires at $Target with $AmmoWeapons using $Ammo)
+    ($Ship autofires with $AmmoWeapons using $Ammo)
