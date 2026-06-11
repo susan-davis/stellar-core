@@ -110,13 +110,17 @@
 		($Range = $HeadRange)
 	(endif)
 
-(closest hostile target to $Ship into $Target)
+(closest hostile target to $Ship in arc $Arc into $Target)
     (collect $Obj) {
 	    *(grid object $Obj)
 		($Ship considers $Obj hostile)
 		($Ship has detected $Obj)
+		(fire from $Ship to $Obj is in arc $Arc)
 	} (into $List)
 	(closest target to $Ship in $List into $Target $)
+
+(closest hostile target to $Ship into $Target)
+    (closest hostile target to $Ship in arc [360 #up #down] into $Target)
 
 %%-----------------------------------------------------------------------------
 

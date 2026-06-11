@@ -285,3 +285,24 @@
     (set autofire for #test-ship to 100 16383)
     (#test-ship autofires)
 	(#closest-target shields 150)
+
+#q7-autofire-bow
+%%(test *)
+(run *)
+    (use q7)
+	(set autofire for #distant-target to
+	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
+	(#distant-target autofires)
+    (#test-ship shields 493)
+    (assert #distant-target has 2995 energy and 8 ammo) %% ???
+
+#q7-autofire-stern
+%%(test *)
+(run *)
+    (use q7)
+	(turn #distant-target away from #test-ship)
+	(set autofire for #distant-target to
+	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
+	(#distant-target autofires)
+    (#test-ship shields 493)
+    (assert #distant-target has 2995 energy and 8 ammo) %% ???
