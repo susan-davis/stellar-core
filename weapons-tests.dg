@@ -277,3 +277,11 @@
     (set autofire for #distant-target to
 	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
 	(#distant-target autofire ammo weapons [])
+
+#test-ship-autofire
+(test *)
+(run *)
+    (set autofire for #test-ship to [[#projector 1]])
+    (set autofire for #test-ship to 100 16383)
+    (#test-ship autofires)
+	(#closest-target shields 150)

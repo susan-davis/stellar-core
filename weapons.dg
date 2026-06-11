@@ -391,6 +391,10 @@
 	    ($Num = $Amount)
 	(endif)
 
+(max amount for $Ship $Type $ID into $Amount)
+    (find $Ship $Type $ID into $Weapon)
+	(max amount for $Weapon into $Amount)
+
 ($ fires at $ with [] using $) %% do nothing
 
 ($Ship fires at $Ship with $ using $) %% do nothing
@@ -399,9 +403,10 @@
 	($Target is destroyed)
 
 ($Ship fires at $Target with $Weapons using $Amount)
+    ($Amount < 16383)
     ($Weapons = [$Head | $Tail])
 	($Head = [$Type $ID | $])
-    (max amount for $Head into $Max)
+    (max amount for $Ship $Type $ID into $Max)
 	(min $Amount $Max $Fired)
     ($Ship fires $Type $ID at $Target using $Fired)
 	(if) ($Max < $Amount) (then)
@@ -418,3 +423,13 @@
 ($Ship fires $Type at target $Target using $Amount)
 	($Ship $Type bearing on target $Target into $Weapons)
     ($Ship fires at $Target with $Weapons using $Amount)
+
+($Ship autofires)
+    ($Ship autofire energy $Energy)
+    ($Ship autofire energy weapons $EnergyWeapons)
+    (closest hostile target to $Ship into $Target)
+	($Ship fires at $Target with $EnergyWeapons using $Energy)
+    ($Ship autofire ammo $Ammo)
+    ($Ship autofire ammo weapons $AmmoWeapons)
+    (closest hostile target to $Ship into $Target)
+	($Ship fires at $Target with $AmmoWeapons using $Ammo)
