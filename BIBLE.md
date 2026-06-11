@@ -272,26 +272,29 @@ A human design that predates the formation of the Stellar Union, the *Gagarin* c
 
 The *Kwompar* class, built by Kwom shipyards, continues to be produced in limited numbers, despite being outclassed by the later *Genbu* and *Cygnus* classes. The design features the elongated "horseshoe crab" hull common in Kwom designs, with a distinctive single A-drive pod mounted above. The *Kwompar* focuses on sensors and probes, at the expense of onboard lab space. The class is frequently used for odd jobs, and serves with Exploration Command, with Patrol Command as a patrol vessel, and with Transport Command as a courier and VIP transport.
 
-#### *Genbu*-class Scout (SC)
+#### *Galileo*-class Scout (SC)
 
-The previous class of Union scout ship was the *Genbu* class, and it is stil by far the most numerous. Compared with the newer *Cygnus* class, the *Genbu* is slower, sturdier, and smaller in tonnage but larger in usable internal volume. The lenticular main hull is stretched into an oval shape, below which are attached two rectangular Alcubierre drive emitters. The total crew complement is more than double that of the later *Cygnus* class, with much more generous lab space, and a larger shuttle bay.
+The previous class of Union scout ship was the *Genbu* class, and it is stil by far the most numerous. Compared with the newer *Constellation* class, the *Galileo* is slower, sturdier, and smaller in tonnage but larger in usable internal volume. The lenticular main hull is stretched into an oval shape, below which are attached two rectangular Alcubierre drive emitters. The total crew complement is more than double that of the later *Constellation* class, with much more generous lab space, and a larger shuttle bay.
 
-The *Genbu* class has earned the nickname "the Turtle," which is a pun on the class name, an observation about the oval shape of the ship's hull, an appreciation of the sturdy construction of the ship,  and a derisive description of the ship's performance. With undersized reactionless drives and an Alcubierre drive optimized for reliability rather than performance, early ships in the class, especially the eight vessels in Block I, were noted for their slow speed and awkward handling both above and below lightspeed. Later models added supplementary reactionless drive boosters to the aft ends of the Alcubierre drive nacelles, but the ship's reputation was long since made. 
+The *Galileo* class has earned the nickname "the Turtle," which is an observation about the oval shape of the ship's hull, an appreciation of the sturdy construction of the ship,  and a derisive description of the ship's performance. With undersized reactionless drives and an Alcubierre drive optimized for reliability rather than performance, early ships in the class, especially the eight vessels in Block I, were noted for their slow speed and awkward handling both above and below lightspeed. Later models added supplementary reactionless drive boosters to the aft ends of the Alcubierre drive nacelles, but the ship's reputation was long since made. 
 
-The *Genbu* class is rapidly being supplanted by the newer *Cygnus* class in front-line Exploration Command service, but not enough newer fast scouts have been constructed yet, and most exploration squadrons still contain at least one older *Genbu*. The larger lab space and crew complement make the *Genbu* a handy alternative to a dedicated sublight lab ship, and the class is likely to continue to soldier on for decades.
+The *Galileo* class is rapidly being supplanted by the newer *Constellation* class in front-line Exploration Command service, but not enough newer fast scouts have been constructed yet, and most exploration squadrons still contain at least one older *Galileo*. The larger lab space and crew complement make the *Galileo* a handy alternative to a dedicated sublight lab ship, and the class is likely to continue to soldier on for decades.
 
-#### *Cygnus*-class Scout (SF)
+#### *Constellation*-class Scout (SF)
 
-The *Cygnus*-class fast scout is the 
+The *Constellation*-class fast scout is the latest class of Exploration Command scout vessel, designed as a combination of the Earth-designed *Kim Lee*-class patrol cutter and a Galdorite warp shuttle. Its massively oversized Alcubierre drive nacelles give it unparalleled acceleration and a high top speed, and it retains the large reactionless drives of the *Kim Lee* class as well. Critics note that its small size means that it carries a bare minimum of laboratory space, and that its small crew only allows for one principal researcher per field, at a much higher price than the *Galileo* class. The official rationale for the vessel is that it is meant to use its better speed to quickly survey a given volume of space. In reality, it was foisted upon Exploration Command by the Defence Command staff as a small (and harmless-looking) ship capable of making hit-and-run torpeodo attacks in the event of an armed conflict, and capable of running from anything that it couldn't stand up to in a fight.
 
-#### *Branbrambog*-class Patrol Cutter (PC)
+#### *Kim Lee*-class Patrol Cutter (PO)
 
-Informally known as the 
+The *Kim Lee*-class orbital patrol cutter is a small, light sublight patrol vessel, designed for law enforcement and local defence duties within star systems. Its streamlined hull can operate efficiently in planetary and gas giant atmospheres, and its large reactionless drives give it the ability to run down errant shuttles and intrasystem vessels. It is equipped with a shuttle to transport inspection teams and boarding parties, a matter transport device, and dorsal and ventral energy projectors. What it lacks in capability, it makes up for in low cost.
 
-#### *Rohini*-class Patrol Frigate (PS)
+#### *Branbambog*-class Patrol Cutter (PC)
 
-With the new *Cygnus*-class fast scouts entering service in
-Exploration Command, 
+Informally known as the *Hero* class, the *Branbambog* class, named for fallen heroes of Stellar Command, is the mainstay of Patrol Command, keeping the Union's peace between star systems.
+
+#### *Atanarjuat*-class Fast Patrol Cutter (PF)
+
+With the new *Constellation*-class fast scouts entering service in Exploration Command, Patrol Command decided that a fast-pursuit patrol vessel capable of intercepting vessels travelling at high warp gradients would be a useful addition to its fleet. It is largely the same vessel as the *Constellation* class, with its laboratory space traded for additional medical and detention facilities, and an extra cargo bay. Like the *Constellation* class, it has a secondary role as a torpedo boat in the event of a military crisis.
 
 #### *Glidwarg*-class Destroyer (DD)
 
@@ -299,11 +302,15 @@ Informally known as the *Adjective* class, the *Glidwarg*-class Destroyer is cur
 
 #### *Excalibur*-class Light Cruiser (CL)
 
-Only a single example of the *Excalibur*-class light cruiser has been constructed as of season 1 (as far as most of the Union knows), as a proof of concept of the design. The ship is a lightly modified version of the *Eratosthanes*-class fleet tug, with a permanently installed "Atlatl" torpedo pod installed in place of the tug's pod grapple. 
+Only a single example of the *Excalibur*-class light cruiser has been constructed as of season 1 (as far as most of the Union knows), as a proof of concept of the design. The ship is a lightly modified version of the *Mercury*-class fleet tug, with a permanently installed "Atlatl" torpedo pod installed in place of the tug's pod grapple. 
+
+#### *Leifur Eiriksson*-class Cruiser (CA)
+
+The *Leifur Eiriksson*-class cruiser predates the formation of the Stellar Union, and is a contemporary of the *Gagarin*-class scout. The streamlined, aircraft-like appearance of the *Leifur Eiriksson* class looks nothing like other human designs. Thoroughly obsolete, the ship was phased out of service a century ago, although several ships of the class disappeared mysteriously during missions, and could be encountered as plot points in a game.
 
 #### *Argo Navis*-class Cruiser (CA)
-#### *Qitdlarssuaq*-class Exploration Cruiser (CN)
-#### *Eratosthanes*-class Fleet Tug (AT)
+#### *Endeavour*-class Exploration Cruiser (CN)
+#### *Mercury*-class Fleet Tug (AT)
 #### *North America*-class Monitor (TB)
 #### *Admiral Vordrek*-class Tender (TO)
 #### *Calypso*-class Research Vessel (TS)
