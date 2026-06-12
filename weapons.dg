@@ -233,6 +233,7 @@
     (log) {$Ship fires * $ID at $Target using $Amount}
 	($Target is in point defence range of $Ship)
 	$Ship fires * $ID at $Target using $Amount
+	%% TODO: implement pre-warp weapons later
 
 %% Hyperspace vortex generators are the Tiberian plasma torpedo equivalent.
 %% They rip ships apart by creating small hyperspace portals in their area
@@ -251,6 +252,7 @@
     (log) {$Ship fires * $ID at $Target using $Amount}
 	($Target is in weapons range of $Ship)
     (line) $Ship fires * $ID at $Target using $Amount
+	%% TODO: implement once we work out hyperspace
 
 %% Ammo weapons work by expending ammo from the ship's magazine(s). Shots from
 %% an ammo weapon might (in a future release) appear on the map as targets for
@@ -277,23 +279,32 @@
 %% Torpedo hit chance: dependent on target aspect and warp gradient
 %% Torepdo damage: first element of details
 ($Ship fires $Amount direct fire torpedoes of $Damage at $Target)
-	($Target is in weapons range of $Ship)
+	($Ship is in weapons range of $Target)
     (target aspect from $Ship to $Target into $Aspect)
 	($Target warp gradient $Speed)
+	(log) {(space 4) target moving at warp gradient $Speed}
 	(if) ($Aspect = #north) (then)
+	    (log) {(space 4) attacking bow-on}
 	    ($Speed divided by 2 into $ToHit)
 	(elseif) { ($Aspect = #northeast) (or) ($Aspect = #northwest) } (then)
-		($Speed times 3 into $ToHit)
+		(log) {(space 4) attacking with high angle-off}
+		($Speed times 2 into $ToHit)
 	(elseif) { ($Aspect = #southeast) (or) ($Aspect = #southwest) } (then)
+		(log) {(space 4) attacking with low angle-off}
 		($Speed = $ToHit)
 	(elseif) ($Aspect = #south) (then)
+		(log) {(space 4) attacking from astern}
 		($Speed divided by 3 into $ToHit)
 	(else) %% #east #west #up #down
-		($Speed times 2 into $ToHit)
+		(log) {(space 4) attacking from abeam}
+		($Speed = $ToHit)
 	(endif)
 	(roll 2 #d6 $Roll)
-	(if) ($Roll > $ToHit) (then)
+	(log) {(space 4) need $ToHit, rolled $Roll}
+	(if) ($Roll > 2) ~($Roll < $ToHit) (then)
 		($Ship hits $Target with $Damage)
+	(else)
+		(log) {missed target $Target}
 	(endif)
 	(subtract 1 from $Amount into $Remaining)
 	($Ship fires $Remaining direct fire torpedoes of $Damage at $Target)

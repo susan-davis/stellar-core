@@ -181,13 +181,26 @@
 (run *)
 	(#test-ship fires at #near-target using 100 energy and 2 ammo)
 	(assert #test-ship has 832 energy and 8 ammo)
-	(#near-target is destroyed)
+	%% one torpedo missed
+	(#near-target shields 150)
+	(#near-target energy 7)
 
 #fire-at-near-with-200-and-4
 (test *)
 (run *)
 	(#test-ship fires at #near-target using 200 energy and 4 ammo)
 	(assert #test-ship has 832 energy and 8 ammo)
+	(#near-target shields 150)
+	(#near-target energy 7)
+
+#fire-at-near-with-100-and-2-reroll
+(test *)
+(run *)
+	%% fire from the other ships gives us a different die roll for the torps
+    (#closest-target fires at #test-ship using 100 energy and 0 ammo)
+    (#near-target fires at #test-ship using 100 energy and 0 ammo)
+	(#test-ship fires at #near-target using 100 energy and 2 ammo)
+	%% both torpedoes hit
 	(#near-target is destroyed)
 
 (use q7)

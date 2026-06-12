@@ -190,7 +190,7 @@
 (* state [5 5 45 321 #civilian 500 2 10 50 [50 50 50 50] [20 0 0]])
 (* systems [
     [#sensor 1 2 [360 #up #down]]
-	[#interceptor 1 5 360 149]])
+	[#interceptor 1 5 360 1 149]])
 
 #non-grid-object
 (code *)	\*

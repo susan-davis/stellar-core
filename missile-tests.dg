@@ -528,3 +528,11 @@
 	(list of missiles [
 		[3444 4544 45 1097 #closest-target 2 500 2 1]
 		[3444 4544 135 1097 #distant-target 2 500 1 2]])
+
+#fire-interceptors
+(test *)
+(run *)
+	(launch 2 missiles of 499 2 200 from [5344 5344] at #neutral-ship)
+	(#neutral-ship fires #interceptor at target 1 using 2)
+    (#neutral-ship ammo 9)
+    (list of missiles [[5344 5344 135 499 #neutral-ship 2 200 1 1]])

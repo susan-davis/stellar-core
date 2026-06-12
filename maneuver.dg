@@ -152,6 +152,7 @@
 	(warp gradient for speed $Throttle into $Gradient)
 
 ($Ship warp gradient $Gradient)
+    (object $Ship)
 	($Ship speed $Speed)
 	(warp gradient for speed $Speed into $Gradient)
 

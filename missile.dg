@@ -73,8 +73,10 @@
 (angle from $TID to $Ship into $Angle)
     (number $TID) (object $Ship)
 	(missile $TID into $There)
-	(angle from $Ship to position $There into $Raw)
-	(reciprocal bearing for $Raw into $Angle)
+	(nth $There 3 $Heading)
+	(bearing from $Ship to position $There into $Raw)
+	(reciprocal bearing for $Raw into $Bearing)
+	(angle clockwise from $Heading to $Bearing into $Angle)
 
 (hit $TID with $Units from angle $)
     (number $TID)
@@ -117,6 +119,12 @@
     (number $TID)
 	(missile $TID into $Position)
 	($Ship needs sensor level $Level to see position $Position)
+
+($TID warp gradient $Gradient)
+	(number $TID)
+	(missile $TID into $Volley)
+	(nth $Volley 4 $Speed)
+	(warp gradient for speed $Speed into $Gradient)
 
 %%----------------------------------------------------------------------------
 
@@ -302,6 +310,7 @@
 %% Missiles can be shot down by the target's defensive weapons.
 ($Ship fires * $ID at $Target using $Amount)
     (object $Target)
+    (log) {$Ship fires * $ID at $Target using $Amount}
 	($Target is in missile range of $Ship)
 	($Ship position $Pos)
 	($Ship * $ID value $Damage)
@@ -323,12 +332,13 @@
 (ammo weapon *)
 
 ($Ship fires * $ at $Target using $)
-	~($Target is in weapons range of $Ship) %% so do nothing
+	~($Ship is in weapons range of $Target) %% so do nothing
 
 %% Same hit chance as torpedoes. Incoming missile volleys will always have
 %% a bow-on aspect, making them easier to hit.
 ($Ship fires * $ID at $Target using $Amount)
-	($Target is in weapons range of $Ship)
+	($Ship is in weapons range of $Target)
+    (log) {$Ship fires * $ID at $Target using $Amount}
 	($Ship * $ID value $Damage)
 	($Ship * $ID details [$Tubes $Range])
 	(find range from $Ship to $Target into $Distance)

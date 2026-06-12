@@ -90,7 +90,7 @@
 %% direction. Arc 360 is everywhere.
 
 (target aspect from $Ship to $Target into $Aspect)
-	(angle from $Ship to $Target into $Angle)
+	(angle from $Target to $Ship into $Angle)
 	($Angle is in aspect $Aspect)
 
 %% A consequence of refactoring this this way around is that the directional

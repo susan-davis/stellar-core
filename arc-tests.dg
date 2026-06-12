@@ -581,32 +581,32 @@
 
 #target-aspect-closest
 (test *)
-(run *)    (target aspect from #test-ship to #closest-target into #east)
+(run *)    (target aspect from #test-ship to #closest-target into #north)
 
 #target-aspect-near
 (test *)
-(run *)    (target aspect from #test-ship to #near-target into #north)
+(run *)    (target aspect from #test-ship to #near-target into #east)
 
 #target-aspect-far
 (test *)
-(run *)    (target aspect from #test-ship to #far-target into #east)
+(run *)    (target aspect from #test-ship to #far-target into #southwest)
 
 #target-aspect-distant
 (test *)
-(run *)    (target aspect from #test-ship to #distant-target into #southwest)
+(run *)    (target aspect from #test-ship to #distant-target into #north)
 
 #target-aspect-from-closest
 (test *)
-(run *)    (target aspect from #closest-target to #test-ship into #north)
+(run *)    (target aspect from #closest-target to #test-ship into #east)
 
 #target-aspect-from-near
 (test *)
-(run *)    (target aspect from #near-target to #test-ship into #east)
+(run *)    (target aspect from #near-target to #test-ship into #north)
 
 #target-aspect-from-far
 (test *)
-(run *)    (target aspect from #far-target to #test-ship into #southwest)
+(run *)    (target aspect from #far-target to #test-ship into #east)
 
 #target-aspect-from-distant
 (test *)
-(run *)    (target aspect from #distant-target to #test-ship into #north)
+(run *)    (target aspect from #distant-target to #test-ship into #southwest)
