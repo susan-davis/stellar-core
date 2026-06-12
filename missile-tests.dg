@@ -571,3 +571,13 @@
 	(#neutral-ship autofires)
     (#neutral-ship ammo 9)
     (list of missiles [[5344 5344 135 499 #neutral-ship 2 200 1 1]])
+
+#interceptor-miss
+(test *)
+(run *)
+	(now) (3d6 list position 10)
+    (set autofire for #neutral-ship to [[#interceptor 1]])
+	(launch 2 missiles of 499 2 200 from [5344 5344] at #neutral-ship)
+	(#neutral-ship autofires)
+    (#neutral-ship ammo 9)
+    (list of missiles [[5344 5344 135 499 #neutral-ship 2 200 2 1]])

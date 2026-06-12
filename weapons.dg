@@ -285,7 +285,7 @@
 	(log) {(space 4) target moving at warp gradient $Speed}
 	(if) ($Aspect = #north) (then)
 	    (log) {(space 4) attacking bow-on}
-	    ($Speed divided by 2 into $ToHit)
+	    ($Speed divided by 2 into $ToHit rounding up)
 	(elseif) { ($Aspect = #northeast) (or) ($Aspect = #northwest) } (then)
 		(log) {(space 4) attacking with high angle-off}
 		($Speed times 2 into $ToHit)
@@ -294,7 +294,7 @@
 		($Speed = $ToHit)
 	(elseif) ($Aspect = #south) (then)
 		(log) {(space 4) attacking from astern}
-		($Speed divided by 3 into $ToHit)
+		($Speed divided by 3 into $ToHit rounding up)
 	(else) %% #east #west #up #down
 		(log) {(space 4) attacking from abeam}
 		($Speed = $ToHit)
