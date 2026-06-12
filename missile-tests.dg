@@ -487,6 +487,16 @@
     (launch 2 missiles of 1097 2 500 from [3444 4544] at #distant-target)
 	(closest incoming volley to #distant-target in arc [6 7 8 1 2 3] into 2)
 
+#test-ship-autofire-at-missiles
+(test *)
+(run *)
+    (set autofire for #test-ship to [[#projector 1]])
+    (set autofire for #test-ship to 100 16383)
+	(launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
+    (#test-ship autofires)
+	(#closest-target shields 250)
+	(list of missiles [[3544 4444 225 499 #test-ship 2 200 3 1]])
+
 #q7-autofire-bow-at-missiles
 (test *)
 (run *)
@@ -529,10 +539,35 @@
 		[3444 4544 45 1097 #closest-target 2 500 2 1]
 		[3444 4544 135 1097 #distant-target 2 500 1 2]])
 
+#angle-incoming-missiles
+(test *)
+(run *)
+	(launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
+	(list of missiles [[3544 4444 225 499 #test-ship 2 200 4 1]])
+	(angle from #test-ship to 1 into 90)
+	(angle from 1 to #test-ship into 0)
+
+#aspect-incoming-missiles
+(test *)
+(run *)
+	(launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
+	(list of missiles [[3544 4444 225 499 #test-ship 2 200 4 1]])
+	(target aspect from 1 to #test-ship into #east)
+	(target aspect from #test-ship to 1 into #north)
+
 #fire-interceptors
 (test *)
 (run *)
 	(launch 2 missiles of 499 2 200 from [5344 5344] at #neutral-ship)
 	(#neutral-ship fires #interceptor at target 1 using 2)
+    (#neutral-ship ammo 9)
+    (list of missiles [[5344 5344 135 499 #neutral-ship 2 200 1 1]])
+
+#neutral-ship-autofires
+(test *)
+(run *)
+    (set autofire for #neutral-ship to [[#interceptor 1]])
+	(launch 2 missiles of 499 2 200 from [5344 5344] at #neutral-ship)
+	(#neutral-ship autofires)
     (#neutral-ship ammo 9)
     (list of missiles [[5344 5344 135 499 #neutral-ship 2 200 1 1]])
