@@ -1,0 +1,24 @@
+%% dgdebug -u missile-lite-tests.dg test-ships.dg missile-lite.dg weapons.dg
+%%            sensor.dg damage.dg arc.dg maneuver.dg schema.dg sector.dg
+%%            grid.dg unit.dg stdlib.dg
+
+(interface (ship type $))  %% silence warnings
+
+(interface (code $))       %% silence warnings
+
+%%-----------------------------------------------------------------------------
+
+#launch-no-missiles
+(test *)
+(run *)
+    (launch 0 missiles of 499 2 200 from [3544 4444] at #test-ship)
+	(#test-ship shields 500)
+	(#test-ship energy 932)
+
+#launch-missiles
+(test *)
+(run *)
+    (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
+	(#test-ship shields 104)
+	(#test-ship energy 528)
+	(#test-ship length of systems 6)

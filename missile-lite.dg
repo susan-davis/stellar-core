@@ -1,0 +1,176 @@
+%% missile-lite.dg
+%% Include weapons.dg, damage.dg, arc.dg, maneuver.dg, schema.dg, sector.dg,
+%% grid.dg, d6.dg, and utils.dg when compiling or debugging.
+
+%% Include either this file or missile.dg, but not both.
+
+%% Copyright © 2021-2026, Susan Davis. All rights reserved. See LICENSE for
+%% licensing details.
+
+%% This is a lightweight treatment of missiles, to save space in vintage and
+%% 16-bit games. Missiles are treated as direct fire, and travel immediately
+%% all the way to their targets, cheerfully handwaving away how fast that
+%% makes them. Potential targets can set up their autofire list as usual,
+%% and those weapons will fire in point defence, but there's no opportunity
+%% to intercept mid-flight or with manual fire. TODO: fake it for the player
+%% ship.
+
+(global variable (number of missiles in flight 0))
+
+%%-------------------------------- INTERFACES ---------------------------------
+
+(interface (reset missiles))
+
+(interface (launch $<Num missiles of $<Speed $<Endurance $<Damage
+            from $<Position at $<Target))
+
+(interface (autofire for $<Ship into $>Weapons))
+
+(interface (set autofire for $<Ship to $<Weapons))
+
+(interface (set autofire for $<Ship to $<Energy $<Ammo))
+
+(interface (clear autofire for $<Ship))
+
+(interface ($<Ship autofire energy $>Energy))
+
+(interface ($<Ship autofire ammo $>Ammo))
+
+(interface ($<Ship autofire energy weapons $>Weapons))
+
+(interface ($<Ship autofire ammo weapons $>Weapons))
+
+(interface ($<Ship autofires))
+
+%%------------------------------ IMPLEMENTATION ------------------------------
+
+(reset missiles) %% for compatibility with missile.dg
+
+(autofire for $Ship into $List)
+    ($Ship state $State)
+    (nth $State 12 $List)
+
+(set autofire for $Ship to $List)
+    (autofire for $Ship into $Existing)
+	([$Energy $Ammo | $] = $Existing)
+	([$Energy $Ammo | $List] = $New)
+    ($Ship state $State)
+    (replace element 12 in $State with $New into $NewState)
+	(now) ($Ship state $NewState)
+
+(set autofire for $Ship to $Energy $Ammo)
+    (autofire for $Ship into $Existing)
+	([$OldE $OldA | $Weapons] = $Existing)
+	(if) ($Energy = 16383) (then)
+	    ($NewE = $OldE)
+	(else)
+	    ($NewE = $Energy)
+	(endif)
+	(if) ($Ammo = 16383) (then)
+	    ($NewA = $OldA)
+	(else)
+	    ($NewA = $Ammo)
+	(endif)
+	([$NewE $NewA | $Weapons] = $List)
+    ($Ship state $State)
+    (replace element 12 in $State with $List into $NewState)
+	(now) ($Ship state $NewState)
+
+(clear autofire for $Ship)
+    (set autofire for $Ship to [])
+    (set autofire for $Ship to 5 1)
+
+($Ship autofire energy $Energy)
+    (autofire for $Ship into $List)
+	(nth $List 1 $Energy)
+
+($Ship autofire ammo $Ammo)
+    (autofire for $Ship into $List)
+	(nth $List 2 $Ammo)
+
+($Ship autofire energy weapons $Weapons)
+    (autofire for $Ship into $Autofire)
+	(take after 2 from $Autofire into $List)
+	(energy weapons in $List into $Weapons)
+
+($Ship autofire ammo weapons $Weapons)
+    (autofire for $Ship into $Autofire)
+	(take after 2 from $Autofire into $List)
+	(ammo weapons in $List into $Weapons)
+
+%%-----------------------------------------------------------------------------
+
+(launch 0 missiles of $ $ $ from $ at $)
+
+%% We use #missile as a fake grid object for working out defensive fire.
+#missile
+(grid object *)
+(* position [16383 16383 0 0])
+
+(hit * with $Units from angle $)
+    (if) ($Units > 3) (then)
+	    (number of missiles in flight $Missiles)
+		(subtract 1 from $Missiles into $Remaining)
+		(now) (number of missiles in flight $Remaining)
+	(endif)
+
+(hit * $Num times with $Units from angle $)
+    (if) ($Units > 3) (then)
+	    (number of missiles in flight $Missiles)
+		(subtract $Num from $Missiles into $Remaining)
+		(now) (number of missiles in flight $Remaining)
+	(endif)
+
+(launch $Num missiles of $Speed $Endurance $Damage from $Here at $Target)
+    ($Speed times $Endurance into $MaxRange)
+	($Target position $There)
+	(calculate range from $Here to $There into $Range)
+	~($Range > $MaxRange)
+	(log) {launched  $Num missiles of $Damage units at $Target}
+	(now) (number of missiles in flight $Num)
+    (#missile moves to square $Here)
+	(angle from $Target to #missile into $Angle)
+    (place #missile at $Here)
+	(square at 141 from $There to $Here into $AlmostThere)
+	(move #missile to position $AlmostThere)
+	($Target autofires)
+	(number of missiles in flight $Remaining)
+	(if) ($Remaining > 0) (then)
+		(log) {$Remaining missiles detonate}
+		(hit $Target $Remaining times with $Damage from angle $Angle)
+	(endif)
+	(now) (number of missiles in flight 0)
+
+($ autofires with [] using $ into [])
+
+($Ship autofires with $Weapons using $Amount into $RemainingWeapons)
+    ($Amount < 16383)
+    ($Weapons = [$Head | $Tail])
+	($Head = [$Type $ID | $])
+	(if) ($Ship $Type $ID bears on target #missile) (then)
+		(find $Ship $Type $ID into $Weapon)
+		(nth $Weapon 3 $Value)
+		(nth $Weapon 5 $Num)
+		(min $Value $Amount $Min)
+		(if) (energy weapon $Type) (then)
+	    	($Num times $Min into $Fired)
+		(else)
+			($Fired = $Min)
+		(endif)
+    	($Ship fires $Type $ID at #missile using $Fired)
+		($HeadWeapons = [])
+	(else)
+		($HeadWeapons = [$Head])
+	(endif)
+	($Ship autofires with $Tail using $Amount into $TailWeapons)
+	(append $HeadWeapons $TailWeapons $RemainingWeapons)
+
+($Ship autofires)
+    ($Ship autofire energy $Energy)
+    ($Ship autofire energy weapons $EnergyWeapons)
+    ($Ship autofires with $EnergyWeapons using $Energy into $RemainingEnergy)
+    ($Ship autofire ammo $Ammo)
+    ($Ship autofire ammo weapons $AmmoWeapons)
+    ($Ship autofires with $AmmoWeapons using $Ammo into $RemainingAmmo)
+    (append $RemainingEnergy $RemainingAmmo $RemainingWeapons)
+	(set autofire for $Ship to $RemainingWeapons)
