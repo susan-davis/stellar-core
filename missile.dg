@@ -312,9 +312,11 @@
 	(launch $Num missiles of $Speed $Endurance $Damage from $Pos at $Target)
 
 %% Interceptor missiles do exactly what it says on the tin -- they intercept
-%% missiles inbound for their launch platform. Are these limited to PD range,
-%% or to weapons range? Perhaps they're direct fire at PD range, and missiles
-%% beyond.
+%% missiles inbound for their launch platform. Despite being ammo weapons,
+%% they're strictly direct fire, so that we don't have to deal with all of
+%% the complications that come from having seeking weapons guiding on other
+%% seeking weapons. They can do a small amount of damage to other ships,
+%% and shoot down things like shuttles, but they're usually left on autofire.
 #interceptor
 (name *)		interceptor
 (long name *)	interceptor missile launcher
@@ -323,13 +325,18 @@
 ($Ship fires * $ at $Target using $)
 	~($Target is in weapons range of $Ship) %% so do nothing
 
-($Ship fires * $ID at $Target using $Amount)
-	($Target is in point defence range of $Ship)
-    (line) $Ship fires * $ID as direct fire at $Target 0 using $Amount
-
+%% Same hit chance as torpedoes. Incoming missile volleys will always have
+%% a bow-on aspect, making them easier to hit.
 ($Ship fires * $ID at $Target using $Amount)
 	($Target is in weapons range of $Ship)
-    (line) $Ship fires * $ID at $Target using $Amount
+	($Ship * $ID value $Damage)
+	($Ship * $ID details [$Tubes $Range])
+	(find range from $Ship to $Target into $Distance)
+	~($Distance > $Range)
+	($Ship ammo $Ammo)
+	(min $Amount $Tubes $Ammo $Rounds)
+	(decrease ammo for $Ship by $Rounds)
+	($Ship fires $Rounds direct fire torpedoes of $Damage at $Target)
 
 %% Bombardment rockets are missiles equipped with reactionless engines, or
 %% even reaction engines in more primitive fleets. They're mostly used for
@@ -347,6 +354,7 @@
     (object $Target)
 	($Target is in point defence range of $Ship) %% or mtd range?
     (line) $Ship fires * $ID at $Target 0 using $Amount
+	%% TODO: implement pre-warp weapons later
 
 #projector
 %% when firing at missiles, use as many mounts as possible

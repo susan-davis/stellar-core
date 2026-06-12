@@ -175,8 +175,7 @@
 	($Class state $Default)
 	($Default =
 	    [$ $ $ $ $ $Energy $Crystals $Ammo $Shields $Levels $Billets | $])
-	($Billets = [$Fit | $])
-	($Crew = [$Fit 0 0])
+	($Crew = [$Billets 0 0])
 	($Ship state [$DX $DY $H $T $Class | $])
 	(now) ($Ship state [$DX $DY $H $T $Class $Energy $Crystals $Ammo
 	       $Shields $Levels $Crew [5 1]])

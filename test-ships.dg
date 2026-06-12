@@ -31,7 +31,7 @@
 (name *)	Cygnus
 (ship type *)	fast scout
 (code *)	s
-(* state [10 10 180 9636 #union 1000 4 10 500 [100 99 98 97 96 95] [16 2]])
+(* state [10 10 180 9636 #union 1000 4 10 500 [100 99 98 97 96 95] 16])
 (* systems [[#projector 1 100 [360 #up] 1 141]
 		   [#torpedo 1 500 [1 8] 1 499 1097]
 		   [#torpedo 2 500 [1 8] 1 499 1097]
@@ -67,7 +67,7 @@
 (* initial position [3544 4444 225 108])
 (* initial state
     [16383 16383 225 108 #attack-class 500 2 0 250
-	[100 50 50 50 25 25 ] [38 0 0] [5 1]])
+	[100 50 50 50 25 25] [38 0 0] [5 1]])
 
 #near-target
 (ship *)
@@ -94,7 +94,7 @@
 (name *)		Attack
 (ship type *)	attack ship
 (code *)	q
-(* state [5 10 90 7511 #quellan 500 2 0 250 [100 50 50 50 25 25] [38 14]])
+(* state [5 10 90 7511 #quellan 500 2 0 250 [100 50 50 50 25 25] 38])
 (* systems [
     [#projector 1 250 [8 1] 1 100]
 	[#sensor 1 3 [8 1]]])
@@ -111,7 +111,7 @@
 (ship type *)	cruiser
 (code *)   		Q
 (* state [8 8 90 9622 #quellan 3000 10 8 500
-          [250 200 200 200 200 200] [200 0 0]])
+          [250 200 200 200 200 200] 200])
 (* systems [
     [#collapser 1 250 [6 7 8 1] 2 141]
     [#collapser 2 250 [8 1 2 3] 2 141]
@@ -168,17 +168,29 @@
 #civilian
 (name *)	civilian
 
+%% position = [X Y Heading Speed]
+%% state = [DstX DstY Helm Throttle Class Energy Crystals Ammo Shields
+%%          [Shield Levels] [Crew]]
+%% system = [Type ID RepairTime]
+
 #neutral-ship
 (ship *)
 (name *)	Ko Maru
 (* initial position [5444 5444 180 1])
-(* initial state [16383 16383 0 0 #maru-class 500 2 0 50 [50 50 50 50]])
+(* initial state [5444 5444 0 0 #maru-class 500 2 10 50 [50 50 50 50] [20 0 0]])
+
+%% class  = [DriveEfficiency ReactorEfficiency TurnMode DriveParams Fleet
+%%           MaxEnergy MaxCrystals MaxAmmo MaxShields [MaxLevels] Crew]
+%% system = [System ID Arcs Value Details]
 
 #maru-class
 (name *)	Maru
 (ship type *)	freighter
 (code *)	c
-(* state [100 321 45 100 #civilian 500 2 0 50 [50 50 50 50]])
+(* state [5 5 45 321 #civilian 500 2 10 50 [50 50 50 50] [20 0 0]])
+(* systems [
+    [#sensor 1 2 [360 #up #down]]
+	[#interceptor 1 5 360 149]])
 
 #non-grid-object
 (code *)	\*

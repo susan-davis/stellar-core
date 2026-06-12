@@ -11,7 +11,7 @@
 %%
 %% position = [X Y Heading Speed]
 %% state = [DstX DstY Helm Throttle Class Energy Crystals Ammo Shields
-%%          [Shield Levels] [Crew] [Autofire]]
+%%          [Shield Levels] [Fit WIA KIA] [Autofire]]
 %% system = [Type ID DegradeValue RepairTime DegradeDetails...]
 %%
 %% The system list for a ship identifies which systems are damaged; healthy
@@ -22,7 +22,7 @@
 %% Ship classes are defined by a class record:
 %%
 %% class  = [DriveEfficiency ReactorEfficiency TurnMode DriveParams Fleet
-%%           MaxEnergy MaxCrystals MaxAmmo MaxShields [MaxLevels] [Crew]]
+%%           MaxEnergy MaxCrystals MaxAmmo MaxShields [MaxLevels] Crew]
 %% system = [System ID Value Arcs Details...]
 %%
 %% Systems that don't need arcs or supplementary details can have just three
