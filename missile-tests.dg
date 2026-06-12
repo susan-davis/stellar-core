@@ -454,3 +454,15 @@
 	(#distant-target autofires)
     (#test-ship shields 467)
     (assert #distant-target has 2975 energy and 8 ammo)
+
+#closest-incoming-volley
+(test *)
+(run *)
+    (launch 4 missiles of 499 2 200 from [3444 4544] at #neutral-ship)
+    (launch 4 missiles of 499 2 200 from [3644 4544] at #test-ship)
+    (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
+	(list of missiles [
+	    [3444 4544 113 499 #neutral-ship 2 200 4 1]
+		[3644 4544 270 499 #test-ship 2 200 4 2]
+		[3544 4444 225 499 #test-ship 2 200 4 3]])
+    (closest incoming volley to #test-ship into 3)

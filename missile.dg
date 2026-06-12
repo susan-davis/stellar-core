@@ -277,7 +277,7 @@
 
 (closest incoming volley to $Ship in arc $Arc into $ID)
     (list of missiles $AllMissiles)
-	(take from $AllMissiles where element 5 is $ID into $Missiles)
+	(take from $AllMissiles where element 5 is $Ship into $Missiles)
 	(closest incoming volley to $Ship in arc $Arc in $Missiles into $ID $)
 
 (closest incoming volley to $Ship into $ID)
