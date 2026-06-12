@@ -308,8 +308,8 @@ Only a single example of the *Excalibur*-class light cruiser has been constructe
 
 The *Leifur Eiriksson*-class cruiser predates the formation of the Stellar Union, and is a contemporary of the *Gagarin*-class scout. The streamlined, aircraft-like appearance of the *Leifur Eiriksson* class looks nothing like other human designs. Thoroughly obsolete, the ship was phased out of service a century ago, although several ships of the class disappeared mysteriously during missions, and could be encountered as plot points in a game.
 
-#### *Argo Navis*-class Cruiser (CA)
-#### *Endeavour*-class Exploration Cruiser (CN)
+#### *Victoria*-class Cruiser (CA)
+#### *Eärendil*-class Exploration Cruiser (CN)
 #### *Mercury*-class Fleet Tug (AT)
 #### *North America*-class Monitor (TB)
 #### *Admiral Vordrek*-class Tender (TO)
