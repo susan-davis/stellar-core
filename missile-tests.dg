@@ -511,3 +511,20 @@
 	(#distant-target autofires)
     (#test-ship shields 486)
 	(list of missiles [[3444 4544 45 1097 #closest-target 2 500 2 1]])
+
+#q7-autofire-all-around
+(test *) %% 3644 4744
+(run *)
+    (use q7)
+    (launch 2 missiles of 1097 2 500 from [3444 4544] at #closest-target)
+    (launch 2 missiles of 1097 2 500 from [3444 4544] at #distant-target)
+    (launch 2 missiles of 1097 2 500 from [3744 4544] at #distant-target)
+    (launch 2 missiles of 1097 2 500 from [3544 4844] at #distant-target)
+	(turn #distant-target away from #test-ship)
+	(set autofire for #distant-target to
+	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
+	(#distant-target autofires)
+    (#test-ship shields 500)
+	(list of missiles [
+		[3444 4544 45 1097 #closest-target 2 500 2 1]
+		[3444 4544 135 1097 #distant-target 2 500 1 2]])
