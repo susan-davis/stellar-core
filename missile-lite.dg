@@ -139,6 +139,7 @@
 		(log) {$Remaining missiles detonate}
 		(hit $Target $Remaining times with $Damage from angle $Angle)
 	(endif)
+	(remove #missile from the map)
 	(now) (number of missiles in flight 0)
 
 ($ autofires with [] using $ into [])

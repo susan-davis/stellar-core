@@ -22,3 +22,19 @@
 	(#test-ship shields 104)
 	(#test-ship energy 528)
 	(#test-ship length of systems 6)
+
+#launch-more-missiles
+(test *)
+(run *)
+    (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
+	(#test-ship shields 104)
+	(#test-ship energy 528)
+	(#test-ship length of systems 6)
+    (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
+	(#test-ship is destroyed)
+
+#missile-not-on-map
+(test *)
+(run *)
+    (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
+	~(#missile is on the map)
