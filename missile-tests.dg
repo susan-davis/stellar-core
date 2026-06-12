@@ -338,9 +338,9 @@
 	(turn #distant-target away from #test-ship)
     (#distant-target fires at #test-ship using 200 energy and 2 ammo)
 	(#test-ship speed 32) %% no collapsers bearing
-	(#test-ship shields 257)
-	(#test-ship energy 905)
-	(#test-ship length of systems 3)
+	(#test-ship shields 304)
+	(#test-ship energy 843)
+	(#test-ship length of systems 4)
 	(#distant-target energy 2800)
 	(#distant-target ammo 7)
 	(list of missiles [[3644 4744 315 255 #test-ship 3 200 1 1]])
@@ -363,8 +363,8 @@
     (launch 4 missiles of 499 2 200 from [3444 4544] at #distant-target)
 	(update missiles for #distant-target)
 	(list of missiles [[3644 4744 135 499 #distant-target 1 200 4 1]])
-    (#distant-target fires #projector 4 at 1 using 20)
-    (#distant-target fires #projector 5 at 1 using 20)
+    (#distant-target fires #projector 2 at 1 using 20)
+    (#distant-target fires #projector 3 at 1 using 20)
     (list of missiles [])
 
 #empty-autofire
@@ -509,7 +509,7 @@
 	(set autofire for #distant-target to
 	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
 	(#distant-target autofires)
-    (#test-ship shields 486)
+    (#test-ship shields 481)
 	(list of missiles [[3444 4544 45 1097 #closest-target 2 500 2 1]])
 
 #q7-autofire-all-around

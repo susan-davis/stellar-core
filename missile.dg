@@ -167,9 +167,11 @@
 	(nth $Volley 8 $Count)
 	(subtract $Num from $Count into $NewCount)
 	(if) ($NewCount > 0) (then)
+		(log) {$Num missiles shot down in volley $ID}
         (replace element 8 in $Volley with $NewCount into $NewVolley)
 		(replace volley $ID with $NewVolley)
 	(else)
+		(log) {all $Count missiles in volley $ID shot down}
 	    (remove volley $ID)
 	(endif)
 

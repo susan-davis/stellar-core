@@ -307,6 +307,8 @@
 	($Num minus 1 into $Remaining)
 	(hit $Target $Remaining times with $Units from angle $Angle)
 
+(hit $ with 0 from $)
+
 %% Damage rubric:
 %%   * hit facing shield first
 %%   * with remainder, deduct from energy, possibly damaging one system
@@ -314,6 +316,7 @@
 %% Direction parameters are for more detailed damage in player-ship.dg
 
 (hit $Target with $Units from $Direction)
+	(log) {$Target hit with $Units units from $Direction}
 	($Target shields $TotalShieldPower)
 	($Target shield level $Direction into $DirectionShieldPower)
 	(min $TotalShieldPower $DirectionShieldPower $ShieldPower)
@@ -328,10 +331,12 @@
 (damage $Target with $Units from $Direction)
 	($Target energy $Energy)
 	(if) ($Units > $Energy) (then)
+		(log) {$Target structural integrity field penetrated}
 		($Units minus $Energy into $Damage)
 		(decrease energy for $Target by $Energy) %% to 0
 		(wreck $Target with $Damage from $Direction)
 	(else)
+		(log) {$Target shields penetrated}
 		(decrease energy for $Target by $Units)
 		(damage random $Target system with $Units from $Direction)
 	(endif)
