@@ -486,3 +486,28 @@
     (launch 2 missiles of 1097 2 500 from [3444 4544] at #closest-target)
     (launch 2 missiles of 1097 2 500 from [3444 4544] at #distant-target)
 	(closest incoming volley to #distant-target in arc [6 7 8 1 2 3] into 2)
+
+#q7-autofire-bow-at-missiles
+(test *)
+(run *)
+    (use q7)
+    (launch 2 missiles of 1097 2 500 from [3444 4544] at #closest-target)
+    (launch 2 missiles of 1097 2 500 from [3444 4544] at #distant-target)
+	(set autofire for #distant-target to
+	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
+	(#distant-target autofires)
+    (#test-ship shields 500)
+	(list of missiles [[3444 4544 45 1097 #closest-target 2 500 2 1]])
+
+#q7-autofire-stern-at-missiles
+(test *)
+(run *)
+    (use q7)
+    (launch 2 missiles of 1097 2 500 from [3444 4544] at #closest-target)
+    (launch 2 missiles of 1097 2 500 from [3444 4544] at #distant-target)
+	(turn #distant-target away from #test-ship)
+	(set autofire for #distant-target to
+	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
+	(#distant-target autofires)
+    (#test-ship shields 486)
+	(list of missiles [[3444 4544 45 1097 #closest-target 2 500 2 1]])
