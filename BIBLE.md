@@ -78,7 +78,7 @@ Galdorites are bipedal humanoids, with three sexes: producer, bearer, and nurtur
 
 The Kwom are 
 
-#### The Generons
+#### The Lycenathetes
 
 ### The Quellan Empire
 The Quellans are an expansionist empire of Proud Warrior Race Guys. The Quellan Empire is the Stellar Union's chief rival in the region where the series takes place. Quellan society is tribal, and still organized around the social structures of nomadic tribal life on Quell f, the Quellan homeworld.
