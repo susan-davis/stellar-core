@@ -28,6 +28,24 @@
 (interface (launch $<Num missiles of $<Speed $<Endurance $<Damage
             from $<Position at $<Target))
 
+(interface (autofire for $<Ship into $>Weapons))
+
+(interface (set autofire for $<Ship to $<Weapons))
+
+(interface (set autofire for $<Ship to $<Energy $<Ammo))
+
+(interface (clear autofire for $<Ship))
+
+(interface ($<Ship autofire energy $>Energy))
+
+(interface ($<Ship autofire ammo $>Ammo))
+
+(interface ($<Ship autofire energy weapons $>Weapons))
+
+(interface ($<Ship autofire ammo weapons $>Weapons))
+
+(interface ($<Ship autofires))
+
 %%------------------------------ IMPLEMENTATION ------------------------------
 
 %% Predicates defined in other modules that need different handling for
@@ -228,6 +246,88 @@
 	(missile $TID into $There)
 	($Ship position $Here)
 	(calculate range from $Here to $There into $Range)
+
+%%----------------------------------------------------------------------------
+
+(autofire for $Ship into $List)
+    ($Ship state $State)
+    (nth $State 12 $List)
+
+(set autofire for $Ship to $List)
+    (autofire for $Ship into $Existing)
+	([$Energy $Ammo | $] = $Existing)
+	([$Energy $Ammo | $List] = $New)
+    ($Ship state $State)
+    (replace element 12 in $State with $New into $NewState)
+	(now) ($Ship state $NewState)
+
+(set autofire for $Ship to $Energy $Ammo)
+    (autofire for $Ship into $Existing)
+	([$OldE $OldA | $Weapons] = $Existing)
+	(if) ($Energy = 16383) (then)
+	    ($NewE = $OldE)
+	(else)
+	    ($NewE = $Energy)
+	(endif)
+	(if) ($Ammo = 16383) (then)
+	    ($NewA = $OldA)
+	(else)
+	    ($NewA = $Ammo)
+	(endif)
+	([$NewE $NewA | $Weapons] = $List)
+    ($Ship state $State)
+    (replace element 12 in $State with $List into $NewState)
+	(now) ($Ship state $NewState)
+
+(clear autofire for $Ship)
+    (set autofire for $Ship to [])
+    (set autofire for $Ship to 5 1)
+
+($Ship autofire energy $Energy)
+    (autofire for $Ship into $List)
+	(nth $List 1 $Energy)
+
+($Ship autofire ammo $Ammo)
+    (autofire for $Ship into $List)
+	(nth $List 2 $Ammo)
+
+($Ship autofire energy weapons $Weapons)
+    (autofire for $Ship into $Autofire)
+	(take after 2 from $Autofire into $List)
+	(energy weapons in $List into $Weapons)
+
+($Ship autofire ammo weapons $Weapons)
+    (autofire for $Ship into $Autofire)
+	(take after 2 from $Autofire into $List)
+	(ammo weapons in $List into $Weapons)
+
+($ autofires with [] using $)
+
+($Ship autofires with $Weapons using $Amount)
+    ($Amount < 16383)
+    ($Weapons = [$Head | $Tail])
+	($Head = [$Type $ID | $])
+	(find $Ship $Type $ID into $Weapon)
+	($Weapon = [$ $ $Value $Arc $Num | $])
+	(closest hostile target to $Ship in arc $Arc into $Target)
+	(if) ~($Target = $Ship) (then)
+		(min $Value $Amount $Min)
+		(if) (energy weapon $Type) (then)
+	    	($Num times $Min into $Fired)
+		(else)
+			($Fired = $Min)
+		(endif)
+    	($Ship fires $Type $ID at $Target using $Fired)
+	(endif)
+	($Ship autofires with $Tail using $Amount)
+
+($Ship autofires)
+    ($Ship autofire energy $Energy)
+    ($Ship autofire energy weapons $EnergyWeapons)
+    ($Ship autofires with $EnergyWeapons using $Energy)
+    ($Ship autofire ammo $Ammo)
+    ($Ship autofire ammo weapons $AmmoWeapons)
+    ($Ship autofires with $AmmoWeapons using $Ammo)
 
 %%----------------------------------------------------------------------------
 

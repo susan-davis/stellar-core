@@ -340,3 +340,91 @@
     (#distant-target fires #projector 4 at 1 using 20)
     (#distant-target fires #projector 5 at 1 using 20)
     (list of missiles [])
+
+#empty-autofire
+(test *)
+(run *)
+	(autofire for #test-ship into [5 1])
+
+#set-autofire
+(test *)
+(run *)
+    (set autofire for #test-ship to [[#projector 1]])
+	(autofire for #test-ship into [5 1 [#projector 1]])
+
+#clear-autofire
+(test *)
+(run *)
+    (set autofire for #test-ship to [[#projector 1]])
+    (clear autofire for #test-ship)
+	(autofire for #test-ship into [5 1])
+
+#set-autofire-energy
+(test *)
+(run *)
+    (set autofire for #test-ship to 10 16383)
+	(autofire for #test-ship into [10 1])
+
+#set-autofire-ammo
+(test *)
+(run *)
+    (set autofire for #test-ship to 16383 2)
+	(autofire for #test-ship into [5 2])
+
+#set-autofire-q7
+(test *)
+(run *)
+    (set autofire for #distant-target to
+	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
+	(autofire for #distant-target into
+        [5 1 [#projector 2] [#projector 3] [#projector 4] [#projector 5]])
+
+#q7-autofire-energy-weapons
+(test *)
+(run *)
+    (set autofire for #distant-target to
+	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
+	(#distant-target autofire energy weapons
+        [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
+
+#q7-autofire-ammo-weapons
+(test *)
+(run *)
+    (set autofire for #distant-target to
+	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
+	(#distant-target autofire ammo weapons [])
+
+#test-ship-autofire
+(test *)
+(run *)
+    (set autofire for #test-ship to [[#projector 1]])
+    (set autofire for #test-ship to 100 16383)
+    (#test-ship autofires)
+	(#closest-target shields 150)
+
+(assert $Ship has $Energy energy and $Ammo ammo)
+	($Ship energy $E) %% $E
+	(assert $Energy = $E)
+	($Ship ammo $A) %% $A
+	(assert $Ammo = $A)
+
+#q7-autofire-bow
+(test *)
+(run *)
+    (use q7)
+	(set autofire for #distant-target to
+	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
+	(#distant-target autofires)
+    (#test-ship shields 487)
+    (assert #distant-target has 2990 energy and 8 ammo)
+
+#q7-autofire-stern
+(test *)
+(run *)
+    (use q7)
+	(turn #distant-target away from #test-ship)
+	(set autofire for #distant-target to
+	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
+	(#distant-target autofires)
+    (#test-ship shields 467)
+    (assert #distant-target has 2975 energy and 8 ammo)
