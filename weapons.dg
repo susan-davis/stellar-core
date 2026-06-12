@@ -299,9 +299,10 @@
 		(log) {(space 4) attacking from abeam}
 		($Speed = $ToHit)
 	(endif)
+	(max 3 $ToHit $Needed)
 	(roll 2 #d6 $Roll)
-	(log) {(space 4) need $ToHit, rolled $Roll}
-	(if) ($Roll > 2) ~($Roll < $ToHit) (then)
+	(log) {(space 4) need $Needed, rolled $Roll}
+	(if) ~($Roll < $Needed) (then)
 		($Ship hits $Target with $Damage)
 	(else)
 		(log) {missed target $Target}
