@@ -15,8 +15,8 @@ ZBUNDLE=ozmoo
 STDLIB=utils.dg unit.dg stdlib.dg
 LIBS=test-ships.dg schema.dg sector.dg bearing.dg grid.dg $(STDLIB)
 DLIBS=arc.dg damage.dg d6.dg time.dg $(LIBS)
-SLIBS=probe.dg systems.dg missile.dg weapons.dg scanner.dg sensor.dg $(DLIBS)
-TLIBS=quadrant.dg orbit.dg planet.dg terrain.dg transient.dg $(SLIBS)
+SLIBS=scanner.dg systems.dg missile-lite.dg missile.dg weapons.dg scanner.dg sensor.dg $(DLIBS)
+TLIBS=quadrant.dg orbit.dg planet.dg terrain.dg transient.dg probe.dg $(SLIBS)
 
 LIBRARIES=state.dg crew.dg goals.dg $(SHIP)
 SHIP=cygnus.dg matt.dg eva.dg union-ship.dg shuttle.dg mtd.dg controls.dg sensor-display.dg ship-damage.dg $(MODEL)
@@ -28,7 +28,7 @@ test: test-basics test-systems
 
 test-basics: utils time d6 d6-lite grid bearing sector schema maneuver 
 
-test-systems: damage arc sensor weapons missile # systems scanner probe shuttle mtd
+test-systems: damage arc sensor weapons missile missile-lite # systems scanner probe shuttle mtd
 
 test-controls: sensor-wide sensor-narrow scanner-panel weapons-panel helm ops engine-panel controls
 
@@ -86,6 +86,9 @@ weapons:
 
 missile:
 	$(DEBUG) missile-tests.dg missile.dg weapons.dg sensor.dg maneuver.dg $(DLIBS)
+
+missile-lite:
+	$(DEBUG) missile-lite-tests.dg missile-lite.dg weapons.dg sensor.dg maneuver.dg $(DLIBS)
 
 .PHONY: test all clean utils time sector grid maneuver damage d6 d6-lite
 .PHONY: sensor sensor-wide sensor-narrow arc weapons missile
