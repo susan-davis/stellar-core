@@ -15,8 +15,6 @@
 
 (interface (long name $))
 
-(interface (find range from $Ship to $Target into $Range))
-
 (interface ($<Ship weapons bearing on angle $<Angle into $>List))
 
 (interface ($<Ship weapons bearing on target $<Target into $>List))
@@ -102,10 +100,6 @@
     (object $Target)
 	(angle from $Ship to $Target into $Angle)
 	($Ship ammo weapons bearing on angle $Angle into $Result)
-
-(find range from $Ship to $Target into $Range) %% hook for missiles.dg
-    (object $Target)
-	(range from $Ship to $Target into $Range)
 
 %%----------------------------------------------------------------------------
 

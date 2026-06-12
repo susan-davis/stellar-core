@@ -15,7 +15,7 @@
 %% Missiles are referred to by numerical ID, rather than by object. Predicates
 %% for shooting at ships expect objects; shooting at missiles expects numbers.
 
-%% Missile schema: [X Y Target Speed Endurance ID Number Value]
+%% Missile schema: [X Y Heading Speed Target Endurance Damage Number ID]
 
 (global variable (list of missiles []))
 
@@ -119,7 +119,7 @@
 
 %%----------------------------------------------------------------------------
 
-%% Missile schema: [X Y Target Speed Endurance ID Number Value]
+%% Missile schema: [X Y Heading Speed Target Endurance Damage Number ID]
 
 (reset missiles)
     (now) (list of missiles [])
@@ -223,17 +223,24 @@
 	(hit $Target $Num times with $Damage from angle $Angle)
 	(remove volley $ID)
 
+(update volley $Volley)
+	(nth $Volley 5 $Target)
+    (nth $Volley 9 $ID)
+	($Target position $There)
+	(if) (position $Volley equals position $There) (then)
+		(volley $ID reaches its target)
+	(else)
+	    (move volley $ID toward its target)
+	(endif)
+
 (update missiles in [] for $) %% do nothing
 
 (update missiles in $Missiles for $Target)
     (object $Target)
     ([$Head | $Tail] = $Missiles)
-    (nth $Head 9 $ID)
-	($Target position $There)
-	(if) (position $Head equals position $There) (then)
-		(volley $ID reaches its target)
-	(else)
-	    (move volley $ID toward its target)
+	(nth $Head 5 $AimedAt)
+	(if) ($AimedAt = $Target) (then)
+	    (update volley $Head)
 	(endif)
 	(update missiles in $Tail for $Target)
 
@@ -247,87 +254,34 @@
 	($Ship position $Here)
 	(calculate range from $Here to $There into $Range)
 
-%%----------------------------------------------------------------------------
+(closest incoming volley to $ in arc $ in [] into 0 16383)
 
-(autofire for $Ship into $List)
-    ($Ship state $State)
-    (nth $State 12 $List)
-
-(set autofire for $Ship to $List)
-    (autofire for $Ship into $Existing)
-	([$Energy $Ammo | $] = $Existing)
-	([$Energy $Ammo | $List] = $New)
-    ($Ship state $State)
-    (replace element 12 in $State with $New into $NewState)
-	(now) ($Ship state $NewState)
-
-(set autofire for $Ship to $Energy $Ammo)
-    (autofire for $Ship into $Existing)
-	([$OldE $OldA | $Weapons] = $Existing)
-	(if) ($Energy = 16383) (then)
-	    ($NewE = $OldE)
+(closest incoming volley to $Ship in arc $Arc in $Missiles into $ID $Range)
+	([$Head | $Tail] = $Missiles)
+	(angle from $Ship to position $Head into $Angle)
+	(if) (arc $Arc contains angle $Angle) (then)
+	    (nth $Head 9 $ID1)
+		(find range from $Ship to $ID1 into $R1)
 	(else)
-	    ($NewE = $Energy)
+	    ($ID1 = 0)
+		($R1 = 16383)
 	(endif)
-	(if) ($Ammo = 16383) (then)
-	    ($NewA = $OldA)
+	(closest incoming volley to $Ship in arc $Arc in $Tail into $ID2 $R2)
+	(if) ($R1 > $R2) (then)
+	    ($ID2 = $ID)
+		($R2 = $Range)
 	(else)
-	    ($NewA = $Ammo)
+	    ($ID1 = $ID)
+		($R1 = $Range)
 	(endif)
-	([$NewE $NewA | $Weapons] = $List)
-    ($Ship state $State)
-    (replace element 12 in $State with $List into $NewState)
-	(now) ($Ship state $NewState)
 
-(clear autofire for $Ship)
-    (set autofire for $Ship to [])
-    (set autofire for $Ship to 5 1)
+(closest incoming volley to $Ship in arc $Arc into $ID)
+    (list of missiles $AllMissiles)
+	(take from $AllMissiles where element 5 is $ID into $Missiles)
+	(closest incoming volley to $Ship in arc $Arc in $Missiles into $ID $)
 
-($Ship autofire energy $Energy)
-    (autofire for $Ship into $List)
-	(nth $List 1 $Energy)
-
-($Ship autofire ammo $Ammo)
-    (autofire for $Ship into $List)
-	(nth $List 2 $Ammo)
-
-($Ship autofire energy weapons $Weapons)
-    (autofire for $Ship into $Autofire)
-	(take after 2 from $Autofire into $List)
-	(energy weapons in $List into $Weapons)
-
-($Ship autofire ammo weapons $Weapons)
-    (autofire for $Ship into $Autofire)
-	(take after 2 from $Autofire into $List)
-	(ammo weapons in $List into $Weapons)
-
-($ autofires with [] using $)
-
-($Ship autofires with $Weapons using $Amount)
-    ($Amount < 16383)
-    ($Weapons = [$Head | $Tail])
-	($Head = [$Type $ID | $])
-	(find $Ship $Type $ID into $Weapon)
-	($Weapon = [$ $ $Value $Arc $Num | $])
-	(closest hostile target to $Ship in arc $Arc into $Target)
-	(if) ~($Target = $Ship) (then)
-		(min $Value $Amount $Min)
-		(if) (energy weapon $Type) (then)
-	    	($Num times $Min into $Fired)
-		(else)
-			($Fired = $Min)
-		(endif)
-    	($Ship fires $Type $ID at $Target using $Fired)
-	(endif)
-	($Ship autofires with $Tail using $Amount)
-
-($Ship autofires)
-    ($Ship autofire energy $Energy)
-    ($Ship autofire energy weapons $EnergyWeapons)
-    ($Ship autofires with $EnergyWeapons using $Energy)
-    ($Ship autofire ammo $Ammo)
-    ($Ship autofire ammo weapons $AmmoWeapons)
-    ($Ship autofires with $AmmoWeapons using $Ammo)
+(closest incoming volley to $Ship into $ID)
+    (closest incoming volley to $Ship in arc [360 #up #down] into $ID)
 
 %%----------------------------------------------------------------------------
 
@@ -420,3 +374,85 @@
 	    (square at $Boost from $Here to $There into $Position)
 		(launch $Torps missiles of $Speed 1 $Damage from $Position at $Target)
 	(endif)
+
+%%----------------------------------------------------------------------------
+
+(autofire for $Ship into $List)
+    ($Ship state $State)
+    (nth $State 12 $List)
+
+(set autofire for $Ship to $List)
+    (autofire for $Ship into $Existing)
+	([$Energy $Ammo | $] = $Existing)
+	([$Energy $Ammo | $List] = $New)
+    ($Ship state $State)
+    (replace element 12 in $State with $New into $NewState)
+	(now) ($Ship state $NewState)
+
+(set autofire for $Ship to $Energy $Ammo)
+    (autofire for $Ship into $Existing)
+	([$OldE $OldA | $Weapons] = $Existing)
+	(if) ($Energy = 16383) (then)
+	    ($NewE = $OldE)
+	(else)
+	    ($NewE = $Energy)
+	(endif)
+	(if) ($Ammo = 16383) (then)
+	    ($NewA = $OldA)
+	(else)
+	    ($NewA = $Ammo)
+	(endif)
+	([$NewE $NewA | $Weapons] = $List)
+    ($Ship state $State)
+    (replace element 12 in $State with $List into $NewState)
+	(now) ($Ship state $NewState)
+
+(clear autofire for $Ship)
+    (set autofire for $Ship to [])
+    (set autofire for $Ship to 5 1)
+
+($Ship autofire energy $Energy)
+    (autofire for $Ship into $List)
+	(nth $List 1 $Energy)
+
+($Ship autofire ammo $Ammo)
+    (autofire for $Ship into $List)
+	(nth $List 2 $Ammo)
+
+($Ship autofire energy weapons $Weapons)
+    (autofire for $Ship into $Autofire)
+	(take after 2 from $Autofire into $List)
+	(energy weapons in $List into $Weapons)
+
+($Ship autofire ammo weapons $Weapons)
+    (autofire for $Ship into $Autofire)
+	(take after 2 from $Autofire into $List)
+	(ammo weapons in $List into $Weapons)
+
+($ autofires with [] using $)
+
+($Ship autofires with $Weapons using $Amount)
+    ($Amount < 16383)
+    ($Weapons = [$Head | $Tail])
+	($Head = [$Type $ID | $])
+	(find $Ship $Type $ID into $Weapon)
+	($Weapon = [$ $ $Value $Arc $Num | $])
+	(closest hostile target to $Ship in arc $Arc into $Target)
+	(if) ~($Target = $Ship) (then)
+		(min $Value $Amount $Min)
+		(if) (energy weapon $Type) (then)
+	    	($Num times $Min into $Fired)
+		(else)
+			($Fired = $Min)
+		(endif)
+    	($Ship fires $Type $ID at $Target using $Fired)
+	(endif)
+	($Ship autofires with $Tail using $Amount)
+
+($Ship autofires)
+    ($Ship autofire energy $Energy)
+    ($Ship autofire energy weapons $EnergyWeapons)
+    ($Ship autofires with $EnergyWeapons using $Energy)
+    ($Ship autofire ammo $Ammo)
+    ($Ship autofire ammo weapons $AmmoWeapons)
+    ($Ship autofires with $AmmoWeapons using $Ammo)

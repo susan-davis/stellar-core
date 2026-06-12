@@ -30,5 +30,5 @@
 %% class record, and keeps a list of damaged systems in its own systems list.
 %% A player ship has its own map, and uses player-ship.dg for recording damage.
 %%
-%% Missile schema: [X Y Target Speed Endurance Damage Number ID]
+%% Missile schema: [X Y Heading Speed Target Endurance Damage Number ID]
 

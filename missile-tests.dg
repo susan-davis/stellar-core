@@ -150,6 +150,17 @@
     (remove all missiles tracking on #test-ship)
 	(list of missiles [])
 
+#remove-tracking-missiles-leaving-others
+(test *)
+(run *)
+    (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
+    (launch 4 missiles of 499 2 200 from [3544 4444] at #neutral-ship)
+	(list of missiles [
+	    [3544 4444 225 499 #test-ship 2 200 4 1]
+	    [3544 4444 118 499 #neutral-ship 2 200 4 2]])
+    (remove all missiles tracking on #test-ship)
+	(list of missiles [[3544 4444 118 499 #neutral-ship 2 200 4 2]])
+
 #volley-reaches-target
 (test *)
 (run *)
@@ -171,6 +182,21 @@
 	(#test-ship energy 532)
 	(#test-ship length of systems 6)
 	(list of missiles [])
+
+#dont-move-volleys-for-other-ships
+(test *)
+(run *)
+    (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
+    (launch 4 missiles of 499 2 200 from [3544 4444] at #neutral-ship)
+	(list of missiles [
+	    [3544 4444 225 499 #test-ship 2 200 4 1]
+	    [3544 4444 118 499 #neutral-ship 2 200 4 2]])
+    (update missiles for #test-ship)
+	(list of missiles [
+	    [3544 4444 118 499 #neutral-ship 2 200 4 2]
+	    [3444 4544 225 499 #test-ship 1 200 4 1]])
+    (update missiles for #test-ship)
+	(list of missiles [[3544 4444 118 499 #neutral-ship 2 200 4 2]])
 
 #move-volley-maximum-range
 (test *)
@@ -248,7 +274,7 @@
     (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
 	(#test-ship needs sensor level 2 to see 1)
 
-#point-defence-test-ship
+#manual-point-defence-test-ship
 (test *)
 (run *)
     (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
@@ -319,7 +345,7 @@
 	(#distant-target ammo 7)
 	(list of missiles [[3644 4744 315 255 #test-ship 3 200 1 1]])
 
-#point-defence-q7-bow
+#manual-point-defence-q7-bow
 (test *)
 (run *)
     (use q7)
@@ -329,7 +355,7 @@
 	(#distant-target fires #projector 1 at 1 using 30)
 	(list of missiles [[3644 4744 135 499 #distant-target 1 200 1 1]])
 
-#point-defence-q7-stern
+#manual-point-defence-q7-stern
 (test *)
 (run *)
     (use q7)
@@ -379,7 +405,7 @@
 	(autofire for #distant-target into
         [5 1 [#projector 2] [#projector 3] [#projector 4] [#projector 5]])
 
-#q7-autofire-energy-weapons
+#q7-autofire-energy-weapons-at-ships
 (test *)
 (run *)
     (set autofire for #distant-target to
@@ -387,14 +413,14 @@
 	(#distant-target autofire energy weapons
         [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
 
-#q7-autofire-ammo-weapons
+#q7-autofire-ammo-weapons-at-ships
 (test *)
 (run *)
     (set autofire for #distant-target to
 	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
 	(#distant-target autofire ammo weapons [])
 
-#test-ship-autofire
+#test-ship-autofire-at-ships
 (test *)
 (run *)
     (set autofire for #test-ship to [[#projector 1]])
@@ -408,7 +434,7 @@
 	($Ship ammo $A) %% $A
 	(assert $Ammo = $A)
 
-#q7-autofire-bow
+#q7-autofire-bow-at-ships
 (test *)
 (run *)
     (use q7)
@@ -418,7 +444,7 @@
     (#test-ship shields 487)
     (assert #distant-target has 2990 energy and 8 ammo)
 
-#q7-autofire-stern
+#q7-autofire-stern-at-ships
 (test *)
 (run *)
     (use q7)
