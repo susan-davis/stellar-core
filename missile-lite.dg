@@ -108,18 +108,33 @@
 (* position [16383 16383 0 0])
 
 (hit * with $Units from angle $)
-    (if) ($Units > 3) (then)
-	    (number of missiles in flight $Missiles)
-		(subtract 1 from $Missiles into $Remaining)
-		(now) (number of missiles in flight $Remaining)
+    (units < 4) %% missile survives
+
+(hit * with $Units from angle $)
+    (number of missiles in flight $Missiles)
+	(log) {one missile shot down}
+	(subtract 1 from $Missiles into $Remaining)
+	(now) (number of missiles in flight $Remaining)
+	(if) ($Remaining = 0) (then)
+		(remove #missile from the map)
 	(endif)
 
+(hit * $ times with $Units from angle $)
+    (units < 4) %% missile survives
+
 (hit * $Num times with $Units from angle $)
-    (if) ($Units > 3) (then)
-	    (number of missiles in flight $Missiles)
-		(subtract $Num from $Missiles into $Remaining)
-		(now) (number of missiles in flight $Remaining)
+    (number of missiles in flight $Missiles)
+	(log) {$Num missiles shot down}
+	(subtract $Num from $Missiles into $Remaining)
+	(now) (number of missiles in flight $Remaining)
+	(if) ($Remaining = 0) (then)
+		(remove #missile from the map)
 	(endif)
+
+($Ship damages * with projector $Num $Value $Increment $Amount)
+    ($Ship projector $Num $Value $Increment at * using $Amount generates $Raw)
+	($Raw divided by $Num into $Damage)
+	($Ship hits * $Num times with $Damage)
 
 (launch $Num missiles of $Speed $Endurance $Damage from $Here at $Target)
     ($Speed times $Endurance into $MaxRange)

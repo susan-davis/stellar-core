@@ -152,6 +152,7 @@
 			($EffectiveEnergy = $Damage)
 		(endif)
 	(else)
+		(log) {projector $N misses}
 	    ($Damage = 0)
 	(endif)
 

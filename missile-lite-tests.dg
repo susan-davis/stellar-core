@@ -36,8 +36,14 @@
 #missile-not-on-map
 (test *)
 (run *)
-    (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
+    (launch 1 missiles of 499 2 200 from [3544 4444] at #test-ship)
 	~(#missile is on the map)
+
+#no-missiles-in-flight
+(test *)
+(run *)
+    (launch 1 missiles of 499 2 200 from [3544 4444] at #test-ship)
+	(number of missiles in flight 0)
 
 #test-ship-point-defence
 (test *)
@@ -56,3 +62,56 @@
 	(launch 2 missiles of 499 2 200 from [5000 5000] at #neutral-ship)
 	%% one shot down, remaining one hits
 	(#neutral-ship energy 300)
+
+#q7-point-defence-bow
+(test *)
+(run *)
+	(use q7)
+	(set autofire for #distant-target to
+	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
+    (launch 2 missiles of 1097 2 500 from [3444 4544] at #distant-target)
+    (#distant-target shields 500)
+	(#distant-target energy 2990)
+	(#distant-target systems length 0)
+
+#q7-point-defence-stern
+(test *)
+(run *)
+    (use q7)
+	(set autofire for #distant-target to
+	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
+	(turn #distant-target away from #test-ship)
+    (launch 2 missiles of 1097 2 500 from [3444 4544] at #distant-target)
+    (#distant-target shields 500)
+	(#distant-target energy 2990)
+	(#distant-target systems length 0)
+
+#q7-autofire-all-around
+(test *)
+(run *)
+    (use q7)
+	(turn #distant-target away from #test-ship)
+	(set autofire for #distant-target to
+	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
+    (launch 2 missiles of 1097 2 500 from [3444 4544] at #distant-target)
+    (launch 2 missiles of 1097 2 500 from [3744 4544] at #distant-target)
+    (launch 2 missiles of 1097 2 500 from [3544 4844] at #distant-target)
+    (#distant-target shields 100)
+	(#distant-target energy 2380)
+	(#distant-target systems length 2)
+
+#torpedoes-beyond-boost
+(test *)
+(run *)
+    (use q7)
+	(set autofire for #distant-target to
+	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
+    (drag #distant-target to position [3999 4999])
+	(drag #test-ship to position [3000 4000])
+	(turn #distant-target to face #test-ship)
+	(turn #test-ship to face #distant-target)
+	(#test-ship fires at #distant-target using 100 energy and 2 ammo)
+	%% one missile shot down, one gets through
+    (#distant-target shields 219)
+	(#distant-target energy 2745)
+	(#distant-target systems length 1)
