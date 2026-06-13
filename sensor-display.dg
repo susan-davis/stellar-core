@@ -61,6 +61,61 @@
 	($Ship fleet $Fleet)
 	(name $Fleet) (class $Ship)
 
+($Ship code is capitalized)
+	(ship $Ship)
+	{ ~($Ship is simple) (or) (current ship $Ship) }
+
+(fleet code $Ship)
+	($Ship fleet $Fleet)
+	(collect words) (name $Fleet) (into $Words)
+	(nth $Words 1 $Word)
+	(split word $Word into $Letters)
+	(nth $Letters 1 $Letter)
+	(if) ($Ship code is capitalized) (then)
+		(uppercase) $Letter
+	(else)
+		$Letter
+	(endif)
+
+(name code $Ship)
+	(ship $Ship)
+	(collect words) (name $Ship) (into $Words)
+	(nth $Words 1 $Word)
+	(split word $Word into $Letters)
+	(nth $Letters 1 $Letter)
+	(uppercase) $Letter
+
+($Ship uses name code) %% our ship, and other ships in our fleet
+    (ship $Ship)
+    (current ship $OurShip)
+	($OurShip fleet $OurFleet)
+	($Ship fleet $Fleet)
+	{ ($Ship = $OurShip) (or) ($Fleet = $OurFleet) }
+
+(name $Ship)
+	(ship $Ship)
+	($Ship class $Class)
+	(name $Class)
+
+(name $Base)
+	(base $Base)
+	($Base fleet $Fleet)
+	(name $Fleet) base
+
+(code $Ship)
+	(ship $Ship)
+	(if) ($Ship uses name code) (then)
+		(name code $Ship)
+	(else)
+		(fleet code $Ship)
+	(endif)
+
+(code $Base) (base $Base) \#
+
+(code $Obj) (stellar object $Obj) \*
+
+(code $Obj) \?
+
 (hostile ships in sector $X $Y into $List)
 	(collect $Obj)
 		*(ship $Obj)

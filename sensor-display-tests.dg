@@ -1,4 +1,4 @@
-%% dgdebug -u -w 80 sensor-display-tests.dg sensor-display.dg test-ships.dg \
+%% dgdebug -u -w 80 sensor-display-tests.dg test-ships.dg sensor-display.dg \
 %%         sensor.dg damage.dg arc.dg maneuver.dg sector.dg grid.dg d6.dg \
 %%		   utils.dg unit.dg stdlib.dg
 
@@ -14,30 +14,173 @@
 (test *)
 (run *)
 	  (collect words) (class #test-ship) (into $Words)
-	  ($Words = [cygnus -class fast scout])
+	  ($Words = [constellation -class fast scout])
+
+#ship-class-q7
+(test *)
+(run *)
+	  (collect words) (class #distant-target) (into $Words)
+	  ($Words = [victory iii -class cruiser])
+
+#ship-class-merchant
+(test *)
+(run *)
+	  (collect words) (class #neutral-ship) (into $Words)
+	  ($Words = [maru -class freighter])
 
 #long-class
 (test *)
 (run *)
 	  (collect words) (long class #test-ship) (into $Words)
-	  ($Words = [stellar union cygnus -class fast scout])
+	  ($Words = [union constellation -class fast scout])
+
+#long-class-q7
+(test *)
+(run *)
+	  (collect words) (long class #distant-target) (into $Words)
+	  ($Words = [quellan victory iii -class cruiser])
+
+#long-class-merchant
+(test *)
+(run *)
+	  (collect words) (long class #neutral-ship) (into $Words)
+	  ($Words = [civilian maru -class freighter])
+
+#eridanus-is-capitalized
+(test *)
+(run *)		(#test-ship code is capitalized)
+
+#closest-target-is-not-capitalized
+(test *)
+(run *)		~(#closest-target code is capitalized)
+
+#near-target-is-not-capitalized
+(test *)
+(run *)		~(#near-target code is capitalized)
+
+#far-target-is-not-capitalized
+(test *)
+(run *)		~(#far-target code is capitalized)
+
+#distant-target-is-capitalized
+(test *)
+(run *)		(#distant-target code is capitalized)
+
+#neutral-ship-is-not-capitalized
+(test *)
+(run *)		~(#neutral-ship code is capitalized)
+
+#enemy-base-is-not-capitalized
+(test *)
+(run *)		~(#enemy-base code is capitalized)
+
+#asteroid-is-not-capitalized
+(test *)
+(run *)		~(#asteroid code is capitalized)
+
+#eridanus-uses-name-code
+(test *)
+(run *)		(#test-ship uses name code)
+
+#distant-target-does-not-use-name-code
+(test *)
+(run *)		~(#distant-target uses name code)
+
+#name-eridanus
+(test *)
+(run *)		(collect words) (name #test-ship) (into [eridanus])
+
+#name-closest-target
+(test *)
+(run *)		(collect words) (name #closest-target) (into [attack ii])
+
+#name-q7
+(test *)
+(run *)		(collect words) (name #distant-target) (into [victory iii])
+
+#name-starbase
+(test *)
+(run *)		(collect words) (name #starbase) (into [union base])
+
+#name-enemy-base
+(test *)
+(run *)		(collect words) (name #enemy-base) (into [quellan base])
+
+#name-code-eridanus
+(test *)
+(run *)		(collect words) (name code #test-ship) (into [e])
+
+#name-code-closest-target
+(test *)
+(run *)		(collect words) (name code #closest-target) (into [a])
+
+#name-code-q7
+(test *)
+(run *)		(collect words) (name code #distant-target) (into [v])
+
+#fleet-code-eridanus
+(test *)
+(run *)		(collect words) (fleet code #test-ship) (into [u])
+
+#fleet-code-closest-target
+(test *)
+(run *)		(collect words) (fleet code #closest-target) (into [q])
+
+#fleet-code-distant-target
+(test *)
+(run *)		(collect words) (fleet code #distant-target) (into [q])
+
+#eridanus-code
+(test *)
+(run *)		(collect words) (code #test-ship) (into [e])
+
+#closest-target-code
+(test *)
+(run *)		(collect words) (code #closest-target) (into [q])
+
+#near-target-code
+(test *)
+(run *)		(collect words) (code #near-target) (into [q])
+
+#far-target-code
+(test *)
+(run *)		(collect words) (code #far-target) (into [q])
+
+#distant-target-code
+(test *)
+(run *)		(collect words) (code #distant-target) (into [q])
+
+#neutral-ship-code
+(test *)
+(run *)		(collect words) (code #neutral-ship) (into [c])
+
+#starbase-code
+(test *)
+(run *)		(collect words) (code #starbase) (into [\#])
+
+#enemy-base-code
+(test *)
+(run *)		(collect words) (code #enemy-base) (into [\#])
+
+#asteroid-code
+(test *)
+(run *)		(collect words) (code #asteroid) (into [\*])
+
+#sun-code
+(test *)
+(run *)		(collect words) (code #sun) (into [o])
+
+#unidentified-object-code
+(test *)
+(run *)		(collect words) (code #unidentified-object) (into [\?])
 
 #glyph-at-ship-location
 (test *)
-(run *)
-	(collect words)
-		(glyph at 3 4 5 6)
-	(into $Words)
-	$Words
-	(assert $Words = [ e ])
+(run *)		(collect words) (glyph at 3 4 5 6) (into [e])
 
 #scan-ship-location
 (test *)
-(run *)
-	(collect words)
-		(scan 3 4 5 6)
-	(into $Words)
-	($Words = [ e | $ ])
+(run *)		(collect words) (scan 3 4 5 6) (into [ e | $ ])
 
 #condition-1
 (test *)

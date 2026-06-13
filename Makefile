@@ -1,8 +1,9 @@
 # stellar-core consists of shared components between Stellar Union games
 
 DEBUG=dgdebug -u
-WIDE=$(DEBUG) -w 80
-NARROW=$(DEBUG) -w 40
+TEST=$(DEBUG) test-ships.dg
+WIDE=$(DEBUG) -w 80 test-ships.dg
+NARROW=$(DEBUG) -w 40 test-ships.dg
 
 COMPILE=dialogc
 AA=$(COMPILE) -t aa
@@ -13,7 +14,7 @@ BLORB=$(COMPILE) -t zblorb
 ZBUNDLE=ozmoo
 
 STDLIB=utils.dg unit.dg stdlib.dg
-LIBS=test-ships.dg schema.dg sector.dg bearing.dg grid.dg $(STDLIB)
+LIBS=schema.dg sector.dg bearing.dg grid.dg $(STDLIB)
 DLIBS=arc.dg damage.dg d6.dg time.dg $(LIBS)
 SLIBS=scanner.dg systems.dg missile-lite.dg missile.dg weapons.dg scanner.dg sensor.dg $(DLIBS)
 TLIBS=quadrant.dg orbit.dg planet.dg terrain.dg transient.dg probe.dg $(SLIBS)
@@ -64,16 +65,16 @@ schema:
 	$(DEBUG) schema-tests.dg schema.dg test-ships.dg bearing.dg grid.dg $(STDLIB)
 
 maneuver:
-	$(DEBUG) maneuver-tests.dg maneuver.dg time.dg $(LIBS)
+	$(TEST) maneuver-tests.dg maneuver.dg time.dg $(LIBS)
 
 damage:
-	$(DEBUG) damage-tests.dg damage.dg d6.dg $(LIBS)
+	$(TEST) damage-tests.dg damage.dg d6.dg $(LIBS)
 
 arc:
-	$(DEBUG) arc-tests.dg arc.dg $(LIBS)
+	$(TEST) arc-tests.dg arc.dg $(LIBS)
 
 sensor:
-	$(DEBUG) sensor-tests.dg sensor.dg $(DLIBS)
+	$(TEST) sensor-tests.dg sensor.dg $(DLIBS)
 
 sensor-wide:
 	$(WIDE) sensor-display-tests.dg sensor-display.dg sensor.dg $(DLIBS)
@@ -82,13 +83,13 @@ sensor-narrow:
 	$(NARROW) sensor-display-tests.dg sensor-display.dg sensor.dg $(DLIBS)
 
 weapons:
-	$(DEBUG) weapons-tests.dg weapons.dg sensor.dg maneuver.dg $(DLIBS)
+	$(TEST) weapons-tests.dg weapons.dg sensor.dg maneuver.dg $(DLIBS)
 
 missile:
-	$(DEBUG) missile-tests.dg missile.dg weapons.dg sensor.dg maneuver.dg $(DLIBS)
+	$(TEST) missile-tests.dg missile.dg weapons.dg sensor.dg maneuver.dg $(DLIBS)
 
 missile-lite:
-	$(DEBUG) missile-lite-tests.dg missile-lite.dg weapons.dg sensor.dg maneuver.dg $(DLIBS)
+	$(TEST) missile-lite-tests.dg missile-lite.dg weapons.dg sensor.dg maneuver.dg $(DLIBS)
 
 .PHONY: test all clean utils time sector grid maneuver damage d6 d6-lite
 .PHONY: sensor sensor-wide sensor-narrow arc weapons missile
