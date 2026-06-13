@@ -1,0 +1,48 @@
+%% union-fleet.dg
+
+%% Copyright © 2021-2026, Susan Davis. All rights reserved. See LICENSE for
+%% licensing details.
+
+#union
+(fleet *)
+(name *)				Union
+(long name *)			Stellar Union
+%%(capital ship code *)	S
+%%(simple ship code *)	s
+(* considers #quellan  #hostile)
+(* considers #tiberian #hostile)
+(* considers #regulan  #friendly)
+(* considers #alliance #suspicious)
+(* considers #civilian #neutral)
+(* considers #pirate   #hostile)
+
+#constellation-class
+(name *)		Constellation
+(ship type *)	fast scout
+(* state [10 10 180 9636 #union 1000 4 10 500 100 16])
+(* systems [[#projector 1 100 [360 #up] 1 141]
+		   [#torpedo 1 500 [1 8] 1 499 1097]
+		   [#torpedo 2 500 [1 8] 1 499 1097]
+		   [#tractor 1 250 [4 5]]
+		   [#sensor 1 5 #north]          %% scout sensors
+		   [#sensor 2 4 [360 #up #down]] %% long-range sensors
+		   [#sensor 3 3 [360 #up #down]] %% short-range sensors
+		   [#mtd 1 4]
+		   [#shuttle 1 10 #south 1]
+		   [#life-support 1 20 [] 1100]
+		   [#life-support 2 20 [] 10]
+		   [#reactor 1 4]
+		   [#bus 1 1000]
+		   [#reactionless #east 3]
+		   [#reactionless #west 3]
+		   [#a-drive #east 9630]
+		   [#a-drive #west 9630]
+		   [#damage-control 1 3]
+		   [#quarters 1 16]
+		   [#lab 1 4]
+		   [#shield #north 100 [8 1]]
+		   [#shield #east  100 [2 3]]
+		   [#shield #south 100 [4 5]]
+		   [#shield #west  100 [6 7]]
+		   [#shield #up    100 #up]
+		   [#shield #down  100 #down]])

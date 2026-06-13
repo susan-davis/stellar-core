@@ -1,0 +1,17 @@
+%% tiberian-fleet.dg
+
+%% Copyright © 2021-2026, Susan Davis. All rights reserved. See LICENSE for
+%% licensing details.
+
+#tiberian
+(fleet *)
+(name *)				Tiberian
+(long name *)			Tiberian Public Sector
+%%(capital ship code *)	T
+%%(simple ship code *)	t
+(* considers #union    #hostile)
+(* considers #regulan  #neutral)
+(* considers #quellan  #suspicious)
+(* considers #alliance #suspicious)
+(* considers #civilian #neutral)
+(* considers #pirate   #hostile)

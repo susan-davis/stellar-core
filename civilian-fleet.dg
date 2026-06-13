@@ -1,0 +1,17 @@
+%% civilian-fleet.dg
+
+%% Copyright © 2021-2026, Susan Davis. All rights reserved. See LICENSE for
+%% licensing details.
+
+#civilian
+(fleet *)
+(name *)				civilian
+(long name *)			merchant marine
+%%(capital ship code *)	C
+%%(simple ship code *)	c
+(* considers #union    #friendly)
+(* considers #alliance #friendly)
+(* considers #regulan  #neutral)
+(* considers #quellan  #hostile)
+(* considers #tiberian #hostile)
+(* considers #pirate   #hostile)

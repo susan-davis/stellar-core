@@ -1,0 +1,17 @@
+%% pirate-fleet.dg
+
+%% Copyright © 2021-2026, Susan Davis. All rights reserved. See LICENSE for
+%% licensing details.
+
+#pirate
+(fleet *)
+(name *)				pirate
+(long name *)			pirate syndicates
+%%(capital ship code *)	P
+%%(simple ship code *)	p
+(* considers #union    #hostile)
+(* considers #alliance #hostile)
+(* considers #civilian #hostile)
+(* considers #quellan  #suspicious)
+(* considers #tiberian #suspicious)
+(* considers #regulan  #suspicious)

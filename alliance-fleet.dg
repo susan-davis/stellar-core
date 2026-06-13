@@ -1,0 +1,17 @@
+%% alliance-fleet.dg
+
+%% Copyright © 2021-2026, Susan Davis. All rights reserved. See LICENSE for
+%% licensing details.
+
+#alliance
+(fleet *)
+(name *)				Alliance
+(long name *)			Alliance of Independent Worlds
+%%(capital ship code *)	A
+%%(simple ship code *)	a
+(* considers #union    #suspicious)
+(* considers #quellan  #hostile)
+(* considers #regulan  #neutral)
+(* considers #tiberian #suspicious)
+(* considers #civilian #friendly)
+(* considers #pirate   #hostile)

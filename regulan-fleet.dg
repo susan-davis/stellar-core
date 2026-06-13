@@ -1,0 +1,17 @@
+%% regulan-fleet.dg
+
+%% Copyright © 2021-2026, Susan Davis. All rights reserved. See LICENSE for
+%% licensing details.
+
+#regulan
+(fleet *)
+(name *)				Regulan
+(long name *)			Regulan Matriarchy
+%%(capital ship code *)	R
+%%(simple ship code *)	r
+(* considers #union    #friendly)
+(* considers #quellan  #hostile)
+(* considers #tiberian #suspicious)
+(* considers #alliance #neutral)
+(* considers #civilian #neutral)
+(* considers #pirate   #hostile)

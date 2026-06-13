@@ -15,6 +15,7 @@
 (* considers #regulan  #friendly)
 (* considers #alliance #suspicious)
 (* considers #civilian #neutral)
+(* considers #pirate   #hostile)
 
 %% position = [X Y Heading Speed]
 %% state = [DstX DstY Helm Throttle Class Energy Crystals Ammo Shields
@@ -79,6 +80,7 @@
 (* considers #alliance #suspicious)
 (* considers #tiberian #neutral)
 (* considers #civilian #hostile)
+(* considers #pirate   #hostile)
 
 #closest-target
 (ship *)
@@ -192,7 +194,7 @@
 #civilian
 (fleet *)
 (name *)				civilian
-(long name *)			civilian
+(long name *)			merchant marine
 %%(capital ship code *)	C
 %%(simple ship code *)	c
 (* considers #union    #friendly)
@@ -200,6 +202,7 @@
 (* considers #regulan  #neutral)
 (* considers #quellan  #hostile)
 (* considers #tiberian #hostile)
+(* considers #pirate   #hostile)
 
 %% position = [X Y Heading Speed]
 %% state = [DstX DstY Helm Throttle Class Energy Crystals Ammo Shields
@@ -277,6 +280,7 @@
 (* considers #quellan  #suspicious)
 (* considers #alliance #suspicious)
 (* considers #civilian #neutral)
+(* considers #pirate   #hostile)
 
 #regulan
 (fleet *)
@@ -289,6 +293,7 @@
 (* considers #tiberian #suspicious)
 (* considers #alliance #neutral)
 (* considers #civilian #neutral)
+(* considers #pirate   #hostile)
 
 #alliance
 (fleet *)
@@ -301,6 +306,20 @@
 (* considers #regulan  #neutral)
 (* considers #tiberian #suspicious)
 (* considers #civilian #friendly)
+(* considers #pirate   #hostile)
+
+#pirate
+(fleet *)
+(name *)				pirate
+(long name *)			pirate syndicates
+%%(capital ship code *)	P
+%%(simple ship code *)	p
+(* considers #union    #hostile)
+(* considers #alliance #hostile)
+(* considers #civilian #hostile)
+(* considers #quellan  #suspicious)
+(* considers #tiberian #suspicious)
+(* considers #regulan  #suspicious)
 
 (set up $)
      (now) ~(x increases west)
@@ -349,3 +368,10 @@
 #barracks
 #lab
 #shield
+
+%% ..and be
+
+#friendly
+#hostile
+#suspicious
+#neutral
