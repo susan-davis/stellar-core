@@ -17,13 +17,17 @@
 
 (interface (code $))  %% one-letter code on sensor display
 
-%%
+%% Long-range scan contacts, sorted into categories.
 
 (interface (friendly ships in sector $<X $<Y into $>List))
+
+(interface (allied ships in sector $<X $<Y into $>List))
 
 (interface (friendly base in sector $<X $<Y into $>Base))
 
 (interface (hostile ships in sector $<X $<Y into $>List))
+
+(interface (enemy ships in sector $<X $<Y into $>List))
 
 (interface (hostile base in sector $<X $<Y into $>Base))
 
@@ -116,7 +120,20 @@
 
 (code $Obj) \?
 
+%% sector summary for long range scan
+
 (hostile ships in sector $X $Y into $List)
+	(collect $Obj)
+		*(ship $Obj)
+		(current ship $Ship)
+		{ ($Ship considers $Obj #hostile) (or)
+		  ($Ship considers $Obj #suspicious) }
+		($Obj sector x $SX)
+		($Obj sector y $SY)
+		([$X $Y] = [$SX $SY])
+	(into $List)
+
+(enemy ships in sector $X $Y into $List)
 	(collect $Obj)
 		*(ship $Obj)
 		(current ship $Ship)
@@ -125,8 +142,6 @@
 		($Obj sector y $SY)
 		([$X $Y] = [$SX $SY])
 	(into $List)
-
-%% sector summary for long range scan
 
 (hostile base in sector $X $Y into $Base)
 	*(base $Base)
@@ -137,6 +152,17 @@
 	([$X $Y] = [$SX $SY])
 
 (friendly ships in sector $X $Y into $List)
+	(collect $Obj)
+		*(ship $Obj)
+		(current ship $Ship)
+		{ ($Ship considers $Obj #friendly) (or)
+		  ($Ship considers $Obj #neutral) }
+		($Obj sector x $SX)
+		($Obj sector y $SY)
+		([$X $Y] = [$SX $SY])
+	(into $List)
+
+(allied ships in sector $X $Y into $List)
 	(collect $Obj)
 		*(ship $Obj)
 		(current ship $Ship)
