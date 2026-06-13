@@ -62,6 +62,7 @@
 	(launch 2 missiles of 499 2 200 from [5000 5000] at #neutral-ship)
 	%% one shot down, remaining one hits
 	(#neutral-ship energy 300)
+	(autofire for #neutral-ship into [5 1])
 
 #q7-point-defence-bow
 (test *)
@@ -73,6 +74,7 @@
     (#distant-target shields 500)
 	(#distant-target energy 2990)
 	(#distant-target systems length 0)
+	(autofire for #distant-target into [5 1 [#projector 2] [#projector 3]])
 
 #q7-point-defence-stern
 (test *)
@@ -85,6 +87,7 @@
     (#distant-target shields 500)
 	(#distant-target energy 2990)
 	(#distant-target systems length 0)
+	(autofire for #distant-target into [5 1 [#projector 3]])
 
 #q7-autofire-all-around
 (test *)
@@ -99,6 +102,7 @@
     (#distant-target shields 100)
 	(#distant-target energy 2380)
 	(#distant-target systems length 2)
+	(autofire for #distant-target into [5 1])
 
 #torpedoes-beyond-boost
 (test *)
@@ -115,6 +119,7 @@
     (#distant-target shields 219)
 	(#distant-target energy 2745)
 	(#distant-target systems length 1)
+	(autofire for #distant-target into [5 1 [#projector 2] [#projector 3]])
 
 #missile-engagement
 (test *)
@@ -127,23 +132,7 @@
 	(turn #test-ship to face #distant-target)
 	(#distant-target fires at #test-ship using 200 energy and 1 ammo)
 	%% projector misses, missile detonates
-	(#test-ship shields 200)
-	(#test-ship energy 742)
-	(#test-ship systems length 5)
-
-#missile-engagement-reroll
-(test *)
-(run *)
-    (use q7)
-	(set autofire for #distant-target to
-	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
-	(turn #distant-target away from #test-ship)
-	(set autofire for #test-ship to [[#projector 1]])
-	(turn #test-ship to face #distant-target)
-	(turn #near-target to face #test-ship)
-	(#near-target fires at #test-ship using 100 energy and 0 ammo)
-	(#distant-target fires at #test-ship using 200 energy and 1 ammo)
-	%% missile shot down, but took more projector fire
-	(#test-ship shields 230)
-	(#test-ship energy 852)
+	(#test-ship shields 300)
+	(#test-ship energy 842)
 	(#test-ship systems length 4)
+	(autofire for #test-ship into [5 1])

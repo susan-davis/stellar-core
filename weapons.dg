@@ -142,7 +142,7 @@
 	(max 3 $Increments $Needed) %% natural 2 always misses
 	(roll 2 #d6 $HitRoll)
 	(log) {need $Needed, rolled $HitRoll}
-	(if) ($HitRoll > $Needed) (then)
+	(if) ~($HitRoll < $Needed) (then)
 		(roll 2 #d6 minus 2 $Random)
 		(log) {damage roll is $Random}
 		($Random times $Energy into $Potential)
