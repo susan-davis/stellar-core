@@ -141,10 +141,10 @@
 	($Range divided by $Increment into $Increments)
 	(max 3 $Increments $Needed) %% natural 2 always misses
 	(roll 2 #d6 $HitRoll)
-	(log) {need $Needed, rolled $HitRoll}
+	(log) {(space 4) need $Needed, rolled $HitRoll}
 	(if) ~($HitRoll < $Needed) (then)
 		(roll 2 #d6 minus 2 $Random)
-		(log) {damage roll is $Random}
+		(log) {(space 4) damage roll is $Random}
 		($Random times $Energy into $Potential)
 		($Potential divided by 10 into $AddedEnergy)
 		($Energy plus $AddedEnergy into $PlusEnergy)
