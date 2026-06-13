@@ -21,7 +21,7 @@
     (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
 	(#test-ship shields 104)
 	(#test-ship energy 528)
-	(#test-ship length of systems 6)
+	(#test-ship systems length 6)
 
 #launch-more-missiles
 (test *)
@@ -29,7 +29,7 @@
     (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
 	(#test-ship shields 104)
 	(#test-ship energy 528)
-	(#test-ship length of systems 6)
+	(#test-ship systems length 6)
     (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
 	(#test-ship is destroyed)
 
@@ -38,3 +38,21 @@
 (run *)
     (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
 	~(#missile is on the map)
+
+#test-ship-point-defence
+(test *)
+(run *)
+	(set autofire for #test-ship to [[#projector 1]])
+    (launch 4 missiles of 499 2 200 from [3544 4444] at #test-ship)
+	%% one shot down, remaining 3 hit
+	(#test-ship shields 203)
+	(#test-ship energy 624)
+	(#test-ship systems length 5)
+
+#neutral-ship-point-defence
+(test *)
+(run *)
+	(set autofire for #neutral-ship to [[#interceptor 1]])
+	(launch 2 missiles of 499 2 200 from [5000 5000] at #neutral-ship)
+	%% one shot down, remaining one hits
+	(#neutral-ship energy 300)

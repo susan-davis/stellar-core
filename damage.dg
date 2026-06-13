@@ -55,7 +55,7 @@
 
 (interface ($<Ship ammo $>Ammo))
 
-(interface ($<Ship length of systems $>Num))
+(interface ($<Ship systems length $>Num))
 
 (interface ($<Ship damaged systems $>Systems)) %% systems needing repair
 
@@ -119,10 +119,10 @@
     (object $Ship)
 	~($Ship is on the map)
 
-($Ship length of systems 0)
+($Ship systems length 0)
     ($Ship is simple)
 
-($Ship length of systems $Length)
+($Ship systems length $Length)
     ~($Ship is simple)
 	($Ship systems $Systems)
 	(length of $Systems into $Length)
@@ -166,7 +166,12 @@
 
 ($Ship shield levels $Levels)
 	($Ship state $State)
-	(nth $State 10 $Levels)
+	(nth $State 10 $Value)
+	(if) (list $Value) (then)
+	    ($Levels = $Value)
+	(else)
+		($Levels = [$Value $Value $Value $Value $Value $Value])
+	(endif)
 
 ($Ship shield level $Direction into $Level)
 	($Ship shield levels $Levels)

@@ -177,7 +177,7 @@
 (ship *)
 (name *)	Ko Maru
 (* initial position [5444 5444 180 1])
-(* initial state [5444 5444 0 0 #maru-class 500 2 10 50 [50 50 50 50] [20 0 0]])
+(* initial state [5444 5444 0 0 #maru-class 500 2 10 0 0 [20 0 0]])
 
 %% class  = [DriveEfficiency ReactorEfficiency TurnMode DriveParams Fleet
 %%           MaxEnergy MaxCrystals MaxAmmo MaxShields [MaxLevels] Crew]
@@ -187,7 +187,7 @@
 (name *)	Maru
 (ship type *)	freighter
 (code *)	c
-(* state [5 5 45 321 #civilian 500 2 10 50 [50 50 50 50] [20 0 0]])
+(* state [5 5 45 321 #civilian 500 2 10 0 0 [20 0 0]])
 (* systems [
     [#sensor 1 2 [360 #up #down]]
 	[#interceptor 1 5 360 1 149]])

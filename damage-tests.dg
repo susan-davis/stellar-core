@@ -18,6 +18,10 @@
 (test *)
 (run *) (#test-ship shield levels [100 99 98 97 96 95])
 
+#shield-levels-simple
+(test *)
+(run *) (#neutral-ship shield levels [0 0 0 0 0 0])
+
 #shield-level-north
 (test *)
 (run *) (#test-ship shield level #north into 100)
@@ -84,7 +88,7 @@
 
 #systems-length
 (test *)
-(run *) (#test-ship length of systems 2)
+(run *) (#test-ship systems length 2)
 
 #damaged-systems
 (test *)
@@ -102,7 +106,7 @@
 
 #systems-length-simple
 (test *)
-(run *) (#closest-target length of systems 0)
+(run *) (#closest-target systems length 0)
 
 #damaged-systems-simple
 (test *)

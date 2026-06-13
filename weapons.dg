@@ -51,8 +51,7 @@
 
 (energy weapons in $List into $Result)
 	($List = [$Head | $Tail])
-	(nth $Head 1 $Type)
-	(if) (energy weapon $Type) (then)
+	(if) (nth $Head 1 $Type) (energy weapon $Type) (then)
 		(energy weapons in $Tail into $Remainder)
 		(append [$Head] $Remainder $Result)
 	(else)
@@ -63,8 +62,7 @@
 
 (ammo weapons in $List into $Result)
 	($List = [$Head | $Tail])
-	(nth $Head 1 $Type)
-	(if) (ammo weapon $Type) (then)
+	(if) (nth $Head 1 $Type) (ammo weapon $Type) (then)
 		(ammo weapons in $Tail into $Remainder)
 		(append [$Head] $Remainder $Result)
 	(else)
