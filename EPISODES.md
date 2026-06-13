@@ -249,11 +249,15 @@ TBD
 
 TBD
 
-### 306:	*Men That Strove With Gods*
+### 306:	TBD
+
+TBD
+
+### 307:	*Men That Strove With Gods*
 
 Harmony seizes control of the Union, and Player and the ride-or-die Level 2 crew must escape by stealing the *Eridanus*.
 	
-### 307:	*The Utmost Bound of Human Thought*
+### 308:	*The Utmost Bound of Human Thought*
 
 The fate of the Union hangs in the balance, in the final confrontation with Harmony. The stolen *Eridanus* is pursued by half the Union fleet, and must get away and somehow prevent Harmony from overrunning what’s left of the Union… and perhaps recover what was lost?
 
@@ -268,11 +272,11 @@ How do you recover from a Harmony pandemic?
 
 Success triggers a victory sequence, in which the surviving crew are reunited to depart in a refitted *Odysseus*.
 	
-### 308:	*Manners, Climates, Councils, Governments*
+### 30x:	*Manners, Climates, Councils, Governments*
 
 Harmony has been defeated, but the Union is in tatters, and there's utter chaos on the other side of the Quellan border and beyond. Player is the hero of the quadrant; can they put the Union back together again?
 
-TBD: Do we have a denouement episode, or is this the final act of *The Utmost Bound of Human Thought?*
+TBD: Do we have a denouement episode, is this the final act of *The Utmost Bound of Human Thought*, or is this a subplot in *The Baths of All the Western Stars?* It's strongest to end with the victory after Harmony, and leave the cleanup for the full length plus.
 
 ### 309	*The Baths of All the Western Stars* (FULL LENGTH PLUS)
 	
