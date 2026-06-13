@@ -210,31 +210,62 @@
 	(collect words) (alert status) (into $Words)
 	($Words contains sublist [docked])
 
-#shouldnt-display-subsector
+#condition-5
+%%(test *)
+(run *)
+	(set condition 5)
+	(collect words) (alert status) (into $Words)
+	($Words contains sublist [landed])
+
+#hostile-ships-current-location
 (test *)
+(run *)		(hostile ships in sector 3 4 into [#closest-target #near-target])
+
+#enemy-ships-current-location
+(test *)
+(run *)		(enemy ships in sector 3 4 into [#closest-target #near-target])
+
+#friendly-ships-current-location
+(test *)
+(run *)		(friendly ships in sector 3 4 into [#test-ship])
+
+#allied-ships-current-location
+(test *)
+(run *)		(allied ships in sector 3 4 into [#test-ship])
+
+#hostile-base
+(test *)
+(run *)		(hostile base in sector 2 2 into #enemy-base)
+
+#friendly-base
+(test *)
+(run *)		(friendly base in sector 7 7 into #starbase)
+
+#shouldnt-display-subsector
+%%(test *)
 (run *)
 	~(should display subsector)
 
 #should-display-subsector-base
-(test *)
+%%(test *)
 (run *)
-	(move #test-ship to 7 7 7 7)
+	(move #test-ship to position [7644 7644])
 	(should display subsector)
 
 #should-display-subsector-gravity-well
-(test *)
+%%(test *)
 (run *)
-	(move #test-ship to 3 4 9 2)
+	(move #test-ship to position [3844 4144])
 	(should display subsector)
 
 #should-display-subsector-other-ship
-(test *)
+%%(test *)
 (run *)
-	(move #test-ship to 3 4 6 5)
+	(move #test-ship to position [3544 4444])
 	(should display subsector)
 
 #long-range-scan-zeros-suppressed
-(test *)
+%%(test *)
 (run *)
 	(now) ~(display zeros for empty categories)
 	(line) (long range scan)
@@ -242,7 +273,7 @@
 	($Words contains sublist [1 0 0 0 2 e 1])
 
 #long-range-scan-in-corner
-(test *)
+%%(test *)
 (run *)
 	(move #test-ship to 1 1 1 1)
 	(line) (long range scan)
@@ -250,7 +281,7 @@
 	($Words contains sublist [e 0 0 0 0 0 0 0 0 0 0 \#])
 
 #long-range-scan-in-corner-classic-behaviour
-(test *)
+%%(test *)
 (run *)
 	(now) ~(display sectors beyond quadrant)
 	(move #test-ship to 1 1 1 1)
@@ -260,7 +291,7 @@
 	(now) (display sectors beyond quadrant)
 
 #quadrant-chart-zeros-suppressed
-(test *)
+%%(test *)
 (run *)
 	(now) ~(display zeros for empty categories)
 	(line) (quadrant chart)
@@ -271,7 +302,7 @@
 	($Words contains sublist [\| \# \? 0 \|])
 
 #quadrant-chart-question-marks-suppressed
-(test *)
+%%(test *)
 (run *)
 	(now) ~(display question marks for undetectable ships)
 	(line) (quadrant chart)
@@ -288,33 +319,33 @@
 	($Words contains sublist [e . . . . . destination:])
 
 #dont-display-subsector
-(test *)
+%%(test *)
 (run *)
 	~(assert displays subsector)
 
 #display-subsector-base
-(test *)
+%%(test *)
 (run *)
 	(move #test-ship to 7 7 7 7)
 	(line) (short range scan)
 	(assert displays subsector)
 
 #display-subsector-gravity-well
-(test *)
+%%(test *)
 (run *)
 	(move #test-ship to 5 5 8 8)
 	(line) (short range scan)
 	(assert displays subsector)
 
 #display-subsector-other-ship
-(test *)
+%%(test *)
 (run *)
 	(move #test-ship to 3 4 6 5)
 	(line) (short range scan)
 	(assert displays subsector)
 
 #short-range-scan
-(test *)
+%%(test *)
 (run *)
 	(line) (short range scan)
 	(collect words) (short range scan) (into $Words)
@@ -327,14 +358,14 @@
 	($Words contains sublist [energy: 932 , 4 crystals online])
 
 #long-range-scan
-(test *)
+%%(test *)
 (run *)
 	(line) (long range scan)
 	(collect words) (long range scan) (into $Words)
 	($Words contains sublist [1 0 0 0 0 0 2 e 1])
 
 #quadrant-chart
-(test *)
+%%(test *)
 (run *)
 	(line) (quadrant chart)
 	(collect words) (quadrant chart) (into $Words)

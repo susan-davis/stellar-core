@@ -25,13 +25,15 @@ MODEL=quadrant.dg orbit.dg planet.dg terrain.dg probe.dg transient.dg scanner.dg
 
 all: test
 
-test: test-basics test-systems
+test: test-basics test-systems test-displays
 
 test-basics: utils time d6 d6-lite grid bearing sector schema maneuver 
 
 test-systems: damage arc sensor weapons missile missile-lite # systems scanner probe shuttle mtd
 
-test-controls: sensor-wide sensor-narrow scanner-panel weapons-panel helm ops engine-panel controls
+test-controls: scanner-panel weapons-panel helm ops engine-panel controls
+
+test-displays: sensor-wide sensor-narrow # leave these always last
 
 clean:
 	rm -f *~ \#*\# *.z5 *.z8 *.zblorb *.aastory *.d64 *.d71 log.txt
