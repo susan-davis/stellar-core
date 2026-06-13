@@ -1,11 +1,20 @@
- %% test-ships.dg
+%% test-ships.dg
 %% standard test ships for unit tests
 
 %% Copyright © 2021-2026, Susan Davis. All rights reserved. See LICENSE for
 %% licensing details.
 
 #union
-(name *)	Stellar Union
+(fleet *)
+(name *)				Union
+(long name *)			Stellar Union
+%%(capital ship code *)	S
+%%(simple ship code *)	s
+(* considers #quellan  #hostile)
+(* considers #tiberian #hostile)
+(* considers #regulan  #friendly)
+(* considers #alliance #suspicious)
+(* considers #civilian #neutral)
 
 %% position = [X Y Heading Speed]
 %% state = [DstX DstY Helm Throttle Class Energy Crystals Ammo Shields
@@ -60,7 +69,16 @@
 		   [#shield #down  100 #down]])
 
 #quellan
-(name *)	Quellan
+(fleet *)
+(name *)				Quellan
+(long name *)			Quellan Empire
+%%(capital ship code *)	Q
+%%(simple ship code *)	q
+(* considers #union    #hostile)
+(* considers #regulan  #hostile)
+(* considers #alliance #suspicious)
+(* considers #tiberian #neutral)
+(* considers #civilian #hostile)
 
 #closest-target
 (ship *)
@@ -172,7 +190,16 @@
 	[#shield #down  200 #down]])
 
 #civilian
-(name *)	civilian
+(fleet *)
+(name *)				civilian
+(long name *)			civilian
+%%(capital ship code *)	C
+%%(simple ship code *)	c
+(* considers #union    #friendly)
+(* considers #alliance #friendly)
+(* considers #regulan  #neutral)
+(* considers #quellan  #hostile)
+(* considers #tiberian #hostile)
 
 %% position = [X Y Heading Speed]
 %% state = [DstX DstY Helm Throttle Class Energy Crystals Ammo Shields
@@ -238,6 +265,42 @@
 (code *)	\#
 (* position [2114 2114])
 (* state #quellan)
+
+#tiberian
+(fleet *)
+(name *)				Tiberian
+(long name *)			Tiberian Public Sector
+%%(capital ship code *)	T
+%%(simple ship code *)	t
+(* considers #union    #hostile)
+(* considers #regulan  #neutral)
+(* considers #quellan  #suspicious)
+(* considers #alliance #suspicious)
+(* considers #civilian #neutral)
+
+#regulan
+(fleet *)
+(name *)				Regulan
+(long name *)			Regulan Matriarchy
+%%(capital ship code *)	R
+%%(simple ship code *)	r
+(* considers #union    #friendly)
+(* considers #quellan  #hostile)
+(* considers #tiberian #suspicious)
+(* considers #alliance #neutral)
+(* considers #civilian #neutral)
+
+#alliance
+(fleet *)
+(name *)				Alliance
+(long name *)			Alliance of Independent Worlds
+%%(capital ship code *)	A
+%%(simple ship code *)	a
+(* considers #union    #suspicious)
+(* considers #quellan  #hostile)
+(* considers #regulan  #neutral)
+(* considers #tiberian #suspicious)
+(* considers #civilian #friendly)
 
 (set up $)
      (now) ~(x increases west)

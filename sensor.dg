@@ -6,15 +6,23 @@
 
 %%-------------------------------- INTERFACES --------------------------------
 
+(interface (fleet $))
+
 (interface ($<Ship fleet $>Fleet))
 
-(interface ($<Ship considers $<Target friendly))
+(interface ($<OurSide considers $<TheirSide $>Status))
 
-(interface ($<Ship considers $<Target hostile))
+%% status can be one of:
+#friendly
+#hostile
+#suspicious
+#neutral
 
-(interface (find range from $Ship to $Target into $Range)) %% hook for missiles
-
+%% for weapons targeting priority
 (interface (closest hostile target to $<Ship into $>Target))
+
+%% hook for missiles
+(interface (find range from $<Ship to $<Target into $>Range))
 
 %% Sensor value 1: display the current or an adjacent position
 %% Sensor value 2: display the current or an adjacent subsector
@@ -90,17 +98,14 @@
 	(base $Base)
 	($Base state $Fleet)
 
-%% override for more nuanced situations
-($Ship considers $Target friendly)
-	($Ship fleet $OurFleet)
-	($Target fleet $TheirFleet) %% fails for non-ship objects
-	($OurFleet = $TheirFleet)
+%% override for more nuanced situations (e.g. TWoK)
+($Same considers $Same #friendly)
 
 %% override for more nuanced situations
-($Ship considers $Target hostile)
+($Ship considers $Target $Status)
 	($Ship fleet $OurFleet)
 	($Target fleet $TheirFleet)
-	~($OurFleet = $TheirFleet)
+	($OurFleet considers $TheirFleet $Status)
 
 (find range from $Ship to $Target into $Range) %% hook for missiles.dg
     (object $Target)
@@ -124,7 +129,7 @@
 (closest hostile target to $Ship in arc $Arc into $Target)
     (collect $Obj) {
 	    *(grid object $Obj)
-		($Ship considers $Obj hostile)
+		($Ship considers $Obj #hostile)
 		($Ship has detected $Obj)
 		(fire from $Ship to $Obj is in arc $Arc)
 	} (into $List)

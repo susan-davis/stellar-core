@@ -1,5 +1,5 @@
-%% dgdebug -u -w 80 sensor-display-tests.dg sensor-display.dg sensor.dg \
-%% 		   test-ships.dg damage.dg maneuver.dg sector.dg grid.dg d6.dg \
+%% dgdebug -u -w 80 sensor-display-tests.dg sensor-display.dg test-ships.dg \
+%%         sensor.dg damage.dg arc.dg maneuver.dg sector.dg grid.dg d6.dg \
 %%		   utils.dg unit.dg stdlib.dg
 
 (nato time)		051235Z Mar 73

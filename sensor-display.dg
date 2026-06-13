@@ -33,6 +33,8 @@
 
 %% Actually display the current situation.
 
+(interface (tactical scan))
+
 (interface (short range scan))
 
 (interface (long range scan))
@@ -63,7 +65,7 @@
 	(collect $Obj)
 		*(ship $Obj)
 		(current ship $Ship)
-		($Ship considers $Obj hostile)
+		($Ship considers $Obj #hostile)
 		($Obj sector x $SX)
 		($Obj sector y $SY)
 		([$X $Y] = [$SX $SY])
@@ -74,7 +76,7 @@
 (hostile base in sector $X $Y into $Base)
 	*(base $Base)
 	(current ship $Ship)
-	($Ship considers $Base hostile)
+	($Ship considers $Base #hostile)
 	($Base sector x $SX)
 	($Base sector y $SY)
 	([$X $Y] = [$SX $SY])
@@ -83,7 +85,7 @@
 	(collect $Obj)
 		*(ship $Obj)
 		(current ship $Ship)
-		($Ship considers $Obj friendly)
+		($Ship considers $Obj #friendly)
 		($Obj sector x $SX)
 		($Obj sector y $SY)
 		([$X $Y] = [$SX $SY])
@@ -92,7 +94,7 @@
 (friendly base in sector $X $Y into $Base)
 	*(base $Base)
 	(current ship $Ship)
-	($Ship considers $Base friendly)
+	($Ship considers $Base #friendly)
 	($Base sector x $SX)
 	($Base sector y $SY)
 	([$X $Y] = [$SX $SY])
