@@ -108,9 +108,9 @@
 (* position [16383 16383 0 0])
 
 (hit * with $Units from angle $)
-    (units < 4) %% missile survives
+    ($Units < 4) %% missile survives
 
-(hit * with $Units from angle $)
+(hit * with $ from angle $)
     (number of missiles in flight $Missiles)
 	(log) {one missile shot down}
 	(subtract 1 from $Missiles into $Remaining)
@@ -120,9 +120,9 @@
 	(endif)
 
 (hit * $ times with $Units from angle $)
-    (units < 4) %% missile survives
+    ($Units < 4) %% missile survives
 
-(hit * $Num times with $Units from angle $)
+(hit * $Num times with $ from angle $)
     (number of missiles in flight $Missiles)
 	(log) {$Num missiles shot down}
 	(subtract $Num from $Missiles into $Remaining)
@@ -136,11 +136,14 @@
 	($Raw divided by $Num into $Damage)
 	($Ship hits * $Num times with $Damage)
 
-(launch $Num missiles of $Speed $Endurance $Damage from $Here at $Target)
+(launch $ missiles of $Speed $Endurance $ from $Here at $Target)
     ($Speed times $Endurance into $MaxRange)
 	($Target position $There)
 	(calculate range from $Here to $There into $Range)
-	~($Range > $MaxRange)
+	($Range > $MaxRange) %% then do nothing
+
+(launch $Num missiles of $Speed $ $Damage from $Here at $Target)
+	($Target position $There)
 	(log) {launched  $Num missiles of $Damage units at $Target}
 	(now) (number of missiles in flight $Num)
 	(calculate bearing from $Here to $There into $Heading)

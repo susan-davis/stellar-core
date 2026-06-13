@@ -115,3 +115,35 @@
     (#distant-target shields 219)
 	(#distant-target energy 2745)
 	(#distant-target systems length 1)
+
+#missile-engagement
+(test *)
+(run *)
+    (use q7)
+	(set autofire for #distant-target to
+	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
+	(turn #distant-target away from #test-ship)
+	(set autofire for #test-ship to [[#projector 1]])
+	(turn #test-ship to face #distant-target)
+	(#distant-target fires at #test-ship using 200 energy and 1 ammo)
+	%% projector misses, missile detonates
+	(#test-ship shields 200)
+	(#test-ship energy 742)
+	(#test-ship systems length 5)
+
+#missile-engagement-reroll
+(test *)
+(run *)
+    (use q7)
+	(set autofire for #distant-target to
+	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
+	(turn #distant-target away from #test-ship)
+	(set autofire for #test-ship to [[#projector 1]])
+	(turn #test-ship to face #distant-target)
+	(turn #near-target to face #test-ship)
+	(#near-target fires at #test-ship using 100 energy and 0 ammo)
+	(#distant-target fires at #test-ship using 200 energy and 1 ammo)
+	%% missile shot down, but took more projector fire
+	(#test-ship shields 230)
+	(#test-ship energy 852)
+	(#test-ship systems length 4)
