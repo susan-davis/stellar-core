@@ -19,10 +19,7 @@
 
 %%-------------------------------- INTERFACES ---------------------------------
 
-(interface (reset missiles))
-
-(interface (launch $<Num missiles of $<Speed $<Endurance $<Damage
-            from $<Position at $<Target))
+(interface (reset missiles)) %% for compatibility with missile.dg
 
 (interface (autofire for $<Ship into $>Weapons))
 
@@ -44,7 +41,7 @@
 
 %%------------------------------ IMPLEMENTATION ------------------------------
 
-(reset missiles) %% for compatibility with missile.dg
+(reset missiles) %% compatibility with missile.dg
 
 (autofire for $Ship into $List)
     ($Ship state $State)

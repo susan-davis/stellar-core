@@ -115,7 +115,7 @@
 	(turn #distant-target to face #test-ship)
 	(turn #test-ship to face #distant-target)
 	(#test-ship fires at #distant-target using 100 energy and 2 ammo)
-	%% one missile shot down, one gets through
+	%% one torpedo shot down, one gets through
     (#distant-target shields 219)
 	(#distant-target energy 2745)
 	(#distant-target systems length 1)
@@ -125,8 +125,6 @@
 (test *)
 (run *)
     (use q7)
-	(set autofire for #distant-target to
-	    [[#projector 2] [#projector 3] [#projector 4] [#projector 5]])
 	(turn #distant-target away from #test-ship)
 	(set autofire for #test-ship to [[#projector 1]])
 	(turn #test-ship to face #distant-target)

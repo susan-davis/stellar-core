@@ -33,6 +33,9 @@
 
 (interface ($<Ship fires at $<Target using $<Energy energy and $<Ammo ammo))
 
+(interface (launch $<Num missiles of $<Speed $<Endurance $<Damage
+            from $<Position at $<Target)) %% implemented elsewhere
+
 %%------------------------------ IMPLEMENTATION ------------------------------
 
 (weapons in [] into [])
