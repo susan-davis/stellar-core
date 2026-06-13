@@ -13,13 +13,13 @@
 
 #class
 (test *)
-(run *)	  (#test-ship class #cygnus-class)
+(run *)	  (#test-ship class #constellation-class)
 
 #initialize
 (test *)
 (run *)
-    (initialize #test-ship as #cygnus-class)
-	(#test-ship class #cygnus-class)
+    (initialize #test-ship as #constellation-class)
+	(#test-ship class #constellation-class)
 	(#test-ship energy 1000)
 	(#test-ship crystals 4)
 

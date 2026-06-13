@@ -29,7 +29,7 @@
 (code *)	E
 (* initial position [3444 4544 315 32])
 (* initial state
-    [3000 4000 315 171 #cygnus-class 932 4 10 500
+    [3000 4000 315 171 #constellation-class 932 4 10 500
     [100 99 98 97 96 95] [13 2 1] [5 1]])
 (* initial systems [[#tractor 1 123 800] [#mtd 1 0 16383]])
 
@@ -37,10 +37,10 @@
 %%           MaxEnergy MaxCrystals MaxAmmo MaxShields [MaxLevels] Crew]
 %% system = [System ID Arcs Value Details]
 
-#cygnus-class
-(name *)	Cygnus
+#constellation-class
+(name *)		Constellation
 (ship type *)	fast scout
-(code *)	s
+(code *)		s
 (* state [10 10 180 9636 #union 1000 4 10 500 [100 99 98 97 96 95] 16])
 (* systems [[#projector 1 100 [360 #up] 1 141]
 		   [#torpedo 1 500 [1 8] 1 499 1097]
@@ -86,34 +86,30 @@
 (ship *)
 (* initial position [3544 4444 225 108])
 (* initial state
-    [16383 16383 225 108 #attack-class 500 2 0 250
-	[100 50 50 50 25 25] [38 0 0] [5 1]])
+    [16383 16383 225 108 #q3 500 2 0 250 [100 50 50 50 25 25] [38 0 0] [5 1]])
 
 #near-target
 (ship *)
 (* initial position [3144 4244 45 62])
 (* initial state
-    [3444 4444 45 108 #attack-class 500 2 0 250
-	[100 50 50 50 25 25] [38 0 0] [5 1]])
+    [3444 4444 45 108 #q3 500 2 0 250 [100 50 50 50 25 25] [38 0 0] [5 1]])
 
 #far-target
 (ship *)
 (* initial position [4244 3144 0 108])
 (* initial state
-    [#test-ship #in 45 171 #attack-class 500 2 0 250
-	[100 50 50 50 25 25] [38 0 0] [5 1]])
+    [#test-ship #in 45 171 #q3 500 2 0 250 [100 50 50 50 25 25] [38 0 0] [5 1]])
 
 #off-map-target
 (ship *)
 (* initial position [16383 16383 180 108])
 (* initial state
-    [16383 16383 45 171 #attack-class 500 2 0 250
-	[100 50 50 50 25 25] [38 0 0] [5 1]])
+    [16383 16383 45 171 #q3 500 2 0 250 [100 50 50 50 25 25] [38 0 0] [5 1]])
 
-#attack-class
-(name *)		Attack
+#q3
+(name *)		Attack II
 (ship type *)	attack ship
-(code *)	q
+(code *)		q
 (* state [5 10 90 7511 #quellan 500 2 0 250 [100 50 50 50 25 25] 38])
 (* systems [
     [#projector 1 250 [8 1] 1 100]
