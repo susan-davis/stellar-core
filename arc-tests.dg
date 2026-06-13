@@ -12,23 +12,23 @@
 
 #test-ship-elevation
 (test *)
-(run *)    (#test-ship elevation 1)
+(run *)    (#test-ship elevation 2) %% ??? why did adding a grid object +1?
 
 #closest-target-elevation
 (test *)
-(run *)    (#closest-target elevation 2)
+(run *)    (#closest-target elevation 3)
 
 #near-target-elevation
 (test *)
-(run *)    (#near-target elevation 3)
+(run *)    (#near-target elevation 4)
 
 #far-target-elevation
 (test *)
-(run *)    (#far-target elevation 4)
+(run *)    (#far-target elevation 5)
 
 #distant-target-elevation
 (test *)
-(run *)    (#distant-target elevation 6)
+(run *)    (#distant-target elevation 7)
 
 #firing-arc-closest-target
 (test *)

@@ -8,8 +8,6 @@
 (fleet *)
 (name *)				Union
 (long name *)			Stellar Union
-%%(capital ship code *)	S
-%%(simple ship code *)	s
 (* considers #quellan  #hostile)
 (* considers #tiberian #hostile)
 (* considers #regulan  #friendly)
@@ -26,7 +24,6 @@
 (ship *)
 (current ship *)
 (name *)	Eridanus
-(code *)	E
 (* initial position [3444 4544 315 32])
 (* initial state
     [3000 4000 315 171 #constellation-class 932 4 10 500
@@ -40,7 +37,6 @@
 #constellation-class
 (name *)		Constellation
 (ship type *)	fast scout
-(code *)		s
 (* state [10 10 180 9636 #union 1000 4 10 500 [100 99 98 97 96 95] 16])
 (* systems [[#projector 1 100 [360 #up] 1 141]
 		   [#torpedo 1 500 [1 8] 1 499 1097]
@@ -73,8 +69,6 @@
 (fleet *)
 (name *)				Quellan
 (long name *)			Quellan Empire
-%%(capital ship code *)	Q
-%%(simple ship code *)	q
 (* considers #union    #hostile)
 (* considers #regulan  #hostile)
 (* considers #alliance #suspicious)
@@ -109,7 +103,6 @@
 #q3
 (name *)		Attack II
 (ship type *)	attack ship
-(code *)		q
 (* state [5 10 90 7511 #quellan 500 2 0 250 [100 50 50 50 25 25] 38])
 (* systems [
     [#projector 1 250 [8 1] 1 100]
@@ -131,7 +124,6 @@
 #q7
 (name *)		Victory III
 (ship type *)	cruiser
-(code *)   		Q
 (* state [8 8 90 9622 #quellan 3000 10 8 500
           [250 200 200 200 200 200] 200])
 (* systems [
@@ -191,8 +183,6 @@
 (fleet *)
 (name *)				civilian
 (long name *)			merchant marine
-%%(capital ship code *)	C
-%%(simple ship code *)	c
 (* considers #union    #friendly)
 (* considers #alliance #friendly)
 (* considers #regulan  #neutral)
@@ -200,25 +190,15 @@
 (* considers #tiberian #hostile)
 (* considers #pirate   #hostile)
 
-%% position = [X Y Heading Speed]
-%% state = [DstX DstY Helm Throttle Class Energy Crystals Ammo Shields
-%%          [Shield Levels] [Crew]]
-%% system = [Type ID RepairTime]
-
 #neutral-ship
 (ship *)
 (name *)	Ko Maru
 (* initial position [5444 5444 180 1])
 (* initial state [5444 5444 0 0 #maru-class 500 2 10 0 0 [20 0 0]])
 
-%% class  = [DriveEfficiency ReactorEfficiency TurnMode DriveParams Fleet
-%%           MaxEnergy MaxCrystals MaxAmmo MaxShields [MaxLevels] Crew]
-%% system = [System ID Arcs Value Details]
-
 #maru-class
 (name *)	Maru
 (ship type *)	freighter
-(code *)	c
 (* state [5 5 45 321 #civilian 500 2 10 0 0 [20 0 0]])
 (* systems [
     [#sensor 1 2 [360 #up #down]]
@@ -245,23 +225,23 @@
 
 #asteroid
 (stellar object *)
-(code *)	\*
 (* position [3854 4154])
 
 #asteroid-2
 (stellar object *)
-(code *)	\*
 (* position [5854 5154])
+
+#unidentifed-object
+(grid object *)
+(* position [5714 5764])
 
 #starbase
 (base *)
-(code *)	\#
 (* position [7664 7664])
 (* state #union)
 
 #enemy-base
 (base *)
-(code *)	\#
 (* position [2114 2114])
 (* state #quellan)
 
@@ -269,8 +249,6 @@
 (fleet *)
 (name *)				Tiberian
 (long name *)			Tiberian Public Sector
-%%(capital ship code *)	T
-%%(simple ship code *)	t
 (* considers #union    #hostile)
 (* considers #regulan  #neutral)
 (* considers #quellan  #suspicious)
@@ -282,8 +260,6 @@
 (fleet *)
 (name *)				Regulan
 (long name *)			Regulan Matriarchy
-%%(capital ship code *)	R
-%%(simple ship code *)	r
 (* considers #union    #friendly)
 (* considers #quellan  #hostile)
 (* considers #tiberian #suspicious)
@@ -295,8 +271,6 @@
 (fleet *)
 (name *)				Alliance
 (long name *)			Alliance of Independent Worlds
-%%(capital ship code *)	A
-%%(simple ship code *)	a
 (* considers #union    #suspicious)
 (* considers #quellan  #hostile)
 (* considers #regulan  #neutral)
@@ -308,8 +282,6 @@
 (fleet *)
 (name *)				pirate
 (long name *)			pirate syndicates
-%%(capital ship code *)	P
-%%(simple ship code *)	p
 (* considers #union    #hostile)
 (* considers #alliance #hostile)
 (* considers #civilian #hostile)
