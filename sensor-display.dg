@@ -49,13 +49,7 @@
 
 %%------------------------------ IMPLEMENTATION ------------------------------
 
-(grid object *(base $))
-
 (grid object *(stellar object $))
-
-($Base fleet $Fleet)
-	(base $Base)
-	($Base state $Fleet)
 
 (class $Ship)
 	($Ship class $Class)

@@ -135,7 +135,7 @@
 
 (grid object *(ship $))
 
-(ship *(base $))
+(grid object *(base $))
 
 ($Ship speed $Speed)
 	($Ship position $Pos)

@@ -46,9 +46,8 @@
 (test *)
 (run *)	  (#test-ship considers #distant-target hostile)
 
-%% TODO: turn on when we implement bases
 #enemy-base-is-hostile
-%%(test *)
+(test *)
 (run *)	  (#test-ship considers #enemy-base hostile)
 
 #asteroid-isnt-hostile-or-friendly

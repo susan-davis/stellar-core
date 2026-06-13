@@ -85,6 +85,11 @@
 	($Ship class $Class)
 	($Class class $Fleet)
 
+%% TODO: move bases to base.dg and give them more state
+($Base fleet $Fleet)
+	(base $Base)
+	($Base state $Fleet)
+
 %% override for more nuanced situations
 ($Ship considers $Target friendly)
 	($Ship fleet $OurFleet)
