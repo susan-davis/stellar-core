@@ -1,5 +1,5 @@
 # stellar-core
-Common functionality for *Stellar Union* games. This project contains all the infrastructure needed to implement a *Eridanus*-class (or other) starship in the Stellar Union universe, fly it around, dock and undock, land and take off, repair damage, scan for anomalies, go for EVAs outside the ship, beam to places with the Matter Transport Beam, and generally make an IF game that plays like an episode of a show along the lines of *Star Trek*, *Galaxy Quest*, *The Orville*, or the like.
+Common functionality for *Stellar Union* games. This project contains all the infrastructure needed to implement a *Constellation*-class (or other) starship in the Stellar Union universe, fly it around, dock and undock, land and take off, repair damage, scan for anomalies, go for EVAs outside the ship, beam to places with the Matter Transport Beam, and generally make an IF game that plays like an episode of a show along the lines of *Star Trek*, *Galaxy Quest*, *The Orville*, or the like.
 
 ## Modules
 `grid.dg` -- implements the basics of ranges and movement on a grid.
