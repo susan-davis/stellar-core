@@ -557,6 +557,10 @@
 	(move #test-ship for $Num minutes)
 	(#test-ship position [$X $Y | $])
 
+#move-0-at-7
+%%(test *)
+(run *)    (0 minutes toward 315 at warp 4 goes to 3444 4544)
+
 #move-1-at-7
 (test *)
 (run *)    (assert 1 minutes toward 315 at gradient 7 goes to 3414 4514)
@@ -584,6 +588,14 @@
 #move-5-toward-corner
 (test *)
 (run *)    (assert 5 minutes toward [8999 8999] at gradient 6 goes to 3574 4534)
+
+#move-16383-toward-corner
+%%(test *)
+(run *)    (16383 minutes toward [8999 8999] at warp 6 goes to 8999 8999)
+
+#move-1440-toward-own-position
+%%(test *)
+(run *)    (1440 minutes toward [3444 4544] at warp 9 goes to 3444 4544)
 
 #pursue-far-target
 (test *)
