@@ -146,6 +146,22 @@
 (test *)
 (run *)		(0 is within 0 of 0)
 
+#range-16383-16383
+(test *)
+(run *)		(16383 is within 0 of 16383)
+
+#range-0-16383
+(test *)
+(run *)		(0 is within 16383 of 16383)
+
+#range-5-2
+(test *)
+(run *)		~(5 is within 2 of 2)
+
+#range-2-5
+(test *)
+(run *)		~(2 is within 2 of 5)
+
 #3-div-3-rounding-up
 (test *)
 (run *)		(3 divided by 3 into 1 rounding up)

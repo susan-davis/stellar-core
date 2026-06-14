@@ -546,47 +546,44 @@
 (run *)
 	(assert #distant-target goes to [3404 4544 270 35])
 
-(assert $N minutes goes to $X $Y at throttle $Throttle)
-	(clear destination for #test-ship)
+(assert $Num minutes toward $Destination at gradient $Throttle goes to $X $Y)
+    (if) (number $Destination) (then)
+	    (clear destination for #test-ship)
+		(set helm for #test-ship to $Destination)
+	(else)
+        (set destination for #test-ship to $Destination)
+	(endif)
 	(set throttle for #test-ship to gradient $Throttle)
-	(move #test-ship for $N minutes)
-	(#test-ship position $Pos)
-	($Pos = [$X $Y | $])
+	(move #test-ship for $Num minutes)
+	(#test-ship position [$X $Y | $])
 
 #move-1-at-7
 (test *)
-(run *)    (assert 1 minutes goes to 3414 4514 at throttle 7)
+(run *)    (assert 1 minutes toward 315 at gradient 7 goes to 3414 4514)
 
 #move-2-at-7
 (test *)
-(run *)    (assert 2 minutes goes to 3384 4484 at throttle 7)
+(run *)    (assert 2 minutes toward 315 at gradient 7 goes to 3384 4484)
 
 #move-5-at-7
 (test *)
-(run *)    (assert 5 minutes goes to 3294 4394 at throttle 7)
+(run *)    (assert 5 minutes toward 315 at gradient 7 goes to 3294 4394)
 
 #move-8-at-4
 (test *)
-(run *)    (assert 8 minutes goes to 3284 4384 at throttle 4)
-
-(assert $N minutes toward $Destination goes to $X $Y)
-	(set destination for #test-ship to $Destination)
-	(set throttle for #test-ship to gradient 6)
-	(move #test-ship for $N minutes)
-	(#test-ship position $Pos)
-	($Pos = [$X $Y | $])
+(run *)    (assert 8 minutes toward 315 at gradient 4 goes to 3284 4384)
 
 #move-1-toward-corner
 (test *)
-(run *)    (assert 1 minutes toward [8999 8999] goes to 3444 4504)
+(run *)    (assert 1 minutes toward [8999 8999] at gradient 6 goes to 3444 4504)
 
 #move-2-toward-corner
 (test *)
-(run *)    (assert 2 minutes toward [8999 8999] goes to 3474 4474)
+(run *)    (assert 2 minutes toward [8999 8999] at gradient 6 goes to 3474 4474)
 
 #move-5-toward-corner
 (test *)
-(run *)    (assert 5 minutes toward [8999 8999] goes to 3574 4534)
+(run *)    (assert 5 minutes toward [8999 8999] at gradient 6 goes to 3574 4534)
 
 #pursue-far-target
 (test *)
