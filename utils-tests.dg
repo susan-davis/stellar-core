@@ -322,9 +322,21 @@
 (test *)
 (run *)		~(take last 7 from [1 2 3 5 6 7] into $)
 
+#take-after-2-empty
+(test *)
+(run *)		(take after 2 from [] into [])
+
 #take-after-0
 (test *)
 (run *)		(take after 0 from [1 2 3 4 5 6] into [1 2 3 4 5 6])
+
+#take-after-1
+(test *)
+(run *)		(take after 1 from [1 2 3 4 5 6] into [2 3 4 5 6])
+
+#take-after-2
+(test *)
+(run *)		(take after 2 from [1 2 3 4 5 6] into [3 4 5 6])
 
 #take-after-4
 (test *)
