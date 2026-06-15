@@ -121,14 +121,13 @@
 
 (remove from $List found in [] into $List)
 
-(remove from $List found in $Filter into $Result)
-	([$Head | $Tail] = $Filter)
+(remove from $List found in [$Head | $Tail] into $Result)
 	([$X $Y | $] = $Head)
 	(remove $X $Y from $List into $NewList)
 	(if) ($List = $NewList) (then)
 		(remove from $NewList found in $Tail into $Result)
 	(else)
-		(remove from $NewList found in $Filter into $Result)
+		(remove from $NewList found in [$Head | $Tail] into $Result)
 	(endif)
 
 %%----------------------------- SCHEMA DEFINITION ----------------------------

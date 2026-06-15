@@ -114,8 +114,7 @@
 (closest target to $Ship in [] into $Ship 16383)
 
 %% TODO: make it handle PD/weapons/missile/extended range bands
-(closest target to $Ship in $List into $Target $Range)
-    ([$Head | $Tail] = $List)
+(closest target to $Ship in [$Head | $Tail] into $Target $Range)
 	(range from $Ship to $Head into $HeadRange)
     (closest target to $Ship in $Tail into $Other $TailRange)
 	(if) ($TailRange < $HeadRange) (then)
@@ -146,8 +145,7 @@
 
 (sensors in [] into [])
 
-(sensors in $List into $Result)
-	($List = [$Head | $Tail])
+(sensors in [$Head | $Tail] into $Result)
 	(nth $Head 1 $Type)
 	(if) ($Type = #sensor) (then)
 		(sensors in $Tail into $Remainder)

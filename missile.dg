@@ -242,9 +242,8 @@
 
 (update missiles in [] for $) %% do nothing
 
-(update missiles in $Missiles for $Target)
+(update missiles in [$Head | $Tail] for $Target)
     (object $Target)
-    ([$Head | $Tail] = $Missiles)
 	(nth $Head 5 $AimedAt)
 	(if) ($AimedAt = $Target) (then)
 	    (update volley $Head)
@@ -263,8 +262,7 @@
 
 (closest incoming volley to $ in arc $ in [] into 0 16383)
 
-(closest incoming volley to $Ship in arc $Arc in $Missiles into $ID $Range)
-	([$Head | $Tail] = $Missiles)
+(closest incoming volley to $Ship in arc $Arc in [$Head | $Tail] into $ID $Rng)
 	(angle from $Ship to position $Head into $Angle)
 	(if) (arc $Arc contains angle $Angle) (then)
 	    (nth $Head 9 $ID1)
@@ -276,10 +274,10 @@
 	(closest incoming volley to $Ship in arc $Arc in $Tail into $ID2 $R2)
 	(if) ($R1 > $R2) (then)
 	    ($ID2 = $ID)
-		($R2 = $Range)
+		($R2 = $Rng)
 	(else)
 	    ($ID1 = $ID)
-		($R1 = $Range)
+		($R1 = $Rng)
 	(endif)
 
 (closest incoming volley to $Ship in arc $Arc into $ID)
@@ -377,9 +375,8 @@
 
 ($ autofires with [] using $)
 
-($Ship autofires with $Weapons using $Amount)
+($Ship autofires with [$Head | $Tail] using $Amount)
     ($Amount < 16383)
-    ($Weapons = [$Head | $Tail])
 	($Head = [$Type $ID | $])
 	(find $Ship $Type $ID into $Weapon)
 	($Weapon = [$ $ $Value $Arc $Num | $])

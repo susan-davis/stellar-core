@@ -160,9 +160,8 @@
 
 ($ autofires with [] using $ into [])
 
-($Ship autofires with $Weapons using $Amount into $RemainingWeapons)
+($Ship autofires with [$Head | $Tail] using $Amount into $RemainingWeapons)
     ($Amount < 16383)
-    ($Weapons = [$Head | $Tail])
 	($Head = [$Type $ID | $])
 	(if) ($Ship $Type $ID bears on target #missile) (then)
 		(find $Ship $Type $ID into $Weapon)

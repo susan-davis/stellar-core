@@ -40,8 +40,7 @@
 
 (weapons in [] into [])
 
-(weapons in $List into $Result)
-	($List = [$Head | $Tail])
+(weapons in [$Head | $Tail] into $Result)
 	(nth $Head 1 $Type)
 	(if) (weapon $Type) (then)
 		(weapons in $Tail into $Remainder)
@@ -52,8 +51,7 @@
 
 (energy weapons in [] into [])
 
-(energy weapons in $List into $Result)
-	($List = [$Head | $Tail])
+(energy weapons in [$Head | $Tail] into $Result)
 	(if) (nth $Head 1 $Type) (energy weapon $Type) (then)
 		(energy weapons in $Tail into $Remainder)
 		(append [$Head] $Remainder $Result)
@@ -63,8 +61,7 @@
 
 (ammo weapons in [] into [])
 
-(ammo weapons in $List into $Result)
-	($List = [$Head | $Tail])
+(ammo weapons in [$Head | $Tail] into $Result)
 	(if) (nth $Head 1 $Type) (ammo weapon $Type) (then)
 		(ammo weapons in $Tail into $Remainder)
 		(append [$Head] $Remainder $Result)
@@ -429,9 +426,8 @@
 ($ fires at $Target with $ using $) %% do nothing
 	($Target is destroyed)
 
-($Ship fires at $Target with $Weapons using $Amount)
+($Ship fires at $Target with [$Head | $Tail] using $Amount)
     ($Amount < 16383)
-    ($Weapons = [$Head | $Tail])
 	($Head = [$Type $ID | $])
     (max amount for $Ship $Type $ID into $Max)
 	(min $Amount $Max $Fired)

@@ -169,8 +169,7 @@
 
 (find systems bearing on $ in [] into [])
 
-(find systems bearing on $Angle in $List into $Results)
-	 ($List = [$Head | $Tail])
+(find systems bearing on $Angle in [$Head | $Tail] into $Results)
 	 (system $Head arc $Arc)
 	 (if) (arc $Arc contains angle $Angle) (then)
 	 	 (find systems bearing on $Angle in $Tail into $Remainder)
