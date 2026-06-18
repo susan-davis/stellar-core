@@ -48,16 +48,16 @@ Service Number: 123-456-7890. Date of birth: XX/XX/XX (age: yy). Species/Gender:
 Birthplace: Amritpur, New Khalistan  
 Traits: Observant Khalsa Sikh, and too religious to get into any romance arc (or already has a partner off-ship?), which spares us from writing any if she takes over as CO. Has a very strong working relationship with Player; more cool with Suparman once she takes over. Is selected as a command candidate after the first successful playable mission of season 2, goes off to Punisher late in season 2, and makes LCR by the start of season 3.
 
-**Scripted replacement:** SLT NFN Suparman
+**Scripted replacement:** SLT Zhou Zhenghong
 
-Service Number: 123-456-7890. Date of birth: XX/XX/XX (age: yy). Species/Gender: HM.  
-Birthplace: Banda Aceh, Oceania, Earth  
+Service Number: 123-456-7890. Date of birth: XX/XX/XX (age: yy). Species/Gender: HM. 
+Birthplace: Shanghai, Asia, Earth 
 Traits: 
 
-**Second replacement** (for loss after Kaur promoted): SLT Zhou Xiaoping  
+**Second replacement** (for loss after Kaur promoted): SLT NFN Suparman
 
-Service Number: 123-456-7890. Date of birth: XX/XX/XX (age: yy). Species/Gender: HM (human male).  
-Birthplace: Shanghai, Asia, Earth  
+Service Number: 123-456-7890. Date of birth: XX/XX/XX (age: yy). Species/Gender: HM (human male). 
+Birthplace: Banda Aceh, Oceania, Earth 
 Traits: 
 
 ## DECK DEPARTMENT
