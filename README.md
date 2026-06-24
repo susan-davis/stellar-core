@@ -32,6 +32,8 @@ Common functionality for *Stellar Union* games. This project contains all the in
 
 `mtd.dg` -- implements the Matter Transport Device.
 
+`shuttle.dg` -- implements shuttles.
+
 `eridanus.dg` -- the interior of a *Constellation*-class scout ship, with controls hooked up to the other modules.
 
 `union-ship.dg` -- traits and scenery and sound effects common to all Stellar Union ships and bases.
