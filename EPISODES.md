@@ -229,9 +229,13 @@ Okay, how might this go?
 Human separatists in the Union want to break away over the handling of the Harmony crisis, and CPT Stewart is on their side. (I'm vague about this.) (Make this full length?)
 
 ## Season 3: Command of *Odysseus*
-### 301:	TBD
+### 301:	*Ever With a Frolic Welcome*
 
-TBD
+Charismatic rogue Harry Jones (the viewpoint character) makes his way around the divided Union, buying and selling -- and smuggling -- goods, *Elite*-style. (Or move this to 202?)
+
+- He encounters Kaur and the *Eridanus* at one point.
+- He has the chance to steal something critical from the Union.
+- He runs afoul of Harmony, and possibly comes to a bad end.
 	
 ### 302:	TBD
 
@@ -304,7 +308,6 @@ Another "sandbox" episode, but with the *Odysseus*. Not confined to a single qua
 - Alone, On Shore
 - The Sphere of Common Duties
 - The Sceptre and the Isle
-- Ever With a Frolic Welcome
 - The Great Achilles, Whom We Knew
 - To Shine in Use
 - To Make an End
@@ -313,8 +316,8 @@ Another "sandbox" episode, but with the *Odysseus*. Not confined to a single qua
 
 ## Want To Fit In
 
-- Kwom coup d'etat, linked to Harmony, simultaneous with outer colony unrest. Who's behind it?
-- Player and Kaur end up on opposite sides of the Union/Alliance split, to put a viewpoint inside the Alliance.
+- Kwom coup d'etat, linked to Harmony, simultaneous with outer colony unrest. Who's behind it? They leave with the Alliance.
+- Player and Kaur -- or Kaur and Gurpreet? -- end up on opposite sides of the Union/Alliance split, to put a viewpoint inside the Alliance.
 - Things get worse with the Quellans (Chekov's hand weapon). They go to war with the Regulans, and the war gets worse.
 - Harmony takes over the Quellans. And the Tiberians? And at least one faction in the Union-Alliance dispute.
 
@@ -332,7 +335,7 @@ Another "sandbox" episode, but with the *Odysseus*. Not confined to a single qua
 - Clip show
 - Botched first contact from the contactee's perspective
 - Race for the ruins of an ascended hyperadvanced civilization
-- Charismatic rogue criminal steals something vital to the Union at a critical moment
+- Charismatic rogue criminal steals something vital to the Union at a critical moment (Harry Jones?)
 
 ## Admired source episodes:
 
@@ -346,7 +349,7 @@ Another "sandbox" episode, but with the *Odysseus*. Not confined to a single qua
 - TNG, *Remember Me*
 - TNG, *Yesterday's Enterprise*
 - SNW, *Lift Us Where Suffering Cannot Reach*
-- SNW, *Ad Atra Per Aspera*
+- SNW, *Ad Astra Per Aspera*
 - SNW, *Tomorrow and Tomorrow and Tomorrow*
 - DS9, *In The Pale Moonlight*
 - ORV, *About a Girl*
