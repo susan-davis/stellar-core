@@ -118,7 +118,7 @@
 
 (code $Obj) (stellar object $Obj) \*
 
-(code $Obj) \?
+(code $) \?
 
 %% sector summary for long range scan
 
@@ -205,12 +205,22 @@
 
 %% scan displays
 
-(should display subsector)
+(multiple objects in subsector)
 	(current ship $Ship)
-	($Ship coordinates into $SX $SY $X $Y $ $)
-	(objects in subsector $SX $SY $X $Y into $List)
-	(length of $List into $Length)
-	($Length > 1)
+	($Ship position $Position)
+	(split position $Position into $SX $SY $X $Y $ $)
+	(number of objects in subsector $SX $SY $X $Y into $Objects)
+	($Objects > 1)
+
+(gravity well in subsector)
+	(current ship $Ship)
+	($Ship position $Position)
+	(split position $Position into $SX $SY $X $Y $ $)
+	~(subsector $SX $SY $X $Y is in flat space)
+
+(should display subsector)
+    (multiple objects in subsector) (or)
+	(gravity well in subsector)
 
 (position $Here)
 	(coordinates for $Here into $SX $SY $X $Y $ZX $ZY)

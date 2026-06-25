@@ -7,6 +7,7 @@
 (current quadrant)	(space) -103 (space) -37
 
 (reset randomness)
+(reset missiles)
 
 %%-----------------------------------------------------------------------------
 
@@ -242,24 +243,24 @@
 (run *)		(friendly base in sector 7 7 into #starbase)
 
 #shouldnt-display-subsector
-%%(test *)
+(test *)
 (run *)
 	~(should display subsector)
 
 #should-display-subsector-base
-%%(test *)
+(test *)
 (run *)
 	(move #test-ship to position [7644 7644])
 	(should display subsector)
 
 #should-display-subsector-gravity-well
-%%(test *)
+(test *)
 (run *)
-	(move #test-ship to position [3844 4144])
+	(move #test-ship to position [5444 5444])
 	(should display subsector)
 
 #should-display-subsector-other-ship
-%%(test *)
+(test *)
 (run *)
 	(move #test-ship to position [3544 4444])
 	(should display subsector)
@@ -275,7 +276,7 @@
 #long-range-scan-in-corner
 %%(test *)
 (run *)
-	(move #test-ship to 1 1 1 1)
+	(move #test-ship to position [1000 1000])
 	(line) (long range scan)
 	(collect words) (long range scan) (into $Words)
 	($Words contains sublist [e 0 0 0 0 0 0 0 0 0 0 \#])
@@ -284,7 +285,7 @@
 %%(test *)
 (run *)
 	(now) ~(display sectors beyond quadrant)
-	(move #test-ship to 1 1 1 1)
+	(move #test-ship to position [1000 1000])
 	(line) (long range scan)
 	(collect words) (long range scan) (into $Words)
 	($Words contains sublist [e 0 0 0 0 0 0 0 \#])
@@ -326,21 +327,21 @@
 #display-subsector-base
 %%(test *)
 (run *)
-	(move #test-ship to 7 7 7 7)
+	(move #test-ship to position [7644 7644])
 	(line) (short range scan)
 	(assert displays subsector)
 
 #display-subsector-gravity-well
 %%(test *)
 (run *)
-	(move #test-ship to 5 5 8 8)
+	(move #test-ship to position [5744 5744])
 	(line) (short range scan)
 	(assert displays subsector)
 
 #display-subsector-other-ship
 %%(test *)
 (run *)
-	(move #test-ship to 3 4 6 5)
+	(move #test-ship to position [3544 4444])
 	(line) (short range scan)
 	(assert displays subsector)
 
