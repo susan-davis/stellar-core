@@ -91,6 +91,10 @@
 (test *)
 (run *)	(objects in subsector 3 4 5 6 into [#test-ship])
 
+#number-of-objects-in-ships-subsector
+(test *)
+(run *)	(number of objects in subsector 3 4 5 6 into 1)
+
 #objects-at-ships-position
 (test *)
 (run *) (objects at position 3 4 5 6 6 7 into [#test-ship])
@@ -107,13 +111,21 @@
 (test *)
 (run *)	(top object in subsector 4 3 3 2 into #far-target)
 
-#objects-at-empty-position
+#objects-in-empty-subsector
 (test *)
 (run *)	(objects in subsector 8 8 10 10 into [])
+
+#number-of-objects-in-empty-subsector
+(test *)
+(run *)	(number of objects in subsector 8 8 10 10 into 0)
 
 #objects-in-star-system
 (test *)
 (run *)	(objects in subsector 5 5 8 8 into [#sun #planet #other-planet])
+
+#number-of-objects-in-star-system
+(test *)
+(run *)	(number of objects in subsector 5 5 8 8 into 3)
 
 #top-object-is-star
 (test *)
@@ -227,9 +239,17 @@
 (test *)
 (run *) ~(sector 3 4 is in a gravity well)
 
+#flat-space-deep-space
+(test *)
+(run *) (sector 3 4 is in flat space)
+
 #gravity-solar-system
 (test *)
 (run *) (sector 5 5 is in a gravity well)
+
+#not-flat-solar-system
+(test *)
+(run *) ~(sector 5 5 is in flat space)
 
 #massive-object-solar-system
 (test *)
@@ -239,21 +259,41 @@
 (test *)
 (run *) (subsector 5 5 5 5 is in a gravity well)
 
+#not-flat-inside-solar-system
+(test *)
+(run *) ~(subsector 5 5 5 5 is in flat space)
+
 #gravity-at-position-inside-solar-system
 (test *)
 (run *) (position 5 5 5 5 5 5 is in a gravity well)
+
+#not-flat-at-position-inside-solar-system
+(test *)
+(run *) ~(position 5 5 5 5 5 5 is in flat space)
 
 #deep-gravity-sun
 (test *)
 (run *) (subsector 5 5 8 8 is deep in a gravity well)
 
+#not-flat-sun
+(test *)
+(run *) ~(subsector 5 5 8 8 is in flat space)
+
 #deep-gravity-around-sun
 (test *)
 (run *) (position 5 5 8 8 5 5 is deep in a gravity well)
 
+#not-flat-around-sun
+(test *)
+(run *) ~(position 5 5 8 8 5 5 is in flat space)
+
 #steep-gravity-at-sun
 (test *)
 (run *) (position 5 5 8 8 8 8 is in a very steep gravity well)
+
+#not-flat-at-sun
+(test *)
+(run *) ~(position 5 5 8 8 8 8 is in flat space)
 
 #rogue-planet-has-gravity
 (test *)

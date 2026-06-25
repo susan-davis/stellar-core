@@ -64,6 +64,8 @@
 
 (interface (objects in subsector $<SX $<SY $<X $<Y into $>List))
 
+(interface (number of objects in subsector $<SX $<SY $<X $<Y into $>Number))
+
 (interface (objects at position $<SX $<SY $<X $<Y $<PX $<PY into $>List))
 
 (interface (top object in subsector $<SX $<SY $<X $<Y into $>Obj))
@@ -86,11 +88,15 @@
 
 (interface ($ is supermassive)) %% supermassive black hole
 
+(interface (sector $<SX $<SY is in flat space))
+
 (interface (sector $<SX $<SY is in a gravity well))
 
 (interface (sector $<SX $<SY is deep in a gravity well))
 
 (interface (sector $<SX $<SY is in a very steep gravity well))
+
+(interface (subsector $<SX $<SY $<X $<Y is in flat space))
 
 (interface (subsector $<SX $<SY $<X $<Y is in a gravity well))
 
@@ -98,11 +104,15 @@
 
 (interface (subsector $<SX $<SY $<X $<Y is in a very steep gravity well))
 
+(interface (position $<SX $<SY $<X $<Y $<PX $<PY is in flat space))
+
 (interface (position $<SX $<SY $<X $<Y $<PX $<PY is in a gravity well))
 
 (interface (position $<SX $<SY $<X $<Y $<PX $<PY is deep in a gravity well))
 
 (interface (position $<A $<B $<C $<D $<E $<F is in a very steep gravity well))
+
+(interface (fine position $Pos is in flat space))
 
 (interface (fine position $Pos is in a gravity well))
 
@@ -274,6 +284,10 @@
 		($Obj is in subsector $SX $SY $X $Y)
 	(into $List)
 
+(number of objects in subsector $SX $SY $X $Y into $Number)
+    (objects in subsector $SX $SY $X $Y into $List)
+	(length of $List into $Number)
+
 (objects at position $SX $SY $X $Y $PX $PY into $List)
 	(collect $Obj)
 		*(grid object $Obj)
@@ -331,6 +345,11 @@
 %%	(into $Count)
 %%	($Count > 0)
 
+(sector $SX $SY is in flat space)
+    ~(sector $SX $SY is in a gravity well)
+	~(sector $SX $SY is deep in a gravity well)
+	~(sector $SX $SY is in a very steep gravity well)
+
 (sector $SX $SY is in a gravity well)
     (sector $SX $SY has a very massive object)
 
@@ -363,6 +382,11 @@
 		($Object is extremely massive)
 	(into $Count)
 	($Count > 0)
+
+(subsector $SX $SY $X $Y is in flat space)
+    ~(subsector $SX $SY $X $Y is in a gravity well)
+	~(subsector $SX $SY $X $Y is deep in a gravity well)
+	~(subsector $SX $SY $X $Y is in a very steep gravity well)
 
 (subsector $SX $SY $X $Y is in a gravity well)
     (subsector $SX $SY $X $Y has a massive object) (or)
@@ -398,6 +422,11 @@
 		($Object is very massive)
 	(into $Count)
 	($Count > 0)
+
+(position $SX $SY $X $Y $PX $PY is in flat space)
+    ~(position $SX $SY $X $Y $PX $PY is in a gravity well)
+	~(position $SX $SY $X $Y $PX $PY is deep in a gravity well)
+	~(position $SX $SY $X $Y $PX $PY is in a very steep gravity well)
 
 (position $SX $SY $X $Y $PX $PY is in a gravity well)
     (position $SX $SY $X $Y $PX $PY has a stellar object) (or)
