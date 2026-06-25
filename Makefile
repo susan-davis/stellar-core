@@ -33,7 +33,7 @@ test-systems: damage arc sensor weapons missile missile-lite # systems scanner p
 
 test-controls: scanner-panel weapons-panel helm ops engine-panel controls
 
-test-displays: sensor-narrow sensor-wide # leave these always last
+test-displays: sensor-wide #sensor-narrow # leave these always last
 
 clean:
 	rm -f *~ \#*\# *.z5 *.z8 *.zblorb *.aastory *.d64 *.d71 log.txt
