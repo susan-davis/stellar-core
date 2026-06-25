@@ -36,7 +36,7 @@ test-controls: scanner-panel weapons-panel helm ops engine-panel controls
 test-displays: sensor-wide #sensor-narrow # leave these always last
 
 clean:
-	rm -f *~ \#*\# *.z5 *.z8 *.zblorb *.aastory *.d64 *.d71 log.txt
+	rm -rf *~ \#*\# *.z5 *.z8 *.zblorb *.aastory web c64 log.txt
 
 utils:
 	$(DEBUG) utils-tests.dg $(STDLIB)
